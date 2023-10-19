@@ -1,1 +1,1 @@
-# pieces-ts-sdk
+# @pieces-app/client
