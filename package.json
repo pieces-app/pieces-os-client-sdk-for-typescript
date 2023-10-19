@@ -1,0 +1,28 @@
+{
+  "name": "@pieces/client",
+  "version": "0.0.1",
+  "description": "Use Pieces OS as a tool to build your own custom tools.",
+  "keywords": [
+    "pieces",
+    "pieces for developers",
+    "os",
+    "on-device",
+    "storage",
+    "copilot",
+    "javascript",
+    "typescript"
+  ],
+  "homepage": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "Pieces for Developers",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
