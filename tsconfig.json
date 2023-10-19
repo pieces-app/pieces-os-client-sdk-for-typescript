@@ -7,7 +7,7 @@
     "target": "es2020",
     "module": "CommonJS",
     "declaration": true,
-    "outDir": "./",
+    "outDir": "./dist",
     "noEmit": false,
     "strict": false,
     "allowJs": true,

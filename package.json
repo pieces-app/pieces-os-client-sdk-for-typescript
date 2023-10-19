@@ -1,6 +1,6 @@
 {
   "name": "@pieces-app/client",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Use Pieces OS as a tool to build your own custom tools.",
   "keywords": [
     "pieces",
@@ -14,15 +14,16 @@
   ],
   "homepage": "https://github.com/pieces-app/client",
   "issues": "https://github.com/pieces-app/client/issues",
-  "main": "index.js",
+  "main": "dist/index.js",
   "files": [
-    "core",
-    "models",
-    "apis"
+    "dist",
+    "core"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "clean": "rm -r node_modules && rm package-lock.json && rm -r dist",
+    "export": "npm pack --pack-destination ~"
   },
   "author": "Pieces for Developers",
   "license": "MIT",
