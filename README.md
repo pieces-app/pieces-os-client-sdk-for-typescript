@@ -20,6 +20,7 @@
     - [Pieces OS](#pieces-os)
     - [Downloading NPM Package](#download-package)
 - [Testing Usage](#testing-usage)
+- [Supported Versions](#supported-versions)
 
 ## Operating System Support
 ---
@@ -138,5 +139,10 @@ _Response [Response] {
 ```
 
 You are now can confirm the installation of both Pieces OS and @pieces-app/client package inside of your project. We are working on created expanded documentation with examples, a developer documentation to outline all of the ins and outs of our available endpoints soon. 
+
+## Supported Versions 
+** It is recommended to always stay up to date with the latest production release of Pieces OS. You can always find the most recent version [here](https://docs.pieces.app/installation-getting-started/what-am-i-installing) underneath the 'Pieces for Developers | Pieces OS' dropdown. 
+
+If you are limited on updating versions due to development progress or needing to remain on a specific version - try to remain on the same _minor version_ to avoid any issues. If you start to encounter issues, please update to the next available version when receiving errors.
 
 
