@@ -63,13 +63,13 @@ pnpm add @pieces-app/client
 After you install the package, you  can import the library into your file(s) using `require`:
 
 ```js
-const pieces = require('pieces')
+const pieces = require('@pieces-app/client')
 ```
 
 or you can import the package using `import` as well:
 
 ```js
-import {pieces} from 'pieces-app-client'
+import * as pieces from '@pieces-app/client'
 ```
 
 ## Testing Usage
