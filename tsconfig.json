@@ -33,6 +33,7 @@
     "node_modules"
   ],
   "include": [
-    "core"
+    "core",
+    "connector"
   ]
 }

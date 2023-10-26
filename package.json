@@ -1,6 +1,6 @@
 {
   "name": "@pieces.app/client",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Use Pieces OS as a tool to build your own custom tools.",
   "keywords": [
     "pieces",
@@ -17,7 +17,8 @@
   "main": "dist/index.js",
   "files": [
     "dist",
-    "core"
+    "core",
+    "connector"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
