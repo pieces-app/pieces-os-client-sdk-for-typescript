@@ -52,25 +52,25 @@ You can also visit our user facing documentation to learn more about different f
 Using npm:
 
 ```bash
-npm install @pieces-app/client
+npm install @pieces.app/client
 ```
 
 Using pnpm:
 
 ```bash
-pnpm add @pieces-app/client
+pnpm add @pieces.app/client
 ```
 
 After you install the package, you  can import the library into your file(s) using `require`:
 
 ```js
-const pieces = require('@pieces-app/client')
+const pieces = require('@pieces.app/client')
 ```
 
 or you can import the package using `import` as well:
 
 ```js
-import * as pieces from '@pieces-app/client'
+import * as pieces from '@pieces.app/client'
 ```
 
 ## Testing Usage
@@ -138,7 +138,7 @@ _Response [Response] {
 6.3.0
 ```
 
-You are now can confirm the installation of both Pieces OS and @pieces-app/client package inside your project. We are working on created expanded documentation with examples, a developer documentation to outline all the ins and outs of our available endpoints soon. 
+You are now can confirm the installation of both Pieces OS and @pieces.app/client package inside your project. We are working on created expanded documentation with examples, a developer documentation to outline all the ins and outs of our available endpoints soon. 
 
 ## Supported Versions 
 **It is recommended to always stay up to date with the latest production release of Pieces OS.**
