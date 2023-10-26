@@ -1,4 +1,4 @@
-# @pieces-app/client
+# @pieces.app/client
 
 <h1 align="center">
    <b>
