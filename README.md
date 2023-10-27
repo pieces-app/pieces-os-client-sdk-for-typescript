@@ -15,12 +15,18 @@
 
 ## Table of Contents
 
-- [Operating System Support](#operating-system-support)
-- [Installing](#installing)
-    - [Pieces OS](#pieces-os)
-    - [Downloading NPM Package](#download-package)
+- [Operating System Support](#-operating-system-support)
+- [Installing](#-installing)
+    - [Pieces OS](#-pieces-os)
+    - [Downloading NPM Package](#-downloading-npm-package)
+    - [Starter Project](#starter-project)
 - [Testing Usage](#testing-usage)
-- [Supported Versions](#supported-versions)
+- [Examples](#examples)
+    - [/connect](#connect)
+    - [Asset + /assets](#creating-with-asset--assets)
+    - [SeededAsset](#seededasset)
+    - [/assets/create](#using-assetscreate)
+- [Supported Versions](#supported-versions-)
 
 ## Operating System Support
 ---
@@ -73,6 +79,11 @@ or you can import the package using `import` as well:
 import * as pieces from '@pieces.app/client'
 ```
 
+## Starter Project
+You can get started with this Node/React project that shows how to use the examples below, and provides a great base for creating Assets and viewing them in your browser.
+
+You can get it here: [GitHub Repo](https://github.com/pieces-app/example-ts)
+
 ## Testing Usage
 Following the initial download and light configuration, you can perform a simple test to ensure that both **Pieces OS** is running and that **you also have correctly installed the NPM package**.
 
@@ -88,51 +99,10 @@ Your output in your console should look similar to this, depending on your versi
 [AsyncFunction: fetch]
 _Response [Response] {
   [Symbol(realm)]: null,
-  [Symbol(state)]: {
-    aborted: false,
-    rangeRequested: false,
-    timingAllowPassed: true,
-    requestIncludesCredentials: true,
-    type: 'default',
-    status: 200,
-    timingInfo: {
-      startTime: 80.49791699647903,
-      redirectStartTime: 0,
-      redirectEndTime: 0,
-      postRedirectStartTime: 80.49791699647903,
-      finalServiceWorkerStartTime: 0,
-      finalNetworkResponseStartTime: 0,
-      finalNetworkRequestStartTime: 0,
-      endTime: 0,
-      encodedBodySize: 0,
-      decodedBodySize: 0,
-      finalConnectionTimingInfo: null
-    },
-    cacheState: '',
-    statusText: 'OK',
-    headersList: _HeadersList {
-      cookies: null,
-      [Symbol(headers map)]: [Map],
-      [Symbol(headers map sorted)]: null
-    },
-    urlList: [ URL {} ],
-    body: { stream: undefined }
+    ...
   },
   [Symbol(headers)]: _HeadersList {
-    cookies: null,
-    [Symbol(headers map)]: Map(10) {
-      'x-powered-by' => [Object],
-      'access-control-allow-headers' => [Object],
-      'date' => [Object],
-      'x-hacker' => [Object],
-      'access-control-allow-origin' => [Object],
-      'content-length' => [Object],
-      'x-frame-options' => [Object],
-      'content-type' => [Object],
-      'x-xss-protection' => [Object],
-      'x-content-type-options' => [Object]
-    },
-    [Symbol(headers map sorted)]: null
+    // removed for readablitiy ...
   }
 }
 6.3.0
@@ -175,8 +145,8 @@ async function connect(): Promise<JSON> {
 
 Once you complete this step you will have the necessary data to construct the remainder of the endpoints request body requirements.
 
-### Creating with `/asset` & `/assets`
-**Asset** is a very important models who's primary purpose is to manage the seeded data that comes in to the application, and is stored inside of Pieces OS. Each asset is a identifiable piece of saved data, or pre-seeded data.
+### Creating with `Asset` & `/Assets`
+**Asset** is a very important model who's primary purpose is to manage the seeded data that comes in to the application, and is stored inside of Pieces OS. Each asset is identifiable as a piece of saved data, or pre-seeded data.
 
 **Assets** is equally important, but instead of containing a single asset with parameters storing data on it, Assets serves as the list of `type: Asset` objects that are stored there. Also, you will find the operations for adding, deleting, searching, and other functions that are related to referencing a number of different snippets to make a comparison.
 
@@ -190,8 +160,8 @@ let seed: SeededAsset = {
     format: {  
         fragment: {  
             string: { raw: '<your text here>' }    
-		 }
-	 }
+        }
+    }
 }
 ```
 
