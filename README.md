@@ -29,20 +29,17 @@
 - [Supported Versions](#supported-versions-)
 
 ## Operating System Support
----
 Currently, Pieces OS is utilized as the primary backend service with [Pieces for Developers](https://docs.pieces.app/installation-getting-started/what-am-i-installing) that powers all of the features that can be used there. Both programs are designed for full support by all operating systems, although our [Linux Platform](https://docs.pieces.app/installation-getting-started/linux) is available, it leans towards a 'heavily supported beta' and may experience incremental issues on specific flavors of linux.
 
 > if you have any issues on any Linux flavor be sure to check our list of supported distributions on the [linux documentation page](https://docs.pieces.app/installation-getting-started/linux).
 
 ## Installing
----
 When developing on the Pieces platform, you need two primary things:
 
 1. **Download the Pieces OS application**
 2. **Install the npm package**
 
 ## Pieces OS
----
 Pieces OS runs in the background of your computer and serves as a hub for all plugins and extensions developed by the team. In order to utilize your own Server locally and support all the functionality that powers things like [Global Search](), [Copilot Chats](), Asset Saving, context, and more.
 
 Select the right version to download Pieces OS for your operating system:
@@ -53,7 +50,6 @@ Select the right version to download Pieces OS for your operating system:
 You can also visit our user facing documentation to learn more about different features that are available now to give you an idea of some of the things that you can potentially do.
 
 ## Downloading NPM Package
----
 
 Using npm:
 
@@ -148,7 +144,7 @@ Once you complete this step you will have the necessary data to construct the re
 ### Creating with `Asset` & `/Assets`
 **Asset** is a very important model who's primary purpose is to manage the seeded data that comes in to the application, and is stored inside of Pieces OS. Each asset is identifiable as a piece of saved data, or pre-seeded data.
 
-**Assets** is equally important, but instead of containing a single asset with parameters storing data on it, Assets serves as the list of `type: Asset` objects that are stored there. Also, you will find the operations for adding, deleting, searching, and other functions that are related to referencing a number of different snippets to make a comparison.
+**/Assets** is equally important, but instead of containing a single asset with parameters storing data on it, Assets serves as the list of `type: Asset` objects that are stored there. Also, you will find the operations for adding, deleting, searching, and other functions that are related to referencing a number of different snippets to make a comparison.
 
 
 ### `SeededAsset`
@@ -192,7 +188,6 @@ Then create the actual asset here with this one-liner:
 ```ts 
 create(seed).then(__ => console.log('Asset Created! Here is it\'s data: ', __));
 ```
-
 
 Once you check your console, you will have a fully seeded asset, or simply just of type Asset created and inside your Pieces OS server.
 
