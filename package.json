@@ -1,6 +1,6 @@
 {
   "name": "@pieces.app/client",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Use Pieces OS as a tool to build your own custom tools.",
   "keywords": [
     "pieces",
