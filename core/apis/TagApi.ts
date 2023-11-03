@@ -15,10 +15,18 @@
 
 import * as runtime from '../runtime';
 import {
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
     Tag,
     TagFromJSON,
     TagToJSON,
 } from '../models';
+
+export interface TagScoresIncrementRequest {
+    tag: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface TagUpdateRequest {
     transferables?: boolean;
@@ -34,6 +42,40 @@ export interface TagsSpecificTagSnapshotRequest {
  * 
  */
 export class TagApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/tag/{tag}/scores/increment\' [POST]
+     */
+    async tagScoresIncrementRaw(requestParameters: TagScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/tag/{tag}/scores/increment`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/tag/{tag}/scores/increment\' [POST]
+     */
+    async tagScoresIncrement(requestParameters: TagScoresIncrementRequest): Promise<void> {
+        await this.tagScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will update a specific tag.

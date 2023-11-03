@@ -30,6 +30,10 @@ import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
     SensitiveCategoryEnum,
     SensitiveCategoryEnumFromJSON,
     SensitiveCategoryEnumFromJSONTyped,
@@ -134,6 +138,12 @@ export interface FlattenedSensitive {
      * @memberof FlattenedSensitive
      */
     interactions?: number;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedSensitive
+     */
+    score?: Score;
 }
 
 export function FlattenedSensitiveFromJSON(json: any): FlattenedSensitive {
@@ -160,6 +170,7 @@ export function FlattenedSensitiveFromJSONTyped(json: any, ignoreDiscriminator: 
         'description': json['description'],
         'metadata': !exists(json, 'metadata') ? undefined : SensitiveMetadataFromJSON(json['metadata']),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -186,6 +197,7 @@ export function FlattenedSensitiveToJSON(value?: FlattenedSensitive | null): any
         'description': value.description,
         'metadata': SensitiveMetadataToJSON(value.metadata),
         'interactions': value.interactions,
+        'score': ScoreToJSON(value.score),
     };
 }
 

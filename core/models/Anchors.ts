@@ -22,6 +22,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -48,6 +52,12 @@ export interface Anchors {
      * @memberof Anchors
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof Anchors
+     */
+    score?: Score;
 }
 
 export function AnchorsFromJSON(json: any): Anchors {
@@ -63,6 +73,7 @@ export function AnchorsFromJSONTyped(json: any, ignoreDiscriminator: boolean): A
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AnchorFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function AnchorsToJSON(value?: Anchors | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(AnchorToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

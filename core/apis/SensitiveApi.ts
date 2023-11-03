@@ -15,10 +15,18 @@
 
 import * as runtime from '../runtime';
 import {
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
     Sensitive,
     SensitiveFromJSON,
     SensitiveToJSON,
 } from '../models';
+
+export interface SensitiveScoresIncrementRequest {
+    sensitive: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface SensitiveSnapshotRequest {
     sensitive: string;
@@ -34,7 +42,41 @@ export interface UpdateSensitiveRequest {
 export class SensitiveApi extends runtime.BaseAPI {
 
     /**
-     * This will get a specific sensitive via the sensative uuid.
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/sensitive/{sensitive}/scores/increment\' [POST]
+     */
+    async sensitiveScoresIncrementRaw(requestParameters: SensitiveScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
+            throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitiveScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/sensitive/{sensitive}/scores/increment`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters.sensitive))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/sensitive/{sensitive}/scores/increment\' [POST]
+     */
+    async sensitiveScoresIncrement(requestParameters: SensitiveScoresIncrementRequest): Promise<void> {
+        await this.sensitiveScoresIncrementRaw(requestParameters);
+    }
+
+    /**
+     * This will get a specific sensitive via the sensitive uuid.
      * /sensitive/{sensitive} [GET]
      */
     async sensitiveSnapshotRaw(requestParameters: SensitiveSnapshotRequest): Promise<runtime.ApiResponse<Sensitive>> {
@@ -57,7 +99,7 @@ export class SensitiveApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific sensitive via the sensative uuid.
+     * This will get a specific sensitive via the sensitive uuid.
      * /sensitive/{sensitive} [GET]
      */
     async sensitiveSnapshot(requestParameters: SensitiveSnapshotRequest): Promise<Sensitive> {

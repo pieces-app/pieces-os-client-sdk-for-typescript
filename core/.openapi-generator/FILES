@@ -17,6 +17,7 @@ apis/Auth0Api.ts
 apis/BackupApi.ts
 apis/ClassificationApi.ts
 apis/CodeAnalysesApi.ts
+apis/ConnectorApi.ts
 apis/ConversationApi.ts
 apis/ConversationMessageApi.ts
 apis/ConversationMessagesApi.ts
@@ -115,13 +116,17 @@ models/ClassificationRenderingEnum.ts
 models/ClassificationSpecificEnum.ts
 models/CodeAnalyses.ts
 models/CodeAnalysis.ts
+models/Context.ts
 models/Conversation.ts
+models/ConversationGrounding.ts
 models/ConversationMessage.ts
-models/ConversationMessageRoleEnum.ts
 models/ConversationMessageSentimentEnum.ts
 models/ConversationMessages.ts
+models/ConversationSummarizeInput.ts
+models/ConversationSummarizeOutput.ts
 models/ConversationTypeEnum.ts
 models/Conversations.ts
+models/ConversationsCreateFromAssetOutput.ts
 models/DiscoveredAsset.ts
 models/DiscoveredAssets.ts
 models/DiscoveredHtmlWebpage.ts
@@ -149,6 +154,7 @@ models/ExternalProviders.ts
 models/ExternallySourcedEnum.ts
 models/FileFormat.ts
 models/FileMetadata.ts
+models/FilePickerInput.ts
 models/FilterOperationTypeEnum.ts
 models/FlattenedActivities.ts
 models/FlattenedActivity.ts
@@ -205,6 +211,7 @@ models/GraphicalOCRProcessing.ts
 models/GraphicalOCRStatistics.ts
 models/GraphicalSVGStatistics.ts
 models/GroupedTimestamp.ts
+models/Health.ts
 models/Hint.ts
 models/HintTypeEnum.ts
 models/Hints.ts
@@ -233,6 +240,7 @@ models/OAuthGroup.ts
 models/OAuthToken.ts
 models/OCRAnalyses.ts
 models/OCRAnalysis.ts
+models/OSHealth.ts
 models/OrderedMetrics.ts
 models/PKCE.ts
 models/Person.ts
@@ -307,6 +315,7 @@ models/SeededAssetTags.ts
 models/SeededAssetWebsite.ts
 models/SeededAssetsRecommendation.ts
 models/SeededClassification.ts
+models/SeededConnectorConnection.ts
 models/SeededConnectorTracking.ts
 models/SeededConversation.ts
 models/SeededConversationMessage.ts
@@ -333,10 +342,13 @@ models/SeededModel.ts
 models/SeededPKCE.ts
 models/SeededPKCEADDITIONALPARAMETERS.ts
 models/SeededPerson.ts
+models/SeededScore.ts
+models/SeededScoreIncrement.ts
 models/SeededSensitive.ts
 models/SeededShare.ts
 models/SeededTag.ts
 models/SeededTrackedAdoptionEvent.ts
+models/SeededTrackedApplication.ts
 models/SeededTrackedAssetEvent.ts
 models/SeededTrackedAssetsEvent.ts
 models/SeededTrackedAssetsEventMetadata.ts

@@ -18,6 +18,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
     Share,
     ShareFromJSON,
     ShareFromJSONTyped,
@@ -42,6 +46,12 @@ export interface Shares {
      * @memberof Shares
      */
     iterable: Array<Share>;
+    /**
+     * 
+     * @type {Score}
+     * @memberof Shares
+     */
+    score?: Score;
 }
 
 export function SharesFromJSON(json: any): Shares {
@@ -56,6 +66,7 @@ export function SharesFromJSONTyped(json: any, ignoreDiscriminator: boolean): Sh
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ShareFromJSON)),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -70,6 +81,7 @@ export function SharesToJSON(value?: Shares | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(ShareToJSON)),
+        'score': ScoreToJSON(value.score),
     };
 }
 

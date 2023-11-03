@@ -18,7 +18,15 @@ import {
     Hint,
     HintFromJSON,
     HintToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
+
+export interface HintScoresIncrementRequest {
+    hint: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface HintSpecificHintSnapshotRequest {
     hint: string;
@@ -32,6 +40,40 @@ export interface HintUpdateRequest {
  * 
  */
 export class HintApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/hint/{hint}/scores/increment\' [POST]
+     */
+    async hintScoresIncrementRaw(requestParameters: HintScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.hint === null || requestParameters.hint === undefined) {
+            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/hint/{hint}/scores/increment`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/hint/{hint}/scores/increment\' [POST]
+     */
+    async hintScoresIncrement(requestParameters: HintScoresIncrementRequest): Promise<void> {
+        await this.hintScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will get a snapshot of a specific hint.

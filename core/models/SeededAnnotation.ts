@@ -22,6 +22,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    FlattenedConversationMessages,
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
     MechanismEnum,
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
@@ -100,6 +104,12 @@ export interface SeededAnnotation {
      * @memberof SeededAnnotation
      */
     conversation?: string;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof SeededAnnotation
+     */
+    messages?: FlattenedConversationMessages;
 }
 
 export function SeededAnnotationFromJSON(json: any): SeededAnnotation {
@@ -123,6 +133,7 @@ export function SeededAnnotationFromJSONTyped(json: any, ignoreDiscriminator: bo
         'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
         'anchor': !exists(json, 'anchor') ? undefined : json['anchor'],
         'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
     };
 }
 
@@ -146,6 +157,7 @@ export function SeededAnnotationToJSON(value?: SeededAnnotation | null): any {
         'favorited': value.favorited,
         'anchor': value.anchor,
         'conversation': value.conversation,
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
 

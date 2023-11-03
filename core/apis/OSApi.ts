@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    FilePickerInput,
+    FilePickerInputFromJSON,
+    FilePickerInputToJSON,
     ReturnedUserProfile,
     ReturnedUserProfileFromJSON,
     ReturnedUserProfileToJSON,
@@ -31,6 +34,10 @@ import {
 
 export interface LinkProviderRequest {
     seededExternalProvider?: SeededExternalProvider;
+}
+
+export interface PickFilesRequest {
+    filePickerInput?: FilePickerInput;
 }
 
 /**
@@ -94,6 +101,65 @@ export class OSApi extends runtime.BaseAPI {
      */
     async osRestart(): Promise<void> {
         await this.osRestartRaw();
+    }
+
+    /**
+     * This will trigger a filer picker and return the string paths of the files that were selected.
+     * /os/files/pick [POST]
+     */
+    async pickFilesRaw(requestParameters: PickFilesRequest): Promise<runtime.ApiResponse<Array<string>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/files/pick`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: FilePickerInputToJSON(requestParameters.filePickerInput),
+        });
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * This will trigger a filer picker and return the string paths of the files that were selected.
+     * /os/files/pick [POST]
+     */
+    async pickFiles(requestParameters: PickFilesRequest): Promise<Array<string>> {
+        const response = await this.pickFilesRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will trigger a folder picker and return the string paths of the folders that were selected.
+     * /os/folders/pick [POST]
+     */
+    async pickFoldersRaw(): Promise<runtime.ApiResponse<Array<string>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/folders/pick`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * This will trigger a folder picker and return the string paths of the folders that were selected.
+     * /os/folders/pick [POST]
+     */
+    async pickFolders(): Promise<Array<string>> {
+        const response = await this.pickFoldersRaw();
+        return await response.value();
     }
 
     /**

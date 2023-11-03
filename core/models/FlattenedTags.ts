@@ -22,6 +22,10 @@ import {
     ReferencedTagFromJSON,
     ReferencedTagFromJSONTyped,
     ReferencedTagToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -48,6 +52,12 @@ export interface FlattenedTags {
      * @memberof FlattenedTags
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedTags
+     */
+    score?: Score;
 }
 
 export function FlattenedTagsFromJSON(json: any): FlattenedTags {
@@ -63,6 +73,7 @@ export function FlattenedTagsFromJSONTyped(json: any, ignoreDiscriminator: boole
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedTagFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function FlattenedTagsToJSON(value?: FlattenedTags | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(ReferencedTagToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

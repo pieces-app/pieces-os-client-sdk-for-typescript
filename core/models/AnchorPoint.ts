@@ -30,6 +30,10 @@ import {
     ReferencedAnchorFromJSON,
     ReferencedAnchorFromJSONTyped,
     ReferencedAnchorToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -92,6 +96,12 @@ export interface AnchorPoint {
      * @memberof AnchorPoint
      */
     anchor: ReferencedAnchor;
+    /**
+     * 
+     * @type {Score}
+     * @memberof AnchorPoint
+     */
+    score?: Score;
 }
 
 export function AnchorPointFromJSON(json: any): AnchorPoint {
@@ -113,6 +123,7 @@ export function AnchorPointFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'platform': !exists(json, 'platform') ? undefined : PlatformEnumFromJSON(json['platform']),
         'anchor': ReferencedAnchorFromJSON(json['anchor']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -134,6 +145,7 @@ export function AnchorPointToJSON(value?: AnchorPoint | null): any {
         'deleted': GroupedTimestampToJSON(value.deleted),
         'platform': PlatformEnumToJSON(value.platform),
         'anchor': ReferencedAnchorToJSON(value.anchor),
+        'score': ScoreToJSON(value.score),
     };
 }
 

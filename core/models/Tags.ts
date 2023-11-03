@@ -18,6 +18,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
     Tag,
     TagFromJSON,
     TagFromJSONTyped,
@@ -48,6 +52,12 @@ export interface Tags {
      * @memberof Tags
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof Tags
+     */
+    score?: Score;
 }
 
 export function TagsFromJSON(json: any): Tags {
@@ -63,6 +73,7 @@ export function TagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Tags
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(TagFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function TagsToJSON(value?: Tags | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(TagToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

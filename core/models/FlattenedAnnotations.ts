@@ -22,6 +22,10 @@ import {
     ReferencedAnnotationFromJSON,
     ReferencedAnnotationFromJSONTyped,
     ReferencedAnnotationToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -48,6 +52,12 @@ export interface FlattenedAnnotations {
      * @memberof FlattenedAnnotations
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedAnnotations
+     */
+    score?: Score;
 }
 
 export function FlattenedAnnotationsFromJSON(json: any): FlattenedAnnotations {
@@ -63,6 +73,7 @@ export function FlattenedAnnotationsFromJSONTyped(json: any, ignoreDiscriminator
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedAnnotationFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function FlattenedAnnotationsToJSON(value?: FlattenedAnnotations | null):
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(ReferencedAnnotationToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

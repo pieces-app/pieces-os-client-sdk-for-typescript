@@ -22,6 +22,10 @@ import {
     ReferencedAnchorFromJSON,
     ReferencedAnchorFromJSONTyped,
     ReferencedAnchorToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -48,6 +52,12 @@ export interface FlattenedAnchors {
      * @memberof FlattenedAnchors
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedAnchors
+     */
+    score?: Score;
 }
 
 export function FlattenedAnchorsFromJSON(json: any): FlattenedAnchors {
@@ -63,6 +73,7 @@ export function FlattenedAnchorsFromJSONTyped(json: any, ignoreDiscriminator: bo
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedAnchorFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function FlattenedAnchorsToJSON(value?: FlattenedAnchors | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(ReferencedAnchorToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

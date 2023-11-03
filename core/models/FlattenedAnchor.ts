@@ -42,6 +42,10 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -122,6 +126,12 @@ export interface FlattenedAnchor {
      * @memberof FlattenedAnchor
      */
     conversations?: FlattenedConversations;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedAnchor
+     */
+    score?: Score;
 }
 
 export function FlattenedAnchorFromJSON(json: any): FlattenedAnchor {
@@ -146,6 +156,7 @@ export function FlattenedAnchorFromJSONTyped(json: any, ignoreDiscriminator: boo
         'name': !exists(json, 'name') ? undefined : json['name'],
         'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
         'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -170,6 +181,7 @@ export function FlattenedAnchorToJSON(value?: FlattenedAnchor | null): any {
         'name': value.name,
         'annotations': FlattenedAnnotationsToJSON(value.annotations),
         'conversations': FlattenedConversationsToJSON(value.conversations),
+        'score': ScoreToJSON(value.score),
     };
 }
 

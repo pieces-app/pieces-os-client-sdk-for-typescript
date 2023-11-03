@@ -47,6 +47,30 @@ export interface Score {
      * @memberof Score
      */
     automatic: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Score
+     */
+    priority?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Score
+     */
+    reuse?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Score
+     */
+    update?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Score
+     */
+    reference?: number;
 }
 
 export function ScoreFromJSON(json: any): Score {
@@ -62,6 +86,10 @@ export function ScoreFromJSONTyped(json: any, ignoreDiscriminator: boolean): Sco
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'manual': json['manual'],
         'automatic': json['automatic'],
+        'priority': !exists(json, 'priority') ? undefined : json['priority'],
+        'reuse': !exists(json, 'reuse') ? undefined : json['reuse'],
+        'update': !exists(json, 'update') ? undefined : json['update'],
+        'reference': !exists(json, 'reference') ? undefined : json['reference'],
     };
 }
 
@@ -77,6 +105,10 @@ export function ScoreToJSON(value?: Score | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'manual': value.manual,
         'automatic': value.automatic,
+        'priority': value.priority,
+        'reuse': value.reuse,
+        'update': value.update,
+        'reference': value.reference,
     };
 }
 

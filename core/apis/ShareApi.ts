@@ -15,10 +15,18 @@
 
 import * as runtime from '../runtime';
 import {
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
     Share,
     ShareFromJSON,
     ShareToJSON,
 } from '../models';
+
+export interface ShareScoresIncrementRequest {
+    share: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface ShareSnapshotRequest {
     share: string;
@@ -34,6 +42,40 @@ export interface ShareUpdateRequest {
  * 
  */
 export class ShareApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/share/{share}/scores/increment\' [POST]
+     */
+    async shareScoresIncrementRaw(requestParameters: ShareScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.share === null || requestParameters.share === undefined) {
+            throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling shareScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/share/{share}/scores/increment`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters.share))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/share/{share}/scores/increment\' [POST]
+     */
+    async shareScoresIncrement(requestParameters: ShareScoresIncrementRequest): Promise<void> {
+        await this.shareScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * Get the snapshot of a specific share.

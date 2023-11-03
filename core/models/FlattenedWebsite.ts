@@ -38,6 +38,10 @@ import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -118,6 +122,12 @@ export interface FlattenedWebsite {
      * @memberof FlattenedWebsite
      */
     persons?: FlattenedPersons;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedWebsite
+     */
+    score?: Score;
 }
 
 export function FlattenedWebsiteFromJSON(json: any): FlattenedWebsite {
@@ -142,6 +152,7 @@ export function FlattenedWebsiteFromJSONTyped(json: any, ignoreDiscriminator: bo
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
         'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -166,6 +177,7 @@ export function FlattenedWebsiteToJSON(value?: FlattenedWebsite | null): any {
         'mechanism': MechanismEnumToJSON(value.mechanism),
         'interactions': value.interactions,
         'persons': FlattenedPersonsToJSON(value.persons),
+        'score': ScoreToJSON(value.score),
     };
 }
 

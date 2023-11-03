@@ -18,7 +18,15 @@ import {
     Annotation,
     AnnotationFromJSON,
     AnnotationToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
+
+export interface AnnotationScoresIncrementRequest {
+    annotation: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface AnnotationSpecificAnnotationSnapshotRequest {
     annotation: string;
@@ -32,6 +40,40 @@ export interface AnnotationUpdateRequest {
  * 
  */
 export class AnnotationApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/annotation/{annotation}/scores/increment\' [POST]
+     */
+    async annotationScoresIncrementRaw(requestParameters: AnnotationScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling annotationScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/scores/increment`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/annotation/{annotation}/scores/increment\' [POST]
+     */
+    async annotationScoresIncrement(requestParameters: AnnotationScoresIncrementRequest): Promise<void> {
+        await this.annotationScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will get a snapshot of a specific annotation.

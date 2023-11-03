@@ -21,6 +21,9 @@ import {
     Conversations,
     ConversationsFromJSON,
     ConversationsToJSON,
+    ConversationsCreateFromAssetOutput,
+    ConversationsCreateFromAssetOutputFromJSON,
+    ConversationsCreateFromAssetOutputToJSON,
     FlattenedConversations,
     FlattenedConversationsFromJSON,
     FlattenedConversationsToJSON,
@@ -28,6 +31,10 @@ import {
     SeededConversationFromJSON,
     SeededConversationToJSON,
 } from '../models';
+
+export interface ConversationsCreateFromAssetRequest {
+    asset: string;
+}
 
 export interface ConversationsCreateSpecificConversationRequest {
     transferables?: boolean;
@@ -46,6 +53,38 @@ export interface ConversationsSnapshotRequest {
  * 
  */
 export class ConversationsApi extends runtime.BaseAPI {
+
+    /**
+     * This will create a conversation from an asset, This will create a conversation and an initial message for the conversation(w/ a summary of the asset that is being used as grounding context).
+     * /conversations/create/from_asset/{asset} [POST]
+     */
+    async conversationsCreateFromAssetRaw(requestParameters: ConversationsCreateFromAssetRequest): Promise<runtime.ApiResponse<ConversationsCreateFromAssetOutput>> {
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling conversationsCreateFromAsset.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/conversations/create/from_asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ConversationsCreateFromAssetOutputFromJSON(jsonValue));
+    }
+
+    /**
+     * This will create a conversation from an asset, This will create a conversation and an initial message for the conversation(w/ a summary of the asset that is being used as grounding context).
+     * /conversations/create/from_asset/{asset} [POST]
+     */
+    async conversationsCreateFromAsset(requestParameters: ConversationsCreateFromAssetRequest): Promise<ConversationsCreateFromAssetOutput> {
+        const response = await this.conversationsCreateFromAssetRaw(requestParameters);
+        return await response.value();
+    }
 
     /**
      * This will create a specific conversation.

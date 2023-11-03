@@ -71,7 +71,7 @@ export class SensitivesApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will delete a sensitive based on the sensative uuid.
+     * This will delete a sensitive based on the sensitive uuid.
      * /sensitives/{sensitive}/delete [POST]
      */
     async sensitivesDeleteSensitiveRaw(requestParameters: SensitivesDeleteSensitiveRequest): Promise<runtime.ApiResponse<void>> {
@@ -94,7 +94,7 @@ export class SensitivesApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will delete a sensitive based on the sensative uuid.
+     * This will delete a sensitive based on the sensitive uuid.
      * /sensitives/{sensitive}/delete [POST]
      */
     async sensitivesDeleteSensitive(requestParameters: SensitivesDeleteSensitiveRequest): Promise<void> {

@@ -18,7 +18,15 @@ import {
     AnchorPoint,
     AnchorPointFromJSON,
     AnchorPointToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
+
+export interface AnchorPointScoresIncrementRequest {
+    anchorPoint: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface AnchorPointSpecificAnchorPointSnapshotRequest {
     anchorPoint: string;
@@ -34,6 +42,40 @@ export interface AnchorPointUpdateRequest {
  * 
  */
 export class AnchorPointApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/anchor_point/{anchor_point}/scores/increment\' [POST]
+     */
+    async anchorPointScoresIncrementRaw(requestParameters: AnchorPointScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.anchorPoint === null || requestParameters.anchorPoint === undefined) {
+            throw new runtime.RequiredError('anchorPoint','Required parameter requestParameters.anchorPoint was null or undefined when calling anchorPointScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/anchor_point/{anchor_point}/scores/increment`.replace(`{${"anchor_point"}}`, encodeURIComponent(String(requestParameters.anchorPoint))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/anchor_point/{anchor_point}/scores/increment\' [POST]
+     */
+    async anchorPointScoresIncrement(requestParameters: AnchorPointScoresIncrementRequest): Promise<void> {
+        await this.anchorPointScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will get a snapshot of a single anchorPoint.

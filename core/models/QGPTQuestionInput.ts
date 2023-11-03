@@ -18,6 +18,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    FlattenedConversationMessages,
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
     RelevantQGPTSeeds,
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
@@ -63,6 +67,12 @@ export interface QGPTQuestionInput {
      * @memberof QGPTQuestionInput
      */
     model?: string;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof QGPTQuestionInput
+     */
+    messages?: FlattenedConversationMessages;
 }
 
 export function QGPTQuestionInputFromJSON(json: any): QGPTQuestionInput {
@@ -80,6 +90,7 @@ export function QGPTQuestionInputFromJSONTyped(json: any, ignoreDiscriminator: b
         'query': json['query'],
         'application': !exists(json, 'application') ? undefined : json['application'],
         'model': !exists(json, 'model') ? undefined : json['model'],
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
     };
 }
 
@@ -97,6 +108,7 @@ export function QGPTQuestionInputToJSON(value?: QGPTQuestionInput | null): any {
         'query': value.query,
         'application': value.application,
         'model': value.model,
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
 

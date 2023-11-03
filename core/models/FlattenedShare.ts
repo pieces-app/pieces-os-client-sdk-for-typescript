@@ -38,6 +38,10 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -120,6 +124,12 @@ export interface FlattenedShare {
      * @memberof FlattenedShare
      */
     distributions?: FlattenedDistributions;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedShare
+     */
+    score?: Score;
 }
 
 export function FlattenedShareFromJSON(json: any): FlattenedShare {
@@ -144,6 +154,7 @@ export function FlattenedShareFromJSONTyped(json: any, ignoreDiscriminator: bool
         'name': !exists(json, 'name') ? undefined : json['name'],
         'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'distributions': !exists(json, 'distributions') ? undefined : FlattenedDistributionsFromJSON(json['distributions']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -168,6 +179,7 @@ export function FlattenedShareToJSON(value?: FlattenedShare | null): any {
         'name': value.name,
         'assets': FlattenedAssetsToJSON(value.assets),
         'distributions': FlattenedDistributionsToJSON(value.distributions),
+        'score': ScoreToJSON(value.score),
     };
 }
 

@@ -38,6 +38,10 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -118,6 +122,12 @@ export interface Website {
      * @memberof Website
      */
     persons?: FlattenedPersons;
+    /**
+     * 
+     * @type {Score}
+     * @memberof Website
+     */
+    score?: Score;
 }
 
 export function WebsiteFromJSON(json: any): Website {
@@ -142,6 +152,7 @@ export function WebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): W
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
         'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -166,6 +177,7 @@ export function WebsiteToJSON(value?: Website | null): any {
         'mechanism': MechanismEnumToJSON(value.mechanism),
         'interactions': value.interactions,
         'persons': FlattenedPersonsToJSON(value.persons),
+        'score': ScoreToJSON(value.score),
     };
 }
 

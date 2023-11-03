@@ -14,10 +14,6 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    ConversationMessageRoleEnum,
-    ConversationMessageRoleEnumFromJSON,
-    ConversationMessageRoleEnumFromJSONTyped,
-    ConversationMessageRoleEnumToJSON,
     ConversationMessageSentimentEnum,
     ConversationMessageSentimentEnumFromJSON,
     ConversationMessageSentimentEnumFromJSONTyped,
@@ -38,6 +34,10 @@ import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
+    QGPTConversationMessageRoleEnum,
+    QGPTConversationMessageRoleEnumFromJSON,
+    QGPTConversationMessageRoleEnumFromJSONTyped,
+    QGPTConversationMessageRoleEnumToJSON,
     ReferencedConversation,
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
@@ -90,10 +90,10 @@ export interface SeededConversationMessage {
     sentiment?: ConversationMessageSentimentEnum;
     /**
      * 
-     * @type {ConversationMessageRoleEnum}
+     * @type {QGPTConversationMessageRoleEnum}
      * @memberof SeededConversationMessage
      */
-    role: ConversationMessageRoleEnum;
+    role: QGPTConversationMessageRoleEnum;
 }
 
 export function SeededConversationMessageFromJSON(json: any): SeededConversationMessage {
@@ -112,7 +112,7 @@ export function SeededConversationMessageFromJSONTyped(json: any, ignoreDiscrimi
         'fragment': FragmentFormatFromJSON(json['fragment']),
         'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
         'sentiment': !exists(json, 'sentiment') ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
-        'role': ConversationMessageRoleEnumFromJSON(json['role']),
+        'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
     };
 }
 
@@ -131,7 +131,7 @@ export function SeededConversationMessageToJSON(value?: SeededConversationMessag
         'fragment': FragmentFormatToJSON(value.fragment),
         'conversation': ReferencedConversationToJSON(value.conversation),
         'sentiment': ConversationMessageSentimentEnumToJSON(value.sentiment),
-        'role': ConversationMessageRoleEnumToJSON(value.role),
+        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
     };
 }
 

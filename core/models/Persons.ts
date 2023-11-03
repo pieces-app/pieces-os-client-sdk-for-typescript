@@ -22,6 +22,10 @@ import {
     PersonFromJSON,
     PersonFromJSONTyped,
     PersonToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -48,6 +52,12 @@ export interface Persons {
      * @memberof Persons
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof Persons
+     */
+    score?: Score;
 }
 
 export function PersonsFromJSON(json: any): Persons {
@@ -63,6 +73,7 @@ export function PersonsFromJSONTyped(json: any, ignoreDiscriminator: boolean): P
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(PersonFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function PersonsToJSON(value?: Persons | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(PersonToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

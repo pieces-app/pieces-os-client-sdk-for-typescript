@@ -14,10 +14,6 @@
 
 import { exists, mapValues } from '../runtime';
 import {
-    ConversationMessageRoleEnum,
-    ConversationMessageRoleEnumFromJSON,
-    ConversationMessageRoleEnumFromJSONTyped,
-    ConversationMessageRoleEnumToJSON,
     ConversationMessageSentimentEnum,
     ConversationMessageSentimentEnumFromJSON,
     ConversationMessageSentimentEnumFromJSONTyped,
@@ -26,6 +22,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    FlattenedAnnotations,
+    FlattenedAnnotationsFromJSON,
+    FlattenedAnnotationsFromJSONTyped,
+    FlattenedAnnotationsToJSON,
     FragmentFormat,
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
@@ -38,10 +38,18 @@ import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
+    QGPTConversationMessageRoleEnum,
+    QGPTConversationMessageRoleEnumFromJSON,
+    QGPTConversationMessageRoleEnumFromJSONTyped,
+    QGPTConversationMessageRoleEnumToJSON,
     ReferencedConversation,
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -106,10 +114,22 @@ export interface FlattenedConversationMessage {
     sentiment?: ConversationMessageSentimentEnum;
     /**
      * 
-     * @type {ConversationMessageRoleEnum}
+     * @type {QGPTConversationMessageRoleEnum}
      * @memberof FlattenedConversationMessage
      */
-    role: ConversationMessageRoleEnum;
+    role: QGPTConversationMessageRoleEnum;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedConversationMessage
+     */
+    score?: Score;
+    /**
+     * 
+     * @type {FlattenedAnnotations}
+     * @memberof FlattenedConversationMessage
+     */
+    annotations?: FlattenedAnnotations;
 }
 
 export function FlattenedConversationMessageFromJSON(json: any): FlattenedConversationMessage {
@@ -131,7 +151,9 @@ export function FlattenedConversationMessageFromJSONTyped(json: any, ignoreDiscr
         'fragment': !exists(json, 'fragment') ? undefined : FragmentFormatFromJSON(json['fragment']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
         'sentiment': !exists(json, 'sentiment') ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
-        'role': ConversationMessageRoleEnumFromJSON(json['role']),
+        'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
     };
 }
 
@@ -153,7 +175,9 @@ export function FlattenedConversationMessageToJSON(value?: FlattenedConversation
         'fragment': FragmentFormatToJSON(value.fragment),
         'conversation': ReferencedConversationToJSON(value.conversation),
         'sentiment': ConversationMessageSentimentEnumToJSON(value.sentiment),
-        'role': ConversationMessageRoleEnumToJSON(value.role),
+        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
+        'score': ScoreToJSON(value.score),
+        'annotations': FlattenedAnnotationsToJSON(value.annotations),
     };
 }
 

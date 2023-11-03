@@ -26,6 +26,9 @@
     - [Asset + /assets](#creating-with-asset--assets)
     - [SeededAsset](#seededasset)
     - [/assets/create](#using-assetscreate)
+    - [/assets/snapshot](#get-your-assets-snapshot)
+    - [/asset/update](#update-your-assets-metadata-or-properties)
+    - [/assets/delete](#deleting-an-asset)
 - [Supported Versions](#supported-versions-)
 
 ## Operating System Support
@@ -40,7 +43,7 @@ When developing on the Pieces platform, you need two primary things:
 2. **Install the npm package**
 
 ## Pieces OS
-Pieces OS runs in the background of your computer and serves as a hub for all plugins and extensions developed by the team. In order to utilize your own Server locally and support all the functionality that powers things like [Global Search](), [Copilot Chats](), Asset Saving, context, and more.
+Pieces OS runs in the background of your computer and serves as a hub for all plugins and extensions developed by the team. In order to utilize your own Server locally and support all the functionality that powers things like [Global Search](https://docs.pieces.app/features/global-search), [Copilot Chats](https://docs.pieces.app/features/pieces-copilot), [Asset Saving](https://docs.pieces.app/features/managing-saved-materials), [context](https://docs.pieces.app/features/pieces-copilot#set-your-own-copilot-context), and more.
 
 Select the right version to download Pieces OS for your operating system:
 - [macOS](https://docs.pieces.app/installation-getting-started/macos) - [Compatible with macOS 11 Big Sur or higher]
@@ -191,489 +194,62 @@ create(seed).then(__ => console.log('Asset Created! Here is it\'s data: ', __));
 
 Once you check your console, you will have a fully seeded asset, or simply just of type Asset created and inside your Pieces OS server.
 
-### The Response 
-The request comes back, you will see the entire Asset object in your console. It should look similar to this: 
+#### The Response 
+The request comes back, you will see the entire Asset object in your console. You can view it here on this sharable link:
 
-```txt
-{
-    "id": "34a2a447-0c7c-4171-903a-755712e43a9f",
-    "name": "Text Snippet",
-    "creator": "",
-    "created": {
-        "value": "2023-10-26T15:30:01.617743Z",
-        "readable": "Just now..."
-    },
-    "updated": {
-        "value": "2023-10-26T15:30:01.618784Z",
-        "readable": "Just now..."
-    },
-    "synced": {
-        "value": "2023-10-26T15:30:01.617743Z",
-        "readable": "Just now..."
-    },
-    "deleted": {
-        "value": "2023-10-26T15:30:01.617743Z",
-        "readable": "Just now..."
-    },
-    "formats": {
-        "iterable": [
-            {
-                "id": "15a216ed-d790-4690-a422-d03e5738d363",
-                "creator": "",
-                "classification": {
-                    "generic": "TEXT",
-                    "specific": "text"
-                },
-                "role": "BOTH",
-                "application": {
-                    "schema": {
-                        "migration": 0,
-                        "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                    },
-                    "id": "55f4576b-8be6-4508-bf89-e85f263a083b",
-                    "name": "BRAVE",
-                    "version": "0.0.1",
-                    "platform": "MACOS",
-                    "onboarded": false,
-                    "privacy": "OPEN",
-                    "capabilities": "BLENDED",
-                    "mechanism": "MANUAL",
-                    "automaticUnload": false
-                },
-                "asset": {
-                    "id": "34a2a447-0c7c-4171-903a-755712e43a9f",
-                    "name": "Text Snippet",
-                    "creator": "",
-                    "created": {
-                        "value": "2023-10-26T15:30:01.617743Z",
-                        "readable": "Just now..."
-                    },
-                    "updated": {
-                        "value": "2023-10-26T15:30:01.617743Z",
-                        "readable": "Just now..."
-                    },
-                    "synced": {
-                        "value": "2023-10-26T15:30:01.617743Z",
-                        "readable": "Just now..."
-                    },
-                    "deleted": {
-                        "value": "2023-10-26T15:30:01.617743Z",
-                        "readable": "Just now..."
-                    },
-                    "formats": {
-                        "iterable": [
-                            {
-                                "id": "15a216ed-d790-4690-a422-d03e5738d363"
-                            }
-                        ]
-                    },
-                    "preview": {
-                        "base": "15a216ed-d790-4690-a422-d03e5738d363"
-                    },
-                    "original": "15a216ed-d790-4690-a422-d03e5738d363",
-                    "mechanism": "MANUAL"
-                },
-                "bytes": {
-                    "value": 24,
-                    "readable": "24 B"
-                },
-                "created": {
-                    "value": "2023-10-26T15:30:01.617743Z",
-                    "readable": "Just now..."
-                },
-                "updated": {
-                    "value": "2023-10-26T15:30:01.618788Z",
-                    "readable": "Just now..."
-                },
-                "deleted": {
-                    "value": "2023-10-26T15:30:01.617743Z",
-                    "readable": "Just now..."
-                },
-                "synced": {
-                    "value": "2023-10-26T15:30:01.617743Z",
-                    "readable": "Just now..."
-                },
-                "fragment": {
-                    "string": {
-                        "raw": "Testing the string param"
-                    },
-                    "bytes": {
-                        "raw": [
-                            84,
-                            101,
-                            115,
-                            116,
-                            105,
-                            110,
-                            103,
-                            32,
-                            116,
-                            104,
-                            101,
-                            32,
-                            115,
-                            116,
-                            114,
-                            105,
-                            110,
-                            103,
-                            32,
-                            112,
-                            97,
-                            114,
-                            97,
-                            109
-                        ],
-                        "base64": [],
-                        "base64_url": [],
-                        "data_url": []
-                    }
-                },
-                "analysis": {
-                    "code": {
-                        "schema": {
-                            "migration": 0,
-                            "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                        },
-                        "tokenized": [],
-                        "type": "TEXT",
-                        "prediction": {},
-                        "similarity": {},
-                        "top5Colors": [],
-                        "top5Sorted": [],
-                        "id": "8db688f9-fb54-4d5a-888d-db3b17328bc7",
-                        "analysis": "1d8ae90e-2f46-4085-afe8-209658e07040",
-                        "model": {
-                            "schema": {
-                                "migration": 0,
-                                "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                            },
-                            "id": "48d2a32b-aa93-455c-a6b6-e52dfce4118e",
-                            "version": "t02-v02-i03",
-                            "created": {
-                                "value": "2022-02-17T05:00:00.000Z",
-                                "readable": "about a year ago"
-                            },
-                            "name": "Text vs. Code Model",
-                            "cloud": false,
-                            "type": "SPEED",
-                            "usage": "TEXT_VS_CODE",
-                            "cpu": true
-                        }
-                    },
-                    "id": "1d8ae90e-2f46-4085-afe8-209658e07040",
-                    "format": "15a216ed-d790-4690-a422-d03e5738d363"
-                }
-            }
-        ],
-        "asset": {
-            "id": "34a2a447-0c7c-4171-903a-755712e43a9f",
-            "name": "Text Snippet",
-            "creator": "",
-            "created": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "updated": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "synced": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "deleted": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "formats": {
-                "iterable": [
-                    {
-                        "id": "15a216ed-d790-4690-a422-d03e5738d363"
-                    }
-                ]
-            },
-            "preview": {
-                "base": "15a216ed-d790-4690-a422-d03e5738d363"
-            },
-            "original": "15a216ed-d790-4690-a422-d03e5738d363",
-            "mechanism": "MANUAL"
-        }
-    },
-    "preview": {
-        "base": {
-            "id": "15a216ed-d790-4690-a422-d03e5738d363",
-            "reference": {
-                "id": "15a216ed-d790-4690-a422-d03e5738d363",
-                "creator": "",
-                "classification": {
-                    "generic": "TEXT",
-                    "specific": "text"
-                },
-                "role": "BOTH",
-                "application": {
-                    "schema": {
-                        "migration": 0,
-                        "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                    },
-                    "id": "55f4576b-8be6-4508-bf89-e85f263a083b",
-                    "name": "BRAVE",
-                    "version": "0.0.1",
-                    "platform": "MACOS",
-                    "onboarded": false,
-                    "privacy": "OPEN",
-                    "capabilities": "BLENDED",
-                    "mechanism": "MANUAL",
-                    "automaticUnload": false
-                },
-                "asset": "34a2a447-0c7c-4171-903a-755712e43a9f",
-                "bytes": {
-                    "value": 24,
-                    "readable": "24 B"
-                },
-                "created": {
-                    "value": "2023-10-26T15:30:01.617743Z",
-                    "readable": "Just now..."
-                },
-                "updated": {
-                    "value": "2023-10-26T15:30:01.617743Z",
-                    "readable": "Just now..."
-                },
-                "deleted": {
-                    "value": "2023-10-26T15:30:01.617743Z",
-                    "readable": "Just now..."
-                },
-                "synced": {
-                    "value": "2023-10-26T15:30:01.617743Z",
-                    "readable": "Just now..."
-                },
-                "fragment": {
-                    "string": {
-                        "raw": "Testing the string param"
-                    },
-                    "bytes": {
-                        "raw": [
-                            84,
-                            101,
-                            115,
-                            116,
-                            105,
-                            110,
-                            103,
-                            32,
-                            116,
-                            104,
-                            101,
-                            32,
-                            115,
-                            116,
-                            114,
-                            105,
-                            110,
-                            103,
-                            32,
-                            112,
-                            97,
-                            114,
-                            97,
-                            109
-                        ],
-                        "base64": [],
-                        "base64_url": [],
-                        "data_url": []
-                    }
-                },
-                "analysis": {
-                    "code": {
-                        "schema": {
-                            "migration": 0,
-                            "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                        },
-                        "tokenized": [],
-                        "type": "TEXT",
-                        "prediction": {},
-                        "similarity": {},
-                        "top5Colors": [],
-                        "top5Sorted": [],
-                        "id": "8db688f9-fb54-4d5a-888d-db3b17328bc7",
-                        "analysis": "1d8ae90e-2f46-4085-afe8-209658e07040",
-                        "model": {
-                            "schema": {
-                                "migration": 0,
-                                "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                            },
-                            "id": "48d2a32b-aa93-455c-a6b6-e52dfce4118e",
-                            "version": "t02-v02-i03",
-                            "created": {
-                                "value": "2022-02-17T05:00:00.000Z",
-                                "readable": "about a year ago"
-                            },
-                            "name": "Text vs. Code Model",
-                            "cloud": false,
-                            "type": "SPEED",
-                            "usage": "TEXT_VS_CODE",
-                            "cpu": true
-                        }
-                    },
-                    "id": "1d8ae90e-2f46-4085-afe8-209658e07040",
-                    "format": "15a216ed-d790-4690-a422-d03e5738d363"
-                }
-            }
-        }
-    },
-    "original": {
-        "id": "15a216ed-d790-4690-a422-d03e5738d363",
-        "reference": {
-            "id": "15a216ed-d790-4690-a422-d03e5738d363",
-            "creator": "",
-            "classification": {
-                "generic": "TEXT",
-                "specific": "text"
-            },
-            "role": "BOTH",
-            "application": {
-                "schema": {
-                    "migration": 0,
-                    "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                },
-                "id": "55f4576b-8be6-4508-bf89-e85f263a083b",
-                "name": "BRAVE",
-                "version": "0.0.1",
-                "platform": "MACOS",
-                "onboarded": false,
-                "privacy": "OPEN",
-                "capabilities": "BLENDED",
-                "mechanism": "MANUAL",
-                "automaticUnload": false
-            },
-            "asset": "34a2a447-0c7c-4171-903a-755712e43a9f",
-            "bytes": {
-                "value": 24,
-                "readable": "24 B"
-            },
-            "created": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "updated": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "deleted": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "synced": {
-                "value": "2023-10-26T15:30:01.617743Z",
-                "readable": "Just now..."
-            },
-            "fragment": {
-                "string": {
-                    "raw": "Testing the string param"
-                },
-                "bytes": {
-                    "raw": [
-                        84,
-                        101,
-                        115,
-                        116,
-                        105,
-                        110,
-                        103,
-                        32,
-                        116,
-                        104,
-                        101,
-                        32,
-                        115,
-                        116,
-                        114,
-                        105,
-                        110,
-                        103,
-                        32,
-                        112,
-                        97,
-                        114,
-                        97,
-                        109
-                    ],
-                    "base64": [],
-                    "base64_url": [],
-                    "data_url": []
-                }
-            },
-            "analysis": {
-                "code": {
-                    "schema": {
-                        "migration": 0,
-                        "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                    },
-                    "tokenized": [],
-                    "type": "TEXT",
-                    "prediction": {},
-                    "similarity": {},
-                    "top5Colors": [],
-                    "top5Sorted": [],
-                    "id": "8db688f9-fb54-4d5a-888d-db3b17328bc7",
-                    "analysis": "1d8ae90e-2f46-4085-afe8-209658e07040",
-                    "model": {
-                        "schema": {
-                            "migration": 0,
-                            "semantic": "MAJOR_0_MINOR_0_PATCH_1"
-                        },
-                        "id": "48d2a32b-aa93-455c-a6b6-e52dfce4118e",
-                        "version": "t02-v02-i03",
-                        "created": {
-                            "value": "2022-02-17T05:00:00.000Z",
-                            "readable": "about a year ago"
-                        },
-                        "name": "Text vs. Code Model",
-                        "cloud": false,
-                        "type": "SPEED",
-                        "usage": "TEXT_VS_CODE",
-                        "cpu": true
-                    }
-                },
-                "id": "1d8ae90e-2f46-4085-afe8-209658e07040",
-                "format": "15a216ed-d790-4690-a422-d03e5738d363"
-            }
-        }
-    },
-    "mechanism": "MANUAL",
-    "websites": {
-        "iterable": [],
-        "indices": {}
-    },
-    "tags": {
-        "iterable": [],
-        "indices": {}
-    },
-    "sensitives": {
-        "iterable": []
-    },
-    "persons": {
-        "iterable": [],
-        "indices": {}
-    },
-    "discovered": false,
-    "score": {
-        "manual": 0,
-        "automatic": 0
-    },
-    "pseudo": false,
-    "annotations": {
-        "iterable": [],
-        "indices": {}
-    },
-    "hints": {
-        "iterable": [],
-        "indices": {}
-    },
-    "anchors": {
-        "iterable": [],
-        "indices": {}
+https://jwaf.pieces.cloud/?p=f0114f8b8e
+
+### Get your Assets Snapshot
+When working with your app implementation you will often need to call the entire asset snapshot in order to get the correct snippet from your storage in Pieces OS. You can use this asset snapshot along with your **asset's ID** to select a single item from the iterable list. Call your `.assetsSnapshot()` and pass an empty object for the `requestParameters` and then get the asset when it returns asynchronously: 
+
+```ts
+ new Pieces.AssetsApi().assetsSnapshot({}).then(_assetList => {
+  for (let i = 0; i < _assetList.iterable.length; i++) {
+    if (_assetList.iterable[i].id == _id) {
+
+      let _asset = _assetList.iterable[i];
+      
+      console.log(_asset);
     }
+  }
+})
+```
+
+### Update your Asset's Metadata or Properties 
+Individual assets can be manipulated with a number of different properties and metadata. You can add **titles**, **annotations**, **tags**, **links**, **anchors**, and much more all through this single endpoint. To use it properly first use the assetSnapshot to get your asset using its ID property, and store your asset in a variable in your `.then()`. You can then adjust any of the properties on this asset you have stored on `_asset`, then pass into `requestParameters` on the `assetUpdate` endpoint. Check out this code block: 
+
+```ts
+new Pieces.AssetsApi().assetsSnapshot({}).then(_assetList => {
+        for (let i = 0; i < _assetList.iterable.length; i++) {
+            if (_assetList.iterable[i].id == _id) {
+
+                let _asset = _assetList.iterable[i];
+
+                _asset.name = _name;
+                
+                new Pieces.AssetApi().assetUpdate({asset: _asset}).then(_updated => {
+                    console.log("updated!");
+                })
+            }
+        }
+    })
+```
+
+### Deleting an Asset
+Similar to the previous example, you need assetSnapshot in order to access the proper asset on your list of data. You can use this endpoint to completely delete a specific asset where ever it may be in the list of all of your assets.
+
+Use this code-block here to get your asset, and then delete it: 
+
+```ts
+function deleteAsset(_id: String){
+
+  new Pieces.AssetsApi().assetsSnapshot({}).then(_assetList => {
+    for (let i = 0; i < _assetList.iterable.length; i++) {
+      if (_assetList.iterable[i].id == _id) {
+        new Pieces.AssetsApi().assetsDeleteAsset({asset: _assetList.iterable[i].id }).then(_ => console.log("delete confirmed!"))
+      }
+    }
+  })
 }
 ```
 

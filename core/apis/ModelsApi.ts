@@ -125,4 +125,31 @@ export class ModelsApi extends runtime.BaseAPI {
         return await response.value();
     }
 
+    /**
+     * This will unload all of the ml models.
+     * /models/unload [POST]
+     */
+    async unloadModelsRaw(): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/models/unload`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will unload all of the ml models.
+     * /models/unload [POST]
+     */
+    async unloadModels(): Promise<void> {
+        await this.unloadModelsRaw();
+    }
+
 }

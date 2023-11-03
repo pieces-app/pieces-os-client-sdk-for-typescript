@@ -18,6 +18,10 @@ import {
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
+    ConversationGrounding,
+    ConversationGroundingFromJSON,
+    ConversationGroundingFromJSONTyped,
+    ConversationGroundingToJSON,
     ConversationTypeEnum,
     ConversationTypeEnumFromJSON,
     ConversationTypeEnumFromJSONTyped,
@@ -50,6 +54,10 @@ import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -148,6 +156,18 @@ export interface FlattenedConversation {
      * @memberof FlattenedConversation
      */
     type: ConversationTypeEnum;
+    /**
+     * 
+     * @type {ConversationGrounding}
+     * @memberof FlattenedConversation
+     */
+    grounding?: ConversationGrounding;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedConversation
+     */
+    score?: Score;
 }
 
 export function FlattenedConversationFromJSON(json: any): FlattenedConversation {
@@ -174,6 +194,8 @@ export function FlattenedConversationFromJSONTyped(json: any, ignoreDiscriminato
         'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
         'type': ConversationTypeEnumFromJSON(json['type']),
+        'grounding': !exists(json, 'grounding') ? undefined : ConversationGroundingFromJSON(json['grounding']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -200,6 +222,8 @@ export function FlattenedConversationToJSON(value?: FlattenedConversation | null
         'assets': FlattenedAssetsToJSON(value.assets),
         'anchors': FlattenedAnchorsToJSON(value.anchors),
         'type': ConversationTypeEnumToJSON(value.type),
+        'grounding': ConversationGroundingToJSON(value.grounding),
+        'score': ScoreToJSON(value.score),
     };
 }
 

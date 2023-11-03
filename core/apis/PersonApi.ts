@@ -18,7 +18,15 @@ import {
     Person,
     PersonFromJSON,
     PersonToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
+
+export interface PersonScoresIncrementRequest {
+    person: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface PersonSnapshotRequest {
     person: string;
@@ -34,6 +42,40 @@ export interface UpdatePersonRequest {
  * 
  */
 export class PersonApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/person/{person}/scores/increment\' [POST]
+     */
+    async personScoresIncrementRaw(requestParameters: PersonScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/person/{person}/scores/increment`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/person/{person}/scores/increment\' [POST]
+     */
+    async personScoresIncrement(requestParameters: PersonScoresIncrementRequest): Promise<void> {
+        await this.personScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will get a snapshot of a specific person

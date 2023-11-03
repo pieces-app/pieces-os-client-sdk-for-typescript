@@ -15,10 +15,18 @@
 
 import * as runtime from '../runtime';
 import {
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
     Website,
     WebsiteFromJSON,
     WebsiteToJSON,
 } from '../models';
+
+export interface WebsiteScoresIncrementRequest {
+    website: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface WebsiteUpdateRequest {
     transferables?: boolean;
@@ -34,6 +42,40 @@ export interface WebsitesSpecificWebsiteSnapshotRequest {
  * 
  */
 export class WebsiteApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/website/{website}/scores/increment\' [POST]
+     */
+    async websiteScoresIncrementRaw(requestParameters: WebsiteScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/website/{website}/scores/increment`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/website/{website}/scores/increment\' [POST]
+     */
+    async websiteScoresIncrement(requestParameters: WebsiteScoresIncrementRequest): Promise<void> {
+        await this.websiteScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will update a specific website.

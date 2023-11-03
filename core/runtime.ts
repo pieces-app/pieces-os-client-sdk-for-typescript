@@ -49,13 +49,11 @@ export class BaseAPI {
         let response: Response;
         // DO NOT MODIFY THIS, UNLESS [SEND TO PIECES] WAS TESTED ON VsCode && Chrome Ext.
         try {
-            console.log(fetch);
             response = await fetch(url, init);
         } catch (err) {
             /// failed for fetch so use the FetchApi
             response = await this.fetchApi(url, init);
         }
-        console.log(response);
         if (response.status >= 200 && response.status < 300) {
             return response;
         }
@@ -90,7 +88,6 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.pre) {
                 fetchParams = await middleware.pre({
-                    // TODO: @mark-widman can you fix this?
                     // @ts-ignore
                     fetch: this.fetchApi,
                     ...fetchParams,
@@ -101,7 +98,6 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.post) {
                 response = await middleware.post({
-                    // TODO: @mark-widman can you fix this?
                     // @ts-ignore
                     fetch: this.fetchApi,
                     url: fetchParams.url,

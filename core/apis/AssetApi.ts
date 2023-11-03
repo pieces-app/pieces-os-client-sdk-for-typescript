@@ -33,6 +33,9 @@ import {
     SeededAccessor,
     SeededAccessorFromJSON,
     SeededAccessorToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
 
 export interface AssetFormatsRequest {
@@ -43,6 +46,11 @@ export interface AssetFormatsRequest {
 export interface AssetReclassifyRequest {
     transferables?: boolean;
     assetReclassification?: AssetReclassification;
+}
+
+export interface AssetScoresIncrementRequest {
+    asset: string;
+    seededScoreIncrement?: SeededScoreIncrement;
 }
 
 export interface AssetSnapshotRequest {
@@ -145,6 +153,40 @@ export class AssetApi extends runtime.BaseAPI {
     async assetReclassify(requestParameters: AssetReclassifyRequest): Promise<Asset> {
         const response = await this.assetReclassifyRaw(requestParameters);
         return await response.value();
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/asset/{asset}/scores/increment\' [POST]
+     */
+    async assetScoresIncrementRaw(requestParameters: AssetScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/asset/{asset}/scores/increment`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/asset/{asset}/scores/increment\' [POST]
+     */
+    async assetScoresIncrement(requestParameters: AssetScoresIncrementRequest): Promise<void> {
+        await this.assetScoresIncrementRaw(requestParameters);
     }
 
     /**

@@ -54,6 +54,10 @@ import {
     PersonTypeFromJSON,
     PersonTypeFromJSONTyped,
     PersonTypeToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -150,6 +154,12 @@ export interface Person {
      * @memberof Person
      */
     annotations?: FlattenedAnnotations;
+    /**
+     * 
+     * @type {Score}
+     * @memberof Person
+     */
+    score?: Score;
 }
 
 export function PersonFromJSON(json: any): Person {
@@ -176,6 +186,7 @@ export function PersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): Pe
         'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
         'models': !exists(json, 'models') ? undefined : (mapValues(json['models'], PersonModelFromJSON)),
         'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -202,6 +213,7 @@ export function PersonToJSON(value?: Person | null): any {
         'websites': FlattenedWebsitesToJSON(value.websites),
         'models': value.models === undefined ? undefined : (mapValues(value.models, PersonModelToJSON)),
         'annotations': FlattenedAnnotationsToJSON(value.annotations),
+        'score': ScoreToJSON(value.score),
     };
 }
 

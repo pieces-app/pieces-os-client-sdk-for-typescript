@@ -22,6 +22,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    FlattenedConversationMessages,
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
     GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
@@ -50,6 +54,10 @@ import {
     ReferencedPersonFromJSON,
     ReferencedPersonFromJSONTyped,
     ReferencedPersonToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -148,6 +156,18 @@ export interface FlattenedAnnotation {
      * @memberof FlattenedAnnotation
      */
     conversation?: ReferencedConversation;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedAnnotation
+     */
+    score?: Score;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof FlattenedAnnotation
+     */
+    messages?: FlattenedConversationMessages;
 }
 
 export function FlattenedAnnotationFromJSON(json: any): FlattenedAnnotation {
@@ -175,6 +195,8 @@ export function FlattenedAnnotationFromJSONTyped(json: any, ignoreDiscriminator:
         'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
         'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
         'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
     };
 }
 
@@ -202,6 +224,8 @@ export function FlattenedAnnotationToJSON(value?: FlattenedAnnotation | null): a
         'favorited': value.favorited,
         'anchor': ReferencedAnchorToJSON(value.anchor),
         'conversation': ReferencedConversationToJSON(value.conversation),
+        'score': ScoreToJSON(value.score),
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
 

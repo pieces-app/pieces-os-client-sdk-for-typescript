@@ -22,6 +22,10 @@ import {
     ReferencedSensitiveFromJSON,
     ReferencedSensitiveFromJSONTyped,
     ReferencedSensitiveToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -42,6 +46,12 @@ export interface FlattenedSensitives {
      * @memberof FlattenedSensitives
      */
     iterable: Array<ReferencedSensitive>;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedSensitives
+     */
+    score?: Score;
 }
 
 export function FlattenedSensitivesFromJSON(json: any): FlattenedSensitives {
@@ -56,6 +66,7 @@ export function FlattenedSensitivesFromJSONTyped(json: any, ignoreDiscriminator:
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedSensitiveFromJSON)),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -70,6 +81,7 @@ export function FlattenedSensitivesToJSON(value?: FlattenedSensitives | null): a
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(ReferencedSensitiveToJSON)),
+        'score': ScoreToJSON(value.score),
     };
 }
 

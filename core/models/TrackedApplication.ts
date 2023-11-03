@@ -64,6 +64,12 @@ export interface TrackedApplication {
      * @memberof TrackedApplication
      */
     platform: PlatformEnum;
+    /**
+     * This is a proper that will let us know if we will proactivity unload all of your machine learning models.by default this is false.
+     * @type {boolean}
+     * @memberof TrackedApplication
+     */
+    automaticUnload?: boolean;
 }
 
 export function TrackedApplicationFromJSON(json: any): TrackedApplication {
@@ -81,6 +87,7 @@ export function TrackedApplicationFromJSONTyped(json: any, ignoreDiscriminator: 
         'name': ApplicationNameEnumFromJSON(json['name']),
         'version': json['version'],
         'platform': PlatformEnumFromJSON(json['platform']),
+        'automaticUnload': !exists(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
 
@@ -98,6 +105,7 @@ export function TrackedApplicationToJSON(value?: TrackedApplication | null): any
         'name': ApplicationNameEnumToJSON(value.name),
         'version': value.version,
         'platform': PlatformEnumToJSON(value.platform),
+        'automaticUnload': value.automaticUnload,
     };
 }
 

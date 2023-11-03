@@ -22,6 +22,10 @@ import {
     ReferencedHintFromJSON,
     ReferencedHintFromJSONTyped,
     ReferencedHintToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -48,6 +52,12 @@ export interface FlattenedHints {
      * @memberof FlattenedHints
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedHints
+     */
+    score?: Score;
 }
 
 export function FlattenedHintsFromJSON(json: any): FlattenedHints {
@@ -63,6 +73,7 @@ export function FlattenedHintsFromJSONTyped(json: any, ignoreDiscriminator: bool
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedHintFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function FlattenedHintsToJSON(value?: FlattenedHints | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(ReferencedHintToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

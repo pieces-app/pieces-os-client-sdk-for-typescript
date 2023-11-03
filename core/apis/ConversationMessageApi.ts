@@ -18,7 +18,25 @@ import {
     ConversationMessage,
     ConversationMessageFromJSON,
     ConversationMessageToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
+
+export interface AssociateAnnotationRequest {
+    annotation: string;
+    message: string;
+}
+
+export interface DisassociateAnnotationRequest {
+    annotation: string;
+    message: string;
+}
+
+export interface MessageScoresIncrementRequest {
+    message: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface MessageSpecificMessageSnapshotRequest {
     message: string;
@@ -34,6 +52,110 @@ export interface MessageSpecificMessageUpdateRequest {
  * 
  */
 export class ConversationMessageApi extends runtime.BaseAPI {
+
+    /**
+     * This will associate a message with an annotation.
+     * /message/{message}/annotations/associate/{annotation} [POST]
+     */
+    async associateAnnotationRaw(requestParameters: AssociateAnnotationRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling associateAnnotation.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling associateAnnotation.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/message/{message}/annotations/associate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a message with an annotation.
+     * /message/{message}/annotations/associate/{annotation} [POST]
+     */
+    async associateAnnotation(requestParameters: AssociateAnnotationRequest): Promise<void> {
+        await this.associateAnnotationRaw(requestParameters);
+    }
+
+    /**
+     * This will enable us to dissassociate a message from an annotation.
+     * /message/{message}/annotations/disassociate/{annotation} [POST]
+     */
+    async disassociateAnnotationRaw(requestParameters: DisassociateAnnotationRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling disassociateAnnotation.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling disassociateAnnotation.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/message/{message}/annotations/disassociate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a message from an annotation.
+     * /message/{message}/annotations/disassociate/{annotation} [POST]
+     */
+    async disassociateAnnotation(requestParameters: DisassociateAnnotationRequest): Promise<void> {
+        await this.disassociateAnnotationRaw(requestParameters);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/message/{message}/scores/increment\' [POST]
+     */
+    async messageScoresIncrementRaw(requestParameters: MessageScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/message/{message}/scores/increment`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/message/{message}/scores/increment\' [POST]
+     */
+    async messageScoresIncrement(requestParameters: MessageScoresIncrementRequest): Promise<void> {
+        await this.messageScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will get a specific snapshot of a message

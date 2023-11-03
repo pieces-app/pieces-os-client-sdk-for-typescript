@@ -22,6 +22,10 @@ import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -42,6 +46,12 @@ export interface FlattenedShares {
      * @memberof FlattenedShares
      */
     iterable: Array<FlattenedShare>;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedShares
+     */
+    score?: Score;
 }
 
 export function FlattenedSharesFromJSON(json: any): FlattenedShares {
@@ -56,6 +66,7 @@ export function FlattenedSharesFromJSONTyped(json: any, ignoreDiscriminator: boo
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(FlattenedShareFromJSON)),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -70,6 +81,7 @@ export function FlattenedSharesToJSON(value?: FlattenedShares | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(FlattenedShareToJSON)),
+        'score': ScoreToJSON(value.score),
     };
 }
 

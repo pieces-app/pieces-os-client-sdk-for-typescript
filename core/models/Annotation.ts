@@ -22,6 +22,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    FlattenedConversationMessages,
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
     GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
@@ -50,6 +54,10 @@ import {
     ReferencedPersonFromJSON,
     ReferencedPersonFromJSONTyped,
     ReferencedPersonToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -153,6 +161,18 @@ export interface Annotation {
      * @memberof Annotation
      */
     conversation?: ReferencedConversation;
+    /**
+     * 
+     * @type {Score}
+     * @memberof Annotation
+     */
+    score?: Score;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof Annotation
+     */
+    messages?: FlattenedConversationMessages;
 }
 
 export function AnnotationFromJSON(json: any): Annotation {
@@ -180,6 +200,8 @@ export function AnnotationFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
         'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
         'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
     };
 }
 
@@ -207,6 +229,8 @@ export function AnnotationToJSON(value?: Annotation | null): any {
         'favorited': value.favorited,
         'anchor': ReferencedAnchorToJSON(value.anchor),
         'conversation': ReferencedConversationToJSON(value.conversation),
+        'score': ScoreToJSON(value.score),
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
 

@@ -18,7 +18,20 @@ import {
     Anchor,
     AnchorFromJSON,
     AnchorToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
+
+export interface AnchorRenameRequest {
+    anchor: string;
+    transferables?: boolean;
+}
+
+export interface AnchorScoresIncrementRequest {
+    anchor: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface AnchorSpecificAnchorSnapshotRequest {
     anchor: string;
@@ -34,6 +47,76 @@ export interface AnchorUpdateRequest {
  * 
  */
 export class AnchorApi extends runtime.BaseAPI {
+
+    /**
+     * This will rename a specific anchor.
+     * /anchor/{anchor}/rename [POST]
+     */
+    async anchorRenameRaw(requestParameters: AnchorRenameRequest): Promise<runtime.ApiResponse<Anchor>> {
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorRename.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/rename`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AnchorFromJSON(jsonValue));
+    }
+
+    /**
+     * This will rename a specific anchor.
+     * /anchor/{anchor}/rename [POST]
+     */
+    async anchorRename(requestParameters: AnchorRenameRequest): Promise<Anchor> {
+        const response = await this.anchorRenameRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/anchor/{anchor}/scores/increment\' [POST]
+     */
+    async anchorScoresIncrementRaw(requestParameters: AnchorScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/scores/increment`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/anchor/{anchor}/scores/increment\' [POST]
+     */
+    async anchorScoresIncrement(requestParameters: AnchorScoresIncrementRequest): Promise<void> {
+        await this.anchorScoresIncrementRaw(requestParameters);
+    }
 
     /**
      * This will get a snapshot of a single anchor.

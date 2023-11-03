@@ -42,6 +42,10 @@ import {
     RelationshipFromJSON,
     RelationshipFromJSONTyped,
     RelationshipToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
     TagCategoryEnum,
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
@@ -132,6 +136,12 @@ export interface FlattenedTag {
      * @memberof FlattenedTag
      */
     persons?: FlattenedPersons;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedTag
+     */
+    score?: Score;
 }
 
 export function FlattenedTagFromJSON(json: any): FlattenedTag {
@@ -157,6 +167,7 @@ export function FlattenedTagFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
         'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -182,6 +193,7 @@ export function FlattenedTagToJSON(value?: FlattenedTag | null): any {
         'relationship': RelationshipToJSON(value.relationship),
         'interactions': value.interactions,
         'persons': FlattenedPersonsToJSON(value.persons),
+        'score': ScoreToJSON(value.score),
     };
 }
 

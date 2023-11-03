@@ -22,6 +22,10 @@ import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -52,6 +56,12 @@ export interface FlattenedAssets {
      * @memberof FlattenedAssets
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedAssets
+     */
+    score?: Score;
 }
 
 export function FlattenedAssetsFromJSON(json: any): FlattenedAssets {
@@ -67,6 +77,7 @@ export function FlattenedAssetsFromJSONTyped(json: any, ignoreDiscriminator: boo
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': !exists(json, 'iterable') ? undefined : ((json['iterable'] as Array<any>).map(ReferencedAssetFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -82,6 +93,7 @@ export function FlattenedAssetsToJSON(value?: FlattenedAssets | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(ReferencedAssetToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

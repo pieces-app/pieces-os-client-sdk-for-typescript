@@ -30,6 +30,10 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
     SensitiveCategoryEnum,
     SensitiveCategoryEnumFromJSON,
     SensitiveCategoryEnumFromJSONTyped,
@@ -134,6 +138,12 @@ export interface Sensitive {
      * @memberof Sensitive
      */
     interactions?: number;
+    /**
+     * 
+     * @type {Score}
+     * @memberof Sensitive
+     */
+    score?: Score;
 }
 
 export function SensitiveFromJSON(json: any): Sensitive {
@@ -160,6 +170,7 @@ export function SensitiveFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'description': json['description'],
         'metadata': !exists(json, 'metadata') ? undefined : SensitiveMetadataFromJSON(json['metadata']),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -186,6 +197,7 @@ export function SensitiveToJSON(value?: Sensitive | null): any {
         'description': value.description,
         'metadata': SensitiveMetadataToJSON(value.metadata),
         'interactions': value.interactions,
+        'score': ScoreToJSON(value.score),
     };
 }
 

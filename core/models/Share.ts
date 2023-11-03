@@ -42,6 +42,10 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -124,6 +128,12 @@ export interface Share {
      * @memberof Share
      */
     distributions?: Distributions;
+    /**
+     * 
+     * @type {Score}
+     * @memberof Share
+     */
+    score?: Score;
 }
 
 export function ShareFromJSON(json: any): Share {
@@ -148,6 +158,7 @@ export function ShareFromJSONTyped(json: any, ignoreDiscriminator: boolean): Sha
         '_short': json['short'],
         'name': !exists(json, 'name') ? undefined : json['name'],
         'distributions': !exists(json, 'distributions') ? undefined : DistributionsFromJSON(json['distributions']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -172,6 +183,7 @@ export function ShareToJSON(value?: Share | null): any {
         'short': value._short,
         'name': value.name,
         'distributions': DistributionsToJSON(value.distributions),
+        'score': ScoreToJSON(value.score),
     };
 }
 

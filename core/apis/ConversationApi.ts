@@ -21,6 +21,15 @@ import {
     ConversationMessages,
     ConversationMessagesFromJSON,
     ConversationMessagesToJSON,
+    ConversationSummarizeInput,
+    ConversationSummarizeInputFromJSON,
+    ConversationSummarizeInputToJSON,
+    ConversationSummarizeOutput,
+    ConversationSummarizeOutputFromJSON,
+    ConversationSummarizeOutputToJSON,
+    SeededScoreIncrement,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models';
 
 export interface ConversationAssociateAnchorRequest {
@@ -48,9 +57,34 @@ export interface ConversationGetSpecificConversationRequest {
     transferables?: boolean;
 }
 
+export interface ConversationGroundingMessagesAssociateMessageRequest {
+    conversation: string;
+    message: string;
+}
+
+export interface ConversationGroundingMessagesDisassociateMessageRequest {
+    conversation: string;
+    message: string;
+}
+
+export interface ConversationScoresIncrementRequest {
+    conversation: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
+
 export interface ConversationSpecificConversationMessagesRequest {
     conversation: string;
     transferables?: boolean;
+}
+
+export interface ConversationSpecificConversationRenameRequest {
+    conversation: string;
+    transferables?: boolean;
+}
+
+export interface ConversationSummarizeRequest {
+    conversation: string;
+    conversationSummarizeInput?: ConversationSummarizeInput;
 }
 
 export interface ConversationUpdateRequest {
@@ -240,6 +274,110 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will save the grounding context for a conversation. This will enable us to associate a message to the conversation.grounding object.
+     * /conversation/{conversation}/grounding/messages/associate/{message} [POST]
+     */
+    async conversationGroundingMessagesAssociateMessageRaw(requestParameters: ConversationGroundingMessagesAssociateMessageRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationGroundingMessagesAssociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling conversationGroundingMessagesAssociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/conversation/{conversation}/grounding/messages/associate/{message}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will save the grounding context for a conversation. This will enable us to associate a message to the conversation.grounding object.
+     * /conversation/{conversation}/grounding/messages/associate/{message} [POST]
+     */
+    async conversationGroundingMessagesAssociateMessage(requestParameters: ConversationGroundingMessagesAssociateMessageRequest): Promise<void> {
+        await this.conversationGroundingMessagesAssociateMessageRaw(requestParameters);
+    }
+
+    /**
+     * This will remove specific grounding context for a conversation. This will enable us to dissassociate a message from the conversation.grounding object.
+     * /conversation/{conversation}/grounding/messages/disassociate/{message} [POST]
+     */
+    async conversationGroundingMessagesDisassociateMessageRaw(requestParameters: ConversationGroundingMessagesDisassociateMessageRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationGroundingMessagesDisassociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling conversationGroundingMessagesDisassociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/conversation/{conversation}/grounding/messages/disassociate/{message}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will remove specific grounding context for a conversation. This will enable us to dissassociate a message from the conversation.grounding object.
+     * /conversation/{conversation}/grounding/messages/disassociate/{message} [POST]
+     */
+    async conversationGroundingMessagesDisassociateMessage(requestParameters: ConversationGroundingMessagesDisassociateMessageRequest): Promise<void> {
+        await this.conversationGroundingMessagesDisassociateMessageRaw(requestParameters);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/conversation/{conversation}/scores/increment\' [POST]
+     */
+    async conversationScoresIncrementRaw(requestParameters: ConversationScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationScoresIncrement.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/conversation/{conversation}/scores/increment`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/conversation/{conversation}/scores/increment\' [POST]
+     */
+    async conversationScoresIncrement(requestParameters: ConversationScoresIncrementRequest): Promise<void> {
+        await this.conversationScoresIncrementRaw(requestParameters);
+    }
+
+    /**
      * This will get a specific conversations messages
      * /conversation/{conversation}/messages [GET]
      */
@@ -272,6 +410,77 @@ export class ConversationApi extends runtime.BaseAPI {
      */
     async conversationSpecificConversationMessages(requestParameters: ConversationSpecificConversationMessagesRequest): Promise<ConversationMessages> {
         const response = await this.conversationSpecificConversationMessagesRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will take a specific converssation and it will rename using ML.
+     * /conversation/{conversation}/rename [POST]
+     */
+    async conversationSpecificConversationRenameRaw(requestParameters: ConversationSpecificConversationRenameRequest): Promise<runtime.ApiResponse<Conversation>> {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationSpecificConversationRename.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/conversation/{conversation}/rename`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ConversationFromJSON(jsonValue));
+    }
+
+    /**
+     * This will take a specific converssation and it will rename using ML.
+     * /conversation/{conversation}/rename [POST]
+     */
+    async conversationSpecificConversationRename(requestParameters: ConversationSpecificConversationRenameRequest): Promise<Conversation> {
+        const response = await this.conversationSpecificConversationRenameRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will take a current conversation and create a summary of the conversation and save it as an annotation on the conversation.  will return the annotation reference used as the summary.
+     * /conversation/{conversation}/summarize [POST]
+     */
+    async conversationSummarizeRaw(requestParameters: ConversationSummarizeRequest): Promise<runtime.ApiResponse<ConversationSummarizeOutput>> {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationSummarize.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/conversation/{conversation}/summarize`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ConversationSummarizeInputToJSON(requestParameters.conversationSummarizeInput),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ConversationSummarizeOutputFromJSON(jsonValue));
+    }
+
+    /**
+     * This will take a current conversation and create a summary of the conversation and save it as an annotation on the conversation.  will return the annotation reference used as the summary.
+     * /conversation/{conversation}/summarize [POST]
+     */
+    async conversationSummarize(requestParameters: ConversationSummarizeRequest): Promise<ConversationSummarizeOutput> {
+        const response = await this.conversationSummarizeRaw(requestParameters);
         return await response.value();
     }
 

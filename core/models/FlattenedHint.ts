@@ -38,6 +38,10 @@ import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -106,6 +110,12 @@ export interface FlattenedHint {
      * @memberof FlattenedHint
      */
     model?: ReferencedModel;
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedHint
+     */
+    score?: Score;
 }
 
 export function FlattenedHintFromJSON(json: any): FlattenedHint {
@@ -128,6 +138,7 @@ export function FlattenedHintFromJSONTyped(json: any, ignoreDiscriminator: boole
         'type': HintTypeEnumFromJSON(json['type']),
         'text': json['text'],
         'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -150,6 +161,7 @@ export function FlattenedHintToJSON(value?: FlattenedHint | null): any {
         'type': HintTypeEnumToJSON(value.type),
         'text': value.text,
         'model': ReferencedModelToJSON(value.model),
+        'score': ScoreToJSON(value.score),
     };
 }
 

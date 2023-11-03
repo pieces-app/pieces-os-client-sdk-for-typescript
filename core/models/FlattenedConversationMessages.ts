@@ -22,6 +22,10 @@ import {
     ReferencedConversationMessageFromJSON,
     ReferencedConversationMessageFromJSONTyped,
     ReferencedConversationMessageToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -48,6 +52,12 @@ export interface FlattenedConversationMessages {
      * @memberof FlattenedConversationMessages
      */
     indices?: { [key: string]: number; };
+    /**
+     * 
+     * @type {Score}
+     * @memberof FlattenedConversationMessages
+     */
+    score?: Score;
 }
 
 export function FlattenedConversationMessagesFromJSON(json: any): FlattenedConversationMessages {
@@ -63,6 +73,7 @@ export function FlattenedConversationMessagesFromJSONTyped(json: any, ignoreDisc
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedConversationMessageFromJSON)),
         'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -78,6 +89,7 @@ export function FlattenedConversationMessagesToJSON(value?: FlattenedConversatio
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'iterable': ((value.iterable as Array<any>).map(ReferencedConversationMessageToJSON)),
         'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

@@ -38,6 +38,10 @@ import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
+    Score,
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
 } from './';
 
 /**
@@ -106,6 +110,12 @@ export interface Hint {
      * @memberof Hint
      */
     model?: ReferencedModel;
+    /**
+     * 
+     * @type {Score}
+     * @memberof Hint
+     */
+    score?: Score;
 }
 
 export function HintFromJSON(json: any): Hint {
@@ -128,6 +138,7 @@ export function HintFromJSONTyped(json: any, ignoreDiscriminator: boolean): Hint
         'type': HintTypeEnumFromJSON(json['type']),
         'text': json['text'],
         'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
@@ -150,6 +161,7 @@ export function HintToJSON(value?: Hint | null): any {
         'type': HintTypeEnumToJSON(value.type),
         'text': value.text,
         'model': ReferencedModelToJSON(value.model),
+        'score': ScoreToJSON(value.score),
     };
 }
 

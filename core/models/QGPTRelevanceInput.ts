@@ -22,6 +22,10 @@ import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
+    FlattenedConversationMessages,
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
     QGPTRelevanceInputOptions,
     QGPTRelevanceInputOptionsFromJSON,
     QGPTRelevanceInputOptionsFromJSONTyped,
@@ -82,6 +86,12 @@ export interface QGPTRelevanceInput {
     assets?: FlattenedAssets;
     /**
      * 
+     * @type {FlattenedConversationMessages}
+     * @memberof QGPTRelevanceInput
+     */
+    messages?: FlattenedConversationMessages;
+    /**
+     * 
      * @type {QGPTRelevanceInputOptions}
      * @memberof QGPTRelevanceInput
      */
@@ -115,6 +125,7 @@ export function QGPTRelevanceInputFromJSONTyped(json: any, ignoreDiscriminator: 
         'paths': !exists(json, 'paths') ? undefined : json['paths'],
         'seeds': !exists(json, 'seeds') ? undefined : SeedsFromJSON(json['seeds']),
         'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
         'options': !exists(json, 'options') ? undefined : QGPTRelevanceInputOptionsFromJSON(json['options']),
         'application': !exists(json, 'application') ? undefined : json['application'],
         'model': !exists(json, 'model') ? undefined : json['model'],
@@ -135,6 +146,7 @@ export function QGPTRelevanceInputToJSON(value?: QGPTRelevanceInput | null): any
         'paths': value.paths,
         'seeds': SeedsToJSON(value.seeds),
         'assets': FlattenedAssetsToJSON(value.assets),
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
         'options': QGPTRelevanceInputOptionsToJSON(value.options),
         'application': value.application,
         'model': value.model,

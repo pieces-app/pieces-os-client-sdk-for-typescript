@@ -105,6 +105,12 @@ export interface Application {
      * @memberof Application
      */
     mechanism?: MechanismEnum;
+    /**
+     * This is a proper that will let us know if we will proactivity unload all of your machine learning models.by default this is false.
+     * @type {boolean}
+     * @memberof Application
+     */
+    automaticUnload?: boolean;
 }
 
 export function ApplicationFromJSON(json: any): Application {
@@ -126,6 +132,7 @@ export function ApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'privacy': PrivacyEnumFromJSON(json['privacy']),
         'capabilities': !exists(json, 'capabilities') ? undefined : CapabilitiesEnumFromJSON(json['capabilities']),
         'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'automaticUnload': !exists(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
 
@@ -147,6 +154,7 @@ export function ApplicationToJSON(value?: Application | null): any {
         'privacy': PrivacyEnumToJSON(value.privacy),
         'capabilities': CapabilitiesEnumToJSON(value.capabilities),
         'mechanism': MechanismEnumToJSON(value.mechanism),
+        'automaticUnload': value.automaticUnload,
     };
 }
 
