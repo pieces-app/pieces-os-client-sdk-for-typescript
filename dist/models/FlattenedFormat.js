@@ -42,8 +42,6 @@ function FlattenedFormatFromJSONTyped(json, ignoreDiscriminator) {
         'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, _1.FragmentFormatFromJSON)(json['fragment']),
         'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, _1.FileFormatFromJSON)(json['file']),
         'analysis': !(0, runtime_1.exists)(json, 'analysis') ? undefined : (0, _1.FlattenedAnalysisFromJSON)(json['analysis']),
-        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (0, _1.FlattenedWebsitesFromJSON)(json['websites']),
-        'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : (0, _1.FlattenedTagsFromJSON)(json['tags']),
         'relationship': !(0, runtime_1.exists)(json, 'relationship') ? undefined : (0, _1.RelationshipFromJSON)(json['relationship']),
         'activities': !(0, runtime_1.exists)(json, 'activities') ? undefined : (0, _1.FlattenedActivitiesFromJSON)(json['activities']),
     };
@@ -74,8 +72,6 @@ function FlattenedFormatToJSON(value) {
         'fragment': (0, _1.FragmentFormatToJSON)(value.fragment),
         'file': (0, _1.FileFormatToJSON)(value.file),
         'analysis': (0, _1.FlattenedAnalysisToJSON)(value.analysis),
-        'websites': (0, _1.FlattenedWebsitesToJSON)(value.websites),
-        'tags': (0, _1.FlattenedTagsToJSON)(value.tags),
         'relationship': (0, _1.RelationshipToJSON)(value.relationship),
         'activities': (0, _1.FlattenedActivitiesToJSON)(value.activities),
     };

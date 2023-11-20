@@ -69,6 +69,118 @@ class ConnectorApi extends runtime.BaseAPI {
         return await response.value();
     }
     /**
+     * This can be used to send a SeededAsset over that you may use to compair in the future.
+     * /{application}/intention [POST]
+     */
+    async intentionRaw(requestParameters) {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application', 'Required parameter requestParameters.application was null or undefined when calling intention.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/{application}/intention`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.SeededConnectorAssetToJSON)(requestParameters.seededConnectorAsset),
+        });
+        return new runtime.TextApiResponse(response);
+    }
+    /**
+     * This can be used to send a SeededAsset over that you may use to compair in the future.
+     * /{application}/intention [POST]
+     */
+    async intention(requestParameters) {
+        const response = await this.intentionRaw(requestParameters);
+        return await response.value();
+    }
+    /**
+     * A consolidation endpoint to handle the updating of an onboarding process.
+     * /onboarded [POST]
+     */
+    async onboardedRaw(requestParameters) {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application', 'Required parameter requestParameters.application was null or undefined when calling onboarded.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/{application}/onboarded`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body,
+        });
+        return new runtime.TextApiResponse(response);
+    }
+    /**
+     * A consolidation endpoint to handle the updating of an onboarding process.
+     * /onboarded [POST]
+     */
+    async onboarded(requestParameters) {
+        const response = await this.onboardedRaw(requestParameters);
+        return await response.value();
+    }
+    /**
+     * This will react to the response returned from the /suggest endpoint.
+     * /{application}/reaction [POST]
+     */
+    async reactRaw(requestParameters) {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application', 'Required parameter requestParameters.application was null or undefined when calling react.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/{application}/reaction`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.ReactionToJSON)(requestParameters.reaction),
+        });
+        return new runtime.TextApiResponse(response);
+    }
+    /**
+     * This will react to the response returned from the /suggest endpoint.
+     * /{application}/reaction [POST]
+     */
+    async react(requestParameters) {
+        const response = await this.reactRaw(requestParameters);
+        return await response.value();
+    }
+    /**
+     * This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.
+     * /{application}/suggestion [POST]
+     */
+    async suggestRaw(requestParameters) {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application', 'Required parameter requestParameters.application was null or undefined when calling suggest.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/{application}/suggestion`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.SeededConnectorCreationToJSON)(requestParameters.seededConnectorCreation),
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.SuggestionFromJSON)(jsonValue));
+    }
+    /**
+     * This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.
+     * /{application}/suggestion [POST]
+     */
+    async suggest(requestParameters) {
+        const response = await this.suggestRaw(requestParameters);
+        return await response.value();
+    }
+    /**
      * This is an endpoint specifically to abstract the work of packaging for segment on a per-context basis
      * /{application}/track [POST]
      */

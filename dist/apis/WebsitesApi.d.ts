@@ -10,13 +10,16 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { SeededWebsite, Website, Websites } from '../models';
+import { ExistentMetadata, ExistingMetadata, SeededWebsite, Website, Websites } from '../models';
 export interface WebsitesCreateNewWebsiteRequest {
     transferables?: boolean;
     seededWebsite?: SeededWebsite;
 }
 export interface WebsitesDeleteSpecificWebsiteRequest {
     website: string;
+}
+export interface WebsitesExistsRequest {
+    existentMetadata?: ExistentMetadata;
 }
 export interface WebsitesSnapshotRequest {
     transferables?: boolean;
@@ -45,6 +48,16 @@ export declare class WebsitesApi extends runtime.BaseAPI {
      * /websites/{website}/delete [POST]
      */
     websitesDeleteSpecificWebsite(requestParameters: WebsitesDeleteSpecificWebsiteRequest): Promise<void>;
+    /**
+     * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
+     * /websites/exists [POST]
+     */
+    websitesExistsRaw(requestParameters: WebsitesExistsRequest): Promise<runtime.ApiResponse<ExistingMetadata>>;
+    /**
+     * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
+     * /websites/exists [POST]
+     */
+    websitesExists(requestParameters: WebsitesExistsRequest): Promise<ExistingMetadata>;
     /**
      * This will get a snapshot of all your websites.
      * /websites [GET]

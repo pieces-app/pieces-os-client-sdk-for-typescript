@@ -30,14 +30,6 @@ import {
     SeededFragmentFromJSON,
     SeededFragmentFromJSONTyped,
     SeededFragmentToJSON,
-    SeededTag,
-    SeededTagFromJSON,
-    SeededTagFromJSONTyped,
-    SeededTagToJSON,
-    SeededWebsite,
-    SeededWebsiteFromJSON,
-    SeededWebsiteFromJSONTyped,
-    SeededWebsiteToJSON,
 } from './';
 
 /**
@@ -69,23 +61,11 @@ export interface SeededFormat {
      */
     fragment?: SeededFragment;
     /**
-     * optionally will take some seededWebsites to create
-     * @type {Array<SeededWebsite>}
-     * @memberof SeededFormat
-     */
-    websites?: Array<SeededWebsite>;
-    /**
      * 
      * @type {SeededClassification}
      * @memberof SeededFormat
      */
     classification?: SeededClassification;
-    /**
-     * (Optional) you can add tags that will get attached to this format.
-     * @type {Array<SeededTag>}
-     * @memberof SeededFormat
-     */
-    tags?: Array<SeededTag>;
 }
 
 export function SeededFormatFromJSON(json: any): SeededFormat {
@@ -101,9 +81,7 @@ export function SeededFormatFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'file': !exists(json, 'file') ? undefined : SeededFileFromJSON(json['file']),
         'fragment': !exists(json, 'fragment') ? undefined : SeededFragmentFromJSON(json['fragment']),
-        'websites': !exists(json, 'websites') ? undefined : ((json['websites'] as Array<any>).map(SeededWebsiteFromJSON)),
         'classification': !exists(json, 'classification') ? undefined : SeededClassificationFromJSON(json['classification']),
-        'tags': !exists(json, 'tags') ? undefined : ((json['tags'] as Array<any>).map(SeededTagFromJSON)),
     };
 }
 
@@ -119,9 +97,7 @@ export function SeededFormatToJSON(value?: SeededFormat | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'file': SeededFileToJSON(value.file),
         'fragment': SeededFragmentToJSON(value.fragment),
-        'websites': value.websites === undefined ? undefined : ((value.websites as Array<any>).map(SeededWebsiteToJSON)),
         'classification': SeededClassificationToJSON(value.classification),
-        'tags': value.tags === undefined ? undefined : ((value.tags as Array<any>).map(SeededTagToJSON)),
     };
 }
 

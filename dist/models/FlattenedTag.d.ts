@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedPersons, GroupedTimestamp, MechanismEnum, ReferencedAsset, ReferencedFormat, Relationship, Score, TagCategoryEnum } from './';
+import { EmbeddedModelSchema, FlattenedAssets, FlattenedPersons, GroupedTimestamp, MechanismEnum, Relationship, Score, TagCategoryEnum } from './';
 /**
  * This is a Flattened Version of a Tag.
  * @export
@@ -35,17 +35,19 @@ export interface FlattenedTag {
      */
     text: string;
     /**
-     *
-     * @type {MechanismEnum}
+     * This is a Map<String, MechanismEnum> where the the key is an asset id.
+     * @type {{ [key: string]: MechanismEnum; }}
      * @memberof FlattenedTag
      */
-    mechanism: MechanismEnum;
+    mechanisms?: {
+        [key: string]: MechanismEnum;
+    };
     /**
      *
-     * @type {ReferencedAsset}
+     * @type {FlattenedAssets}
      * @memberof FlattenedTag
      */
-    asset?: ReferencedAsset;
+    assets?: FlattenedAssets;
     /**
      *
      * @type {GroupedTimestamp}
@@ -58,12 +60,6 @@ export interface FlattenedTag {
      * @memberof FlattenedTag
      */
     updated: GroupedTimestamp;
-    /**
-     *
-     * @type {ReferencedFormat}
-     * @memberof FlattenedTag
-     */
-    format?: ReferencedFormat;
     /**
      *
      * @type {GroupedTimestamp}

@@ -29,7 +29,6 @@ function SeededWebsiteFromJSONTyped(json, ignoreDiscriminator) {
         'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : json['asset'],
         'url': json['url'],
         'name': json['name'],
-        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : json['format'],
         'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
         'person': !(0, runtime_1.exists)(json, 'person') ? undefined : json['person'],
     };
@@ -47,7 +46,6 @@ function SeededWebsiteToJSON(value) {
         'asset': value.asset,
         'url': value.url,
         'name': value.name,
-        'format': value.format,
         'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
         'person': value.person,
     };

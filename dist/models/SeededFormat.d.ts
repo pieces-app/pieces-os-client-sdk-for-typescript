@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededClassification, SeededFile, SeededFragment, SeededTag, SeededWebsite } from './';
+import { EmbeddedModelSchema, SeededClassification, SeededFile, SeededFragment } from './';
 /**
  * This is seeded data that will be come a format.
  *
@@ -39,23 +39,11 @@ export interface SeededFormat {
      */
     fragment?: SeededFragment;
     /**
-     * optionally will take some seededWebsites to create
-     * @type {Array<SeededWebsite>}
-     * @memberof SeededFormat
-     */
-    websites?: Array<SeededWebsite>;
-    /**
      *
      * @type {SeededClassification}
      * @memberof SeededFormat
      */
     classification?: SeededClassification;
-    /**
-     * (Optional) you can add tags that will get attached to this format.
-     * @type {Array<SeededTag>}
-     * @memberof SeededFormat
-     */
-    tags?: Array<SeededTag>;
 }
 export declare function SeededFormatFromJSON(json: any): SeededFormat;
 export declare function SeededFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededFormat;

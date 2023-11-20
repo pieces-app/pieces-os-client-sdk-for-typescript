@@ -62,14 +62,6 @@ import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-    Tags,
-    TagsFromJSON,
-    TagsFromJSONTyped,
-    TagsToJSON,
-    Websites,
-    WebsitesFromJSON,
-    WebsitesFromJSONTyped,
-    WebsitesToJSON,
 } from './';
 
 /**
@@ -184,18 +176,6 @@ export interface Format {
     analysis?: Analysis;
     /**
      * 
-     * @type {Websites}
-     * @memberof Format
-     */
-    websites?: Websites;
-    /**
-     * 
-     * @type {Tags}
-     * @memberof Format
-     */
-    tags?: Tags;
-    /**
-     * 
      * @type {Relationship}
      * @memberof Format
      */
@@ -235,8 +215,6 @@ export function FormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): Fo
         'fragment': !exists(json, 'fragment') ? undefined : FragmentFormatFromJSON(json['fragment']),
         'file': !exists(json, 'file') ? undefined : FileFormatFromJSON(json['file']),
         'analysis': !exists(json, 'analysis') ? undefined : AnalysisFromJSON(json['analysis']),
-        'websites': !exists(json, 'websites') ? undefined : WebsitesFromJSON(json['websites']),
-        'tags': !exists(json, 'tags') ? undefined : TagsFromJSON(json['tags']),
         'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
         'activities': !exists(json, 'activities') ? undefined : ActivitiesFromJSON(json['activities']),
     };
@@ -268,8 +246,6 @@ export function FormatToJSON(value?: Format | null): any {
         'fragment': FragmentFormatToJSON(value.fragment),
         'file': FileFormatToJSON(value.file),
         'analysis': AnalysisToJSON(value.analysis),
-        'websites': WebsitesToJSON(value.websites),
-        'tags': TagsToJSON(value.tags),
         'relationship': RelationshipToJSON(value.relationship),
         'activities': ActivitiesToJSON(value.activities),
     };

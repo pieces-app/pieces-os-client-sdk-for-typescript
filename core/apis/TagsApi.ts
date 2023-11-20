@@ -15,6 +15,12 @@
 
 import * as runtime from '../runtime';
 import {
+    ExistentMetadata,
+    ExistentMetadataFromJSON,
+    ExistentMetadataToJSON,
+    ExistingMetadata,
+    ExistingMetadataFromJSON,
+    ExistingMetadataToJSON,
     SeededTag,
     SeededTagFromJSON,
     SeededTagToJSON,
@@ -33,6 +39,10 @@ export interface TagsCreateNewTagRequest {
 
 export interface TagsDeleteSpecificTagRequest {
     tag: string;
+}
+
+export interface TagsExistsRequest {
+    existentMetadata?: ExistentMetadata;
 }
 
 export interface TagsSnapshotRequest {
@@ -108,6 +118,37 @@ export class TagsApi extends runtime.BaseAPI {
      */
     async tagsDeleteSpecificTag(requestParameters: TagsDeleteSpecificTagRequest): Promise<void> {
         await this.tagsDeleteSpecificTagRaw(requestParameters);
+    }
+
+    /**
+     * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
+     * /tags/exists [POST]
+     */
+    async tagsExistsRaw(requestParameters: TagsExistsRequest): Promise<runtime.ApiResponse<ExistingMetadata>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/tags/exists`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExistentMetadataToJSON(requestParameters.existentMetadata),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExistingMetadataFromJSON(jsonValue));
+    }
+
+    /**
+     * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
+     * /tags/exists [POST]
+     */
+    async tagsExists(requestParameters: TagsExistsRequest): Promise<ExistingMetadata> {
+        const response = await this.tagsExistsRaw(requestParameters);
+        return await response.value();
     }
 
     /**

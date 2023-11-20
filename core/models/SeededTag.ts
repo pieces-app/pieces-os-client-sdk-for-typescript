@@ -65,12 +65,6 @@ export interface SeededTag {
      */
     mechanism?: MechanismEnum;
     /**
-     * (optionally) you can attach a tag to a format. so when you delete a format this tag will get removed from the asset as well.
-     * @type {string}
-     * @memberof SeededTag
-     */
-    format?: string;
-    /**
      * 
      * @type {TagCategoryEnum}
      * @memberof SeededTag
@@ -98,7 +92,6 @@ export function SeededTagFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'text': json['text'],
         'asset': !exists(json, 'asset') ? undefined : json['asset'],
         'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'format': !exists(json, 'format') ? undefined : json['format'],
         'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
         'person': !exists(json, 'person') ? undefined : json['person'],
     };
@@ -117,7 +110,6 @@ export function SeededTagToJSON(value?: SeededTag | null): any {
         'text': value.text,
         'asset': value.asset,
         'mechanism': MechanismEnumToJSON(value.mechanism),
-        'format': value.format,
         'category': TagCategoryEnumToJSON(value.category),
         'person': value.person,
     };

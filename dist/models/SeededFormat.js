@@ -28,9 +28,7 @@ function SeededFormatFromJSONTyped(json, ignoreDiscriminator) {
         'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, _1.SeededFileFromJSON)(json['file']),
         'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, _1.SeededFragmentFromJSON)(json['fragment']),
-        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (json['websites'].map(_1.SeededWebsiteFromJSON)),
         'classification': !(0, runtime_1.exists)(json, 'classification') ? undefined : (0, _1.SeededClassificationFromJSON)(json['classification']),
-        'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : (json['tags'].map(_1.SeededTagFromJSON)),
     };
 }
 exports.SeededFormatFromJSONTyped = SeededFormatFromJSONTyped;
@@ -45,9 +43,7 @@ function SeededFormatToJSON(value) {
         'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'file': (0, _1.SeededFileToJSON)(value.file),
         'fragment': (0, _1.SeededFragmentToJSON)(value.fragment),
-        'websites': value.websites === undefined ? undefined : (value.websites.map(_1.SeededWebsiteToJSON)),
         'classification': (0, _1.SeededClassificationToJSON)(value.classification),
-        'tags': value.tags === undefined ? undefined : (value.tags.map(_1.SeededTagToJSON)),
     };
 }
 exports.SeededFormatToJSON = SeededFormatToJSON;

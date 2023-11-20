@@ -47,12 +47,6 @@ export interface SeededTag {
      */
     mechanism?: MechanismEnum;
     /**
-     * (optionally) you can attach a tag to a format. so when you delete a format this tag will get removed from the asset as well.
-     * @type {string}
-     * @memberof SeededTag
-     */
-    format?: string;
-    /**
      *
      * @type {TagCategoryEnum}
      * @memberof SeededTag

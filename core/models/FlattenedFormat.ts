@@ -42,14 +42,6 @@ import {
     FlattenedAnalysisFromJSON,
     FlattenedAnalysisFromJSONTyped,
     FlattenedAnalysisToJSON,
-    FlattenedTags,
-    FlattenedTagsFromJSON,
-    FlattenedTagsFromJSONTyped,
-    FlattenedTagsToJSON,
-    FlattenedWebsites,
-    FlattenedWebsitesFromJSON,
-    FlattenedWebsitesFromJSONTyped,
-    FlattenedWebsitesToJSON,
     FragmentFormat,
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
@@ -184,18 +176,6 @@ export interface FlattenedFormat {
     analysis?: FlattenedAnalysis;
     /**
      * 
-     * @type {FlattenedWebsites}
-     * @memberof FlattenedFormat
-     */
-    websites?: FlattenedWebsites;
-    /**
-     * 
-     * @type {FlattenedTags}
-     * @memberof FlattenedFormat
-     */
-    tags?: FlattenedTags;
-    /**
-     * 
      * @type {Relationship}
      * @memberof FlattenedFormat
      */
@@ -235,8 +215,6 @@ export function FlattenedFormatFromJSONTyped(json: any, ignoreDiscriminator: boo
         'fragment': !exists(json, 'fragment') ? undefined : FragmentFormatFromJSON(json['fragment']),
         'file': !exists(json, 'file') ? undefined : FileFormatFromJSON(json['file']),
         'analysis': !exists(json, 'analysis') ? undefined : FlattenedAnalysisFromJSON(json['analysis']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'tags': !exists(json, 'tags') ? undefined : FlattenedTagsFromJSON(json['tags']),
         'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
         'activities': !exists(json, 'activities') ? undefined : FlattenedActivitiesFromJSON(json['activities']),
     };
@@ -268,8 +246,6 @@ export function FlattenedFormatToJSON(value?: FlattenedFormat | null): any {
         'fragment': FragmentFormatToJSON(value.fragment),
         'file': FileFormatToJSON(value.file),
         'analysis': FlattenedAnalysisToJSON(value.analysis),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'tags': FlattenedTagsToJSON(value.tags),
         'relationship': RelationshipToJSON(value.relationship),
         'activities': FlattenedActivitiesToJSON(value.activities),
     };

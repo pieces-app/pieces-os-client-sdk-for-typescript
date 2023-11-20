@@ -97,6 +97,31 @@ class TagsApi extends runtime.BaseAPI {
         await this.tagsDeleteSpecificTagRaw(requestParameters);
     }
     /**
+     * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
+     * /tags/exists [POST]
+     */
+    async tagsExistsRaw(requestParameters) {
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/tags/exists`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.ExistentMetadataToJSON)(requestParameters.existentMetadata),
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.ExistingMetadataFromJSON)(jsonValue));
+    }
+    /**
+     * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
+     * /tags/exists [POST]
+     */
+    async tagsExists(requestParameters) {
+        const response = await this.tagsExistsRaw(requestParameters);
+        return await response.value();
+    }
+    /**
      * This will get a snapshot of all of your tags.
      * /tags [GET]
      */

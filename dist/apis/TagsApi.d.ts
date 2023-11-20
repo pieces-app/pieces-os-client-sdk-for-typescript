@@ -10,13 +10,16 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { SeededTag, Tag, Tags } from '../models';
+import { ExistentMetadata, ExistingMetadata, SeededTag, Tag, Tags } from '../models';
 export interface TagsCreateNewTagRequest {
     transferables?: boolean;
     seededTag?: SeededTag;
 }
 export interface TagsDeleteSpecificTagRequest {
     tag: string;
+}
+export interface TagsExistsRequest {
+    existentMetadata?: ExistentMetadata;
 }
 export interface TagsSnapshotRequest {
     transferables?: boolean;
@@ -45,6 +48,16 @@ export declare class TagsApi extends runtime.BaseAPI {
      * /tags/{tag}/delete [POST]
      */
     tagsDeleteSpecificTag(requestParameters: TagsDeleteSpecificTagRequest): Promise<void>;
+    /**
+     * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
+     * /tags/exists [POST]
+     */
+    tagsExistsRaw(requestParameters: TagsExistsRequest): Promise<runtime.ApiResponse<ExistingMetadata>>;
+    /**
+     * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
+     * /tags/exists [POST]
+     */
+    tagsExists(requestParameters: TagsExistsRequest): Promise<ExistingMetadata>;
     /**
      * This will get a snapshot of all of your tags.
      * /tags [GET]

@@ -11,6 +11,22 @@
  */
 import * as runtime from '../runtime';
 import { SeededScoreIncrement, Website } from '../models';
+export interface AssociateAssetRequest {
+    asset: string;
+    website: string;
+}
+export interface AssociatePersonRequest {
+    website: string;
+    person: string;
+}
+export interface DisassociateAssetRequest {
+    website: string;
+    asset: string;
+}
+export interface DisassociatePersonRequest {
+    website: string;
+    person: string;
+}
 export interface WebsiteScoresIncrementRequest {
     website: string;
     seededScoreIncrement?: SeededScoreIncrement;
@@ -27,6 +43,46 @@ export interface WebsitesSpecificWebsiteSnapshotRequest {
  *
  */
 export declare class WebsiteApi extends runtime.BaseAPI {
+    /**
+     * This will associate a website with a asset.
+     * /website/{website}/assets/associate/{asset} [POST]
+     */
+    associateAssetRaw(requestParameters: AssociateAssetRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will associate a website with a asset.
+     * /website/{website}/assets/associate/{asset} [POST]
+     */
+    associateAsset(requestParameters: AssociateAssetRequest): Promise<void>;
+    /**
+     * This will associate a website with a person.
+     * /website/{website}/persons/associate/{person} [POST]
+     */
+    associatePersonRaw(requestParameters: AssociatePersonRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will associate a website with a person.
+     * /website/{website}/persons/associate/{person} [POST]
+     */
+    associatePerson(requestParameters: AssociatePersonRequest): Promise<void>;
+    /**
+     * This will enable us to dissassociate a website from a asset.
+     * /website/{website}/assets/disassociate/{asset} [POST]
+     */
+    disassociateAssetRaw(requestParameters: DisassociateAssetRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will enable us to dissassociate a website from a asset.
+     * /website/{website}/assets/disassociate/{asset} [POST]
+     */
+    disassociateAsset(requestParameters: DisassociateAssetRequest): Promise<void>;
+    /**
+     * This will enable us to dissassociate a website from a person.
+     * /website/{website}/persons/disassociate/{person} [POST]
+     */
+    disassociatePersonRaw(requestParameters: DisassociatePersonRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will enable us to dissassociate a website from a person.
+     * /website/{website}/persons/disassociate/{person} [POST]
+     */
+    disassociatePerson(requestParameters: DisassociatePersonRequest): Promise<void>;
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/website/{website}/scores/increment\' [POST]

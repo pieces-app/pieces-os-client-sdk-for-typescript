@@ -13,7 +13,7 @@ import { EmbeddedModelSchema, MechanismEnum } from './';
 /**
  * This is the minimum information required to create a website for a specific asset.
  *
- * you can optionally add an asset, format, or person id to attach this website directly to it
+ * you can optionally add an asset, or person id to attach this website directly to it
  *
  * TODO consider updating these asset,format to referenced Models
  * @export
@@ -44,12 +44,6 @@ export interface SeededWebsite {
      * @memberof SeededWebsite
      */
     name: string;
-    /**
-     * This is optionally here, depending on if you want to also associate this with a specific format.
-     * @type {string}
-     * @memberof SeededWebsite
-     */
-    format?: string;
     /**
      *
      * @type {MechanismEnum}

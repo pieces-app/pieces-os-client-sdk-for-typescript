@@ -15,6 +15,12 @@
 
 import * as runtime from '../runtime';
 import {
+    ExistentMetadata,
+    ExistentMetadataFromJSON,
+    ExistentMetadataToJSON,
+    ExistingMetadata,
+    ExistingMetadataFromJSON,
+    ExistingMetadataToJSON,
     SeededWebsite,
     SeededWebsiteFromJSON,
     SeededWebsiteToJSON,
@@ -33,6 +39,10 @@ export interface WebsitesCreateNewWebsiteRequest {
 
 export interface WebsitesDeleteSpecificWebsiteRequest {
     website: string;
+}
+
+export interface WebsitesExistsRequest {
+    existentMetadata?: ExistentMetadata;
 }
 
 export interface WebsitesSnapshotRequest {
@@ -108,6 +118,37 @@ export class WebsitesApi extends runtime.BaseAPI {
      */
     async websitesDeleteSpecificWebsite(requestParameters: WebsitesDeleteSpecificWebsiteRequest): Promise<void> {
         await this.websitesDeleteSpecificWebsiteRaw(requestParameters);
+    }
+
+    /**
+     * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
+     * /websites/exists [POST]
+     */
+    async websitesExistsRaw(requestParameters: WebsitesExistsRequest): Promise<runtime.ApiResponse<ExistingMetadata>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/websites/exists`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ExistentMetadataToJSON(requestParameters.existentMetadata),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExistingMetadataFromJSON(jsonValue));
+    }
+
+    /**
+     * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
+     * /websites/exists [POST]
+     */
+    async websitesExists(requestParameters: WebsitesExistsRequest): Promise<ExistingMetadata> {
+        const response = await this.websitesExistsRaw(requestParameters);
+        return await response.value();
     }
 
     /**

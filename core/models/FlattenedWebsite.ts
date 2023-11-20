@@ -18,6 +18,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    FlattenedAssets,
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
     FlattenedPersons,
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
@@ -30,14 +34,6 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
-    ReferencedAssetFromJSON,
-    ReferencedAssetFromJSONTyped,
-    ReferencedAssetToJSON,
-    ReferencedFormat,
-    ReferencedFormatFromJSON,
-    ReferencedFormatFromJSONTyped,
-    ReferencedFormatToJSON,
     Score,
     ScoreFromJSON,
     ScoreFromJSONTyped,
@@ -64,10 +60,10 @@ export interface FlattenedWebsite {
     id: string;
     /**
      * 
-     * @type {ReferencedAsset}
+     * @type {FlattenedAssets}
      * @memberof FlattenedWebsite
      */
-    asset?: ReferencedAsset;
+    assets?: FlattenedAssets;
     /**
      * A customizable name.
      * @type {string}
@@ -80,12 +76,6 @@ export interface FlattenedWebsite {
      * @memberof FlattenedWebsite
      */
     url: string;
-    /**
-     * 
-     * @type {ReferencedFormat}
-     * @memberof FlattenedWebsite
-     */
-    format?: ReferencedFormat;
     /**
      * 
      * @type {GroupedTimestamp}
@@ -105,11 +95,11 @@ export interface FlattenedWebsite {
      */
     deleted?: GroupedTimestamp;
     /**
-     * 
-     * @type {MechanismEnum}
+     * This is a Map<String, MechanismEnum> where the the key is an asset id.
+     * @type {{ [key: string]: MechanismEnum; }}
      * @memberof FlattenedWebsite
      */
-    mechanism: MechanismEnum;
+    mechanisms?: { [key: string]: MechanismEnum; };
     /**
      * This is an optional value that will keep track of the number of times this has been interacted with.
      * @type {number}
@@ -142,14 +132,13 @@ export function FlattenedWebsiteFromJSONTyped(json: any, ignoreDiscriminator: bo
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'name': json['name'],
         'url': json['url'],
-        'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanism': MechanismEnumFromJSON(json['mechanism']),
+        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
         'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
@@ -167,14 +156,13 @@ export function FlattenedWebsiteToJSON(value?: FlattenedWebsite | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'id': value.id,
-        'asset': ReferencedAssetToJSON(value.asset),
+        'assets': FlattenedAssetsToJSON(value.assets),
         'name': value.name,
         'url': value.url,
-        'format': ReferencedFormatToJSON(value.format),
         'created': GroupedTimestampToJSON(value.created),
         'updated': GroupedTimestampToJSON(value.updated),
         'deleted': GroupedTimestampToJSON(value.deleted),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
         'interactions': value.interactions,
         'persons': FlattenedPersonsToJSON(value.persons),
         'score': ScoreToJSON(value.score),

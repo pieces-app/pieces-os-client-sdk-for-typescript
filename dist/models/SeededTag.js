@@ -29,7 +29,6 @@ function SeededTagFromJSONTyped(json, ignoreDiscriminator) {
         'text': json['text'],
         'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : json['asset'],
         'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
-        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : json['format'],
         'category': !(0, runtime_1.exists)(json, 'category') ? undefined : (0, _1.TagCategoryEnumFromJSON)(json['category']),
         'person': !(0, runtime_1.exists)(json, 'person') ? undefined : json['person'],
     };
@@ -47,7 +46,6 @@ function SeededTagToJSON(value) {
         'text': value.text,
         'asset': value.asset,
         'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
-        'format': value.format,
         'category': (0, _1.TagCategoryEnumToJSON)(value.category),
         'person': value.person,
     };

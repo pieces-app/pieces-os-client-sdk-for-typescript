@@ -34,7 +34,7 @@ import {
     SeededUserFromJSON,
     SeededUserFromJSONTyped,
     SeededUserToJSON,
-} from './index';
+} from './';
 
 /**
  *  required to pass in an asset or assets.

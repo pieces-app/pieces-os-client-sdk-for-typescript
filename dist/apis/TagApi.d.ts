@@ -11,6 +11,22 @@
  */
 import * as runtime from '../runtime';
 import { SeededScoreIncrement, Tag } from '../models';
+export interface TagAssociateAssetRequest {
+    asset: string;
+    tag: string;
+}
+export interface TagAssociatePersonRequest {
+    tag: string;
+    person: string;
+}
+export interface TagDisassociateAssetRequest {
+    tag: string;
+    asset: string;
+}
+export interface TagDisassociatePersonRequest {
+    tag: string;
+    person: string;
+}
 export interface TagScoresIncrementRequest {
     tag: string;
     seededScoreIncrement?: SeededScoreIncrement;
@@ -27,6 +43,46 @@ export interface TagsSpecificTagSnapshotRequest {
  *
  */
 export declare class TagApi extends runtime.BaseAPI {
+    /**
+     * This will associate a tag with a asset.
+     * /tag/{tag}/assets/associate/{asset} [POST]
+     */
+    tagAssociateAssetRaw(requestParameters: TagAssociateAssetRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will associate a tag with a asset.
+     * /tag/{tag}/assets/associate/{asset} [POST]
+     */
+    tagAssociateAsset(requestParameters: TagAssociateAssetRequest): Promise<void>;
+    /**
+     * This will associate a tag with a person.
+     * /tag/{tag}/persons/associate/{person} [POST]
+     */
+    tagAssociatePersonRaw(requestParameters: TagAssociatePersonRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will associate a tag with a person.
+     * /tag/{tag}/persons/associate/{person} [POST]
+     */
+    tagAssociatePerson(requestParameters: TagAssociatePersonRequest): Promise<void>;
+    /**
+     * This will enable us to dissassociate a tag from a asset.
+     * /tag/{tag}/assets/disassociate/{asset} [POST]
+     */
+    tagDisassociateAssetRaw(requestParameters: TagDisassociateAssetRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will enable us to dissassociate a tag from a asset.
+     * /tag/{tag}/assets/disassociate/{asset} [POST]
+     */
+    tagDisassociateAsset(requestParameters: TagDisassociateAssetRequest): Promise<void>;
+    /**
+     * This will enable us to dissassociate a tag from a person.
+     * /tag/{tag}/persons/disassociate/{person} [POST]
+     */
+    tagDisassociatePersonRaw(requestParameters: TagDisassociatePersonRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will enable us to dissassociate a tag from a person.
+     * /tag/{tag}/persons/disassociate/{person} [POST]
+     */
+    tagDisassociatePerson(requestParameters: TagDisassociatePersonRequest): Promise<void>;
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/tag/{tag}/scores/increment\' [POST]

@@ -23,6 +23,26 @@ import {
     TagToJSON,
 } from '../models';
 
+export interface TagAssociateAssetRequest {
+    asset: string;
+    tag: string;
+}
+
+export interface TagAssociatePersonRequest {
+    tag: string;
+    person: string;
+}
+
+export interface TagDisassociateAssetRequest {
+    tag: string;
+    asset: string;
+}
+
+export interface TagDisassociatePersonRequest {
+    tag: string;
+    person: string;
+}
+
 export interface TagScoresIncrementRequest {
     tag: string;
     seededScoreIncrement?: SeededScoreIncrement;
@@ -42,6 +62,146 @@ export interface TagsSpecificTagSnapshotRequest {
  * 
  */
 export class TagApi extends runtime.BaseAPI {
+
+    /**
+     * This will associate a tag with a asset.
+     * /tag/{tag}/assets/associate/{asset} [POST]
+     */
+    async tagAssociateAssetRaw(requestParameters: TagAssociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling tagAssociateAsset.');
+        }
+
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagAssociateAsset.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/tag/{tag}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a tag with a asset.
+     * /tag/{tag}/assets/associate/{asset} [POST]
+     */
+    async tagAssociateAsset(requestParameters: TagAssociateAssetRequest): Promise<void> {
+        await this.tagAssociateAssetRaw(requestParameters);
+    }
+
+    /**
+     * This will associate a tag with a person.
+     * /tag/{tag}/persons/associate/{person} [POST]
+     */
+    async tagAssociatePersonRaw(requestParameters: TagAssociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagAssociatePerson.');
+        }
+
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling tagAssociatePerson.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/tag/{tag}/persons/associate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a tag with a person.
+     * /tag/{tag}/persons/associate/{person} [POST]
+     */
+    async tagAssociatePerson(requestParameters: TagAssociatePersonRequest): Promise<void> {
+        await this.tagAssociatePersonRaw(requestParameters);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from a asset.
+     * /tag/{tag}/assets/disassociate/{asset} [POST]
+     */
+    async tagDisassociateAssetRaw(requestParameters: TagDisassociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociateAsset.');
+        }
+
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling tagDisassociateAsset.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/tag/{tag}/assets/disassociate/{asset}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from a asset.
+     * /tag/{tag}/assets/disassociate/{asset} [POST]
+     */
+    async tagDisassociateAsset(requestParameters: TagDisassociateAssetRequest): Promise<void> {
+        await this.tagDisassociateAssetRaw(requestParameters);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from a person.
+     * /tag/{tag}/persons/disassociate/{person} [POST]
+     */
+    async tagDisassociatePersonRaw(requestParameters: TagDisassociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociatePerson.');
+        }
+
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling tagDisassociatePerson.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/tag/{tag}/persons/disassociate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from a person.
+     * /tag/{tag}/persons/disassociate/{person} [POST]
+     */
+    async tagDisassociatePerson(requestParameters: TagDisassociatePersonRequest): Promise<void> {
+        await this.tagDisassociatePersonRaw(requestParameters);
+    }
 
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.

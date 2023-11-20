@@ -142,6 +142,8 @@ models/EmbeddedModelSchema.ts
 models/EmbeddedModelSchemaSemanticVersionEnum.ts
 models/Embedding.ts
 models/Embeddings.ts
+models/ExistentMetadata.ts
+models/ExistingMetadata.ts
 models/ExportedAsset.ts
 models/ExportedDatabase.ts
 models/ExportedDatabaseFormat.ts
@@ -271,6 +273,7 @@ models/QGPTRepromptOutput.ts
 models/QGPTStreamEnum.ts
 models/QGPTStreamInput.ts
 models/QGPTStreamOutput.ts
+models/Reaction.ts
 models/Recipients.ts
 models/ReferencedActivity.ts
 models/ReferencedAnchor.ts
@@ -295,8 +298,11 @@ models/RelevantQGPTSeed.ts
 models/RelevantQGPTSeeds.ts
 models/ResultedPKCE.ts
 models/ReturnedUserProfile.ts
+models/ReuseReaction.ts
+models/ReuseSuggestion.ts
 models/RevokedPKCE.ts
 models/Role.ts
+models/SaveSuggestion.ts
 models/Score.ts
 models/SearchedAsset.ts
 models/SearchedAssets.ts
@@ -315,7 +321,9 @@ models/SeededAssetTags.ts
 models/SeededAssetWebsite.ts
 models/SeededAssetsRecommendation.ts
 models/SeededClassification.ts
+models/SeededConnectorAsset.ts
 models/SeededConnectorConnection.ts
+models/SeededConnectorCreation.ts
 models/SeededConnectorTracking.ts
 models/SeededConversation.ts
 models/SeededConversationMessage.ts
@@ -374,6 +382,8 @@ models/Shares.ts
 models/Space.ts
 models/StreamedIdentifier.ts
 models/StreamedIdentifiers.ts
+models/Suggestion.ts
+models/SuggestionTarget.ts
 models/SystemExecutionCpuInformation.ts
 models/SystemExecutionInformation.ts
 models/TLPCodeDirectoryAnalytics.ts

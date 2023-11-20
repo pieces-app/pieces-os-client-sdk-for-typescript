@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * A model representing a returnable response for a OAuthGroup Token
  * @export

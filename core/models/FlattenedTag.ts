@@ -18,6 +18,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    FlattenedAssets,
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
     FlattenedPersons,
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
@@ -30,14 +34,6 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
-    ReferencedAssetFromJSON,
-    ReferencedAssetFromJSONTyped,
-    ReferencedAssetToJSON,
-    ReferencedFormat,
-    ReferencedFormatFromJSON,
-    ReferencedFormatFromJSONTyped,
-    ReferencedFormatToJSON,
     Relationship,
     RelationshipFromJSON,
     RelationshipFromJSONTyped,
@@ -77,17 +73,17 @@ export interface FlattenedTag {
      */
     text: string;
     /**
-     * 
-     * @type {MechanismEnum}
+     * This is a Map<String, MechanismEnum> where the the key is an asset id.
+     * @type {{ [key: string]: MechanismEnum; }}
      * @memberof FlattenedTag
      */
-    mechanism: MechanismEnum;
+    mechanisms?: { [key: string]: MechanismEnum; };
     /**
      * 
-     * @type {ReferencedAsset}
+     * @type {FlattenedAssets}
      * @memberof FlattenedTag
      */
-    asset?: ReferencedAsset;
+    assets?: FlattenedAssets;
     /**
      * 
      * @type {GroupedTimestamp}
@@ -100,12 +96,6 @@ export interface FlattenedTag {
      * @memberof FlattenedTag
      */
     updated: GroupedTimestamp;
-    /**
-     * 
-     * @type {ReferencedFormat}
-     * @memberof FlattenedTag
-     */
-    format?: ReferencedFormat;
     /**
      * 
      * @type {GroupedTimestamp}
@@ -157,11 +147,10 @@ export function FlattenedTagFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'text': json['text'],
-        'mechanism': MechanismEnumFromJSON(json['mechanism']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
         'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'category': TagCategoryEnumFromJSON(json['category']),
         'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
@@ -183,11 +172,10 @@ export function FlattenedTagToJSON(value?: FlattenedTag | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'id': value.id,
         'text': value.text,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'asset': ReferencedAssetToJSON(value.asset),
+        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
+        'assets': FlattenedAssetsToJSON(value.assets),
         'created': GroupedTimestampToJSON(value.created),
         'updated': GroupedTimestampToJSON(value.updated),
-        'format': ReferencedFormatToJSON(value.format),
         'deleted': GroupedTimestampToJSON(value.deleted),
         'category': TagCategoryEnumToJSON(value.category),
         'relationship': RelationshipToJSON(value.relationship),
