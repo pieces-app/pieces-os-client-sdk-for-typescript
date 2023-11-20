@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedAssetEventCreationMetadataToJSON = exports.TrackedAssetEventCreationMetadataFromJSONTyped = exports.TrackedAssetEventCreationMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function TrackedAssetEventCreationMetadataFromJSON(json) {
     return TrackedAssetEventCreationMetadataFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function TrackedAssetEventCreationMetadataFromJSONTyped(json, ignoreDiscriminato
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'clipboard': !(0, runtime_1.exists)(json, 'clipboard') ? undefined : (0, _1.TrackedAssetEventCreationMetadataClipboardFromJSON)(json['clipboard']),
-        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, _1.TrackedAssetEventCreationMetadataFileFromJSON)(json['file']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'clipboard': !(0, runtime_1.exists)(json, 'clipboard') ? undefined : (0, index_1.TrackedAssetEventCreationMetadataClipboardFromJSON)(json['clipboard']),
+        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, index_1.TrackedAssetEventCreationMetadataFileFromJSON)(json['file']),
     };
 }
 exports.TrackedAssetEventCreationMetadataFromJSONTyped = TrackedAssetEventCreationMetadataFromJSONTyped;
@@ -39,9 +39,9 @@ function TrackedAssetEventCreationMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'clipboard': (0, _1.TrackedAssetEventCreationMetadataClipboardToJSON)(value.clipboard),
-        'file': (0, _1.TrackedAssetEventCreationMetadataFileToJSON)(value.file),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'clipboard': (0, index_1.TrackedAssetEventCreationMetadataClipboardToJSON)(value.clipboard),
+        'file': (0, index_1.TrackedAssetEventCreationMetadataFileToJSON)(value.file),
     };
 }
 exports.TrackedAssetEventCreationMetadataToJSON = TrackedAssetEventCreationMetadataToJSON;

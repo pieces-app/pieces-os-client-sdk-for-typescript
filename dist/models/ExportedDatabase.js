@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExportedDatabaseToJSON = exports.ExportedDatabaseFromJSONTyped = exports.ExportedDatabaseFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ExportedDatabaseFromJSON(json) {
     return ExportedDatabaseFromJSONTyped(json, false);
 }
@@ -40,9 +40,9 @@ function ExportedDatabaseFromJSONTyped(json, ignoreDiscriminator) {
         'sensitives': json['sensitives'],
         'tags': json['tags'],
         'websites': json['websites'],
-        'values': (0, _1.ExportedDatabaseFormatsFromJSON)(json['values']),
+        'values': (0, index_1.ExportedDatabaseFormatsFromJSON)(json['values']),
         'version': json['version'],
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'relationships': !(0, runtime_1.exists)(json, 'relationships') ? undefined : json['relationships'],
         'activities': !(0, runtime_1.exists)(json, 'activities') ? undefined : json['activities'],
         'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : json['annotations'],
@@ -51,7 +51,7 @@ function ExportedDatabaseFromJSONTyped(json, ignoreDiscriminator) {
         'anchorPoints': !(0, runtime_1.exists)(json, 'anchorPoints') ? undefined : json['anchorPoints'],
         'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : json['conversations'],
         'conversationMessages': !(0, runtime_1.exists)(json, 'conversationMessages') ? undefined : json['conversationMessages'],
-        'messageValues': !(0, runtime_1.exists)(json, 'messageValues') ? undefined : (0, _1.ExportedDatabaseFormatsFromJSON)(json['messageValues']),
+        'messageValues': !(0, runtime_1.exists)(json, 'messageValues') ? undefined : (0, index_1.ExportedDatabaseFormatsFromJSON)(json['messageValues']),
     };
 }
 exports.ExportedDatabaseFromJSONTyped = ExportedDatabaseFromJSONTyped;
@@ -78,9 +78,9 @@ function ExportedDatabaseToJSON(value) {
         'sensitives': value.sensitives,
         'tags': value.tags,
         'websites': value.websites,
-        'values': (0, _1.ExportedDatabaseFormatsToJSON)(value.values),
+        'values': (0, index_1.ExportedDatabaseFormatsToJSON)(value.values),
         'version': value.version,
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'relationships': value.relationships,
         'activities': value.activities,
         'annotations': value.annotations,
@@ -89,7 +89,7 @@ function ExportedDatabaseToJSON(value) {
         'anchorPoints': value.anchorPoints,
         'conversations': value.conversations,
         'conversationMessages': value.conversationMessages,
-        'messageValues': (0, _1.ExportedDatabaseFormatsToJSON)(value.messageValues),
+        'messageValues': (0, index_1.ExportedDatabaseFormatsToJSON)(value.messageValues),
     };
 }
 exports.ExportedDatabaseToJSON = ExportedDatabaseToJSON;

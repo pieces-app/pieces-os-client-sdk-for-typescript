@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedAnchor, Score } from './';
+import { EmbeddedModelSchema, ReferencedAnchor, Score } from './index';
 /**
  *
  * @export

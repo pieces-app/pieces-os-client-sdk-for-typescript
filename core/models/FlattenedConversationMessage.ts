@@ -50,7 +50,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a flattened DAG safe version of a ConversationMessage.

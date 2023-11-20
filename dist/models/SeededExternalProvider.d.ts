@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ExternalProviderTypeEnum } from './';
+import { ExternalProviderTypeEnum } from './index';
 /**
  * This is the minimum information needed to connect an additional provider.
  * @export

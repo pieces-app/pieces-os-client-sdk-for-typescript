@@ -22,7 +22,7 @@ import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the context used for grounding the ml models with reguard to a conversation.

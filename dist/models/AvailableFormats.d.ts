@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Classification, EmbeddedModelSchema } from './';
+import { Classification, EmbeddedModelSchema } from './index';
 /**
  * This is a specific model here used within the SeededAsset that enables us to return all the available formats on a specific seed that was passed as an input within the '/assets/draft' endpoint
  * @export

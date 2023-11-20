@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ImageAnalysis } from './';
+import { EmbeddedModelSchema, ImageAnalysis } from './index';
 /**
  *
  * @export

@@ -22,7 +22,7 @@ import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-} from './';
+} from './index';
 
 /**
  * This is provided search spaces, This is a provided assets, TODO in the future we might want to add seeds.

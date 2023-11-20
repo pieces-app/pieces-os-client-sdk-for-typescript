@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExportedAssetToJSON = exports.ExportedAssetFromJSONTyped = exports.ExportedAssetFromJSON = void 0;
-const _1 = require("./");
+const index_1 = require("./index");
 function ExportedAssetFromJSON(json) {
     return ExportedAssetFromJSONTyped(json, false);
 }
@@ -26,8 +26,8 @@ function ExportedAssetFromJSONTyped(json, ignoreDiscriminator) {
     return {
         'name': json['name'],
         'description': json['description'],
-        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
-        'raw': (0, _1.FileFormatFromJSON)(json['raw']),
+        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
+        'raw': (0, index_1.FileFormatFromJSON)(json['raw']),
     };
 }
 exports.ExportedAssetFromJSONTyped = ExportedAssetFromJSONTyped;
@@ -41,8 +41,8 @@ function ExportedAssetToJSON(value) {
     return {
         'name': value.name,
         'description': value.description,
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
-        'raw': (0, _1.FileFormatToJSON)(value.raw),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
+        'raw': (0, index_1.FileFormatToJSON)(value.raw),
     };
 }
 exports.ExportedAssetToJSON = ExportedAssetToJSON;

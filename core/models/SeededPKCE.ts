@@ -22,7 +22,7 @@ import {
     SeededPKCEADDITIONALPARAMETERSFromJSON,
     SeededPKCEADDITIONALPARAMETERSFromJSONTyped,
     SeededPKCEADDITIONALPARAMETERSToJSON,
-} from './';
+} from './index';
 
 /**
  * A model that initialized a PKCE Authentication Flow.

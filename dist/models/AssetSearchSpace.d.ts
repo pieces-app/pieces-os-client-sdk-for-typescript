@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAssets } from './';
+import { EmbeddedModelSchema, FlattenedAssets } from './index';
 /**
  * This is provided search spaces, This is a provided assets, TODO in the future we might want to add seeds.
  * @export

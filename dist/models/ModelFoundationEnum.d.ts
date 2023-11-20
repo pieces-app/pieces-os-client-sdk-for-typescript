@@ -21,6 +21,9 @@ export declare enum ModelFoundationEnum {
     Llama27B = "LLAMA_2_7B",
     Llama213B = "LLAMA_2_13B",
     Llama270B = "LLAMA_2_70B",
+    CodeLlama27B = "CODE_LLAMA_2_7B",
+    CodeLlama213B = "CODE_LLAMA_2_13B",
+    CodeLlama270B = "CODE_LLAMA_2_70B",
     Bard = "BARD",
     Alpaca7B = "ALPACA_7B",
     Alpaca13B = "ALPACA_13B",
@@ -83,7 +86,11 @@ export declare enum ModelFoundationEnum {
     CodeBison = "CODE_BISON",
     CodechatBison = "CODECHAT_BISON",
     CodeGecko = "CODE_GECKO",
-    Distilroberta = "DISTILROBERTA"
+    Distilroberta = "DISTILROBERTA",
+    Mistral7B = "MISTRAL_7B",
+    Gemini = "GEMINI",
+    FastText = "FAST_TEXT",
+    Unixcoder = "UNIXCODER"
 }
 export declare function ModelFoundationEnumFromJSON(json: any): ModelFoundationEnum;
 export declare function ModelFoundationEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelFoundationEnum;

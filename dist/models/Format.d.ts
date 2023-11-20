@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Activities, Analysis, Application, ByteDescriptor, Classification, EmbeddedModelSchema, FileFormat, FlattenedAsset, FragmentFormat, GroupedTimestamp, Relationship, Role } from './';
+import { Activities, Analysis, Application, ByteDescriptor, Classification, EmbeddedModelSchema, FileFormat, FlattenedAsset, FragmentFormat, GroupedTimestamp, Relationship, Role } from './index';
 /**
  * A representation of Data for a particular Form Factor of an Asset.
  *

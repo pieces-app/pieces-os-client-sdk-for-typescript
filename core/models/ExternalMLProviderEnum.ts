@@ -38,7 +38,9 @@ export enum ExternalMLProviderEnum {
     FudanUniversity = 'FUDAN_UNIVERSITY',
     Blickdl = 'BLICKDL',
     HongKongBaptistUniversity = 'HONG_KONG_BAPTIST_UNIVERSITY',
-    Bigcode = 'BIGCODE'
+    Bigcode = 'BIGCODE',
+    Jina = 'JINA',
+    Pieces = 'PIECES'
 }
 
 export function ExternalMLProviderEnumFromJSON(json: any): ExternalMLProviderEnum {

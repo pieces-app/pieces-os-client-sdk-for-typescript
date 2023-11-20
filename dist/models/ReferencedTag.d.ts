@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedTag } from './';
+import { EmbeddedModelSchema, FlattenedTag } from './index';
 /**
  * [DAG Safe] version of a Tag Model.
  * @export

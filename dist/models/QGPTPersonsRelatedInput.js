@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTPersonsRelatedInputToJSON = exports.QGPTPersonsRelatedInputFromJSONTyped = exports.QGPTPersonsRelatedInputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTPersonsRelatedInputFromJSON(json) {
     return QGPTPersonsRelatedInputFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function QGPTPersonsRelatedInputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, _1.SeedFromJSON)(json['seed']),
-        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, _1.QGPTConversationFromJSON)(json['conversation']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, index_1.SeedFromJSON)(json['seed']),
+        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, index_1.QGPTConversationFromJSON)(json['conversation']),
         'application': !(0, runtime_1.exists)(json, 'application') ? undefined : json['application'],
         'model': !(0, runtime_1.exists)(json, 'model') ? undefined : json['model'],
     };
@@ -41,9 +41,9 @@ function QGPTPersonsRelatedInputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'seed': (0, _1.SeedToJSON)(value.seed),
-        'conversation': (0, _1.QGPTConversationToJSON)(value.conversation),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'seed': (0, index_1.SeedToJSON)(value.seed),
+        'conversation': (0, index_1.QGPTConversationToJSON)(value.conversation),
         'application': value.application,
         'model': value.model,
     };

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SearchedAsset } from './';
+import { EmbeddedModelSchema, SearchedAsset } from './index';
 /**
  * This is a modle that will return fro mthe search endpoint that will just contain an array of assets!
  * @export

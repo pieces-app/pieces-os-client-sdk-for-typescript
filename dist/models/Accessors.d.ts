@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Accessor, EmbeddedModelSchema } from './';
+import { Accessor, EmbeddedModelSchema } from './index';
 /**
  *
  * @export

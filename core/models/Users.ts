@@ -22,7 +22,7 @@ import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './index';
 
 /**
  * A base class for a collection of users and some additional meta properties.

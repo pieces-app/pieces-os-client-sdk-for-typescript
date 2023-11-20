@@ -22,7 +22,7 @@ import {
     TextMatchFromJSON,
     TextMatchFromJSONTyped,
     TextMatchToJSON,
-} from './';
+} from './index';
 
 /**
  * This is optional metatdata attached to a sensitive piece of data.

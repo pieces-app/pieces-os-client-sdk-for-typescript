@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GraphicalImageDescriptiveStatistics } from './';
+import { EmbeddedModelSchema, GraphicalImageDescriptiveStatistics } from './index';
 /**
  *
  * @export

@@ -42,7 +42,7 @@ import {
     ModelUsageEnumFromJSON,
     ModelUsageEnumFromJSONTyped,
     ModelUsageEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This is Precursor to a Model.

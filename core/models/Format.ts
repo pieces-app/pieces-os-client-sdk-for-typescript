@@ -62,7 +62,7 @@ import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-} from './';
+} from './index';
 
 /**
  * A representation of Data for a particular Form Factor of an Asset.

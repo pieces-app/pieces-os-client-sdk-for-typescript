@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReferencedPersonToJSON = exports.ReferencedPersonFromJSONTyped = exports.ReferencedPersonFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ReferencedPersonFromJSON(json) {
     return ReferencedPersonFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function ReferencedPersonFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, _1.FlattenedPersonFromJSON)(json['reference']),
+        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, index_1.FlattenedPersonFromJSON)(json['reference']),
     };
 }
 exports.ReferencedPersonFromJSONTyped = ReferencedPersonFromJSONTyped;
@@ -39,9 +39,9 @@ function ReferencedPersonToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'reference': (0, _1.FlattenedPersonToJSON)(value.reference),
+        'reference': (0, index_1.FlattenedPersonToJSON)(value.reference),
     };
 }
 exports.ReferencedPersonToJSON = ReferencedPersonToJSON;

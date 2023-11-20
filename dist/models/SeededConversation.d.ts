@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAssets, ReferencedModel, SeededAnchor, SeededAnnotation, SeededConversationMessage } from './';
+import { Application, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAssets, ReferencedModel, SeededAnchor, SeededAnnotation, SeededConversationMessage } from './index';
 /**
  * This is a pre-Conversation object.
  *

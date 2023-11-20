@@ -15,15 +15,15 @@
 
 import * as runtime from '../runtime';
 import {
-    Persons,
-    PersonsFromJSON,
-    PersonsToJSON,
     QGPTHintsInput,
     QGPTHintsInputFromJSON,
     QGPTHintsInputToJSON,
     QGPTPersonsRelatedInput,
     QGPTPersonsRelatedInputFromJSON,
     QGPTPersonsRelatedInputToJSON,
+    QGPTPersonsRelatedOutput,
+    QGPTPersonsRelatedOutputFromJSON,
+    QGPTPersonsRelatedOutputToJSON,
     QGPTQuestionInput,
     QGPTQuestionInputFromJSON,
     QGPTQuestionInputToJSON,
@@ -115,7 +115,7 @@ export class QGPTApi extends runtime.BaseAPI {
      * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
      * /qgpt/persons/related [POST]
      */
-    async personsRelatedRaw(requestParameters: PersonsRelatedRequest): Promise<runtime.ApiResponse<Persons>> {
+    async personsRelatedRaw(requestParameters: PersonsRelatedRequest): Promise<runtime.ApiResponse<QGPTPersonsRelatedOutput>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -134,14 +134,14 @@ export class QGPTApi extends runtime.BaseAPI {
             body: QGPTPersonsRelatedInputToJSON(requestParameters.qGPTPersonsRelatedInput),
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => PersonsFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => QGPTPersonsRelatedOutputFromJSON(jsonValue));
     }
 
     /**
      * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
      * /qgpt/persons/related [POST]
      */
-    async personsRelated(requestParameters: PersonsRelatedRequest): Promise<Persons> {
+    async personsRelated(requestParameters: PersonsRelatedRequest): Promise<QGPTPersonsRelatedOutput> {
         const response = await this.personsRelatedRaw(requestParameters);
         return await response.value();
     }

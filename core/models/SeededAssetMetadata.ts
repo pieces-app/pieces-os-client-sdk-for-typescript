@@ -50,7 +50,7 @@ import {
     SeededPersonFromJSON,
     SeededPersonFromJSONTyped,
     SeededPersonToJSON,
-} from './';
+} from './index';
 
 /**
  * This is optional metadata sent with the SeededAsset and other SeededAssets ie (UE, Jetbrains...)

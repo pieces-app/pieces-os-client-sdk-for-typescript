@@ -30,7 +30,7 @@ import {
     TLPDirectedDiscoveryFiltersFromJSON,
     TLPDirectedDiscoveryFiltersFromJSONTyped,
     TLPDirectedDiscoveryFiltersToJSON,
-} from './';
+} from './index';
 
 /**
  * Assumption: filters applied in this model will overwrite filters passed in SeededDiscoverableAssets

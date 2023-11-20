@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConversationGroundingToJSON = exports.ConversationGroundingFromJSONTyped = exports.ConversationGroundingFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ConversationGroundingFromJSON(json) {
     return ConversationGroundingFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function ConversationGroundingFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (0, _1.FlattenedConversationMessagesFromJSON)(json['messages']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (0, index_1.FlattenedConversationMessagesFromJSON)(json['messages']),
     };
 }
 exports.ConversationGroundingFromJSONTyped = ConversationGroundingFromJSONTyped;
@@ -38,8 +38,8 @@ function ConversationGroundingToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'messages': (0, _1.FlattenedConversationMessagesToJSON)(value.messages),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'messages': (0, index_1.FlattenedConversationMessagesToJSON)(value.messages),
     };
 }
 exports.ConversationGroundingToJSON = ConversationGroundingToJSON;

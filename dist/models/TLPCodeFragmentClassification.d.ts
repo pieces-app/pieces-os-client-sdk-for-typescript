@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SystemExecutionInformation, TLPCodeFragmentClassificationMetadata } from './';
+import { EmbeddedModelSchema, SystemExecutionInformation, TLPCodeFragmentClassificationMetadata } from './index';
 /**
  * Model for ML big query classification.
  * @export

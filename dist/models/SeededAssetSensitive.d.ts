@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum, SensitiveCategoryEnum, SensitiveMetadata, SensitiveSeverityEnum } from './';
+import { EmbeddedModelSchema, MechanismEnum, SensitiveCategoryEnum, SensitiveMetadata, SensitiveSeverityEnum } from './index';
 /**
  * This is the seededAssetSensitive, this does not have an id yet as we will add it on the server side.
  *

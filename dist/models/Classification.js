@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClassificationToJSON = exports.ClassificationFromJSONTyped = exports.ClassificationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ClassificationFromJSON(json) {
     return ClassificationFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function ClassificationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'generic': (0, _1.ClassificationGenericEnumFromJSON)(json['generic']),
-        'specific': (0, _1.ClassificationSpecificEnumFromJSON)(json['specific']),
-        'rendering': !(0, runtime_1.exists)(json, 'rendering') ? undefined : (0, _1.ClassificationRenderingEnumFromJSON)(json['rendering']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'generic': (0, index_1.ClassificationGenericEnumFromJSON)(json['generic']),
+        'specific': (0, index_1.ClassificationSpecificEnumFromJSON)(json['specific']),
+        'rendering': !(0, runtime_1.exists)(json, 'rendering') ? undefined : (0, index_1.ClassificationRenderingEnumFromJSON)(json['rendering']),
     };
 }
 exports.ClassificationFromJSONTyped = ClassificationFromJSONTyped;
@@ -40,10 +40,10 @@ function ClassificationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'generic': (0, _1.ClassificationGenericEnumToJSON)(value.generic),
-        'specific': (0, _1.ClassificationSpecificEnumToJSON)(value.specific),
-        'rendering': (0, _1.ClassificationRenderingEnumToJSON)(value.rendering),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'generic': (0, index_1.ClassificationGenericEnumToJSON)(value.generic),
+        'specific': (0, index_1.ClassificationSpecificEnumToJSON)(value.specific),
+        'rendering': (0, index_1.ClassificationRenderingEnumToJSON)(value.rendering),
     };
 }
 exports.ClassificationToJSON = ClassificationToJSON;

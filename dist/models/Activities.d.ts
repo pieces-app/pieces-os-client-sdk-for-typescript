@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Activity, EmbeddedModelSchema } from './';
+import { Activity, EmbeddedModelSchema } from './index';
 /**
  * This is the plural of activity
  * @export

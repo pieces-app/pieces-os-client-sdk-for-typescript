@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedAsset, Seed } from './';
+import { EmbeddedModelSchema, ReferencedAsset, Seed } from './index';
 /**
  * This is a generic model used, to wrap a seed, as well as give an identifier used to further identifiy this snippet.
  *

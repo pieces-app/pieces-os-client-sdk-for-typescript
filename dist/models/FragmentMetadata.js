@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FragmentMetadataToJSON = exports.FragmentMetadataFromJSONTyped = exports.FragmentMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function FragmentMetadataFromJSON(json) {
     return FragmentMetadataFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function FragmentMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'ext': !(0, runtime_1.exists)(json, 'ext') ? undefined : (0, _1.ClassificationSpecificEnumFromJSON)(json['ext']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'ext': !(0, runtime_1.exists)(json, 'ext') ? undefined : (0, index_1.ClassificationSpecificEnumFromJSON)(json['ext']),
     };
 }
 exports.FragmentMetadataFromJSONTyped = FragmentMetadataFromJSONTyped;
@@ -38,8 +38,8 @@ function FragmentMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'ext': (0, _1.ClassificationSpecificEnumToJSON)(value.ext),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'ext': (0, index_1.ClassificationSpecificEnumToJSON)(value.ext),
     };
 }
 exports.FragmentMetadataToJSON = FragmentMetadataToJSON;

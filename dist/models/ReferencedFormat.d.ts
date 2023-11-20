@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedFormat } from './';
+import { EmbeddedModelSchema, FlattenedFormat } from './index';
 /**
  * A reference to a format which at minimum must have the format's id. But in the case of a hydrated client API it may have a populated reference of type Format.
  * @export

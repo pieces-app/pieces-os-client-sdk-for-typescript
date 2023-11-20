@@ -22,7 +22,7 @@ import {
     QGPTConversationFromJSON,
     QGPTConversationFromJSONTyped,
     QGPTConversationToJSON,
-} from './';
+} from './index';
 
 /**
  * Query is your followup question.

@@ -18,9 +18,6 @@ import {
     Asset,
     AssetFromJSON,
     AssetToJSON,
-    AssetFormats,
-    AssetFormatsFromJSON,
-    AssetFormatsToJSON,
     AssetReclassification,
     AssetReclassificationFromJSON,
     AssetReclassificationToJSON,
@@ -30,6 +27,9 @@ import {
     ExportedAsset,
     ExportedAssetFromJSON,
     ExportedAssetToJSON,
+    Formats,
+    FormatsFromJSON,
+    FormatsToJSON,
     SeededAccessor,
     SeededAccessorFromJSON,
     SeededAccessorToJSON,
@@ -178,7 +178,7 @@ export class AssetApi extends runtime.BaseAPI {
      * Get the formats for a given asset.
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
-    async assetFormatsRaw(requestParameters: AssetFormatsRequest): Promise<runtime.ApiResponse<AssetFormats>> {
+    async assetFormatsRaw(requestParameters: AssetFormatsRequest): Promise<runtime.ApiResponse<Formats>> {
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
             throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetFormats.');
         }
@@ -198,14 +198,14 @@ export class AssetApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AssetFormatsFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FormatsFromJSON(jsonValue));
     }
 
     /**
      * Get the formats for a given asset.
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
-    async assetFormats(requestParameters: AssetFormatsRequest): Promise<AssetFormats> {
+    async assetFormats(requestParameters: AssetFormatsRequest): Promise<Formats> {
         const response = await this.assetFormatsRaw(requestParameters);
         return await response.value();
     }

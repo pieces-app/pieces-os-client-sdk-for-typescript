@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedAssetsEventSearchMetadataResultsToJSON = exports.TrackedAssetsEventSearchMetadataResultsFromJSONTyped = exports.TrackedAssetsEventSearchMetadataResultsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function TrackedAssetsEventSearchMetadataResultsFromJSON(json) {
     return TrackedAssetsEventSearchMetadataResultsFromJSONTyped(json, false);
 }
@@ -27,8 +27,8 @@ function TrackedAssetsEventSearchMetadataResultsFromJSONTyped(json, ignoreDiscri
     return {
         'fuzzy': !(0, runtime_1.exists)(json, 'fuzzy') ? undefined : json['fuzzy'],
         'exact': !(0, runtime_1.exists)(json, 'exact') ? undefined : json['exact'],
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
-        'space': !(0, runtime_1.exists)(json, 'space') ? undefined : (0, _1.SpaceFromJSON)(json['space']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
+        'space': !(0, runtime_1.exists)(json, 'space') ? undefined : (0, index_1.SpaceFromJSON)(json['space']),
     };
 }
 exports.TrackedAssetsEventSearchMetadataResultsFromJSONTyped = TrackedAssetsEventSearchMetadataResultsFromJSONTyped;
@@ -42,8 +42,8 @@ function TrackedAssetsEventSearchMetadataResultsToJSON(value) {
     return {
         'fuzzy': value.fuzzy,
         'exact': value.exact,
-        'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
-        'space': (0, _1.SpaceToJSON)(value.space),
+        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
+        'space': (0, index_1.SpaceToJSON)(value.space),
     };
 }
 exports.TrackedAssetsEventSearchMetadataResultsToJSON = TrackedAssetsEventSearchMetadataResultsToJSON;

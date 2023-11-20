@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AccessEnum, Asset, EmbeddedModelSchema, Seed, SeededDistributions, SeededUser } from './';
+import { AccessEnum, Asset, EmbeddedModelSchema, Seed, SeededDistributions, SeededUser } from './index';
 /**
  * This is the incoming linkify model.
  *

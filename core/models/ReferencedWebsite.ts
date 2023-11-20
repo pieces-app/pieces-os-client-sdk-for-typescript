@@ -22,7 +22,7 @@ import {
     FlattenedWebsiteFromJSON,
     FlattenedWebsiteFromJSONTyped,
     FlattenedWebsiteToJSON,
-} from './';
+} from './index';
 
 /**
  * 

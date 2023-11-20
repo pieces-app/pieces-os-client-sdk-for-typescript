@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SuggestionToJSON = exports.SuggestionFromJSONTyped = exports.SuggestionFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SuggestionFromJSON(json) {
     return SuggestionFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function SuggestionFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'reuse': (0, _1.ReuseSuggestionFromJSON)(json['reuse']),
-        'save': (0, _1.SaveSuggestionFromJSON)(json['save']),
-        'target': (0, _1.SuggestionTargetFromJSON)(json['target']),
-        'assets': (0, _1.AssetsFromJSON)(json['assets']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'reuse': (0, index_1.ReuseSuggestionFromJSON)(json['reuse']),
+        'save': (0, index_1.SaveSuggestionFromJSON)(json['save']),
+        'target': (0, index_1.SuggestionTargetFromJSON)(json['target']),
+        'assets': (0, index_1.AssetsFromJSON)(json['assets']),
         'distribution': !(0, runtime_1.exists)(json, 'distribution') ? undefined : json['distribution'],
     };
 }
@@ -42,11 +42,11 @@ function SuggestionToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'reuse': (0, _1.ReuseSuggestionToJSON)(value.reuse),
-        'save': (0, _1.SaveSuggestionToJSON)(value.save),
-        'target': (0, _1.SuggestionTargetToJSON)(value.target),
-        'assets': (0, _1.AssetsToJSON)(value.assets),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'reuse': (0, index_1.ReuseSuggestionToJSON)(value.reuse),
+        'save': (0, index_1.SaveSuggestionToJSON)(value.save),
+        'target': (0, index_1.SuggestionTargetToJSON)(value.target),
+        'assets': (0, index_1.AssetsToJSON)(value.assets),
         'distribution': value.distribution,
     };
 }

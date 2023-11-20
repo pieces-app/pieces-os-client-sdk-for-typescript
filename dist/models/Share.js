@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShareToJSON = exports.ShareFromJSONTyped = exports.ShareFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ShareFromJSON(json) {
     return ShareFromJSONTyped(json, false);
 }
@@ -25,19 +25,19 @@ function ShareFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'user': !(0, runtime_1.exists)(json, 'user') ? undefined : json['user'],
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.FlattenedAssetFromJSON)(json['asset']),
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.FlattenedAssetFromJSON)(json['asset']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
         'link': json['link'],
-        'access': (0, _1.AccessEnumFromJSON)(json['access']),
-        'accessors': (0, _1.AccessorsFromJSON)(json['accessors']),
-        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'access': (0, index_1.AccessEnumFromJSON)(json['access']),
+        'accessors': (0, index_1.AccessorsFromJSON)(json['accessors']),
+        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
         '_short': json['short'],
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
-        'distributions': !(0, runtime_1.exists)(json, 'distributions') ? undefined : (0, _1.DistributionsFromJSON)(json['distributions']),
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
+        'distributions': !(0, runtime_1.exists)(json, 'distributions') ? undefined : (0, index_1.DistributionsFromJSON)(json['distributions']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
     };
 }
 exports.ShareFromJSONTyped = ShareFromJSONTyped;
@@ -49,19 +49,19 @@ function ShareToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'user': value.user,
-        'asset': (0, _1.FlattenedAssetToJSON)(value.asset),
-        'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
+        'asset': (0, index_1.FlattenedAssetToJSON)(value.asset),
+        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
         'link': value.link,
-        'access': (0, _1.AccessEnumToJSON)(value.access),
-        'accessors': (0, _1.AccessorsToJSON)(value.accessors),
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'access': (0, index_1.AccessEnumToJSON)(value.access),
+        'accessors': (0, index_1.AccessorsToJSON)(value.accessors),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
         'short': value._short,
         'name': value.name,
-        'distributions': (0, _1.DistributionsToJSON)(value.distributions),
-        'score': (0, _1.ScoreToJSON)(value.score),
+        'distributions': (0, index_1.DistributionsToJSON)(value.distributions),
+        'score': (0, index_1.ScoreToJSON)(value.score),
     };
 }
 exports.ShareToJSON = ShareToJSON;

@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { Asset, AssetFormats, AssetReclassification, Conversations, ExportedAsset, SeededAccessor, SeededScoreIncrement } from '../models';
+import { Asset, AssetReclassification, Conversations, ExportedAsset, Formats, SeededAccessor, SeededScoreIncrement } from '../models';
 export interface AssetAssociateTagRequest {
     asset: string;
     tag: string;
@@ -88,12 +88,12 @@ export declare class AssetApi extends runtime.BaseAPI {
      * Get the formats for a given asset.
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
-    assetFormatsRaw(requestParameters: AssetFormatsRequest): Promise<runtime.ApiResponse<AssetFormats>>;
+    assetFormatsRaw(requestParameters: AssetFormatsRequest): Promise<runtime.ApiResponse<Formats>>;
     /**
      * Get the formats for a given asset.
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
-    assetFormats(requestParameters: AssetFormatsRequest): Promise<AssetFormats>;
+    assetFormats(requestParameters: AssetFormatsRequest): Promise<Formats>;
     /**
      * This will update the classification of this asset to the proper classification.
      * /asset/reclassify [POST]

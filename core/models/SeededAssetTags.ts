@@ -18,7 +18,7 @@ import {
     SeededAssetTagFromJSON,
     SeededAssetTagFromJSONTyped,
     SeededAssetTagToJSON,
-} from './';
+} from './index';
 
 /**
  * 

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededDistribution } from './';
+import { EmbeddedModelSchema, SeededDistribution } from './index';
 /**
  * This is the plural version of a SeededDistribution that is not referenced just yet.
  * @export

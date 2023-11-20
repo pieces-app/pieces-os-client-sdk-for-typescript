@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { FileFormat, GroupedTimestamp } from './';
+import { FileFormat, GroupedTimestamp } from './index';
 /**
  * This is a model for a minimum exported version of an asset.
  * @export

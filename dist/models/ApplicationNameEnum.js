@@ -45,6 +45,9 @@ var ApplicationNameEnum;
     ApplicationNameEnum["Brave"] = "BRAVE";
     ApplicationNameEnum["GoogleChat"] = "GOOGLE_CHAT";
     ApplicationNameEnum["Slack"] = "SLACK";
+    ApplicationNameEnum["AzureDataStudio"] = "AZURE_DATA_STUDIO";
+    ApplicationNameEnum["OpenSource"] = "OPEN_SOURCE";
+    ApplicationNameEnum["Unknown"] = "UNKNOWN";
 })(ApplicationNameEnum || (exports.ApplicationNameEnum = ApplicationNameEnum = {}));
 function ApplicationNameEnumFromJSON(json) {
     return ApplicationNameEnumFromJSONTyped(json, false);

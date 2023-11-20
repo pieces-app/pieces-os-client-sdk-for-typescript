@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ApplicationNameEnum, CapabilitiesEnum, EmbeddedModelSchema, PlatformEnum, PrivacyEnum } from './';
+import { ApplicationNameEnum, CapabilitiesEnum, EmbeddedModelSchema, PlatformEnum, PrivacyEnum } from './index';
 /**
  * A Model to describe what application a format/analytics event originated - Specifically NOT requiring an ID
  * @export

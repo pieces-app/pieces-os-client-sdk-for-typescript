@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Activities, Anchors, Annotations, AssetFormats, Conversations, EmbeddedModelSchema, GroupedTimestamp, Hints, MechanismEnum, Persons, Preview, ReferencedFormat, Score, Sensitives, Shares, Tags, Websites } from './';
+import { Activities, Anchors, Annotations, Conversations, EmbeddedModelSchema, Formats, GroupedTimestamp, Hints, MechanismEnum, Persons, Preview, ReferencedFormat, Score, Sensitives, Shares, Tags, Websites } from './index';
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats.
  *
@@ -68,10 +68,10 @@ export interface Asset {
     deleted?: GroupedTimestamp;
     /**
      *
-     * @type {AssetFormats}
+     * @type {Formats}
      * @memberof Asset
      */
-    formats: AssetFormats;
+    formats: Formats;
     /**
      *
      * @type {Preview}

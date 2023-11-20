@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededAsset } from './';
+import { EmbeddedModelSchema, SeededAsset } from './index';
 /**
  * A seed Model used to wrap a format or asset
  * @export

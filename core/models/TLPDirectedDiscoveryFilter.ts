@@ -18,7 +18,7 @@ import {
     TLPDirectedDiscoveryFilterEnumFromJSON,
     TLPDirectedDiscoveryFilterEnumFromJSONTyped,
     TLPDirectedDiscoveryFilterEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * Contains enum which represents code block type

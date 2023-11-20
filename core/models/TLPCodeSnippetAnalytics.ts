@@ -42,7 +42,7 @@ import {
     TLPCodeSnippetSuggestedInteractionsFromJSON,
     TLPCodeSnippetSuggestedInteractionsFromJSONTyped,
     TLPCodeSnippetSuggestedInteractionsToJSON,
-} from './';
+} from './index';
 
 /**
  * 

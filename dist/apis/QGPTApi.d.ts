@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { Persons, QGPTHintsInput, QGPTPersonsRelatedInput, QGPTQuestionInput, QGPTQuestionOutput, QGPTRelevanceInput, QGPTRelevanceOutput, QGPTRepromptInput, QGPTRepromptOutput, QGPTStreamInput, QGPTStreamOutput } from '../models';
+import { QGPTHintsInput, QGPTPersonsRelatedInput, QGPTPersonsRelatedOutput, QGPTQuestionInput, QGPTQuestionOutput, QGPTRelevanceInput, QGPTRelevanceOutput, QGPTRepromptInput, QGPTRepromptOutput, QGPTStreamInput, QGPTStreamOutput } from '../models';
 export interface HintsRequest {
     qGPTHintsInput?: QGPTHintsInput;
 }
@@ -48,12 +48,12 @@ export declare class QGPTApi extends runtime.BaseAPI {
      * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
      * /qgpt/persons/related [POST]
      */
-    personsRelatedRaw(requestParameters: PersonsRelatedRequest): Promise<runtime.ApiResponse<Persons>>;
+    personsRelatedRaw(requestParameters: PersonsRelatedRequest): Promise<runtime.ApiResponse<QGPTPersonsRelatedOutput>>;
     /**
      * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
      * /qgpt/persons/related [POST]
      */
-    personsRelated(requestParameters: PersonsRelatedRequest): Promise<Persons>;
+    personsRelated(requestParameters: PersonsRelatedRequest): Promise<QGPTPersonsRelatedOutput>;
     /**
      * This is a version of qGPT stream that will stream the inputs.  This will handle relevance.  This will handle question.  This will throw an error if both are passed in. That being said if you want to utalize question && relevant, you can get stream results by passing in relevance with options.question:true.  This will handle multiple conversations.  This is a Websocket.
      * /qgpt/stream [GET]

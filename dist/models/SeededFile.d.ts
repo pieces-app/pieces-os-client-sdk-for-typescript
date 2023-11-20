@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FileMetadata, TransferableBytes, TransferableString } from './';
+import { EmbeddedModelSchema, FileMetadata, TransferableBytes, TransferableString } from './index';
 /**
  * This is a base model for a File(Seeded).
  *

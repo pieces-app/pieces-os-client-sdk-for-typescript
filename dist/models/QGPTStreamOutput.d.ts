@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { QGPTQuestionOutput, QGPTRelevanceOutput, QGPTStreamEnum } from './';
+import { QGPTQuestionOutput, QGPTRelevanceOutput, QGPTStreamEnum } from './index';
 /**
  * This is the out for the /qgpt/stream endpoint.
  * @export

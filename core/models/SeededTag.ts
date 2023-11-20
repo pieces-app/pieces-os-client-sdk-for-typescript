@@ -26,7 +26,7 @@ import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the minimum information needed when creating a Tag.

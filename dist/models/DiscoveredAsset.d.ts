@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededAssetMetadata, SeededFile, SeededFragment, TLPDirectedDiscoveryFilters } from './';
+import { EmbeddedModelSchema, SeededAssetMetadata, SeededFile, SeededFragment, TLPDirectedDiscoveryFilters } from './index';
 /**
  *
  * @export

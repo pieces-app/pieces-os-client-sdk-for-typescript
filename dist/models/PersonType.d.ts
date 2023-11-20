@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, PersonBasicType, UserProfile } from './';
+import { EmbeddedModelSchema, PersonBasicType, UserProfile } from './index';
 /**
  * basic or platform is absolutely required here.
  * basic: if provided is just information that has been either extracted from the piece or other wise added here.

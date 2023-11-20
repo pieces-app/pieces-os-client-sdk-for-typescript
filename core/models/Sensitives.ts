@@ -26,7 +26,7 @@ import {
     SensitiveFromJSON,
     SensitiveFromJSONTyped,
     SensitiveToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a model that represents many individual sensitive pieces of data.

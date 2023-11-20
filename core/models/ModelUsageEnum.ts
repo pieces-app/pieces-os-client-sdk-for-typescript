@@ -35,7 +35,10 @@ export enum ModelUsageEnum {
     CodeSearch = 'CODE_SEARCH',
     CodeDiscovery = 'CODE_DISCOVERY',
     CodeRelatedPeople = 'CODE_RELATED_PEOPLE',
-    CodeFramework = 'CODE_FRAMEWORK'
+    CodeFramework = 'CODE_FRAMEWORK',
+    VideoOcr = 'VIDEO_OCR',
+    TextVsCodeSegmentation = 'TEXT_VS_CODE_SEGMENTATION',
+    TextEmbedding = 'TEXT_EMBEDDING'
 }
 
 export function ModelUsageEnumFromJSON(json: any): ModelUsageEnum {

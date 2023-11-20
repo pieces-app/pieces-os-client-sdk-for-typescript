@@ -26,7 +26,7 @@ import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a published Github Gist.

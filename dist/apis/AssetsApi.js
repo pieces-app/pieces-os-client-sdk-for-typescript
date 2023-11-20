@@ -341,7 +341,7 @@ class AssetsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
         });
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.AssetFormatsFromJSON)(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.FormatsFromJSON)(jsonValue));
     }
     /**
      * This will query the formats for agiven asset when provided that asset\'s id.

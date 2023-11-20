@@ -22,7 +22,7 @@ import {
     SeededTagFromJSON,
     SeededTagFromJSONTyped,
     SeededTagToJSON,
-} from './';
+} from './index';
 
 /**
  * 

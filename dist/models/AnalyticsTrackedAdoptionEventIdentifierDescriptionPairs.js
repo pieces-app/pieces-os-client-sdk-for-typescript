@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON = exports.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSONTyped = exports.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON = exports.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum = exports.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 /**
 * @export
 * @enum {string}
@@ -40,7 +40,7 @@ function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSONTyped(js
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'adoptionInstall': !(0, runtime_1.exists)(json, 'adoption_install') ? undefined : json['adoption_install'],
         'adoptionUninstall': !(0, runtime_1.exists)(json, 'adoption_uninstall') ? undefined : json['adoption_uninstall'],
     };
@@ -54,7 +54,7 @@ function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'adoption_install': value.adoptionInstall,
         'adoption_uninstall': value.adoptionUninstall,
     };

@@ -22,7 +22,7 @@ import {
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSON,
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped,
     GraphicalOCRDescriptiveStatisticsConfidenceToJSON,
-} from './';
+} from './index';
 
 /**
  * Model for monitoring and evaluating the OCR feature

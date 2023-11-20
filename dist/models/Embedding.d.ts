@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupedTimestamp, Model } from './';
+import { GroupedTimestamp, Model } from './index';
 /**
  *
  * @export

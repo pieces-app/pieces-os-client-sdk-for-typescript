@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnnotationTypeEnum, EmbeddedModelSchema, FlattenedConversationMessages, MechanismEnum } from './';
+import { AnnotationTypeEnum, EmbeddedModelSchema, FlattenedConversationMessages, MechanismEnum } from './index';
 /**
  * This is the percursor to a fully referenced Annotation.
  * @export

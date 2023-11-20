@@ -22,7 +22,7 @@ import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a specific Distribution for mailgun specific information.

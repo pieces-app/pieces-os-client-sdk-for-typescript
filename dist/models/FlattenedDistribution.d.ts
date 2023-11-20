@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GitHubDistribution, GroupedTimestamp, MailgunDistribution } from './';
+import { EmbeddedModelSchema, GitHubDistribution, GroupedTimestamp, MailgunDistribution } from './index';
 /**
  *
  * @export

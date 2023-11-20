@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExistentMetadataToJSON = exports.ExistentMetadataFromJSONTyped = exports.ExistentMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ExistentMetadataFromJSON(json) {
     return ExistentMetadataFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function ExistentMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'value': json['value'],
     };
 }
@@ -38,7 +38,7 @@ function ExistentMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'value': value.value,
     };
 }

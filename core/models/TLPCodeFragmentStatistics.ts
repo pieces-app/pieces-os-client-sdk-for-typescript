@@ -22,7 +22,7 @@ import {
     TLPCodeFragmentDescriptiveStatisticsFromJSON,
     TLPCodeFragmentDescriptiveStatisticsFromJSONTyped,
     TLPCodeFragmentDescriptiveStatisticsToJSON,
-} from './';
+} from './index';
 
 /**
  * 

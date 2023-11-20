@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LinkifyMultipleToJSON = exports.LinkifyMultipleFromJSONTyped = exports.LinkifyMultipleFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function LinkifyMultipleFromJSON(json) {
     return LinkifyMultipleFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function LinkifyMultipleFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'assets': json['assets'],
-        'users': !(0, runtime_1.exists)(json, 'users') ? undefined : (json['users'].map(_1.SeededUserFromJSON)),
-        'access': (0, _1.AccessEnumFromJSON)(json['access']),
+        'users': !(0, runtime_1.exists)(json, 'users') ? undefined : (json['users'].map(index_1.SeededUserFromJSON)),
+        'access': (0, index_1.AccessEnumFromJSON)(json['access']),
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
     };
 }
@@ -41,10 +41,10 @@ function LinkifyMultipleToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'assets': value.assets,
-        'users': value.users === undefined ? undefined : (value.users.map(_1.SeededUserToJSON)),
-        'access': (0, _1.AccessEnumToJSON)(value.access),
+        'users': value.users === undefined ? undefined : (value.users.map(index_1.SeededUserToJSON)),
+        'access': (0, index_1.AccessEnumToJSON)(value.access),
         'name': value.name,
     };
 }

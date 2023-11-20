@@ -26,7 +26,7 @@ import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the ML Analysis object Specific to code.

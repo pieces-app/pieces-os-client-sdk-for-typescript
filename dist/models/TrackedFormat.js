@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedFormatToJSON = exports.TrackedFormatFromJSONTyped = exports.TrackedFormatFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function TrackedFormatFromJSON(json) {
     return TrackedFormatFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function TrackedFormatFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'classification': (0, _1.ClassificationFromJSON)(json['classification']),
-        'role': (0, _1.RoleFromJSON)(json['role']),
+        'classification': (0, index_1.ClassificationFromJSON)(json['classification']),
+        'role': (0, index_1.RoleFromJSON)(json['role']),
         'asset': json['asset'],
         'fragment': json['fragment'],
         'file': json['file'],
@@ -43,10 +43,10 @@ function TrackedFormatToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'classification': (0, _1.ClassificationToJSON)(value.classification),
-        'role': (0, _1.RoleToJSON)(value.role),
+        'classification': (0, index_1.ClassificationToJSON)(value.classification),
+        'role': (0, index_1.RoleToJSON)(value.role),
         'asset': value.asset,
         'fragment': value.fragment,
         'file': value.file,

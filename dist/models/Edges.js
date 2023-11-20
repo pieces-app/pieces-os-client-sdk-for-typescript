@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EdgesToJSON = exports.EdgesFromJSONTyped = exports.EdgesFromJSON = void 0;
-const _1 = require("./");
+const index_1 = require("./index");
 function EdgesFromJSON(json) {
     return EdgesFromJSONTyped(json, false);
 }
@@ -24,7 +24,7 @@ function EdgesFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'iterable': (json['iterable'].map(_1.NodeFromJSON)),
+        'iterable': (json['iterable'].map(index_1.NodeFromJSON)),
     };
 }
 exports.EdgesFromJSONTyped = EdgesFromJSONTyped;
@@ -36,7 +36,7 @@ function EdgesToJSON(value) {
         return null;
     }
     return {
-        'iterable': (value.iterable.map(_1.NodeToJSON)),
+        'iterable': (value.iterable.map(index_1.NodeToJSON)),
     };
 }
 exports.EdgesToJSON = EdgesToJSON;

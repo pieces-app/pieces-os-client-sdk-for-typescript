@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedApplicationToJSON = exports.SeededTrackedApplicationFromJSONTyped = exports.SeededTrackedApplicationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededTrackedApplicationFromJSON(json) {
     return SeededTrackedApplicationFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function SeededTrackedApplicationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'name': (0, _1.ApplicationNameEnumFromJSON)(json['name']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'name': (0, index_1.ApplicationNameEnumFromJSON)(json['name']),
         'version': json['version'],
-        'platform': (0, _1.PlatformEnumFromJSON)(json['platform']),
-        'capabilities': !(0, runtime_1.exists)(json, 'capabilities') ? undefined : (0, _1.CapabilitiesEnumFromJSON)(json['capabilities']),
-        'privacy': !(0, runtime_1.exists)(json, 'privacy') ? undefined : (0, _1.PrivacyEnumFromJSON)(json['privacy']),
+        'platform': (0, index_1.PlatformEnumFromJSON)(json['platform']),
+        'capabilities': !(0, runtime_1.exists)(json, 'capabilities') ? undefined : (0, index_1.CapabilitiesEnumFromJSON)(json['capabilities']),
+        'privacy': !(0, runtime_1.exists)(json, 'privacy') ? undefined : (0, index_1.PrivacyEnumFromJSON)(json['privacy']),
         'automaticUnload': !(0, runtime_1.exists)(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
@@ -43,12 +43,12 @@ function SeededTrackedApplicationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'name': (0, _1.ApplicationNameEnumToJSON)(value.name),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'name': (0, index_1.ApplicationNameEnumToJSON)(value.name),
         'version': value.version,
-        'platform': (0, _1.PlatformEnumToJSON)(value.platform),
-        'capabilities': (0, _1.CapabilitiesEnumToJSON)(value.capabilities),
-        'privacy': (0, _1.PrivacyEnumToJSON)(value.privacy),
+        'platform': (0, index_1.PlatformEnumToJSON)(value.platform),
+        'capabilities': (0, index_1.CapabilitiesEnumToJSON)(value.capabilities),
+        'privacy': (0, index_1.PrivacyEnumToJSON)(value.privacy),
         'automaticUnload': value.automaticUnload,
     };
 }

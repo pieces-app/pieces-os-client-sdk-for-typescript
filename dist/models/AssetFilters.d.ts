@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AssetFilter, EmbeddedModelSchema, FilterOperationTypeEnum } from './';
+import { AssetFilter, EmbeddedModelSchema, FilterOperationTypeEnum } from './index';
 /**
  *
  * @export

@@ -94,7 +94,6 @@ models/AssetFilterPhrase.ts
 models/AssetFilterPhraseOptions.ts
 models/AssetFilterTimestamp.ts
 models/AssetFilters.ts
-models/AssetFormats.ts
 models/AssetReclassification.ts
 models/AssetSearchSpace.ts
 models/Assets.ts
@@ -261,6 +260,7 @@ models/QGPTConversationMessage.ts
 models/QGPTConversationMessageRoleEnum.ts
 models/QGPTHintsInput.ts
 models/QGPTPersonsRelatedInput.ts
+models/QGPTPersonsRelatedOutput.ts
 models/QGPTQuestionAnswer.ts
 models/QGPTQuestionAnswers.ts
 models/QGPTQuestionInput.ts

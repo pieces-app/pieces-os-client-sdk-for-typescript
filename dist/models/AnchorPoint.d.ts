@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GroupedTimestamp, PlatformEnum, ReferencedAnchor, Score } from './';
+import { EmbeddedModelSchema, GroupedTimestamp, PlatformEnum, ReferencedAnchor, Score } from './index';
 /**
  *
  * @export

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAnchor } from './';
+import { EmbeddedModelSchema, FlattenedAnchor } from './index';
 /**
  * This is the referenced version of a Anchor, main used for the uuid.
  * @export

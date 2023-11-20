@@ -86,7 +86,7 @@ class QGPTApi extends runtime.BaseAPI {
             query: queryParameters,
             body: (0, models_1.QGPTPersonsRelatedInputToJSON)(requestParameters.qGPTPersonsRelatedInput),
         });
-        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.PersonsFromJSON)(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.QGPTPersonsRelatedOutputFromJSON)(jsonValue));
     }
     /**
      * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons

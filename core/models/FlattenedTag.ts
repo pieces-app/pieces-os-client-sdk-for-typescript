@@ -46,7 +46,7 @@ import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a Flattened Version of a Tag.

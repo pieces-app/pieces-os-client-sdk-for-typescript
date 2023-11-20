@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTQuestionOutputToJSON = exports.QGPTQuestionOutputFromJSONTyped = exports.QGPTQuestionOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTQuestionOutputFromJSON(json) {
     return QGPTQuestionOutputFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function QGPTQuestionOutputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'answers': (0, _1.QGPTQuestionAnswersFromJSON)(json['answers']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'answers': (0, index_1.QGPTQuestionAnswersFromJSON)(json['answers']),
     };
 }
 exports.QGPTQuestionOutputFromJSONTyped = QGPTQuestionOutputFromJSONTyped;
@@ -38,8 +38,8 @@ function QGPTQuestionOutputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'answers': (0, _1.QGPTQuestionAnswersToJSON)(value.answers),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'answers': (0, index_1.QGPTQuestionAnswersToJSON)(value.answers),
     };
 }
 exports.QGPTQuestionOutputToJSON = QGPTQuestionOutputToJSON;

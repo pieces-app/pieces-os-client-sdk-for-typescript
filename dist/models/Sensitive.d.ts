@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAsset, GroupedTimestamp, MechanismEnum, Score, SensitiveCategoryEnum, SensitiveMetadata, SensitiveSeverityEnum } from './';
+import { EmbeddedModelSchema, FlattenedAsset, GroupedTimestamp, MechanismEnum, Score, SensitiveCategoryEnum, SensitiveMetadata, SensitiveSeverityEnum } from './index';
 /**
  * This is a fully referenced representation of a sensitive pieces of data.
  * @export

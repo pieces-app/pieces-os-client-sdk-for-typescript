@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { QGPTQuestionInput, QGPTRelevanceInput } from './';
+import { QGPTQuestionInput, QGPTRelevanceInput } from './index';
 /**
  * This is the input for the /qgpt/stream endpoint.
  * @export

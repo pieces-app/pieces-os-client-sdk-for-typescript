@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededFileToJSON = exports.SeededFileFromJSONTyped = exports.SeededFileFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededFileFromJSON(json) {
     return SeededFileFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SeededFileFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, _1.TransferableBytesFromJSON)(json['bytes']),
-        'string': !(0, runtime_1.exists)(json, 'string') ? undefined : (0, _1.TransferableStringFromJSON)(json['string']),
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.FileMetadataFromJSON)(json['metadata']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, index_1.TransferableBytesFromJSON)(json['bytes']),
+        'string': !(0, runtime_1.exists)(json, 'string') ? undefined : (0, index_1.TransferableStringFromJSON)(json['string']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.FileMetadataFromJSON)(json['metadata']),
     };
 }
 exports.SeededFileFromJSONTyped = SeededFileFromJSONTyped;
@@ -40,10 +40,10 @@ function SeededFileToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'bytes': (0, _1.TransferableBytesToJSON)(value.bytes),
-        'string': (0, _1.TransferableStringToJSON)(value.string),
-        'metadata': (0, _1.FileMetadataToJSON)(value.metadata),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'bytes': (0, index_1.TransferableBytesToJSON)(value.bytes),
+        'string': (0, index_1.TransferableStringToJSON)(value.string),
+        'metadata': (0, index_1.FileMetadataToJSON)(value.metadata),
     };
 }
 exports.SeededFileToJSON = SeededFileToJSON;

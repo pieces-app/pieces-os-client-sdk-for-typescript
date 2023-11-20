@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OAuthGroupToJSON = exports.OAuthGroupFromJSONTyped = exports.OAuthGroupFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function OAuthGroupFromJSON(json) {
     return OAuthGroupFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function OAuthGroupFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'token': !(0, runtime_1.exists)(json, 'token') ? undefined : (0, _1.OAuthTokenFromJSON)(json['token']),
-        'account': !(0, runtime_1.exists)(json, 'account') ? undefined : (0, _1.OAuthAccountFromJSON)(json['account']),
+        'token': !(0, runtime_1.exists)(json, 'token') ? undefined : (0, index_1.OAuthTokenFromJSON)(json['token']),
+        'account': !(0, runtime_1.exists)(json, 'account') ? undefined : (0, index_1.OAuthAccountFromJSON)(json['account']),
     };
 }
 exports.OAuthGroupFromJSONTyped = OAuthGroupFromJSONTyped;
@@ -38,8 +38,8 @@ function OAuthGroupToJSON(value) {
         return null;
     }
     return {
-        'token': (0, _1.OAuthTokenToJSON)(value.token),
-        'account': (0, _1.OAuthAccountToJSON)(value.account),
+        'token': (0, index_1.OAuthTokenToJSON)(value.token),
+        'account': (0, index_1.OAuthAccountToJSON)(value.account),
     };
 }
 exports.OAuthGroupToJSON = OAuthGroupToJSON;

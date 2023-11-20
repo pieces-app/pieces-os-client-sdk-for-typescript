@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Assets, EmbeddedModelSchema } from './';
+import { Assets, EmbeddedModelSchema } from './index';
 /**
  * This is the ReuseSuggestion. Mainly creating an additional model here because I imagine that we will want to add some additional data to this in the future (potentially with more numerical data that is emitted from the ML Models)
  *

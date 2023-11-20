@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAnchorPoint } from './';
+import { EmbeddedModelSchema, FlattenedAnchorPoint } from './index';
 /**
  *
  * @export

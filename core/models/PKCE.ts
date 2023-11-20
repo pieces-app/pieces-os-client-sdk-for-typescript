@@ -42,7 +42,7 @@ import {
     TokenizedPKCEFromJSON,
     TokenizedPKCEFromJSONTyped,
     TokenizedPKCEToJSON,
-} from './';
+} from './index';
 
 /**
  * An object representing all of the properties involved in a PKCE Authentication Flow

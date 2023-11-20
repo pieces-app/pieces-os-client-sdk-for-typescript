@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Seed } from './';
+import { EmbeddedModelSchema, Seed } from './index';
 /**
  * This is a plural model for multiple Seed.
  * @export

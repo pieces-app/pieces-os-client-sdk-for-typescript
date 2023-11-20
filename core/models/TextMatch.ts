@@ -22,7 +22,7 @@ import {
     TextLocationFromJSON,
     TextLocationFromJSONTyped,
     TextLocationToJSON,
-} from './';
+} from './index';
 
 /**
  * Thext Match currently used for sensitive for scales for people, and anything related to text matching.

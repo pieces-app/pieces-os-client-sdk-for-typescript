@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedShare, GitHubDistribution, GroupedTimestamp, MailgunDistribution } from './';
+import { EmbeddedModelSchema, FlattenedShare, GitHubDistribution, GroupedTimestamp, MailgunDistribution } from './index';
 /**
  * This is a fully referenced version of a Distribution.
  * TODO add additional distributions such as slack, google_chat, ...etc

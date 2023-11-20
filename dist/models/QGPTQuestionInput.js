@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTQuestionInputToJSON = exports.QGPTQuestionInputFromJSONTyped = exports.QGPTQuestionInputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTQuestionInputFromJSON(json) {
     return QGPTQuestionInputFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function QGPTQuestionInputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'relevant': (0, _1.RelevantQGPTSeedsFromJSON)(json['relevant']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'relevant': (0, index_1.RelevantQGPTSeedsFromJSON)(json['relevant']),
         'query': json['query'],
         'application': !(0, runtime_1.exists)(json, 'application') ? undefined : json['application'],
         'model': !(0, runtime_1.exists)(json, 'model') ? undefined : json['model'],
-        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (0, _1.FlattenedConversationMessagesFromJSON)(json['messages']),
+        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (0, index_1.FlattenedConversationMessagesFromJSON)(json['messages']),
     };
 }
 exports.QGPTQuestionInputFromJSONTyped = QGPTQuestionInputFromJSONTyped;
@@ -42,12 +42,12 @@ function QGPTQuestionInputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'relevant': (0, _1.RelevantQGPTSeedsToJSON)(value.relevant),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'relevant': (0, index_1.RelevantQGPTSeedsToJSON)(value.relevant),
         'query': value.query,
         'application': value.application,
         'model': value.model,
-        'messages': (0, _1.FlattenedConversationMessagesToJSON)(value.messages),
+        'messages': (0, index_1.FlattenedConversationMessagesToJSON)(value.messages),
     };
 }
 exports.QGPTQuestionInputToJSON = QGPTQuestionInputToJSON;

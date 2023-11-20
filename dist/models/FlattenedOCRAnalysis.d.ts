@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Model, ReferencedFormat } from './';
+import { EmbeddedModelSchema, Model, ReferencedFormat } from './index';
 /**
  * [DAG Safe] Ocr Analysis that will reference FlattenedFormats.
  * @export

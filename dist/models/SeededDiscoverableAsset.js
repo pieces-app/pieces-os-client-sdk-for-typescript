@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededDiscoverableAssetToJSON = exports.SeededDiscoverableAssetFromJSONTyped = exports.SeededDiscoverableAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededDiscoverableAssetFromJSON(json) {
     return SeededDiscoverableAssetFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function SeededDiscoverableAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, _1.SeededFileFromJSON)(json['file']),
-        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, _1.SeededFragmentFromJSON)(json['fragment']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, index_1.SeededFileFromJSON)(json['file']),
+        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, index_1.SeededFragmentFromJSON)(json['fragment']),
         'directory': !(0, runtime_1.exists)(json, 'directory') ? undefined : json['directory'],
-        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, _1.TLPDirectedDiscoveryFiltersFromJSON)(json['filters']),
+        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, index_1.TLPDirectedDiscoveryFiltersFromJSON)(json['filters']),
     };
 }
 exports.SeededDiscoverableAssetFromJSONTyped = SeededDiscoverableAssetFromJSONTyped;
@@ -41,11 +41,11 @@ function SeededDiscoverableAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'file': (0, _1.SeededFileToJSON)(value.file),
-        'fragment': (0, _1.SeededFragmentToJSON)(value.fragment),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'file': (0, index_1.SeededFileToJSON)(value.file),
+        'fragment': (0, index_1.SeededFragmentToJSON)(value.fragment),
         'directory': value.directory,
-        'filters': (0, _1.TLPDirectedDiscoveryFiltersToJSON)(value.filters),
+        'filters': (0, index_1.TLPDirectedDiscoveryFiltersToJSON)(value.filters),
     };
 }
 exports.SeededDiscoverableAssetToJSON = SeededDiscoverableAssetToJSON;

@@ -38,7 +38,10 @@ export declare enum ApplicationNameEnum {
     MicrosoftEdge = "MICROSOFT_EDGE",
     Brave = "BRAVE",
     GoogleChat = "GOOGLE_CHAT",
-    Slack = "SLACK"
+    Slack = "SLACK",
+    AzureDataStudio = "AZURE_DATA_STUDIO",
+    OpenSource = "OPEN_SOURCE",
+    Unknown = "UNKNOWN"
 }
 export declare function ApplicationNameEnumFromJSON(json: any): ApplicationNameEnum;
 export declare function ApplicationNameEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApplicationNameEnum;

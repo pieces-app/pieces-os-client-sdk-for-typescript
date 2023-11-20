@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SuggestionTargetToJSON = exports.SuggestionTargetFromJSONTyped = exports.SuggestionTargetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SuggestionTargetFromJSON(json) {
     return SuggestionTargetFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SuggestionTargetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'seed': (0, _1.SeededConnectorCreationFromJSON)(json['seed']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'seed': (0, index_1.SeededConnectorCreationFromJSON)(json['seed']),
         'vector': json['vector'],
     };
 }
@@ -39,8 +39,8 @@ function SuggestionTargetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'seed': (0, _1.SeededConnectorCreationToJSON)(value.seed),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'seed': (0, index_1.SeededConnectorCreationToJSON)(value.seed),
         'vector': value.vector,
     };
 }

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedAssetsEventMetadataToJSON = exports.SeededTrackedAssetsEventMetadataFromJSONTyped = exports.SeededTrackedAssetsEventMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededTrackedAssetsEventMetadataFromJSON(json) {
     return SeededTrackedAssetsEventMetadataFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function SeededTrackedAssetsEventMetadataFromJSONTyped(json, ignoreDiscriminator
         return json;
     }
     return {
-        'search': !(0, runtime_1.exists)(json, 'search') ? undefined : (0, _1.TrackedAssetsEventSearchMetadataFromJSON)(json['search']),
+        'search': !(0, runtime_1.exists)(json, 'search') ? undefined : (0, index_1.TrackedAssetsEventSearchMetadataFromJSON)(json['search']),
     };
 }
 exports.SeededTrackedAssetsEventMetadataFromJSONTyped = SeededTrackedAssetsEventMetadataFromJSONTyped;
@@ -37,7 +37,7 @@ function SeededTrackedAssetsEventMetadataToJSON(value) {
         return null;
     }
     return {
-        'search': (0, _1.TrackedAssetsEventSearchMetadataToJSON)(value.search),
+        'search': (0, index_1.TrackedAssetsEventSearchMetadataToJSON)(value.search),
     };
 }
 exports.SeededTrackedAssetsEventMetadataToJSON = SeededTrackedAssetsEventMetadataToJSON;

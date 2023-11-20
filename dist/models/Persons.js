@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersonsToJSON = exports.PersonsFromJSONTyped = exports.PersonsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function PersonsFromJSON(json) {
     return PersonsFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function PersonsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(_1.PersonFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(index_1.PersonFromJSON)),
         'indices': !(0, runtime_1.exists)(json, 'indices') ? undefined : json['indices'],
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
     };
 }
 exports.PersonsFromJSONTyped = PersonsFromJSONTyped;
@@ -40,10 +40,10 @@ function PersonsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(_1.PersonToJSON)),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(index_1.PersonToJSON)),
         'indices': value.indices,
-        'score': (0, _1.ScoreToJSON)(value.score),
+        'score': (0, index_1.ScoreToJSON)(value.score),
     };
 }
 exports.PersonsToJSON = PersonsToJSON;
