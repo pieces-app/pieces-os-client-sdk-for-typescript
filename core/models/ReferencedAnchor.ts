@@ -22,7 +22,7 @@ import {
     FlattenedAnchorFromJSON,
     FlattenedAnchorFromJSONTyped,
     FlattenedAnchorToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the referenced version of a Anchor, main used for the uuid.

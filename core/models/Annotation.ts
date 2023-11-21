@@ -58,7 +58,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './index';
 
 /**
  * An Annotation is the replacement for descriptions, this will enable comments, description, summaries and many more.

@@ -39,6 +39,9 @@ var ModelUsageEnum;
     ModelUsageEnum["CodeDiscovery"] = "CODE_DISCOVERY";
     ModelUsageEnum["CodeRelatedPeople"] = "CODE_RELATED_PEOPLE";
     ModelUsageEnum["CodeFramework"] = "CODE_FRAMEWORK";
+    ModelUsageEnum["VideoOcr"] = "VIDEO_OCR";
+    ModelUsageEnum["TextVsCodeSegmentation"] = "TEXT_VS_CODE_SEGMENTATION";
+    ModelUsageEnum["TextEmbedding"] = "TEXT_EMBEDDING";
 })(ModelUsageEnum || (exports.ModelUsageEnum = ModelUsageEnum = {}));
 function ModelUsageEnumFromJSON(json) {
     return ModelUsageEnumFromJSONTyped(json, false);

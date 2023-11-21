@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { TLPDirectedDiscoveryFilterEnum } from './';
+import { TLPDirectedDiscoveryFilterEnum } from './index';
 /**
  * Contains enum which represents code block type
  * @export

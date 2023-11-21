@@ -26,7 +26,7 @@ import {
     TrackedUserProfileFromJSON,
     TrackedUserProfileFromJSONTyped,
     TrackedUserProfileToJSON,
-} from './';
+} from './index';
 
 /**
  * A model that allows for us to specifically track Application Installs & Related Data

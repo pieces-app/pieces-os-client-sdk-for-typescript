@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedHint, Score } from './';
+import { EmbeddedModelSchema, ReferencedHint, Score } from './index';
 /**
  * This is the flattened Version of plural hints.
  * @export

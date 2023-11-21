@@ -22,7 +22,7 @@ import {
     FlattenedAnchorPointFromJSON,
     FlattenedAnchorPointFromJSONTyped,
     FlattenedAnchorPointToJSON,
-} from './';
+} from './index';
 
 /**
  * 

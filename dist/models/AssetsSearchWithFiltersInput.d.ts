@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AssetFilters, AssetSearchSpace, EmbeddedModelSchema } from './';
+import { AssetFilters, AssetSearchSpace, EmbeddedModelSchema } from './index';
 /**
  *
  * @export

@@ -97,6 +97,31 @@ class WebsitesApi extends runtime.BaseAPI {
         await this.websitesDeleteSpecificWebsiteRaw(requestParameters);
     }
     /**
+     * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
+     * /websites/exists [POST]
+     */
+    async websitesExistsRaw(requestParameters) {
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/websites/exists`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.ExistentMetadataToJSON)(requestParameters.existentMetadata),
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.ExistingMetadataFromJSON)(jsonValue));
+    }
+    /**
+     * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
+     * /websites/exists [POST]
+     */
+    async websitesExists(requestParameters) {
+        const response = await this.websitesExistsRaw(requestParameters);
+        return await response.value();
+    }
+    /**
      * This will get a snapshot of all your websites.
      * /websites [GET]
      */

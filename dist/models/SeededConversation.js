@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededConversationToJSON = exports.SeededConversationFromJSONTyped = exports.SeededConversationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededConversationFromJSON(json) {
     return SeededConversationFromJSONTyped(json, false);
 }
@@ -25,16 +25,16 @@ function SeededConversationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
         'favorited': !(0, runtime_1.exists)(json, 'favorited') ? undefined : json['favorited'],
-        'application': !(0, runtime_1.exists)(json, 'application') ? undefined : (0, _1.ApplicationFromJSON)(json['application']),
-        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (json['annotations'].map(_1.SeededAnnotationFromJSON)),
-        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (json['messages'].map(_1.SeededConversationMessageFromJSON)),
-        'model': !(0, runtime_1.exists)(json, 'model') ? undefined : (0, _1.ReferencedModelFromJSON)(json['model']),
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
-        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (json['anchors'].map(_1.SeededAnchorFromJSON)),
-        'type': (0, _1.ConversationTypeEnumFromJSON)(json['type']),
+        'application': !(0, runtime_1.exists)(json, 'application') ? undefined : (0, index_1.ApplicationFromJSON)(json['application']),
+        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (json['annotations'].map(index_1.SeededAnnotationFromJSON)),
+        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (json['messages'].map(index_1.SeededConversationMessageFromJSON)),
+        'model': !(0, runtime_1.exists)(json, 'model') ? undefined : (0, index_1.ReferencedModelFromJSON)(json['model']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
+        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (json['anchors'].map(index_1.SeededAnchorFromJSON)),
+        'type': (0, index_1.ConversationTypeEnumFromJSON)(json['type']),
     };
 }
 exports.SeededConversationFromJSONTyped = SeededConversationFromJSONTyped;
@@ -46,16 +46,16 @@ function SeededConversationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'name': value.name,
         'favorited': value.favorited,
-        'application': (0, _1.ApplicationToJSON)(value.application),
-        'annotations': value.annotations === undefined ? undefined : (value.annotations.map(_1.SeededAnnotationToJSON)),
-        'messages': value.messages === undefined ? undefined : (value.messages.map(_1.SeededConversationMessageToJSON)),
-        'model': (0, _1.ReferencedModelToJSON)(value.model),
-        'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
-        'anchors': value.anchors === undefined ? undefined : (value.anchors.map(_1.SeededAnchorToJSON)),
-        'type': (0, _1.ConversationTypeEnumToJSON)(value.type),
+        'application': (0, index_1.ApplicationToJSON)(value.application),
+        'annotations': value.annotations === undefined ? undefined : (value.annotations.map(index_1.SeededAnnotationToJSON)),
+        'messages': value.messages === undefined ? undefined : (value.messages.map(index_1.SeededConversationMessageToJSON)),
+        'model': (0, index_1.ReferencedModelToJSON)(value.model),
+        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
+        'anchors': value.anchors === undefined ? undefined : (value.anchors.map(index_1.SeededAnchorToJSON)),
+        'type': (0, index_1.ConversationTypeEnumToJSON)(value.type),
     };
 }
 exports.SeededConversationToJSON = SeededConversationToJSON;

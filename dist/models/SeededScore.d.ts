@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './';
+import { EmbeddedModelSchema } from './index';
 /**
  * This is the low level seeded score and will let us know what exactly we want to increment on our material.
  *

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TLPCodeFragmentReclassificationUpdates } from './';
+import { EmbeddedModelSchema, TLPCodeFragmentReclassificationUpdates } from './index';
 /**
  * Model for ML big query Reclassification.
  * @export

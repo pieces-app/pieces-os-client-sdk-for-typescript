@@ -22,7 +22,7 @@ import {
     NodeTypeEnumFromJSON,
     NodeTypeEnumFromJSONTyped,
     NodeTypeEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This describes a node within a relationship graph used to related like types. ie asset to asset, tag to tag, ...etc

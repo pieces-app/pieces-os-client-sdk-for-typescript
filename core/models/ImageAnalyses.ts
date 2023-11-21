@@ -22,7 +22,7 @@ import {
     ImageAnalysisFromJSON,
     ImageAnalysisFromJSONTyped,
     ImageAnalysisToJSON,
-} from './';
+} from './index';
 
 /**
  * 

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededUltraSuiteAssetToJSON = exports.SeededUltraSuiteAssetFromJSONTyped = exports.SeededUltraSuiteAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededUltraSuiteAssetFromJSON(json) {
     return SeededUltraSuiteAssetFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SeededUltraSuiteAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
-        'ext': !(0, runtime_1.exists)(json, 'ext') ? undefined : (0, _1.ClassificationSpecificEnumFromJSON)(json['ext']),
-        'format': (0, _1.SeededFormatFromJSON)(json['format']),
+        'ext': !(0, runtime_1.exists)(json, 'ext') ? undefined : (0, index_1.ClassificationSpecificEnumFromJSON)(json['ext']),
+        'format': (0, index_1.SeededFormatFromJSON)(json['format']),
         'description': !(0, runtime_1.exists)(json, 'description') ? undefined : json['description'],
     };
 }
@@ -41,10 +41,10 @@ function SeededUltraSuiteAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'name': value.name,
-        'ext': (0, _1.ClassificationSpecificEnumToJSON)(value.ext),
-        'format': (0, _1.SeededFormatToJSON)(value.format),
+        'ext': (0, index_1.ClassificationSpecificEnumToJSON)(value.ext),
+        'format': (0, index_1.SeededFormatToJSON)(value.format),
         'description': value.description,
     };
 }

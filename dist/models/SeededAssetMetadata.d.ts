@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum, SeededAnchor, SeededAnnotation, SeededAssetSensitive, SeededAssetTag, SeededAssetWebsite, SeededHint, SeededPerson } from './';
+import { EmbeddedModelSchema, MechanismEnum, SeededAnchor, SeededAnnotation, SeededAssetSensitive, SeededAssetTag, SeededAssetWebsite, SeededHint, SeededPerson } from './index';
 /**
  * This is optional metadata sent with the SeededAsset and other SeededAssets ie (UE, Jetbrains...)
  *

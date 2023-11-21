@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GroupedTimestamp, HintTypeEnum, MechanismEnum, ReferencedAsset, ReferencedModel, Score } from './';
+import { EmbeddedModelSchema, GroupedTimestamp, HintTypeEnum, MechanismEnum, ReferencedAsset, ReferencedModel, Score } from './index';
 /**
  * This is a hint that is attached to an asset, used for suggested_queries, and hints given via the qgpt flow.
  * @export

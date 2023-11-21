@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedMachineLearningEventToJSON = exports.SeededTrackedMachineLearningEventFromJSONTyped = exports.SeededTrackedMachineLearningEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededTrackedMachineLearningEventFromJSON(json) {
     return SeededTrackedMachineLearningEventFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function SeededTrackedMachineLearningEventFromJSONTyped(json, ignoreDiscriminato
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'tlp': !(0, runtime_1.exists)(json, 'tlp') ? undefined : (0, _1.TLPMachineLearningProcessingEventFromJSON)(json['tlp']),
-        'graphical': !(0, runtime_1.exists)(json, 'graphical') ? undefined : (0, _1.GraphicalMachineLearningProcessingEventFromJSON)(json['graphical']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'tlp': !(0, runtime_1.exists)(json, 'tlp') ? undefined : (0, index_1.TLPMachineLearningProcessingEventFromJSON)(json['tlp']),
+        'graphical': !(0, runtime_1.exists)(json, 'graphical') ? undefined : (0, index_1.GraphicalMachineLearningProcessingEventFromJSON)(json['graphical']),
     };
 }
 exports.SeededTrackedMachineLearningEventFromJSONTyped = SeededTrackedMachineLearningEventFromJSONTyped;
@@ -39,9 +39,9 @@ function SeededTrackedMachineLearningEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'tlp': (0, _1.TLPMachineLearningProcessingEventToJSON)(value.tlp),
-        'graphical': (0, _1.GraphicalMachineLearningProcessingEventToJSON)(value.graphical),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'tlp': (0, index_1.TLPMachineLearningProcessingEventToJSON)(value.tlp),
+        'graphical': (0, index_1.GraphicalMachineLearningProcessingEventToJSON)(value.graphical),
     };
 }
 exports.SeededTrackedMachineLearningEventToJSON = SeededTrackedMachineLearningEventToJSON;

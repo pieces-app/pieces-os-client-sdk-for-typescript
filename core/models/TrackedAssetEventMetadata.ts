@@ -62,7 +62,7 @@ import {
     TrackedAssetsEventSearchMetadataFromJSON,
     TrackedAssetsEventSearchMetadataFromJSONTyped,
     TrackedAssetsEventSearchMetadataToJSON,
-} from './';
+} from './index';
 
 /**
  * 

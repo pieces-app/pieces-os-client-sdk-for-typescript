@@ -26,7 +26,7 @@ import {
     TLPCodeFragmentSuggestedSaveFromJSON,
     TLPCodeFragmentSuggestedSaveFromJSONTyped,
     TLPCodeFragmentSuggestedSaveToJSON,
-} from './';
+} from './index';
 
 /**
  * 

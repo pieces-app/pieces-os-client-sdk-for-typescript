@@ -22,12 +22,12 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the minimum information required to create a website for a specific asset.
  * 
- * you can optionally add an asset, format, or person id to attach this website directly to it
+ * you can optionally add an asset, or person id to attach this website directly to it
  * 
  * TODO consider updating these asset,format to referenced Models
  * @export
@@ -59,12 +59,6 @@ export interface SeededWebsite {
      */
     name: string;
     /**
-     * This is optionally here, depending on if you want to also associate this with a specific format.
-     * @type {string}
-     * @memberof SeededWebsite
-     */
-    format?: string;
-    /**
      * 
      * @type {MechanismEnum}
      * @memberof SeededWebsite
@@ -92,7 +86,6 @@ export function SeededWebsiteFromJSONTyped(json: any, ignoreDiscriminator: boole
         'asset': !exists(json, 'asset') ? undefined : json['asset'],
         'url': json['url'],
         'name': json['name'],
-        'format': !exists(json, 'format') ? undefined : json['format'],
         'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
         'person': !exists(json, 'person') ? undefined : json['person'],
     };
@@ -111,7 +104,6 @@ export function SeededWebsiteToJSON(value?: SeededWebsite | null): any {
         'asset': value.asset,
         'url': value.url,
         'name': value.name,
-        'format': value.format,
         'mechanism': MechanismEnumToJSON(value.mechanism),
         'person': value.person,
     };

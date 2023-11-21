@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum, TagCategoryEnum } from './';
+import { EmbeddedModelSchema, MechanismEnum, TagCategoryEnum } from './index';
 /**
  * This is the minimum information needed when creating a Tag.
  *
@@ -46,12 +46,6 @@ export interface SeededTag {
      * @memberof SeededTag
      */
     mechanism?: MechanismEnum;
-    /**
-     * (optionally) you can attach a tag to a format. so when you delete a format this tag will get removed from the asset as well.
-     * @type {string}
-     * @memberof SeededTag
-     */
-    format?: string;
     /**
      *
      * @type {TagCategoryEnum}

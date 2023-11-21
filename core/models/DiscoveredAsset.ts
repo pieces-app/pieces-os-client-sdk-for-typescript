@@ -34,7 +34,7 @@ import {
     TLPDirectedDiscoveryFiltersFromJSON,
     TLPDirectedDiscoveryFiltersFromJSONTyped,
     TLPDirectedDiscoveryFiltersToJSON,
-} from './';
+} from './index';
 
 /**
  * 

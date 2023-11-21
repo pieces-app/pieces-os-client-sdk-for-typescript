@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedFormat, TrackedFormatEventIdentifierDescriptionPairs, TrackedFormatEventMetadata } from './';
+import { EmbeddedModelSchema, ReferencedFormat, TrackedFormatEventIdentifierDescriptionPairs, TrackedFormatEventMetadata } from './index';
 /**
  * Again this is a model designed to be sent over to a context server to be built and then sent along to segment.
  * @export

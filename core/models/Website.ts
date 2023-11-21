@@ -18,14 +18,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAsset,
-    FlattenedAssetFromJSON,
-    FlattenedAssetFromJSONTyped,
-    FlattenedAssetToJSON,
-    FlattenedFormat,
-    FlattenedFormatFromJSON,
-    FlattenedFormatFromJSONTyped,
-    FlattenedFormatToJSON,
+    FlattenedAssets,
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
     FlattenedPersons,
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
@@ -42,7 +38,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a specific model for related websites to an asset.
@@ -64,10 +60,10 @@ export interface Website {
     id: string;
     /**
      * 
-     * @type {FlattenedAsset}
+     * @type {FlattenedAssets}
      * @memberof Website
      */
-    asset?: FlattenedAsset;
+    assets?: FlattenedAssets;
     /**
      * this is the actual website url.
      * @type {string}
@@ -80,12 +76,6 @@ export interface Website {
      * @memberof Website
      */
     name: string;
-    /**
-     * 
-     * @type {FlattenedFormat}
-     * @memberof Website
-     */
-    format?: FlattenedFormat;
     /**
      * 
      * @type {GroupedTimestamp}
@@ -105,11 +95,11 @@ export interface Website {
      */
     deleted?: GroupedTimestamp;
     /**
-     * 
-     * @type {MechanismEnum}
+     * This is a Map<String, MechanismEnum> where the the key is an asset id.
+     * @type {{ [key: string]: MechanismEnum; }}
      * @memberof Website
      */
-    mechanism: MechanismEnum;
+    mechanisms?: { [key: string]: MechanismEnum; };
     /**
      * This is an optional value that will keep track of the number of times this has been interacted with.
      * @type {number}
@@ -142,14 +132,13 @@ export function WebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): W
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'asset': !exists(json, 'asset') ? undefined : FlattenedAssetFromJSON(json['asset']),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'url': json['url'],
         'name': json['name'],
-        'format': !exists(json, 'format') ? undefined : FlattenedFormatFromJSON(json['format']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanism': MechanismEnumFromJSON(json['mechanism']),
+        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
         'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
@@ -167,14 +156,13 @@ export function WebsiteToJSON(value?: Website | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'id': value.id,
-        'asset': FlattenedAssetToJSON(value.asset),
+        'assets': FlattenedAssetsToJSON(value.assets),
         'url': value.url,
         'name': value.name,
-        'format': FlattenedFormatToJSON(value.format),
         'created': GroupedTimestampToJSON(value.created),
         'updated': GroupedTimestampToJSON(value.updated),
         'deleted': GroupedTimestampToJSON(value.deleted),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
         'interactions': value.interactions,
         'persons': FlattenedPersonsToJSON(value.persons),
         'score': ScoreToJSON(value.score),

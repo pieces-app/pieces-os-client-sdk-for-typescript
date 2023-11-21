@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTQuestionAnswers } from './';
+import { EmbeddedModelSchema, QGPTQuestionAnswers } from './index';
 /**
  * This is the output/returned value from the /qgpt/question endpoint. && /qgpt/followup
  *

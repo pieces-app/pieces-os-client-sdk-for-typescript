@@ -58,7 +58,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a flattend version of the Convsersation for DAG-Safety.

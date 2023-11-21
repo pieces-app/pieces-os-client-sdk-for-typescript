@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersonBasicTypeToJSON = exports.PersonBasicTypeFromJSONTyped = exports.PersonBasicTypeFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function PersonBasicTypeFromJSON(json) {
     return PersonBasicTypeFromJSONTyped(json, false);
 }
@@ -25,14 +25,14 @@ function PersonBasicTypeFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'username': !(0, runtime_1.exists)(json, 'username') ? undefined : json['username'],
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
         'picture': !(0, runtime_1.exists)(json, 'picture') ? undefined : json['picture'],
         'email': !(0, runtime_1.exists)(json, 'email') ? undefined : json['email'],
-        'sourced': !(0, runtime_1.exists)(json, 'sourced') ? undefined : (0, _1.ExternallySourcedEnumFromJSON)(json['sourced']),
+        'sourced': !(0, runtime_1.exists)(json, 'sourced') ? undefined : (0, index_1.ExternallySourcedEnumFromJSON)(json['sourced']),
         'url': !(0, runtime_1.exists)(json, 'url') ? undefined : json['url'],
-        'mailgun': !(0, runtime_1.exists)(json, 'mailgun') ? undefined : (0, _1.MailgunMetadataFromJSON)(json['mailgun']),
+        'mailgun': !(0, runtime_1.exists)(json, 'mailgun') ? undefined : (0, index_1.MailgunMetadataFromJSON)(json['mailgun']),
     };
 }
 exports.PersonBasicTypeFromJSONTyped = PersonBasicTypeFromJSONTyped;
@@ -44,14 +44,14 @@ function PersonBasicTypeToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'username': value.username,
         'name': value.name,
         'picture': value.picture,
         'email': value.email,
-        'sourced': (0, _1.ExternallySourcedEnumToJSON)(value.sourced),
+        'sourced': (0, index_1.ExternallySourcedEnumToJSON)(value.sourced),
         'url': value.url,
-        'mailgun': (0, _1.MailgunMetadataToJSON)(value.mailgun),
+        'mailgun': (0, index_1.MailgunMetadataToJSON)(value.mailgun),
     };
 }
 exports.PersonBasicTypeToJSON = PersonBasicTypeToJSON;

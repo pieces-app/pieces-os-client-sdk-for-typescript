@@ -34,7 +34,7 @@ import {
     OAuthGroupFromJSON,
     OAuthGroupFromJSONTyped,
     OAuthGroupToJSON,
-} from './';
+} from './index';
 
 /**
  * An object representing all of the properties that are available within a Auth0 PKCE Flow

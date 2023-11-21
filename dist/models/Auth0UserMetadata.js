@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Auth0UserMetadataToJSON = exports.Auth0UserMetadataFromJSONTyped = exports.Auth0UserMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function Auth0UserMetadataFromJSON(json) {
     return Auth0UserMetadataFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function Auth0UserMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'globalId': json['global_id'],
         'cloudKey': !(0, runtime_1.exists)(json, 'cloud_key') ? undefined : json['cloud_key'],
         'stripeCustomerId': !(0, runtime_1.exists)(json, 'stripe_customer_id') ? undefined : json['stripe_customer_id'],
         'vanityname': !(0, runtime_1.exists)(json, 'vanityname') ? undefined : json['vanityname'],
-        'allocation': !(0, runtime_1.exists)(json, 'allocation') ? undefined : (0, _1.Auth0UserAllocationMetadataFromJSON)(json['allocation']),
+        'allocation': !(0, runtime_1.exists)(json, 'allocation') ? undefined : (0, index_1.Auth0UserAllocationMetadataFromJSON)(json['allocation']),
     };
 }
 exports.Auth0UserMetadataFromJSONTyped = Auth0UserMetadataFromJSONTyped;
@@ -42,12 +42,12 @@ function Auth0UserMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'global_id': value.globalId,
         'cloud_key': value.cloudKey,
         'stripe_customer_id': value.stripeCustomerId,
         'vanityname': value.vanityname,
-        'allocation': (0, _1.Auth0UserAllocationMetadataToJSON)(value.allocation),
+        'allocation': (0, index_1.Auth0UserAllocationMetadataToJSON)(value.allocation),
     };
 }
 exports.Auth0UserMetadataToJSON = Auth0UserMetadataToJSON;

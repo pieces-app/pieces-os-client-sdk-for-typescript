@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededTrackedInteractionEventIdentifierDescriptionPairs } from './';
+import { EmbeddedModelSchema, SeededTrackedInteractionEventIdentifierDescriptionPairs } from './index';
 /**
  * This is a model that will hold relavent information in relation to an interaction(ONLY CLICK/TAP) analytics event(usage). If you want to register an event that relates to an interaction with the key then register a Keyboard Event.
  * @export

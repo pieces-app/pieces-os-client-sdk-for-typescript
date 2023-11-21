@@ -46,7 +46,7 @@ import {
     SeededConversationMessageFromJSON,
     SeededConversationMessageFromJSONTyped,
     SeededConversationMessageToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a pre-Conversation object.

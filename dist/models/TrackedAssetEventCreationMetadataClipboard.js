@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedAssetEventCreationMetadataClipboardToJSON = exports.TrackedAssetEventCreationMetadataClipboardFromJSONTyped = exports.TrackedAssetEventCreationMetadataClipboardFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function TrackedAssetEventCreationMetadataClipboardFromJSON(json) {
     return TrackedAssetEventCreationMetadataClipboardFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function TrackedAssetEventCreationMetadataClipboardFromJSONTyped(json, ignoreDis
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'keyboard': !(0, runtime_1.exists)(json, 'keyboard') ? undefined : json['keyboard'],
         'interaction': !(0, runtime_1.exists)(json, 'interaction') ? undefined : json['interaction'],
     };
@@ -39,7 +39,7 @@ function TrackedAssetEventCreationMetadataClipboardToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'keyboard': value.keyboard,
         'interaction': value.interaction,
     };

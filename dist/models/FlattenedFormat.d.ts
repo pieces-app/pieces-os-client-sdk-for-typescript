@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ByteDescriptor, Classification, EmbeddedModelSchema, FileFormat, FlattenedActivities, FlattenedAnalysis, FlattenedTags, FlattenedWebsites, FragmentFormat, GroupedTimestamp, Relationship, Role } from './';
+import { Application, ByteDescriptor, Classification, EmbeddedModelSchema, FileFormat, FlattenedActivities, FlattenedAnalysis, FragmentFormat, GroupedTimestamp, Relationship, Role } from './index';
 /**
  * A representation of Data for a particular Form Factor of an Asset.[DAG Compatible - Directed Acyclic Graph Data Structure]
  *
@@ -124,18 +124,6 @@ export interface FlattenedFormat {
      * @memberof FlattenedFormat
      */
     analysis?: FlattenedAnalysis;
-    /**
-     *
-     * @type {FlattenedWebsites}
-     * @memberof FlattenedFormat
-     */
-    websites?: FlattenedWebsites;
-    /**
-     *
-     * @type {FlattenedTags}
-     * @memberof FlattenedFormat
-     */
-    tags?: FlattenedTags;
     /**
      *
      * @type {Relationship}

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmbeddingToJSON = exports.EmbeddingFromJSONTyped = exports.EmbeddingFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function EmbeddingFromJSON(json) {
     return EmbeddingFromJSONTyped(json, false);
 }
@@ -26,10 +26,10 @@ function EmbeddingFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'raw': json['raw'],
-        'model': (0, _1.ModelFromJSON)(json['model']),
-        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'model': (0, index_1.ModelFromJSON)(json['model']),
+        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
     };
 }
 exports.EmbeddingFromJSONTyped = EmbeddingFromJSONTyped;
@@ -42,10 +42,10 @@ function EmbeddingToJSON(value) {
     }
     return {
         'raw': value.raw,
-        'model': (0, _1.ModelToJSON)(value.model),
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'model': (0, index_1.ModelToJSON)(value.model),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
     };
 }
 exports.EmbeddingToJSON = EmbeddingToJSON;

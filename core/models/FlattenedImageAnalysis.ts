@@ -22,7 +22,7 @@ import {
     FlattenedOCRAnalysisFromJSON,
     FlattenedOCRAnalysisFromJSONTyped,
     FlattenedOCRAnalysisToJSON,
-} from './';
+} from './index';
 
 /**
  * 

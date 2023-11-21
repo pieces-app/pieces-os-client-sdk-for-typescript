@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetReclassificationToJSON = exports.AssetReclassificationFromJSONTyped = exports.AssetReclassificationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AssetReclassificationFromJSON(json) {
     return AssetReclassificationFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function AssetReclassificationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'ext': (0, _1.ClassificationSpecificEnumFromJSON)(json['ext']),
-        'asset': (0, _1.AssetFromJSON)(json['asset']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'ext': (0, index_1.ClassificationSpecificEnumFromJSON)(json['ext']),
+        'asset': (0, index_1.AssetFromJSON)(json['asset']),
     };
 }
 exports.AssetReclassificationFromJSONTyped = AssetReclassificationFromJSONTyped;
@@ -39,9 +39,9 @@ function AssetReclassificationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'ext': (0, _1.ClassificationSpecificEnumToJSON)(value.ext),
-        'asset': (0, _1.AssetToJSON)(value.asset),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'ext': (0, index_1.ClassificationSpecificEnumToJSON)(value.ext),
+        'asset': (0, index_1.AssetToJSON)(value.asset),
     };
 }
 exports.AssetReclassificationToJSON = AssetReclassificationToJSON;

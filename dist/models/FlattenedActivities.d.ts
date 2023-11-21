@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedActivity } from './';
+import { EmbeddedModelSchema, ReferencedActivity } from './index';
 /**
  *
  * @export

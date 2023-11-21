@@ -26,7 +26,7 @@ import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the output model for "/conversation/{conversation}/summarize

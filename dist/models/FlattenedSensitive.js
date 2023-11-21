@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedSensitiveToJSON = exports.FlattenedSensitiveFromJSONTyped = exports.FlattenedSensitiveFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function FlattenedSensitiveFromJSON(json) {
     return FlattenedSensitiveFromJSONTyped(json, false);
 }
@@ -25,21 +25,21 @@ function FlattenedSensitiveFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
-        'asset': (0, _1.ReferencedAssetFromJSON)(json['asset']),
+        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
+        'asset': (0, index_1.ReferencedAssetFromJSON)(json['asset']),
         'text': json['text'],
-        'mechanism': (0, _1.MechanismEnumFromJSON)(json['mechanism']),
-        'category': (0, _1.SensitiveCategoryEnumFromJSON)(json['category']),
-        'severity': (0, _1.SensitiveSeverityEnumFromJSON)(json['severity']),
+        'mechanism': (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
+        'category': (0, index_1.SensitiveCategoryEnumFromJSON)(json['category']),
+        'severity': (0, index_1.SensitiveSeverityEnumFromJSON)(json['severity']),
         'name': json['name'],
         'description': json['description'],
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.SensitiveMetadataFromJSON)(json['metadata']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.SensitiveMetadataFromJSON)(json['metadata']),
         'interactions': !(0, runtime_1.exists)(json, 'interactions') ? undefined : json['interactions'],
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
     };
 }
 exports.FlattenedSensitiveFromJSONTyped = FlattenedSensitiveFromJSONTyped;
@@ -51,21 +51,21 @@ function FlattenedSensitiveToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
-        'asset': (0, _1.ReferencedAssetToJSON)(value.asset),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
+        'asset': (0, index_1.ReferencedAssetToJSON)(value.asset),
         'text': value.text,
-        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
-        'category': (0, _1.SensitiveCategoryEnumToJSON)(value.category),
-        'severity': (0, _1.SensitiveSeverityEnumToJSON)(value.severity),
+        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
+        'category': (0, index_1.SensitiveCategoryEnumToJSON)(value.category),
+        'severity': (0, index_1.SensitiveSeverityEnumToJSON)(value.severity),
         'name': value.name,
         'description': value.description,
-        'metadata': (0, _1.SensitiveMetadataToJSON)(value.metadata),
+        'metadata': (0, index_1.SensitiveMetadataToJSON)(value.metadata),
         'interactions': value.interactions,
-        'score': (0, _1.ScoreToJSON)(value.score),
+        'score': (0, index_1.ScoreToJSON)(value.score),
     };
 }
 exports.FlattenedSensitiveToJSON = FlattenedSensitiveToJSON;

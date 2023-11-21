@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { Asset, AssetFormats, Assets, AssetsSearchWithFiltersInput, AssetsSearchWithFiltersOutput, FlattenedAssets, PseudoAssets, SearchedAssets, Seed, SeededAssetsRecommendation, StreamedIdentifiers } from '../models';
+import { Asset, Assets, AssetsSearchWithFiltersInput, AssetsSearchWithFiltersOutput, FlattenedAssets, Formats, PseudoAssets, SearchedAssets, Seed, SeededAssetsRecommendation, StreamedIdentifiers } from '../models';
 export interface AssetsCreateNewAssetRequest {
     transferables?: boolean;
     seed?: Seed;
@@ -163,12 +163,12 @@ export declare class AssetsApi extends runtime.BaseAPI {
      * This will query the formats for agiven asset when provided that asset\'s id.
      * /assets/{asset}/formats [GET] Scoped To Assets
      */
-    assetsSpecificAssetFormatsSnapshotRaw(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<runtime.ApiResponse<AssetFormats>>;
+    assetsSpecificAssetFormatsSnapshotRaw(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<runtime.ApiResponse<Formats>>;
     /**
      * This will query the formats for agiven asset when provided that asset\'s id.
      * /assets/{asset}/formats [GET] Scoped To Assets
      */
-    assetsSpecificAssetFormatsSnapshot(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<AssetFormats>;
+    assetsSpecificAssetFormatsSnapshot(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<Formats>;
     /**
      * This is an endpoint to enable a client to access a specific asset through a provided uuid in the path.
      * /assets/{asset} [GET] Scoped to Assets

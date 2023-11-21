@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedWebsiteToJSON = exports.FlattenedWebsiteFromJSONTyped = exports.FlattenedWebsiteFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function FlattenedWebsiteFromJSON(json) {
     return FlattenedWebsiteFromJSONTyped(json, false);
 }
@@ -25,19 +25,18 @@ function FlattenedWebsiteFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.ReferencedAssetFromJSON)(json['asset']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
         'name': json['name'],
         'url': json['url'],
-        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, _1.ReferencedFormatFromJSON)(json['format']),
-        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
-        'mechanism': (0, _1.MechanismEnumFromJSON)(json['mechanism']),
+        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
+        'mechanisms': !(0, runtime_1.exists)(json, 'mechanisms') ? undefined : ((0, runtime_1.mapValues)(json['mechanisms'], index_1.MechanismEnumFromJSON)),
         'interactions': !(0, runtime_1.exists)(json, 'interactions') ? undefined : json['interactions'],
-        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (0, _1.FlattenedPersonsFromJSON)(json['persons']),
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
+        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (0, index_1.FlattenedPersonsFromJSON)(json['persons']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
     };
 }
 exports.FlattenedWebsiteFromJSONTyped = FlattenedWebsiteFromJSONTyped;
@@ -49,19 +48,18 @@ function FlattenedWebsiteToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'asset': (0, _1.ReferencedAssetToJSON)(value.asset),
+        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
         'name': value.name,
         'url': value.url,
-        'format': (0, _1.ReferencedFormatToJSON)(value.format),
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
-        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
+        'mechanisms': value.mechanisms === undefined ? undefined : ((0, runtime_1.mapValues)(value.mechanisms, index_1.MechanismEnumToJSON)),
         'interactions': value.interactions,
-        'persons': (0, _1.FlattenedPersonsToJSON)(value.persons),
-        'score': (0, _1.ScoreToJSON)(value.score),
+        'persons': (0, index_1.FlattenedPersonsToJSON)(value.persons),
+        'score': (0, index_1.ScoreToJSON)(value.score),
     };
 }
 exports.FlattenedWebsiteToJSON = FlattenedWebsiteToJSON;

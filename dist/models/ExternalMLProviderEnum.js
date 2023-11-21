@@ -42,6 +42,8 @@ var ExternalMLProviderEnum;
     ExternalMLProviderEnum["Blickdl"] = "BLICKDL";
     ExternalMLProviderEnum["HongKongBaptistUniversity"] = "HONG_KONG_BAPTIST_UNIVERSITY";
     ExternalMLProviderEnum["Bigcode"] = "BIGCODE";
+    ExternalMLProviderEnum["Jina"] = "JINA";
+    ExternalMLProviderEnum["Pieces"] = "PIECES";
 })(ExternalMLProviderEnum || (exports.ExternalMLProviderEnum = ExternalMLProviderEnum = {}));
 function ExternalMLProviderEnumFromJSON(json) {
     return ExternalMLProviderEnumFromJSONTyped(json, false);

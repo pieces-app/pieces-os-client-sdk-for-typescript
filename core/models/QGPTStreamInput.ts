@@ -22,7 +22,7 @@ import {
     QGPTRelevanceInputFromJSON,
     QGPTRelevanceInputFromJSONTyped,
     QGPTRelevanceInputToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the input for the /qgpt/stream endpoint.

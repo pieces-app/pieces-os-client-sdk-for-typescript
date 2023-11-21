@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTConversation } from './';
+import { EmbeddedModelSchema, QGPTConversation } from './index';
 /**
  * Query is your followup question.
  *

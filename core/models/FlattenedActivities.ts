@@ -22,7 +22,7 @@ import {
     ReferencedActivityFromJSON,
     ReferencedActivityFromJSONTyped,
     ReferencedActivityToJSON,
-} from './';
+} from './index';
 
 /**
  * 

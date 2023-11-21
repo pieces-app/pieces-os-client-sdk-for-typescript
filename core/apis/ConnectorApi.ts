@@ -18,16 +18,48 @@ import {
     Context,
     ContextFromJSON,
     ContextToJSON,
+    Reaction,
+    ReactionFromJSON,
+    ReactionToJSON,
+    SeededConnectorAsset,
+    SeededConnectorAssetFromJSON,
+    SeededConnectorAssetToJSON,
     SeededConnectorConnection,
     SeededConnectorConnectionFromJSON,
     SeededConnectorConnectionToJSON,
+    SeededConnectorCreation,
+    SeededConnectorCreationFromJSON,
+    SeededConnectorCreationToJSON,
     SeededConnectorTracking,
     SeededConnectorTrackingFromJSON,
     SeededConnectorTrackingToJSON,
+    Suggestion,
+    SuggestionFromJSON,
+    SuggestionToJSON,
 } from '../models';
 
 export interface ConnectRequest {
     seededConnectorConnection?: SeededConnectorConnection;
+}
+
+export interface IntentionRequest {
+    application: string;
+    seededConnectorAsset?: SeededConnectorAsset;
+}
+
+export interface OnboardedRequest {
+    application: string;
+    body?: boolean;
+}
+
+export interface ReactRequest {
+    application: string;
+    reaction?: Reaction;
+}
+
+export interface SuggestRequest {
+    application: string;
+    seededConnectorCreation?: SeededConnectorCreation;
 }
 
 export interface TrackRequest {
@@ -68,6 +100,146 @@ export class ConnectorApi extends runtime.BaseAPI {
      */
     async connect(requestParameters: ConnectRequest): Promise<Context> {
         const response = await this.connectRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This can be used to send a SeededAsset over that you may use to compair in the future.
+     * /{application}/intention [POST]
+     */
+    async intentionRaw(requestParameters: IntentionRequest): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling intention.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/{application}/intention`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededConnectorAssetToJSON(requestParameters.seededConnectorAsset),
+        });
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+    /**
+     * This can be used to send a SeededAsset over that you may use to compair in the future.
+     * /{application}/intention [POST]
+     */
+    async intention(requestParameters: IntentionRequest): Promise<string> {
+        const response = await this.intentionRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * A consolidation endpoint to handle the updating of an onboarding process.
+     * /onboarded [POST]
+     */
+    async onboardedRaw(requestParameters: OnboardedRequest): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling onboarded.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/{application}/onboarded`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        });
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+    /**
+     * A consolidation endpoint to handle the updating of an onboarding process.
+     * /onboarded [POST]
+     */
+    async onboarded(requestParameters: OnboardedRequest): Promise<string> {
+        const response = await this.onboardedRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will react to the response returned from the /suggest endpoint. 
+     * /{application}/reaction [POST]
+     */
+    async reactRaw(requestParameters: ReactRequest): Promise<runtime.ApiResponse<string>> {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling react.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/{application}/reaction`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReactionToJSON(requestParameters.reaction),
+        });
+
+        return new runtime.TextApiResponse(response) as any;
+    }
+
+    /**
+     * This will react to the response returned from the /suggest endpoint. 
+     * /{application}/reaction [POST]
+     */
+    async react(requestParameters: ReactRequest): Promise<string> {
+        const response = await this.reactRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.
+     * /{application}/suggestion [POST]
+     */
+    async suggestRaw(requestParameters: SuggestRequest): Promise<runtime.ApiResponse<Suggestion>> {
+        if (requestParameters.application === null || requestParameters.application === undefined) {
+            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling suggest.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/{application}/suggestion`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededConnectorCreationToJSON(requestParameters.seededConnectorCreation),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SuggestionFromJSON(jsonValue));
+    }
+
+    /**
+     * This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.
+     * /{application}/suggestion [POST]
+     */
+    async suggest(requestParameters: SuggestRequest): Promise<Suggestion> {
+        const response = await this.suggestRaw(requestParameters);
         return await response.value();
     }
 

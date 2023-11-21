@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetsSearchWithFiltersInputToJSON = exports.AssetsSearchWithFiltersInputFromJSONTyped = exports.AssetsSearchWithFiltersInputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AssetsSearchWithFiltersInputFromJSON(json) {
     return AssetsSearchWithFiltersInputFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function AssetsSearchWithFiltersInputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'query': !(0, runtime_1.exists)(json, 'query') ? undefined : json['query'],
-        'space': !(0, runtime_1.exists)(json, 'space') ? undefined : (0, _1.AssetSearchSpaceFromJSON)(json['space']),
-        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, _1.AssetFiltersFromJSON)(json['filters']),
+        'space': !(0, runtime_1.exists)(json, 'space') ? undefined : (0, index_1.AssetSearchSpaceFromJSON)(json['space']),
+        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, index_1.AssetFiltersFromJSON)(json['filters']),
         'casing': !(0, runtime_1.exists)(json, 'casing') ? undefined : json['casing'],
     };
 }
@@ -41,10 +41,10 @@ function AssetsSearchWithFiltersInputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'query': value.query,
-        'space': (0, _1.AssetSearchSpaceToJSON)(value.space),
-        'filters': (0, _1.AssetFiltersToJSON)(value.filters),
+        'space': (0, index_1.AssetSearchSpaceToJSON)(value.space),
+        'filters': (0, index_1.AssetFiltersToJSON)(value.filters),
         'casing': value.casing,
     };
 }

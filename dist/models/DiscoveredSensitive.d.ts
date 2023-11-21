@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededSensitive } from './';
+import { EmbeddedModelSchema, SeededSensitive } from './index';
 /**
  * This will return a discoveredSensitive, with a seed that can be used to create if automatic is set to false. and will provide the original text provided.
  * @export

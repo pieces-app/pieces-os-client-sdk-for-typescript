@@ -44,6 +44,118 @@ const models_1 = require("../models");
  */
 class WebsiteApi extends runtime.BaseAPI {
     /**
+     * This will associate a website with a asset.
+     * /website/{website}/assets/associate/{asset} [POST]
+     */
+    async associateAssetRaw(requestParameters) {
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset', 'Required parameter requestParameters.asset was null or undefined when calling associateAsset.');
+        }
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling associateAsset.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/website/{website}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will associate a website with a asset.
+     * /website/{website}/assets/associate/{asset} [POST]
+     */
+    async associateAsset(requestParameters) {
+        await this.associateAssetRaw(requestParameters);
+    }
+    /**
+     * This will associate a website with a person.
+     * /website/{website}/persons/associate/{person} [POST]
+     */
+    async associatePersonRaw(requestParameters) {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling associatePerson.');
+        }
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person', 'Required parameter requestParameters.person was null or undefined when calling associatePerson.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/website/{website}/persons/associate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will associate a website with a person.
+     * /website/{website}/persons/associate/{person} [POST]
+     */
+    async associatePerson(requestParameters) {
+        await this.associatePersonRaw(requestParameters);
+    }
+    /**
+     * This will enable us to dissassociate a website from a asset.
+     * /website/{website}/assets/disassociate/{asset} [POST]
+     */
+    async disassociateAssetRaw(requestParameters) {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling disassociateAsset.');
+        }
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset', 'Required parameter requestParameters.asset was null or undefined when calling disassociateAsset.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/website/{website}/assets/disassociate/{asset}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will enable us to dissassociate a website from a asset.
+     * /website/{website}/assets/disassociate/{asset} [POST]
+     */
+    async disassociateAsset(requestParameters) {
+        await this.disassociateAssetRaw(requestParameters);
+    }
+    /**
+     * This will enable us to dissassociate a website from a person.
+     * /website/{website}/persons/disassociate/{person} [POST]
+     */
+    async disassociatePersonRaw(requestParameters) {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling disassociatePerson.');
+        }
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person', 'Required parameter requestParameters.person was null or undefined when calling disassociatePerson.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/website/{website}/persons/disassociate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will enable us to dissassociate a website from a person.
+     * /website/{website}/persons/disassociate/{person} [POST]
+     */
+    async disassociatePerson(requestParameters) {
+        await this.disassociatePersonRaw(requestParameters);
+    }
+    /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/website/{website}/scores/increment\' [POST]
      */

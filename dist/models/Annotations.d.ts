@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Annotation, EmbeddedModelSchema, Score } from './';
+import { Annotation, EmbeddedModelSchema, Score } from './index';
 /**
  * This is the plural of Annotation
  * @export

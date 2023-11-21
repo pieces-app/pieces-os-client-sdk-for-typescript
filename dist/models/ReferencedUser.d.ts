@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedUserProfile } from './';
+import { EmbeddedModelSchema, FlattenedUserProfile } from './index';
 /**
  * A object to reference a user's ID and optionally a FlattenedUserProfile Instance
  * @export

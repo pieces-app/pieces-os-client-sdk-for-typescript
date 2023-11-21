@@ -26,7 +26,7 @@ import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the body input for the /code_gpt/question.

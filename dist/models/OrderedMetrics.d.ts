@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './';
+import { EmbeddedModelSchema } from './index';
 /**
  * This is a returnable for the metrics/formats/ordered
  * @export

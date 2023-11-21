@@ -22,7 +22,7 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a model for a minimum exported version of an asset.

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LinkifyToJSON = exports.LinkifyFromJSONTyped = exports.LinkifyFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function LinkifyFromJSON(json) {
     return LinkifyFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function LinkifyFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, _1.SeedFromJSON)(json['seed']),
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.AssetFromJSON)(json['asset']),
-        'users': !(0, runtime_1.exists)(json, 'users') ? undefined : (json['users'].map(_1.SeededUserFromJSON)),
-        'access': (0, _1.AccessEnumFromJSON)(json['access']),
-        'distributions': !(0, runtime_1.exists)(json, 'distributions') ? undefined : (0, _1.SeededDistributionsFromJSON)(json['distributions']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, index_1.SeedFromJSON)(json['seed']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.AssetFromJSON)(json['asset']),
+        'users': !(0, runtime_1.exists)(json, 'users') ? undefined : (json['users'].map(index_1.SeededUserFromJSON)),
+        'access': (0, index_1.AccessEnumFromJSON)(json['access']),
+        'distributions': !(0, runtime_1.exists)(json, 'distributions') ? undefined : (0, index_1.SeededDistributionsFromJSON)(json['distributions']),
     };
 }
 exports.LinkifyFromJSONTyped = LinkifyFromJSONTyped;
@@ -42,12 +42,12 @@ function LinkifyToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'seed': (0, _1.SeedToJSON)(value.seed),
-        'asset': (0, _1.AssetToJSON)(value.asset),
-        'users': value.users === undefined ? undefined : (value.users.map(_1.SeededUserToJSON)),
-        'access': (0, _1.AccessEnumToJSON)(value.access),
-        'distributions': (0, _1.SeededDistributionsToJSON)(value.distributions),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'seed': (0, index_1.SeedToJSON)(value.seed),
+        'asset': (0, index_1.AssetToJSON)(value.asset),
+        'users': value.users === undefined ? undefined : (value.users.map(index_1.SeededUserToJSON)),
+        'access': (0, index_1.AccessEnumToJSON)(value.access),
+        'distributions': (0, index_1.SeededDistributionsToJSON)(value.distributions),
     };
 }
 exports.LinkifyToJSON = LinkifyToJSON;

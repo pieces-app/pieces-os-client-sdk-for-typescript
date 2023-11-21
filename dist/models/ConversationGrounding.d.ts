@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedConversationMessages } from './';
+import { EmbeddedModelSchema, FlattenedConversationMessages } from './index';
 /**
  * This is the context used for grounding the ml models with reguard to a conversation.
  * @export

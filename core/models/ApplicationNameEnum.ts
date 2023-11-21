@@ -41,7 +41,10 @@ export enum ApplicationNameEnum {
     MicrosoftEdge = 'MICROSOFT_EDGE',
     Brave = 'BRAVE',
     GoogleChat = 'GOOGLE_CHAT',
-    Slack = 'SLACK'
+    Slack = 'SLACK',
+    AzureDataStudio = 'AZURE_DATA_STUDIO',
+    OpenSource = 'OPEN_SOURCE',
+    Unknown = 'UNKNOWN'
 }
 
 export function ApplicationNameEnumFromJSON(json: any): ApplicationNameEnum {

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TLPCodeProcessing } from './';
+import { EmbeddedModelSchema, TLPCodeProcessing } from './index';
 /**
  *
  * @export

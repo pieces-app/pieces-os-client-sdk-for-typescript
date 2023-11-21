@@ -18,9 +18,6 @@ import {
     Asset,
     AssetFromJSON,
     AssetToJSON,
-    AssetFormats,
-    AssetFormatsFromJSON,
-    AssetFormatsToJSON,
     Assets,
     AssetsFromJSON,
     AssetsToJSON,
@@ -33,6 +30,9 @@ import {
     FlattenedAssets,
     FlattenedAssetsFromJSON,
     FlattenedAssetsToJSON,
+    Formats,
+    FormatsFromJSON,
+    FormatsToJSON,
     PseudoAssets,
     PseudoAssetsFromJSON,
     PseudoAssetsToJSON,
@@ -461,7 +461,7 @@ export class AssetsApi extends runtime.BaseAPI {
      * This will query the formats for agiven asset when provided that asset\'s id.
      * /assets/{asset}/formats [GET] Scoped To Assets
      */
-    async assetsSpecificAssetFormatsSnapshotRaw(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<runtime.ApiResponse<AssetFormats>> {
+    async assetsSpecificAssetFormatsSnapshotRaw(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<runtime.ApiResponse<Formats>> {
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
             throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetsSpecificAssetFormatsSnapshot.');
         }
@@ -481,14 +481,14 @@ export class AssetsApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => AssetFormatsFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => FormatsFromJSON(jsonValue));
     }
 
     /**
      * This will query the formats for agiven asset when provided that asset\'s id.
      * /assets/{asset}/formats [GET] Scoped To Assets
      */
-    async assetsSpecificAssetFormatsSnapshot(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<AssetFormats> {
+    async assetsSpecificAssetFormatsSnapshot(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<Formats> {
         const response = await this.assetsSpecificAssetFormatsSnapshotRaw(requestParameters);
         return await response.value();
     }

@@ -22,7 +22,7 @@ import {
     OCRAnalysisFromJSON,
     OCRAnalysisFromJSONTyped,
     OCRAnalysisToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a model that represents all the information collected during the processing of an image.

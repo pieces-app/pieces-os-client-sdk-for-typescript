@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './';
+import { EmbeddedModelSchema } from './index';
 /**
  * A helper classs to wrap Date-Time Values with Useful Helper Properties
  * @export

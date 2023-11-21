@@ -26,10 +26,6 @@ import {
     AnnotationsFromJSON,
     AnnotationsFromJSONTyped,
     AnnotationsToJSON,
-    AssetFormats,
-    AssetFormatsFromJSON,
-    AssetFormatsFromJSONTyped,
-    AssetFormatsToJSON,
     Conversations,
     ConversationsFromJSON,
     ConversationsFromJSONTyped,
@@ -38,6 +34,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    Formats,
+    FormatsFromJSON,
+    FormatsFromJSONTyped,
+    FormatsToJSON,
     GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
@@ -82,7 +82,7 @@ import {
     WebsitesFromJSON,
     WebsitesFromJSONTyped,
     WebsitesToJSON,
-} from './';
+} from './index';
 
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats.
@@ -142,10 +142,10 @@ export interface Asset {
     deleted?: GroupedTimestamp;
     /**
      * 
-     * @type {AssetFormats}
+     * @type {Formats}
      * @memberof Asset
      */
-    formats: AssetFormats;
+    formats: Formats;
     /**
      * 
      * @type {Preview}
@@ -280,7 +280,7 @@ export function AssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ass
         'updated': GroupedTimestampFromJSON(json['updated']),
         'synced': !exists(json, 'synced') ? undefined : GroupedTimestampFromJSON(json['synced']),
         'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'formats': AssetFormatsFromJSON(json['formats']),
+        'formats': FormatsFromJSON(json['formats']),
         'preview': PreviewFromJSON(json['preview']),
         'original': ReferencedFormatFromJSON(json['original']),
         'shares': !exists(json, 'shares') ? undefined : SharesFromJSON(json['shares']),
@@ -320,7 +320,7 @@ export function AssetToJSON(value?: Asset | null): any {
         'updated': GroupedTimestampToJSON(value.updated),
         'synced': GroupedTimestampToJSON(value.synced),
         'deleted': GroupedTimestampToJSON(value.deleted),
-        'formats': AssetFormatsToJSON(value.formats),
+        'formats': FormatsToJSON(value.formats),
         'preview': PreviewToJSON(value.preview),
         'original': ReferencedFormatToJSON(value.original),
         'shares': SharesToJSON(value.shares),

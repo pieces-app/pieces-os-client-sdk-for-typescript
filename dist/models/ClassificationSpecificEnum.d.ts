@@ -503,7 +503,10 @@ export declare enum ClassificationSpecificEnum {
     Sol = "sol",
     Sv = "sv",
     Asp = "asp",
-    Cfm = "cfm"
+    Cfm = "cfm",
+    Fs = "fs",
+    Fsi = "fsi",
+    Fsx = "fsx"
 }
 export declare function ClassificationSpecificEnumFromJSON(json: any): ClassificationSpecificEnum;
 export declare function ClassificationSpecificEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ClassificationSpecificEnum;

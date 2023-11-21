@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededExternalProviderToJSON = exports.SeededExternalProviderFromJSONTyped = exports.SeededExternalProviderFromJSON = void 0;
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededExternalProviderFromJSON(json) {
     return SeededExternalProviderFromJSONTyped(json, false);
 }
@@ -24,7 +24,7 @@ function SeededExternalProviderFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'type': (0, _1.ExternalProviderTypeEnumFromJSON)(json['type']),
+        'type': (0, index_1.ExternalProviderTypeEnumFromJSON)(json['type']),
     };
 }
 exports.SeededExternalProviderFromJSONTyped = SeededExternalProviderFromJSONTyped;
@@ -36,7 +36,7 @@ function SeededExternalProviderToJSON(value) {
         return null;
     }
     return {
-        'type': (0, _1.ExternalProviderTypeEnumToJSON)(value.type),
+        'type': (0, index_1.ExternalProviderTypeEnumToJSON)(value.type),
     };
 }
 exports.SeededExternalProviderToJSON = SeededExternalProviderToJSON;

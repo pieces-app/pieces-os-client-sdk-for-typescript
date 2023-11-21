@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GraphicalOCRDescriptiveStatistics } from './';
+import { EmbeddedModelSchema, GraphicalOCRDescriptiveStatistics } from './index';
 /**
  *
  * @export

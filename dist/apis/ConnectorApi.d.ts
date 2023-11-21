@@ -10,9 +10,25 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { Context, SeededConnectorConnection, SeededConnectorTracking } from '../models';
+import { Context, Reaction, SeededConnectorAsset, SeededConnectorConnection, SeededConnectorCreation, SeededConnectorTracking, Suggestion } from '../models';
 export interface ConnectRequest {
     seededConnectorConnection?: SeededConnectorConnection;
+}
+export interface IntentionRequest {
+    application: string;
+    seededConnectorAsset?: SeededConnectorAsset;
+}
+export interface OnboardedRequest {
+    application: string;
+    body?: boolean;
+}
+export interface ReactRequest {
+    application: string;
+    reaction?: Reaction;
+}
+export interface SuggestRequest {
+    application: string;
+    seededConnectorCreation?: SeededConnectorCreation;
 }
 export interface TrackRequest {
     application: string;
@@ -32,6 +48,46 @@ export declare class ConnectorApi extends runtime.BaseAPI {
      * /connect [POST]
      */
     connect(requestParameters: ConnectRequest): Promise<Context>;
+    /**
+     * This can be used to send a SeededAsset over that you may use to compair in the future.
+     * /{application}/intention [POST]
+     */
+    intentionRaw(requestParameters: IntentionRequest): Promise<runtime.ApiResponse<string>>;
+    /**
+     * This can be used to send a SeededAsset over that you may use to compair in the future.
+     * /{application}/intention [POST]
+     */
+    intention(requestParameters: IntentionRequest): Promise<string>;
+    /**
+     * A consolidation endpoint to handle the updating of an onboarding process.
+     * /onboarded [POST]
+     */
+    onboardedRaw(requestParameters: OnboardedRequest): Promise<runtime.ApiResponse<string>>;
+    /**
+     * A consolidation endpoint to handle the updating of an onboarding process.
+     * /onboarded [POST]
+     */
+    onboarded(requestParameters: OnboardedRequest): Promise<string>;
+    /**
+     * This will react to the response returned from the /suggest endpoint.
+     * /{application}/reaction [POST]
+     */
+    reactRaw(requestParameters: ReactRequest): Promise<runtime.ApiResponse<string>>;
+    /**
+     * This will react to the response returned from the /suggest endpoint.
+     * /{application}/reaction [POST]
+     */
+    react(requestParameters: ReactRequest): Promise<string>;
+    /**
+     * This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.
+     * /{application}/suggestion [POST]
+     */
+    suggestRaw(requestParameters: SuggestRequest): Promise<runtime.ApiResponse<Suggestion>>;
+    /**
+     * This can and should be called everytime a snippet is coppied from an integration. IE A Jetbrains user coppies some code, then this end point can get called to weigh if we want to suggest a piece to be reused (if reuse is true we should provide asset that the user may want to use) or saved or neither.   **Note: Could potentially accept a SeededFormat for the request body if we want.  TODO potentially just make this a get endpoint. (because we are trying to retireve data.
+     * /{application}/suggestion [POST]
+     */
+    suggest(requestParameters: SuggestRequest): Promise<Suggestion>;
     /**
      * This is an endpoint specifically to abstract the work of packaging for segment on a per-context basis
      * /{application}/track [POST]

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Recipients } from './';
+import { EmbeddedModelSchema, Recipients } from './index';
 /**
  * This is a specific Distribution for mailgun specific information.
  * @export

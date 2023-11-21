@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GraphicalOCRDescriptiveStatisticsConfidence } from './';
+import { EmbeddedModelSchema, GraphicalOCRDescriptiveStatisticsConfidence } from './index';
 /**
  * Model for monitoring and evaluating the OCR feature
  * @export

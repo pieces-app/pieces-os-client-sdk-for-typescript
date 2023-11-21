@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormatsToJSON = exports.FormatsFromJSONTyped = exports.FormatsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function FormatsFromJSON(json) {
     return FormatsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function FormatsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(_1.FormatFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(index_1.FormatFromJSON)),
     };
 }
 exports.FormatsFromJSONTyped = FormatsFromJSONTyped;
@@ -38,8 +38,8 @@ function FormatsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(_1.FormatToJSON)),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(index_1.FormatToJSON)),
     };
 }
 exports.FormatsToJSON = FormatsToJSON;

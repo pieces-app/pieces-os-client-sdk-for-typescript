@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './';
+import { EmbeddedModelSchema } from './index';
 /**
  * This is a model that allows us to send send over super specific format related events such as copied, deleted, downloaded, etc
  * @export

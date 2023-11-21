@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAsset, FlattenedFormat, FlattenedPersons, GroupedTimestamp, MechanismEnum, Score } from './';
+import { EmbeddedModelSchema, FlattenedAssets, FlattenedPersons, GroupedTimestamp, MechanismEnum, Score } from './index';
 /**
  * This is a specific model for related websites to an asset.
  * @export
@@ -30,10 +30,10 @@ export interface Website {
     id: string;
     /**
      *
-     * @type {FlattenedAsset}
+     * @type {FlattenedAssets}
      * @memberof Website
      */
-    asset?: FlattenedAsset;
+    assets?: FlattenedAssets;
     /**
      * this is the actual website url.
      * @type {string}
@@ -46,12 +46,6 @@ export interface Website {
      * @memberof Website
      */
     name: string;
-    /**
-     *
-     * @type {FlattenedFormat}
-     * @memberof Website
-     */
-    format?: FlattenedFormat;
     /**
      *
      * @type {GroupedTimestamp}
@@ -71,11 +65,13 @@ export interface Website {
      */
     deleted?: GroupedTimestamp;
     /**
-     *
-     * @type {MechanismEnum}
+     * This is a Map<String, MechanismEnum> where the the key is an asset id.
+     * @type {{ [key: string]: MechanismEnum; }}
      * @memberof Website
      */
-    mechanism: MechanismEnum;
+    mechanisms?: {
+        [key: string]: MechanismEnum;
+    };
     /**
      * This is an optional value that will keep track of the number of times this has been interacted with.
      * @type {number}

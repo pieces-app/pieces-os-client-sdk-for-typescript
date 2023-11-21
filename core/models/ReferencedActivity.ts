@@ -22,7 +22,7 @@ import {
     FlattenedActivityFromJSON,
     FlattenedActivityFromJSONTyped,
     FlattenedActivityToJSON,
-} from './';
+} from './index';
 
 /**
  * 
