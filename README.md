@@ -7,9 +7,9 @@
 > ### New Package Location: [https://www.npmjs.com/package/@pieces.app/sdk-ts](https://www.npmjs.com/package/@pieces.app/sdk-ts)
 > 
 > ### Details
-> **@pieces.app/client** has been renamed to **@pieces.app/sdk-ts** along with the package moving to a new route. To support anyone currently developing on  the client, this package will remain active until the above date.
+> **@pieces.app/client** has been renamed to **@pieces.app/sdk-ts** along with the package moving to a new route. To support anyone currently developing on  the client, this package will remain active until the above date. We are updating this naming to support more sdks that we are releasing and want to support a more long term structure.
 > 
-> ### Upgrade to sdk-ts
+> ### Upgrade from @pieces.app/client to @pieces.app/sdk-ts
 > You can run this set of commands in your project to get updated to the new package. 
 > 1. Copy and paste this into your terminal/command prompt:
 > ```bash
