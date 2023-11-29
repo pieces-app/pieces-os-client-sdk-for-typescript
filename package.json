@@ -1,19 +1,19 @@
 {
-  "name": "@pieces.app/client",
-  "version": "1.0.2",
+  "name": "@pieces.app/sdk-ts",
+  "version": "1.1.0",
   "description": "Use Pieces OS as a tool to build your own custom tools.",
   "keywords": [
     "pieces",
     "pieces for developers",
-    "client",
+    "sdk",
     "on-device",
     "storage",
     "copilot",
     "javascript",
     "typescript"
   ],
-  "homepage": "https://github.com/pieces-app/client",
-  "issues": "https://github.com/pieces-app/client/issues",
+  "homepage": "https://github.com/pieces-app/sdk-ts",
+  "issues": "https://github.com/pieces-app/sdk-ts/issues",
   "main": "dist/index.js",
   "files": [
     "dist",

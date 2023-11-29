@@ -1,4 +1,4 @@
-# @pieces.app/client
+# @pieces.app/sdk-ts
 
 <h1 align="center">
    <b>
@@ -57,25 +57,25 @@ You can also visit our user facing documentation to learn more about different f
 Using npm:
 
 ```bash
-npm install @pieces.app/client
+npm install @pieces.app/sdk-ts
 ```
 
 Using pnpm:
 
 ```bash
-pnpm add @pieces.app/client
+pnpm add @pieces.app/sdk-ts
 ```
 
 After you install the package, you  can import the library into your file(s) using `require`:
 
 ```js
-const pieces = require('@pieces.app/client')
+const pieces = require('@pieces.app/sdk-ts')
 ```
 
 or you can import the package using `import` as well:
 
 ```js
-import * as pieces from '@pieces.app/client'
+import * as pieces from '@pieces.app/sdk-ts'
 ```
 
 ## Starter Project
@@ -107,7 +107,7 @@ _Response [Response] {
 6.3.0
 ```
 
-You are now can confirm the installation of both Pieces OS and @pieces.app/client package inside your project.
+You are now can confirm the installation of both Pieces OS and @pieces.app/sdk-ts package inside your project.
 
 ## Examples
 Here are a few examples of using some of the basic endpoints for getting up and running, along with creating an asset for the first time. 
