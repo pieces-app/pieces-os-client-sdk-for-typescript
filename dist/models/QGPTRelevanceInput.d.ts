@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAssets, FlattenedConversationMessages, QGPTRelevanceInputOptions, Seeds } from './index';
+import { EmbeddedModelSchema, FlattenedAssets, FlattenedConversationMessages, QGPTRelevanceInputOptions, Seeds } from './';
 /**
  * This is the input body for the /code_gpt/relevance endpoint.
  *

@@ -18,6 +18,12 @@ import {
     Model,
     ModelFromJSON,
     ModelToJSON,
+    ModelDeleteCacheInput,
+    ModelDeleteCacheInputFromJSON,
+    ModelDeleteCacheInputToJSON,
+    ModelDeleteCacheOutput,
+    ModelDeleteCacheOutputFromJSON,
+    ModelDeleteCacheOutputToJSON,
     Models,
     ModelsFromJSON,
     ModelsToJSON,
@@ -34,12 +40,18 @@ export interface ModelsDeleteSpecificModelRequest {
     model: string;
 }
 
+export interface ModelsDeleteSpecificModelCacheRequest {
+    model: string;
+    modelDeleteCacheInput?: ModelDeleteCacheInput;
+}
+
 /**
  * 
  */
 export class ModelsApi extends runtime.BaseAPI {
 
     /**
+     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
      * /models/create [POST]
      */
     async modelsCreateNewModelRaw(requestParameters: ModelsCreateNewModelRequest): Promise<runtime.ApiResponse<Model>> {
@@ -61,6 +73,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
      * /models/create [POST]
      */
     async modelsCreateNewModel(requestParameters: ModelsCreateNewModelRequest): Promise<Model> {
@@ -69,6 +82,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will delete a model, This is only available for custom: true models.
      * /models/{model}/delete [POST]
      */
     async modelsDeleteSpecificModelRaw(requestParameters: ModelsDeleteSpecificModelRequest): Promise<runtime.ApiResponse<void>> {
@@ -91,10 +105,46 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will delete a model, This is only available for custom: true models.
      * /models/{model}/delete [POST]
      */
     async modelsDeleteSpecificModel(requestParameters: ModelsDeleteSpecificModelRequest): Promise<void> {
         await this.modelsDeleteSpecificModelRaw(requestParameters);
+    }
+
+    /**
+     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * /models/{model}/delete/cache [POST]
+     */
+    async modelsDeleteSpecificModelCacheRaw(requestParameters: ModelsDeleteSpecificModelCacheRequest): Promise<runtime.ApiResponse<ModelDeleteCacheOutput>> {
+        if (requestParameters.model === null || requestParameters.model === undefined) {
+            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelsDeleteSpecificModelCache.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/models/{model}/delete/cache`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ModelDeleteCacheInputToJSON(requestParameters.modelDeleteCacheInput),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ModelDeleteCacheOutputFromJSON(jsonValue));
+    }
+
+    /**
+     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * /models/{model}/delete/cache [POST]
+     */
+    async modelsDeleteSpecificModelCache(requestParameters: ModelsDeleteSpecificModelCacheRequest): Promise<ModelDeleteCacheOutput> {
+        const response = await this.modelsDeleteSpecificModelCacheRaw(requestParameters);
+        return await response.value();
     }
 
     /**
@@ -126,7 +176,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will unload all of the ml models.
+     * This will unload all of the ml models.(that are unloadable)
      * /models/unload [POST]
      */
     async unloadModelsRaw(): Promise<runtime.ApiResponse<void>> {
@@ -145,7 +195,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will unload all of the ml models.
+     * This will unload all of the ml models.(that are unloadable)
      * /models/unload [POST]
      */
     async unloadModels(): Promise<void> {

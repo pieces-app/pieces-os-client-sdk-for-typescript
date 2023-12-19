@@ -11,6 +11,10 @@
  */
 import * as runtime from '../runtime';
 import { Person, Persons, SeededPerson } from '../models';
+export interface PersonDisassociateAssetRequest {
+    person: string;
+    asset: string;
+}
 export interface PersonsCreateNewPersonRequest {
     transferables?: boolean;
     seededPerson?: SeededPerson;
@@ -21,14 +25,20 @@ export interface PersonsDeletePersonRequest {
 export interface PersonsSnapshotRequest {
     transferables?: boolean;
 }
-export interface RemovePersonReferenceFromAssetRequest {
-    person: string;
-    asset: string;
-}
 /**
  *
  */
 export declare class PersonsApi extends runtime.BaseAPI {
+    /**
+     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /persons/{person}/assets/delete/{asset} [POST]
+     */
+    personDisassociateAssetRaw(requestParameters: PersonDisassociateAssetRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /persons/{person}/assets/delete/{asset} [POST]
+     */
+    personDisassociateAsset(requestParameters: PersonDisassociateAssetRequest): Promise<void>;
     /**
      * This will create a new person.
      * /persons/create [POST]
@@ -59,14 +69,4 @@ export declare class PersonsApi extends runtime.BaseAPI {
      * /persons [GET]
      */
     personsSnapshot(requestParameters: PersonsSnapshotRequest): Promise<Persons>;
-    /**
-     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /persons/{person}/assets/delete/{asset} [POST]
-     */
-    removePersonReferenceFromAssetRaw(requestParameters: RemovePersonReferenceFromAssetRequest): Promise<runtime.ApiResponse<void>>;
-    /**
-     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /persons/{person}/assets/delete/{asset} [POST]
-     */
-    removePersonReferenceFromAsset(requestParameters: RemovePersonReferenceFromAssetRequest): Promise<void>;
 }

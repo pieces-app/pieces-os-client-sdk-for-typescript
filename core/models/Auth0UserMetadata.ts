@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    Auth0OpenAIUserMetadata,
+    Auth0OpenAIUserMetadataFromJSON,
+    Auth0OpenAIUserMetadataFromJSONTyped,
+    Auth0OpenAIUserMetadataToJSON,
     Auth0UserAllocationMetadata,
     Auth0UserAllocationMetadataFromJSON,
     Auth0UserAllocationMetadataFromJSONTyped,
@@ -22,7 +26,7 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './index';
+} from './';
 
 /**
  * User Metadata from Auth0
@@ -66,6 +70,12 @@ export interface Auth0UserMetadata {
      * @memberof Auth0UserMetadata
      */
     allocation?: Auth0UserAllocationMetadata;
+    /**
+     * 
+     * @type {Auth0OpenAIUserMetadata}
+     * @memberof Auth0UserMetadata
+     */
+    openAI?: Auth0OpenAIUserMetadata;
 }
 
 export function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata {
@@ -84,6 +94,7 @@ export function Auth0UserMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
         'stripeCustomerId': !exists(json, 'stripe_customer_id') ? undefined : json['stripe_customer_id'],
         'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
         'allocation': !exists(json, 'allocation') ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
+        'openAI': !exists(json, 'open_AI') ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
     };
 }
 
@@ -102,6 +113,7 @@ export function Auth0UserMetadataToJSON(value?: Auth0UserMetadata | null): any {
         'stripe_customer_id': value.stripeCustomerId,
         'vanityname': value.vanityname,
         'allocation': Auth0UserAllocationMetadataToJSON(value.allocation),
+        'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
     };
 }
 

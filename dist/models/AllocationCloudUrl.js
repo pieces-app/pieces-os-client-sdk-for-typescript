@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AllocationCloudUrlToJSON = exports.AllocationCloudUrlFromJSONTyped = exports.AllocationCloudUrlFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AllocationCloudUrlFromJSON(json) {
     return AllocationCloudUrlFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function AllocationCloudUrlFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'status': (0, index_1.AllocationStatusEnumFromJSON)(json['status']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'status': (0, _1.AllocationStatusEnumFromJSON)(json['status']),
         'url': json['url'],
     };
 }
@@ -39,8 +39,8 @@ function AllocationCloudUrlToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'status': (0, index_1.AllocationStatusEnumToJSON)(value.status),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'status': (0, _1.AllocationStatusEnumToJSON)(value.status),
         'url': value.url,
     };
 }

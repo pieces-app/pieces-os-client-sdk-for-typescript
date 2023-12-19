@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * This will describe the theme that belongs to a user.
  * @export

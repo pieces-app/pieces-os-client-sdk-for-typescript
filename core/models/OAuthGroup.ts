@@ -22,7 +22,7 @@ import {
     OAuthTokenFromJSON,
     OAuthTokenFromJSONTyped,
     OAuthTokenToJSON,
-} from './index';
+} from './';
 
 /**
  * A model to group all of the properties associated with OAuthGroup

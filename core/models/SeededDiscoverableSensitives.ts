@@ -22,7 +22,7 @@ import {
     SeededDiscoverableSensitiveFromJSON,
     SeededDiscoverableSensitiveFromJSONTyped,
     SeededDiscoverableSensitiveToJSON,
-} from './index';
+} from './';
 
 /**
  * 

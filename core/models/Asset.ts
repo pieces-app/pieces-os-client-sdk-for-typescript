@@ -82,7 +82,7 @@ import {
     WebsitesFromJSON,
     WebsitesFromJSONTyped,
     WebsitesToJSON,
-} from './index';
+} from './';
 
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats.

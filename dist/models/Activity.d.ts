@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, EmbeddedModelSchema, FlattenedAsset, FlattenedFormat, FlattenedUserProfile, GroupedTimestamp, MechanismEnum, SeededConnectorTracking } from './index';
+import { Application, EmbeddedModelSchema, FlattenedAsset, FlattenedFormat, FlattenedUserProfile, GroupedTimestamp, MechanismEnum, SeededConnectorTracking } from './';
 /**
  * consider a rename to Event? That being said if we go with event we need to think about a word to pre/post fix event because it is likely to be a reserved word.
  *

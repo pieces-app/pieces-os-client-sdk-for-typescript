@@ -22,7 +22,7 @@ import {
     SpaceFromJSON,
     SpaceFromJSONTyped,
     SpaceToJSON,
-} from './index';
+} from './';
 
 /**
  * Numbers related to search results

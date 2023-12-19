@@ -22,7 +22,7 @@ import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './index';
+} from './';
 
 /**
  * Query is your hints question.

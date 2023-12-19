@@ -22,7 +22,7 @@ import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a List of MachineLearning Models

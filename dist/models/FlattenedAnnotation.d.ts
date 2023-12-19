@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnnotationTypeEnum, EmbeddedModelSchema, FlattenedConversationMessages, GroupedTimestamp, MechanismEnum, ReferencedAnchor, ReferencedAsset, ReferencedConversation, ReferencedModel, ReferencedPerson, Score } from './index';
+import { AnnotationTypeEnum, EmbeddedModelSchema, FlattenedConversationMessages, GroupedTimestamp, MechanismEnum, ReferencedAnchor, ReferencedAsset, ReferencedConversation, ReferencedModel, ReferencedPerson, Score } from './';
 /**
  * This is the flattened Version of the annotation, IMPORTANT: when referencing these, ONLY Take the UUID, do NOT polinate(ie w/ asset/person/model) the FlattenedAnnotation as it can create an infinite loop.
  * @export

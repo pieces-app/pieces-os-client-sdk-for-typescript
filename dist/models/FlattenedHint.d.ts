@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GroupedTimestamp, HintTypeEnum, MechanismEnum, ReferencedAsset, ReferencedModel, Score } from './index';
+import { EmbeddedModelSchema, GroupedTimestamp, HintTypeEnum, MechanismEnum, ReferencedAsset, ReferencedModel, Score } from './';
 /**
  * This is the flattened version of a hint. Ensure that you DO NOT reference the Asset here as you can create an infinite loop within the packaging.
  * @export

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TrackedApplication, TrackedUserProfile } from './index';
+import { EmbeddedModelSchema, TrackedApplication, TrackedUserProfile } from './';
 /**
  * A model that allows for us to specifically track Application Installs & Related Data
  * @export

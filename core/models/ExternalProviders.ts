@@ -22,7 +22,7 @@ import {
     ExternalProviderFromJSON,
     ExternalProviderFromJSONTyped,
     ExternalProviderToJSON,
-} from './index';
+} from './';
 
 /**
  * 

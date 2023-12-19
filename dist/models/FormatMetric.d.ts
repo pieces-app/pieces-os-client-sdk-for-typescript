@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClassificationGenericEnum, ClassificationSpecificEnum, EmbeddedModelSchema } from './index';
+import { ClassificationGenericEnum, ClassificationSpecificEnum, EmbeddedModelSchema } from './';
 /**
  * FormatMetric
  *

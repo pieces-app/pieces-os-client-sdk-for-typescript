@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnchorTypeEnum, EmbeddedModelSchema, FlattenedAnchorPoints, FlattenedAnnotations, FlattenedAssets, FlattenedConversations, GroupedTimestamp, Score } from './index';
+import { AnchorTypeEnum, EmbeddedModelSchema, FlattenedAnchorPoints, FlattenedAnnotations, FlattenedAssets, FlattenedConversations, GroupedTimestamp, Score } from './';
 /**
  *
  * @export

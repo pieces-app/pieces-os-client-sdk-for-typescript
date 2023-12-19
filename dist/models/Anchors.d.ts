@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Anchor, EmbeddedModelSchema, Score } from './index';
+import { Anchor, EmbeddedModelSchema, Score } from './';
 /**
  * This is the plural of Anchor.
  * @export

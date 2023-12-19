@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Persons } from './index';
+import { EmbeddedModelSchema, Persons } from './';
 /**
  * This model is used for the output of the /qgpt/related/persons endpoint.
  *

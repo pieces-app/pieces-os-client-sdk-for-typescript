@@ -15,8 +15,16 @@ export interface AssetAssociateTagRequest {
     asset: string;
     tag: string;
 }
+export interface AssetAssociateWebsiteRequest {
+    asset: string;
+    website: string;
+}
 export interface AssetDisassociateTagRequest {
     tag: string;
+    asset: string;
+}
+export interface AssetDisassociateWebsiteRequest {
+    website: string;
     asset: string;
 }
 export interface AssetFormatsRequest {
@@ -52,14 +60,6 @@ export interface AssetUpdateRequest {
     transferables?: boolean;
     asset?: Asset;
 }
-export interface AssociateWebsiteRequest {
-    asset: string;
-    website: string;
-}
-export interface DisassociateWebsiteRequest {
-    website: string;
-    asset: string;
-}
 /**
  *
  */
@@ -75,6 +75,16 @@ export declare class AssetApi extends runtime.BaseAPI {
      */
     assetAssociateTag(requestParameters: AssetAssociateTagRequest): Promise<void>;
     /**
+     * This will associate a website with a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/associate/{website} [POST]
+     */
+    assetAssociateWebsiteRaw(requestParameters: AssetAssociateWebsiteRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will associate a website with a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/associate/{website} [POST]
+     */
+    assetAssociateWebsite(requestParameters: AssetAssociateWebsiteRequest): Promise<void>;
+    /**
      * This will enable us to dissassociate a tag from a asset. This will do the same thing as the tag equivilant.
      * /asset/{asset}/tags/disassociate/{tag} [POST]
      */
@@ -84,6 +94,16 @@ export declare class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/tags/disassociate/{tag} [POST]
      */
     assetDisassociateTag(requestParameters: AssetDisassociateTagRequest): Promise<void>;
+    /**
+     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/disassociate/{website} [POST]
+     */
+    assetDisassociateWebsiteRaw(requestParameters: AssetDisassociateWebsiteRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/disassociate/{website} [POST]
+     */
+    assetDisassociateWebsite(requestParameters: AssetDisassociateWebsiteRequest): Promise<void>;
     /**
      * Get the formats for a given asset.
      * /asset/{asset}/formats [GET] Scoped To Asset
@@ -164,26 +184,6 @@ export declare class AssetApi extends runtime.BaseAPI {
      * /asset/update [POST] Scoped to Asset
      */
     assetUpdate(requestParameters: AssetUpdateRequest): Promise<Asset>;
-    /**
-     * This will associate a website with a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/associate/{website} [POST]
-     */
-    associateWebsiteRaw(requestParameters: AssociateWebsiteRequest): Promise<runtime.ApiResponse<void>>;
-    /**
-     * This will associate a website with a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/associate/{website} [POST]
-     */
-    associateWebsite(requestParameters: AssociateWebsiteRequest): Promise<void>;
-    /**
-     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/disassociate/{website} [POST]
-     */
-    disassociateWebsiteRaw(requestParameters: DisassociateWebsiteRequest): Promise<runtime.ApiResponse<void>>;
-    /**
-     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/disassociate/{website} [POST]
-     */
-    disassociateWebsite(requestParameters: DisassociateWebsiteRequest): Promise<void>;
 }
 /**
     * @export

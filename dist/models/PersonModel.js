@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersonModelToJSON = exports.PersonModelFromJSONTyped = exports.PersonModelFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function PersonModelFromJSON(json) {
     return PersonModelFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function PersonModelFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.ReferencedAssetFromJSON)(json['asset']),
-        'model': !(0, runtime_1.exists)(json, 'model') ? undefined : (0, index_1.ReferencedModelFromJSON)(json['model']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
-        'explanation': !(0, runtime_1.exists)(json, 'explanation') ? undefined : (0, index_1.ReferencedAnnotationFromJSON)(json['explanation']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.ReferencedAssetFromJSON)(json['asset']),
+        'model': !(0, runtime_1.exists)(json, 'model') ? undefined : (0, _1.ReferencedModelFromJSON)(json['model']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'explanation': !(0, runtime_1.exists)(json, 'explanation') ? undefined : (0, _1.ReferencedAnnotationFromJSON)(json['explanation']),
     };
 }
 exports.PersonModelFromJSONTyped = PersonModelFromJSONTyped;
@@ -40,10 +40,10 @@ function PersonModelToJSON(value) {
         return null;
     }
     return {
-        'asset': (0, index_1.ReferencedAssetToJSON)(value.asset),
-        'model': (0, index_1.ReferencedModelToJSON)(value.model),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
-        'explanation': (0, index_1.ReferencedAnnotationToJSON)(value.explanation),
+        'asset': (0, _1.ReferencedAssetToJSON)(value.asset),
+        'model': (0, _1.ReferencedModelToJSON)(value.model),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'explanation': (0, _1.ReferencedAnnotationToJSON)(value.explanation),
     };
 }
 exports.PersonModelToJSON = PersonModelToJSON;

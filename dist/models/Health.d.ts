@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, OSHealth } from './index';
+import { EmbeddedModelSchema, OSHealth } from './';
 /**
  * This is a health model used to determine the "health" of the os server and cloud server(Coming Soon). READONLY Model.
  * @export

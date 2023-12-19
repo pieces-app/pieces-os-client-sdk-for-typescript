@@ -26,6 +26,11 @@ import {
     SeededAnchorToJSON,
 } from '../models';
 
+export interface AnchorDisassociateAssetRequest {
+    anchor: string;
+    asset: string;
+}
+
 export interface AnchorsCreateNewAnchorRequest {
     transferables?: boolean;
     seededAnchor?: SeededAnchor;
@@ -39,15 +44,45 @@ export interface AnchorsSnapshotRequest {
     transferables?: boolean;
 }
 
-export interface RemoveAnchorReferenceFromAssetRequest {
-    anchor: string;
-    asset: string;
-}
-
 /**
  * 
  */
 export class AnchorsApi extends runtime.BaseAPI {
+
+    /**
+     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /anchors/{anchor}/assets/delete/{asset} [POST]
+     */
+    async anchorDisassociateAssetRaw(requestParameters: AnchorDisassociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateAsset.');
+        }
+
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling anchorDisassociateAsset.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/anchors/{anchor}/assets/delete/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /anchors/{anchor}/assets/delete/{asset} [POST]
+     */
+    async anchorDisassociateAsset(requestParameters: AnchorDisassociateAssetRequest): Promise<void> {
+        await this.anchorDisassociateAssetRaw(requestParameters);
+    }
 
     /**
      * This will create a anchor and attach it to a specific asset(s) This will also ensure the anchor is normalized.
@@ -145,41 +180,6 @@ export class AnchorsApi extends runtime.BaseAPI {
     async anchorsSnapshot(requestParameters: AnchorsSnapshotRequest): Promise<Anchors> {
         const response = await this.anchorsSnapshotRaw(requestParameters);
         return await response.value();
-    }
-
-    /**
-     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /anchors/{anchor}/assets/delete/{asset} [POST]
-     */
-    async removeAnchorReferenceFromAssetRaw(requestParameters: RemoveAnchorReferenceFromAssetRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling removeAnchorReferenceFromAsset.');
-        }
-
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling removeAnchorReferenceFromAsset.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/anchors/{anchor}/assets/delete/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /anchors/{anchor}/assets/delete/{asset} [POST]
-     */
-    async removeAnchorReferenceFromAsset(requestParameters: RemoveAnchorReferenceFromAssetRequest): Promise<void> {
-        await this.removeAnchorReferenceFromAssetRaw(requestParameters);
     }
 
 }

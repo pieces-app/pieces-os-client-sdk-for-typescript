@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedUserProfile } from './index';
+import { EmbeddedModelSchema, FlattenedUserProfile } from './';
 /**
  * This is used to determine who has accessed a share. and how many times.
  *

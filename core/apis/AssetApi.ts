@@ -43,8 +43,18 @@ export interface AssetAssociateTagRequest {
     tag: string;
 }
 
+export interface AssetAssociateWebsiteRequest {
+    asset: string;
+    website: string;
+}
+
 export interface AssetDisassociateTagRequest {
     tag: string;
+    asset: string;
+}
+
+export interface AssetDisassociateWebsiteRequest {
+    website: string;
     asset: string;
 }
 
@@ -89,16 +99,6 @@ export interface AssetUpdateRequest {
     asset?: Asset;
 }
 
-export interface AssociateWebsiteRequest {
-    asset: string;
-    website: string;
-}
-
-export interface DisassociateWebsiteRequest {
-    website: string;
-    asset: string;
-}
-
 /**
  * 
  */
@@ -140,6 +140,41 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will associate a website with a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/associate/{website} [POST]
+     */
+    async assetAssociateWebsiteRaw(requestParameters: AssetAssociateWebsiteRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateWebsite.');
+        }
+
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling assetAssociateWebsite.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/asset/{asset}/websites/associate/{website}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a website with a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/associate/{website} [POST]
+     */
+    async assetAssociateWebsite(requestParameters: AssetAssociateWebsiteRequest): Promise<void> {
+        await this.assetAssociateWebsiteRaw(requestParameters);
+    }
+
+    /**
      * This will enable us to dissassociate a tag from a asset. This will do the same thing as the tag equivilant.
      * /asset/{asset}/tags/disassociate/{tag} [POST]
      */
@@ -172,6 +207,41 @@ export class AssetApi extends runtime.BaseAPI {
      */
     async assetDisassociateTag(requestParameters: AssetDisassociateTagRequest): Promise<void> {
         await this.assetDisassociateTagRaw(requestParameters);
+    }
+
+    /**
+     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/disassociate/{website} [POST]
+     */
+    async assetDisassociateWebsiteRaw(requestParameters: AssetDisassociateWebsiteRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling assetDisassociateWebsite.');
+        }
+
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateWebsite.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/asset/{asset}/websites/disassociate/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
+     * /asset/{asset}/websites/disassociate/{website} [POST]
+     */
+    async assetDisassociateWebsite(requestParameters: AssetDisassociateWebsiteRequest): Promise<void> {
+        await this.assetDisassociateWebsiteRaw(requestParameters);
     }
 
     /**
@@ -463,76 +533,6 @@ export class AssetApi extends runtime.BaseAPI {
     async assetUpdate(requestParameters: AssetUpdateRequest): Promise<Asset> {
         const response = await this.assetUpdateRaw(requestParameters);
         return await response.value();
-    }
-
-    /**
-     * This will associate a website with a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/associate/{website} [POST]
-     */
-    async associateWebsiteRaw(requestParameters: AssociateWebsiteRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling associateWebsite.');
-        }
-
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling associateWebsite.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/asset/{asset}/websites/associate/{website}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * This will associate a website with a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/associate/{website} [POST]
-     */
-    async associateWebsite(requestParameters: AssociateWebsiteRequest): Promise<void> {
-        await this.associateWebsiteRaw(requestParameters);
-    }
-
-    /**
-     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/disassociate/{website} [POST]
-     */
-    async disassociateWebsiteRaw(requestParameters: DisassociateWebsiteRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling disassociateWebsite.');
-        }
-
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling disassociateWebsite.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/asset/{asset}/websites/disassociate/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivilant.
-     * /asset/{asset}/websites/disassociate/{website} [POST]
-     */
-    async disassociateWebsite(requestParameters: DisassociateWebsiteRequest): Promise<void> {
-        await this.disassociateWebsiteRaw(requestParameters);
     }
 
 }

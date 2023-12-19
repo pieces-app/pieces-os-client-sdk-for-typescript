@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedImageAnalysisToJSON = exports.FlattenedImageAnalysisFromJSONTyped = exports.FlattenedImageAnalysisFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FlattenedImageAnalysisFromJSON(json) {
     return FlattenedImageAnalysisFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function FlattenedImageAnalysisFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'ocr': !(0, runtime_1.exists)(json, 'ocr') ? undefined : (0, index_1.FlattenedOCRAnalysisFromJSON)(json['ocr']),
+        'ocr': !(0, runtime_1.exists)(json, 'ocr') ? undefined : (0, _1.FlattenedOCRAnalysisFromJSON)(json['ocr']),
         'analysis': json['analysis'],
     };
 }
@@ -40,9 +40,9 @@ function FlattenedImageAnalysisToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'ocr': (0, index_1.FlattenedOCRAnalysisToJSON)(value.ocr),
+        'ocr': (0, _1.FlattenedOCRAnalysisToJSON)(value.ocr),
         'analysis': value.analysis,
     };
 }

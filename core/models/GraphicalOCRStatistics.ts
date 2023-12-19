@@ -22,7 +22,7 @@ import {
     GraphicalOCRDescriptiveStatisticsFromJSON,
     GraphicalOCRDescriptiveStatisticsFromJSONTyped,
     GraphicalOCRDescriptiveStatisticsToJSON,
-} from './index';
+} from './';
 
 /**
  * 

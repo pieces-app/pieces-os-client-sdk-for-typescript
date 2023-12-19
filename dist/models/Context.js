@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContextToJSON = exports.ContextFromJSONTyped = exports.ContextFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ContextFromJSON(json) {
     return ContextFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function ContextFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'os': json['os'],
-        'application': (0, index_1.ApplicationFromJSON)(json['application']),
-        'health': (0, index_1.HealthFromJSON)(json['health']),
-        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, index_1.UserProfileFromJSON)(json['user']),
+        'application': (0, _1.ApplicationFromJSON)(json['application']),
+        'health': (0, _1.HealthFromJSON)(json['health']),
+        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.UserProfileFromJSON)(json['user']),
     };
 }
 exports.ContextFromJSONTyped = ContextFromJSONTyped;
@@ -41,11 +41,11 @@ function ContextToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'os': value.os,
-        'application': (0, index_1.ApplicationToJSON)(value.application),
-        'health': (0, index_1.HealthToJSON)(value.health),
-        'user': (0, index_1.UserProfileToJSON)(value.user),
+        'application': (0, _1.ApplicationToJSON)(value.application),
+        'health': (0, _1.HealthToJSON)(value.health),
+        'user': (0, _1.UserProfileToJSON)(value.user),
     };
 }
 exports.ContextToJSON = ContextToJSON;

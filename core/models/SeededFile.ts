@@ -30,7 +30,7 @@ import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a base model for a File(Seeded).

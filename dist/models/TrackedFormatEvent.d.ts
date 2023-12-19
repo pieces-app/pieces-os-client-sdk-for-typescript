@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TrackedFormat, TrackedFormatEventIdentifierDescriptionPairs, TrackedFormatEventMetadata } from './index';
+import { EmbeddedModelSchema, TrackedFormat, TrackedFormatEventIdentifierDescriptionPairs, TrackedFormatEventMetadata } from './';
 /**
  * This is a model that represents a generic event that we may want to track in relation to a format, for example beamed, copied, downloaded, and view. ** Note: This is the model that will get returned by our api, and is. Representative of a full TrackedFormat event. **
  * @export

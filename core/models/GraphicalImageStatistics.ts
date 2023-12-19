@@ -22,7 +22,7 @@ import {
     GraphicalImageDescriptiveStatisticsFromJSON,
     GraphicalImageDescriptiveStatisticsFromJSONTyped,
     GraphicalImageDescriptiveStatisticsToJSON,
-} from './index';
+} from './';
 
 /**
  * 

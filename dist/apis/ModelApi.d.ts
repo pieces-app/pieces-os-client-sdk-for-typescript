@@ -87,10 +87,12 @@ export declare class ModelApi extends runtime.BaseAPI {
      */
     modelSpecificModelUnload(requestParameters: ModelSpecificModelUnloadRequest): Promise<Model>;
     /**
+     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
      * /model/update [POST]
      */
     modelUpdateRaw(requestParameters: ModelUpdateRequest): Promise<runtime.ApiResponse<Model>>;
     /**
+     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
      * /model/update [POST]
      */
     modelUpdate(requestParameters: ModelUpdateRequest): Promise<Model>;

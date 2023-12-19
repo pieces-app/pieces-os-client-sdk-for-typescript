@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchemaSemanticVersionEnum } from './index';
+import { EmbeddedModelSchemaSemanticVersionEnum } from './';
 /**
  * This is a model that will keep track of all of our version related to our models. ie (1) the database migration and (2) the global semantic version of the api.
  * @export

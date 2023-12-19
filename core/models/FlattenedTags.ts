@@ -26,7 +26,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * This is multiple ReferencedTags(which includes an optional FlattenedTag Model within the reference model).

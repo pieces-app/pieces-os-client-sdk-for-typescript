@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededDiscoverableAssetsToJSON = exports.SeededDiscoverableAssetsFromJSONTyped = exports.SeededDiscoverableAssetsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededDiscoverableAssetsFromJSON(json) {
     return SeededDiscoverableAssetsFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SeededDiscoverableAssetsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'application': json['application'],
-        'iterable': (json['iterable'].map(index_1.SeededDiscoverableAssetFromJSON)),
-        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, index_1.TLPDirectedDiscoveryFiltersFromJSON)(json['filters']),
+        'iterable': (json['iterable'].map(_1.SeededDiscoverableAssetFromJSON)),
+        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, _1.TLPDirectedDiscoveryFiltersFromJSON)(json['filters']),
     };
 }
 exports.SeededDiscoverableAssetsFromJSONTyped = SeededDiscoverableAssetsFromJSONTyped;
@@ -40,10 +40,10 @@ function SeededDiscoverableAssetsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'application': value.application,
-        'iterable': (value.iterable.map(index_1.SeededDiscoverableAssetToJSON)),
-        'filters': (0, index_1.TLPDirectedDiscoveryFiltersToJSON)(value.filters),
+        'iterable': (value.iterable.map(_1.SeededDiscoverableAssetToJSON)),
+        'filters': (0, _1.TLPDirectedDiscoveryFiltersToJSON)(value.filters),
     };
 }
 exports.SeededDiscoverableAssetsToJSON = SeededDiscoverableAssetsToJSON;

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GroupedTimestamp, QGPTConversationMessageRoleEnum } from './index';
+import { EmbeddedModelSchema, GroupedTimestamp, QGPTConversationMessageRoleEnum } from './';
 /**
  * This will take a single message, and a role.
  * @export

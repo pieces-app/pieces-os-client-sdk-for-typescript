@@ -38,7 +38,7 @@ import {
     SeededConnectorTrackingFromJSON,
     SeededConnectorTrackingFromJSONTyped,
     SeededConnectorTrackingToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the preseed to a full blown Activity.

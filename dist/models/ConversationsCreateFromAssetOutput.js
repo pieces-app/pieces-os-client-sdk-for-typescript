@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConversationsCreateFromAssetOutputToJSON = exports.ConversationsCreateFromAssetOutputFromJSONTyped = exports.ConversationsCreateFromAssetOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ConversationsCreateFromAssetOutputFromJSON(json) {
     return ConversationsCreateFromAssetOutputFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function ConversationsCreateFromAssetOutputFromJSONTyped(json, ignoreDiscriminat
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'conversation': (0, index_1.ReferencedConversationFromJSON)(json['conversation']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'conversation': (0, _1.ReferencedConversationFromJSON)(json['conversation']),
     };
 }
 exports.ConversationsCreateFromAssetOutputFromJSONTyped = ConversationsCreateFromAssetOutputFromJSONTyped;
@@ -38,8 +38,8 @@ function ConversationsCreateFromAssetOutputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'conversation': (0, index_1.ReferencedConversationToJSON)(value.conversation),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'conversation': (0, _1.ReferencedConversationToJSON)(value.conversation),
     };
 }
 exports.ConversationsCreateFromAssetOutputToJSON = ConversationsCreateFromAssetOutputToJSON;

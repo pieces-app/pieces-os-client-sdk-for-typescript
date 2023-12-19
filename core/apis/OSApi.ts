@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    CheckedOSUpdate,
+    CheckedOSUpdateFromJSON,
+    CheckedOSUpdateToJSON,
     FilePickerInput,
     FilePickerInputFromJSON,
     FilePickerInputToJSON,
@@ -24,6 +27,9 @@ import {
     SeededExternalProvider,
     SeededExternalProviderFromJSON,
     SeededExternalProviderToJSON,
+    UncheckedOSUpdate,
+    UncheckedOSUpdateFromJSON,
+    UncheckedOSUpdateToJSON,
     UserProfile,
     UserProfileFromJSON,
     UserProfileToJSON,
@@ -34,6 +40,10 @@ import {
 
 export interface LinkProviderRequest {
     seededExternalProvider?: SeededExternalProvider;
+}
+
+export interface OsUpdateCheckRequest {
+    uncheckedOSUpdate?: UncheckedOSUpdate;
 }
 
 export interface PickFilesRequest {
@@ -101,6 +111,37 @@ export class OSApi extends runtime.BaseAPI {
      */
     async osRestart(): Promise<void> {
         await this.osRestartRaw();
+    }
+
+    /**
+     * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
+     * /os/update/check [POST]
+     */
+    async osUpdateCheckRaw(requestParameters: OsUpdateCheckRequest): Promise<runtime.ApiResponse<CheckedOSUpdate>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/update/check`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UncheckedOSUpdateToJSON(requestParameters.uncheckedOSUpdate),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CheckedOSUpdateFromJSON(jsonValue));
+    }
+
+    /**
+     * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
+     * /os/update/check [POST]
+     */
+    async osUpdateCheck(requestParameters: OsUpdateCheckRequest): Promise<CheckedOSUpdate> {
+        const response = await this.osUpdateCheckRaw(requestParameters);
+        return await response.value();
     }
 
     /**

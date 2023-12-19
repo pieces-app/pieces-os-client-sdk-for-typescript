@@ -38,7 +38,7 @@ import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a per-cursor to a full person.

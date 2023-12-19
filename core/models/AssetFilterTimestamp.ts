@@ -22,7 +22,7 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './index';
+} from './';
 
 /**
  * if you want a range between you can use from && to.

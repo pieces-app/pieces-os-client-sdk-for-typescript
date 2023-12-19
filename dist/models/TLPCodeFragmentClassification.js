@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeFragmentClassificationToJSON = exports.TLPCodeFragmentClassificationFromJSONTyped = exports.TLPCodeFragmentClassificationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeFragmentClassificationFromJSON(json) {
     return TLPCodeFragmentClassificationFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function TLPCodeFragmentClassificationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'asset': json['asset'],
         'model': json['model'],
         'created': json['created'],
@@ -33,10 +33,10 @@ function TLPCodeFragmentClassificationFromJSONTyped(json, ignoreDiscriminator) {
         'probability': json['probability'],
         'context': json['context'],
         'distribution': !(0, runtime_1.exists)(json, 'distribution') ? undefined : json['distribution'],
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.TLPCodeFragmentClassificationMetadataFromJSON)(json['metadata']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.TLPCodeFragmentClassificationMetadataFromJSON)(json['metadata']),
         'user': json['user'],
         'latency': !(0, runtime_1.exists)(json, 'latency') ? undefined : json['latency'],
-        'system': !(0, runtime_1.exists)(json, 'system') ? undefined : (0, index_1.SystemExecutionInformationFromJSON)(json['system']),
+        'system': !(0, runtime_1.exists)(json, 'system') ? undefined : (0, _1.SystemExecutionInformationFromJSON)(json['system']),
     };
 }
 exports.TLPCodeFragmentClassificationFromJSONTyped = TLPCodeFragmentClassificationFromJSONTyped;
@@ -48,7 +48,7 @@ function TLPCodeFragmentClassificationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'asset': value.asset,
         'model': value.model,
         'created': value.created,
@@ -56,10 +56,10 @@ function TLPCodeFragmentClassificationToJSON(value) {
         'probability': value.probability,
         'context': value.context,
         'distribution': value.distribution,
-        'metadata': (0, index_1.TLPCodeFragmentClassificationMetadataToJSON)(value.metadata),
+        'metadata': (0, _1.TLPCodeFragmentClassificationMetadataToJSON)(value.metadata),
         'user': value.user,
         'latency': value.latency,
-        'system': (0, index_1.SystemExecutionInformationToJSON)(value.system),
+        'system': (0, _1.SystemExecutionInformationToJSON)(value.system),
     };
 }
 exports.TLPCodeFragmentClassificationToJSON = TLPCodeFragmentClassificationToJSON;

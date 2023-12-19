@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReactionToJSON = exports.ReactionFromJSONTyped = exports.ReactionFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ReactionFromJSON(json) {
     return ReactionFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function ReactionFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'save': json['save'],
-        'reuse': !(0, runtime_1.exists)(json, 'reuse') ? undefined : (0, index_1.ReuseReactionFromJSON)(json['reuse']),
-        'seed': (0, index_1.SeededConnectorCreationFromJSON)(json['seed']),
+        'reuse': !(0, runtime_1.exists)(json, 'reuse') ? undefined : (0, _1.ReuseReactionFromJSON)(json['reuse']),
+        'seed': (0, _1.SeededConnectorCreationFromJSON)(json['seed']),
     };
 }
 exports.ReactionFromJSONTyped = ReactionFromJSONTyped;
@@ -40,10 +40,10 @@ function ReactionToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'save': value.save,
-        'reuse': (0, index_1.ReuseReactionToJSON)(value.reuse),
-        'seed': (0, index_1.SeededConnectorCreationToJSON)(value.seed),
+        'reuse': (0, _1.ReuseReactionToJSON)(value.reuse),
+        'seed': (0, _1.SeededConnectorCreationToJSON)(value.seed),
     };
 }
 exports.ReactionToJSON = ReactionToJSON;

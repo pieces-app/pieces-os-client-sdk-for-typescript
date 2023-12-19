@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PKCEToJSON = exports.PKCEFromJSONTyped = exports.PKCEFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function PKCEFromJSON(json) {
     return PKCEFromJSONTyped(json, false);
 }
@@ -25,13 +25,13 @@ function PKCEFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'result': !(0, runtime_1.exists)(json, 'result') ? undefined : (0, index_1.ResultedPKCEFromJSON)(json['result']),
-        'challenge': !(0, runtime_1.exists)(json, 'challenge') ? undefined : (0, index_1.ChallengedPKCEFromJSON)(json['challenge']),
-        'revocation': !(0, runtime_1.exists)(json, 'revocation') ? undefined : (0, index_1.RevokedPKCEFromJSON)(json['revocation']),
-        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, index_1.SeededPKCEFromJSON)(json['seed']),
-        'token': !(0, runtime_1.exists)(json, 'token') ? undefined : (0, index_1.TokenizedPKCEFromJSON)(json['token']),
-        'auth0': !(0, runtime_1.exists)(json, 'auth0') ? undefined : (0, index_1.Auth0FromJSON)(json['auth0']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'result': !(0, runtime_1.exists)(json, 'result') ? undefined : (0, _1.ResultedPKCEFromJSON)(json['result']),
+        'challenge': !(0, runtime_1.exists)(json, 'challenge') ? undefined : (0, _1.ChallengedPKCEFromJSON)(json['challenge']),
+        'revocation': !(0, runtime_1.exists)(json, 'revocation') ? undefined : (0, _1.RevokedPKCEFromJSON)(json['revocation']),
+        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, _1.SeededPKCEFromJSON)(json['seed']),
+        'token': !(0, runtime_1.exists)(json, 'token') ? undefined : (0, _1.TokenizedPKCEFromJSON)(json['token']),
+        'auth0': !(0, runtime_1.exists)(json, 'auth0') ? undefined : (0, _1.Auth0FromJSON)(json['auth0']),
     };
 }
 exports.PKCEFromJSONTyped = PKCEFromJSONTyped;
@@ -43,13 +43,13 @@ function PKCEToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'result': (0, index_1.ResultedPKCEToJSON)(value.result),
-        'challenge': (0, index_1.ChallengedPKCEToJSON)(value.challenge),
-        'revocation': (0, index_1.RevokedPKCEToJSON)(value.revocation),
-        'seed': (0, index_1.SeededPKCEToJSON)(value.seed),
-        'token': (0, index_1.TokenizedPKCEToJSON)(value.token),
-        'auth0': (0, index_1.Auth0ToJSON)(value.auth0),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'result': (0, _1.ResultedPKCEToJSON)(value.result),
+        'challenge': (0, _1.ChallengedPKCEToJSON)(value.challenge),
+        'revocation': (0, _1.RevokedPKCEToJSON)(value.revocation),
+        'seed': (0, _1.SeededPKCEToJSON)(value.seed),
+        'token': (0, _1.TokenizedPKCEToJSON)(value.token),
+        'auth0': (0, _1.Auth0ToJSON)(value.auth0),
     };
 }
 exports.PKCEToJSON = PKCEToJSON;

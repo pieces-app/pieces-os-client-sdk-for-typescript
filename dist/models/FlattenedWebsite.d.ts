@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAssets, FlattenedPersons, GroupedTimestamp, MechanismEnum, Score } from './index';
+import { EmbeddedModelSchema, FlattenedAssets, FlattenedPersons, GroupedTimestamp, MechanismEnum, Score } from './';
 /**
  * This is a specific model for related websites to an asset.[DAG SAFE]
  * @export

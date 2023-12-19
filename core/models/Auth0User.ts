@@ -22,7 +22,7 @@ import {
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-} from './index';
+} from './';
 
 /**
  * 

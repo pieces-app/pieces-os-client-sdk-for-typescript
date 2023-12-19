@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * This is the flow that mobile apps use to access an API. Use this endpoint to exchange an Authorization Code for a Token.
  * @export

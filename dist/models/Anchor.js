@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnchorToJSON = exports.AnchorFromJSONTyped = exports.AnchorFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AnchorFromJSON(json) {
     return AnchorFromJSONTyped(json, false);
 }
@@ -25,19 +25,19 @@ function AnchorFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
-        'type': (0, index_1.AnchorTypeEnumFromJSON)(json['type']),
+        'type': (0, _1.AnchorTypeEnumFromJSON)(json['type']),
         'watch': !(0, runtime_1.exists)(json, 'watch') ? undefined : json['watch'],
-        'points': (0, index_1.FlattenedAnchorPointsFromJSON)(json['points']),
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
-        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (0, index_1.FlattenedAnnotationsFromJSON)(json['annotations']),
-        'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : (0, index_1.FlattenedConversationsFromJSON)(json['conversations']),
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
+        'points': (0, _1.FlattenedAnchorPointsFromJSON)(json['points']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
+        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (0, _1.FlattenedAnnotationsFromJSON)(json['annotations']),
+        'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : (0, _1.FlattenedConversationsFromJSON)(json['conversations']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
     };
 }
 exports.AnchorFromJSONTyped = AnchorFromJSONTyped;
@@ -49,19 +49,19 @@ function AnchorToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'name': value.name,
-        'type': (0, index_1.AnchorTypeEnumToJSON)(value.type),
+        'type': (0, _1.AnchorTypeEnumToJSON)(value.type),
         'watch': value.watch,
-        'points': (0, index_1.FlattenedAnchorPointsToJSON)(value.points),
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
-        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
-        'annotations': (0, index_1.FlattenedAnnotationsToJSON)(value.annotations),
-        'conversations': (0, index_1.FlattenedConversationsToJSON)(value.conversations),
-        'score': (0, index_1.ScoreToJSON)(value.score),
+        'points': (0, _1.FlattenedAnchorPointsToJSON)(value.points),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
+        'annotations': (0, _1.FlattenedAnnotationsToJSON)(value.annotations),
+        'conversations': (0, _1.FlattenedConversationsToJSON)(value.conversations),
+        'score': (0, _1.ScoreToJSON)(value.score),
     };
 }
 exports.AnchorToJSON = AnchorToJSON;

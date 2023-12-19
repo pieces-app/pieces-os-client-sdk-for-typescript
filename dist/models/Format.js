@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormatToJSON = exports.FormatFromJSONTyped = exports.FormatFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FormatFromJSON(json) {
     return FormatFromJSONTyped(json, false);
 }
@@ -25,25 +25,25 @@ function FormatFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'creator': json['creator'],
-        'classification': (0, index_1.ClassificationFromJSON)(json['classification']),
+        'classification': (0, _1.ClassificationFromJSON)(json['classification']),
         'icon': !(0, runtime_1.exists)(json, 'icon') ? undefined : json['icon'],
-        'role': (0, index_1.RoleFromJSON)(json['role']),
-        'application': (0, index_1.ApplicationFromJSON)(json['application']),
-        'asset': (0, index_1.FlattenedAssetFromJSON)(json['asset']),
-        'bytes': (0, index_1.ByteDescriptorFromJSON)(json['bytes']),
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
-        'synced': !(0, runtime_1.exists)(json, 'synced') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['synced']),
+        'role': (0, _1.RoleFromJSON)(json['role']),
+        'application': (0, _1.ApplicationFromJSON)(json['application']),
+        'asset': (0, _1.FlattenedAssetFromJSON)(json['asset']),
+        'bytes': (0, _1.ByteDescriptorFromJSON)(json['bytes']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'synced': !(0, runtime_1.exists)(json, 'synced') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['synced']),
         'cloud': !(0, runtime_1.exists)(json, 'cloud') ? undefined : json['cloud'],
-        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, index_1.FragmentFormatFromJSON)(json['fragment']),
-        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, index_1.FileFormatFromJSON)(json['file']),
-        'analysis': !(0, runtime_1.exists)(json, 'analysis') ? undefined : (0, index_1.AnalysisFromJSON)(json['analysis']),
-        'relationship': !(0, runtime_1.exists)(json, 'relationship') ? undefined : (0, index_1.RelationshipFromJSON)(json['relationship']),
-        'activities': !(0, runtime_1.exists)(json, 'activities') ? undefined : (0, index_1.ActivitiesFromJSON)(json['activities']),
+        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, _1.FragmentFormatFromJSON)(json['fragment']),
+        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, _1.FileFormatFromJSON)(json['file']),
+        'analysis': !(0, runtime_1.exists)(json, 'analysis') ? undefined : (0, _1.AnalysisFromJSON)(json['analysis']),
+        'relationship': !(0, runtime_1.exists)(json, 'relationship') ? undefined : (0, _1.RelationshipFromJSON)(json['relationship']),
+        'activities': !(0, runtime_1.exists)(json, 'activities') ? undefined : (0, _1.ActivitiesFromJSON)(json['activities']),
     };
 }
 exports.FormatFromJSONTyped = FormatFromJSONTyped;
@@ -55,25 +55,25 @@ function FormatToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'creator': value.creator,
-        'classification': (0, index_1.ClassificationToJSON)(value.classification),
+        'classification': (0, _1.ClassificationToJSON)(value.classification),
         'icon': value.icon,
-        'role': (0, index_1.RoleToJSON)(value.role),
-        'application': (0, index_1.ApplicationToJSON)(value.application),
-        'asset': (0, index_1.FlattenedAssetToJSON)(value.asset),
-        'bytes': (0, index_1.ByteDescriptorToJSON)(value.bytes),
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
-        'synced': (0, index_1.GroupedTimestampToJSON)(value.synced),
+        'role': (0, _1.RoleToJSON)(value.role),
+        'application': (0, _1.ApplicationToJSON)(value.application),
+        'asset': (0, _1.FlattenedAssetToJSON)(value.asset),
+        'bytes': (0, _1.ByteDescriptorToJSON)(value.bytes),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'synced': (0, _1.GroupedTimestampToJSON)(value.synced),
         'cloud': value.cloud,
-        'fragment': (0, index_1.FragmentFormatToJSON)(value.fragment),
-        'file': (0, index_1.FileFormatToJSON)(value.file),
-        'analysis': (0, index_1.AnalysisToJSON)(value.analysis),
-        'relationship': (0, index_1.RelationshipToJSON)(value.relationship),
-        'activities': (0, index_1.ActivitiesToJSON)(value.activities),
+        'fragment': (0, _1.FragmentFormatToJSON)(value.fragment),
+        'file': (0, _1.FileFormatToJSON)(value.file),
+        'analysis': (0, _1.AnalysisToJSON)(value.analysis),
+        'relationship': (0, _1.RelationshipToJSON)(value.relationship),
+        'activities': (0, _1.ActivitiesToJSON)(value.activities),
     };
 }
 exports.FormatToJSON = FormatToJSON;

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { QGPTQuestionAnswer, RelevantQGPTSeeds } from './index';
+import { QGPTQuestionAnswer, RelevantQGPTSeeds } from './';
 /**
  * Query is your hints question.
  * Relevant is the relevant snippets.

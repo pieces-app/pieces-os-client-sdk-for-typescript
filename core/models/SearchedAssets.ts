@@ -22,7 +22,7 @@ import {
     SearchedAssetFromJSON,
     SearchedAssetFromJSONTyped,
     SearchedAssetToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a modle that will return fro mthe search endpoint that will just contain an array of assets!

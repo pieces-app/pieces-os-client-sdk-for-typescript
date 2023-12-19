@@ -165,7 +165,7 @@ export declare class AssetsApi extends runtime.BaseAPI {
      */
     assetsSpecificAssetFormatsSnapshotRaw(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<runtime.ApiResponse<Formats>>;
     /**
-     * This will query the formats for a given asset when provided that asset\'s id.
+     * This will query the formats for agiven asset when provided that asset\'s id.
      * /assets/{asset}/formats [GET] Scoped To Assets
      */
     assetsSpecificAssetFormatsSnapshot(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest): Promise<Formats>;

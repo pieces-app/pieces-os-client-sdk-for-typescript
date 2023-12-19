@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GraphicalOCRStatisticsToJSON = exports.GraphicalOCRStatisticsFromJSONTyped = exports.GraphicalOCRStatisticsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function GraphicalOCRStatisticsFromJSON(json) {
     return GraphicalOCRStatisticsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function GraphicalOCRStatisticsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'descriptive': !(0, runtime_1.exists)(json, 'descriptive') ? undefined : (0, index_1.GraphicalOCRDescriptiveStatisticsFromJSON)(json['descriptive']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'descriptive': !(0, runtime_1.exists)(json, 'descriptive') ? undefined : (0, _1.GraphicalOCRDescriptiveStatisticsFromJSON)(json['descriptive']),
     };
 }
 exports.GraphicalOCRStatisticsFromJSONTyped = GraphicalOCRStatisticsFromJSONTyped;
@@ -38,8 +38,8 @@ function GraphicalOCRStatisticsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'descriptive': (0, index_1.GraphicalOCRDescriptiveStatisticsToJSON)(value.descriptive),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'descriptive': (0, _1.GraphicalOCRDescriptiveStatisticsToJSON)(value.descriptive),
     };
 }
 exports.GraphicalOCRStatisticsToJSON = GraphicalOCRStatisticsToJSON;

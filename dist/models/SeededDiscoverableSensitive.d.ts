@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum, SensitiveCategoryEnum, SensitiveMetadata, SensitiveSeverityEnum } from './index';
+import { EmbeddedModelSchema, MechanismEnum, SensitiveCategoryEnum, SensitiveMetadata, SensitiveSeverityEnum } from './';
 /**
  * This is the SeededDiscoverableSensitive, this has every property that the seededSensitive has except this one is all optionally passed in. and will override our classification if provided.
  * @export

@@ -22,7 +22,7 @@ import {
     FormatFromJSON,
     FormatFromJSONTyped,
     FormatToJSON,
-} from './index';
+} from './';
 
 /**
  * A base class for a collection of formats and some additional meta properties.

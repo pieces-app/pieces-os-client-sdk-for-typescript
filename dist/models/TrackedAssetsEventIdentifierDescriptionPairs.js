@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedAssetsEventIdentifierDescriptionPairsToJSON = exports.TrackedAssetsEventIdentifierDescriptionPairsFromJSONTyped = exports.TrackedAssetsEventIdentifierDescriptionPairsFromJSON = exports.TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 /**
 * @export
 * @enum {string}
@@ -33,7 +33,7 @@ function TrackedAssetsEventIdentifierDescriptionPairsFromJSONTyped(json, ignoreD
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'assetsSearched': !(0, runtime_1.exists)(json, 'assets_searched') ? undefined : json['assets_searched'],
     };
 }
@@ -46,7 +46,7 @@ function TrackedAssetsEventIdentifierDescriptionPairsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'assets_searched': value.assetsSearched,
     };
 }

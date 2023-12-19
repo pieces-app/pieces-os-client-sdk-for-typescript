@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ReferencedAnchor, ReferencedAnnotation, ReferencedHint, ReferencedPerson, ReferencedSensitive, ReferencedShare, ReferencedTag, ReferencedWebsite, TrackedAssetEventCreationMetadata, TrackedAssetEventFormatReclassificationMetadata, TrackedAssetEventRenameMetadata, TrackedAssetsEventSearchMetadata } from './index';
+import { ReferencedAnchor, ReferencedAnnotation, ReferencedHint, ReferencedPerson, ReferencedSensitive, ReferencedShare, ReferencedTag, ReferencedWebsite, TrackedAssetEventCreationMetadata, TrackedAssetEventFormatReclassificationMetadata, TrackedAssetEventRenameMetadata, TrackedAssetsEventSearchMetadata } from './';
 /**
  *
  * @export

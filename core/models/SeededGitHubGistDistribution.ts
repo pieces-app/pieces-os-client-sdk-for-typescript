@@ -22,7 +22,7 @@ import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the minimum information needed to distribute a Piece to a Gist.

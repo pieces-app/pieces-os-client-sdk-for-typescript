@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersonAccessToJSON = exports.PersonAccessFromJSONTyped = exports.PersonAccessFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function PersonAccessFromJSON(json) {
     return PersonAccessFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function PersonAccessFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'scoped': !(0, runtime_1.exists)(json, 'scoped') ? undefined : (0, index_1.PersonAccessScopedEnumFromJSON)(json['scoped']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'scoped': !(0, runtime_1.exists)(json, 'scoped') ? undefined : (0, _1.PersonAccessScopedEnumFromJSON)(json['scoped']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
     };
 }
 exports.PersonAccessFromJSONTyped = PersonAccessFromJSONTyped;
@@ -39,9 +39,9 @@ function PersonAccessToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'scoped': (0, index_1.PersonAccessScopedEnumToJSON)(value.scoped),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'scoped': (0, _1.PersonAccessScopedEnumToJSON)(value.scoped),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
     };
 }
 exports.PersonAccessToJSON = PersonAccessToJSON;

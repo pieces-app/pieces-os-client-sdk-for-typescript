@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedAssetToJSON = exports.FlattenedAssetFromJSONTyped = exports.FlattenedAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FlattenedAssetFromJSON(json) {
     return FlattenedAssetFromJSONTyped(json, false);
 }
@@ -25,34 +25,34 @@ function FlattenedAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
         'creator': json['creator'],
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'synced': !(0, runtime_1.exists)(json, 'synced') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['synced']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
-        'formats': (0, index_1.FlattenedFormatsFromJSON)(json['formats']),
-        'preview': (0, index_1.FlattenedPreviewFromJSON)(json['preview']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'synced': !(0, runtime_1.exists)(json, 'synced') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['synced']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'formats': (0, _1.FlattenedFormatsFromJSON)(json['formats']),
+        'preview': (0, _1.FlattenedPreviewFromJSON)(json['preview']),
         'original': json['original'],
-        'shares': !(0, runtime_1.exists)(json, 'shares') ? undefined : (0, index_1.FlattenedSharesFromJSON)(json['shares']),
-        'mechanism': (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
-        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (0, index_1.FlattenedWebsitesFromJSON)(json['websites']),
-        'interacted': !(0, runtime_1.exists)(json, 'interacted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['interacted']),
-        'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : (0, index_1.FlattenedTagsFromJSON)(json['tags']),
-        'sensitives': !(0, runtime_1.exists)(json, 'sensitives') ? undefined : (0, index_1.FlattenedSensitivesFromJSON)(json['sensitives']),
-        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (0, index_1.FlattenedPersonsFromJSON)(json['persons']),
+        'shares': !(0, runtime_1.exists)(json, 'shares') ? undefined : (0, _1.FlattenedSharesFromJSON)(json['shares']),
+        'mechanism': (0, _1.MechanismEnumFromJSON)(json['mechanism']),
+        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (0, _1.FlattenedWebsitesFromJSON)(json['websites']),
+        'interacted': !(0, runtime_1.exists)(json, 'interacted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['interacted']),
+        'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : (0, _1.FlattenedTagsFromJSON)(json['tags']),
+        'sensitives': !(0, runtime_1.exists)(json, 'sensitives') ? undefined : (0, _1.FlattenedSensitivesFromJSON)(json['sensitives']),
+        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (0, _1.FlattenedPersonsFromJSON)(json['persons']),
         'curated': !(0, runtime_1.exists)(json, 'curated') ? undefined : json['curated'],
         'discovered': !(0, runtime_1.exists)(json, 'discovered') ? undefined : json['discovered'],
-        'activities': !(0, runtime_1.exists)(json, 'activities') ? undefined : (0, index_1.FlattenedActivitiesFromJSON)(json['activities']),
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
+        'activities': !(0, runtime_1.exists)(json, 'activities') ? undefined : (0, _1.FlattenedActivitiesFromJSON)(json['activities']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
         'favorited': !(0, runtime_1.exists)(json, 'favorited') ? undefined : json['favorited'],
         'pseudo': !(0, runtime_1.exists)(json, 'pseudo') ? undefined : json['pseudo'],
-        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (0, index_1.FlattenedAnnotationsFromJSON)(json['annotations']),
-        'hints': !(0, runtime_1.exists)(json, 'hints') ? undefined : (0, index_1.FlattenedHintsFromJSON)(json['hints']),
-        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (0, index_1.FlattenedAnchorsFromJSON)(json['anchors']),
-        'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : (0, index_1.FlattenedConversationsFromJSON)(json['conversations']),
+        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (0, _1.FlattenedAnnotationsFromJSON)(json['annotations']),
+        'hints': !(0, runtime_1.exists)(json, 'hints') ? undefined : (0, _1.FlattenedHintsFromJSON)(json['hints']),
+        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (0, _1.FlattenedAnchorsFromJSON)(json['anchors']),
+        'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : (0, _1.FlattenedConversationsFromJSON)(json['conversations']),
     };
 }
 exports.FlattenedAssetFromJSONTyped = FlattenedAssetFromJSONTyped;
@@ -64,34 +64,34 @@ function FlattenedAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'name': value.name,
         'creator': value.creator,
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'synced': (0, index_1.GroupedTimestampToJSON)(value.synced),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
-        'formats': (0, index_1.FlattenedFormatsToJSON)(value.formats),
-        'preview': (0, index_1.FlattenedPreviewToJSON)(value.preview),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'synced': (0, _1.GroupedTimestampToJSON)(value.synced),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'formats': (0, _1.FlattenedFormatsToJSON)(value.formats),
+        'preview': (0, _1.FlattenedPreviewToJSON)(value.preview),
         'original': value.original,
-        'shares': (0, index_1.FlattenedSharesToJSON)(value.shares),
-        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
-        'websites': (0, index_1.FlattenedWebsitesToJSON)(value.websites),
-        'interacted': (0, index_1.GroupedTimestampToJSON)(value.interacted),
-        'tags': (0, index_1.FlattenedTagsToJSON)(value.tags),
-        'sensitives': (0, index_1.FlattenedSensitivesToJSON)(value.sensitives),
-        'persons': (0, index_1.FlattenedPersonsToJSON)(value.persons),
+        'shares': (0, _1.FlattenedSharesToJSON)(value.shares),
+        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
+        'websites': (0, _1.FlattenedWebsitesToJSON)(value.websites),
+        'interacted': (0, _1.GroupedTimestampToJSON)(value.interacted),
+        'tags': (0, _1.FlattenedTagsToJSON)(value.tags),
+        'sensitives': (0, _1.FlattenedSensitivesToJSON)(value.sensitives),
+        'persons': (0, _1.FlattenedPersonsToJSON)(value.persons),
         'curated': value.curated,
         'discovered': value.discovered,
-        'activities': (0, index_1.FlattenedActivitiesToJSON)(value.activities),
-        'score': (0, index_1.ScoreToJSON)(value.score),
+        'activities': (0, _1.FlattenedActivitiesToJSON)(value.activities),
+        'score': (0, _1.ScoreToJSON)(value.score),
         'favorited': value.favorited,
         'pseudo': value.pseudo,
-        'annotations': (0, index_1.FlattenedAnnotationsToJSON)(value.annotations),
-        'hints': (0, index_1.FlattenedHintsToJSON)(value.hints),
-        'anchors': (0, index_1.FlattenedAnchorsToJSON)(value.anchors),
-        'conversations': (0, index_1.FlattenedConversationsToJSON)(value.conversations),
+        'annotations': (0, _1.FlattenedAnnotationsToJSON)(value.annotations),
+        'hints': (0, _1.FlattenedHintsToJSON)(value.hints),
+        'anchors': (0, _1.FlattenedAnchorsToJSON)(value.anchors),
+        'conversations': (0, _1.FlattenedConversationsToJSON)(value.conversations),
     };
 }
 exports.FlattenedAssetToJSON = FlattenedAssetToJSON;

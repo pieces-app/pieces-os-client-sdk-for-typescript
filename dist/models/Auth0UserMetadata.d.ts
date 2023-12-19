@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0UserAllocationMetadata, EmbeddedModelSchema } from './index';
+import { Auth0OpenAIUserMetadata, Auth0UserAllocationMetadata, EmbeddedModelSchema } from './';
 /**
  * User Metadata from Auth0
  * @export
@@ -52,6 +52,12 @@ export interface Auth0UserMetadata {
      * @memberof Auth0UserMetadata
      */
     allocation?: Auth0UserAllocationMetadata;
+    /**
+     *
+     * @type {Auth0OpenAIUserMetadata}
+     * @memberof Auth0UserMetadata
+     */
+    openAI?: Auth0OpenAIUserMetadata;
 }
 export declare function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata;
 export declare function Auth0UserMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0UserMetadata;

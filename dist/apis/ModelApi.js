@@ -174,6 +174,7 @@ class ModelApi extends runtime.BaseAPI {
         return await response.value();
     }
     /**
+     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
      * /model/update [POST]
      */
     async modelUpdateRaw(requestParameters) {
@@ -190,6 +191,7 @@ class ModelApi extends runtime.BaseAPI {
         return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.ModelFromJSON)(jsonValue));
     }
     /**
+     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
      * /model/update [POST]
      */
     async modelUpdate(requestParameters) {

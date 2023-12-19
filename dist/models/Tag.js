@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TagToJSON = exports.TagFromJSONTyped = exports.TagFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TagFromJSON(json) {
     return TagFromJSONTyped(json, false);
 }
@@ -25,19 +25,19 @@ function TagFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'text': json['text'],
-        'mechanisms': !(0, runtime_1.exists)(json, 'mechanisms') ? undefined : ((0, runtime_1.mapValues)(json['mechanisms'], index_1.MechanismEnumFromJSON)),
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
-        'category': (0, index_1.TagCategoryEnumFromJSON)(json['category']),
-        'relationship': !(0, runtime_1.exists)(json, 'relationship') ? undefined : (0, index_1.RelationshipFromJSON)(json['relationship']),
+        'mechanisms': !(0, runtime_1.exists)(json, 'mechanisms') ? undefined : ((0, runtime_1.mapValues)(json['mechanisms'], _1.MechanismEnumFromJSON)),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'category': (0, _1.TagCategoryEnumFromJSON)(json['category']),
+        'relationship': !(0, runtime_1.exists)(json, 'relationship') ? undefined : (0, _1.RelationshipFromJSON)(json['relationship']),
         'interactions': !(0, runtime_1.exists)(json, 'interactions') ? undefined : json['interactions'],
-        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (0, index_1.FlattenedPersonsFromJSON)(json['persons']),
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
+        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (0, _1.FlattenedPersonsFromJSON)(json['persons']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
     };
 }
 exports.TagFromJSONTyped = TagFromJSONTyped;
@@ -49,19 +49,19 @@ function TagToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'text': value.text,
-        'mechanisms': value.mechanisms === undefined ? undefined : ((0, runtime_1.mapValues)(value.mechanisms, index_1.MechanismEnumToJSON)),
-        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
-        'category': (0, index_1.TagCategoryEnumToJSON)(value.category),
-        'relationship': (0, index_1.RelationshipToJSON)(value.relationship),
+        'mechanisms': value.mechanisms === undefined ? undefined : ((0, runtime_1.mapValues)(value.mechanisms, _1.MechanismEnumToJSON)),
+        'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'category': (0, _1.TagCategoryEnumToJSON)(value.category),
+        'relationship': (0, _1.RelationshipToJSON)(value.relationship),
         'interactions': value.interactions,
-        'persons': (0, index_1.FlattenedPersonsToJSON)(value.persons),
-        'score': (0, index_1.ScoreToJSON)(value.score),
+        'persons': (0, _1.FlattenedPersonsToJSON)(value.persons),
+        'score': (0, _1.ScoreToJSON)(value.score),
     };
 }
 exports.TagToJSON = TagToJSON;

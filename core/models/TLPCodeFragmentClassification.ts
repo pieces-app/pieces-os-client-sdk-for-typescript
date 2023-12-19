@@ -26,7 +26,7 @@ import {
     TLPCodeFragmentClassificationMetadataFromJSON,
     TLPCodeFragmentClassificationMetadataFromJSONTyped,
     TLPCodeFragmentClassificationMetadataToJSON,
-} from './index';
+} from './';
 
 /**
  * Model for ML big query classification.

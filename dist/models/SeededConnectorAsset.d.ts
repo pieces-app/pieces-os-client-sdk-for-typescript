@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededAssetMetadata, SeededFormat } from './index';
+import { EmbeddedModelSchema, SeededAssetMetadata, SeededFormat } from './';
 /**
  * A generic model to use with the Connector API that requires little to no additional information about the current application.
  * @export

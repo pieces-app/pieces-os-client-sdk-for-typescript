@@ -22,7 +22,7 @@ import {
     PersonsFromJSON,
     PersonsFromJSONTyped,
     PersonsToJSON,
-} from './index';
+} from './';
 
 /**
  * This model is used for the output of the /qgpt/related/persons endpoint.

@@ -22,7 +22,7 @@ import {
     TLPCodeFragmentReclassificationUpdatesFromJSON,
     TLPCodeFragmentReclassificationUpdatesFromJSONTyped,
     TLPCodeFragmentReclassificationUpdatesToJSON,
-} from './index';
+} from './';
 
 /**
  * Model for ML big query Reclassification.

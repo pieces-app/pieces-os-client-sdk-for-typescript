@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeProcessingToJSON = exports.TLPCodeProcessingFromJSONTyped = exports.TLPCodeProcessingFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeProcessingFromJSON(json) {
     return TLPCodeProcessingFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function TLPCodeProcessingFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, index_1.TLPCodeSnippetAnalyticsFromJSON)(json['fragment']),
-        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, index_1.TLPCodeFileAnalyticsFromJSON)(json['file']),
-        'directory': !(0, runtime_1.exists)(json, 'directory') ? undefined : (0, index_1.TLPCodeDirectoryAnalyticsFromJSON)(json['directory']),
-        'repository': !(0, runtime_1.exists)(json, 'repository') ? undefined : (0, index_1.TLPCodeRepositoryAnalyticsFromJSON)(json['repository']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, _1.TLPCodeSnippetAnalyticsFromJSON)(json['fragment']),
+        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, _1.TLPCodeFileAnalyticsFromJSON)(json['file']),
+        'directory': !(0, runtime_1.exists)(json, 'directory') ? undefined : (0, _1.TLPCodeDirectoryAnalyticsFromJSON)(json['directory']),
+        'repository': !(0, runtime_1.exists)(json, 'repository') ? undefined : (0, _1.TLPCodeRepositoryAnalyticsFromJSON)(json['repository']),
     };
 }
 exports.TLPCodeProcessingFromJSONTyped = TLPCodeProcessingFromJSONTyped;
@@ -41,11 +41,11 @@ function TLPCodeProcessingToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'fragment': (0, index_1.TLPCodeSnippetAnalyticsToJSON)(value.fragment),
-        'file': (0, index_1.TLPCodeFileAnalyticsToJSON)(value.file),
-        'directory': (0, index_1.TLPCodeDirectoryAnalyticsToJSON)(value.directory),
-        'repository': (0, index_1.TLPCodeRepositoryAnalyticsToJSON)(value.repository),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'fragment': (0, _1.TLPCodeSnippetAnalyticsToJSON)(value.fragment),
+        'file': (0, _1.TLPCodeFileAnalyticsToJSON)(value.file),
+        'directory': (0, _1.TLPCodeDirectoryAnalyticsToJSON)(value.directory),
+        'repository': (0, _1.TLPCodeRepositoryAnalyticsToJSON)(value.repository),
     };
 }
 exports.TLPCodeProcessingToJSON = TLPCodeProcessingToJSON;

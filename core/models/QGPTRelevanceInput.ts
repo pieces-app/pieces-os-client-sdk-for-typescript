@@ -34,7 +34,7 @@ import {
     SeedsFromJSON,
     SeedsFromJSONTyped,
     SeedsToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the input body for the /code_gpt/relevance endpoint.

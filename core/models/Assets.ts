@@ -26,7 +26,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * A base class for a collection of assets and some additional meta properties. Fully Populated with Formats internally (not just uuid's).

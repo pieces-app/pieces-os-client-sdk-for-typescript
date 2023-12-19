@@ -26,7 +26,7 @@ import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './index';
+} from './';
 
 /**
  * A generic model to use with the Connector API that requires little to no additional information about the current application.

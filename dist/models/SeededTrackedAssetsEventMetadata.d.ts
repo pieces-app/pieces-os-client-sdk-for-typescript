@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { TrackedAssetsEventSearchMetadata } from './index';
+import { TrackedAssetsEventSearchMetadata } from './';
 /**
  * Additional Metadata as Neeeded i.e. Search + Query, etc
  * @export

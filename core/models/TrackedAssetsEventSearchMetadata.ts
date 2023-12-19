@@ -22,7 +22,7 @@ import {
     TrackedAssetsEventSearchMetadataResultsFromJSON,
     TrackedAssetsEventSearchMetadataResultsFromJSONTyped,
     TrackedAssetsEventSearchMetadataResultsToJSON,
-} from './index';
+} from './';
 
 /**
  * Metadata attached to a search event on an Asset

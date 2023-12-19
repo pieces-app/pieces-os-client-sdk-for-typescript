@@ -26,6 +26,7 @@ apis/DatabaseApi.ts
 apis/DiscoveryApi.ts
 apis/DistributionApi.ts
 apis/DistributionsApi.ts
+apis/ExternalProviderApi.ts
 apis/FormatApi.ts
 apis/FormatsApi.ts
 apis/GithubApi.ts
@@ -34,12 +35,14 @@ apis/HintsApi.ts
 apis/ImageAnalysesApi.ts
 apis/LinkifyApi.ts
 apis/MacOSApi.ts
+apis/MachineLearningApi.ts
 apis/MetricsApi.ts
 apis/ModelApi.ts
 apis/ModelsApi.ts
 apis/NotificationsApi.ts
 apis/OCRAnalysesApi.ts
 apis/OSApi.ts
+apis/OpenAIApi.ts
 apis/PKCEApi.ts
 apis/PersonApi.ts
 apis/PersonsApi.ts
@@ -101,6 +104,7 @@ models/AssetsSearchWithFiltersInput.ts
 models/AssetsSearchWithFiltersOutput.ts
 models/Auth0.ts
 models/Auth0Identity.ts
+models/Auth0OpenAIUserMetadata.ts
 models/Auth0Redirects.ts
 models/Auth0User.ts
 models/Auth0UserAllocationMetadata.ts
@@ -109,6 +113,7 @@ models/AvailableFormats.ts
 models/ByteDescriptor.ts
 models/CapabilitiesEnum.ts
 models/ChallengedPKCE.ts
+models/CheckedOSUpdate.ts
 models/Classification.ts
 models/ClassificationGenericEnum.ts
 models/ClassificationRenderingEnum.ts
@@ -126,6 +131,8 @@ models/ConversationSummarizeOutput.ts
 models/ConversationTypeEnum.ts
 models/Conversations.ts
 models/ConversationsCreateFromAssetOutput.ts
+models/CreatedExternalProviderApiKey.ts
+models/DeletedExternalProviderApiKey.ts
 models/DiscoveredAsset.ts
 models/DiscoveredAssets.ts
 models/DiscoveredHtmlWebpage.ts
@@ -227,9 +234,12 @@ models/MailgunDistribution.ts
 models/MailgunMetadata.ts
 models/MechanismEnum.ts
 models/Model.ts
+models/ModelDeleteCacheInput.ts
+models/ModelDeleteCacheOutput.ts
 models/ModelDownloadProgress.ts
 models/ModelDownloadProgressStatusEnum.ts
 models/ModelFoundationEnum.ts
+models/ModelMaxTokens.ts
 models/ModelTypeEnum.ts
 models/ModelUsageEnum.ts
 models/Models.ts
@@ -242,6 +252,8 @@ models/OAuthToken.ts
 models/OCRAnalyses.ts
 models/OCRAnalysis.ts
 models/OSHealth.ts
+models/OpenAIModelsListInput.ts
+models/OpenAIModelsListOutput.ts
 models/OrderedMetrics.ts
 models/PKCE.ts
 models/Person.ts
@@ -252,6 +264,9 @@ models/PersonModel.ts
 models/PersonType.ts
 models/Persons.ts
 models/PlatformEnum.ts
+models/PrecreatedExternalProviderApiKey.ts
+models/PredeletedExternalProviderApiKey.ts
+models/PreupdatedExternalProviderApiKey.ts
 models/Preview.ts
 models/PrivacyEnum.ts
 models/PseudoAssets.ts
@@ -347,6 +362,7 @@ models/SeededGithubGistsImport.ts
 models/SeededHint.ts
 models/SeededMacOSAsset.ts
 models/SeededModel.ts
+models/SeededModels.ts
 models/SeededPKCE.ts
 models/SeededPKCEADDITIONALPARAMETERS.ts
 models/SeededPerson.ts
@@ -371,6 +387,8 @@ models/SeededUltraSuiteAsset.ts
 models/SeededUser.ts
 models/SeededWebsite.ts
 models/Seeds.ts
+models/SegmentedTechnicalLanguage.ts
+models/SegmentedTechnicalLanguageFragment.ts
 models/Sensitive.ts
 models/SensitiveCategoryEnum.ts
 models/SensitiveMetadata.ts
@@ -437,6 +455,10 @@ models/TrackedSessionEventIdentifierDescriptionPairs.ts
 models/TrackedUserProfile.ts
 models/TransferableBytes.ts
 models/TransferableString.ts
+models/UncheckedOSUpdate.ts
+models/UnsegmentedTechnicalLanguage.ts
+models/UpdatedExternalProviderApiKey.ts
+models/UpdatingStatusEnum.ts
 models/UserProfile.ts
 models/Users.ts
 models/Website.ts

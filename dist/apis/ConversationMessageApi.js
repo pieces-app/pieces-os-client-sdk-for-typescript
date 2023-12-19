@@ -47,12 +47,12 @@ class ConversationMessageApi extends runtime.BaseAPI {
      * This will associate a message with an annotation.
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
-    async associateAnnotationRaw(requestParameters) {
+    async messageAssociateAnnotationRaw(requestParameters) {
         if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation', 'Required parameter requestParameters.annotation was null or undefined when calling associateAnnotation.');
+            throw new runtime.RequiredError('annotation', 'Required parameter requestParameters.annotation was null or undefined when calling messageAssociateAnnotation.');
         }
         if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message', 'Required parameter requestParameters.message was null or undefined when calling associateAnnotation.');
+            throw new runtime.RequiredError('message', 'Required parameter requestParameters.message was null or undefined when calling messageAssociateAnnotation.');
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -68,19 +68,19 @@ class ConversationMessageApi extends runtime.BaseAPI {
      * This will associate a message with an annotation.
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
-    async associateAnnotation(requestParameters) {
-        await this.associateAnnotationRaw(requestParameters);
+    async messageAssociateAnnotation(requestParameters) {
+        await this.messageAssociateAnnotationRaw(requestParameters);
     }
     /**
      * This will enable us to dissassociate a message from an annotation.
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
-    async disassociateAnnotationRaw(requestParameters) {
+    async messageDisassociateAnnotationRaw(requestParameters) {
         if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation', 'Required parameter requestParameters.annotation was null or undefined when calling disassociateAnnotation.');
+            throw new runtime.RequiredError('annotation', 'Required parameter requestParameters.annotation was null or undefined when calling messageDisassociateAnnotation.');
         }
         if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message', 'Required parameter requestParameters.message was null or undefined when calling disassociateAnnotation.');
+            throw new runtime.RequiredError('message', 'Required parameter requestParameters.message was null or undefined when calling messageDisassociateAnnotation.');
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -96,8 +96,8 @@ class ConversationMessageApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a message from an annotation.
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
-    async disassociateAnnotation(requestParameters) {
-        await this.disassociateAnnotationRaw(requestParameters);
+    async messageDisassociateAnnotation(requestParameters) {
+        await this.messageDisassociateAnnotationRaw(requestParameters);
     }
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.

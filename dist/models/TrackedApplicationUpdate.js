@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedApplicationUpdateToJSON = exports.TrackedApplicationUpdateFromJSONTyped = exports.TrackedApplicationUpdateFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TrackedApplicationUpdateFromJSON(json) {
     return TrackedApplicationUpdateFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function TrackedApplicationUpdateFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'current': (0, index_1.TrackedApplicationFromJSON)(json['current']),
-        'previous': !(0, runtime_1.exists)(json, 'previous') ? undefined : (0, index_1.TrackedApplicationFromJSON)(json['previous']),
-        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, index_1.TrackedUserProfileFromJSON)(json['user']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'current': (0, _1.TrackedApplicationFromJSON)(json['current']),
+        'previous': !(0, runtime_1.exists)(json, 'previous') ? undefined : (0, _1.TrackedApplicationFromJSON)(json['previous']),
+        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.TrackedUserProfileFromJSON)(json['user']),
     };
 }
 exports.TrackedApplicationUpdateFromJSONTyped = TrackedApplicationUpdateFromJSONTyped;
@@ -40,10 +40,10 @@ function TrackedApplicationUpdateToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'current': (0, index_1.TrackedApplicationToJSON)(value.current),
-        'previous': (0, index_1.TrackedApplicationToJSON)(value.previous),
-        'user': (0, index_1.TrackedUserProfileToJSON)(value.user),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'current': (0, _1.TrackedApplicationToJSON)(value.current),
+        'previous': (0, _1.TrackedApplicationToJSON)(value.previous),
+        'user': (0, _1.TrackedUserProfileToJSON)(value.user),
     };
 }
 exports.TrackedApplicationUpdateToJSON = TrackedApplicationUpdateToJSON;

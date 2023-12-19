@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededActivityToJSON = exports.SeededActivityFromJSONTyped = exports.SeededActivityFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededActivityFromJSON(json) {
     return SeededActivityFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function SeededActivityFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'event': (0, index_1.SeededConnectorTrackingFromJSON)(json['event']),
-        'application': (0, index_1.ApplicationFromJSON)(json['application']),
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.ReferencedAssetFromJSON)(json['asset']),
-        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, index_1.ReferencedUserFromJSON)(json['user']),
-        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, index_1.ReferencedFormatFromJSON)(json['format']),
-        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
+        'event': (0, _1.SeededConnectorTrackingFromJSON)(json['event']),
+        'application': (0, _1.ApplicationFromJSON)(json['application']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.ReferencedAssetFromJSON)(json['asset']),
+        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.ReferencedUserFromJSON)(json['user']),
+        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, _1.ReferencedFormatFromJSON)(json['format']),
+        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
     };
 }
 exports.SeededActivityFromJSONTyped = SeededActivityFromJSONTyped;
@@ -42,12 +42,12 @@ function SeededActivityToJSON(value) {
         return null;
     }
     return {
-        'event': (0, index_1.SeededConnectorTrackingToJSON)(value.event),
-        'application': (0, index_1.ApplicationToJSON)(value.application),
-        'asset': (0, index_1.ReferencedAssetToJSON)(value.asset),
-        'user': (0, index_1.ReferencedUserToJSON)(value.user),
-        'format': (0, index_1.ReferencedFormatToJSON)(value.format),
-        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
+        'event': (0, _1.SeededConnectorTrackingToJSON)(value.event),
+        'application': (0, _1.ApplicationToJSON)(value.application),
+        'asset': (0, _1.ReferencedAssetToJSON)(value.asset),
+        'user': (0, _1.ReferencedUserToJSON)(value.user),
+        'format': (0, _1.ReferencedFormatToJSON)(value.format),
+        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
     };
 }
 exports.SeededActivityToJSON = SeededActivityToJSON;

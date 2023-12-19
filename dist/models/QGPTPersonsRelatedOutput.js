@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTPersonsRelatedOutputToJSON = exports.QGPTPersonsRelatedOutputFromJSONTyped = exports.QGPTPersonsRelatedOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function QGPTPersonsRelatedOutputFromJSON(json) {
     return QGPTPersonsRelatedOutputFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function QGPTPersonsRelatedOutputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'persons': (0, index_1.PersonsFromJSON)(json['persons']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'persons': (0, _1.PersonsFromJSON)(json['persons']),
         'explanations': !(0, runtime_1.exists)(json, 'explanations') ? undefined : json['explanations'],
     };
 }
@@ -39,8 +39,8 @@ function QGPTPersonsRelatedOutputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'persons': (0, index_1.PersonsToJSON)(value.persons),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'persons': (0, _1.PersonsToJSON)(value.persons),
         'explanations': value.explanations,
     };
 }

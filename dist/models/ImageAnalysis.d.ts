@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, OCRAnalysis } from './index';
+import { EmbeddedModelSchema, OCRAnalysis } from './';
 /**
  * This is a model that represents all the information collected during the processing of an image.
  * @export

@@ -10,33 +10,51 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { Model, Models, SeededModel } from '../models';
+import { Model, ModelDeleteCacheInput, ModelDeleteCacheOutput, Models, SeededModel } from '../models';
 export interface ModelsCreateNewModelRequest {
     seededModel?: SeededModel;
 }
 export interface ModelsDeleteSpecificModelRequest {
     model: string;
 }
+export interface ModelsDeleteSpecificModelCacheRequest {
+    model: string;
+    modelDeleteCacheInput?: ModelDeleteCacheInput;
+}
 /**
  *
  */
 export declare class ModelsApi extends runtime.BaseAPI {
     /**
+     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
      * /models/create [POST]
      */
     modelsCreateNewModelRaw(requestParameters: ModelsCreateNewModelRequest): Promise<runtime.ApiResponse<Model>>;
     /**
+     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
      * /models/create [POST]
      */
     modelsCreateNewModel(requestParameters: ModelsCreateNewModelRequest): Promise<Model>;
     /**
+     * This will delete a model, This is only available for custom: true models.
      * /models/{model}/delete [POST]
      */
     modelsDeleteSpecificModelRaw(requestParameters: ModelsDeleteSpecificModelRequest): Promise<runtime.ApiResponse<void>>;
     /**
+     * This will delete a model, This is only available for custom: true models.
      * /models/{model}/delete [POST]
      */
     modelsDeleteSpecificModel(requestParameters: ModelsDeleteSpecificModelRequest): Promise<void>;
+    /**
+     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * /models/{model}/delete/cache [POST]
+     */
+    modelsDeleteSpecificModelCacheRaw(requestParameters: ModelsDeleteSpecificModelCacheRequest): Promise<runtime.ApiResponse<ModelDeleteCacheOutput>>;
+    /**
+     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * /models/{model}/delete/cache [POST]
+     */
+    modelsDeleteSpecificModelCache(requestParameters: ModelsDeleteSpecificModelCacheRequest): Promise<ModelDeleteCacheOutput>;
     /**
      * This will get a snapshot of all of your models.
      * /models [GET]
@@ -48,12 +66,12 @@ export declare class ModelsApi extends runtime.BaseAPI {
      */
     modelsSnapshot(): Promise<Models>;
     /**
-     * This will unload all of the ml models.
+     * This will unload all of the ml models.(that are unloadable)
      * /models/unload [POST]
      */
     unloadModelsRaw(): Promise<runtime.ApiResponse<void>>;
     /**
-     * This will unload all of the ml models.
+     * This will unload all of the ml models.(that are unloadable)
      * /models/unload [POST]
      */
     unloadModels(): Promise<void>;

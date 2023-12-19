@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, EmbeddedModelSchema, FlattenedUserProfile, GroupedTimestamp, MechanismEnum, ReferencedAsset, ReferencedFormat, SeededConnectorTracking } from './index';
+import { Application, EmbeddedModelSchema, FlattenedUserProfile, GroupedTimestamp, MechanismEnum, ReferencedAsset, ReferencedFormat, SeededConnectorTracking } from './';
 /**
  * Note:
  * - if mechanism == internal we will not display to the user.

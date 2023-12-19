@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Assets, EmbeddedModelSchema, ReuseSuggestion, SaveSuggestion, SuggestionTarget } from './index';
+import { Assets, EmbeddedModelSchema, ReuseSuggestion, SaveSuggestion, SuggestionTarget } from './';
 /**
  * This is the model return by the connector's suggest endpoint.
  *

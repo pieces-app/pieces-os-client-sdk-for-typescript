@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetFiltersToJSON = exports.AssetFiltersFromJSONTyped = exports.AssetFiltersFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AssetFiltersFromJSON(json) {
     return AssetFiltersFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function AssetFiltersFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.AssetFilterFromJSON)),
-        'type': !(0, runtime_1.exists)(json, 'type') ? undefined : (0, index_1.FilterOperationTypeEnumFromJSON)(json['type']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.AssetFilterFromJSON)),
+        'type': !(0, runtime_1.exists)(json, 'type') ? undefined : (0, _1.FilterOperationTypeEnumFromJSON)(json['type']),
     };
 }
 exports.AssetFiltersFromJSONTyped = AssetFiltersFromJSONTyped;
@@ -39,9 +39,9 @@ function AssetFiltersToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.AssetFilterToJSON)),
-        'type': (0, index_1.FilterOperationTypeEnumToJSON)(value.type),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.AssetFilterToJSON)),
+        'type': (0, _1.FilterOperationTypeEnumToJSON)(value.type),
     };
 }
 exports.AssetFiltersToJSON = AssetFiltersToJSON;

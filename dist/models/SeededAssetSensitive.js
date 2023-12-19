@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAssetSensitiveToJSON = exports.SeededAssetSensitiveFromJSONTyped = exports.SeededAssetSensitiveFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededAssetSensitiveFromJSON(json) {
     return SeededAssetSensitiveFromJSONTyped(json, false);
 }
@@ -25,14 +25,14 @@ function SeededAssetSensitiveFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'text': json['text'],
-        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
-        'category': (0, index_1.SensitiveCategoryEnumFromJSON)(json['category']),
-        'severity': (0, index_1.SensitiveSeverityEnumFromJSON)(json['severity']),
+        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
+        'category': (0, _1.SensitiveCategoryEnumFromJSON)(json['category']),
+        'severity': (0, _1.SensitiveSeverityEnumFromJSON)(json['severity']),
         'name': json['name'],
         'description': json['description'],
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.SensitiveMetadataFromJSON)(json['metadata']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.SensitiveMetadataFromJSON)(json['metadata']),
     };
 }
 exports.SeededAssetSensitiveFromJSONTyped = SeededAssetSensitiveFromJSONTyped;
@@ -44,14 +44,14 @@ function SeededAssetSensitiveToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'text': value.text,
-        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
-        'category': (0, index_1.SensitiveCategoryEnumToJSON)(value.category),
-        'severity': (0, index_1.SensitiveSeverityEnumToJSON)(value.severity),
+        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
+        'category': (0, _1.SensitiveCategoryEnumToJSON)(value.category),
+        'severity': (0, _1.SensitiveSeverityEnumToJSON)(value.severity),
         'name': value.name,
         'description': value.description,
-        'metadata': (0, index_1.SensitiveMetadataToJSON)(value.metadata),
+        'metadata': (0, _1.SensitiveMetadataToJSON)(value.metadata),
     };
 }
 exports.SeededAssetSensitiveToJSON = SeededAssetSensitiveToJSON;

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedAssetsEventSearchMetadataToJSON = exports.TrackedAssetsEventSearchMetadataFromJSONTyped = exports.TrackedAssetsEventSearchMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TrackedAssetsEventSearchMetadataFromJSON(json) {
     return TrackedAssetsEventSearchMetadataFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function TrackedAssetsEventSearchMetadataFromJSONTyped(json, ignoreDiscriminator
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'query': !(0, runtime_1.exists)(json, 'query') ? undefined : json['query'],
-        'results': !(0, runtime_1.exists)(json, 'results') ? undefined : (0, index_1.TrackedAssetsEventSearchMetadataResultsFromJSON)(json['results']),
+        'results': !(0, runtime_1.exists)(json, 'results') ? undefined : (0, _1.TrackedAssetsEventSearchMetadataResultsFromJSON)(json['results']),
     };
 }
 exports.TrackedAssetsEventSearchMetadataFromJSONTyped = TrackedAssetsEventSearchMetadataFromJSONTyped;
@@ -39,9 +39,9 @@ function TrackedAssetsEventSearchMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'query': value.query,
-        'results': (0, index_1.TrackedAssetsEventSearchMetadataResultsToJSON)(value.results),
+        'results': (0, _1.TrackedAssetsEventSearchMetadataResultsToJSON)(value.results),
     };
 }
 exports.TrackedAssetsEventSearchMetadataToJSON = TrackedAssetsEventSearchMetadataToJSON;

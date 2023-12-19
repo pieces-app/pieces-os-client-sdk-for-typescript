@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededDiscoverableHtmlWebpagesToJSON = exports.SeededDiscoverableHtmlWebpagesFromJSONTyped = exports.SeededDiscoverableHtmlWebpagesFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededDiscoverableHtmlWebpagesFromJSON(json) {
     return SeededDiscoverableHtmlWebpagesFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededDiscoverableHtmlWebpagesFromJSONTyped(json, ignoreDiscriminator) 
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.SeededDiscoverableHtmlWebpageFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.SeededDiscoverableHtmlWebpageFromJSON)),
         'application': json['application'],
     };
 }
@@ -39,8 +39,8 @@ function SeededDiscoverableHtmlWebpagesToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.SeededDiscoverableHtmlWebpageToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.SeededDiscoverableHtmlWebpageToJSON)),
         'application': value.application,
     };
 }

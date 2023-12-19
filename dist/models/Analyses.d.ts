@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Analysis, EmbeddedModelSchema } from './index';
+import { Analysis, EmbeddedModelSchema } from './';
 /**
  *
  * @export

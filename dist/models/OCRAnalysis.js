@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OCRAnalysisToJSON = exports.OCRAnalysisFromJSONTyped = exports.OCRAnalysisFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function OCRAnalysisFromJSON(json) {
     return OCRAnalysisFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function OCRAnalysisFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'raw': (0, index_1.FormatFromJSON)(json['raw']),
-        'hocr': (0, index_1.FormatFromJSON)(json['hocr']),
+        'raw': (0, _1.FormatFromJSON)(json['raw']),
+        'hocr': (0, _1.FormatFromJSON)(json['hocr']),
         'image': json['image'],
-        'model': (0, index_1.ModelFromJSON)(json['model']),
+        'model': (0, _1.ModelFromJSON)(json['model']),
     };
 }
 exports.OCRAnalysisFromJSONTyped = OCRAnalysisFromJSONTyped;
@@ -42,12 +42,12 @@ function OCRAnalysisToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'raw': (0, index_1.FormatToJSON)(value.raw),
-        'hocr': (0, index_1.FormatToJSON)(value.hocr),
+        'raw': (0, _1.FormatToJSON)(value.raw),
+        'hocr': (0, _1.FormatToJSON)(value.hocr),
         'image': value.image,
-        'model': (0, index_1.ModelToJSON)(value.model),
+        'model': (0, _1.ModelToJSON)(value.model),
     };
 }
 exports.OCRAnalysisToJSON = OCRAnalysisToJSON;

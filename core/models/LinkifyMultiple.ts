@@ -26,7 +26,7 @@ import {
     SeededUserFromJSON,
     SeededUserFromJSONTyped,
     SeededUserToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the incoming linkify model.

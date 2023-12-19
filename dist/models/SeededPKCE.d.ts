@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededPKCEADDITIONALPARAMETERS } from './index';
+import { EmbeddedModelSchema, SeededPKCEADDITIONALPARAMETERS } from './';
 /**
  * A model that initialized a PKCE Authentication Flow.
  * @export

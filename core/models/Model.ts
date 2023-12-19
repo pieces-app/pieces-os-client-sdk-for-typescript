@@ -34,6 +34,10 @@ import {
     ModelFoundationEnumFromJSON,
     ModelFoundationEnumFromJSONTyped,
     ModelFoundationEnumToJSON,
+    ModelMaxTokens,
+    ModelMaxTokensFromJSON,
+    ModelMaxTokensFromJSONTyped,
+    ModelMaxTokensToJSON,
     ModelTypeEnum,
     ModelTypeEnumFromJSON,
     ModelTypeEnumFromJSONTyped,
@@ -42,7 +46,7 @@ import {
     ModelUsageEnumFromJSON,
     ModelUsageEnumFromJSONTyped,
     ModelUsageEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a Machine Learning Model, that will give readable information about the Machine Learning Model Used.
@@ -170,6 +174,18 @@ export interface Model {
      * @memberof Model
      */
     downloading?: boolean;
+    /**
+     * 
+     * @type {ModelMaxTokens}
+     * @memberof Model
+     */
+    maxTokens?: ModelMaxTokens;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Model
+     */
+    custom?: boolean;
 }
 
 export function ModelFromJSON(json: any): Model {
@@ -202,6 +218,8 @@ export function ModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): Mod
         'provider': !exists(json, 'provider') ? undefined : ExternalMLProviderEnumFromJSON(json['provider']),
         'cpu': !exists(json, 'cpu') ? undefined : json['cpu'],
         'downloading': !exists(json, 'downloading') ? undefined : json['downloading'],
+        'maxTokens': !exists(json, 'maxTokens') ? undefined : ModelMaxTokensFromJSON(json['maxTokens']),
+        'custom': !exists(json, 'custom') ? undefined : json['custom'],
     };
 }
 
@@ -234,6 +252,8 @@ export function ModelToJSON(value?: Model | null): any {
         'provider': ExternalMLProviderEnumToJSON(value.provider),
         'cpu': value.cpu,
         'downloading': value.downloading,
+        'maxTokens': ModelMaxTokensToJSON(value.maxTokens),
+        'custom': value.custom,
     };
 }
 

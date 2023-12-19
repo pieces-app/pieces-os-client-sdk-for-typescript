@@ -44,6 +44,34 @@ const models_1 = require("../models");
  */
 class PersonsApi extends runtime.BaseAPI {
     /**
+     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /persons/{person}/assets/delete/{asset} [POST]
+     */
+    async personDisassociateAssetRaw(requestParameters) {
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person', 'Required parameter requestParameters.person was null or undefined when calling personDisassociateAsset.');
+        }
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset', 'Required parameter requestParameters.asset was null or undefined when calling personDisassociateAsset.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/persons/{person}/assets/delete/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /persons/{person}/assets/delete/{asset} [POST]
+     */
+    async personDisassociateAsset(requestParameters) {
+        await this.personDisassociateAssetRaw(requestParameters);
+    }
+    /**
      * This will create a new person.
      * /persons/create [POST]
      */
@@ -121,34 +149,6 @@ class PersonsApi extends runtime.BaseAPI {
     async personsSnapshot(requestParameters) {
         const response = await this.personsSnapshotRaw(requestParameters);
         return await response.value();
-    }
-    /**
-     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /persons/{person}/assets/delete/{asset} [POST]
-     */
-    async removePersonReferenceFromAssetRaw(requestParameters) {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person', 'Required parameter requestParameters.person was null or undefined when calling removePersonReferenceFromAsset.');
-        }
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset', 'Required parameter requestParameters.asset was null or undefined when calling removePersonReferenceFromAsset.');
-        }
-        const queryParameters = {};
-        const headerParameters = {};
-        const response = await this.request({
-            path: `/persons/{person}/assets/delete/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-        return new runtime.VoidApiResponse(response);
-    }
-    /**
-     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /persons/{person}/assets/delete/{asset} [POST]
-     */
-    async removePersonReferenceFromAsset(requestParameters) {
-        await this.removePersonReferenceFromAssetRaw(requestParameters);
     }
 }
 exports.PersonsApi = PersonsApi;

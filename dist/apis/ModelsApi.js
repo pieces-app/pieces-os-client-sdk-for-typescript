@@ -44,6 +44,7 @@ const models_1 = require("../models");
  */
 class ModelsApi extends runtime.BaseAPI {
     /**
+     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
      * /models/create [POST]
      */
     async modelsCreateNewModelRaw(requestParameters) {
@@ -60,6 +61,7 @@ class ModelsApi extends runtime.BaseAPI {
         return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.ModelFromJSON)(jsonValue));
     }
     /**
+     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
      * /models/create [POST]
      */
     async modelsCreateNewModel(requestParameters) {
@@ -67,6 +69,7 @@ class ModelsApi extends runtime.BaseAPI {
         return await response.value();
     }
     /**
+     * This will delete a model, This is only available for custom: true models.
      * /models/{model}/delete [POST]
      */
     async modelsDeleteSpecificModelRaw(requestParameters) {
@@ -84,10 +87,39 @@ class ModelsApi extends runtime.BaseAPI {
         return new runtime.VoidApiResponse(response);
     }
     /**
+     * This will delete a model, This is only available for custom: true models.
      * /models/{model}/delete [POST]
      */
     async modelsDeleteSpecificModel(requestParameters) {
         await this.modelsDeleteSpecificModelRaw(requestParameters);
+    }
+    /**
+     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * /models/{model}/delete/cache [POST]
+     */
+    async modelsDeleteSpecificModelCacheRaw(requestParameters) {
+        if (requestParameters.model === null || requestParameters.model === undefined) {
+            throw new runtime.RequiredError('model', 'Required parameter requestParameters.model was null or undefined when calling modelsDeleteSpecificModelCache.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/models/{model}/delete/cache`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.ModelDeleteCacheInputToJSON)(requestParameters.modelDeleteCacheInput),
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.ModelDeleteCacheOutputFromJSON)(jsonValue));
+    }
+    /**
+     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * /models/{model}/delete/cache [POST]
+     */
+    async modelsDeleteSpecificModelCache(requestParameters) {
+        const response = await this.modelsDeleteSpecificModelCacheRaw(requestParameters);
+        return await response.value();
     }
     /**
      * This will get a snapshot of all of your models.
@@ -113,7 +145,7 @@ class ModelsApi extends runtime.BaseAPI {
         return await response.value();
     }
     /**
-     * This will unload all of the ml models.
+     * This will unload all of the ml models.(that are unloadable)
      * /models/unload [POST]
      */
     async unloadModelsRaw() {
@@ -128,7 +160,7 @@ class ModelsApi extends runtime.BaseAPI {
         return new runtime.VoidApiResponse(response);
     }
     /**
-     * This will unload all of the ml models.
+     * This will unload all of the ml models.(that are unloadable)
      * /models/unload [POST]
      */
     async unloadModels() {

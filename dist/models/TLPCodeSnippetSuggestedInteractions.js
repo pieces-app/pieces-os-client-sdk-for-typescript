@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeSnippetSuggestedInteractionsToJSON = exports.TLPCodeSnippetSuggestedInteractionsFromJSONTyped = exports.TLPCodeSnippetSuggestedInteractionsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeSnippetSuggestedInteractionsFromJSON(json) {
     return TLPCodeSnippetSuggestedInteractionsFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function TLPCodeSnippetSuggestedInteractionsFromJSONTyped(json, ignoreDiscrimina
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'save': !(0, runtime_1.exists)(json, 'save') ? undefined : (0, index_1.TLPCodeFragmentSuggestedSaveFromJSON)(json['save']),
-        'reuse': !(0, runtime_1.exists)(json, 'reuse') ? undefined : (0, index_1.TLPCodeFragmentSuggestedReuseFromJSON)(json['reuse']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'save': !(0, runtime_1.exists)(json, 'save') ? undefined : (0, _1.TLPCodeFragmentSuggestedSaveFromJSON)(json['save']),
+        'reuse': !(0, runtime_1.exists)(json, 'reuse') ? undefined : (0, _1.TLPCodeFragmentSuggestedReuseFromJSON)(json['reuse']),
     };
 }
 exports.TLPCodeSnippetSuggestedInteractionsFromJSONTyped = TLPCodeSnippetSuggestedInteractionsFromJSONTyped;
@@ -39,9 +39,9 @@ function TLPCodeSnippetSuggestedInteractionsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'save': (0, index_1.TLPCodeFragmentSuggestedSaveToJSON)(value.save),
-        'reuse': (0, index_1.TLPCodeFragmentSuggestedReuseToJSON)(value.reuse),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'save': (0, _1.TLPCodeFragmentSuggestedSaveToJSON)(value.save),
+        'reuse': (0, _1.TLPCodeFragmentSuggestedReuseToJSON)(value.reuse),
     };
 }
 exports.TLPCodeSnippetSuggestedInteractionsToJSON = TLPCodeSnippetSuggestedInteractionsToJSON;

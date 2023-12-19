@@ -9,11 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ModelDownloadProgressStatusEnum } from './index';
+import { EmbeddedModelSchema, ModelDownloadProgressStatusEnum } from './';
 /**
  * This is the model that is sent over our ws for streaming the progress of a model that is being downloaded.
  *
- * can eventually add a number that display the percentage downloaded an so on.
+ * can eventually add a number that display the percent downloaded an so on.(this is called percent 0-100)
  * @export
  * @interface ModelDownloadProgress
  */
@@ -30,6 +30,12 @@ export interface ModelDownloadProgress {
      * @memberof ModelDownloadProgress
      */
     status?: ModelDownloadProgressStatusEnum;
+    /**
+     * Optionally if the download is in progress you will recieve a download percent(from 0-100).
+     * @type {number}
+     * @memberof ModelDownloadProgress
+     */
+    percentage?: number | null;
 }
 export declare function ModelDownloadProgressFromJSON(json: any): ModelDownloadProgress;
 export declare function ModelDownloadProgressFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDownloadProgress;

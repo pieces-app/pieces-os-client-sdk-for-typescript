@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, MechanismEnum, ReferencedAsset, ReferencedFormat, ReferencedUser, SeededConnectorTracking } from './index';
+import { Application, MechanismEnum, ReferencedAsset, ReferencedFormat, ReferencedUser, SeededConnectorTracking } from './';
 /**
  * This is the preseed to a full blown Activity.
  *

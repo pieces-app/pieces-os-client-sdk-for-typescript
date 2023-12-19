@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Score, Website } from './index';
+import { EmbeddedModelSchema, Score, Website } from './';
 /**
  * This is a specific model for related websites to an asset.
  * @export

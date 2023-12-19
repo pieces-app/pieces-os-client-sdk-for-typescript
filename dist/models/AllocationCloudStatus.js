@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AllocationCloudStatusToJSON = exports.AllocationCloudStatusFromJSONTyped = exports.AllocationCloudStatusFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AllocationCloudStatusFromJSON(json) {
     return AllocationCloudStatusFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function AllocationCloudStatusFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'cloud': (0, index_1.AllocationStatusEnumFromJSON)(json['cloud']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'cloud': (0, _1.AllocationStatusEnumFromJSON)(json['cloud']),
     };
 }
 exports.AllocationCloudStatusFromJSONTyped = AllocationCloudStatusFromJSONTyped;
@@ -38,8 +38,8 @@ function AllocationCloudStatusToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'cloud': (0, index_1.AllocationStatusEnumToJSON)(value.cloud),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'cloud': (0, _1.AllocationStatusEnumToJSON)(value.cloud),
     };
 }
 exports.AllocationCloudStatusToJSON = AllocationCloudStatusToJSON;

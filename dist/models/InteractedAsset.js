@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InteractedAssetToJSON = exports.InteractedAssetFromJSONTyped = exports.InteractedAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function InteractedAssetFromJSON(json) {
     return InteractedAssetFromJSONTyped(json, false);
 }
@@ -26,7 +26,7 @@ function InteractedAssetFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : json['asset'],
-        'interactions': !(0, runtime_1.exists)(json, 'interactions') ? undefined : (0, index_1.InteractedAssetInteractionsFromJSON)(json['interactions']),
+        'interactions': !(0, runtime_1.exists)(json, 'interactions') ? undefined : (0, _1.InteractedAssetInteractionsFromJSON)(json['interactions']),
     };
 }
 exports.InteractedAssetFromJSONTyped = InteractedAssetFromJSONTyped;
@@ -39,7 +39,7 @@ function InteractedAssetToJSON(value) {
     }
     return {
         'asset': value.asset,
-        'interactions': (0, index_1.InteractedAssetInteractionsToJSON)(value.interactions),
+        'interactions': (0, _1.InteractedAssetInteractionsToJSON)(value.interactions),
     };
 }
 exports.InteractedAssetToJSON = InteractedAssetToJSON;
