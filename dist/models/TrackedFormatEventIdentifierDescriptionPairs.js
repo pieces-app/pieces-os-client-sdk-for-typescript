@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedFormatEventIdentifierDescriptionPairsToJSON = exports.TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped = exports.TrackedFormatEventIdentifierDescriptionPairsFromJSON = exports.TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum = exports.TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 /**
 * @export
 * @enum {string}
@@ -96,7 +96,7 @@ function TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped(json, ignoreD
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'formatCreated': !(0, runtime_1.exists)(json, 'format_created') ? undefined : json['format_created'],
         'formatCopied': !(0, runtime_1.exists)(json, 'format_copied') ? undefined : json['format_copied'],
         'formatPartiallyCopied': !(0, runtime_1.exists)(json, 'format_partially_copied') ? undefined : json['format_partially_copied'],
@@ -118,7 +118,7 @@ function TrackedFormatEventIdentifierDescriptionPairsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'format_created': value.formatCreated,
         'format_copied': value.formatCopied,
         'format_partially_copied': value.formatPartiallyCopied,

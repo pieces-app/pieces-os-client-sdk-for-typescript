@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedDistributionToJSON = exports.FlattenedDistributionFromJSONTyped = exports.FlattenedDistributionFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FlattenedDistributionFromJSON(json) {
     return FlattenedDistributionFromJSONTyped(json, false);
 }
@@ -25,14 +25,14 @@ function FlattenedDistributionFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'share': json['share'],
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
-        'mailgun': !(0, runtime_1.exists)(json, 'mailgun') ? undefined : (0, index_1.MailgunDistributionFromJSON)(json['mailgun']),
-        'github': !(0, runtime_1.exists)(json, 'github') ? undefined : (0, index_1.GitHubDistributionFromJSON)(json['github']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'mailgun': !(0, runtime_1.exists)(json, 'mailgun') ? undefined : (0, _1.MailgunDistributionFromJSON)(json['mailgun']),
+        'github': !(0, runtime_1.exists)(json, 'github') ? undefined : (0, _1.GitHubDistributionFromJSON)(json['github']),
     };
 }
 exports.FlattenedDistributionFromJSONTyped = FlattenedDistributionFromJSONTyped;
@@ -44,14 +44,14 @@ function FlattenedDistributionToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'share': value.share,
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
-        'mailgun': (0, index_1.MailgunDistributionToJSON)(value.mailgun),
-        'github': (0, index_1.GitHubDistributionToJSON)(value.github),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'mailgun': (0, _1.MailgunDistributionToJSON)(value.mailgun),
+        'github': (0, _1.GitHubDistributionToJSON)(value.github),
     };
 }
 exports.FlattenedDistributionToJSON = FlattenedDistributionToJSON;

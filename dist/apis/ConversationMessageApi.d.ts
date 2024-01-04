@@ -11,11 +11,11 @@
  */
 import * as runtime from '../runtime';
 import { ConversationMessage, SeededScoreIncrement } from '../models';
-export interface AssociateAnnotationRequest {
+export interface MessageAssociateAnnotationRequest {
     annotation: string;
     message: string;
 }
-export interface DisassociateAnnotationRequest {
+export interface MessageDisassociateAnnotationRequest {
     annotation: string;
     message: string;
 }
@@ -39,22 +39,22 @@ export declare class ConversationMessageApi extends runtime.BaseAPI {
      * This will associate a message with an annotation.
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
-    associateAnnotationRaw(requestParameters: AssociateAnnotationRequest): Promise<runtime.ApiResponse<void>>;
+    messageAssociateAnnotationRaw(requestParameters: MessageAssociateAnnotationRequest): Promise<runtime.ApiResponse<void>>;
     /**
      * This will associate a message with an annotation.
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
-    associateAnnotation(requestParameters: AssociateAnnotationRequest): Promise<void>;
+    messageAssociateAnnotation(requestParameters: MessageAssociateAnnotationRequest): Promise<void>;
     /**
      * This will enable us to dissassociate a message from an annotation.
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
-    disassociateAnnotationRaw(requestParameters: DisassociateAnnotationRequest): Promise<runtime.ApiResponse<void>>;
+    messageDisassociateAnnotationRaw(requestParameters: MessageDisassociateAnnotationRequest): Promise<runtime.ApiResponse<void>>;
     /**
      * This will enable us to dissassociate a message from an annotation.
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
-    disassociateAnnotation(requestParameters: DisassociateAnnotationRequest): Promise<void>;
+    messageDisassociateAnnotation(requestParameters: MessageDisassociateAnnotationRequest): Promise<void>;
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/message/{message}/scores/increment\' [POST]

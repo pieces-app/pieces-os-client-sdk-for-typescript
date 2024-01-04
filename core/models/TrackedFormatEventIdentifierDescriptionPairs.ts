@@ -18,7 +18,7 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a model that allows us to send send over super specific format related events such as copied, deleted, downloaded, etc

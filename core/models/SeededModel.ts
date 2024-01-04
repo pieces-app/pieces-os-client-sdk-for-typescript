@@ -34,6 +34,10 @@ import {
     ModelFoundationEnumFromJSON,
     ModelFoundationEnumFromJSONTyped,
     ModelFoundationEnumToJSON,
+    ModelMaxTokens,
+    ModelMaxTokensFromJSON,
+    ModelMaxTokensFromJSONTyped,
+    ModelMaxTokensToJSON,
     ModelTypeEnum,
     ModelTypeEnumFromJSON,
     ModelTypeEnumFromJSONTyped,
@@ -42,7 +46,7 @@ import {
     ModelUsageEnumFromJSON,
     ModelUsageEnumFromJSONTyped,
     ModelUsageEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is Precursor to a Model.
@@ -155,6 +159,18 @@ export interface SeededModel {
      * @memberof SeededModel
      */
     cpu?: boolean;
+    /**
+     * 
+     * @type {ModelMaxTokens}
+     * @memberof SeededModel
+     */
+    maxTokens?: ModelMaxTokens;
+    /**
+     * This is reserved to custommly registed models.
+     * @type {boolean}
+     * @memberof SeededModel
+     */
+    custom?: boolean;
 }
 
 export function SeededModelFromJSON(json: any): SeededModel {
@@ -184,6 +200,8 @@ export function SeededModelFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
         'provider': !exists(json, 'provider') ? undefined : ExternalMLProviderEnumFromJSON(json['provider']),
         'cpu': !exists(json, 'cpu') ? undefined : json['cpu'],
+        'maxTokens': !exists(json, 'maxTokens') ? undefined : ModelMaxTokensFromJSON(json['maxTokens']),
+        'custom': !exists(json, 'custom') ? undefined : json['custom'],
     };
 }
 
@@ -213,6 +231,8 @@ export function SeededModelToJSON(value?: SeededModel | null): any {
         'parameters': value.parameters,
         'provider': ExternalMLProviderEnumToJSON(value.provider),
         'cpu': value.cpu,
+        'maxTokens': ModelMaxTokensToJSON(value.maxTokens),
+        'custom': value.custom,
     };
 }
 

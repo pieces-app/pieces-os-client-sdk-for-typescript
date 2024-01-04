@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedApplicationToJSON = exports.TrackedApplicationFromJSONTyped = exports.TrackedApplicationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TrackedApplicationFromJSON(json) {
     return TrackedApplicationFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function TrackedApplicationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'name': (0, index_1.ApplicationNameEnumFromJSON)(json['name']),
+        'name': (0, _1.ApplicationNameEnumFromJSON)(json['name']),
         'version': json['version'],
-        'platform': (0, index_1.PlatformEnumFromJSON)(json['platform']),
+        'platform': (0, _1.PlatformEnumFromJSON)(json['platform']),
         'automaticUnload': !(0, runtime_1.exists)(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
@@ -42,11 +42,11 @@ function TrackedApplicationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'name': (0, index_1.ApplicationNameEnumToJSON)(value.name),
+        'name': (0, _1.ApplicationNameEnumToJSON)(value.name),
         'version': value.version,
-        'platform': (0, index_1.PlatformEnumToJSON)(value.platform),
+        'platform': (0, _1.PlatformEnumToJSON)(value.platform),
         'automaticUnload': value.automaticUnload,
     };
 }

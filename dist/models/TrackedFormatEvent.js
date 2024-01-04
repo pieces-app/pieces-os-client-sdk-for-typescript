@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedFormatEventToJSON = exports.TrackedFormatEventFromJSONTyped = exports.TrackedFormatEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TrackedFormatEventFromJSON(json) {
     return TrackedFormatEventFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function TrackedFormatEventFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'format': (0, index_1.TrackedFormatFromJSON)(json[' format']),
-        'identifierDescriptionPair': (0, index_1.TrackedFormatEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.TrackedFormatEventMetadataFromJSON)(json['metadata']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'format': (0, _1.TrackedFormatFromJSON)(json[' format']),
+        'identifierDescriptionPair': (0, _1.TrackedFormatEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.TrackedFormatEventMetadataFromJSON)(json['metadata']),
     };
 }
 exports.TrackedFormatEventFromJSONTyped = TrackedFormatEventFromJSONTyped;
@@ -40,10 +40,10 @@ function TrackedFormatEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        ' format': (0, index_1.TrackedFormatToJSON)(value.format),
-        'identifier_description_pair': (0, index_1.TrackedFormatEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
-        'metadata': (0, index_1.TrackedFormatEventMetadataToJSON)(value.metadata),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        ' format': (0, _1.TrackedFormatToJSON)(value.format),
+        'identifier_description_pair': (0, _1.TrackedFormatEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
+        'metadata': (0, _1.TrackedFormatEventMetadataToJSON)(value.metadata),
     };
 }
 exports.TrackedFormatEventToJSON = TrackedFormatEventToJSON;

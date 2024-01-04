@@ -91,6 +91,31 @@ class OSApi extends runtime.BaseAPI {
         await this.osRestartRaw();
     }
     /**
+     * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
+     * /os/update/check [POST]
+     */
+    async osUpdateCheckRaw(requestParameters) {
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/os/update/check`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.UncheckedOSUpdateToJSON)(requestParameters.uncheckedOSUpdate),
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.CheckedOSUpdateFromJSON)(jsonValue));
+    }
+    /**
+     * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
+     * /os/update/check [POST]
+     */
+    async osUpdateCheck(requestParameters) {
+        const response = await this.osUpdateCheckRaw(requestParameters);
+        return await response.value();
+    }
+    /**
      * This will trigger a filer picker and return the string paths of the files that were selected.
      * /os/files/pick [POST]
      */

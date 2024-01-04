@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Model } from './index';
+import { EmbeddedModelSchema, Model } from './';
 /**
  * This is a List of MachineLearning Models
  * @export

@@ -22,7 +22,7 @@ import {
     GraphicalOCRStatisticsFromJSON,
     GraphicalOCRStatisticsFromJSONTyped,
     GraphicalOCRStatisticsToJSON,
-} from './index';
+} from './';
 
 /**
  * 

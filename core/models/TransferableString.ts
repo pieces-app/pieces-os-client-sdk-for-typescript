@@ -18,7 +18,7 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a String representaion of any of these changes.

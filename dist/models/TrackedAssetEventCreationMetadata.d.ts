@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TrackedAssetEventCreationMetadataClipboard, TrackedAssetEventCreationMetadataFile } from './index';
+import { EmbeddedModelSchema, TrackedAssetEventCreationMetadataClipboard, TrackedAssetEventCreationMetadataFile } from './';
 /**
  * Metadata attached to a creation event on an Asset
  * @export

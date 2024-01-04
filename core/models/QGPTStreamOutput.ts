@@ -26,10 +26,16 @@ import {
     QGPTStreamEnumFromJSON,
     QGPTStreamEnumFromJSONTyped,
     QGPTStreamEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the out for the /qgpt/stream endpoint.
+ * 
+ * 200: success
+ * 401: invalid authentication/api key
+ * 429: Rate limit/Quota exceeded
+ * 500: server had an error
+ * 503: the engine is currently overloaded
  * @export
  * @interface QGPTStreamOutput
  */
@@ -64,6 +70,18 @@ export interface QGPTStreamOutput {
      * @memberof QGPTStreamOutput
      */
     conversation: string;
+    /**
+     * This will be provided
+     * @type {number}
+     * @memberof QGPTStreamOutput
+     */
+    statusCode?: number | null;
+    /**
+     * optional error message is the status code is NOT 200
+     * @type {string}
+     * @memberof QGPTStreamOutput
+     */
+    errorMessage?: string;
 }
 
 export function QGPTStreamOutputFromJSON(json: any): QGPTStreamOutput {
@@ -81,6 +99,8 @@ export function QGPTStreamOutputFromJSONTyped(json: any, ignoreDiscriminator: bo
         'question': !exists(json, 'question') ? undefined : QGPTQuestionOutputFromJSON(json['question']),
         'status': !exists(json, 'status') ? undefined : QGPTStreamEnumFromJSON(json['status']),
         'conversation': json['conversation'],
+        'statusCode': !exists(json, 'statusCode') ? undefined : json['statusCode'],
+        'errorMessage': !exists(json, 'errorMessage') ? undefined : json['errorMessage'],
     };
 }
 
@@ -98,6 +118,8 @@ export function QGPTStreamOutputToJSON(value?: QGPTStreamOutput | null): any {
         'question': QGPTQuestionOutputToJSON(value.question),
         'status': QGPTStreamEnumToJSON(value.status),
         'conversation': value.conversation,
+        'statusCode': value.statusCode,
+        'errorMessage': value.errorMessage,
     };
 }
 

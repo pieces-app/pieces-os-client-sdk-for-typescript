@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedAssetsToJSON = exports.FlattenedAssetsFromJSONTyped = exports.FlattenedAssetsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FlattenedAssetsFromJSON(json) {
     return FlattenedAssetsFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function FlattenedAssetsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': !(0, runtime_1.exists)(json, 'iterable') ? undefined : (json['iterable'].map(index_1.ReferencedAssetFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': !(0, runtime_1.exists)(json, 'iterable') ? undefined : (json['iterable'].map(_1.ReferencedAssetFromJSON)),
         'indices': !(0, runtime_1.exists)(json, 'indices') ? undefined : json['indices'],
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
     };
 }
 exports.FlattenedAssetsFromJSONTyped = FlattenedAssetsFromJSONTyped;
@@ -40,10 +40,10 @@ function FlattenedAssetsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': value.iterable === undefined ? undefined : (value.iterable.map(index_1.ReferencedAssetToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': value.iterable === undefined ? undefined : (value.iterable.map(_1.ReferencedAssetToJSON)),
         'indices': value.indices,
-        'score': (0, index_1.ScoreToJSON)(value.score),
+        'score': (0, _1.ScoreToJSON)(value.score),
     };
 }
 exports.FlattenedAssetsToJSON = FlattenedAssetsToJSON;

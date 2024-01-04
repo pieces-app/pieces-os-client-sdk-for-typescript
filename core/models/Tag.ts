@@ -46,7 +46,7 @@ import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This represents a fully polinated Tag, that is either attached to an asset or a format that adds additional information "tags" to describe itself.Helps improve Search and other contextual information that is useful for the user.

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Asset, EmbeddedModelSchema, Score } from './index';
+import { Asset, EmbeddedModelSchema, Score } from './';
 /**
  * A base class for a collection of assets and some additional meta properties. Fully Populated with Formats internally (not just uuid's).
  * @export

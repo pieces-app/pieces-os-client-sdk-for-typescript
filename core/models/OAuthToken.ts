@@ -18,7 +18,7 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './index';
+} from './';
 
 /**
  * A model representing a returnable response for a OAuthGroup Token

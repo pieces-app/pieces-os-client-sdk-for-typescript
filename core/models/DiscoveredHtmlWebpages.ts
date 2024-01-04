@@ -22,7 +22,7 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './index';
+} from './';
 
 /**
  * Assumption: The iterable will be in the exact same order as it was passed in within the seededDiscoveredHtmlWebpages

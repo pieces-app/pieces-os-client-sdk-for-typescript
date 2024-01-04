@@ -26,7 +26,7 @@ import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
-} from './index';
+} from './';
 
 /**
  * This is used for /qgpt/persons/related.

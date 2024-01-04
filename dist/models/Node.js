@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NodeToJSON = exports.NodeFromJSONTyped = exports.NodeFromJSON = void 0;
-const index_1 = require("./index");
+const _1 = require("./");
 function NodeFromJSON(json) {
     return NodeFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function NodeFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'id': json['id'],
-        'type': (0, index_1.NodeTypeEnumFromJSON)(json['type']),
+        'type': (0, _1.NodeTypeEnumFromJSON)(json['type']),
         'root': json['root'],
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
     };
 }
 exports.NodeFromJSONTyped = NodeFromJSONTyped;
@@ -40,9 +40,9 @@ function NodeToJSON(value) {
     }
     return {
         'id': value.id,
-        'type': (0, index_1.NodeTypeEnumToJSON)(value.type),
+        'type': (0, _1.NodeTypeEnumToJSON)(value.type),
         'root': value.root,
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
     };
 }
 exports.NodeToJSON = NodeToJSON;

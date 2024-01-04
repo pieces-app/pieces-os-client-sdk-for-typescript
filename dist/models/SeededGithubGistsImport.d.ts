@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * This is the body of the /github/gists/import,
  *

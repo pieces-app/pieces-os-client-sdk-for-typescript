@@ -34,7 +34,7 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './index';
+} from './';
 
 /**
  * ** in the future, consider adding an optional bool's called nextAnd, nextOr which will say that the next filter will be  AND behavor or OR behavior.

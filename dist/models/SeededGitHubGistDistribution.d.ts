@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Recipients } from './index';
+import { EmbeddedModelSchema, Recipients } from './';
 /**
  * This is the minimum information needed to distribute a Piece to a Gist.
  * @export

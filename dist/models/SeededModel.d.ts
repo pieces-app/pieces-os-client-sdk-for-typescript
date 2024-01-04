@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ByteDescriptor, EmbeddedModelSchema, ExternalMLProviderEnum, GroupedTimestamp, ModelFoundationEnum, ModelTypeEnum, ModelUsageEnum } from './index';
+import { ByteDescriptor, EmbeddedModelSchema, ExternalMLProviderEnum, GroupedTimestamp, ModelFoundationEnum, ModelMaxTokens, ModelTypeEnum, ModelUsageEnum } from './';
 /**
  * This is Precursor to a Model.
  *
@@ -121,6 +121,18 @@ export interface SeededModel {
      * @memberof SeededModel
      */
     cpu?: boolean;
+    /**
+     *
+     * @type {ModelMaxTokens}
+     * @memberof SeededModel
+     */
+    maxTokens?: ModelMaxTokens;
+    /**
+     * This is reserved to custommly registed models.
+     * @type {boolean}
+     * @memberof SeededModel
+     */
+    custom?: boolean;
 }
 export declare function SeededModelFromJSON(json: any): SeededModel;
 export declare function SeededModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededModel;

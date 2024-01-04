@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClassificationSpecificEnum, EmbeddedModelSchema, SeededFormat } from './index';
+import { ClassificationSpecificEnum, EmbeddedModelSchema, SeededFormat } from './';
 /**
  * A SeededUEAsset is the minimum data sent from UE required to create an asset within Pieces.
  *

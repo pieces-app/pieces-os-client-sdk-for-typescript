@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, PersonBasicType } from './index';
+import { EmbeddedModelSchema, PersonBasicType } from './';
 /**
  * This an iterable of People that are attached to a specific distribution ie, slack, maigun, ...etc
  * @export

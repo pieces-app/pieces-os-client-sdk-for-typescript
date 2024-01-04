@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeFragmentSuggestedSaveToJSON = exports.TLPCodeFragmentSuggestedSaveFromJSONTyped = exports.TLPCodeFragmentSuggestedSaveFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeFragmentSuggestedSaveFromJSON(json) {
     return TLPCodeFragmentSuggestedSaveFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function TLPCodeFragmentSuggestedSaveFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'asset': json['asset'],
         'user': json['user'],
         'model': json['model'],
@@ -45,7 +45,7 @@ function TLPCodeFragmentSuggestedSaveToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'asset': value.asset,
         'user': value.user,
         'model': value.model,

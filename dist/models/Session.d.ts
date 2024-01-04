@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupedTimestamp } from './index';
+import { GroupedTimestamp } from './';
 /**
  * This is a specific model that will let us know at what time this user was using the application.
  * @export

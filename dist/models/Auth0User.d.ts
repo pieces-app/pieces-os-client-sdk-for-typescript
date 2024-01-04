@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0Identity, Auth0UserMetadata } from './index';
+import { Auth0Identity, Auth0UserMetadata } from './';
 /**
  *
  * @export

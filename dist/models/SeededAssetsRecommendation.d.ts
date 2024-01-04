@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Assets, EmbeddedModelSchema, InteractedAssets } from './index';
+import { Assets, EmbeddedModelSchema, InteractedAssets } from './';
 /**
  * This is the input data model for the /assets/recommend [GET] endpoint. It includes both a list of assets but also
  * @export

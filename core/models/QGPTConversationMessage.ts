@@ -26,7 +26,7 @@ import {
     QGPTConversationMessageRoleEnumFromJSON,
     QGPTConversationMessageRoleEnumFromJSONTyped,
     QGPTConversationMessageRoleEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This will take a single message, and a role.

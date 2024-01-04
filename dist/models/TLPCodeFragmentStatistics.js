@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeFragmentStatisticsToJSON = exports.TLPCodeFragmentStatisticsFromJSONTyped = exports.TLPCodeFragmentStatisticsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeFragmentStatisticsFromJSON(json) {
     return TLPCodeFragmentStatisticsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function TLPCodeFragmentStatisticsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'descriptive': !(0, runtime_1.exists)(json, 'descriptive') ? undefined : (0, index_1.TLPCodeFragmentDescriptiveStatisticsFromJSON)(json['descriptive']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'descriptive': !(0, runtime_1.exists)(json, 'descriptive') ? undefined : (0, _1.TLPCodeFragmentDescriptiveStatisticsFromJSON)(json['descriptive']),
     };
 }
 exports.TLPCodeFragmentStatisticsFromJSONTyped = TLPCodeFragmentStatisticsFromJSONTyped;
@@ -38,8 +38,8 @@ function TLPCodeFragmentStatisticsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'descriptive': (0, index_1.TLPCodeFragmentDescriptiveStatisticsToJSON)(value.descriptive),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'descriptive': (0, _1.TLPCodeFragmentDescriptiveStatisticsToJSON)(value.descriptive),
     };
 }
 exports.TLPCodeFragmentStatisticsToJSON = TLPCodeFragmentStatisticsToJSON;

@@ -46,7 +46,7 @@ import {
     SeededConnectorTrackingFromJSON,
     SeededConnectorTrackingFromJSONTyped,
     SeededConnectorTrackingToJSON,
-} from './index';
+} from './';
 
 /**
  * Note:

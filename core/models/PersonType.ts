@@ -26,7 +26,7 @@ import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './index';
+} from './';
 
 /**
  * basic or platform is absolutely required here.

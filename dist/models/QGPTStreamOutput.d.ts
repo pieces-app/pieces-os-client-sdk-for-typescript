@@ -9,9 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { QGPTQuestionOutput, QGPTRelevanceOutput, QGPTStreamEnum } from './index';
+import { QGPTQuestionOutput, QGPTRelevanceOutput, QGPTStreamEnum } from './';
 /**
  * This is the out for the /qgpt/stream endpoint.
+ *
+ * 200: success
+ * 401: invalid authentication/api key
+ * 429: Rate limit/Quota exceeded
+ * 500: server had an error
+ * 503: the engine is currently overloaded
  * @export
  * @interface QGPTStreamOutput
  */
@@ -46,6 +52,18 @@ export interface QGPTStreamOutput {
      * @memberof QGPTStreamOutput
      */
     conversation: string;
+    /**
+     * This will be provided
+     * @type {number}
+     * @memberof QGPTStreamOutput
+     */
+    statusCode?: number | null;
+    /**
+     * optional error message is the status code is NOT 200
+     * @type {string}
+     * @memberof QGPTStreamOutput
+     */
+    errorMessage?: string;
 }
 export declare function QGPTStreamOutputFromJSON(json: any): QGPTStreamOutput;
 export declare function QGPTStreamOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTStreamOutput;

@@ -26,7 +26,7 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * 

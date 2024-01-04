@@ -22,7 +22,7 @@ import {
     FlattenedAnnotationFromJSON,
     FlattenedAnnotationFromJSONTyped,
     FlattenedAnnotationToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the referenced version of a annotation, main used for the uuid.

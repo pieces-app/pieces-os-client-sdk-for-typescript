@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupedTimestamp, ReferencedAnnotation, ReferencedAsset, ReferencedModel } from './index';
+import { GroupedTimestamp, ReferencedAnnotation, ReferencedAsset, ReferencedModel } from './';
 /**
  * This is a PersonSpecific Model. and will let us know for all the assets that get attached to the person if, this person was attached via a model or just attached automatically.
  *

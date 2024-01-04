@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransferableBytesToJSON = exports.TransferableBytesFromJSONTyped = exports.TransferableBytesFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TransferableBytesFromJSON(json) {
     return TransferableBytesFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function TransferableBytesFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'raw': !(0, runtime_1.exists)(json, 'raw') ? undefined : json['raw'],
         'base64': !(0, runtime_1.exists)(json, 'base64') ? undefined : json['base64'],
         'base64Url': !(0, runtime_1.exists)(json, 'base64_url') ? undefined : json['base64_url'],
@@ -41,7 +41,7 @@ function TransferableBytesToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'raw': value.raw,
         'base64': value.base64,
         'base64_url': value.base64Url,

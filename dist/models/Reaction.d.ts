@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReuseReaction, SeededConnectorCreation } from './index';
+import { EmbeddedModelSchema, ReuseReaction, SeededConnectorCreation } from './';
 /**
  * This will the the Request body of the Request Endpoint.
  *

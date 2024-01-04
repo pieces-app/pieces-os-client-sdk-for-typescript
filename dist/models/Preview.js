@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PreviewToJSON = exports.PreviewFromJSONTyped = exports.PreviewFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function PreviewFromJSON(json) {
     return PreviewFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function PreviewFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'base': (0, index_1.ReferencedFormatFromJSON)(json['base']),
-        'overlay': !(0, runtime_1.exists)(json, 'overlay') ? undefined : (0, index_1.ReferencedFormatFromJSON)(json['overlay']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'base': (0, _1.ReferencedFormatFromJSON)(json['base']),
+        'overlay': !(0, runtime_1.exists)(json, 'overlay') ? undefined : (0, _1.ReferencedFormatFromJSON)(json['overlay']),
     };
 }
 exports.PreviewFromJSONTyped = PreviewFromJSONTyped;
@@ -39,9 +39,9 @@ function PreviewToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'base': (0, index_1.ReferencedFormatToJSON)(value.base),
-        'overlay': (0, index_1.ReferencedFormatToJSON)(value.overlay),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'base': (0, _1.ReferencedFormatToJSON)(value.base),
+        'overlay': (0, _1.ReferencedFormatToJSON)(value.overlay),
     };
 }
 exports.PreviewToJSON = PreviewToJSON;

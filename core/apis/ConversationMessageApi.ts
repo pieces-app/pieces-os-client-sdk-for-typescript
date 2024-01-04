@@ -23,12 +23,12 @@ import {
     SeededScoreIncrementToJSON,
 } from '../models';
 
-export interface AssociateAnnotationRequest {
+export interface MessageAssociateAnnotationRequest {
     annotation: string;
     message: string;
 }
 
-export interface DisassociateAnnotationRequest {
+export interface MessageDisassociateAnnotationRequest {
     annotation: string;
     message: string;
 }
@@ -57,13 +57,13 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * This will associate a message with an annotation.
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
-    async associateAnnotationRaw(requestParameters: AssociateAnnotationRequest): Promise<runtime.ApiResponse<void>> {
+    async messageAssociateAnnotationRaw(requestParameters: MessageAssociateAnnotationRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling associateAnnotation.');
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling messageAssociateAnnotation.');
         }
 
         if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling associateAnnotation.');
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageAssociateAnnotation.');
         }
 
         const queryParameters: any = {};
@@ -84,21 +84,21 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * This will associate a message with an annotation.
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
-    async associateAnnotation(requestParameters: AssociateAnnotationRequest): Promise<void> {
-        await this.associateAnnotationRaw(requestParameters);
+    async messageAssociateAnnotation(requestParameters: MessageAssociateAnnotationRequest): Promise<void> {
+        await this.messageAssociateAnnotationRaw(requestParameters);
     }
 
     /**
      * This will enable us to dissassociate a message from an annotation.
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
-    async disassociateAnnotationRaw(requestParameters: DisassociateAnnotationRequest): Promise<runtime.ApiResponse<void>> {
+    async messageDisassociateAnnotationRaw(requestParameters: MessageDisassociateAnnotationRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling disassociateAnnotation.');
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling messageDisassociateAnnotation.');
         }
 
         if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling disassociateAnnotation.');
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageDisassociateAnnotation.');
         }
 
         const queryParameters: any = {};
@@ -119,8 +119,8 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a message from an annotation.
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
-    async disassociateAnnotation(requestParameters: DisassociateAnnotationRequest): Promise<void> {
-        await this.disassociateAnnotationRaw(requestParameters);
+    async messageDisassociateAnnotation(requestParameters: MessageDisassociateAnnotationRequest): Promise<void> {
+        await this.messageDisassociateAnnotationRaw(requestParameters);
     }
 
     /**

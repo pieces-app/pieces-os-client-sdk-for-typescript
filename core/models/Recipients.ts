@@ -22,7 +22,7 @@ import {
     PersonBasicTypeFromJSON,
     PersonBasicTypeFromJSONTyped,
     PersonBasicTypeToJSON,
-} from './index';
+} from './';
 
 /**
  * This an iterable of People that are attached to a specific distribution ie, slack, maigun, ...etc

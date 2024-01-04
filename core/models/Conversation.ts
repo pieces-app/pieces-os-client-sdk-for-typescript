@@ -58,7 +58,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a fully referenced Conversation.

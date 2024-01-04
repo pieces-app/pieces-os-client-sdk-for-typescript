@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PersonTypeToJSON = exports.PersonTypeFromJSONTyped = exports.PersonTypeFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function PersonTypeFromJSON(json) {
     return PersonTypeFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function PersonTypeFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'basic': !(0, runtime_1.exists)(json, 'basic') ? undefined : (0, index_1.PersonBasicTypeFromJSON)(json['basic']),
-        'platform': !(0, runtime_1.exists)(json, 'platform') ? undefined : (0, index_1.UserProfileFromJSON)(json['platform']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'basic': !(0, runtime_1.exists)(json, 'basic') ? undefined : (0, _1.PersonBasicTypeFromJSON)(json['basic']),
+        'platform': !(0, runtime_1.exists)(json, 'platform') ? undefined : (0, _1.UserProfileFromJSON)(json['platform']),
     };
 }
 exports.PersonTypeFromJSONTyped = PersonTypeFromJSONTyped;
@@ -39,9 +39,9 @@ function PersonTypeToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'basic': (0, index_1.PersonBasicTypeToJSON)(value.basic),
-        'platform': (0, index_1.UserProfileToJSON)(value.platform),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'basic': (0, _1.PersonBasicTypeToJSON)(value.basic),
+        'platform': (0, _1.UserProfileToJSON)(value.platform),
     };
 }
 exports.PersonTypeToJSON = PersonTypeToJSON;

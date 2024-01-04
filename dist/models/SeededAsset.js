@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAssetToJSON = exports.SeededAssetFromJSONTyped = exports.SeededAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededAssetFromJSON(json) {
     return SeededAssetFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function SeededAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.SeededAssetMetadataFromJSON)(json['metadata']),
-        'application': (0, index_1.ApplicationFromJSON)(json['application']),
-        'format': (0, index_1.SeededFormatFromJSON)(json['format']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.SeededAssetMetadataFromJSON)(json['metadata']),
+        'application': (0, _1.ApplicationFromJSON)(json['application']),
+        'format': (0, _1.SeededFormatFromJSON)(json['format']),
         'discovered': !(0, runtime_1.exists)(json, 'discovered') ? undefined : json['discovered'],
-        'available': !(0, runtime_1.exists)(json, 'available') ? undefined : (0, index_1.AvailableFormatsFromJSON)(json['available']),
+        'available': !(0, runtime_1.exists)(json, 'available') ? undefined : (0, _1.AvailableFormatsFromJSON)(json['available']),
         'pseudo': !(0, runtime_1.exists)(json, 'pseudo') ? undefined : json['pseudo'],
     };
 }
@@ -43,12 +43,12 @@ function SeededAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'metadata': (0, index_1.SeededAssetMetadataToJSON)(value.metadata),
-        'application': (0, index_1.ApplicationToJSON)(value.application),
-        'format': (0, index_1.SeededFormatToJSON)(value.format),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'metadata': (0, _1.SeededAssetMetadataToJSON)(value.metadata),
+        'application': (0, _1.ApplicationToJSON)(value.application),
+        'format': (0, _1.SeededFormatToJSON)(value.format),
         'discovered': value.discovered,
-        'available': (0, index_1.AvailableFormatsToJSON)(value.available),
+        'available': (0, _1.AvailableFormatsToJSON)(value.available),
         'pseudo': value.pseudo,
     };
 }

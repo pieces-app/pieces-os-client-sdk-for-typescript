@@ -11,6 +11,10 @@
  */
 import * as runtime from '../runtime';
 import { Anchor, Anchors, SeededAnchor } from '../models';
+export interface AnchorDisassociateAssetRequest {
+    anchor: string;
+    asset: string;
+}
 export interface AnchorsCreateNewAnchorRequest {
     transferables?: boolean;
     seededAnchor?: SeededAnchor;
@@ -21,14 +25,20 @@ export interface AnchorsDeleteSpecificAnchorRequest {
 export interface AnchorsSnapshotRequest {
     transferables?: boolean;
 }
-export interface RemoveAnchorReferenceFromAssetRequest {
-    anchor: string;
-    asset: string;
-}
 /**
  *
  */
 export declare class AnchorsApi extends runtime.BaseAPI {
+    /**
+     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /anchors/{anchor}/assets/delete/{asset} [POST]
+     */
+    anchorDisassociateAssetRaw(requestParameters: AnchorDisassociateAssetRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
+     * /anchors/{anchor}/assets/delete/{asset} [POST]
+     */
+    anchorDisassociateAsset(requestParameters: AnchorDisassociateAssetRequest): Promise<void>;
     /**
      * This will create a anchor and attach it to a specific asset(s) This will also ensure the anchor is normalized.
      * /anchors/create [POST]
@@ -59,14 +69,4 @@ export declare class AnchorsApi extends runtime.BaseAPI {
      * /anchors [GET]
      */
     anchorsSnapshot(requestParameters: AnchorsSnapshotRequest): Promise<Anchors>;
-    /**
-     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /anchors/{anchor}/assets/delete/{asset} [POST]
-     */
-    removeAnchorReferenceFromAssetRaw(requestParameters: RemoveAnchorReferenceFromAssetRequest): Promise<runtime.ApiResponse<void>>;
-    /**
-     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /anchors/{anchor}/assets/delete/{asset} [POST]
-     */
-    removeAnchorReferenceFromAsset(requestParameters: RemoveAnchorReferenceFromAssetRequest): Promise<void>;
 }

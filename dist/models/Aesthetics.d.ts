@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Font, Theme } from './index';
+import { EmbeddedModelSchema, Font, Theme } from './';
 /**
  * These are aesthetics properties that will ensure the darkmode + font size and other aesthetics properties persist:)
  * @export

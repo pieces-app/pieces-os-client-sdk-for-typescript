@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Format } from './index';
+import { EmbeddedModelSchema, Format } from './';
 /**
  * A base class for a collection of formats and some additional meta properties.
  * @export

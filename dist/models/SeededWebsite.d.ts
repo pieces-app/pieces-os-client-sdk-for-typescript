@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum } from './index';
+import { EmbeddedModelSchema, MechanismEnum } from './';
 /**
  * This is the minimum information required to create a website for a specific asset.
  *

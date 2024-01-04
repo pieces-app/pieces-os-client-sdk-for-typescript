@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { TrackedAssetEventFormatReclassificationMetadata } from './index';
+import { TrackedAssetEventFormatReclassificationMetadata } from './';
 /**
  *
  * @export

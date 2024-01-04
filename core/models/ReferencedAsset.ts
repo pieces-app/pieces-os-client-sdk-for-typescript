@@ -22,7 +22,7 @@ import {
     FlattenedAssetFromJSON,
     FlattenedAssetFromJSONTyped,
     FlattenedAssetToJSON,
-} from './index';
+} from './';
 
 /**
  * A reference to a asset, which at minimum must have the asset's id. But in the case of a hydrated client API it may have a populated reference of type Asset.

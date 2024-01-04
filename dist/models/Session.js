@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SessionToJSON = exports.SessionFromJSONTyped = exports.SessionFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SessionFromJSON(json) {
     return SessionFromJSONTyped(json, false);
 }
@@ -26,8 +26,8 @@ function SessionFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'id': json['id'],
-        'opened': (0, index_1.GroupedTimestampFromJSON)(json['opened']),
-        'closed': !(0, runtime_1.exists)(json, 'closed') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['closed']),
+        'opened': (0, _1.GroupedTimestampFromJSON)(json['opened']),
+        'closed': !(0, runtime_1.exists)(json, 'closed') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['closed']),
     };
 }
 exports.SessionFromJSONTyped = SessionFromJSONTyped;
@@ -40,8 +40,8 @@ function SessionToJSON(value) {
     }
     return {
         'id': value.id,
-        'opened': (0, index_1.GroupedTimestampToJSON)(value.opened),
-        'closed': (0, index_1.GroupedTimestampToJSON)(value.closed),
+        'opened': (0, _1.GroupedTimestampToJSON)(value.opened),
+        'closed': (0, _1.GroupedTimestampToJSON)(value.closed),
     };
 }
 exports.SessionToJSON = SessionToJSON;

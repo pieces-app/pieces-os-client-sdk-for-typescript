@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OCRAnalysesToJSON = exports.OCRAnalysesFromJSONTyped = exports.OCRAnalysesFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function OCRAnalysesFromJSON(json) {
     return OCRAnalysesFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function OCRAnalysesFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.OCRAnalysisFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.OCRAnalysisFromJSON)),
     };
 }
 exports.OCRAnalysesFromJSONTyped = OCRAnalysesFromJSONTyped;
@@ -38,8 +38,8 @@ function OCRAnalysesToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.OCRAnalysisToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.OCRAnalysisToJSON)),
     };
 }
 exports.OCRAnalysesToJSON = OCRAnalysesToJSON;

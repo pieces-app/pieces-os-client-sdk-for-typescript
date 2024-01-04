@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GroupedTimestamp } from './index';
+import { EmbeddedModelSchema, GroupedTimestamp } from './';
 /**
  * if you want a range between you can use from && to.
  *

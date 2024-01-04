@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Score, Share } from './index';
+import { EmbeddedModelSchema, Score, Share } from './';
 /**
  * this is just an iterable of our individual share models.
  * @export

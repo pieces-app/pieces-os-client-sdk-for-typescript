@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DiscoveredAsset, EmbeddedModelSchema } from './index';
+import { DiscoveredAsset, EmbeddedModelSchema } from './';
 /**
  * This is a plural Model that is used within the bulk upload flow in both cases of a file(&& needing snippitization) as well as if the fragments are passed in and they only need to be clustered.
  * @export

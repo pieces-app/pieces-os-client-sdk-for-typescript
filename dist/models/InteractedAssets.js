@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InteractedAssetsToJSON = exports.InteractedAssetsFromJSONTyped = exports.InteractedAssetsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function InteractedAssetsFromJSON(json) {
     return InteractedAssetsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function InteractedAssetsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.InteractedAssetFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.InteractedAssetFromJSON)),
     };
 }
 exports.InteractedAssetsFromJSONTyped = InteractedAssetsFromJSONTyped;
@@ -38,8 +38,8 @@ function InteractedAssetsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.InteractedAssetToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.InteractedAssetToJSON)),
     };
 }
 exports.InteractedAssetsToJSON = InteractedAssetsToJSON;

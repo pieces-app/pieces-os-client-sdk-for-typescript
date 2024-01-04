@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActivityToJSON = exports.ActivityFromJSONTyped = exports.ActivityFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ActivityFromJSON(json) {
     return ActivityFromJSONTyped(json, false);
 }
@@ -25,17 +25,17 @@ function ActivityFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'event': (0, index_1.SeededConnectorTrackingFromJSON)(json['event']),
-        'application': (0, index_1.ApplicationFromJSON)(json['application']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.FlattenedAssetFromJSON)(json['asset']),
-        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, index_1.FlattenedUserProfileFromJSON)(json['user']),
-        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, index_1.FlattenedFormatFromJSON)(json['format']),
-        'mechanism': (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'event': (0, _1.SeededConnectorTrackingFromJSON)(json['event']),
+        'application': (0, _1.ApplicationFromJSON)(json['application']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.FlattenedAssetFromJSON)(json['asset']),
+        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.FlattenedUserProfileFromJSON)(json['user']),
+        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, _1.FlattenedFormatFromJSON)(json['format']),
+        'mechanism': (0, _1.MechanismEnumFromJSON)(json['mechanism']),
         'rank': !(0, runtime_1.exists)(json, 'rank') ? undefined : json['rank'],
     };
 }
@@ -48,17 +48,17 @@ function ActivityToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'event': (0, index_1.SeededConnectorTrackingToJSON)(value.event),
-        'application': (0, index_1.ApplicationToJSON)(value.application),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
-        'asset': (0, index_1.FlattenedAssetToJSON)(value.asset),
-        'user': (0, index_1.FlattenedUserProfileToJSON)(value.user),
-        'format': (0, index_1.FlattenedFormatToJSON)(value.format),
-        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'event': (0, _1.SeededConnectorTrackingToJSON)(value.event),
+        'application': (0, _1.ApplicationToJSON)(value.application),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
+        'asset': (0, _1.FlattenedAssetToJSON)(value.asset),
+        'user': (0, _1.FlattenedUserProfileToJSON)(value.user),
+        'format': (0, _1.FlattenedFormatToJSON)(value.format),
+        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
         'rank': value.rank,
     };
 }

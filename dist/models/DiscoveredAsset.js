@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DiscoveredAssetToJSON = exports.DiscoveredAssetFromJSONTyped = exports.DiscoveredAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function DiscoveredAssetFromJSON(json) {
     return DiscoveredAssetFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function DiscoveredAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, index_1.SeededFileFromJSON)(json['file']),
-        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, index_1.SeededFragmentFromJSON)(json['fragment']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'file': !(0, runtime_1.exists)(json, 'file') ? undefined : (0, _1.SeededFileFromJSON)(json['file']),
+        'fragment': !(0, runtime_1.exists)(json, 'fragment') ? undefined : (0, _1.SeededFragmentFromJSON)(json['fragment']),
         'directory': !(0, runtime_1.exists)(json, 'directory') ? undefined : json['directory'],
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.SeededAssetMetadataFromJSON)(json['metadata']),
-        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, index_1.TLPDirectedDiscoveryFiltersFromJSON)(json['filters']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.SeededAssetMetadataFromJSON)(json['metadata']),
+        'filters': !(0, runtime_1.exists)(json, 'filters') ? undefined : (0, _1.TLPDirectedDiscoveryFiltersFromJSON)(json['filters']),
     };
 }
 exports.DiscoveredAssetFromJSONTyped = DiscoveredAssetFromJSONTyped;
@@ -42,12 +42,12 @@ function DiscoveredAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'file': (0, index_1.SeededFileToJSON)(value.file),
-        'fragment': (0, index_1.SeededFragmentToJSON)(value.fragment),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'file': (0, _1.SeededFileToJSON)(value.file),
+        'fragment': (0, _1.SeededFragmentToJSON)(value.fragment),
         'directory': value.directory,
-        'metadata': (0, index_1.SeededAssetMetadataToJSON)(value.metadata),
-        'filters': (0, index_1.TLPDirectedDiscoveryFiltersToJSON)(value.filters),
+        'metadata': (0, _1.SeededAssetMetadataToJSON)(value.metadata),
+        'filters': (0, _1.TLPDirectedDiscoveryFiltersToJSON)(value.filters),
     };
 }
 exports.DiscoveredAssetToJSON = DiscoveredAssetToJSON;

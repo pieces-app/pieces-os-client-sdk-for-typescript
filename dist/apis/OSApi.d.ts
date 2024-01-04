@@ -10,9 +10,12 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { FilePickerInput, ReturnedUserProfile, SeededExternalProvider, UserProfile, Users } from '../models';
+import { CheckedOSUpdate, FilePickerInput, ReturnedUserProfile, SeededExternalProvider, UncheckedOSUpdate, UserProfile, Users } from '../models';
 export interface LinkProviderRequest {
     seededExternalProvider?: SeededExternalProvider;
+}
+export interface OsUpdateCheckRequest {
+    uncheckedOSUpdate?: UncheckedOSUpdate;
 }
 export interface PickFilesRequest {
     filePickerInput?: FilePickerInput;
@@ -41,6 +44,16 @@ export declare class OSApi extends runtime.BaseAPI {
      * Your GET endpoint
      */
     osRestart(): Promise<void>;
+    /**
+     * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
+     * /os/update/check [POST]
+     */
+    osUpdateCheckRaw(requestParameters: OsUpdateCheckRequest): Promise<runtime.ApiResponse<CheckedOSUpdate>>;
+    /**
+     * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
+     * /os/update/check [POST]
+     */
+    osUpdateCheck(requestParameters: OsUpdateCheckRequest): Promise<CheckedOSUpdate>;
     /**
      * This will trigger a filer picker and return the string paths of the files that were selected.
      * /os/files/pick [POST]

@@ -22,7 +22,7 @@ import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the model for the output for the "/conversations/create/from_asset/{asset}" endpoints.

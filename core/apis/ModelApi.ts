@@ -217,6 +217,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
      * /model/update [POST]
      */
     async modelUpdateRaw(requestParameters: ModelUpdateRequest): Promise<runtime.ApiResponse<Model>> {
@@ -238,6 +239,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
      * /model/update [POST]
      */
     async modelUpdate(requestParameters: ModelUpdateRequest): Promise<Model> {

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TextLocation } from './index';
+import { EmbeddedModelSchema, TextLocation } from './';
 /**
  * Thext Match currently used for sensitive for scales for people, and anything related to text matching.
  *

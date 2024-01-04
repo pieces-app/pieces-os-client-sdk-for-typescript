@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedInteractionEventToJSON = exports.SeededTrackedInteractionEventFromJSONTyped = exports.SeededTrackedInteractionEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededTrackedInteractionEventFromJSON(json) {
     return SeededTrackedInteractionEventFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SeededTrackedInteractionEventFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'description': json['description'],
         'element': !(0, runtime_1.exists)(json, 'element') ? undefined : json['element'],
-        'identifierDescriptionPair': !(0, runtime_1.exists)(json, 'identifier_description_pair') ? undefined : (0, index_1.SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
+        'identifierDescriptionPair': !(0, runtime_1.exists)(json, 'identifier_description_pair') ? undefined : (0, _1.SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
     };
 }
 exports.SeededTrackedInteractionEventFromJSONTyped = SeededTrackedInteractionEventFromJSONTyped;
@@ -40,10 +40,10 @@ function SeededTrackedInteractionEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'description': value.description,
         'element': value.element,
-        'identifier_description_pair': (0, index_1.SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
+        'identifier_description_pair': (0, _1.SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
     };
 }
 exports.SeededTrackedInteractionEventToJSON = SeededTrackedInteractionEventToJSON;

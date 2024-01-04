@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SensitiveMetadataToJSON = exports.SensitiveMetadataFromJSONTyped = exports.SensitiveMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SensitiveMetadataFromJSON(json) {
     return SensitiveMetadataFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SensitiveMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'match': !(0, runtime_1.exists)(json, 'match') ? undefined : (0, index_1.TextMatchFromJSON)(json['match']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'match': !(0, runtime_1.exists)(json, 'match') ? undefined : (0, _1.TextMatchFromJSON)(json['match']),
         'entropy': !(0, runtime_1.exists)(json, 'entropy') ? undefined : json['entropy'],
     };
 }
@@ -39,8 +39,8 @@ function SensitiveMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'match': (0, index_1.TextMatchToJSON)(value.match),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'match': (0, _1.TextMatchToJSON)(value.match),
         'entropy': value.entropy,
     };
 }

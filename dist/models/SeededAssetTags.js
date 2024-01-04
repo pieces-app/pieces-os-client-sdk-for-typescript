@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAssetTagsToJSON = exports.SeededAssetTagsFromJSONTyped = exports.SeededAssetTagsFromJSON = void 0;
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededAssetTagsFromJSON(json) {
     return SeededAssetTagsFromJSONTyped(json, false);
 }
@@ -24,7 +24,7 @@ function SeededAssetTagsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'iterable': (json['iterable'].map(index_1.SeededAssetTagFromJSON)),
+        'iterable': (json['iterable'].map(_1.SeededAssetTagFromJSON)),
     };
 }
 exports.SeededAssetTagsFromJSONTyped = SeededAssetTagsFromJSONTyped;
@@ -36,7 +36,7 @@ function SeededAssetTagsToJSON(value) {
         return null;
     }
     return {
-        'iterable': (value.iterable.map(index_1.SeededAssetTagToJSON)),
+        'iterable': (value.iterable.map(_1.SeededAssetTagToJSON)),
     };
 }
 exports.SeededAssetTagsToJSON = SeededAssetTagsToJSON;

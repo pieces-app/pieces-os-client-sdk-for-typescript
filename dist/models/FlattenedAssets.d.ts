@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedAsset, Score } from './index';
+import { EmbeddedModelSchema, ReferencedAsset, Score } from './';
 /**
  * A collection of Assets specific to the authenticated user. [DAG Compatible - Directed Acyclic Graph Data Structure]
  *

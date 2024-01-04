@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs, EmbeddedModelSchema } from './index';
+import { AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs, EmbeddedModelSchema } from './';
 /**
  *
  * @export

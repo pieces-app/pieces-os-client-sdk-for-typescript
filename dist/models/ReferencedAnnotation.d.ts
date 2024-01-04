@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAnnotation } from './index';
+import { EmbeddedModelSchema, FlattenedAnnotation } from './';
 /**
  * This is the referenced version of a annotation, main used for the uuid.
  * @export

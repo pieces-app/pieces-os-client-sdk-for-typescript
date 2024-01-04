@@ -26,7 +26,7 @@ import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * 

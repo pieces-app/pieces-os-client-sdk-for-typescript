@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedFormat } from './index';
+import { EmbeddedModelSchema, ReferencedFormat } from './';
 /**
  * A collection of Formats specific to the authenticated user. [DAG Compatible - Directed Acyclic Graph Data Structure]
  *

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TLPCodeDirectoryAnalytics, TLPCodeFileAnalytics, TLPCodeRepositoryAnalytics, TLPCodeSnippetAnalytics } from './index';
+import { EmbeddedModelSchema, TLPCodeDirectoryAnalytics, TLPCodeFileAnalytics, TLPCodeRepositoryAnalytics, TLPCodeSnippetAnalytics } from './';
 /**
  *
  * @export

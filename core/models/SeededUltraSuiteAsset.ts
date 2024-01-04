@@ -26,7 +26,7 @@ import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './index';
+} from './';
 
 /**
  * A SeededUEAsset is the minimum data sent from UE required to create an asset within Pieces.

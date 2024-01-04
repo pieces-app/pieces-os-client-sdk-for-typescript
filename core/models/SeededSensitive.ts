@@ -34,7 +34,7 @@ import {
     SensitiveSeverityEnumFromJSON,
     SensitiveSeverityEnumFromJSONTyped,
     SensitiveSeverityEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the seededSensitive, this does not have an id yet as we will add it on the server side.

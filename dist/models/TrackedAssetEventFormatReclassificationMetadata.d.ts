@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Classification, EmbeddedModelSchema } from './index';
+import { Classification, EmbeddedModelSchema } from './';
 /**
  * Metadata of a format reclassification event
  * @export

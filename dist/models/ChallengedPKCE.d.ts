@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * A model that Generates A PKCE Challenge Object with the needed requirements.
  * @export

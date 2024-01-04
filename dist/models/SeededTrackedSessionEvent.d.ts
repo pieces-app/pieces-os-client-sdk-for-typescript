@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TrackedSessionEventIdentifierDescriptionPairs } from './index';
+import { EmbeddedModelSchema, TrackedSessionEventIdentifierDescriptionPairs } from './';
 /**
  * A simple model to capture a Tracked Session to be send to the Connection API
  * @export

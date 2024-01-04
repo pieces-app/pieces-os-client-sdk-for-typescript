@@ -32,7 +32,7 @@
   "exclude": [
     "node_modules"
   ],
-  "include": [
-    "core",
-  ]
+//  "include": [
+//    "core_1.1"
+//  ]
 }

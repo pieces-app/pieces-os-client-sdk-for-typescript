@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededConnectorCreationToJSON = exports.SeededConnectorCreationFromJSONTyped = exports.SeededConnectorCreationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededConnectorCreationFromJSON(json) {
     return SeededConnectorCreationFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededConnectorCreationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.SeededConnectorAssetFromJSON)(json['asset']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.SeededConnectorAssetFromJSON)(json['asset']),
     };
 }
 exports.SeededConnectorCreationFromJSONTyped = SeededConnectorCreationFromJSONTyped;
@@ -38,8 +38,8 @@ function SeededConnectorCreationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'asset': (0, index_1.SeededConnectorAssetToJSON)(value.asset),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'asset': (0, _1.SeededConnectorAssetToJSON)(value.asset),
     };
 }
 exports.SeededConnectorCreationToJSON = SeededConnectorCreationToJSON;

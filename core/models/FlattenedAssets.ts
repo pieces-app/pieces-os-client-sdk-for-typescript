@@ -26,7 +26,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * A collection of Assets specific to the authenticated user. [DAG Compatible - Directed Acyclic Graph Data Structure]

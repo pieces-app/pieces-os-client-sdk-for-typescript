@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * if reuse was used in the reaction then we can provide the uuid of the asset that was reused.
  * @export

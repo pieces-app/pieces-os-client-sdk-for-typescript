@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTConversationMessageToJSON = exports.QGPTConversationMessageFromJSONTyped = exports.QGPTConversationMessageFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function QGPTConversationMessageFromJSON(json) {
     return QGPTConversationMessageFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function QGPTConversationMessageFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'text': json['text'],
-        'role': (0, index_1.QGPTConversationMessageRoleEnumFromJSON)(json['role']),
-        'timestamp': (0, index_1.GroupedTimestampFromJSON)(json['timestamp']),
+        'role': (0, _1.QGPTConversationMessageRoleEnumFromJSON)(json['role']),
+        'timestamp': (0, _1.GroupedTimestampFromJSON)(json['timestamp']),
     };
 }
 exports.QGPTConversationMessageFromJSONTyped = QGPTConversationMessageFromJSONTyped;
@@ -40,10 +40,10 @@ function QGPTConversationMessageToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'text': value.text,
-        'role': (0, index_1.QGPTConversationMessageRoleEnumToJSON)(value.role),
-        'timestamp': (0, index_1.GroupedTimestampToJSON)(value.timestamp),
+        'role': (0, _1.QGPTConversationMessageRoleEnumToJSON)(value.role),
+        'timestamp': (0, _1.GroupedTimestampToJSON)(value.timestamp),
     };
 }
 exports.QGPTConversationMessageToJSON = QGPTConversationMessageToJSON;

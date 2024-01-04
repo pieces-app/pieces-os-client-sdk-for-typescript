@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededConnectorConnectionToJSON = exports.SeededConnectorConnectionFromJSONTyped = exports.SeededConnectorConnectionFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededConnectorConnectionFromJSON(json) {
     return SeededConnectorConnectionFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededConnectorConnectionFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'application': (0, index_1.SeededTrackedApplicationFromJSON)(json['application']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'application': (0, _1.SeededTrackedApplicationFromJSON)(json['application']),
     };
 }
 exports.SeededConnectorConnectionFromJSONTyped = SeededConnectorConnectionFromJSONTyped;
@@ -38,8 +38,8 @@ function SeededConnectorConnectionToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'application': (0, index_1.SeededTrackedApplicationToJSON)(value.application),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'application': (0, _1.SeededTrackedApplicationToJSON)(value.application),
     };
 }
 exports.SeededConnectorConnectionToJSON = SeededConnectorConnectionToJSON;

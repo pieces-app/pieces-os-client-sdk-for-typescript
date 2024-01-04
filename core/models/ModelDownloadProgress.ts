@@ -22,12 +22,12 @@ import {
     ModelDownloadProgressStatusEnumFromJSON,
     ModelDownloadProgressStatusEnumFromJSONTyped,
     ModelDownloadProgressStatusEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the model that is sent over our ws for streaming the progress of a model that is being downloaded.
  * 
- * can eventually add a number that display the percentage downloaded an so on.
+ * can eventually add a number that display the percent downloaded an so on.(this is called percent 0-100)
  * @export
  * @interface ModelDownloadProgress
  */
@@ -44,6 +44,12 @@ export interface ModelDownloadProgress {
      * @memberof ModelDownloadProgress
      */
     status?: ModelDownloadProgressStatusEnum;
+    /**
+     * Optionally if the download is in progress you will recieve a download percent(from 0-100).
+     * @type {number}
+     * @memberof ModelDownloadProgress
+     */
+    percentage?: number | null;
 }
 
 export function ModelDownloadProgressFromJSON(json: any): ModelDownloadProgress {
@@ -58,6 +64,7 @@ export function ModelDownloadProgressFromJSONTyped(json: any, ignoreDiscriminato
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'status': !exists(json, 'status') ? undefined : ModelDownloadProgressStatusEnumFromJSON(json['status']),
+        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
     };
 }
 
@@ -72,6 +79,7 @@ export function ModelDownloadProgressToJSON(value?: ModelDownloadProgress | null
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'status': ModelDownloadProgressStatusEnumToJSON(value.status),
+        'percentage': value.percentage,
     };
 }
 

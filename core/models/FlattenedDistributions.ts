@@ -22,7 +22,7 @@ import {
     ReferencedDistributionFromJSON,
     ReferencedDistributionFromJSONTyped,
     ReferencedDistributionToJSON,
-} from './index';
+} from './';
 
 /**
  * 

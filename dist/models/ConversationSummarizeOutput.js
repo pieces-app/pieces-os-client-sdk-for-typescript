@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConversationSummarizeOutputToJSON = exports.ConversationSummarizeOutputFromJSONTyped = exports.ConversationSummarizeOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ConversationSummarizeOutputFromJSON(json) {
     return ConversationSummarizeOutputFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function ConversationSummarizeOutputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'conversation': (0, index_1.ReferencedConversationFromJSON)(json['conversation']),
-        'annotation': (0, index_1.ReferencedAnnotationFromJSON)(json['annotation']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'conversation': (0, _1.ReferencedConversationFromJSON)(json['conversation']),
+        'annotation': (0, _1.ReferencedAnnotationFromJSON)(json['annotation']),
     };
 }
 exports.ConversationSummarizeOutputFromJSONTyped = ConversationSummarizeOutputFromJSONTyped;
@@ -39,9 +39,9 @@ function ConversationSummarizeOutputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'conversation': (0, index_1.ReferencedConversationToJSON)(value.conversation),
-        'annotation': (0, index_1.ReferencedAnnotationToJSON)(value.annotation),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'conversation': (0, _1.ReferencedConversationToJSON)(value.conversation),
+        'annotation': (0, _1.ReferencedAnnotationToJSON)(value.annotation),
     };
 }
 exports.ConversationSummarizeOutputToJSON = ConversationSummarizeOutputToJSON;

@@ -22,7 +22,7 @@ import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-} from './index';
+} from './';
 
 /**
  * This is used to determine who has accessed a share. and how many times.

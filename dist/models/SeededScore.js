@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededScoreToJSON = exports.SeededScoreFromJSONTyped = exports.SeededScoreFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededScoreFromJSON(json) {
     return SeededScoreFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function SeededScoreFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'reuse': !(0, runtime_1.exists)(json, 'reuse') ? undefined : json['reuse'],
         'update': !(0, runtime_1.exists)(json, 'update') ? undefined : json['update'],
         'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : json['reference'],
@@ -41,7 +41,7 @@ function SeededScoreToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'reuse': value.reuse,
         'update': value.update,
         'reference': value.reference,

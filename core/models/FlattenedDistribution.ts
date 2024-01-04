@@ -30,7 +30,7 @@ import {
     MailgunDistributionFromJSON,
     MailgunDistributionFromJSONTyped,
     MailgunDistributionToJSON,
-} from './index';
+} from './';
 
 /**
  * 

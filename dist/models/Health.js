@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HealthToJSON = exports.HealthFromJSONTyped = exports.HealthFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function HealthFromJSON(json) {
     return HealthFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function HealthFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'os': (0, index_1.OSHealthFromJSON)(json['os']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'os': (0, _1.OSHealthFromJSON)(json['os']),
     };
 }
 exports.HealthFromJSONTyped = HealthFromJSONTyped;
@@ -38,8 +38,8 @@ function HealthToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'os': (0, index_1.OSHealthToJSON)(value.os),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'os': (0, _1.OSHealthToJSON)(value.os),
     };
 }
 exports.HealthToJSON = HealthToJSON;

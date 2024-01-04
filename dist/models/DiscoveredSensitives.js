@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DiscoveredSensitivesToJSON = exports.DiscoveredSensitivesFromJSONTyped = exports.DiscoveredSensitivesFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function DiscoveredSensitivesFromJSON(json) {
     return DiscoveredSensitivesFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function DiscoveredSensitivesFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.DiscoveredSensitiveFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.DiscoveredSensitiveFromJSON)),
         'application': json['application'],
     };
 }
@@ -39,8 +39,8 @@ function DiscoveredSensitivesToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.DiscoveredSensitiveToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.DiscoveredSensitiveToJSON)),
         'application': value.application,
     };
 }

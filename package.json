@@ -1,7 +1,7 @@
 {
   "name": "@pieces.app/pieces-os-client",
-  "version": "1.1.1",
-  "description": "Use Pieces OS as a tool to build your own custom tools.",
+  "version": "1.2.0",
+  "description": "Build your own local contextual copilot and so much more with Pieces OS.",
   "keywords": [
     "pieces",
     "pieces for developers",

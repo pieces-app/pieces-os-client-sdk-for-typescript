@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum, PersonAccess, PersonModel, PersonType, SeededAnnotation } from './index';
+import { EmbeddedModelSchema, MechanismEnum, PersonAccess, PersonModel, PersonType, SeededAnnotation } from './';
 /**
  * This is a per-cursor to a full person.
  *

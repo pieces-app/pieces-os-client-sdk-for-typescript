@@ -26,7 +26,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a specific model for related websites to an asset.[DAG SAFE]

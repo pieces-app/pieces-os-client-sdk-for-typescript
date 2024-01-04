@@ -50,7 +50,7 @@ import {
     SeededTrackedSessionEventFromJSON,
     SeededTrackedSessionEventFromJSONTyped,
     SeededTrackedSessionEventToJSON,
-} from './index';
+} from './';
 
 /**
  * This model is designed to be light weight and low friction while most of the heavy lifting will be happening inside of the context servers.

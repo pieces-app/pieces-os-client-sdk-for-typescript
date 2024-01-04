@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedKeyboardEventToJSON = exports.TrackedKeyboardEventFromJSONTyped = exports.TrackedKeyboardEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TrackedKeyboardEventFromJSON(json) {
     return TrackedKeyboardEventFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function TrackedKeyboardEventFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'description': json['description'],
         'shortcut': json['shortcut'],
     };
@@ -39,7 +39,7 @@ function TrackedKeyboardEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'description': value.description,
         'shortcut': value.shortcut,
     };

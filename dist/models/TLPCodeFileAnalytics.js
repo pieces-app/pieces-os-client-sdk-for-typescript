@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeFileAnalyticsToJSON = exports.TLPCodeFileAnalyticsFromJSONTyped = exports.TLPCodeFileAnalyticsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeFileAnalyticsFromJSON(json) {
     return TLPCodeFileAnalyticsFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function TLPCodeFileAnalyticsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': !(0, runtime_1.exists)(json, 'id') ? undefined : json['id'],
     };
 }
@@ -38,7 +38,7 @@ function TLPCodeFileAnalyticsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
     };
 }

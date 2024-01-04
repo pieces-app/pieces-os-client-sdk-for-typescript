@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccessorToJSON = exports.AccessorFromJSONTyped = exports.AccessorFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AccessorFromJSON(json) {
     return AccessorFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function AccessorFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'os': json['os'],
         'share': json['share'],
         'count': json['count'],
-        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, index_1.FlattenedUserProfileFromJSON)(json['user']),
+        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.FlattenedUserProfileFromJSON)(json['user']),
     };
 }
 exports.AccessorFromJSONTyped = AccessorFromJSONTyped;
@@ -42,12 +42,12 @@ function AccessorToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'os': value.os,
         'share': value.share,
         'count': value.count,
-        'user': (0, index_1.FlattenedUserProfileToJSON)(value.user),
+        'user': (0, _1.FlattenedUserProfileToJSON)(value.user),
     };
 }
 exports.AccessorToJSON = AccessorToJSON;

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAssetsRecommendationToJSON = exports.SeededAssetsRecommendationFromJSONTyped = exports.SeededAssetsRecommendationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededAssetsRecommendationFromJSON(json) {
     return SeededAssetsRecommendationFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function SeededAssetsRecommendationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'assets': (0, index_1.AssetsFromJSON)(json['assets']),
-        'interactions': (0, index_1.InteractedAssetsFromJSON)(json['interactions']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'assets': (0, _1.AssetsFromJSON)(json['assets']),
+        'interactions': (0, _1.InteractedAssetsFromJSON)(json['interactions']),
     };
 }
 exports.SeededAssetsRecommendationFromJSONTyped = SeededAssetsRecommendationFromJSONTyped;
@@ -39,9 +39,9 @@ function SeededAssetsRecommendationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'assets': (0, index_1.AssetsToJSON)(value.assets),
-        'interactions': (0, index_1.InteractedAssetsToJSON)(value.interactions),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'assets': (0, _1.AssetsToJSON)(value.assets),
+        'interactions': (0, _1.InteractedAssetsToJSON)(value.interactions),
     };
 }
 exports.SeededAssetsRecommendationToJSON = SeededAssetsRecommendationToJSON;

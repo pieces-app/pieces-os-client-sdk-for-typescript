@@ -23,22 +23,22 @@ import {
     WebsiteToJSON,
 } from '../models';
 
-export interface AssociateAssetRequest {
+export interface WebsiteAssociateAssetRequest {
     asset: string;
     website: string;
 }
 
-export interface AssociatePersonRequest {
+export interface WebsiteAssociatePersonRequest {
     website: string;
     person: string;
 }
 
-export interface DisassociateAssetRequest {
+export interface WebsiteDisassociateAssetRequest {
     website: string;
     asset: string;
 }
 
-export interface DisassociatePersonRequest {
+export interface WebsiteDisassociatePersonRequest {
     website: string;
     person: string;
 }
@@ -67,13 +67,13 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will associate a website with a asset.
      * /website/{website}/assets/associate/{asset} [POST]
      */
-    async associateAssetRaw(requestParameters: AssociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteAssociateAssetRaw(requestParameters: WebsiteAssociateAssetRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling associateAsset.');
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling websiteAssociateAsset.');
         }
 
         if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling associateAsset.');
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -94,21 +94,21 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will associate a website with a asset.
      * /website/{website}/assets/associate/{asset} [POST]
      */
-    async associateAsset(requestParameters: AssociateAssetRequest): Promise<void> {
-        await this.associateAssetRaw(requestParameters);
+    async websiteAssociateAsset(requestParameters: WebsiteAssociateAssetRequest): Promise<void> {
+        await this.websiteAssociateAssetRaw(requestParameters);
     }
 
     /**
      * This will associate a website with a person.
      * /website/{website}/persons/associate/{person} [POST]
      */
-    async associatePersonRaw(requestParameters: AssociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteAssociatePersonRaw(requestParameters: WebsiteAssociatePersonRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling associatePerson.');
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociatePerson.');
         }
 
         if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling associatePerson.');
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling websiteAssociatePerson.');
         }
 
         const queryParameters: any = {};
@@ -129,21 +129,21 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will associate a website with a person.
      * /website/{website}/persons/associate/{person} [POST]
      */
-    async associatePerson(requestParameters: AssociatePersonRequest): Promise<void> {
-        await this.associatePersonRaw(requestParameters);
+    async websiteAssociatePerson(requestParameters: WebsiteAssociatePersonRequest): Promise<void> {
+        await this.websiteAssociatePersonRaw(requestParameters);
     }
 
     /**
      * This will enable us to dissassociate a website from a asset.
      * /website/{website}/assets/disassociate/{asset} [POST]
      */
-    async disassociateAssetRaw(requestParameters: DisassociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteDisassociateAssetRaw(requestParameters: WebsiteDisassociateAssetRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling disassociateAsset.');
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateAsset.');
         }
 
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling disassociateAsset.');
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling websiteDisassociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -164,21 +164,21 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a website from a asset.
      * /website/{website}/assets/disassociate/{asset} [POST]
      */
-    async disassociateAsset(requestParameters: DisassociateAssetRequest): Promise<void> {
-        await this.disassociateAssetRaw(requestParameters);
+    async websiteDisassociateAsset(requestParameters: WebsiteDisassociateAssetRequest): Promise<void> {
+        await this.websiteDisassociateAssetRaw(requestParameters);
     }
 
     /**
      * This will enable us to dissassociate a website from a person.
      * /website/{website}/persons/disassociate/{person} [POST]
      */
-    async disassociatePersonRaw(requestParameters: DisassociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteDisassociatePersonRaw(requestParameters: WebsiteDisassociatePersonRequest): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling disassociatePerson.');
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociatePerson.');
         }
 
         if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling disassociatePerson.');
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling websiteDisassociatePerson.');
         }
 
         const queryParameters: any = {};
@@ -199,8 +199,8 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a website from a person.
      * /website/{website}/persons/disassociate/{person} [POST]
      */
-    async disassociatePerson(requestParameters: DisassociatePersonRequest): Promise<void> {
-        await this.disassociatePersonRaw(requestParameters);
+    async websiteDisassociatePerson(requestParameters: WebsiteDisassociatePersonRequest): Promise<void> {
+        await this.websiteDisassociatePersonRaw(requestParameters);
     }
 
     /**

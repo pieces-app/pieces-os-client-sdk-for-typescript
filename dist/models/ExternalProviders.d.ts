@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ExternalProvider } from './index';
+import { EmbeddedModelSchema, ExternalProvider } from './';
 /**
  *
  * @export

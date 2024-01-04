@@ -26,7 +26,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a flattened representation of multiple sensitive pieces of data.

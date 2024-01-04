@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ByteDescriptor, Classification, EmbeddedModelSchema, FileFormat, FlattenedActivities, FlattenedAnalysis, FragmentFormat, GroupedTimestamp, Relationship, Role } from './index';
+import { Application, ByteDescriptor, Classification, EmbeddedModelSchema, FileFormat, FlattenedActivities, FlattenedAnalysis, FragmentFormat, GroupedTimestamp, Relationship, Role } from './';
 /**
  * A representation of Data for a particular Form Factor of an Asset.[DAG Compatible - Directed Acyclic Graph Data Structure]
  *

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetFilterPhraseToJSON = exports.AssetFilterPhraseFromJSONTyped = exports.AssetFilterPhraseFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AssetFilterPhraseFromJSON(json) {
     return AssetFilterPhraseFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function AssetFilterPhraseFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'value': !(0, runtime_1.exists)(json, 'value') ? undefined : json['value'],
         'annotation': !(0, runtime_1.exists)(json, 'annotation') ? undefined : json['annotation'],
         'title': !(0, runtime_1.exists)(json, 'title') ? undefined : json['title'],
         'content': !(0, runtime_1.exists)(json, 'content') ? undefined : json['content'],
-        'options': !(0, runtime_1.exists)(json, 'options') ? undefined : (0, index_1.AssetFilterPhraseOptionsFromJSON)(json['options']),
+        'options': !(0, runtime_1.exists)(json, 'options') ? undefined : (0, _1.AssetFilterPhraseOptionsFromJSON)(json['options']),
     };
 }
 exports.AssetFilterPhraseFromJSONTyped = AssetFilterPhraseFromJSONTyped;
@@ -42,12 +42,12 @@ function AssetFilterPhraseToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'value': value.value,
         'annotation': value.annotation,
         'title': value.title,
         'content': value.content,
-        'options': (0, index_1.AssetFilterPhraseOptionsToJSON)(value.options),
+        'options': (0, _1.AssetFilterPhraseOptionsToJSON)(value.options),
     };
 }
 exports.AssetFilterPhraseToJSON = AssetFilterPhraseToJSON;

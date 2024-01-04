@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeFragmentReclassificationToJSON = exports.TLPCodeFragmentReclassificationFromJSONTyped = exports.TLPCodeFragmentReclassificationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeFragmentReclassificationFromJSON(json) {
     return TLPCodeFragmentReclassificationFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function TLPCodeFragmentReclassificationFromJSONTyped(json, ignoreDiscriminator)
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'asset': json['asset'],
         'model': json['model'],
         'created': json['created'],
-        'updates': (0, index_1.TLPCodeFragmentReclassificationUpdatesFromJSON)(json['updates']),
+        'updates': (0, _1.TLPCodeFragmentReclassificationUpdatesFromJSON)(json['updates']),
         'user': json['user'],
         'context': json['context'],
     };
@@ -43,11 +43,11 @@ function TLPCodeFragmentReclassificationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'asset': value.asset,
         'model': value.model,
         'created': value.created,
-        'updates': (0, index_1.TLPCodeFragmentReclassificationUpdatesToJSON)(value.updates),
+        'updates': (0, _1.TLPCodeFragmentReclassificationUpdatesToJSON)(value.updates),
         'user': value.user,
         'context': value.context,
     };

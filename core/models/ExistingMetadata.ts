@@ -26,7 +26,7 @@ import {
     ReferencedWebsiteFromJSON,
     ReferencedWebsiteFromJSONTyped,
     ReferencedWebsiteToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a shared input model for all the exists endpoints:

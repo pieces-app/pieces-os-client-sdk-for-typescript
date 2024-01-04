@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, HintTypeEnum, MechanismEnum } from './index';
+import { EmbeddedModelSchema, HintTypeEnum, MechanismEnum } from './';
 /**
  *
  * @export

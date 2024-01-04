@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AllocationCloudUrl, EmbeddedModelSchema } from './index';
+import { AllocationCloudUrl, EmbeddedModelSchema } from './';
 /**
  * you will have at minimum 2 urls,
  *
