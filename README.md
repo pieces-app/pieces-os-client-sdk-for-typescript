@@ -1,5 +1,8 @@
 # @pieces.app/pieces-os-client
 
+[![npm version](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client.svg)](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client)
+
+
 <h1 align="center">
    <b>
         <a href="https://pieces.app"><img src="https://storage.googleapis.com/pieces_static_resources/pfd_wiki/PIECES_MAIN_LOGO_WIKI.png" /></a><br>
