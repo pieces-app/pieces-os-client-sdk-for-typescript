@@ -39,7 +39,7 @@ These are, in general, rules that you should be following while contributing to 
 
 ### Pull Request
 
-**1.** Fork the [repository](https://github.com/pieces-app/example-ts) on GitHub.
+**1.** Fork the [repository](https://github.com/pieces-app/pieces-os-client-sdk-for-typescript) on GitHub.
 
 **2.** Clone the forked repository. Open up the GitBash/Command Line and type:
 
