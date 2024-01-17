@@ -300,6 +300,35 @@ class AssetApi extends runtime.BaseAPI {
         return await response.value();
     }
     /**
+     * This will get a specific asset\'s activity events
+     * /asset/{asset}/activities [GET]
+     */
+    async assetSpecificAssetActivitiesRaw(requestParameters) {
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset', 'Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetActivities.');
+        }
+        const queryParameters = {};
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/asset/{asset}/activities`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.ActivitiesFromJSON)(jsonValue));
+    }
+    /**
+     * This will get a specific asset\'s activity events
+     * /asset/{asset}/activities [GET]
+     */
+    async assetSpecificAssetActivities(requestParameters) {
+        const response = await this.assetSpecificAssetActivitiesRaw(requestParameters);
+        return await response.value();
+    }
+    /**
      * This will get a specific asset\'s conversations
      * /asset/{asset}/conversations [GET]
      */

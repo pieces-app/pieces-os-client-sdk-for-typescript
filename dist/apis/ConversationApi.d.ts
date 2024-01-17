@@ -19,13 +19,21 @@ export interface ConversationAssociateAssetRequest {
     conversation: string;
     asset: string;
 }
-export interface ConversationDeleteAnchorRequest {
+export interface ConversationAssociateWebsiteRequest {
+    conversation: string;
+    website: string;
+}
+export interface ConversationDisassociateAnchorRequest {
     conversation: string;
     anchor: string;
 }
-export interface ConversationDeleteAssetRequest {
+export interface ConversationDisassociateAssetRequest {
     conversation: string;
     asset: string;
+}
+export interface ConversationDisassociateWebsiteRequest {
+    conversation: string;
+    website: string;
 }
 export interface ConversationGetSpecificConversationRequest {
     conversation: string;
@@ -84,25 +92,45 @@ export declare class ConversationApi extends runtime.BaseAPI {
      */
     conversationAssociateAsset(requestParameters: ConversationAssociateAssetRequest): Promise<void>;
     /**
-     * This will update both the anchor and the conversation.  and delete(disacioate) the 2 together
+     * This will update both the website and the conversation.  and associate the 2 together
+     * /conversation/{conversation}/websites/associate/{website} [POST]
+     */
+    conversationAssociateWebsiteRaw(requestParameters: ConversationAssociateWebsiteRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will update both the website and the conversation.  and associate the 2 together
+     * /conversation/{conversation}/websites/associate/{website} [POST]
+     */
+    conversationAssociateWebsite(requestParameters: ConversationAssociateWebsiteRequest): Promise<void>;
+    /**
+     * This will update both the anchor and the conversation.  and delete(disassociate) the 2 together
      * /conversation/{conversation}/anchors/delete/{anchor} [POST]
      */
-    conversationDeleteAnchorRaw(requestParameters: ConversationDeleteAnchorRequest): Promise<runtime.ApiResponse<void>>;
+    conversationDisassociateAnchorRaw(requestParameters: ConversationDisassociateAnchorRequest): Promise<runtime.ApiResponse<void>>;
     /**
-     * This will update both the anchor and the conversation.  and delete(disacioate) the 2 together
+     * This will update both the anchor and the conversation.  and delete(disassociate) the 2 together
      * /conversation/{conversation}/anchors/delete/{anchor} [POST]
      */
-    conversationDeleteAnchor(requestParameters: ConversationDeleteAnchorRequest): Promise<void>;
+    conversationDisassociateAnchor(requestParameters: ConversationDisassociateAnchorRequest): Promise<void>;
     /**
-     * This will update both the asset and the conversation.  and delete(disacioate) the 2.
+     * This will update both the asset and the conversation.  and delete(disassociate) the 2.
      * /conversation/{conversation}/assets/delete/{asset} [POST]
      */
-    conversationDeleteAssetRaw(requestParameters: ConversationDeleteAssetRequest): Promise<runtime.ApiResponse<void>>;
+    conversationDisassociateAssetRaw(requestParameters: ConversationDisassociateAssetRequest): Promise<runtime.ApiResponse<void>>;
     /**
-     * This will update both the asset and the conversation.  and delete(disacioate) the 2.
+     * This will update both the asset and the conversation.  and delete(disassociate) the 2.
      * /conversation/{conversation}/assets/delete/{asset} [POST]
      */
-    conversationDeleteAsset(requestParameters: ConversationDeleteAssetRequest): Promise<void>;
+    conversationDisassociateAsset(requestParameters: ConversationDisassociateAssetRequest): Promise<void>;
+    /**
+     * This will enable us to dissassociate a conversation from a website.
+     * /website/{website}/websites/disassociate/{website} [POST]
+     */
+    conversationDisassociateWebsiteRaw(requestParameters: ConversationDisassociateWebsiteRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will enable us to dissassociate a conversation from a website.
+     * /website/{website}/websites/disassociate/{website} [POST]
+     */
+    conversationDisassociateWebsite(requestParameters: ConversationDisassociateWebsiteRequest): Promise<void>;
     /**
      * This will get a specific conversation.
      * /conversation/{conversation} [GET]

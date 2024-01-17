@@ -31,6 +31,7 @@ function SeededActivityFromJSONTyped(json, ignoreDiscriminator) {
         'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.ReferencedUserFromJSON)(json['user']),
         'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, _1.ReferencedFormatFromJSON)(json['format']),
         'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
+        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, _1.ReferencedConversationFromJSON)(json['conversation']),
     };
 }
 exports.SeededActivityFromJSONTyped = SeededActivityFromJSONTyped;
@@ -48,6 +49,7 @@ function SeededActivityToJSON(value) {
         'user': (0, _1.ReferencedUserToJSON)(value.user),
         'format': (0, _1.ReferencedFormatToJSON)(value.format),
         'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
+        'conversation': (0, _1.ReferencedConversationToJSON)(value.conversation),
     };
 }
 exports.SeededActivityToJSON = SeededActivityToJSON;

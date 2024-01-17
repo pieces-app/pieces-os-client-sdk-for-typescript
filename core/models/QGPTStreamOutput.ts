@@ -14,6 +14,10 @@
 
 import { exists, mapValues } from '../runtime';
 import {
+    QGPTAgentRoutes,
+    QGPTAgentRoutesFromJSON,
+    QGPTAgentRoutesFromJSONTyped,
+    QGPTAgentRoutesToJSON,
     QGPTQuestionOutput,
     QGPTQuestionOutputFromJSON,
     QGPTQuestionOutputFromJSONTyped,
@@ -82,6 +86,12 @@ export interface QGPTStreamOutput {
      * @memberof QGPTStreamOutput
      */
     errorMessage?: string;
+    /**
+     * 
+     * @type {QGPTAgentRoutes}
+     * @memberof QGPTStreamOutput
+     */
+    agentRoutes?: QGPTAgentRoutes;
 }
 
 export function QGPTStreamOutputFromJSON(json: any): QGPTStreamOutput {
@@ -101,6 +111,7 @@ export function QGPTStreamOutputFromJSONTyped(json: any, ignoreDiscriminator: bo
         'conversation': json['conversation'],
         'statusCode': !exists(json, 'statusCode') ? undefined : json['statusCode'],
         'errorMessage': !exists(json, 'errorMessage') ? undefined : json['errorMessage'],
+        'agentRoutes': !exists(json, 'agentRoutes') ? undefined : QGPTAgentRoutesFromJSON(json['agentRoutes']),
     };
 }
 
@@ -120,6 +131,7 @@ export function QGPTStreamOutputToJSON(value?: QGPTStreamOutput | null): any {
         'conversation': value.conversation,
         'statusCode': value.statusCode,
         'errorMessage': value.errorMessage,
+        'agentRoutes': QGPTAgentRoutesToJSON(value.agentRoutes),
     };
 }
 

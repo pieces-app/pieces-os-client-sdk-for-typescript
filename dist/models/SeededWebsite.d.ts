@@ -33,6 +33,12 @@ export interface SeededWebsite {
      */
     asset?: string;
     /**
+     * This is the specific conversation that this website is going to get attached to!!
+     * @type {string}
+     * @memberof SeededWebsite
+     */
+    conversation?: string;
+    /**
      * this is the url of the website.
      * @type {string}
      * @memberof SeededWebsite

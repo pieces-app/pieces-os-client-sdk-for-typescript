@@ -32,6 +32,7 @@ function QGPTStreamOutputFromJSONTyped(json, ignoreDiscriminator) {
         'conversation': json['conversation'],
         'statusCode': !(0, runtime_1.exists)(json, 'statusCode') ? undefined : json['statusCode'],
         'errorMessage': !(0, runtime_1.exists)(json, 'errorMessage') ? undefined : json['errorMessage'],
+        'agentRoutes': !(0, runtime_1.exists)(json, 'agentRoutes') ? undefined : (0, _1.QGPTAgentRoutesFromJSON)(json['agentRoutes']),
     };
 }
 exports.QGPTStreamOutputFromJSONTyped = QGPTStreamOutputFromJSONTyped;
@@ -50,6 +51,7 @@ function QGPTStreamOutputToJSON(value) {
         'conversation': value.conversation,
         'statusCode': value.statusCode,
         'errorMessage': value.errorMessage,
+        'agentRoutes': (0, _1.QGPTAgentRoutesToJSON)(value.agentRoutes),
     };
 }
 exports.QGPTStreamOutputToJSON = QGPTStreamOutputToJSON;

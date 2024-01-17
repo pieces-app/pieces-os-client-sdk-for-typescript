@@ -100,15 +100,43 @@ class ConversationApi extends runtime.BaseAPI {
         await this.conversationAssociateAssetRaw(requestParameters);
     }
     /**
-     * This will update both the anchor and the conversation.  and delete(disacioate) the 2 together
+     * This will update both the website and the conversation.  and associate the 2 together
+     * /conversation/{conversation}/websites/associate/{website} [POST]
+     */
+    async conversationAssociateWebsiteRaw(requestParameters) {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling conversationAssociateWebsite.');
+        }
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling conversationAssociateWebsite.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/conversation/{conversation}/websites/associate/{website}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will update both the website and the conversation.  and associate the 2 together
+     * /conversation/{conversation}/websites/associate/{website} [POST]
+     */
+    async conversationAssociateWebsite(requestParameters) {
+        await this.conversationAssociateWebsiteRaw(requestParameters);
+    }
+    /**
+     * This will update both the anchor and the conversation.  and delete(disassociate) the 2 together
      * /conversation/{conversation}/anchors/delete/{anchor} [POST]
      */
-    async conversationDeleteAnchorRaw(requestParameters) {
+    async conversationDisassociateAnchorRaw(requestParameters) {
         if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling conversationDeleteAnchor.');
+            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateAnchor.');
         }
         if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor', 'Required parameter requestParameters.anchor was null or undefined when calling conversationDeleteAnchor.');
+            throw new runtime.RequiredError('anchor', 'Required parameter requestParameters.anchor was null or undefined when calling conversationDisassociateAnchor.');
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -121,22 +149,22 @@ class ConversationApi extends runtime.BaseAPI {
         return new runtime.VoidApiResponse(response);
     }
     /**
-     * This will update both the anchor and the conversation.  and delete(disacioate) the 2 together
+     * This will update both the anchor and the conversation.  and delete(disassociate) the 2 together
      * /conversation/{conversation}/anchors/delete/{anchor} [POST]
      */
-    async conversationDeleteAnchor(requestParameters) {
-        await this.conversationDeleteAnchorRaw(requestParameters);
+    async conversationDisassociateAnchor(requestParameters) {
+        await this.conversationDisassociateAnchorRaw(requestParameters);
     }
     /**
-     * This will update both the asset and the conversation.  and delete(disacioate) the 2.
+     * This will update both the asset and the conversation.  and delete(disassociate) the 2.
      * /conversation/{conversation}/assets/delete/{asset} [POST]
      */
-    async conversationDeleteAssetRaw(requestParameters) {
+    async conversationDisassociateAssetRaw(requestParameters) {
         if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling conversationDeleteAsset.');
+            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateAsset.');
         }
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset', 'Required parameter requestParameters.asset was null or undefined when calling conversationDeleteAsset.');
+            throw new runtime.RequiredError('asset', 'Required parameter requestParameters.asset was null or undefined when calling conversationDisassociateAsset.');
         }
         const queryParameters = {};
         const headerParameters = {};
@@ -149,11 +177,39 @@ class ConversationApi extends runtime.BaseAPI {
         return new runtime.VoidApiResponse(response);
     }
     /**
-     * This will update both the asset and the conversation.  and delete(disacioate) the 2.
+     * This will update both the asset and the conversation.  and delete(disassociate) the 2.
      * /conversation/{conversation}/assets/delete/{asset} [POST]
      */
-    async conversationDeleteAsset(requestParameters) {
-        await this.conversationDeleteAssetRaw(requestParameters);
+    async conversationDisassociateAsset(requestParameters) {
+        await this.conversationDisassociateAssetRaw(requestParameters);
+    }
+    /**
+     * This will enable us to dissassociate a conversation from a website.
+     * /website/{website}/websites/disassociate/{website} [POST]
+     */
+    async conversationDisassociateWebsiteRaw(requestParameters) {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateWebsite.');
+        }
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling conversationDisassociateWebsite.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/conversation/{conversation}/websites/disassociate/{website}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will enable us to dissassociate a conversation from a website.
+     * /website/{website}/websites/disassociate/{website} [POST]
+     */
+    async conversationDisassociateWebsite(requestParameters) {
+        await this.conversationDisassociateWebsiteRaw(requestParameters);
     }
     /**
      * This will get a specific conversation.

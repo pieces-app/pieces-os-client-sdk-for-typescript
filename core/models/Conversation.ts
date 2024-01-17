@@ -46,6 +46,10 @@ import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
+    FlattenedWebsites,
+    FlattenedWebsitesFromJSON,
+    FlattenedWebsitesFromJSONTyped,
+    FlattenedWebsitesToJSON,
     GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
@@ -146,6 +150,12 @@ export interface Conversation {
     assets?: FlattenedAssets;
     /**
      * 
+     * @type {FlattenedWebsites}
+     * @memberof Conversation
+     */
+    websites?: FlattenedWebsites;
+    /**
+     * 
      * @type {FlattenedAnchors}
      * @memberof Conversation
      */
@@ -192,6 +202,7 @@ export function ConversationFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'messages': FlattenedConversationMessagesFromJSON(json['messages']),
         'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
         'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
         'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
         'type': ConversationTypeEnumFromJSON(json['type']),
         'grounding': !exists(json, 'grounding') ? undefined : ConversationGroundingFromJSON(json['grounding']),
@@ -220,6 +231,7 @@ export function ConversationToJSON(value?: Conversation | null): any {
         'messages': FlattenedConversationMessagesToJSON(value.messages),
         'model': ReferencedModelToJSON(value.model),
         'assets': FlattenedAssetsToJSON(value.assets),
+        'websites': FlattenedWebsitesToJSON(value.websites),
         'anchors': FlattenedAnchorsToJSON(value.anchors),
         'type': ConversationTypeEnumToJSON(value.type),
         'grounding': ConversationGroundingToJSON(value.grounding),

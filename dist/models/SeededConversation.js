@@ -33,6 +33,7 @@ function SeededConversationFromJSONTyped(json, ignoreDiscriminator) {
         'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (json['messages'].map(_1.SeededConversationMessageFromJSON)),
         'model': !(0, runtime_1.exists)(json, 'model') ? undefined : (0, _1.ReferencedModelFromJSON)(json['model']),
         'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
+        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (0, _1.FlattenedWebsitesFromJSON)(json['websites']),
         'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (json['anchors'].map(_1.SeededAnchorFromJSON)),
         'type': (0, _1.ConversationTypeEnumFromJSON)(json['type']),
     };
@@ -54,6 +55,7 @@ function SeededConversationToJSON(value) {
         'messages': value.messages === undefined ? undefined : (value.messages.map(_1.SeededConversationMessageToJSON)),
         'model': (0, _1.ReferencedModelToJSON)(value.model),
         'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
+        'websites': (0, _1.FlattenedWebsitesToJSON)(value.websites),
         'anchors': value.anchors === undefined ? undefined : (value.anchors.map(_1.SeededAnchorToJSON)),
         'type': (0, _1.ConversationTypeEnumToJSON)(value.type),
     };

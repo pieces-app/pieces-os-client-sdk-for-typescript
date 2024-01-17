@@ -30,6 +30,7 @@ function QGPTStreamInputFromJSONTyped(json, ignoreDiscriminator) {
         'request': !(0, runtime_1.exists)(json, 'request') ? undefined : json['request'],
         'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : json['conversation'],
         'stop': !(0, runtime_1.exists)(json, 'stop') ? undefined : json['stop'],
+        'agent': !(0, runtime_1.exists)(json, 'agent') ? undefined : json['agent'],
     };
 }
 exports.QGPTStreamInputFromJSONTyped = QGPTStreamInputFromJSONTyped;
@@ -46,6 +47,7 @@ function QGPTStreamInputToJSON(value) {
         'request': value.request,
         'conversation': value.conversation,
         'stop': value.stop,
+        'agent': value.agent,
     };
 }
 exports.QGPTStreamInputToJSON = QGPTStreamInputToJSON;

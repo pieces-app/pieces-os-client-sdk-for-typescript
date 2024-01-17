@@ -27,6 +27,7 @@ function SeededWebsiteFromJSONTyped(json, ignoreDiscriminator) {
     return {
         'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : json['asset'],
+        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : json['conversation'],
         'url': json['url'],
         'name': json['name'],
         'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
@@ -44,6 +45,7 @@ function SeededWebsiteToJSON(value) {
     return {
         'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'asset': value.asset,
+        'conversation': value.conversation,
         'url': value.url,
         'name': value.name,
         'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),

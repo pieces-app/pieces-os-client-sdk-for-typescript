@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { Asset, AssetReclassification, Conversations, ExportedAsset, Formats, SeededAccessor, SeededScoreIncrement } from '../models';
+import { Activities, Asset, AssetReclassification, Conversations, ExportedAsset, Formats, SeededAccessor, SeededScoreIncrement } from '../models';
 export interface AssetAssociateTagRequest {
     asset: string;
     tag: string;
@@ -47,6 +47,10 @@ export interface AssetSnapshotPostRequest {
     asset: string;
     transferables?: boolean;
     seededAccessor?: SeededAccessor;
+}
+export interface AssetSpecificAssetActivitiesRequest {
+    asset: string;
+    transferables?: boolean;
 }
 export interface AssetSpecificAssetConversationsRequest {
     asset: string;
@@ -154,6 +158,16 @@ export declare class AssetApi extends runtime.BaseAPI {
      * /asset/{asset} [POST] Scoped to an Asset
      */
     assetSnapshotPost(requestParameters: AssetSnapshotPostRequest): Promise<Asset>;
+    /**
+     * This will get a specific asset\'s activity events
+     * /asset/{asset}/activities [GET]
+     */
+    assetSpecificAssetActivitiesRaw(requestParameters: AssetSpecificAssetActivitiesRequest): Promise<runtime.ApiResponse<Activities>>;
+    /**
+     * This will get a specific asset\'s activity events
+     * /asset/{asset}/activities [GET]
+     */
+    assetSpecificAssetActivities(requestParameters: AssetSpecificAssetActivitiesRequest): Promise<Activities>;
     /**
      * This will get a specific asset\'s conversations
      * /asset/{asset}/conversations [GET]

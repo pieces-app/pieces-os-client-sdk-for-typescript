@@ -72,6 +72,34 @@ class WebsiteApi extends runtime.BaseAPI {
         await this.websiteAssociateAssetRaw(requestParameters);
     }
     /**
+     * This will associate a website with a conversation.
+     * /website/{website}/conversations/associate/{conversation} [POST]
+     */
+    async websiteAssociateConversationRaw(requestParameters) {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling websiteAssociateConversation.');
+        }
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling websiteAssociateConversation.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/website/{website}/conversations/associate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will associate a website with a conversation.
+     * /website/{website}/conversations/associate/{conversation} [POST]
+     */
+    async websiteAssociateConversation(requestParameters) {
+        await this.websiteAssociateConversationRaw(requestParameters);
+    }
+    /**
      * This will associate a website with a person.
      * /website/{website}/persons/associate/{person} [POST]
      */
@@ -126,6 +154,34 @@ class WebsiteApi extends runtime.BaseAPI {
      */
     async websiteDisassociateAsset(requestParameters) {
         await this.websiteDisassociateAssetRaw(requestParameters);
+    }
+    /**
+     * This will enable us to dissassociate a website from a conversation.
+     * /website/{website}/conversations/disassociate/{conversation} [POST]
+     */
+    async websiteDisassociateConversationRaw(requestParameters) {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website', 'Required parameter requestParameters.website was null or undefined when calling websiteDisassociateConversation.');
+        }
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation', 'Required parameter requestParameters.conversation was null or undefined when calling websiteDisassociateConversation.');
+        }
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/website/{website}/conversations/disassociate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.VoidApiResponse(response);
+    }
+    /**
+     * This will enable us to dissassociate a website from a conversation.
+     * /website/{website}/conversations/disassociate/{conversation} [POST]
+     */
+    async websiteDisassociateConversation(requestParameters) {
+        await this.websiteDisassociateConversationRaw(requestParameters);
     }
     /**
      * This will enable us to dissassociate a website from a person.

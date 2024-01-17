@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, AvailableFormats, EmbeddedModelSchema, SeededAssetMetadata, SeededFormat } from './';
+import { Application, AvailableFormats, EmbeddedModelSchema, SeededAssetEnrichment, SeededAssetMetadata, SeededFormat } from './';
 /**
  * This is seed data that will be come an asset.
  *
@@ -64,6 +64,12 @@ export interface SeededAsset {
      * @memberof SeededAsset
      */
     pseudo?: boolean;
+    /**
+     *
+     * @type {SeededAssetEnrichment}
+     * @memberof SeededAsset
+     */
+    enrichment?: SeededAssetEnrichment;
 }
 export declare function SeededAssetFromJSON(json: any): SeededAsset;
 export declare function SeededAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAsset;

@@ -36,6 +36,7 @@ function FlattenedWebsiteFromJSONTyped(json, ignoreDiscriminator) {
         'mechanisms': !(0, runtime_1.exists)(json, 'mechanisms') ? undefined : ((0, runtime_1.mapValues)(json['mechanisms'], _1.MechanismEnumFromJSON)),
         'interactions': !(0, runtime_1.exists)(json, 'interactions') ? undefined : json['interactions'],
         'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (0, _1.FlattenedPersonsFromJSON)(json['persons']),
+        'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : (0, _1.FlattenedConversationsFromJSON)(json['conversations']),
         'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
     };
 }
@@ -59,6 +60,7 @@ function FlattenedWebsiteToJSON(value) {
         'mechanisms': value.mechanisms === undefined ? undefined : ((0, runtime_1.mapValues)(value.mechanisms, _1.MechanismEnumToJSON)),
         'interactions': value.interactions,
         'persons': (0, _1.FlattenedPersonsToJSON)(value.persons),
+        'conversations': (0, _1.FlattenedConversationsToJSON)(value.conversations),
         'score': (0, _1.ScoreToJSON)(value.score),
     };
 }

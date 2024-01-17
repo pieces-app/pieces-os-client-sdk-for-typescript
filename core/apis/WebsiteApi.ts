@@ -28,6 +28,11 @@ export interface WebsiteAssociateAssetRequest {
     website: string;
 }
 
+export interface WebsiteAssociateConversationRequest {
+    website: string;
+    conversation: string;
+}
+
 export interface WebsiteAssociatePersonRequest {
     website: string;
     person: string;
@@ -36,6 +41,11 @@ export interface WebsiteAssociatePersonRequest {
 export interface WebsiteDisassociateAssetRequest {
     website: string;
     asset: string;
+}
+
+export interface WebsiteDisassociateConversationRequest {
+    website: string;
+    conversation: string;
 }
 
 export interface WebsiteDisassociatePersonRequest {
@@ -96,6 +106,41 @@ export class WebsiteApi extends runtime.BaseAPI {
      */
     async websiteAssociateAsset(requestParameters: WebsiteAssociateAssetRequest): Promise<void> {
         await this.websiteAssociateAssetRaw(requestParameters);
+    }
+
+    /**
+     * This will associate a website with a conversation.
+     * /website/{website}/conversations/associate/{conversation} [POST]
+     */
+    async websiteAssociateConversationRaw(requestParameters: WebsiteAssociateConversationRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateConversation.');
+        }
+
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling websiteAssociateConversation.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/website/{website}/conversations/associate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a website with a conversation.
+     * /website/{website}/conversations/associate/{conversation} [POST]
+     */
+    async websiteAssociateConversation(requestParameters: WebsiteAssociateConversationRequest): Promise<void> {
+        await this.websiteAssociateConversationRaw(requestParameters);
     }
 
     /**
@@ -166,6 +211,41 @@ export class WebsiteApi extends runtime.BaseAPI {
      */
     async websiteDisassociateAsset(requestParameters: WebsiteDisassociateAssetRequest): Promise<void> {
         await this.websiteDisassociateAssetRaw(requestParameters);
+    }
+
+    /**
+     * This will enable us to dissassociate a website from a conversation.
+     * /website/{website}/conversations/disassociate/{conversation} [POST]
+     */
+    async websiteDisassociateConversationRaw(requestParameters: WebsiteDisassociateConversationRequest): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateConversation.');
+        }
+
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling websiteDisassociateConversation.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/website/{website}/conversations/disassociate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a website from a conversation.
+     * /website/{website}/conversations/disassociate/{conversation} [POST]
+     */
+    async websiteDisassociateConversation(requestParameters: WebsiteDisassociateConversationRequest): Promise<void> {
+        await this.websiteDisassociateConversationRaw(requestParameters);
     }
 
     /**

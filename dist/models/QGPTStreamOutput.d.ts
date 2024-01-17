@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { QGPTQuestionOutput, QGPTRelevanceOutput, QGPTStreamEnum } from './';
+import { QGPTAgentRoutes, QGPTQuestionOutput, QGPTRelevanceOutput, QGPTStreamEnum } from './';
 /**
  * This is the out for the /qgpt/stream endpoint.
  *
@@ -64,6 +64,12 @@ export interface QGPTStreamOutput {
      * @memberof QGPTStreamOutput
      */
     errorMessage?: string;
+    /**
+     *
+     * @type {QGPTAgentRoutes}
+     * @memberof QGPTStreamOutput
+     */
+    agentRoutes?: QGPTAgentRoutes;
 }
 export declare function QGPTStreamOutputFromJSON(json: any): QGPTStreamOutput;
 export declare function QGPTStreamOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTStreamOutput;

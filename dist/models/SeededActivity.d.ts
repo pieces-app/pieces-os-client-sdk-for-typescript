@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, MechanismEnum, ReferencedAsset, ReferencedFormat, ReferencedUser, SeededConnectorTracking } from './';
+import { Application, MechanismEnum, ReferencedAsset, ReferencedConversation, ReferencedFormat, ReferencedUser, SeededConnectorTracking } from './';
 /**
  * This is the preseed to a full blown Activity.
  *
@@ -58,6 +58,12 @@ export interface SeededActivity {
      * @memberof SeededActivity
      */
     mechanism?: MechanismEnum;
+    /**
+     *
+     * @type {ReferencedConversation}
+     * @memberof SeededActivity
+     */
+    conversation?: ReferencedConversation;
 }
 export declare function SeededActivityFromJSON(json: any): SeededActivity;
 export declare function SeededActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededActivity;

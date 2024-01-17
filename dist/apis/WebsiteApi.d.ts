@@ -15,6 +15,10 @@ export interface WebsiteAssociateAssetRequest {
     asset: string;
     website: string;
 }
+export interface WebsiteAssociateConversationRequest {
+    website: string;
+    conversation: string;
+}
 export interface WebsiteAssociatePersonRequest {
     website: string;
     person: string;
@@ -22,6 +26,10 @@ export interface WebsiteAssociatePersonRequest {
 export interface WebsiteDisassociateAssetRequest {
     website: string;
     asset: string;
+}
+export interface WebsiteDisassociateConversationRequest {
+    website: string;
+    conversation: string;
 }
 export interface WebsiteDisassociatePersonRequest {
     website: string;
@@ -54,6 +62,16 @@ export declare class WebsiteApi extends runtime.BaseAPI {
      */
     websiteAssociateAsset(requestParameters: WebsiteAssociateAssetRequest): Promise<void>;
     /**
+     * This will associate a website with a conversation.
+     * /website/{website}/conversations/associate/{conversation} [POST]
+     */
+    websiteAssociateConversationRaw(requestParameters: WebsiteAssociateConversationRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will associate a website with a conversation.
+     * /website/{website}/conversations/associate/{conversation} [POST]
+     */
+    websiteAssociateConversation(requestParameters: WebsiteAssociateConversationRequest): Promise<void>;
+    /**
      * This will associate a website with a person.
      * /website/{website}/persons/associate/{person} [POST]
      */
@@ -73,6 +91,16 @@ export declare class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/assets/disassociate/{asset} [POST]
      */
     websiteDisassociateAsset(requestParameters: WebsiteDisassociateAssetRequest): Promise<void>;
+    /**
+     * This will enable us to dissassociate a website from a conversation.
+     * /website/{website}/conversations/disassociate/{conversation} [POST]
+     */
+    websiteDisassociateConversationRaw(requestParameters: WebsiteDisassociateConversationRequest): Promise<runtime.ApiResponse<void>>;
+    /**
+     * This will enable us to dissassociate a website from a conversation.
+     * /website/{website}/conversations/disassociate/{conversation} [POST]
+     */
+    websiteDisassociateConversation(requestParameters: WebsiteDisassociateConversationRequest): Promise<void>;
     /**
      * This will enable us to dissassociate a website from a person.
      * /website/{website}/persons/disassociate/{person} [POST]

@@ -34,6 +34,7 @@ function SeededConnectorTrackingFromJSONTyped(json, ignoreDiscriminator) {
         'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.SeededTrackedAssetsEventFromJSON)(json['assets']),
         'ml': !(0, runtime_1.exists)(json, 'ml') ? undefined : (0, _1.SeededTrackedMachineLearningEventFromJSON)(json['ml']),
         'adoption': !(0, runtime_1.exists)(json, 'adoption') ? undefined : (0, _1.SeededTrackedAdoptionEventFromJSON)(json['adoption']),
+        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, _1.SeededTrackedConversationEventFromJSON)(json['conversation']),
     };
 }
 exports.SeededConnectorTrackingFromJSONTyped = SeededConnectorTrackingFromJSONTyped;
@@ -54,6 +55,7 @@ function SeededConnectorTrackingToJSON(value) {
         'assets': (0, _1.SeededTrackedAssetsEventToJSON)(value.assets),
         'ml': (0, _1.SeededTrackedMachineLearningEventToJSON)(value.ml),
         'adoption': (0, _1.SeededTrackedAdoptionEventToJSON)(value.adoption),
+        'conversation': (0, _1.SeededTrackedConversationEventToJSON)(value.conversation),
     };
 }
 exports.SeededConnectorTrackingToJSON = SeededConnectorTrackingToJSON;

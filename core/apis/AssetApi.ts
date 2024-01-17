@@ -15,6 +15,9 @@
 
 import * as runtime from '../runtime';
 import {
+    Activities,
+    ActivitiesFromJSON,
+    ActivitiesToJSON,
     Asset,
     AssetFromJSON,
     AssetToJSON,
@@ -82,6 +85,11 @@ export interface AssetSnapshotPostRequest {
     asset: string;
     transferables?: boolean;
     seededAccessor?: SeededAccessor;
+}
+
+export interface AssetSpecificAssetActivitiesRequest {
+    asset: string;
+    transferables?: boolean;
 }
 
 export interface AssetSpecificAssetConversationsRequest {
@@ -421,6 +429,42 @@ export class AssetApi extends runtime.BaseAPI {
      */
     async assetSnapshotPost(requestParameters: AssetSnapshotPostRequest): Promise<Asset> {
         const response = await this.assetSnapshotPostRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will get a specific asset\'s activity events
+     * /asset/{asset}/activities [GET]
+     */
+    async assetSpecificAssetActivitiesRaw(requestParameters: AssetSpecificAssetActivitiesRequest): Promise<runtime.ApiResponse<Activities>> {
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetActivities.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/asset/{asset}/activities`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActivitiesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will get a specific asset\'s activity events
+     * /asset/{asset}/activities [GET]
+     */
+    async assetSpecificAssetActivities(requestParameters: AssetSpecificAssetActivitiesRequest): Promise<Activities> {
+        const response = await this.assetSpecificAssetActivitiesRaw(requestParameters);
         return await response.value();
     }
 

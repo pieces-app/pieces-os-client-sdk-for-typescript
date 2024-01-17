@@ -30,6 +30,10 @@ import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
+    FlattenedWebsites,
+    FlattenedWebsitesFromJSON,
+    FlattenedWebsitesFromJSONTyped,
+    FlattenedWebsitesToJSON,
     ReferencedModel,
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
@@ -110,6 +114,12 @@ export interface SeededConversation {
     assets?: FlattenedAssets;
     /**
      * 
+     * @type {FlattenedWebsites}
+     * @memberof SeededConversation
+     */
+    websites?: FlattenedWebsites;
+    /**
+     * 
      * @type {Array<SeededAnchor>}
      * @memberof SeededConversation
      */
@@ -140,6 +150,7 @@ export function SeededConversationFromJSONTyped(json: any, ignoreDiscriminator: 
         'messages': !exists(json, 'messages') ? undefined : ((json['messages'] as Array<any>).map(SeededConversationMessageFromJSON)),
         'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
         'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
         'anchors': !exists(json, 'anchors') ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
         'type': ConversationTypeEnumFromJSON(json['type']),
     };
@@ -162,6 +173,7 @@ export function SeededConversationToJSON(value?: SeededConversation | null): any
         'messages': value.messages === undefined ? undefined : ((value.messages as Array<any>).map(SeededConversationMessageToJSON)),
         'model': ReferencedModelToJSON(value.model),
         'assets': FlattenedAssetsToJSON(value.assets),
+        'websites': FlattenedWebsitesToJSON(value.websites),
         'anchors': value.anchors === undefined ? undefined : ((value.anchors as Array<any>).map(SeededAnchorToJSON)),
         'type': ConversationTypeEnumToJSON(value.type),
     };

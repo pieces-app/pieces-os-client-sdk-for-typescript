@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, GroupedTimestamp, ReferencedModel, Score } from './';
+import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, FlattenedWebsites, GroupedTimestamp, ReferencedModel, Score } from './';
 /**
  * This is a fully referenced Conversation.
  *
@@ -94,6 +94,12 @@ export interface Conversation {
      * @memberof Conversation
      */
     assets?: FlattenedAssets;
+    /**
+     *
+     * @type {FlattenedWebsites}
+     * @memberof Conversation
+     */
+    websites?: FlattenedWebsites;
     /**
      *
      * @type {FlattenedAnchors}

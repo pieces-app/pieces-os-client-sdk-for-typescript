@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAssets, FlattenedPersons, GroupedTimestamp, MechanismEnum, Score } from './';
+import { EmbeddedModelSchema, FlattenedAssets, FlattenedConversations, FlattenedPersons, GroupedTimestamp, MechanismEnum, Score } from './';
 /**
  * This is a specific model for related websites to an asset.[DAG SAFE]
  * @export
@@ -84,6 +84,12 @@ export interface FlattenedWebsite {
      * @memberof FlattenedWebsite
      */
     persons?: FlattenedPersons;
+    /**
+     *
+     * @type {FlattenedConversations}
+     * @memberof FlattenedWebsite
+     */
+    conversations?: FlattenedConversations;
     /**
      *
      * @type {Score}

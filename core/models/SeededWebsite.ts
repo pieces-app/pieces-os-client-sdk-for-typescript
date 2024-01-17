@@ -47,6 +47,12 @@ export interface SeededWebsite {
      */
     asset?: string;
     /**
+     * This is the specific conversation that this website is going to get attached to!!
+     * @type {string}
+     * @memberof SeededWebsite
+     */
+    conversation?: string;
+    /**
      * this is the url of the website.
      * @type {string}
      * @memberof SeededWebsite
@@ -84,6 +90,7 @@ export function SeededWebsiteFromJSONTyped(json: any, ignoreDiscriminator: boole
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': !exists(json, 'asset') ? undefined : json['asset'],
+        'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
         'url': json['url'],
         'name': json['name'],
         'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
@@ -102,6 +109,7 @@ export function SeededWebsiteToJSON(value?: SeededWebsite | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'asset': value.asset,
+        'conversation': value.conversation,
         'url': value.url,
         'name': value.name,
         'mechanism': MechanismEnumToJSON(value.mechanism),

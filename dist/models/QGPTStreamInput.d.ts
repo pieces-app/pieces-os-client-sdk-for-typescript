@@ -46,6 +46,12 @@ export interface QGPTStreamInput {
      * @memberof QGPTStreamInput
      */
     stop?: boolean;
+    /**
+     * This will let us know if we want to run the agent routing as well, this is default to true. However if set to false you will save on processing and you will recieve null for the agentRoutes class on the QGPTStreamOutput.
+     * @type {boolean}
+     * @memberof QGPTStreamInput
+     */
+    agent?: boolean;
 }
 export declare function QGPTStreamInputFromJSON(json: any): QGPTStreamInput;
 export declare function QGPTStreamInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTStreamInput;
