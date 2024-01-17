@@ -88,7 +88,6 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.pre) {
                 fetchParams = await middleware.pre({
-                    // @ts-ignore
                     fetch: this.fetchApi,
                     ...fetchParams,
                 }) || fetchParams;
@@ -98,7 +97,6 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.post) {
                 response = await middleware.post({
-                    // @ts-ignore
                     fetch: this.fetchApi,
                     url: fetchParams.url,
                     init: fetchParams.init,
@@ -122,7 +120,7 @@ export class BaseAPI {
 };
 
 export class RequiredError extends Error {
-    override name: "RequiredError" = "RequiredError";
+    name: "RequiredError" = "RequiredError";
     constructor(public field: string, msg?: string) {
         super(msg);
     }

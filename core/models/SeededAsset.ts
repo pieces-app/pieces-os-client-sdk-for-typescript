@@ -26,6 +26,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    SeededAssetEnrichment,
+    SeededAssetEnrichmentFromJSON,
+    SeededAssetEnrichmentFromJSONTyped,
+    SeededAssetEnrichmentToJSON,
     SeededAssetMetadata,
     SeededAssetMetadataFromJSON,
     SeededAssetMetadataFromJSONTyped,
@@ -90,6 +94,12 @@ export interface SeededAsset {
      * @memberof SeededAsset
      */
     pseudo?: boolean;
+    /**
+     * 
+     * @type {SeededAssetEnrichment}
+     * @memberof SeededAsset
+     */
+    enrichment?: SeededAssetEnrichment;
 }
 
 export function SeededAssetFromJSON(json: any): SeededAsset {
@@ -109,6 +119,7 @@ export function SeededAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'discovered': !exists(json, 'discovered') ? undefined : json['discovered'],
         'available': !exists(json, 'available') ? undefined : AvailableFormatsFromJSON(json['available']),
         'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
+        'enrichment': !exists(json, 'enrichment') ? undefined : SeededAssetEnrichmentFromJSON(json['enrichment']),
     };
 }
 
@@ -128,6 +139,7 @@ export function SeededAssetToJSON(value?: SeededAsset | null): any {
         'discovered': value.discovered,
         'available': AvailableFormatsToJSON(value.available),
         'pseudo': value.pseudo,
+        'enrichment': SeededAssetEnrichmentToJSON(value.enrichment),
     };
 }
 

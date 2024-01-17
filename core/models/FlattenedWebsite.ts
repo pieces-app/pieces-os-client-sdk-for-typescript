@@ -22,6 +22,10 @@ import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
+    FlattenedConversations,
+    FlattenedConversationsFromJSON,
+    FlattenedConversationsFromJSONTyped,
+    FlattenedConversationsToJSON,
     FlattenedPersons,
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
@@ -114,6 +118,12 @@ export interface FlattenedWebsite {
     persons?: FlattenedPersons;
     /**
      * 
+     * @type {FlattenedConversations}
+     * @memberof FlattenedWebsite
+     */
+    conversations?: FlattenedConversations;
+    /**
+     * 
      * @type {Score}
      * @memberof FlattenedWebsite
      */
@@ -141,6 +151,7 @@ export function FlattenedWebsiteFromJSONTyped(json: any, ignoreDiscriminator: bo
         'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
         'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
         'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
@@ -165,6 +176,7 @@ export function FlattenedWebsiteToJSON(value?: FlattenedWebsite | null): any {
         'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
         'interactions': value.interactions,
         'persons': FlattenedPersonsToJSON(value.persons),
+        'conversations': FlattenedConversationsToJSON(value.conversations),
         'score': ScoreToJSON(value.score),
     };
 }

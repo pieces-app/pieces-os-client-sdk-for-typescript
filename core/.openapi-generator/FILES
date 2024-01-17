@@ -270,6 +270,8 @@ models/PreupdatedExternalProviderApiKey.ts
 models/Preview.ts
 models/PrivacyEnum.ts
 models/PseudoAssets.ts
+models/QGPTAgentRelatedRoutes.ts
+models/QGPTAgentRoutes.ts
 models/QGPTConversation.ts
 models/QGPTConversationMessage.ts
 models/QGPTConversationMessageRoleEnum.ts
@@ -329,6 +331,7 @@ models/SeededAnchor.ts
 models/SeededAnchorPoint.ts
 models/SeededAnnotation.ts
 models/SeededAsset.ts
+models/SeededAssetEnrichment.ts
 models/SeededAssetMetadata.ts
 models/SeededAssetSensitive.ts
 models/SeededAssetTag.ts
@@ -376,6 +379,7 @@ models/SeededTrackedApplication.ts
 models/SeededTrackedAssetEvent.ts
 models/SeededTrackedAssetsEvent.ts
 models/SeededTrackedAssetsEventMetadata.ts
+models/SeededTrackedConversationEvent.ts
 models/SeededTrackedFormatEvent.ts
 models/SeededTrackedInteractionEvent.ts
 models/SeededTrackedInteractionEventIdentifierDescriptionPairs.ts
@@ -445,6 +449,9 @@ models/TrackedAssetEventRenameMetadata.ts
 models/TrackedAssetsEventIdentifierDescriptionPairs.ts
 models/TrackedAssetsEventSearchMetadata.ts
 models/TrackedAssetsEventSearchMetadataResults.ts
+models/TrackedConversationEventIdentifierDescriptionPairs.ts
+models/TrackedConversationEventMetadata.ts
+models/TrackedConversationEventRenameMetadata.ts
 models/TrackedFormat.ts
 models/TrackedFormatEvent.ts
 models/TrackedFormatEventIdentifierDescriptionPairs.ts

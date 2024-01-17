@@ -30,6 +30,10 @@ import {
     SeededTrackedAssetsEventFromJSON,
     SeededTrackedAssetsEventFromJSONTyped,
     SeededTrackedAssetsEventToJSON,
+    SeededTrackedConversationEvent,
+    SeededTrackedConversationEventFromJSON,
+    SeededTrackedConversationEventFromJSONTyped,
+    SeededTrackedConversationEventToJSON,
     SeededTrackedFormatEvent,
     SeededTrackedFormatEventFromJSON,
     SeededTrackedFormatEventFromJSONTyped,
@@ -114,6 +118,12 @@ export interface SeededConnectorTracking {
      * @memberof SeededConnectorTracking
      */
     adoption?: SeededTrackedAdoptionEvent;
+    /**
+     * 
+     * @type {SeededTrackedConversationEvent}
+     * @memberof SeededConnectorTracking
+     */
+    conversation?: SeededTrackedConversationEvent;
 }
 
 export function SeededConnectorTrackingFromJSON(json: any): SeededConnectorTracking {
@@ -135,6 +145,7 @@ export function SeededConnectorTrackingFromJSONTyped(json: any, ignoreDiscrimina
         'assets': !exists(json, 'assets') ? undefined : SeededTrackedAssetsEventFromJSON(json['assets']),
         'ml': !exists(json, 'ml') ? undefined : SeededTrackedMachineLearningEventFromJSON(json['ml']),
         'adoption': !exists(json, 'adoption') ? undefined : SeededTrackedAdoptionEventFromJSON(json['adoption']),
+        'conversation': !exists(json, 'conversation') ? undefined : SeededTrackedConversationEventFromJSON(json['conversation']),
     };
 }
 
@@ -156,6 +167,7 @@ export function SeededConnectorTrackingToJSON(value?: SeededConnectorTracking | 
         'assets': SeededTrackedAssetsEventToJSON(value.assets),
         'ml': SeededTrackedMachineLearningEventToJSON(value.ml),
         'adoption': SeededTrackedAdoptionEventToJSON(value.adoption),
+        'conversation': SeededTrackedConversationEventToJSON(value.conversation),
     };
 }
 

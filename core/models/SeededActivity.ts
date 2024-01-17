@@ -26,6 +26,10 @@ import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
+    ReferencedConversation,
+    ReferencedConversationFromJSON,
+    ReferencedConversationFromJSONTyped,
+    ReferencedConversationToJSON,
     ReferencedFormat,
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
@@ -88,6 +92,12 @@ export interface SeededActivity {
      * @memberof SeededActivity
      */
     mechanism?: MechanismEnum;
+    /**
+     * 
+     * @type {ReferencedConversation}
+     * @memberof SeededActivity
+     */
+    conversation?: ReferencedConversation;
 }
 
 export function SeededActivityFromJSON(json: any): SeededActivity {
@@ -106,6 +116,7 @@ export function SeededActivityFromJSONTyped(json: any, ignoreDiscriminator: bool
         'user': !exists(json, 'user') ? undefined : ReferencedUserFromJSON(json['user']),
         'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
         'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
     };
 }
 
@@ -124,6 +135,7 @@ export function SeededActivityToJSON(value?: SeededActivity | null): any {
         'user': ReferencedUserToJSON(value.user),
         'format': ReferencedFormatToJSON(value.format),
         'mechanism': MechanismEnumToJSON(value.mechanism),
+        'conversation': ReferencedConversationToJSON(value.conversation),
     };
 }
 
