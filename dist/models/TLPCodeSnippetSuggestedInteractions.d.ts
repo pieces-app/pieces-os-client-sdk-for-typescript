@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TLPCodeFragmentSuggestedReuse, TLPCodeFragmentSuggestedSave } from './';
+import { EmbeddedModelSchema, TLPCodeFragmentSuggestedReuse, TLPCodeFragmentSuggestedSave } from './index';
 /**
  *
  * @export

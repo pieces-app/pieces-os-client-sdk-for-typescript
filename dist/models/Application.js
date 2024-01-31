@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApplicationToJSON = exports.ApplicationFromJSONTyped = exports.ApplicationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ApplicationFromJSON(json) {
     return ApplicationFromJSONTyped(json, false);
 }
@@ -25,15 +25,15 @@ function ApplicationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'name': (0, _1.ApplicationNameEnumFromJSON)(json['name']),
+        'name': (0, index_1.ApplicationNameEnumFromJSON)(json['name']),
         'version': json['version'],
-        'platform': (0, _1.PlatformEnumFromJSON)(json['platform']),
+        'platform': (0, index_1.PlatformEnumFromJSON)(json['platform']),
         'onboarded': json['onboarded'],
-        'privacy': (0, _1.PrivacyEnumFromJSON)(json['privacy']),
-        'capabilities': !(0, runtime_1.exists)(json, 'capabilities') ? undefined : (0, _1.CapabilitiesEnumFromJSON)(json['capabilities']),
-        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
+        'privacy': (0, index_1.PrivacyEnumFromJSON)(json['privacy']),
+        'capabilities': !(0, runtime_1.exists)(json, 'capabilities') ? undefined : (0, index_1.CapabilitiesEnumFromJSON)(json['capabilities']),
+        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
         'automaticUnload': !(0, runtime_1.exists)(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
@@ -46,15 +46,15 @@ function ApplicationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'name': (0, _1.ApplicationNameEnumToJSON)(value.name),
+        'name': (0, index_1.ApplicationNameEnumToJSON)(value.name),
         'version': value.version,
-        'platform': (0, _1.PlatformEnumToJSON)(value.platform),
+        'platform': (0, index_1.PlatformEnumToJSON)(value.platform),
         'onboarded': value.onboarded,
-        'privacy': (0, _1.PrivacyEnumToJSON)(value.privacy),
-        'capabilities': (0, _1.CapabilitiesEnumToJSON)(value.capabilities),
-        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
+        'privacy': (0, index_1.PrivacyEnumToJSON)(value.privacy),
+        'capabilities': (0, index_1.CapabilitiesEnumToJSON)(value.capabilities),
+        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
         'automaticUnload': value.automaticUnload,
     };
 }

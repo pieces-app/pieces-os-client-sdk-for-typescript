@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DiscoveredRelatedTagToJSON = exports.DiscoveredRelatedTagFromJSONTyped = exports.DiscoveredRelatedTagFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function DiscoveredRelatedTagFromJSON(json) {
     return DiscoveredRelatedTagFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function DiscoveredRelatedTagFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'seed': (0, _1.SeededTagFromJSON)(json['seed']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'seed': (0, index_1.SeededTagFromJSON)(json['seed']),
     };
 }
 exports.DiscoveredRelatedTagFromJSONTyped = DiscoveredRelatedTagFromJSONTyped;
@@ -38,8 +38,8 @@ function DiscoveredRelatedTagToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'seed': (0, _1.SeededTagToJSON)(value.seed),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'seed': (0, index_1.SeededTagToJSON)(value.seed),
     };
 }
 exports.DiscoveredRelatedTagToJSON = DiscoveredRelatedTagToJSON;

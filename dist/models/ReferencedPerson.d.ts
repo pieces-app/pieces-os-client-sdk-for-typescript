@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedPerson } from './';
+import { EmbeddedModelSchema, FlattenedPerson } from './index';
 /**
  * [DAG Safe] version of a Person Model.
  * @export

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PseudoAssetsToJSON = exports.PseudoAssetsFromJSONTyped = exports.PseudoAssetsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function PseudoAssetsFromJSON(json) {
     return PseudoAssetsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function PseudoAssetsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'identifiers': !(0, runtime_1.exists)(json, 'identifiers') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['identifiers']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'identifiers': !(0, runtime_1.exists)(json, 'identifiers') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['identifiers']),
     };
 }
 exports.PseudoAssetsFromJSONTyped = PseudoAssetsFromJSONTyped;
@@ -38,8 +38,8 @@ function PseudoAssetsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'identifiers': (0, _1.FlattenedAssetsToJSON)(value.identifiers),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'identifiers': (0, index_1.FlattenedAssetsToJSON)(value.identifiers),
     };
 }
 exports.PseudoAssetsToJSON = PseudoAssetsToJSON;

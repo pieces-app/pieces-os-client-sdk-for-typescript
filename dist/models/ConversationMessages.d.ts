@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ConversationMessage, EmbeddedModelSchema, Score } from './';
+import { ConversationMessage, EmbeddedModelSchema, Score } from './index';
 /**
  * This is a plural version of ConversationMessage.
  * @export

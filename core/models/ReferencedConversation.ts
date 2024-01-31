@@ -22,7 +22,7 @@ import {
     FlattenedConversationFromJSON,
     FlattenedConversationFromJSONTyped,
     FlattenedConversationToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a DAG-Safe Minimal version of a Conversation.

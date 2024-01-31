@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { FlattenedAssets, Space } from './';
+import { FlattenedAssets, Space } from './index';
 /**
  * Numbers related to search results
  * @export

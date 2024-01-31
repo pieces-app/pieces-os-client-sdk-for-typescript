@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTStreamOutputToJSON = exports.QGPTStreamOutputFromJSONTyped = exports.QGPTStreamOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTStreamOutputFromJSON(json) {
     return QGPTStreamOutputFromJSONTyped(json, false);
 }
@@ -26,13 +26,13 @@ function QGPTStreamOutputFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'request': !(0, runtime_1.exists)(json, 'request') ? undefined : json['request'],
-        'relevance': !(0, runtime_1.exists)(json, 'relevance') ? undefined : (0, _1.QGPTRelevanceOutputFromJSON)(json['relevance']),
-        'question': !(0, runtime_1.exists)(json, 'question') ? undefined : (0, _1.QGPTQuestionOutputFromJSON)(json['question']),
-        'status': !(0, runtime_1.exists)(json, 'status') ? undefined : (0, _1.QGPTStreamEnumFromJSON)(json['status']),
+        'relevance': !(0, runtime_1.exists)(json, 'relevance') ? undefined : (0, index_1.QGPTRelevanceOutputFromJSON)(json['relevance']),
+        'question': !(0, runtime_1.exists)(json, 'question') ? undefined : (0, index_1.QGPTQuestionOutputFromJSON)(json['question']),
+        'status': !(0, runtime_1.exists)(json, 'status') ? undefined : (0, index_1.QGPTStreamEnumFromJSON)(json['status']),
         'conversation': json['conversation'],
         'statusCode': !(0, runtime_1.exists)(json, 'statusCode') ? undefined : json['statusCode'],
         'errorMessage': !(0, runtime_1.exists)(json, 'errorMessage') ? undefined : json['errorMessage'],
-        'agentRoutes': !(0, runtime_1.exists)(json, 'agentRoutes') ? undefined : (0, _1.QGPTAgentRoutesFromJSON)(json['agentRoutes']),
+        'agentRoutes': !(0, runtime_1.exists)(json, 'agentRoutes') ? undefined : (0, index_1.QGPTAgentRoutesFromJSON)(json['agentRoutes']),
     };
 }
 exports.QGPTStreamOutputFromJSONTyped = QGPTStreamOutputFromJSONTyped;
@@ -45,13 +45,13 @@ function QGPTStreamOutputToJSON(value) {
     }
     return {
         'request': value.request,
-        'relevance': (0, _1.QGPTRelevanceOutputToJSON)(value.relevance),
-        'question': (0, _1.QGPTQuestionOutputToJSON)(value.question),
-        'status': (0, _1.QGPTStreamEnumToJSON)(value.status),
+        'relevance': (0, index_1.QGPTRelevanceOutputToJSON)(value.relevance),
+        'question': (0, index_1.QGPTQuestionOutputToJSON)(value.question),
+        'status': (0, index_1.QGPTStreamEnumToJSON)(value.status),
         'conversation': value.conversation,
         'statusCode': value.statusCode,
         'errorMessage': value.errorMessage,
-        'agentRoutes': (0, _1.QGPTAgentRoutesToJSON)(value.agentRoutes),
+        'agentRoutes': (0, index_1.QGPTAgentRoutesToJSON)(value.agentRoutes),
     };
 }
 exports.QGPTStreamOutputToJSON = QGPTStreamOutputToJSON;

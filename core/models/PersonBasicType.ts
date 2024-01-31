@@ -26,7 +26,7 @@ import {
     MailgunMetadataFromJSON,
     MailgunMetadataFromJSONTyped,
     MailgunMetadataToJSON,
-} from './';
+} from './index';
 
 /**
  * This is all optional properties around the most basic information around a non-pieces user.

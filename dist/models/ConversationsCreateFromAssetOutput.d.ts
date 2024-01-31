@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedConversation } from './';
+import { EmbeddedModelSchema, ReferencedConversation } from './index';
 /**
  * This is the model for the output for the "/conversations/create/from_asset/{asset}" endpoints.
  * @export

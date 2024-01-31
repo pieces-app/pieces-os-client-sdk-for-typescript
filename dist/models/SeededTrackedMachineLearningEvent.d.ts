@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GraphicalMachineLearningProcessingEvent, TLPMachineLearningProcessingEvent } from './';
+import { EmbeddedModelSchema, GraphicalMachineLearningProcessingEvent, TLPMachineLearningProcessingEvent } from './index';
 /**
  *
  * @export

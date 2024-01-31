@@ -30,7 +30,7 @@ import {
     TrackedConversationEventMetadataFromJSON,
     TrackedConversationEventMetadataFromJSONTyped,
     TrackedConversationEventMetadataToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a pre-created(seed) TrackedConversationEvent

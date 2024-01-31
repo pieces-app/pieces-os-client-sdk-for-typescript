@@ -26,7 +26,7 @@ import {
     SeededConnectorCreationFromJSON,
     SeededConnectorCreationFromJSONTyped,
     SeededConnectorCreationToJSON,
-} from './';
+} from './index';
 
 /**
  * This will the the Request body of the Request Endpoint.

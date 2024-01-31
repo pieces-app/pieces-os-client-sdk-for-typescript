@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum, TagCategoryEnum } from './';
+import { EmbeddedModelSchema, MechanismEnum, TagCategoryEnum } from './index';
 /**
  * This is the minimum information needed when creating a Tag.
  *

@@ -30,7 +30,7 @@ import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-} from './';
+} from './index';
 
 /**
  * 

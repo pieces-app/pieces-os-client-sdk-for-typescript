@@ -22,7 +22,7 @@ import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './index';
 
 /**
  * 

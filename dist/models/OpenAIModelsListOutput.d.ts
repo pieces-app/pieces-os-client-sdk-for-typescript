@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededModels } from './';
+import { EmbeddedModelSchema, SeededModels } from './index';
 /**
  * This is the output model for the /open_ai/models/list endpoint.
  * @export

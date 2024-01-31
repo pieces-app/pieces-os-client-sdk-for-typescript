@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SegmentedTechnicalLanguageFragmentToJSON = exports.SegmentedTechnicalLanguageFragmentFromJSONTyped = exports.SegmentedTechnicalLanguageFragmentFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SegmentedTechnicalLanguageFragmentFromJSON(json) {
     return SegmentedTechnicalLanguageFragmentFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SegmentedTechnicalLanguageFragmentFromJSONTyped(json, ignoreDiscriminat
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'generic': (0, _1.ClassificationGenericEnumFromJSON)(json['generic']),
-        'specific': !(0, runtime_1.exists)(json, 'specific') ? undefined : (0, _1.ClassificationSpecificEnumFromJSON)(json['specific']),
-        'fragment': (0, _1.FragmentFormatFromJSON)(json['fragment']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'generic': (0, index_1.ClassificationGenericEnumFromJSON)(json['generic']),
+        'specific': !(0, runtime_1.exists)(json, 'specific') ? undefined : (0, index_1.ClassificationSpecificEnumFromJSON)(json['specific']),
+        'fragment': (0, index_1.FragmentFormatFromJSON)(json['fragment']),
     };
 }
 exports.SegmentedTechnicalLanguageFragmentFromJSONTyped = SegmentedTechnicalLanguageFragmentFromJSONTyped;
@@ -40,10 +40,10 @@ function SegmentedTechnicalLanguageFragmentToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'generic': (0, _1.ClassificationGenericEnumToJSON)(value.generic),
-        'specific': (0, _1.ClassificationSpecificEnumToJSON)(value.specific),
-        'fragment': (0, _1.FragmentFormatToJSON)(value.fragment),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'generic': (0, index_1.ClassificationGenericEnumToJSON)(value.generic),
+        'specific': (0, index_1.ClassificationSpecificEnumToJSON)(value.specific),
+        'fragment': (0, index_1.FragmentFormatToJSON)(value.fragment),
     };
 }
 exports.SegmentedTechnicalLanguageFragmentToJSON = SegmentedTechnicalLanguageFragmentToJSON;

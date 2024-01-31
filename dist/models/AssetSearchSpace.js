@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetSearchSpaceToJSON = exports.AssetSearchSpaceFromJSONTyped = exports.AssetSearchSpaceFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AssetSearchSpaceFromJSON(json) {
     return AssetSearchSpaceFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function AssetSearchSpaceFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'identifers': (0, _1.FlattenedAssetsFromJSON)(json['identifers']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'identifers': (0, index_1.FlattenedAssetsFromJSON)(json['identifers']),
     };
 }
 exports.AssetSearchSpaceFromJSONTyped = AssetSearchSpaceFromJSONTyped;
@@ -38,8 +38,8 @@ function AssetSearchSpaceToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'identifers': (0, _1.FlattenedAssetsToJSON)(value.identifers),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'identifers': (0, index_1.FlattenedAssetsToJSON)(value.identifers),
     };
 }
 exports.AssetSearchSpaceToJSON = AssetSearchSpaceToJSON;

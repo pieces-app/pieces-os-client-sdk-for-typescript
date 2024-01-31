@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GroupedTimestamp, Recipients } from './';
+import { EmbeddedModelSchema, GroupedTimestamp, Recipients } from './index';
 /**
  * This is a published Github Gist.
  * @export

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Format, Model } from './';
+import { EmbeddedModelSchema, Format, Model } from './index';
 /**
  * This is the data collected during the ocr analysis of an image.
  * @export

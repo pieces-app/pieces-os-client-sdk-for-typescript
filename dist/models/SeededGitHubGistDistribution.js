@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededGitHubGistDistributionToJSON = exports.SeededGitHubGistDistributionFromJSONTyped = exports.SeededGitHubGistDistributionFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededGitHubGistDistributionFromJSON(json) {
     return SeededGitHubGistDistributionFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededGitHubGistDistributionFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'recipients': !(0, runtime_1.exists)(json, 'recipients') ? undefined : (0, _1.RecipientsFromJSON)(json['recipients']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'recipients': !(0, runtime_1.exists)(json, 'recipients') ? undefined : (0, index_1.RecipientsFromJSON)(json['recipients']),
         '_public': !(0, runtime_1.exists)(json, 'public') ? undefined : json['public'],
         'description': !(0, runtime_1.exists)(json, 'description') ? undefined : json['description'],
         'name': json['name'],
@@ -41,8 +41,8 @@ function SeededGitHubGistDistributionToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'recipients': (0, _1.RecipientsToJSON)(value.recipients),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'recipients': (0, index_1.RecipientsToJSON)(value.recipients),
         'public': value._public,
         'description': value.description,
         'name': value.name,

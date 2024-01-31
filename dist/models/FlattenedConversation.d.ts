@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, FlattenedWebsites, GroupedTimestamp, ReferencedModel, Score } from './';
+import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, FlattenedWebsites, GroupedTimestamp, QGPTPromptPipeline, ReferencedModel, Score } from './index';
 /**
  * This is a flattend version of the Convsersation for DAG-Safety.
  *
@@ -124,6 +124,12 @@ export interface FlattenedConversation {
      * @memberof FlattenedConversation
      */
     score?: Score;
+    /**
+     *
+     * @type {QGPTPromptPipeline}
+     * @memberof FlattenedConversation
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 export declare function FlattenedConversationFromJSON(json: any): FlattenedConversation;
 export declare function FlattenedConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedConversation;

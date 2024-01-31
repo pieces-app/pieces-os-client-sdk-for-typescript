@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAssetEnrichmentToJSON = exports.SeededAssetEnrichmentFromJSONTyped = exports.SeededAssetEnrichmentFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededAssetEnrichmentFromJSON(json) {
     return SeededAssetEnrichmentFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function SeededAssetEnrichmentFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : json['tags'],
         'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : json['websites'],
         'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : json['persons'],
@@ -41,7 +41,7 @@ function SeededAssetEnrichmentToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'tags': value.tags,
         'websites': value.websites,
         'persons': value.persons,

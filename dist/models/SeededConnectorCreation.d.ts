@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededConnectorAsset } from './';
+import { EmbeddedModelSchema, SeededConnectorAsset } from './index';
 /**
  * A encompasing creation object that can be utilized to create either an asset or a format.
  * @export

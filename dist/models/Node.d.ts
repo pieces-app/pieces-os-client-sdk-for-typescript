@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { GroupedTimestamp, NodeTypeEnum } from './';
+import { GroupedTimestamp, NodeTypeEnum } from './index';
 /**
  * This describes a node within a relationship graph used to related like types. ie asset to asset, tag to tag, ...etc
  *

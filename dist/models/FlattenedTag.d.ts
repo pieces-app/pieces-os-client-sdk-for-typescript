@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAssets, FlattenedPersons, GroupedTimestamp, MechanismEnum, Relationship, Score, TagCategoryEnum } from './';
+import { EmbeddedModelSchema, FlattenedAssets, FlattenedPersons, GroupedTimestamp, MechanismEnum, Relationship, Score, TagCategoryEnum } from './index';
 /**
  * This is a Flattened Version of a Tag.
  * @export

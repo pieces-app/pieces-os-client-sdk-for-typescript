@@ -26,7 +26,7 @@ import {
     WebsiteFromJSON,
     WebsiteFromJSONTyped,
     WebsiteToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a specific model for related websites to an asset.

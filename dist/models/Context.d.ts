@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, EmbeddedModelSchema, Health, UserProfile } from './';
+import { Application, EmbeddedModelSchema, Health, UserProfile } from './index';
 /**
  * A Context that is returned from almost all calls to the ContextAPI
  * @export

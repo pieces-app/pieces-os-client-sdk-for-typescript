@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AllocationCloudUrlsToJSON = exports.AllocationCloudUrlsFromJSONTyped = exports.AllocationCloudUrlsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AllocationCloudUrlsFromJSON(json) {
     return AllocationCloudUrlsFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function AllocationCloudUrlsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'base': (0, _1.AllocationCloudUrlFromJSON)(json['base']),
-        'id': (0, _1.AllocationCloudUrlFromJSON)(json['id']),
-        'vanity': !(0, runtime_1.exists)(json, 'vanity') ? undefined : (0, _1.AllocationCloudUrlFromJSON)(json['vanity']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'base': (0, index_1.AllocationCloudUrlFromJSON)(json['base']),
+        'id': (0, index_1.AllocationCloudUrlFromJSON)(json['id']),
+        'vanity': !(0, runtime_1.exists)(json, 'vanity') ? undefined : (0, index_1.AllocationCloudUrlFromJSON)(json['vanity']),
     };
 }
 exports.AllocationCloudUrlsFromJSONTyped = AllocationCloudUrlsFromJSONTyped;
@@ -40,10 +40,10 @@ function AllocationCloudUrlsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'base': (0, _1.AllocationCloudUrlToJSON)(value.base),
-        'id': (0, _1.AllocationCloudUrlToJSON)(value.id),
-        'vanity': (0, _1.AllocationCloudUrlToJSON)(value.vanity),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'base': (0, index_1.AllocationCloudUrlToJSON)(value.base),
+        'id': (0, index_1.AllocationCloudUrlToJSON)(value.id),
+        'vanity': (0, index_1.AllocationCloudUrlToJSON)(value.vanity),
     };
 }
 exports.AllocationCloudUrlsToJSON = AllocationCloudUrlsToJSON;

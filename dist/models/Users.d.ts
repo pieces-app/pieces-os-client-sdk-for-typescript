@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, UserProfile } from './';
+import { EmbeddedModelSchema, UserProfile } from './index';
 /**
  * A base class for a collection of users and some additional meta properties.
  * @export

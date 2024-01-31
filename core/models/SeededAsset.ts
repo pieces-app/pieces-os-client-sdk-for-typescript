@@ -38,7 +38,7 @@ import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './';
+} from './index';
 
 /**
  * This is seed data that will be come an asset.

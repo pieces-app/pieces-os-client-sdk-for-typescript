@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GraphicalImageProcessingToJSON = exports.GraphicalImageProcessingFromJSONTyped = exports.GraphicalImageProcessingFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function GraphicalImageProcessingFromJSON(json) {
     return GraphicalImageProcessingFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function GraphicalImageProcessingFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'statistics': !(0, runtime_1.exists)(json, 'statistics') ? undefined : (0, _1.GraphicalImageStatisticsFromJSON)(json['statistics']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'statistics': !(0, runtime_1.exists)(json, 'statistics') ? undefined : (0, index_1.GraphicalImageStatisticsFromJSON)(json['statistics']),
     };
 }
 exports.GraphicalImageProcessingFromJSONTyped = GraphicalImageProcessingFromJSONTyped;
@@ -38,8 +38,8 @@ function GraphicalImageProcessingToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'statistics': (0, _1.GraphicalImageStatisticsToJSON)(value.statistics),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'statistics': (0, index_1.GraphicalImageStatisticsToJSON)(value.statistics),
     };
 }
 exports.GraphicalImageProcessingToJSON = GraphicalImageProcessingToJSON;

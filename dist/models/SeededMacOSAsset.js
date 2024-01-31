@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededMacOSAssetToJSON = exports.SeededMacOSAssetFromJSONTyped = exports.SeededMacOSAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededMacOSAssetFromJSON(json) {
     return SeededMacOSAssetFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededMacOSAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'application': !(0, runtime_1.exists)(json, 'application') ? undefined : (0, _1.ApplicationFromJSON)(json['application']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'application': !(0, runtime_1.exists)(json, 'application') ? undefined : (0, index_1.ApplicationFromJSON)(json['application']),
         'value': json['value'],
     };
 }
@@ -39,8 +39,8 @@ function SeededMacOSAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'application': (0, _1.ApplicationToJSON)(value.application),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'application': (0, index_1.ApplicationToJSON)(value.application),
         'value': value.value,
     };
 }

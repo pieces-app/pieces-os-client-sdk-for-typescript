@@ -22,11 +22,15 @@ import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
+    QGPTPromptPipeline,
+    QGPTPromptPipelineFromJSON,
+    QGPTPromptPipelineFromJSONTyped,
+    QGPTPromptPipelineToJSON,
     RelevantQGPTSeeds,
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the body input for the /code_gpt/question.
@@ -73,6 +77,12 @@ export interface QGPTQuestionInput {
      * @memberof QGPTQuestionInput
      */
     messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {QGPTPromptPipeline}
+     * @memberof QGPTQuestionInput
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 
 export function QGPTQuestionInputFromJSON(json: any): QGPTQuestionInput {
@@ -91,6 +101,7 @@ export function QGPTQuestionInputFromJSONTyped(json: any, ignoreDiscriminator: b
         'application': !exists(json, 'application') ? undefined : json['application'],
         'model': !exists(json, 'model') ? undefined : json['model'],
         'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
     };
 }
 
@@ -109,6 +120,7 @@ export function QGPTQuestionInputToJSON(value?: QGPTQuestionInput | null): any {
         'application': value.application,
         'model': value.model,
         'messages': FlattenedConversationMessagesToJSON(value.messages),
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
 

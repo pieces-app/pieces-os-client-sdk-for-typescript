@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ConversationMessageSentimentEnum, EmbeddedModelSchema, FlattenedAnnotations, FragmentFormat, GroupedTimestamp, Model, QGPTConversationMessageRoleEnum, ReferencedConversation, Score } from './';
+import { ConversationMessageSentimentEnum, EmbeddedModelSchema, FlattenedAnnotations, FragmentFormat, GroupedTimestamp, Model, QGPTConversationMessageRoleEnum, ReferencedConversation, Score } from './index';
 /**
  * This is a flattened DAG safe version of a ConversationMessage.
  * @export

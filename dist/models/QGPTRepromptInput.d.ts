@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTConversation } from './';
+import { EmbeddedModelSchema, QGPTConversation, QGPTPromptPipeline } from './index';
 /**
  * Query is your followup question.
  *
@@ -49,6 +49,12 @@ export interface QGPTRepromptInput {
      * @memberof QGPTRepromptInput
      */
     model?: string;
+    /**
+     *
+     * @type {QGPTPromptPipeline}
+     * @memberof QGPTRepromptInput
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 export declare function QGPTRepromptInputFromJSON(json: any): QGPTRepromptInput;
 export declare function QGPTRepromptInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTRepromptInput;

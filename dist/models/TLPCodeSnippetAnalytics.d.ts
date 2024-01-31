@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TLPCodeFragmentClassification, TLPCodeFragmentDescription, TLPCodeFragmentReclassification, TLPCodeFragmentStatistics, TLPCodeFragmentTagify, TLPCodeSnippetSuggestedInteractions } from './';
+import { EmbeddedModelSchema, TLPCodeFragmentClassification, TLPCodeFragmentDescription, TLPCodeFragmentReclassification, TLPCodeFragmentStatistics, TLPCodeFragmentTagify, TLPCodeSnippetSuggestedInteractions } from './index';
 /**
  *
  * @export

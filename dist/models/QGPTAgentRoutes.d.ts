@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTAgentRelatedRoutes } from './';
+import { EmbeddedModelSchema, QGPTAgentRelatedRoutes } from './index';
 /**
  * This is apart of the Output and will let the plugin developer know if we reccomend to run specific agent functionality/routes.
  * for instance, related.people, code classification...xyz, for now we start with relatedPeople.

@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmbeddedModelSchemaToJSON = exports.EmbeddedModelSchemaFromJSONTyped = exports.EmbeddedModelSchemaFromJSON = void 0;
-const _1 = require("./");
+const index_1 = require("./index");
 function EmbeddedModelSchemaFromJSON(json) {
     return EmbeddedModelSchemaFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function EmbeddedModelSchemaFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'migration': json['migration'],
-        'semantic': (0, _1.EmbeddedModelSchemaSemanticVersionEnumFromJSON)(json['semantic']),
+        'semantic': (0, index_1.EmbeddedModelSchemaSemanticVersionEnumFromJSON)(json['semantic']),
     };
 }
 exports.EmbeddedModelSchemaFromJSONTyped = EmbeddedModelSchemaFromJSONTyped;
@@ -38,7 +38,7 @@ function EmbeddedModelSchemaToJSON(value) {
     }
     return {
         'migration': value.migration,
-        'semantic': (0, _1.EmbeddedModelSchemaSemanticVersionEnumToJSON)(value.semantic),
+        'semantic': (0, index_1.EmbeddedModelSchemaSemanticVersionEnumToJSON)(value.semantic),
     };
 }
 exports.EmbeddedModelSchemaToJSON = EmbeddedModelSchemaToJSON;

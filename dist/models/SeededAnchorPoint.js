@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAnchorPointToJSON = exports.SeededAnchorPointFromJSONTyped = exports.SeededAnchorPointFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededAnchorPointFromJSON(json) {
     return SeededAnchorPointFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function SeededAnchorPointFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'type': (0, _1.AnchorTypeEnumFromJSON)(json['type']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'type': (0, index_1.AnchorTypeEnumFromJSON)(json['type']),
         'watch': !(0, runtime_1.exists)(json, 'watch') ? undefined : json['watch'],
         'fullpath': json['fullpath'],
         'anchor': json['anchor'],
-        'platform': !(0, runtime_1.exists)(json, 'platform') ? undefined : (0, _1.PlatformEnumFromJSON)(json['platform']),
+        'platform': !(0, runtime_1.exists)(json, 'platform') ? undefined : (0, index_1.PlatformEnumFromJSON)(json['platform']),
     };
 }
 exports.SeededAnchorPointFromJSONTyped = SeededAnchorPointFromJSONTyped;
@@ -42,12 +42,12 @@ function SeededAnchorPointToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'type': (0, _1.AnchorTypeEnumToJSON)(value.type),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'type': (0, index_1.AnchorTypeEnumToJSON)(value.type),
         'watch': value.watch,
         'fullpath': value.fullpath,
         'anchor': value.anchor,
-        'platform': (0, _1.PlatformEnumToJSON)(value.platform),
+        'platform': (0, index_1.PlatformEnumToJSON)(value.platform),
     };
 }
 exports.SeededAnchorPointToJSON = SeededAnchorPointToJSON;

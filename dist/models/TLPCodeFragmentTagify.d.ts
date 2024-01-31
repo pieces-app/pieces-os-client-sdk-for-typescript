@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TLPCodeSnippetTagifyCode } from './';
+import { EmbeddedModelSchema, TLPCodeSnippetTagifyCode } from './index';
 /**
  *
  * @export

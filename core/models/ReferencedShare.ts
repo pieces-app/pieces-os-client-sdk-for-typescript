@@ -22,7 +22,7 @@ import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a [DAG SAFE] version of a share. with just a required share ID.

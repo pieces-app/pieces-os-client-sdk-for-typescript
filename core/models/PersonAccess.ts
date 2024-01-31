@@ -26,7 +26,7 @@ import {
     PersonAccessScopedEnumFromJSON,
     PersonAccessScopedEnumFromJSONTyped,
     PersonAccessScopedEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * if scoped is provided will let us know what level of permission(access) this specific person has in relation to what scope.(collection, asset,...etc)

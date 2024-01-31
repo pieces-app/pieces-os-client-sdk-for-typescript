@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReferencedShareToJSON = exports.ReferencedShareFromJSONTyped = exports.ReferencedShareFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ReferencedShareFromJSON(json) {
     return ReferencedShareFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function ReferencedShareFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, _1.FlattenedShareFromJSON)(json['reference']),
+        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, index_1.FlattenedShareFromJSON)(json['reference']),
     };
 }
 exports.ReferencedShareFromJSONTyped = ReferencedShareFromJSONTyped;
@@ -39,9 +39,9 @@ function ReferencedShareToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'reference': (0, _1.FlattenedShareToJSON)(value.reference),
+        'reference': (0, index_1.FlattenedShareToJSON)(value.reference),
     };
 }
 exports.ReferencedShareToJSON = ReferencedShareToJSON;

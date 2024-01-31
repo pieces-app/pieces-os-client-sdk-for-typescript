@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AllocationCloudToJSON = exports.AllocationCloudFromJSONTyped = exports.AllocationCloudFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AllocationCloudFromJSON(json) {
     return AllocationCloudFromJSONTyped(json, false);
 }
@@ -25,13 +25,13 @@ function AllocationCloudFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'user': json['user'],
-        'urls': (0, _1.AllocationCloudUrlsFromJSON)(json['urls']),
-        'status': (0, _1.AllocationCloudStatusFromJSON)(json['status']),
+        'urls': (0, index_1.AllocationCloudUrlsFromJSON)(json['urls']),
+        'status': (0, index_1.AllocationCloudStatusFromJSON)(json['status']),
         'project': json['project'],
-        'updated': !(0, runtime_1.exists)(json, 'updated') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'updated': !(0, runtime_1.exists)(json, 'updated') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['updated']),
         'version': !(0, runtime_1.exists)(json, 'version') ? undefined : json['version'],
         'region': !(0, runtime_1.exists)(json, 'region') ? undefined : json['region'],
     };
@@ -45,13 +45,13 @@ function AllocationCloudToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'user': value.user,
-        'urls': (0, _1.AllocationCloudUrlsToJSON)(value.urls),
-        'status': (0, _1.AllocationCloudStatusToJSON)(value.status),
+        'urls': (0, index_1.AllocationCloudUrlsToJSON)(value.urls),
+        'status': (0, index_1.AllocationCloudStatusToJSON)(value.status),
         'project': value.project,
-        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
         'version': value.version,
         'region': value.region,
     };

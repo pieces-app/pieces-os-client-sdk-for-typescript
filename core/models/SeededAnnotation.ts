@@ -30,7 +30,7 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the percursor to a fully referenced Annotation.

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedAssetsEventToJSON = exports.SeededTrackedAssetsEventFromJSONTyped = exports.SeededTrackedAssetsEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededTrackedAssetsEventFromJSON(json) {
     return SeededTrackedAssetsEventFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function SeededTrackedAssetsEventFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'identifierDescriptionPair': !(0, runtime_1.exists)(json, 'identifier_description_pair') ? undefined : (0, _1.TrackedAssetsEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.SeededTrackedAssetsEventMetadataFromJSON)(json['metadata']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'identifierDescriptionPair': !(0, runtime_1.exists)(json, 'identifier_description_pair') ? undefined : (0, index_1.TrackedAssetsEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.SeededTrackedAssetsEventMetadataFromJSON)(json['metadata']),
     };
 }
 exports.SeededTrackedAssetsEventFromJSONTyped = SeededTrackedAssetsEventFromJSONTyped;
@@ -39,9 +39,9 @@ function SeededTrackedAssetsEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'identifier_description_pair': (0, _1.TrackedAssetsEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
-        'metadata': (0, _1.SeededTrackedAssetsEventMetadataToJSON)(value.metadata),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'identifier_description_pair': (0, index_1.TrackedAssetsEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
+        'metadata': (0, index_1.SeededTrackedAssetsEventMetadataToJSON)(value.metadata),
     };
 }
 exports.SeededTrackedAssetsEventToJSON = SeededTrackedAssetsEventToJSON;

@@ -30,7 +30,7 @@ import {
     GraphicalSVGStatisticsFromJSON,
     GraphicalSVGStatisticsFromJSONTyped,
     GraphicalSVGStatisticsToJSON,
-} from './';
+} from './index';
 
 /**
  * 

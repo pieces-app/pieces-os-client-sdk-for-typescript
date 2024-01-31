@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, FlattenedWebsites, GroupedTimestamp, ReferencedModel, Score } from './';
+import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, FlattenedWebsites, GroupedTimestamp, QGPTPromptPipeline, ReferencedModel, Score } from './index';
 /**
  * This is a fully referenced Conversation.
  *
@@ -124,6 +124,12 @@ export interface Conversation {
      * @memberof Conversation
      */
     score?: Score;
+    /**
+     *
+     * @type {QGPTPromptPipeline}
+     * @memberof Conversation
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 export declare function ConversationFromJSON(json: any): Conversation;
 export declare function ConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): Conversation;

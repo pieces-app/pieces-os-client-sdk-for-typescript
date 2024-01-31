@@ -22,7 +22,7 @@ import {
     FlattenedPersonFromJSON,
     FlattenedPersonFromJSONTyped,
     FlattenedPersonToJSON,
-} from './';
+} from './index';
 
 /**
  * [DAG Safe] version of a Person Model. 

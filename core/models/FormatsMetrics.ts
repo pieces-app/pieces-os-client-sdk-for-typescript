@@ -22,7 +22,7 @@ import {
     FormatMetricFromJSON,
     FormatMetricFromJSONTyped,
     FormatMetricToJSON,
-} from './';
+} from './index';
 
 /**
  * 

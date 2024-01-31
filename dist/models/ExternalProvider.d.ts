@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ExternalProviderProfileData, ExternalProviderTypeEnum, GroupedTimestamp } from './';
+import { EmbeddedModelSchema, ExternalProviderProfileData, ExternalProviderTypeEnum, GroupedTimestamp } from './index';
 /**
  * I know that profileData and user_id have differeing casing but they are done because they map to Auth0's projeecties.
  * @export

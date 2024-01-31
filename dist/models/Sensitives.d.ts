@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Score, Sensitive } from './';
+import { EmbeddedModelSchema, Score, Sensitive } from './index';
 /**
  * This is a model that represents many individual sensitive pieces of data.
  * @export

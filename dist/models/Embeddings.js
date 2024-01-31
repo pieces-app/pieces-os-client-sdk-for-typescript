@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmbeddingsToJSON = exports.EmbeddingsFromJSONTyped = exports.EmbeddingsFromJSON = void 0;
-const _1 = require("./");
+const index_1 = require("./index");
 function EmbeddingsFromJSON(json) {
     return EmbeddingsFromJSONTyped(json, false);
 }
@@ -24,7 +24,7 @@ function EmbeddingsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'iterable': (json['iterable'].map(_1.EmbeddingFromJSON)),
+        'iterable': (json['iterable'].map(index_1.EmbeddingFromJSON)),
     };
 }
 exports.EmbeddingsFromJSONTyped = EmbeddingsFromJSONTyped;
@@ -36,7 +36,7 @@ function EmbeddingsToJSON(value) {
         return null;
     }
     return {
-        'iterable': (value.iterable.map(_1.EmbeddingToJSON)),
+        'iterable': (value.iterable.map(index_1.EmbeddingToJSON)),
     };
 }
 exports.EmbeddingsToJSON = EmbeddingsToJSON;

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AllocationCloudStatus, AllocationCloudUrls, EmbeddedModelSchema, GroupedTimestamp } from './';
+import { AllocationCloudStatus, AllocationCloudUrls, EmbeddedModelSchema, GroupedTimestamp } from './index';
 /**
  * update && version: will be present only if your cloud was successfully spun up && running.
  *

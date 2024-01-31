@@ -22,7 +22,7 @@ import {
     TLPCodeProcessingFromJSON,
     TLPCodeProcessingFromJSONTyped,
     TLPCodeProcessingToJSON,
-} from './';
+} from './index';
 
 /**
  * 

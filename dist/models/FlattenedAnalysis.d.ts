@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { CodeAnalysis, EmbeddedModelSchema, FlattenedImageAnalysis } from './';
+import { CodeAnalysis, EmbeddedModelSchema, FlattenedImageAnalysis } from './index';
 /**
  *
  * @export

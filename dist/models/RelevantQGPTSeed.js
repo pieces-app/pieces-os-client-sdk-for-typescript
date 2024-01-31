@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RelevantQGPTSeedToJSON = exports.RelevantQGPTSeedFromJSONTyped = exports.RelevantQGPTSeedFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function RelevantQGPTSeedFromJSON(json) {
     return RelevantQGPTSeedFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function RelevantQGPTSeedFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': !(0, runtime_1.exists)(json, 'id') ? undefined : json['id'],
-        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, _1.SeedFromJSON)(json['seed']),
+        'seed': !(0, runtime_1.exists)(json, 'seed') ? undefined : (0, index_1.SeedFromJSON)(json['seed']),
         'path': !(0, runtime_1.exists)(json, 'path') ? undefined : json['path'],
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.ReferencedAssetFromJSON)(json['asset']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.ReferencedAssetFromJSON)(json['asset']),
     };
 }
 exports.RelevantQGPTSeedFromJSONTyped = RelevantQGPTSeedFromJSONTyped;
@@ -41,11 +41,11 @@ function RelevantQGPTSeedToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'seed': (0, _1.SeedToJSON)(value.seed),
+        'seed': (0, index_1.SeedToJSON)(value.seed),
         'path': value.path,
-        'asset': (0, _1.ReferencedAssetToJSON)(value.asset),
+        'asset': (0, index_1.ReferencedAssetToJSON)(value.asset),
     };
 }
 exports.RelevantQGPTSeedToJSON = RelevantQGPTSeedToJSON;

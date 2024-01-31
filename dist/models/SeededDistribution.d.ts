@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MailgunDistribution, SeededGitHubDistribution } from './';
+import { EmbeddedModelSchema, MailgunDistribution, SeededGitHubDistribution } from './index';
 /**
  * TODO if we add another distribution add to this, Distribution, and flattenedDistribution.
  *

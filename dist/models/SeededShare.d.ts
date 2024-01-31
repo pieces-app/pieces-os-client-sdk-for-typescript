@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AccessEnum, Asset, Assets, EmbeddedModelSchema, SeededUser } from './';
+import { AccessEnum, Asset, Assets, EmbeddedModelSchema, SeededUser } from './index';
 /**
  *  required to pass in an asset or assets.
  * @export

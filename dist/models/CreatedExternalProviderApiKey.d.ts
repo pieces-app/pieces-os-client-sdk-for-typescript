@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0UserMetadata, EmbeddedModelSchema } from './';
+import { Auth0UserMetadata, EmbeddedModelSchema } from './index';
 /**
  * This is the outputmodel for /external_provider/api_key/create
  * @export

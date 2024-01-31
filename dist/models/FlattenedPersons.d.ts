@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedPerson, Score } from './';
+import { EmbeddedModelSchema, ReferencedPerson, Score } from './index';
 /**
  * This is the plural of Person. will have top level meta about the person including an iterable of all the person.
  * @export

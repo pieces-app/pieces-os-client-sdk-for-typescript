@@ -42,7 +42,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a hint that is attached to an asset, used for suggested_queries, and hints given via the qgpt flow.

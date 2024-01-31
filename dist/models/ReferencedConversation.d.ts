@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedConversation } from './';
+import { EmbeddedModelSchema, FlattenedConversation } from './index';
 /**
  * This is a DAG-Safe Minimal version of a Conversation.
  * @export

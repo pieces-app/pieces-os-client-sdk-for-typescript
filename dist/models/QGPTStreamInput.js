@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTStreamInputToJSON = exports.QGPTStreamInputFromJSONTyped = exports.QGPTStreamInputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTStreamInputFromJSON(json) {
     return QGPTStreamInputFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function QGPTStreamInputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'relevance': !(0, runtime_1.exists)(json, 'relevance') ? undefined : (0, _1.QGPTRelevanceInputFromJSON)(json['relevance']),
-        'question': !(0, runtime_1.exists)(json, 'question') ? undefined : (0, _1.QGPTQuestionInputFromJSON)(json['question']),
+        'relevance': !(0, runtime_1.exists)(json, 'relevance') ? undefined : (0, index_1.QGPTRelevanceInputFromJSON)(json['relevance']),
+        'question': !(0, runtime_1.exists)(json, 'question') ? undefined : (0, index_1.QGPTQuestionInputFromJSON)(json['question']),
         'request': !(0, runtime_1.exists)(json, 'request') ? undefined : json['request'],
         'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : json['conversation'],
         'stop': !(0, runtime_1.exists)(json, 'stop') ? undefined : json['stop'],
@@ -42,8 +42,8 @@ function QGPTStreamInputToJSON(value) {
         return null;
     }
     return {
-        'relevance': (0, _1.QGPTRelevanceInputToJSON)(value.relevance),
-        'question': (0, _1.QGPTQuestionInputToJSON)(value.question),
+        'relevance': (0, index_1.QGPTRelevanceInputToJSON)(value.relevance),
+        'question': (0, index_1.QGPTQuestionInputToJSON)(value.question),
         'request': value.request,
         'conversation': value.conversation,
         'stop': value.stop,

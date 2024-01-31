@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Auth0UserToJSON = exports.Auth0UserFromJSONTyped = exports.Auth0UserFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function Auth0UserFromJSON(json) {
     return Auth0UserFromJSONTyped(json, false);
 }
@@ -32,11 +32,11 @@ function Auth0UserFromJSONTyped(json, ignoreDiscriminator) {
         'emailVerified': !(0, runtime_1.exists)(json, 'email_verified') ? undefined : json['email_verified'],
         'familyName': !(0, runtime_1.exists)(json, 'family_name') ? undefined : json['family_name'],
         'givenName': !(0, runtime_1.exists)(json, 'given_name') ? undefined : json['given_name'],
-        'identities': !(0, runtime_1.exists)(json, 'identities') ? undefined : (json['identities'].map(_1.Auth0IdentityFromJSON)),
+        'identities': !(0, runtime_1.exists)(json, 'identities') ? undefined : (json['identities'].map(index_1.Auth0IdentityFromJSON)),
         'nickname': !(0, runtime_1.exists)(json, 'nickname') ? undefined : json['nickname'],
         'updatedAt': !(0, runtime_1.exists)(json, 'updated_at') ? undefined : (new Date(json['updated_at'])),
         'username': !(0, runtime_1.exists)(json, 'username') ? undefined : json['username'],
-        'userMetadata': !(0, runtime_1.exists)(json, 'user_metadata') ? undefined : (0, _1.Auth0UserMetadataFromJSON)(json['user_metadata']),
+        'userMetadata': !(0, runtime_1.exists)(json, 'user_metadata') ? undefined : (0, index_1.Auth0UserMetadataFromJSON)(json['user_metadata']),
         'locale': !(0, runtime_1.exists)(json, 'locale') ? undefined : json['locale'],
         'userId': !(0, runtime_1.exists)(json, 'user_id') ? undefined : json['user_id'],
         'lastIp': !(0, runtime_1.exists)(json, 'last_ip') ? undefined : json['last_ip'],
@@ -62,11 +62,11 @@ function Auth0UserToJSON(value) {
         'email_verified': value.emailVerified,
         'family_name': value.familyName,
         'given_name': value.givenName,
-        'identities': value.identities === undefined ? undefined : (value.identities.map(_1.Auth0IdentityToJSON)),
+        'identities': value.identities === undefined ? undefined : (value.identities.map(index_1.Auth0IdentityToJSON)),
         'nickname': value.nickname,
         'updated_at': value.updatedAt === undefined ? undefined : (value.updatedAt.toISOString()),
         'username': value.username,
-        'user_metadata': (0, _1.Auth0UserMetadataToJSON)(value.userMetadata),
+        'user_metadata': (0, index_1.Auth0UserMetadataToJSON)(value.userMetadata),
         'locale': value.locale,
         'user_id': value.userId,
         'last_ip': value.lastIp,

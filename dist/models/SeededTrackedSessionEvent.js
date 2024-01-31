@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedSessionEventToJSON = exports.SeededTrackedSessionEventFromJSONTyped = exports.SeededTrackedSessionEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededTrackedSessionEventFromJSON(json) {
     return SeededTrackedSessionEventFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededTrackedSessionEventFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'identifierDescriptionPair': (0, _1.TrackedSessionEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'identifierDescriptionPair': (0, index_1.TrackedSessionEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
     };
 }
 exports.SeededTrackedSessionEventFromJSONTyped = SeededTrackedSessionEventFromJSONTyped;
@@ -38,8 +38,8 @@ function SeededTrackedSessionEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'identifier_description_pair': (0, _1.TrackedSessionEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'identifier_description_pair': (0, index_1.TrackedSessionEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
     };
 }
 exports.SeededTrackedSessionEventToJSON = SeededTrackedSessionEventToJSON;

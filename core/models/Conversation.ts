@@ -54,6 +54,10 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    QGPTPromptPipeline,
+    QGPTPromptPipelineFromJSON,
+    QGPTPromptPipelineFromJSONTyped,
+    QGPTPromptPipelineToJSON,
     ReferencedModel,
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
@@ -62,7 +66,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a fully referenced Conversation.
@@ -178,6 +182,12 @@ export interface Conversation {
      * @memberof Conversation
      */
     score?: Score;
+    /**
+     * 
+     * @type {QGPTPromptPipeline}
+     * @memberof Conversation
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 
 export function ConversationFromJSON(json: any): Conversation {
@@ -207,6 +217,7 @@ export function ConversationFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'type': ConversationTypeEnumFromJSON(json['type']),
         'grounding': !exists(json, 'grounding') ? undefined : ConversationGroundingFromJSON(json['grounding']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
     };
 }
 
@@ -236,6 +247,7 @@ export function ConversationToJSON(value?: Conversation | null): any {
         'type': ConversationTypeEnumToJSON(value.type),
         'grounding': ConversationGroundingToJSON(value.grounding),
         'score': ScoreToJSON(value.score),
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
 

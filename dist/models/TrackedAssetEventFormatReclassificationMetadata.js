@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedAssetEventFormatReclassificationMetadataToJSON = exports.TrackedAssetEventFormatReclassificationMetadataFromJSONTyped = exports.TrackedAssetEventFormatReclassificationMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function TrackedAssetEventFormatReclassificationMetadataFromJSON(json) {
     return TrackedAssetEventFormatReclassificationMetadataFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function TrackedAssetEventFormatReclassificationMetadataFromJSONTyped(json, igno
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'previous': !(0, runtime_1.exists)(json, 'previous') ? undefined : (0, _1.ClassificationFromJSON)(json['previous']),
-        'current': !(0, runtime_1.exists)(json, 'current') ? undefined : (0, _1.ClassificationFromJSON)(json['current']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'previous': !(0, runtime_1.exists)(json, 'previous') ? undefined : (0, index_1.ClassificationFromJSON)(json['previous']),
+        'current': !(0, runtime_1.exists)(json, 'current') ? undefined : (0, index_1.ClassificationFromJSON)(json['current']),
     };
 }
 exports.TrackedAssetEventFormatReclassificationMetadataFromJSONTyped = TrackedAssetEventFormatReclassificationMetadataFromJSONTyped;
@@ -39,9 +39,9 @@ function TrackedAssetEventFormatReclassificationMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'previous': (0, _1.ClassificationToJSON)(value.previous),
-        'current': (0, _1.ClassificationToJSON)(value.current),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'previous': (0, index_1.ClassificationToJSON)(value.previous),
+        'current': (0, index_1.ClassificationToJSON)(value.current),
     };
 }
 exports.TrackedAssetEventFormatReclassificationMetadataToJSON = TrackedAssetEventFormatReclassificationMetadataToJSON;

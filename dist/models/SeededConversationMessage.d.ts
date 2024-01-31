@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ConversationMessageSentimentEnum, EmbeddedModelSchema, FragmentFormat, GroupedTimestamp, Model, QGPTConversationMessageRoleEnum, ReferencedConversation } from './';
+import { ConversationMessageSentimentEnum, EmbeddedModelSchema, FragmentFormat, GroupedTimestamp, Model, QGPTConversationMessageRoleEnum, ReferencedConversation } from './index';
 /**
  * This is a seeded version of a ConversationMessage.
  *

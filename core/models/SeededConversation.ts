@@ -34,6 +34,10 @@ import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
+    QGPTPromptPipeline,
+    QGPTPromptPipelineFromJSON,
+    QGPTPromptPipelineFromJSONTyped,
+    QGPTPromptPipelineToJSON,
     ReferencedModel,
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
@@ -50,7 +54,7 @@ import {
     SeededConversationMessageFromJSON,
     SeededConversationMessageFromJSONTyped,
     SeededConversationMessageToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a pre-Conversation object.
@@ -130,6 +134,12 @@ export interface SeededConversation {
      * @memberof SeededConversation
      */
     type: ConversationTypeEnum;
+    /**
+     * 
+     * @type {QGPTPromptPipeline}
+     * @memberof SeededConversation
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 
 export function SeededConversationFromJSON(json: any): SeededConversation {
@@ -153,6 +163,7 @@ export function SeededConversationFromJSONTyped(json: any, ignoreDiscriminator: 
         'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
         'anchors': !exists(json, 'anchors') ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
         'type': ConversationTypeEnumFromJSON(json['type']),
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
     };
 }
 
@@ -176,6 +187,7 @@ export function SeededConversationToJSON(value?: SeededConversation | null): any
         'websites': FlattenedWebsitesToJSON(value.websites),
         'anchors': value.anchors === undefined ? undefined : ((value.anchors as Array<any>).map(SeededAnchorToJSON)),
         'type': ConversationTypeEnumToJSON(value.type),
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
 

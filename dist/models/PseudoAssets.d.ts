@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedAssets } from './';
+import { EmbeddedModelSchema, FlattenedAssets } from './index';
 /**
  * This is a model of all optional properties, that will get returned from /assets/pseudo.
  * @export

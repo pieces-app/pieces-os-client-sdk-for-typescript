@@ -26,7 +26,7 @@ import {
     TLPMachineLearningProcessingEventFromJSON,
     TLPMachineLearningProcessingEventFromJSONTyped,
     TLPMachineLearningProcessingEventToJSON,
-} from './';
+} from './index';
 
 /**
  * 

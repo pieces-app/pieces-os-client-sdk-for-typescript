@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededClassification, SeededFile, SeededFragment } from './';
+import { EmbeddedModelSchema, SeededClassification, SeededFile, SeededFragment } from './index';
 /**
  * This is seeded data that will be come a format.
  *

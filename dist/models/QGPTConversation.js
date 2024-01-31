@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTConversationToJSON = exports.QGPTConversationFromJSONTyped = exports.QGPTConversationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTConversationFromJSON(json) {
     return QGPTConversationFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function QGPTConversationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': !(0, runtime_1.exists)(json, 'iterable') ? undefined : (json['iterable'].map(_1.QGPTConversationMessageFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': !(0, runtime_1.exists)(json, 'iterable') ? undefined : (json['iterable'].map(index_1.QGPTConversationMessageFromJSON)),
     };
 }
 exports.QGPTConversationFromJSONTyped = QGPTConversationFromJSONTyped;
@@ -38,8 +38,8 @@ function QGPTConversationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': value.iterable === undefined ? undefined : (value.iterable.map(_1.QGPTConversationMessageToJSON)),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': value.iterable === undefined ? undefined : (value.iterable.map(index_1.QGPTConversationMessageToJSON)),
     };
 }
 exports.QGPTConversationToJSON = QGPTConversationToJSON;

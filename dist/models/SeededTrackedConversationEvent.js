@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedConversationEventToJSON = exports.SeededTrackedConversationEventFromJSONTyped = exports.SeededTrackedConversationEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededTrackedConversationEventFromJSON(json) {
     return SeededTrackedConversationEventFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SeededTrackedConversationEventFromJSONTyped(json, ignoreDiscriminator) 
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'identifierDescriptionPair': (0, _1.TrackedConversationEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
-        'conversation': (0, _1.ReferencedConversationFromJSON)(json['conversation']),
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.TrackedConversationEventMetadataFromJSON)(json['metadata']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'identifierDescriptionPair': (0, index_1.TrackedConversationEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
+        'conversation': (0, index_1.ReferencedConversationFromJSON)(json['conversation']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.TrackedConversationEventMetadataFromJSON)(json['metadata']),
     };
 }
 exports.SeededTrackedConversationEventFromJSONTyped = SeededTrackedConversationEventFromJSONTyped;
@@ -40,10 +40,10 @@ function SeededTrackedConversationEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'identifier_description_pair': (0, _1.TrackedConversationEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
-        'conversation': (0, _1.ReferencedConversationToJSON)(value.conversation),
-        'metadata': (0, _1.TrackedConversationEventMetadataToJSON)(value.metadata),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'identifier_description_pair': (0, index_1.TrackedConversationEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
+        'conversation': (0, index_1.ReferencedConversationToJSON)(value.conversation),
+        'metadata': (0, index_1.TrackedConversationEventMetadataToJSON)(value.metadata),
     };
 }
 exports.SeededTrackedConversationEventToJSON = SeededTrackedConversationEventToJSON;

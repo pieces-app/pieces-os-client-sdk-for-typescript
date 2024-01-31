@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedConversationMessages, RelevantQGPTSeeds } from './';
+import { EmbeddedModelSchema, FlattenedConversationMessages, QGPTPromptPipeline, RelevantQGPTSeeds } from './index';
 /**
  * This is the body input for the /code_gpt/question.
  *
@@ -55,6 +55,12 @@ export interface QGPTQuestionInput {
      * @memberof QGPTQuestionInput
      */
     messages?: FlattenedConversationMessages;
+    /**
+     *
+     * @type {QGPTPromptPipeline}
+     * @memberof QGPTQuestionInput
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 export declare function QGPTQuestionInputFromJSON(json: any): QGPTQuestionInput;
 export declare function QGPTQuestionInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionInput;

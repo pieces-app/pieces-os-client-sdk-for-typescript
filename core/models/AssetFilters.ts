@@ -26,7 +26,7 @@ import {
     FilterOperationTypeEnumFromJSON,
     FilterOperationTypeEnumFromJSONTyped,
     FilterOperationTypeEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * 

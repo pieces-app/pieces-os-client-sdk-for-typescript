@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTRelevanceOutputToJSON = exports.QGPTRelevanceOutputFromJSONTyped = exports.QGPTRelevanceOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTRelevanceOutputFromJSON(json) {
     return QGPTRelevanceOutputFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function QGPTRelevanceOutputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'answer': !(0, runtime_1.exists)(json, 'answer') ? undefined : (0, _1.QGPTQuestionOutputFromJSON)(json['answer']),
-        'relevant': (0, _1.RelevantQGPTSeedsFromJSON)(json['relevant']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'answer': !(0, runtime_1.exists)(json, 'answer') ? undefined : (0, index_1.QGPTQuestionOutputFromJSON)(json['answer']),
+        'relevant': (0, index_1.RelevantQGPTSeedsFromJSON)(json['relevant']),
     };
 }
 exports.QGPTRelevanceOutputFromJSONTyped = QGPTRelevanceOutputFromJSONTyped;
@@ -39,9 +39,9 @@ function QGPTRelevanceOutputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'answer': (0, _1.QGPTQuestionOutputToJSON)(value.answer),
-        'relevant': (0, _1.RelevantQGPTSeedsToJSON)(value.relevant),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'answer': (0, index_1.QGPTQuestionOutputToJSON)(value.answer),
+        'relevant': (0, index_1.RelevantQGPTSeedsToJSON)(value.relevant),
     };
 }
 exports.QGPTRelevanceOutputToJSON = QGPTRelevanceOutputToJSON;

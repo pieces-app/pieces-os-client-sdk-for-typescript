@@ -22,7 +22,7 @@ import {
     ExportedDatabaseFormatsFromJSON,
     ExportedDatabaseFormatsFromJSONTyped,
     ExportedDatabaseFormatsToJSON,
-} from './';
+} from './index';
 
 /**
  * 

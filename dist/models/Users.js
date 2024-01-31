@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersToJSON = exports.UsersFromJSONTyped = exports.UsersFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function UsersFromJSON(json) {
     return UsersFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function UsersFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': !(0, runtime_1.exists)(json, 'iterable') ? undefined : (json['iterable'].map(_1.UserProfileFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': !(0, runtime_1.exists)(json, 'iterable') ? undefined : (json['iterable'].map(index_1.UserProfileFromJSON)),
     };
 }
 exports.UsersFromJSONTyped = UsersFromJSONTyped;
@@ -38,8 +38,8 @@ function UsersToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': value.iterable === undefined ? undefined : (value.iterable.map(_1.UserProfileToJSON)),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': value.iterable === undefined ? undefined : (value.iterable.map(index_1.UserProfileToJSON)),
     };
 }
 exports.UsersToJSON = UsersToJSON;

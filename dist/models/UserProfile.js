@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserProfileToJSON = exports.UserProfileFromJSONTyped = exports.UserProfileFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function UserProfileFromJSON(json) {
     return UserProfileFromJSONTyped(json, false);
 }
@@ -25,19 +25,19 @@ function UserProfileFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'picture': !(0, runtime_1.exists)(json, 'picture') ? undefined : json['picture'],
         'email': !(0, runtime_1.exists)(json, 'email') ? undefined : json['email'],
-        'created': !(0, runtime_1.exists)(json, 'created') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['created']),
-        'updated': !(0, runtime_1.exists)(json, 'updated') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'created': !(0, runtime_1.exists)(json, 'created') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['created']),
+        'updated': !(0, runtime_1.exists)(json, 'updated') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['updated']),
         'username': !(0, runtime_1.exists)(json, 'username') ? undefined : json['username'],
         'id': json['id'],
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
-        'aesthetics': (0, _1.AestheticsFromJSON)(json['aesthetics']),
+        'aesthetics': (0, index_1.AestheticsFromJSON)(json['aesthetics']),
         'vanityname': !(0, runtime_1.exists)(json, 'vanityname') ? undefined : json['vanityname'],
-        'allocation': !(0, runtime_1.exists)(json, 'allocation') ? undefined : (0, _1.AllocationCloudFromJSON)(json['allocation']),
-        'providers': !(0, runtime_1.exists)(json, 'providers') ? undefined : (0, _1.ExternalProvidersFromJSON)(json['providers']),
-        'auth0': !(0, runtime_1.exists)(json, 'auth0') ? undefined : (0, _1.Auth0UserMetadataFromJSON)(json['auth0']),
+        'allocation': !(0, runtime_1.exists)(json, 'allocation') ? undefined : (0, index_1.AllocationCloudFromJSON)(json['allocation']),
+        'providers': !(0, runtime_1.exists)(json, 'providers') ? undefined : (0, index_1.ExternalProvidersFromJSON)(json['providers']),
+        'auth0': !(0, runtime_1.exists)(json, 'auth0') ? undefined : (0, index_1.Auth0UserMetadataFromJSON)(json['auth0']),
     };
 }
 exports.UserProfileFromJSONTyped = UserProfileFromJSONTyped;
@@ -49,19 +49,19 @@ function UserProfileToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'picture': value.picture,
         'email': value.email,
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
         'username': value.username,
         'id': value.id,
         'name': value.name,
-        'aesthetics': (0, _1.AestheticsToJSON)(value.aesthetics),
+        'aesthetics': (0, index_1.AestheticsToJSON)(value.aesthetics),
         'vanityname': value.vanityname,
-        'allocation': (0, _1.AllocationCloudToJSON)(value.allocation),
-        'providers': (0, _1.ExternalProvidersToJSON)(value.providers),
-        'auth0': (0, _1.Auth0UserMetadataToJSON)(value.auth0),
+        'allocation': (0, index_1.AllocationCloudToJSON)(value.allocation),
+        'providers': (0, index_1.ExternalProvidersToJSON)(value.providers),
+        'auth0': (0, index_1.Auth0UserMetadataToJSON)(value.auth0),
     };
 }
 exports.UserProfileToJSON = UserProfileToJSON;

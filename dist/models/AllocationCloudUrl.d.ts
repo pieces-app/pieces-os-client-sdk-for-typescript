@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AllocationStatusEnum, EmbeddedModelSchema } from './';
+import { AllocationStatusEnum, EmbeddedModelSchema } from './index';
 /**
  * This is one of the 3 possible urls that will route to your cloud :).
  * @export

@@ -22,7 +22,7 @@ import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a pre-created accessor that simply takes an os id and an optional user(flattened)

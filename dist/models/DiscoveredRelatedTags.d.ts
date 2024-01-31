@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DiscoveredRelatedTag, EmbeddedModelSchema } from './';
+import { DiscoveredRelatedTag, EmbeddedModelSchema } from './index';
 /**
  *
  * @export

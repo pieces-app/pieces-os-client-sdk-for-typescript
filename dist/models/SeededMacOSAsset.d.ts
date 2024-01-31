@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, EmbeddedModelSchema } from './';
+import { Application, EmbeddedModelSchema } from './index';
 /**
  * An Seeded Asset specific to MacOS which takes in a Value, and Application
  * @export

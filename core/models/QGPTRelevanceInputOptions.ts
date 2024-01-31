@@ -18,7 +18,11 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+    QGPTPromptPipeline,
+    QGPTPromptPipelineFromJSON,
+    QGPTPromptPipelineFromJSONTyped,
+    QGPTPromptPipelineToJSON,
+} from './index';
 
 /**
  * 
@@ -44,6 +48,12 @@ export interface QGPTRelevanceInputOptions {
      * @memberof QGPTRelevanceInputOptions
      */
     question?: boolean;
+    /**
+     * 
+     * @type {QGPTPromptPipeline}
+     * @memberof QGPTRelevanceInputOptions
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 
 export function QGPTRelevanceInputOptionsFromJSON(json: any): QGPTRelevanceInputOptions {
@@ -59,6 +69,7 @@ export function QGPTRelevanceInputOptionsFromJSONTyped(json: any, ignoreDiscrimi
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'database': !exists(json, 'database') ? undefined : json['database'],
         'question': !exists(json, 'question') ? undefined : json['question'],
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
     };
 }
 
@@ -74,6 +85,7 @@ export function QGPTRelevanceInputOptionsToJSON(value?: QGPTRelevanceInputOption
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'database': value.database,
         'question': value.question,
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
 
