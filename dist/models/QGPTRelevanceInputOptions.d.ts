@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './';
+import { EmbeddedModelSchema, QGPTPromptPipeline } from './index';
 /**
  *
  * @export
@@ -34,6 +34,12 @@ export interface QGPTRelevanceInputOptions {
      * @memberof QGPTRelevanceInputOptions
      */
     question?: boolean;
+    /**
+     *
+     * @type {QGPTPromptPipeline}
+     * @memberof QGPTRelevanceInputOptions
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 export declare function QGPTRelevanceInputOptionsFromJSON(json: any): QGPTRelevanceInputOptions;
 export declare function QGPTRelevanceInputOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTRelevanceInputOptions;

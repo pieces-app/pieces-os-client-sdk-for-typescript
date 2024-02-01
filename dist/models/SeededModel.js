@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededModelToJSON = exports.SeededModelFromJSONTyped = exports.SeededModelFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededModelFromJSON(json) {
     return SeededModelFromJSONTyped(json, false);
 }
@@ -25,24 +25,24 @@ function SeededModelFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'version': json['version'],
-        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
         'name': json['name'],
         'description': !(0, runtime_1.exists)(json, 'description') ? undefined : json['description'],
         'cloud': json['cloud'],
-        'type': (0, _1.ModelTypeEnumFromJSON)(json['type']),
-        'usage': (0, _1.ModelUsageEnumFromJSON)(json['usage']),
-        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, _1.ByteDescriptorFromJSON)(json['bytes']),
-        'ram': !(0, runtime_1.exists)(json, 'ram') ? undefined : (0, _1.ByteDescriptorFromJSON)(json['ram']),
+        'type': (0, index_1.ModelTypeEnumFromJSON)(json['type']),
+        'usage': (0, index_1.ModelUsageEnumFromJSON)(json['usage']),
+        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, index_1.ByteDescriptorFromJSON)(json['bytes']),
+        'ram': !(0, runtime_1.exists)(json, 'ram') ? undefined : (0, index_1.ByteDescriptorFromJSON)(json['ram']),
         'quantization': !(0, runtime_1.exists)(json, 'quantization') ? undefined : json['quantization'],
-        'foundation': !(0, runtime_1.exists)(json, 'foundation') ? undefined : (0, _1.ModelFoundationEnumFromJSON)(json['foundation']),
+        'foundation': !(0, runtime_1.exists)(json, 'foundation') ? undefined : (0, index_1.ModelFoundationEnumFromJSON)(json['foundation']),
         'downloaded': !(0, runtime_1.exists)(json, 'downloaded') ? undefined : json['downloaded'],
         'unique': !(0, runtime_1.exists)(json, 'unique') ? undefined : json['unique'],
         'parameters': !(0, runtime_1.exists)(json, 'parameters') ? undefined : json['parameters'],
-        'provider': !(0, runtime_1.exists)(json, 'provider') ? undefined : (0, _1.ExternalMLProviderEnumFromJSON)(json['provider']),
+        'provider': !(0, runtime_1.exists)(json, 'provider') ? undefined : (0, index_1.ExternalMLProviderEnumFromJSON)(json['provider']),
         'cpu': !(0, runtime_1.exists)(json, 'cpu') ? undefined : json['cpu'],
-        'maxTokens': !(0, runtime_1.exists)(json, 'maxTokens') ? undefined : (0, _1.ModelMaxTokensFromJSON)(json['maxTokens']),
+        'maxTokens': !(0, runtime_1.exists)(json, 'maxTokens') ? undefined : (0, index_1.ModelMaxTokensFromJSON)(json['maxTokens']),
         'custom': !(0, runtime_1.exists)(json, 'custom') ? undefined : json['custom'],
     };
 }
@@ -55,24 +55,24 @@ function SeededModelToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'version': value.version,
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
         'name': value.name,
         'description': value.description,
         'cloud': value.cloud,
-        'type': (0, _1.ModelTypeEnumToJSON)(value.type),
-        'usage': (0, _1.ModelUsageEnumToJSON)(value.usage),
-        'bytes': (0, _1.ByteDescriptorToJSON)(value.bytes),
-        'ram': (0, _1.ByteDescriptorToJSON)(value.ram),
+        'type': (0, index_1.ModelTypeEnumToJSON)(value.type),
+        'usage': (0, index_1.ModelUsageEnumToJSON)(value.usage),
+        'bytes': (0, index_1.ByteDescriptorToJSON)(value.bytes),
+        'ram': (0, index_1.ByteDescriptorToJSON)(value.ram),
         'quantization': value.quantization,
-        'foundation': (0, _1.ModelFoundationEnumToJSON)(value.foundation),
+        'foundation': (0, index_1.ModelFoundationEnumToJSON)(value.foundation),
         'downloaded': value.downloaded,
         'unique': value.unique,
         'parameters': value.parameters,
-        'provider': (0, _1.ExternalMLProviderEnumToJSON)(value.provider),
+        'provider': (0, index_1.ExternalMLProviderEnumToJSON)(value.provider),
         'cpu': value.cpu,
-        'maxTokens': (0, _1.ModelMaxTokensToJSON)(value.maxTokens),
+        'maxTokens': (0, index_1.ModelMaxTokensToJSON)(value.maxTokens),
         'custom': value.custom,
     };
 }

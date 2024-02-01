@@ -22,7 +22,7 @@ import {
     SeededTrackedApplicationFromJSON,
     SeededTrackedApplicationFromJSONTyped,
     SeededTrackedApplicationToJSON,
-} from './';
+} from './index';
 
 /**
  * A model that is passed to the context API at bootup

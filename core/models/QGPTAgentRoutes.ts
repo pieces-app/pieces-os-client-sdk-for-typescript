@@ -22,7 +22,7 @@ import {
     QGPTAgentRelatedRoutesFromJSON,
     QGPTAgentRelatedRoutesFromJSONTyped,
     QGPTAgentRelatedRoutesToJSON,
-} from './';
+} from './index';
 
 /**
  * This is apart of the Output and will let the plugin developer know if we reccomend to run specific agent functionality/routes.

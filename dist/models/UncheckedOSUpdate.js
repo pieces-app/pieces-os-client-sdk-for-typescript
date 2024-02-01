@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UncheckedOSUpdateToJSON = exports.UncheckedOSUpdateFromJSONTyped = exports.UncheckedOSUpdateFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function UncheckedOSUpdateFromJSON(json) {
     return UncheckedOSUpdateFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function UncheckedOSUpdateFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
     };
 }
 exports.UncheckedOSUpdateFromJSONTyped = UncheckedOSUpdateFromJSONTyped;
@@ -37,7 +37,7 @@ function UncheckedOSUpdateToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
     };
 }
 exports.UncheckedOSUpdateToJSON = UncheckedOSUpdateToJSON;

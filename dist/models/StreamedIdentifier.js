@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StreamedIdentifierToJSON = exports.StreamedIdentifierFromJSONTyped = exports.StreamedIdentifierFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function StreamedIdentifierFromJSON(json) {
     return StreamedIdentifierFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function StreamedIdentifierFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.ReferencedAssetFromJSON)(json['asset']),
-        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, _1.ReferencedConversationFromJSON)(json['conversation']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.ReferencedAssetFromJSON)(json['asset']),
+        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, index_1.ReferencedConversationFromJSON)(json['conversation']),
         'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : json['deleted'],
     };
 }
@@ -39,8 +39,8 @@ function StreamedIdentifierToJSON(value) {
         return null;
     }
     return {
-        'asset': (0, _1.ReferencedAssetToJSON)(value.asset),
-        'conversation': (0, _1.ReferencedConversationToJSON)(value.conversation),
+        'asset': (0, index_1.ReferencedAssetToJSON)(value.asset),
+        'conversation': (0, index_1.ReferencedConversationToJSON)(value.conversation),
         'deleted': value.deleted,
     };
 }

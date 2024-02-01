@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExistingMetadataToJSON = exports.ExistingMetadataFromJSONTyped = exports.ExistingMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ExistingMetadataFromJSON(json) {
     return ExistingMetadataFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function ExistingMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'website': !(0, runtime_1.exists)(json, 'website') ? undefined : (0, _1.ReferencedWebsiteFromJSON)(json['website']),
-        'tag': !(0, runtime_1.exists)(json, 'tag') ? undefined : (0, _1.ReferencedTagFromJSON)(json['tag']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'website': !(0, runtime_1.exists)(json, 'website') ? undefined : (0, index_1.ReferencedWebsiteFromJSON)(json['website']),
+        'tag': !(0, runtime_1.exists)(json, 'tag') ? undefined : (0, index_1.ReferencedTagFromJSON)(json['tag']),
     };
 }
 exports.ExistingMetadataFromJSONTyped = ExistingMetadataFromJSONTyped;
@@ -39,9 +39,9 @@ function ExistingMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'website': (0, _1.ReferencedWebsiteToJSON)(value.website),
-        'tag': (0, _1.ReferencedTagToJSON)(value.tag),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'website': (0, index_1.ReferencedWebsiteToJSON)(value.website),
+        'tag': (0, index_1.ReferencedTagToJSON)(value.tag),
     };
 }
 exports.ExistingMetadataToJSON = ExistingMetadataToJSON;

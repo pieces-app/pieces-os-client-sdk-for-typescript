@@ -22,7 +22,7 @@ import {
     SeededConnectorAssetFromJSON,
     SeededConnectorAssetFromJSONTyped,
     SeededConnectorAssetToJSON,
-} from './';
+} from './index';
 
 /**
  * A encompasing creation object that can be utilized to create either an asset or a format.

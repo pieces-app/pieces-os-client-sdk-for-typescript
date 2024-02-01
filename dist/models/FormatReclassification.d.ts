@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClassificationSpecificEnum, EmbeddedModelSchema, Format } from './';
+import { ClassificationSpecificEnum, EmbeddedModelSchema, Format } from './index';
 /**
  * This is a model that will represent the miminum properties required to update the classification of this format.
  * @export

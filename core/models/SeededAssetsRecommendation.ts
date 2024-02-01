@@ -26,7 +26,7 @@ import {
     InteractedAssetsFromJSON,
     InteractedAssetsFromJSONTyped,
     InteractedAssetsToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the input data model for the /assets/recommend [GET] endpoint. It includes both a list of assets but also 

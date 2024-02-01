@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ByteDescriptor, EmbeddedModelSchema, ExternalMLProviderEnum, GroupedTimestamp, ModelFoundationEnum, ModelMaxTokens, ModelTypeEnum, ModelUsageEnum } from './';
+import { ByteDescriptor, EmbeddedModelSchema, ExternalMLProviderEnum, GroupedTimestamp, ModelFoundationEnum, ModelMaxTokens, ModelTypeEnum, ModelUsageEnum } from './index';
 /**
  * This is a Machine Learning Model, that will give readable information about the Machine Learning Model Used.
  * @export

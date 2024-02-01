@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TrackedConversationEventRenameMetadata } from './';
+import { EmbeddedModelSchema, TrackedConversationEventRenameMetadata } from './index';
 /**
  * This is the metadata for the the ConversationEvent
  * @export

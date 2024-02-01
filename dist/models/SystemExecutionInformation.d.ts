@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { SystemExecutionCpuInformation } from './';
+import { SystemExecutionCpuInformation } from './index';
 /**
  * This is system information that we are able to get from the users machine(rust package TBD). TODO potentially pull this out of TLP.
  * @export

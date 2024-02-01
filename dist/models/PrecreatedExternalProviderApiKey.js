@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrecreatedExternalProviderApiKeyToJSON = exports.PrecreatedExternalProviderApiKeyFromJSONTyped = exports.PrecreatedExternalProviderApiKeyFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function PrecreatedExternalProviderApiKeyFromJSON(json) {
     return PrecreatedExternalProviderApiKeyFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function PrecreatedExternalProviderApiKeyFromJSONTyped(json, ignoreDiscriminator
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'user': json['user'],
-        'openAI': !(0, runtime_1.exists)(json, 'open_AI') ? undefined : (0, _1.Auth0OpenAIUserMetadataFromJSON)(json['open_AI']),
+        'openAI': !(0, runtime_1.exists)(json, 'open_AI') ? undefined : (0, index_1.Auth0OpenAIUserMetadataFromJSON)(json['open_AI']),
     };
 }
 exports.PrecreatedExternalProviderApiKeyFromJSONTyped = PrecreatedExternalProviderApiKeyFromJSONTyped;
@@ -39,9 +39,9 @@ function PrecreatedExternalProviderApiKeyToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'user': value.user,
-        'open_AI': (0, _1.Auth0OpenAIUserMetadataToJSON)(value.openAI),
+        'open_AI': (0, index_1.Auth0OpenAIUserMetadataToJSON)(value.openAI),
     };
 }
 exports.PrecreatedExternalProviderApiKeyToJSON = PrecreatedExternalProviderApiKeyToJSON;

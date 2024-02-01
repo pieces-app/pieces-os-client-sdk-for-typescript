@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FragmentMetadata, TransferableBytes, TransferableString } from './';
+import { EmbeddedModelSchema, FragmentMetadata, TransferableBytes, TransferableString } from './index';
 /**
  * This will be either a TransferableString or TransferableBytes that represent your fragment. ONLY Pass one or the other DONT pass both or neither.
  * @export

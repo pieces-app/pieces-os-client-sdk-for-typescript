@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AccessEnum, Accessors, Distributions, EmbeddedModelSchema, FlattenedAsset, FlattenedAssets, GroupedTimestamp, Score } from './';
+import { AccessEnum, Accessors, Distributions, EmbeddedModelSchema, FlattenedAsset, FlattenedAssets, GroupedTimestamp, Score } from './index';
 /**
  * This represents what information that is relavent to anything and every sharing related. v1 will look very bare and will add more and more data as we go!
  *

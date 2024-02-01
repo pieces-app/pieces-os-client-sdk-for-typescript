@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTRelevanceInputToJSON = exports.QGPTRelevanceInputFromJSONTyped = exports.QGPTRelevanceInputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTRelevanceInputFromJSON(json) {
     return QGPTRelevanceInputFromJSONTyped(json, false);
 }
@@ -25,13 +25,13 @@ function QGPTRelevanceInputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'query': json['query'],
         'paths': !(0, runtime_1.exists)(json, 'paths') ? undefined : json['paths'],
-        'seeds': !(0, runtime_1.exists)(json, 'seeds') ? undefined : (0, _1.SeedsFromJSON)(json['seeds']),
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
-        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (0, _1.FlattenedConversationMessagesFromJSON)(json['messages']),
-        'options': !(0, runtime_1.exists)(json, 'options') ? undefined : (0, _1.QGPTRelevanceInputOptionsFromJSON)(json['options']),
+        'seeds': !(0, runtime_1.exists)(json, 'seeds') ? undefined : (0, index_1.SeedsFromJSON)(json['seeds']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
+        'messages': !(0, runtime_1.exists)(json, 'messages') ? undefined : (0, index_1.FlattenedConversationMessagesFromJSON)(json['messages']),
+        'options': !(0, runtime_1.exists)(json, 'options') ? undefined : (0, index_1.QGPTRelevanceInputOptionsFromJSON)(json['options']),
         'application': !(0, runtime_1.exists)(json, 'application') ? undefined : json['application'],
         'model': !(0, runtime_1.exists)(json, 'model') ? undefined : json['model'],
     };
@@ -45,13 +45,13 @@ function QGPTRelevanceInputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'query': value.query,
         'paths': value.paths,
-        'seeds': (0, _1.SeedsToJSON)(value.seeds),
-        'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
-        'messages': (0, _1.FlattenedConversationMessagesToJSON)(value.messages),
-        'options': (0, _1.QGPTRelevanceInputOptionsToJSON)(value.options),
+        'seeds': (0, index_1.SeedsToJSON)(value.seeds),
+        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
+        'messages': (0, index_1.FlattenedConversationMessagesToJSON)(value.messages),
+        'options': (0, index_1.QGPTRelevanceInputOptionsToJSON)(value.options),
         'application': value.application,
         'model': value.model,
     };

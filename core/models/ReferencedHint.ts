@@ -22,7 +22,7 @@ import {
     FlattenedHintFromJSON,
     FlattenedHintFromJSONTyped,
     FlattenedHintToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the referenced version of a hint, main used for the uuid.

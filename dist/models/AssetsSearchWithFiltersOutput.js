@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetsSearchWithFiltersOutputToJSON = exports.AssetsSearchWithFiltersOutputFromJSONTyped = exports.AssetsSearchWithFiltersOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AssetsSearchWithFiltersOutputFromJSON(json) {
     return AssetsSearchWithFiltersOutputFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function AssetsSearchWithFiltersOutputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'results': (0, _1.SearchedAssetsFromJSON)(json['results']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'results': (0, index_1.SearchedAssetsFromJSON)(json['results']),
     };
 }
 exports.AssetsSearchWithFiltersOutputFromJSONTyped = AssetsSearchWithFiltersOutputFromJSONTyped;
@@ -38,8 +38,8 @@ function AssetsSearchWithFiltersOutputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'results': (0, _1.SearchedAssetsToJSON)(value.results),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'results': (0, index_1.SearchedAssetsToJSON)(value.results),
     };
 }
 exports.AssetsSearchWithFiltersOutputToJSON = AssetsSearchWithFiltersOutputToJSON;

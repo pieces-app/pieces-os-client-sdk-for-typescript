@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnchorPoint, EmbeddedModelSchema, Score } from './';
+import { AnchorPoint, EmbeddedModelSchema, Score } from './index';
 /**
  * This is the plural of AnchorPoint.
  * @export

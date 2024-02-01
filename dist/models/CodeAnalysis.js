@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CodeAnalysisToJSON = exports.CodeAnalysisFromJSONTyped = exports.CodeAnalysisFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function CodeAnalysisFromJSON(json) {
     return CodeAnalysisFromJSONTyped(json, false);
 }
@@ -25,17 +25,17 @@ function CodeAnalysisFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'tokenized': !(0, runtime_1.exists)(json, 'tokenized') ? undefined : json['tokenized'],
         'language': !(0, runtime_1.exists)(json, 'language') ? undefined : json['language'],
-        'type': (0, _1.ClassificationGenericEnumFromJSON)(json['type']),
+        'type': (0, index_1.ClassificationGenericEnumFromJSON)(json['type']),
         'prediction': !(0, runtime_1.exists)(json, 'prediction') ? undefined : json['prediction'],
         'similarity': !(0, runtime_1.exists)(json, 'similarity') ? undefined : json['similarity'],
         'top5Colors': !(0, runtime_1.exists)(json, 'top5Colors') ? undefined : json['top5Colors'],
         'top5Sorted': !(0, runtime_1.exists)(json, 'top5Sorted') ? undefined : json['top5Sorted'],
         'id': json['id'],
         'analysis': json['analysis'],
-        'model': (0, _1.ModelFromJSON)(json['model']),
+        'model': (0, index_1.ModelFromJSON)(json['model']),
     };
 }
 exports.CodeAnalysisFromJSONTyped = CodeAnalysisFromJSONTyped;
@@ -47,17 +47,17 @@ function CodeAnalysisToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'tokenized': value.tokenized,
         'language': value.language,
-        'type': (0, _1.ClassificationGenericEnumToJSON)(value.type),
+        'type': (0, index_1.ClassificationGenericEnumToJSON)(value.type),
         'prediction': value.prediction,
         'similarity': value.similarity,
         'top5Colors': value.top5Colors,
         'top5Sorted': value.top5Sorted,
         'id': value.id,
         'analysis': value.analysis,
-        'model': (0, _1.ModelToJSON)(value.model),
+        'model': (0, index_1.ModelToJSON)(value.model),
     };
 }
 exports.CodeAnalysisToJSON = CodeAnalysisToJSON;

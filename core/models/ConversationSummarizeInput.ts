@@ -22,7 +22,7 @@ import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-} from './';
+} from './index';
 
 /**
  * Optionally you may pass in a list of conversation message that you would like to use for the summary.

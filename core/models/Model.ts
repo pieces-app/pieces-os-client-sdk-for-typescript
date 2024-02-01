@@ -46,7 +46,7 @@ import {
     ModelUsageEnumFromJSON,
     ModelUsageEnumFromJSONTyped,
     ModelUsageEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a Machine Learning Model, that will give readable information about the Machine Learning Model Used.

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileMetadataToJSON = exports.FileMetadataFromJSONTyped = exports.FileMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function FileMetadataFromJSON(json) {
     return FileMetadataFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function FileMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
-        'ext': !(0, runtime_1.exists)(json, 'ext') ? undefined : (0, _1.ClassificationSpecificEnumFromJSON)(json['ext']),
+        'ext': !(0, runtime_1.exists)(json, 'ext') ? undefined : (0, index_1.ClassificationSpecificEnumFromJSON)(json['ext']),
         'size': !(0, runtime_1.exists)(json, 'size') ? undefined : json['size'],
     };
 }
@@ -40,9 +40,9 @@ function FileMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'name': value.name,
-        'ext': (0, _1.ClassificationSpecificEnumToJSON)(value.ext),
+        'ext': (0, index_1.ClassificationSpecificEnumToJSON)(value.ext),
         'size': value.size,
     };
 }

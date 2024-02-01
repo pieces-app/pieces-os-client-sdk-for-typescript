@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { InteractedAssetInteractions } from './';
+import { InteractedAssetInteractions } from './index';
 /**
  * A model that represents an asset that has been interacted with.
  * @export

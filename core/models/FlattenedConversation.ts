@@ -54,6 +54,10 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    QGPTPromptPipeline,
+    QGPTPromptPipelineFromJSON,
+    QGPTPromptPipelineFromJSONTyped,
+    QGPTPromptPipelineToJSON,
     ReferencedModel,
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
@@ -62,7 +66,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './index';
 
 /**
  * This is a flattend version of the Convsersation for DAG-Safety.
@@ -178,6 +182,12 @@ export interface FlattenedConversation {
      * @memberof FlattenedConversation
      */
     score?: Score;
+    /**
+     * 
+     * @type {QGPTPromptPipeline}
+     * @memberof FlattenedConversation
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 
 export function FlattenedConversationFromJSON(json: any): FlattenedConversation {
@@ -207,6 +217,7 @@ export function FlattenedConversationFromJSONTyped(json: any, ignoreDiscriminato
         'type': ConversationTypeEnumFromJSON(json['type']),
         'grounding': !exists(json, 'grounding') ? undefined : ConversationGroundingFromJSON(json['grounding']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
     };
 }
 
@@ -236,6 +247,7 @@ export function FlattenedConversationToJSON(value?: FlattenedConversation | null
         'type': ConversationTypeEnumToJSON(value.type),
         'grounding': ConversationGroundingToJSON(value.grounding),
         'score': ScoreToJSON(value.score),
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
 

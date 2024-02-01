@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AllocationStatusEnum, EmbeddedModelSchema } from './';
+import { AllocationStatusEnum, EmbeddedModelSchema } from './index';
 /**
  *
  * @export

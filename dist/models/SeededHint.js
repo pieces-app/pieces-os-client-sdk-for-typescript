@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededHintToJSON = exports.SeededHintFromJSONTyped = exports.SeededHintFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededHintFromJSON(json) {
     return SeededHintFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SeededHintFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
         'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : json['asset'],
-        'type': (0, _1.HintTypeEnumFromJSON)(json['type']),
+        'type': (0, index_1.HintTypeEnumFromJSON)(json['type']),
         'text': json['text'],
         'model': !(0, runtime_1.exists)(json, 'model') ? undefined : json['model'],
     };
@@ -42,10 +42,10 @@ function SeededHintToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
         'asset': value.asset,
-        'type': (0, _1.HintTypeEnumToJSON)(value.type),
+        'type': (0, index_1.HintTypeEnumToJSON)(value.type),
         'text': value.text,
         'model': value.model,
     };

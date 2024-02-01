@@ -22,7 +22,7 @@ import {
     SegmentedTechnicalLanguageFragmentFromJSON,
     SegmentedTechnicalLanguageFragmentFromJSONTyped,
     SegmentedTechnicalLanguageFragmentToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the output model for '/machine_learning/text/technical_language/parsers/segmentation'

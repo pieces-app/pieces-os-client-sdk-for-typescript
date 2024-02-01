@@ -18,7 +18,7 @@ import {
     NodeFromJSON,
     NodeFromJSONTyped,
     NodeToJSON,
-} from './';
+} from './index';
 
 /**
  * 

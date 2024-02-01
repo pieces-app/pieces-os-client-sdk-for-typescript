@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedDistribution } from './';
+import { EmbeddedModelSchema, ReferencedDistribution } from './index';
 /**
  *
  * @export

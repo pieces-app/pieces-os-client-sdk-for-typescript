@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ModelDownloadProgressStatusEnum } from './';
+import { EmbeddedModelSchema, ModelDownloadProgressStatusEnum } from './index';
 /**
  * This is the model that is sent over our ws for streaming the progress of a model that is being downloaded.
  *

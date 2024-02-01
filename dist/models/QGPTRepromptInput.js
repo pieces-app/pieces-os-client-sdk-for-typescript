@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTRepromptInputToJSON = exports.QGPTRepromptInputFromJSONTyped = exports.QGPTRepromptInputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTRepromptInputFromJSON(json) {
     return QGPTRepromptInputFromJSONTyped(json, false);
 }
@@ -25,11 +25,12 @@ function QGPTRepromptInputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'query': json['query'],
-        'conversation': (0, _1.QGPTConversationFromJSON)(json['conversation']),
+        'conversation': (0, index_1.QGPTConversationFromJSON)(json['conversation']),
         'application': !(0, runtime_1.exists)(json, 'application') ? undefined : json['application'],
         'model': !(0, runtime_1.exists)(json, 'model') ? undefined : json['model'],
+        'pipeline': !(0, runtime_1.exists)(json, 'pipeline') ? undefined : (0, index_1.QGPTPromptPipelineFromJSON)(json['pipeline']),
     };
 }
 exports.QGPTRepromptInputFromJSONTyped = QGPTRepromptInputFromJSONTyped;
@@ -41,11 +42,12 @@ function QGPTRepromptInputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'query': value.query,
-        'conversation': (0, _1.QGPTConversationToJSON)(value.conversation),
+        'conversation': (0, index_1.QGPTConversationToJSON)(value.conversation),
         'application': value.application,
         'model': value.model,
+        'pipeline': (0, index_1.QGPTPromptPipelineToJSON)(value.pipeline),
     };
 }
 exports.QGPTRepromptInputToJSON = QGPTRepromptInputToJSON;

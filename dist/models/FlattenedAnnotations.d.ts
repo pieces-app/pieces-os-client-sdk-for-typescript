@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedAnnotation, Score } from './';
+import { EmbeddedModelSchema, ReferencedAnnotation, Score } from './index';
 /**
  * This is a flattened plural of Annotation, typically this will just be a list of uuids.
  * @export

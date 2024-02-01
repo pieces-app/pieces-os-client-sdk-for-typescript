@@ -22,7 +22,7 @@ import {
     FlattenedTagFromJSON,
     FlattenedTagFromJSONTyped,
     FlattenedTagToJSON,
-} from './';
+} from './index';
 
 /**
  * [DAG Safe] version of a Tag Model. 

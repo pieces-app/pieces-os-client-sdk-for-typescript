@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAssets, FlattenedWebsites, ReferencedModel, SeededAnchor, SeededAnnotation, SeededConversationMessage } from './';
+import { Application, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAssets, FlattenedWebsites, QGPTPromptPipeline, ReferencedModel, SeededAnchor, SeededAnnotation, SeededConversationMessage } from './index';
 /**
  * This is a pre-Conversation object.
  *
@@ -88,6 +88,12 @@ export interface SeededConversation {
      * @memberof SeededConversation
      */
     type: ConversationTypeEnum;
+    /**
+     *
+     * @type {QGPTPromptPipeline}
+     * @memberof SeededConversation
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 export declare function SeededConversationFromJSON(json: any): SeededConversation;
 export declare function SeededConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConversation;

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedDistribution } from './';
+import { EmbeddedModelSchema, FlattenedDistribution } from './index';
 /**
  *
  * @export

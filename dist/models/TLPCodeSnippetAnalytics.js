@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeSnippetAnalyticsToJSON = exports.TLPCodeSnippetAnalyticsFromJSONTyped = exports.TLPCodeSnippetAnalyticsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function TLPCodeSnippetAnalyticsFromJSON(json) {
     return TLPCodeSnippetAnalyticsFromJSONTyped(json, false);
 }
@@ -25,13 +25,13 @@ function TLPCodeSnippetAnalyticsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'statistics': !(0, runtime_1.exists)(json, 'statistics') ? undefined : (0, _1.TLPCodeFragmentStatisticsFromJSON)(json['statistics']),
-        'classification': !(0, runtime_1.exists)(json, 'classification') ? undefined : (0, _1.TLPCodeFragmentClassificationFromJSON)(json['classification']),
-        'reclassification': !(0, runtime_1.exists)(json, 'reclassification') ? undefined : (0, _1.TLPCodeFragmentReclassificationFromJSON)(json['reclassification']),
-        'suggested': !(0, runtime_1.exists)(json, 'suggested') ? undefined : (0, _1.TLPCodeSnippetSuggestedInteractionsFromJSON)(json['suggested']),
-        'tagify': !(0, runtime_1.exists)(json, 'tagify') ? undefined : (0, _1.TLPCodeFragmentTagifyFromJSON)(json['tagify']),
-        'description': !(0, runtime_1.exists)(json, 'description') ? undefined : (0, _1.TLPCodeFragmentDescriptionFromJSON)(json['description']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'statistics': !(0, runtime_1.exists)(json, 'statistics') ? undefined : (0, index_1.TLPCodeFragmentStatisticsFromJSON)(json['statistics']),
+        'classification': !(0, runtime_1.exists)(json, 'classification') ? undefined : (0, index_1.TLPCodeFragmentClassificationFromJSON)(json['classification']),
+        'reclassification': !(0, runtime_1.exists)(json, 'reclassification') ? undefined : (0, index_1.TLPCodeFragmentReclassificationFromJSON)(json['reclassification']),
+        'suggested': !(0, runtime_1.exists)(json, 'suggested') ? undefined : (0, index_1.TLPCodeSnippetSuggestedInteractionsFromJSON)(json['suggested']),
+        'tagify': !(0, runtime_1.exists)(json, 'tagify') ? undefined : (0, index_1.TLPCodeFragmentTagifyFromJSON)(json['tagify']),
+        'description': !(0, runtime_1.exists)(json, 'description') ? undefined : (0, index_1.TLPCodeFragmentDescriptionFromJSON)(json['description']),
     };
 }
 exports.TLPCodeSnippetAnalyticsFromJSONTyped = TLPCodeSnippetAnalyticsFromJSONTyped;
@@ -43,13 +43,13 @@ function TLPCodeSnippetAnalyticsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'statistics': (0, _1.TLPCodeFragmentStatisticsToJSON)(value.statistics),
-        'classification': (0, _1.TLPCodeFragmentClassificationToJSON)(value.classification),
-        'reclassification': (0, _1.TLPCodeFragmentReclassificationToJSON)(value.reclassification),
-        'suggested': (0, _1.TLPCodeSnippetSuggestedInteractionsToJSON)(value.suggested),
-        'tagify': (0, _1.TLPCodeFragmentTagifyToJSON)(value.tagify),
-        'description': (0, _1.TLPCodeFragmentDescriptionToJSON)(value.description),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'statistics': (0, index_1.TLPCodeFragmentStatisticsToJSON)(value.statistics),
+        'classification': (0, index_1.TLPCodeFragmentClassificationToJSON)(value.classification),
+        'reclassification': (0, index_1.TLPCodeFragmentReclassificationToJSON)(value.reclassification),
+        'suggested': (0, index_1.TLPCodeSnippetSuggestedInteractionsToJSON)(value.suggested),
+        'tagify': (0, index_1.TLPCodeFragmentTagifyToJSON)(value.tagify),
+        'description': (0, index_1.TLPCodeFragmentDescriptionToJSON)(value.description),
     };
 }
 exports.TLPCodeSnippetAnalyticsToJSON = TLPCodeSnippetAnalyticsToJSON;

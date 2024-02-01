@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchedAssetToJSON = exports.SearchedAssetFromJSONTyped = exports.SearchedAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SearchedAssetFromJSON(json) {
     return SearchedAssetFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function SearchedAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.AssetFromJSON)(json['asset']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.AssetFromJSON)(json['asset']),
         'exact': json['exact'],
         'score': json['score'],
-        'match': (0, _1.SearchedMatchEnumFromJSON)(json['match']),
+        'match': (0, index_1.SearchedMatchEnumFromJSON)(json['match']),
         'identifier': json['identifier'],
         'pseudo': !(0, runtime_1.exists)(json, 'pseudo') ? undefined : json['pseudo'],
     };
@@ -43,11 +43,11 @@ function SearchedAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'asset': (0, _1.AssetToJSON)(value.asset),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'asset': (0, index_1.AssetToJSON)(value.asset),
         'exact': value.exact,
         'score': value.score,
-        'match': (0, _1.SearchedMatchEnumToJSON)(value.match),
+        'match': (0, index_1.SearchedMatchEnumToJSON)(value.match),
         'identifier': value.identifier,
         'pseudo': value.pseudo,
     };

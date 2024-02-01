@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetFilterPhraseOptionsToJSON = exports.AssetFilterPhraseOptionsFromJSONTyped = exports.AssetFilterPhraseOptionsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AssetFilterPhraseOptionsFromJSON(json) {
     return AssetFilterPhraseOptionsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function AssetFilterPhraseOptionsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'annotation': !(0, runtime_1.exists)(json, 'annotation') ? undefined : (0, _1.AnnotationTypeEnumFromJSON)(json['annotation']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'annotation': !(0, runtime_1.exists)(json, 'annotation') ? undefined : (0, index_1.AnnotationTypeEnumFromJSON)(json['annotation']),
     };
 }
 exports.AssetFilterPhraseOptionsFromJSONTyped = AssetFilterPhraseOptionsFromJSONTyped;
@@ -38,8 +38,8 @@ function AssetFilterPhraseOptionsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'annotation': (0, _1.AnnotationTypeEnumToJSON)(value.annotation),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'annotation': (0, index_1.AnnotationTypeEnumToJSON)(value.annotation),
     };
 }
 exports.AssetFilterPhraseOptionsToJSON = AssetFilterPhraseOptionsToJSON;

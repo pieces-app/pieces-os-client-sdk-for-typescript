@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedOCRAnalysis } from './';
+import { EmbeddedModelSchema, FlattenedOCRAnalysis } from './index';
 /**
  *
  * @export

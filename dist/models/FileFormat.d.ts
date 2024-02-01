@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TransferableBytes, TransferableString } from './';
+import { EmbeddedModelSchema, TransferableBytes, TransferableString } from './index';
 /**
  * This describes a FileFormat. If you need meta data you can get all of that from your format wrapper.
  * @export

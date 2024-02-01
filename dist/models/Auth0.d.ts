@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0Identity, Auth0Redirects, Auth0User, Auth0UserMetadata, OAuthGroup } from './';
+import { Auth0Identity, Auth0Redirects, Auth0User, Auth0UserMetadata, OAuthGroup } from './index';
 /**
  * An object representing all of the properties that are available within a Auth0 PKCE Flow
  * @export

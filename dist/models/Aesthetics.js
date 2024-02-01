@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AestheticsToJSON = exports.AestheticsFromJSONTyped = exports.AestheticsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AestheticsFromJSON(json) {
     return AestheticsFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function AestheticsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'theme': (0, _1.ThemeFromJSON)(json['theme']),
-        'font': (0, _1.FontFromJSON)(json['font']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'theme': (0, index_1.ThemeFromJSON)(json['theme']),
+        'font': (0, index_1.FontFromJSON)(json['font']),
     };
 }
 exports.AestheticsFromJSONTyped = AestheticsFromJSONTyped;
@@ -39,9 +39,9 @@ function AestheticsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'theme': (0, _1.ThemeToJSON)(value.theme),
-        'font': (0, _1.FontToJSON)(value.font),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'theme': (0, index_1.ThemeToJSON)(value.theme),
+        'font': (0, index_1.FontToJSON)(value.font),
     };
 }
 exports.AestheticsToJSON = AestheticsToJSON;

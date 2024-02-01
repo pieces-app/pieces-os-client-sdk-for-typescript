@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededScore } from './';
+import { EmbeddedModelSchema, SeededScore } from './index';
 /**
  * This is the body for a respective scores increment,
  *

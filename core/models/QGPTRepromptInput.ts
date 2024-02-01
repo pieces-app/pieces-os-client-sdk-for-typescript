@@ -22,7 +22,11 @@ import {
     QGPTConversationFromJSON,
     QGPTConversationFromJSONTyped,
     QGPTConversationToJSON,
-} from './';
+    QGPTPromptPipeline,
+    QGPTPromptPipelineFromJSON,
+    QGPTPromptPipelineFromJSONTyped,
+    QGPTPromptPipelineToJSON,
+} from './index';
 
 /**
  * Query is your followup question.
@@ -63,6 +67,12 @@ export interface QGPTRepromptInput {
      * @memberof QGPTRepromptInput
      */
     model?: string;
+    /**
+     * 
+     * @type {QGPTPromptPipeline}
+     * @memberof QGPTRepromptInput
+     */
+    pipeline?: QGPTPromptPipeline;
 }
 
 export function QGPTRepromptInputFromJSON(json: any): QGPTRepromptInput {
@@ -80,6 +90,7 @@ export function QGPTRepromptInputFromJSONTyped(json: any, ignoreDiscriminator: b
         'conversation': QGPTConversationFromJSON(json['conversation']),
         'application': !exists(json, 'application') ? undefined : json['application'],
         'model': !exists(json, 'model') ? undefined : json['model'],
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
     };
 }
 
@@ -97,6 +108,7 @@ export function QGPTRepromptInputToJSON(value?: QGPTRepromptInput | null): any {
         'conversation': QGPTConversationToJSON(value.conversation),
         'application': value.application,
         'model': value.model,
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
 

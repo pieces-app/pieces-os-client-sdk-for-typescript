@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ReferencedAsset, ReferencedConversation } from './';
+import { ReferencedAsset, ReferencedConversation } from './index';
 /**
  * This is currently only used within /assets/steam/identifiers && /conversations/steam/identifiers but can be used with other as well, if we want to expand this class.
  * @export

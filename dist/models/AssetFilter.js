@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetFilterToJSON = exports.AssetFilterFromJSONTyped = exports.AssetFilterFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function AssetFilterFromJSON(json) {
     return AssetFilterFromJSONTyped(json, false);
 }
@@ -25,15 +25,15 @@ function AssetFilterFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'classification': !(0, runtime_1.exists)(json, 'classification') ? undefined : (0, _1.ClassificationSpecificEnumFromJSON)(json['classification']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'classification': !(0, runtime_1.exists)(json, 'classification') ? undefined : (0, index_1.ClassificationSpecificEnumFromJSON)(json['classification']),
         'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : json['tags'],
         'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : json['websites'],
         'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : json['persons'],
-        'phrase': !(0, runtime_1.exists)(json, 'phrase') ? undefined : (0, _1.AssetFilterPhraseFromJSON)(json['phrase']),
-        'created': !(0, runtime_1.exists)(json, 'created') ? undefined : (0, _1.AssetFilterTimestampFromJSON)(json['created']),
-        'updated': !(0, runtime_1.exists)(json, 'updated') ? undefined : (0, _1.AssetFilterTimestampFromJSON)(json['updated']),
-        'operations': !(0, runtime_1.exists)(json, 'operations') ? undefined : (0, _1.AssetFiltersFromJSON)(json['operations']),
+        'phrase': !(0, runtime_1.exists)(json, 'phrase') ? undefined : (0, index_1.AssetFilterPhraseFromJSON)(json['phrase']),
+        'created': !(0, runtime_1.exists)(json, 'created') ? undefined : (0, index_1.AssetFilterTimestampFromJSON)(json['created']),
+        'updated': !(0, runtime_1.exists)(json, 'updated') ? undefined : (0, index_1.AssetFilterTimestampFromJSON)(json['updated']),
+        'operations': !(0, runtime_1.exists)(json, 'operations') ? undefined : (0, index_1.AssetFiltersFromJSON)(json['operations']),
     };
 }
 exports.AssetFilterFromJSONTyped = AssetFilterFromJSONTyped;
@@ -45,15 +45,15 @@ function AssetFilterToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'classification': (0, _1.ClassificationSpecificEnumToJSON)(value.classification),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'classification': (0, index_1.ClassificationSpecificEnumToJSON)(value.classification),
         'tags': value.tags,
         'websites': value.websites,
         'persons': value.persons,
-        'phrase': (0, _1.AssetFilterPhraseToJSON)(value.phrase),
-        'created': (0, _1.AssetFilterTimestampToJSON)(value.created),
-        'updated': (0, _1.AssetFilterTimestampToJSON)(value.updated),
-        'operations': (0, _1.AssetFiltersToJSON)(value.operations),
+        'phrase': (0, index_1.AssetFilterPhraseToJSON)(value.phrase),
+        'created': (0, index_1.AssetFilterTimestampToJSON)(value.created),
+        'updated': (0, index_1.AssetFilterTimestampToJSON)(value.updated),
+        'operations': (0, index_1.AssetFiltersToJSON)(value.operations),
     };
 }
 exports.AssetFilterToJSON = AssetFilterToJSON;

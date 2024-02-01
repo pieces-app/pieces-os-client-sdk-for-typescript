@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededPKCEToJSON = exports.SeededPKCEFromJSONTyped = exports.SeededPKCEFromJSON = exports.SeededPKCEResponseModeEnum = exports.SeededPKCEScopeEnum = exports.SeededPKCEPromptEnum = exports.SeededPKCEScreenHintEnum = exports.SeededPKCECodeChallengeMethodEnum = exports.SeededPKCEResponseTypeEnum = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 /**
 * @export
 * @enum {string}
@@ -77,7 +77,7 @@ function SeededPKCEFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'responseType': json['response_type'],
         'state': json['state'],
         'nonce': json['nonce'],
@@ -92,7 +92,7 @@ function SeededPKCEFromJSONTyped(json, ignoreDiscriminator) {
         'invitation': !(0, runtime_1.exists)(json, 'invitation') ? undefined : json['invitation'],
         'scope': json['scope'],
         'clientId': json['client_id'],
-        'aDDITIONALPARAMETERS': !(0, runtime_1.exists)(json, 'ADDITIONAL_PARAMETERS') ? undefined : (0, _1.SeededPKCEADDITIONALPARAMETERSFromJSON)(json['ADDITIONAL_PARAMETERS']),
+        'aDDITIONALPARAMETERS': !(0, runtime_1.exists)(json, 'ADDITIONAL_PARAMETERS') ? undefined : (0, index_1.SeededPKCEADDITIONALPARAMETERSFromJSON)(json['ADDITIONAL_PARAMETERS']),
         'responseMode': !(0, runtime_1.exists)(json, 'response_mode') ? undefined : json['response_mode'],
     };
 }
@@ -105,7 +105,7 @@ function SeededPKCEToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'response_type': value.responseType,
         'state': value.state,
         'nonce': value.nonce,
@@ -120,7 +120,7 @@ function SeededPKCEToJSON(value) {
         'invitation': value.invitation,
         'scope': value.scope,
         'client_id': value.clientId,
-        'ADDITIONAL_PARAMETERS': (0, _1.SeededPKCEADDITIONALPARAMETERSToJSON)(value.aDDITIONALPARAMETERS),
+        'ADDITIONAL_PARAMETERS': (0, index_1.SeededPKCEADDITIONALPARAMETERSToJSON)(value.aDDITIONALPARAMETERS),
         'response_mode': value.responseMode,
     };
 }

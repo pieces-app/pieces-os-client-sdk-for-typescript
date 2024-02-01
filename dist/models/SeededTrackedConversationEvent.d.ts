@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedConversation, TrackedConversationEventIdentifierDescriptionPairs, TrackedConversationEventMetadata } from './';
+import { EmbeddedModelSchema, ReferencedConversation, TrackedConversationEventIdentifierDescriptionPairs, TrackedConversationEventMetadata } from './index';
 /**
  * This is a pre-created(seed) TrackedConversationEvent
  * @export

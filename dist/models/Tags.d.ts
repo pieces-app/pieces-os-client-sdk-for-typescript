@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, Score, Tag } from './';
+import { EmbeddedModelSchema, Score, Tag } from './index';
 /**
  * This is a model that represents multiple Tag Models
  * @export

@@ -30,7 +30,7 @@ import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './index';
 
 /**
  * A Context that is returned from almost all calls to the ContextAPI

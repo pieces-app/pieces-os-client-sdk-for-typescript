@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedHint } from './';
+import { EmbeddedModelSchema, FlattenedHint } from './index';
 /**
  * This is the referenced version of a hint, main used for the uuid.
  * @export

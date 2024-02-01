@@ -26,7 +26,7 @@ import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-} from './';
+} from './index';
 
 /**
  * A minimal format to send to Mixpanel

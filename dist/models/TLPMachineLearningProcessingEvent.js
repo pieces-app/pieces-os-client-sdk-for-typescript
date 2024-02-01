@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPMachineLearningProcessingEventToJSON = exports.TLPMachineLearningProcessingEventFromJSONTyped = exports.TLPMachineLearningProcessingEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function TLPMachineLearningProcessingEventFromJSON(json) {
     return TLPMachineLearningProcessingEventFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function TLPMachineLearningProcessingEventFromJSONTyped(json, ignoreDiscriminato
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'code': !(0, runtime_1.exists)(json, 'code') ? undefined : (0, _1.TLPCodeProcessingFromJSON)(json['code']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'code': !(0, runtime_1.exists)(json, 'code') ? undefined : (0, index_1.TLPCodeProcessingFromJSON)(json['code']),
     };
 }
 exports.TLPMachineLearningProcessingEventFromJSONTyped = TLPMachineLearningProcessingEventFromJSONTyped;
@@ -38,8 +38,8 @@ function TLPMachineLearningProcessingEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'code': (0, _1.TLPCodeProcessingToJSON)(value.code),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'code': (0, index_1.TLPCodeProcessingToJSON)(value.code),
     };
 }
 exports.TLPMachineLearningProcessingEventToJSON = TLPMachineLearningProcessingEventToJSON;

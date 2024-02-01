@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationToJSON = exports.NotificationFromJSONTyped = exports.NotificationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function NotificationFromJSON(json) {
     return NotificationFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function NotificationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'title': !(0, runtime_1.exists)(json, 'title') ? undefined : json['title'],
         'message': !(0, runtime_1.exists)(json, 'message') ? undefined : json['message'],
@@ -41,7 +41,7 @@ function NotificationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'title': value.title,
         'message': value.message,

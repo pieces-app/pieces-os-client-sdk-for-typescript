@@ -18,7 +18,7 @@ import {
     TrackedAssetEventFormatReclassificationMetadataFromJSON,
     TrackedAssetEventFormatReclassificationMetadataFromJSONTyped,
     TrackedAssetEventFormatReclassificationMetadataToJSON,
-} from './';
+} from './index';
 
 /**
  * 

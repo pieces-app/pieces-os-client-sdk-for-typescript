@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedShare } from './';
+import { EmbeddedModelSchema, FlattenedShare } from './index';
 /**
  * This is a [DAG SAFE] version of a share. with just a required share ID.
  * @export

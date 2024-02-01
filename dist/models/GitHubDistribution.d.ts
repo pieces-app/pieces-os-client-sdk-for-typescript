@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, GitHubGistDistribution } from './';
+import { EmbeddedModelSchema, GitHubGistDistribution } from './index';
 /**
  *
  * @export

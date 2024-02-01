@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeedsToJSON = exports.SeedsFromJSONTyped = exports.SeedsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeedsFromJSON(json) {
     return SeedsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeedsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(_1.SeedFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(index_1.SeedFromJSON)),
     };
 }
 exports.SeedsFromJSONTyped = SeedsFromJSONTyped;
@@ -38,8 +38,8 @@ function SeedsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(_1.SeedToJSON)),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(index_1.SeedToJSON)),
     };
 }
 exports.SeedsToJSON = SeedsToJSON;

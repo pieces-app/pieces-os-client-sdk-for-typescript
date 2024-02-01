@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedConversationEventIdentifierDescriptionPairsToJSON = exports.TrackedConversationEventIdentifierDescriptionPairsFromJSONTyped = exports.TrackedConversationEventIdentifierDescriptionPairsFromJSON = exports.TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum = exports.TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum = exports.TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum = exports.TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum = exports.TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum = exports.TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum = exports.TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 /**
 * @export
 * @enum {string}
@@ -75,7 +75,7 @@ function TrackedConversationEventIdentifierDescriptionPairsFromJSONTyped(json, i
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'conversationCreated': !(0, runtime_1.exists)(json, 'conversation_created') ? undefined : json['conversation_created'],
         'conversationReferenced': !(0, runtime_1.exists)(json, 'conversation_referenced') ? undefined : json['conversation_referenced'],
         'conversationDeleted': !(0, runtime_1.exists)(json, 'conversation_deleted') ? undefined : json['conversation_deleted'],
@@ -94,7 +94,7 @@ function TrackedConversationEventIdentifierDescriptionPairsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
         'conversation_created': value.conversationCreated,
         'conversation_referenced': value.conversationReferenced,
         'conversation_deleted': value.conversationDeleted,

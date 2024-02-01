@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedConversation, Score } from './';
+import { EmbeddedModelSchema, ReferencedConversation, Score } from './index';
 /**
  * Flattened version of conversations.
  * @export

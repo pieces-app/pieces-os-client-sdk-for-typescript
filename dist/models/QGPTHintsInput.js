@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTHintsInputToJSON = exports.QGPTHintsInputFromJSONTyped = exports.QGPTHintsInputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function QGPTHintsInputFromJSON(json) {
     return QGPTHintsInputFromJSONTyped(json, false);
 }
@@ -26,8 +26,8 @@ function QGPTHintsInputFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'query': !(0, runtime_1.exists)(json, 'query') ? undefined : json['query'],
-        'answer': !(0, runtime_1.exists)(json, 'answer') ? undefined : (0, _1.QGPTQuestionAnswerFromJSON)(json['answer']),
-        'relevant': (0, _1.RelevantQGPTSeedsFromJSON)(json['relevant']),
+        'answer': !(0, runtime_1.exists)(json, 'answer') ? undefined : (0, index_1.QGPTQuestionAnswerFromJSON)(json['answer']),
+        'relevant': (0, index_1.RelevantQGPTSeedsFromJSON)(json['relevant']),
         'application': !(0, runtime_1.exists)(json, 'application') ? undefined : json['application'],
         'model': !(0, runtime_1.exists)(json, 'model') ? undefined : json['model'],
     };
@@ -42,8 +42,8 @@ function QGPTHintsInputToJSON(value) {
     }
     return {
         'query': value.query,
-        'answer': (0, _1.QGPTQuestionAnswerToJSON)(value.answer),
-        'relevant': (0, _1.RelevantQGPTSeedsToJSON)(value.relevant),
+        'answer': (0, index_1.QGPTQuestionAnswerToJSON)(value.answer),
+        'relevant': (0, index_1.RelevantQGPTSeedsToJSON)(value.relevant),
         'application': value.application,
         'model': value.model,
     };

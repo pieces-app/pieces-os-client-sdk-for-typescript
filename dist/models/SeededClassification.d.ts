@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClassificationGenericEnum, ClassificationRenderingEnum, ClassificationSpecificEnum, EmbeddedModelSchema } from './';
+import { ClassificationGenericEnum, ClassificationRenderingEnum, ClassificationSpecificEnum, EmbeddedModelSchema } from './index';
 /**
  * This is the specific classification of an Asset's Format.(This is on a per format basis b/c an asset could have different formats that are different format representations of the Asset.)
  * @export

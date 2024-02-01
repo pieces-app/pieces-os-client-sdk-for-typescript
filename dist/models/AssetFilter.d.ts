@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AssetFilterPhrase, AssetFilterTimestamp, AssetFilters, ClassificationSpecificEnum, EmbeddedModelSchema } from './';
+import { AssetFilterPhrase, AssetFilterTimestamp, AssetFilters, ClassificationSpecificEnum, EmbeddedModelSchema } from './index';
 /**
  * ** in the future, consider adding an optional bool's called nextAnd, nextOr which will say that the next filter will be  AND behavor or OR behavior.
  *

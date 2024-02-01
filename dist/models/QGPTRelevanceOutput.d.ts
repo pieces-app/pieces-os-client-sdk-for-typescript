@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTQuestionOutput, RelevantQGPTSeeds } from './';
+import { EmbeddedModelSchema, QGPTQuestionOutput, RelevantQGPTSeeds } from './index';
 /**
  * This is the returned value from /code_gpt/relevance.
  *

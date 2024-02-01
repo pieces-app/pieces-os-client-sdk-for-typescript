@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, MechanismEnum, TagCategoryEnum } from './';
+import { EmbeddedModelSchema, MechanismEnum, TagCategoryEnum } from './index';
 /**
  * This is similar to an SeededTag, where this is the minimum information of a tag, but this can get added to a seededAsset,  where you may not yet have an asset id.
  * @export

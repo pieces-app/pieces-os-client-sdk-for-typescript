@@ -26,7 +26,7 @@ import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the returned value from /code_gpt/relevance.

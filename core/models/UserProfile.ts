@@ -38,7 +38,7 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the model for a user logged into Pieces.

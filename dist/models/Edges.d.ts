@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Node } from './';
+import { Node } from './index';
 /**
  *
  * @export

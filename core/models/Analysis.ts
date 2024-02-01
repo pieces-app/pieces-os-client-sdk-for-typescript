@@ -26,7 +26,7 @@ import {
     ImageAnalysisFromJSON,
     ImageAnalysisFromJSONTyped,
     ImageAnalysisToJSON,
-} from './';
+} from './index';
 
 /**
  * This the the MlAnalysis Object, that will go on a format.

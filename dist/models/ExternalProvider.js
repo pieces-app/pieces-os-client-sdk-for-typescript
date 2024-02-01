@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExternalProviderToJSON = exports.ExternalProviderFromJSONTyped = exports.ExternalProviderFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function ExternalProviderFromJSON(json) {
     return ExternalProviderFromJSONTyped(json, false);
 }
@@ -25,14 +25,14 @@ function ExternalProviderFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'type': (0, _1.ExternalProviderTypeEnumFromJSON)(json['type']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'type': (0, index_1.ExternalProviderTypeEnumFromJSON)(json['type']),
         'userId': json['user_id'],
         'accessToken': !(0, runtime_1.exists)(json, 'access_token') ? undefined : json['access_token'],
         'expiresIn': !(0, runtime_1.exists)(json, 'expires_in') ? undefined : json['expires_in'],
-        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
-        'profileData': !(0, runtime_1.exists)(json, 'profileData') ? undefined : (0, _1.ExternalProviderProfileDataFromJSON)(json['profileData']),
+        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
+        'profileData': !(0, runtime_1.exists)(json, 'profileData') ? undefined : (0, index_1.ExternalProviderProfileDataFromJSON)(json['profileData']),
         'connection': !(0, runtime_1.exists)(json, 'connection') ? undefined : json['connection'],
         'isSocial': !(0, runtime_1.exists)(json, 'isSocial') ? undefined : json['isSocial'],
     };
@@ -46,14 +46,14 @@ function ExternalProviderToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'type': (0, _1.ExternalProviderTypeEnumToJSON)(value.type),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'type': (0, index_1.ExternalProviderTypeEnumToJSON)(value.type),
         'user_id': value.userId,
         'access_token': value.accessToken,
         'expires_in': value.expiresIn,
-        'created': (0, _1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
-        'profileData': (0, _1.ExternalProviderProfileDataToJSON)(value.profileData),
+        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
+        'profileData': (0, index_1.ExternalProviderProfileDataToJSON)(value.profileData),
         'connection': value.connection,
         'isSocial': value.isSocial,
     };

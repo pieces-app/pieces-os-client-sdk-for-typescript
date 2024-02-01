@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClassificationSpecificEnum, EmbeddedModelSchema } from './';
+import { ClassificationSpecificEnum, EmbeddedModelSchema } from './index';
 /**
  * This is a model for metadata of a file!
  * @export

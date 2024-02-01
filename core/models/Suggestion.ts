@@ -34,7 +34,7 @@ import {
     SuggestionTargetFromJSON,
     SuggestionTargetFromJSONTyped,
     SuggestionTargetToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the model return by the connector's suggest endpoint.

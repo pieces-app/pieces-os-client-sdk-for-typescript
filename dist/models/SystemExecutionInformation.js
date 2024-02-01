@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SystemExecutionInformationToJSON = exports.SystemExecutionInformationFromJSONTyped = exports.SystemExecutionInformationFromJSON = void 0;
-const _1 = require("./");
+const index_1 = require("./index");
 function SystemExecutionInformationFromJSON(json) {
     return SystemExecutionInformationFromJSONTyped(json, false);
 }
@@ -27,7 +27,7 @@ function SystemExecutionInformationFromJSONTyped(json, ignoreDiscriminator) {
         'memory': json['memory'],
         'os': json['os'],
         'kernel': json['kernel'],
-        'cpu': (0, _1.SystemExecutionCpuInformationFromJSON)(json['cpu']),
+        'cpu': (0, index_1.SystemExecutionCpuInformationFromJSON)(json['cpu']),
     };
 }
 exports.SystemExecutionInformationFromJSONTyped = SystemExecutionInformationFromJSONTyped;
@@ -42,7 +42,7 @@ function SystemExecutionInformationToJSON(value) {
         'memory': value.memory,
         'os': value.os,
         'kernel': value.kernel,
-        'cpu': (0, _1.SystemExecutionCpuInformationToJSON)(value.cpu),
+        'cpu': (0, index_1.SystemExecutionCpuInformationToJSON)(value.cpu),
     };
 }
 exports.SystemExecutionInformationToJSON = SystemExecutionInformationToJSON;

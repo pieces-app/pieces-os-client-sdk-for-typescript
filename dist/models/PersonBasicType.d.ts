@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ExternallySourcedEnum, MailgunMetadata } from './';
+import { EmbeddedModelSchema, ExternallySourcedEnum, MailgunMetadata } from './index';
 /**
  * This is all optional properties around the most basic information around a non-pieces user.
  *

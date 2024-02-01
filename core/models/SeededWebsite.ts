@@ -22,7 +22,7 @@ import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the minimum information required to create a website for a specific asset.

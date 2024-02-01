@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededDistributionsToJSON = exports.SeededDistributionsFromJSONTyped = exports.SeededDistributionsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const _1 = require("./");
+const index_1 = require("./index");
 function SeededDistributionsFromJSON(json) {
     return SeededDistributionsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededDistributionsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(_1.SeededDistributionFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(index_1.SeededDistributionFromJSON)),
     };
 }
 exports.SeededDistributionsFromJSONTyped = SeededDistributionsFromJSONTyped;
@@ -38,8 +38,8 @@ function SeededDistributionsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(_1.SeededDistributionToJSON)),
+        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(index_1.SeededDistributionToJSON)),
     };
 }
 exports.SeededDistributionsToJSON = SeededDistributionsToJSON;

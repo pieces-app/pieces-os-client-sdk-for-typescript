@@ -26,7 +26,7 @@ import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the data collected during the ocr analysis of an image.

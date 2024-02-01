@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededTrackedKeyboardEventIdentifierDescriptionPairs } from './';
+import { EmbeddedModelSchema, SeededTrackedKeyboardEventIdentifierDescriptionPairs } from './index';
 /**
  * This is a model that will hold relavent information in relation to a keyboard(including shortcuts) analytics event (usage).
  * @export

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnnotationTypeEnum, EmbeddedModelSchema } from './';
+import { AnnotationTypeEnum, EmbeddedModelSchema } from './index';
 /**
  *
  * @export

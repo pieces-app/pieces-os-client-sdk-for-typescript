@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTQuestionAnswer } from './';
+import { EmbeddedModelSchema, QGPTQuestionAnswer } from './index';
 /**
  * This is the plural of QGPTQuestionAnswer
  * @export

@@ -275,9 +275,14 @@ models/QGPTAgentRoutes.ts
 models/QGPTConversation.ts
 models/QGPTConversationMessage.ts
 models/QGPTConversationMessageRoleEnum.ts
+models/QGPTConversationPipeline.ts
+models/QGPTConversationPipelineForContextualizedCodeDialog.ts
+models/QGPTConversationPipelineForContextualizedCodeGeneration.ts
+models/QGPTConversationPipelineForGeneralizedCodeDialog.ts
 models/QGPTHintsInput.ts
 models/QGPTPersonsRelatedInput.ts
 models/QGPTPersonsRelatedOutput.ts
+models/QGPTPromptPipeline.ts
 models/QGPTQuestionAnswer.ts
 models/QGPTQuestionAnswers.ts
 models/QGPTQuestionInput.ts
@@ -290,6 +295,10 @@ models/QGPTRepromptOutput.ts
 models/QGPTStreamEnum.ts
 models/QGPTStreamInput.ts
 models/QGPTStreamOutput.ts
+models/QGPTTaskPipeline.ts
+models/QGPTTaskPipelineForCodeCommentation.ts
+models/QGPTTaskPipelineForCodeExplanation.ts
+models/QGPTTaskPipelineForCodeFix.ts
 models/Reaction.ts
 models/Recipients.ts
 models/ReferencedActivity.ts

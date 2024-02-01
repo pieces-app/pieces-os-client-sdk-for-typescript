@@ -22,7 +22,7 @@ import {
     QGPTQuestionAnswerFromJSON,
     QGPTQuestionAnswerFromJSONTyped,
     QGPTQuestionAnswerToJSON,
-} from './';
+} from './index';
 
 /**
  * This is the plural of QGPTQuestionAnswer

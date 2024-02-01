@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DiscoveredSensitive, EmbeddedModelSchema } from './';
+import { DiscoveredSensitive, EmbeddedModelSchema } from './index';
 /**
  *
  * @export

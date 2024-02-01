@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RelationshipsToJSON = exports.RelationshipsFromJSONTyped = exports.RelationshipsFromJSON = void 0;
-const _1 = require("./");
+const index_1 = require("./index");
 function RelationshipsFromJSON(json) {
     return RelationshipsFromJSONTyped(json, false);
 }
@@ -24,7 +24,7 @@ function RelationshipsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'iterable': (json['iterable'].map(_1.RelationshipFromJSON)),
+        'iterable': (json['iterable'].map(index_1.RelationshipFromJSON)),
     };
 }
 exports.RelationshipsFromJSONTyped = RelationshipsFromJSONTyped;
@@ -36,7 +36,7 @@ function RelationshipsToJSON(value) {
         return null;
     }
     return {
-        'iterable': (value.iterable.map(_1.RelationshipToJSON)),
+        'iterable': (value.iterable.map(index_1.RelationshipToJSON)),
     };
 }
 exports.RelationshipsToJSON = RelationshipsToJSON;

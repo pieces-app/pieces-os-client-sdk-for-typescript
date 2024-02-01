@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedModel } from './';
+import { EmbeddedModelSchema, ReferencedModel } from './index';
 /**
  * This is the output model for '/model/{model}/delete/cache'
  * @export
