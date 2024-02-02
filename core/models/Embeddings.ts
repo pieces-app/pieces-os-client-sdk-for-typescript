@@ -18,7 +18,7 @@ import {
     EmbeddingFromJSON,
     EmbeddingFromJSONTyped,
     EmbeddingToJSON,
-} from './index';
+} from './';
 
 /**
  * 

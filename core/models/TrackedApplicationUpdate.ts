@@ -26,7 +26,7 @@ import {
     TrackedUserProfileFromJSON,
     TrackedUserProfileFromJSONTyped,
     TrackedUserProfileToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a model used to track when an Application is Updated

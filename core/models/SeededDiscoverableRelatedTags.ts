@@ -22,7 +22,7 @@ import {
     SeededDiscoverableRelatedTagFromJSON,
     SeededDiscoverableRelatedTagFromJSONTyped,
     SeededDiscoverableRelatedTagToJSON,
-} from './index';
+} from './';
 
 /**
  * 

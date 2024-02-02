@@ -26,7 +26,7 @@ import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * A Model to describe what application a format/analytics event originated.

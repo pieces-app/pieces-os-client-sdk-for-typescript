@@ -22,6 +22,10 @@ import {
     QGPTTaskPipelineForCodeCommentationFromJSON,
     QGPTTaskPipelineForCodeCommentationFromJSONTyped,
     QGPTTaskPipelineForCodeCommentationToJSON,
+    QGPTTaskPipelineForCodeCompletion,
+    QGPTTaskPipelineForCodeCompletionFromJSON,
+    QGPTTaskPipelineForCodeCompletionFromJSONTyped,
+    QGPTTaskPipelineForCodeCompletionToJSON,
     QGPTTaskPipelineForCodeExplanation,
     QGPTTaskPipelineForCodeExplanationFromJSON,
     QGPTTaskPipelineForCodeExplanationFromJSONTyped,
@@ -30,6 +34,10 @@ import {
     QGPTTaskPipelineForCodeFixFromJSON,
     QGPTTaskPipelineForCodeFixFromJSONTyped,
     QGPTTaskPipelineForCodeFixToJSON,
+    QGPTTaskPipelineForCodeModification,
+    QGPTTaskPipelineForCodeModificationFromJSON,
+    QGPTTaskPipelineForCodeModificationFromJSONTyped,
+    QGPTTaskPipelineForCodeModificationToJSON,
 } from './index';
 
 /**
@@ -63,6 +71,18 @@ export interface QGPTTaskPipeline {
      * @memberof QGPTTaskPipeline
      */
     codeFix?: QGPTTaskPipelineForCodeFix;
+    /**
+     * 
+     * @type {QGPTTaskPipelineForCodeModification}
+     * @memberof QGPTTaskPipeline
+     */
+    codeModification?: QGPTTaskPipelineForCodeModification;
+    /**
+     * 
+     * @type {QGPTTaskPipelineForCodeCompletion}
+     * @memberof QGPTTaskPipeline
+     */
+    codeCompletion?: QGPTTaskPipelineForCodeCompletion;
 }
 
 export function QGPTTaskPipelineFromJSON(json: any): QGPTTaskPipeline {
@@ -79,6 +99,8 @@ export function QGPTTaskPipelineFromJSONTyped(json: any, ignoreDiscriminator: bo
         'codeExplanation': !exists(json, 'code_explanation') ? undefined : QGPTTaskPipelineForCodeExplanationFromJSON(json['code_explanation']),
         'codeCommentation': !exists(json, 'code_commentation') ? undefined : QGPTTaskPipelineForCodeCommentationFromJSON(json['code_commentation']),
         'codeFix': !exists(json, 'code_fix') ? undefined : QGPTTaskPipelineForCodeFixFromJSON(json['code_fix']),
+        'codeModification': !exists(json, 'code_modification') ? undefined : QGPTTaskPipelineForCodeModificationFromJSON(json['code_modification']),
+        'codeCompletion': !exists(json, 'code_completion') ? undefined : QGPTTaskPipelineForCodeCompletionFromJSON(json['code_completion']),
     };
 }
 
@@ -95,6 +117,8 @@ export function QGPTTaskPipelineToJSON(value?: QGPTTaskPipeline | null): any {
         'code_explanation': QGPTTaskPipelineForCodeExplanationToJSON(value.codeExplanation),
         'code_commentation': QGPTTaskPipelineForCodeCommentationToJSON(value.codeCommentation),
         'code_fix': QGPTTaskPipelineForCodeFixToJSON(value.codeFix),
+        'code_modification': QGPTTaskPipelineForCodeModificationToJSON(value.codeModification),
+        'code_completion': QGPTTaskPipelineForCodeCompletionToJSON(value.codeCompletion),
     };
 }
 

@@ -26,7 +26,7 @@ import {
     TrackedAssetEventCreationMetadataFileFromJSON,
     TrackedAssetEventCreationMetadataFileFromJSONTyped,
     TrackedAssetEventCreationMetadataFileToJSON,
-} from './index';
+} from './';
 
 /**
  * Metadata attached to a creation event on an Asset

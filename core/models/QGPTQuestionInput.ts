@@ -30,7 +30,7 @@ import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the body input for the /code_gpt/question.

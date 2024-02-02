@@ -22,7 +22,7 @@ import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the output model for '/model/{model}/delete/cache'

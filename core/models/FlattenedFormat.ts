@@ -58,7 +58,7 @@ import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-} from './index';
+} from './';
 
 /**
  * A representation of Data for a particular Form Factor of an Asset.[DAG Compatible - Directed Acyclic Graph Data Structure]

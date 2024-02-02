@@ -26,7 +26,7 @@ import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-} from './index';
+} from './';
 
 /**
  * Query is your followup question.

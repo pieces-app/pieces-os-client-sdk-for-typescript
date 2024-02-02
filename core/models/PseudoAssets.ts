@@ -22,7 +22,7 @@ import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a model of all optional properties, that will get returned from /assets/pseudo.

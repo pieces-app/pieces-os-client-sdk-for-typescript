@@ -22,7 +22,7 @@ import {
     SeededAssetFromJSON,
     SeededAssetFromJSONTyped,
     SeededAssetToJSON,
-} from './index';
+} from './';
 
 /**
  * A seed Model used to wrap a format or asset

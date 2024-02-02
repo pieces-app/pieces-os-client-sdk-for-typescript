@@ -22,7 +22,7 @@ import {
     SeededScoreFromJSON,
     SeededScoreFromJSONTyped,
     SeededScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the body for a respective scores increment,

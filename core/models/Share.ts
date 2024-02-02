@@ -46,7 +46,7 @@ import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './index';
+} from './';
 
 /**
  * This represents what information that is relavent to anything and every sharing related. v1 will look very bare and will add more and more data as we go!

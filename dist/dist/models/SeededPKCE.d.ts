@@ -1,0 +1,28 @@
+export const __esModule: boolean;
+export const SeededPKCEResponseTypeEnum: {};
+export const SeededPKCECodeChallengeMethodEnum: {};
+export const SeededPKCEScreenHintEnum: {};
+export const SeededPKCEPromptEnum: {};
+export const SeededPKCEScopeEnum: {};
+export const SeededPKCEResponseModeEnum: {};
+export function SeededPKCEFromJSON(json: any): any;
+export function SeededPKCEFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function SeededPKCEToJSON(value: any): {
+    schema: any;
+    response_type: any;
+    state: any;
+    nonce: any;
+    redirect_uri: any;
+    code_challenge: any;
+    code_challenge_method: any;
+    domain: any;
+    audience: any;
+    screen_hint: any;
+    prompt: any;
+    organization: any;
+    invitation: any;
+    scope: any;
+    client_id: any;
+    ADDITIONAL_PARAMETERS: any;
+    response_mode: any;
+} | null | undefined;

@@ -22,7 +22,7 @@ import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a plural model for multiple Seed.

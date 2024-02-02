@@ -22,7 +22,7 @@ import {
     SeededDiscoverableHtmlWebpageFromJSON,
     SeededDiscoverableHtmlWebpageFromJSONTyped,
     SeededDiscoverableHtmlWebpageToJSON,
-} from './index';
+} from './';
 
 /**
  * 

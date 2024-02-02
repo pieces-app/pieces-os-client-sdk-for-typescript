@@ -26,7 +26,7 @@ import {
     SearchedMatchEnumFromJSON,
     SearchedMatchEnumFromJSONTyped,
     SearchedMatchEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a modle that will represent a searched asset!

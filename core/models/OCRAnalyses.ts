@@ -22,7 +22,7 @@ import {
     OCRAnalysisFromJSON,
     OCRAnalysisFromJSONTyped,
     OCRAnalysisToJSON,
-} from './index';
+} from './';
 
 /**
  * 

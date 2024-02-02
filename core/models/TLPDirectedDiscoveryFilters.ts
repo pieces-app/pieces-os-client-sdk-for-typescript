@@ -18,7 +18,7 @@ import {
     TLPDirectedDiscoveryFilterFromJSON,
     TLPDirectedDiscoveryFilterFromJSONTyped,
     TLPDirectedDiscoveryFilterToJSON,
-} from './index';
+} from './';
 
 /**
  * Contains array of TLPDirectedDiscoveryFilter

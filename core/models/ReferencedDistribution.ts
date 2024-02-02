@@ -22,7 +22,7 @@ import {
     FlattenedDistributionFromJSON,
     FlattenedDistributionFromJSONTyped,
     FlattenedDistributionToJSON,
-} from './index';
+} from './';
 
 /**
  * 

@@ -26,7 +26,7 @@ import {
     ShareFromJSON,
     ShareFromJSONTyped,
     ShareToJSON,
-} from './index';
+} from './';
 
 /**
  * this is just an iterable of our individual share models.

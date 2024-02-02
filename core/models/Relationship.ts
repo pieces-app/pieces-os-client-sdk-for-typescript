@@ -30,7 +30,7 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './index';
+} from './';
 
 /**
  * A relationship expresses a graph of like types, to build a relationship graph. 

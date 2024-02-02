@@ -1,0 +1,24 @@
+export const __esModule: boolean;
+export function Auth0UserFromJSON(json: any): any;
+export function Auth0UserFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function Auth0UserToJSON(value: any): {
+    name: any;
+    picture: any;
+    email: any;
+    created_at: any;
+    email_verified: any;
+    family_name: any;
+    given_name: any;
+    identities: any;
+    nickname: any;
+    updated_at: any;
+    username: any;
+    user_metadata: any;
+    locale: any;
+    user_id: any;
+    last_ip: any;
+    last_login: any;
+    logins_count: any;
+    blocked_for: any;
+    guardian_authenticators: any;
+} | null | undefined;

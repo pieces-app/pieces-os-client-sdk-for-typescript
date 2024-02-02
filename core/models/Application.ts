@@ -38,7 +38,7 @@ import {
     PrivacyEnumFromJSON,
     PrivacyEnumFromJSONTyped,
     PrivacyEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * A Model to describe what application a format/analytics event originated.

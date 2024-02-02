@@ -22,7 +22,7 @@ import {
     TrackedConversationEventRenameMetadataFromJSON,
     TrackedConversationEventRenameMetadataFromJSONTyped,
     TrackedConversationEventRenameMetadataToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the metadata for the the ConversationEvent

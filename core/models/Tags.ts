@@ -26,7 +26,7 @@ import {
     TagFromJSON,
     TagFromJSONTyped,
     TagToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a model that represents multiple Tag Models

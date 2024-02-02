@@ -22,7 +22,7 @@ import {
     SeededModelsFromJSON,
     SeededModelsFromJSONTyped,
     SeededModelsToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the output model for the /open_ai/models/list endpoint.

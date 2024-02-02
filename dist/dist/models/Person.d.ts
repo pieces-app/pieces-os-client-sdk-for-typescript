@@ -1,0 +1,20 @@
+export const __esModule: boolean;
+export function PersonFromJSON(json: any): any;
+export function PersonFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function PersonToJSON(value: any): {
+    schema: any;
+    id: any;
+    created: any;
+    updated: any;
+    deleted: any;
+    type: any;
+    assets: any;
+    mechanisms: {} | undefined;
+    interactions: any;
+    access: {} | undefined;
+    tags: any;
+    websites: any;
+    models: {} | undefined;
+    annotations: any;
+    score: any;
+} | null | undefined;

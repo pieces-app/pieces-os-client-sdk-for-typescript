@@ -22,7 +22,7 @@ import {
     SeededDistributionFromJSON,
     SeededDistributionFromJSONTyped,
     SeededDistributionToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the plural version of a SeededDistribution that is not referenced just yet.
