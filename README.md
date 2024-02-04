@@ -84,7 +84,7 @@ import * as pieces from '@pieces.app/pieces-os-client'
 ## Starter Project
 You can get started with this Node/React project that shows how to use the examples below, and provides a great base for creating Assets and viewing them in your browser.
 
-You can get it here: [GitHub Repo](https://github.com/pieces-app/example-ts)
+You can get it here: [GitHub Repo](https://github.com/pieces-app/example-typescript)
 
 ## Testing Usage
 Following the initial download and light configuration, you can perform a simple test to ensure that both **Pieces OS** is running and that **you also have correctly installed the NPM package**.
