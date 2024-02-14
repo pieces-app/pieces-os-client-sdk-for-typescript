@@ -1,43 +1,46 @@
-# Get Started with Pieces OS and the @pieces.app/pieces-os-client npm package
+# @pieces.app/pieces-os-client
 
-Follow this guide to get an early look at using Pieces OS in your own development environment. Create your own copilot plugin with this toolset, and you can use this readme to get familiar with some key terms and endpoints: `assets`, `asset`, `connect`, `format`, `formats`, and `create`. There are other topics that are touched on, and further expansion on this starter project is coming soon.
+**@pieces.app/pieces-os-client** is an open source on-device AI development workflow assistant.
+
+This package contains the endpoints for communicating with [Pieces OS](https://docs.pieces.app/installation-getting-started/pieces-os) to add Pieces Copilot conversations or save code snippets and resources - entirely offline and on device with Local Large Language Models (LLLMs) keeping your data secure.
+
+Follow [this guide](https://code.pieces.app/blog/build-your-own-copilot-in-less-than-10-minutes-with-pieces-os-client) to get started with the Pieces Client in your own development environment. Check out the table of contents below to understand specific functionality, but we recommend reading along the [Copilot Series](https://code.pieces.app/blog/build-your-own-open-source-copilot-with-pieces)
 
 [![npm version](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client.svg)](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client)
 
-See the NPM package here:
-- [https://www.npmjs.com/package/@pieces.app/pieces-os-client](https://www.npmjs.com/package/@pieces.app/pieces-os-client)
-
-Read our Current Documentation:
-- [https://docs.pieces.app](https://docs.pieces.app)
-
 ## Table of Contents
 
-- [Operating System Support](#operating-system-support)
+- [Prerequisites](#prerequisites)
 - [Installing](#installing)
   - [Pieces OS](#pieces-os)
   - [Downloading NPM Package](#downloading-npm-package)
 - [Running Your Project](#running-your-project-for-the-first-time)
-- [Creating a Copilot](#creating-a-copilot)
-- [Connecting Your Application](#connecting-your-application)
-  - [Use Pieces.QGPTStreamInput](#use-piecesqgptstreaminput)
-  - [Receive QGPT Answers](#receiving-answers-with-piecesqgptquestionanswer)
 - [Connecting your Application](#connecting-your-application)
 - [Pieces.AssetApi() & Pieces.AssetsApi()](#getting-started-with-piecesassetapi--piecesassetsapi)
   - [Create New Asset Using Pieces.AssetsApi().assetsCreateNewAsset()](#piecesassetsapiassetscreatenewasset)
-- [Get Asset Snapshot](#get-assets-snapshot-piecesassetsapiassetssnapshot)
+  - [Get Asset Snapshot](#get-assets-snapshot-piecesassetsapiassetssnapshot)
+- [Creating a Copilot](#creating-a-copilot)
+  - [Use Pieces.QGPTStreamInput](#use-piecesqgptstreaminput)
+  - [Receive QGPT Answers](#receiving-answers-with-piecesqgptquestionanswer)
 - [Update a Snippets Data](#using-piecesassetapiassetupdate-to-rename-snippet)
 - [Refresh Your assetsSnapshot()](#refresh-your-snapshot)
 - [Delete an Asset](#delete-using-piecesassetsapiassetsdeleteasset)
 - [Search your Assets](#use-piecessearchapi)
 
-## Operating System Support
+## Prerequisites
 
-Currently, Pieces OS is utilized as the primary backend service with Pieces for Developers that powers all the features that can be used there. Both programs are designed for full support by all operating systems, although our Linux Platform is available, it leans towards a 'heavily supported beta' and may experience incremental issues on specific flavors of linux.
+### Operating System Support
+
+* macOS
+* Windows
+* Linux (see specific distributions [here](https://docs.pieces.app/installation-getting-started/linux))
 
 
-## Configuration & Setup with NPM
+### Configuration & Setup with NPM
 
 You can choose to follow the following steps to configure your project by hand, or you can use `npx create-react-app <your-app-name>` instead.
+
+Jump to the 
 
 ## Installing
 When developing on the Pieces platform, you need two primary things:
@@ -220,32 +223,6 @@ And after a few seconds you should be able to see in your Chrome browser (or you
 
 ##### **You have now successfully set up your dev environment, and will be ready to test different endpoints inside of Pieces OS.**
 
-## Creating a Copilot
-The following examples show how to use the Pieces Copilot and some of the endpoints available. Read more about the copilot on this article: [Creating your own Open Source Copilot](https://code.pieces.app/blog/build-your-own-open-source-copilot-with-pieces).
-
-### Use Pieces.QGPTStreamInput
-You can query the Pieces Copilot out of the box (after installation) with no application context set. The stream input is structured as a question object, containing a query and a parameter for relevance called `relevant`:
-
-```typescript 
-const input: Pieces.QGPTStreamInput = {
-	question: {
-		query,
-		relevant: {iterable: []}
-	},
-}
-````
-
-Then you can use a number of stream listeners to inside of [something like a websocket like seen here](https://jwaf.pieces.cloud/?p=c79e46aa7a) to deal with any JSON configuration.
-
-### Receiving Answers with Pieces.QGPTQuestionAnswer
-When you get a response back from the copilot after asking a question, you may need to type it accordingly to access the appropriate properties. Here would be an example if getting back the first answer message following a question that was sent over:
-
-```typescript
-const answer: Pieces.QGPTQuestionAnswer | undefined = result.question?.answers.iterable[0];
-```
-
-Read more on the specifics of the Pieces Copilot logic and [endpoints on this copilot specific repo](https://github.com/pieces-app/pieces-copilot-vanilla-typescript-example).
-
 ## Connecting your Application
 When Pieces OS is running in the background of your machine, it is communicating with other local applications that use Pieces software, and up until recently only supporting internally built tools.
 
@@ -393,70 +370,94 @@ connect().then(__ => {
 
 
 ### `Pieces.AssetsApi().assetsCreateNewAsset()`
-Now before continuing forward, we will need to prepare the `create()` function to connect to the proper `Assets/create` endpoint. Create slightly differs from connect, since previously our json object did not require any new data that was returned back from the server. In this case **we will need to include the application data that was returned back from our initial call to `/connect`.**
+Now before continuing forward, we will need to prepare the `create()` function to connect to the proper creation endpoint. Create differs from connect, since previously our json object did not require any preprocessing. In this case **we will need to include the application data that was returned back from our initial call to `connect()`.**
 
-The `create()` function needs to accomplish a few things:
+The `createAsset()` function needs to accomplish:
 
-1. Create a new asset using our simple `SeededAsset` configuration that we just created as the `seed` object
-2. Send request via `Pieces.AssetsApi().assetsCreateNewAsset()`
-3. Return the response back after this is completed
+1. Create our raw `data` var for seeding the asset.
+2. Creating a new asset using our simple `Pieces.SeededAsset` configuration
+3. Send request via `Pieces.AssetsApi().assetsCreateNewAsset()`
+4. Return the created asset back after it is validated and created
 
 Here is what the `createAsset()` function looks like in its entirety:
 
 ```tsx
-function createAsset() {
-    let _seededAsset: SeededAsset = {
-        application: applicationData,
-        format: {
-            fragment: {
-                string: { raw: data },
-            },
-        },
-        metadata: {
-            name: name
-        }
-    }
+// importing the package into this file.
+import * as pieces from '@pieces.app/pieces-os-client'
 
-    // create your seed
-    let _seed: Pieces.Seed = {
-        asset: _seededAsset,
-        type: SeedTypeEnum.Asset
+// @var code data as a string.
+var data = "<h1>Hello world</h1>";
+
+// @var title for your snippet creation.
+var name = "My First Snippet";
+
+// the create asset function where we create our seeded asset.
+// @var applicationData | look back at connect() to see where this came from
+function createAsset() {
+  let _seededAsset: Pieces.SeededAsset = {
+    application: applicationData,
+    format: {
+      fragment: {
+        string: {raw: data},
+      },
+    },
+    metadata: {
+      name: name
     }
+  }
+
+  // create your seed
+  let _seed: Pieces.Seed = {
+    asset: _seededAsset,
+    type: SeedTypeEnum.Asset
+  }
+
+  // make your api call.
+  new Pieces.AssetsApi().assetsCreateNewAsset({seed: _seed}).then(newAsset => {
+    console.log(`New Asset Created --> ${newAsset}`);
+  });
 }
 ```
 
-Now that we have the create function created, all that is left is to call `create()` and log our new asset to the console!
-
-You can add this final call to the end of the `connect.then()`:
-
-```tsx
-// make your api call.
-new Pieces.AssetsApi().assetsCreateNewAsset({seed: _seed}).then(_a => {
-    console.log("well howdy", _a);
-})
-```
-
-#### Response
-Once you receive your response back from Pieces OS, you will notice the drastic difference in the response back here. There is quite a long list of parameters that you can store alongside your assets to make them more powerful.
-
 The response back will look similar to the following: [https://jwaf.pieces.cloud/?p=24e242a85e](https://jwaf.pieces.cloud/?p=24e242a85e)
 
-
 ## Get Assets Snapshot `Pieces.AssetsApi().assetsSnapshot()`
-Now when you follow this guide, you will be receiving this data back from inside your console in the browser. But if you would like to view your data incrementally through the full browser window, you can navigate to `http://localhost:1000/assets` to view a full list of snippets that have been saved in your browser, or you could log to the console using `Pieces.AssetsApi().assetsSnapshot()`.
-
-
-
-To get your assets snapshot, you can use this to list each asset:
+When reading along, if you would like to view your data incrementally through the full browser window, you can navigate to `http://localhost:1000/assets` to view a full list of snippets that have been saved in your browser. Otherwise, you can access the snapshot with these steps:
 
 ```tsx
 new Pieces.AssetsApi().assetsSnapshot({}).then(_assetList => {
     for (let i = 0; i < _assetList.iterable.length; i++) {
-        // this will log the asset to the console.
+        // will log each asset.
        console.log(_assetsList[i]);
     }
 })
 ```
+
+## Creating a Copilot
+The following examples show how to use the Pieces Copilot and some of the endpoints available. Read more about the copilot on this article: [Creating your own Open Source Copilot](https://code.pieces.app/blog/build-your-own-open-source-copilot-with-pieces).
+
+### Use Pieces.QGPTStreamInput
+You can query the Pieces Copilot out of the box (after installation) with no application context set. The stream input is structured as a question object, containing a query and a parameter for relevance called `relevant`:
+
+```typescript 
+const input: Pieces.QGPTStreamInput = {
+	question: {
+		query,
+		relevant: {iterable: []}
+	},
+}
+````
+
+Then you can use a number of stream listeners to inside of [something like a websocket like seen here](https://jwaf.pieces.cloud/?p=c79e46aa7a) to deal with any JSON configuration.
+
+### Receiving Answers with Pieces.QGPTQuestionAnswer
+When you get a response back from the copilot after asking a question, you may need to type it accordingly to access the appropriate properties. Here would be an example if getting back the first answer message following a question that was sent over:
+
+```typescript
+const answer: Pieces.QGPTQuestionAnswer | undefined = result.question?.answers.iterable[0];
+```
+
+Read more on the specifics of the Pieces Copilot logic and [endpoints on this copilot specific repo](https://github.com/pieces-app/pieces-copilot-vanilla-typescript-example).
 
 Each asset will have and ID on it that can be used to match a singular asset here. Very useful when trying to get a specific asset from your full assetsSnapshot.
 
