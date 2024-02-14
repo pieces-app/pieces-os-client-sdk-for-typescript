@@ -27,6 +27,7 @@ class BaseAPI {
             for (const middleware of this.middleware) {
                 if (middleware.pre) {
                     fetchParams = await middleware.pre({
+                        // @ts-ignore
                         fetch: this.fetchApi,
                         ...fetchParams,
                     }) || fetchParams;
@@ -36,6 +37,7 @@ class BaseAPI {
             for (const middleware of this.middleware) {
                 if (middleware.post) {
                     response = await middleware.post({
+                        // @ts-ignore
                         fetch: this.fetchApi,
                         url: fetchParams.url,
                         init: fetchParams.init,
