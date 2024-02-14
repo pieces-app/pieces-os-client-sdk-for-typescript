@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0OpenAIUserMetadata, Auth0UserAllocationMetadata, EmbeddedModelSchema } from './index';
+import { Auth0OpenAIUserMetadata, Auth0UserAllocationMetadata, EmbeddedModelSchema } from './';
 /**
  * User Metadata from Auth0
  * @export

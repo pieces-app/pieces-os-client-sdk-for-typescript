@@ -34,7 +34,7 @@ import {
     TLPCodeSnippetAnalyticsFromJSON,
     TLPCodeSnippetAnalyticsFromJSONTyped,
     TLPCodeSnippetAnalyticsToJSON,
-} from './index';
+} from './';
 
 /**
  * 

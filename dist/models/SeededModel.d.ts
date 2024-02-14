@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ByteDescriptor, EmbeddedModelSchema, ExternalMLProviderEnum, GroupedTimestamp, ModelFoundationEnum, ModelMaxTokens, ModelTypeEnum, ModelUsageEnum } from './index';
+import { ByteDescriptor, EmbeddedModelSchema, ExternalMLProviderEnum, GroupedTimestamp, ModelFoundationEnum, ModelMaxTokens, ModelTypeEnum, ModelUsageEnum } from './';
 /**
  * This is Precursor to a Model.
  *

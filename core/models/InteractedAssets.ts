@@ -22,7 +22,7 @@ import {
     InteractedAssetFromJSON,
     InteractedAssetFromJSONTyped,
     InteractedAssetToJSON,
-} from './index';
+} from './';
 
 /**
  * A model which contains a list of InteractedAssets with potentially additional properties.

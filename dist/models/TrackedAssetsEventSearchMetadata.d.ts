@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TrackedAssetsEventSearchMetadataResults } from './index';
+import { EmbeddedModelSchema, TrackedAssetsEventSearchMetadataResults } from './';
 /**
  * Metadata attached to a search event on an Asset
  * @export

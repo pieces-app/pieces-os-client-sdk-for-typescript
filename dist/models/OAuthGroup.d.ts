@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OAuthAccount, OAuthToken } from './index';
+import { OAuthAccount, OAuthToken } from './';
 /**
  * A model to group all of the properties associated with OAuthGroup
  * @export

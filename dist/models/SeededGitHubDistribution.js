@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededGitHubDistributionToJSON = exports.SeededGitHubDistributionFromJSONTyped = exports.SeededGitHubDistributionFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededGitHubDistributionFromJSON(json) {
     return SeededGitHubDistributionFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededGitHubDistributionFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'gist': !(0, runtime_1.exists)(json, 'gist') ? undefined : (0, index_1.SeededGitHubGistDistributionFromJSON)(json['gist']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'gist': !(0, runtime_1.exists)(json, 'gist') ? undefined : (0, _1.SeededGitHubGistDistributionFromJSON)(json['gist']),
     };
 }
 exports.SeededGitHubDistributionFromJSONTyped = SeededGitHubDistributionFromJSONTyped;
@@ -38,8 +38,8 @@ function SeededGitHubDistributionToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'gist': (0, index_1.SeededGitHubGistDistributionToJSON)(value.gist),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'gist': (0, _1.SeededGitHubGistDistributionToJSON)(value.gist),
     };
 }
 exports.SeededGitHubDistributionToJSON = SeededGitHubDistributionToJSON;

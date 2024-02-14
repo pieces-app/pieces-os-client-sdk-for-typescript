@@ -22,7 +22,7 @@ import {
     RelevantQGPTSeedFromJSON,
     RelevantQGPTSeedFromJSONTyped,
     RelevantQGPTSeedToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a plural of RelevantQGPTSeed.

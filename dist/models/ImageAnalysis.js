@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImageAnalysisToJSON = exports.ImageAnalysisFromJSONTyped = exports.ImageAnalysisFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ImageAnalysisFromJSON(json) {
     return ImageAnalysisFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function ImageAnalysisFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'analysis': json['analysis'],
-        'ocr': !(0, runtime_1.exists)(json, 'ocr') ? undefined : (0, index_1.OCRAnalysisFromJSON)(json['ocr']),
+        'ocr': !(0, runtime_1.exists)(json, 'ocr') ? undefined : (0, _1.OCRAnalysisFromJSON)(json['ocr']),
     };
 }
 exports.ImageAnalysisFromJSONTyped = ImageAnalysisFromJSONTyped;
@@ -40,10 +40,10 @@ function ImageAnalysisToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'analysis': value.analysis,
-        'ocr': (0, index_1.OCRAnalysisToJSON)(value.ocr),
+        'ocr': (0, _1.OCRAnalysisToJSON)(value.ocr),
     };
 }
 exports.ImageAnalysisToJSON = ImageAnalysisToJSON;

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClassificationGenericEnum, EmbeddedModelSchema, Model } from './index';
+import { ClassificationGenericEnum, EmbeddedModelSchema, Model } from './';
 /**
  * This is the ML Analysis object Specific to code.
  *

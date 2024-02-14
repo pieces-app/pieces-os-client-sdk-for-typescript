@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, AvailableFormats, EmbeddedModelSchema, SeededAssetEnrichment, SeededAssetMetadata, SeededFormat } from './index';
+import { Application, AvailableFormats, EmbeddedModelSchema, SeededAssetEnrichment, SeededAssetMetadata, SeededFormat } from './';
 /**
  * This is seed data that will be come an asset.
  *

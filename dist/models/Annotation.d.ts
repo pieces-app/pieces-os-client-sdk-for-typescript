@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnnotationTypeEnum, EmbeddedModelSchema, FlattenedConversationMessages, GroupedTimestamp, MechanismEnum, ReferencedAnchor, ReferencedAsset, ReferencedConversation, ReferencedModel, ReferencedPerson, Score } from './index';
+import { AnnotationTypeEnum, EmbeddedModelSchema, FlattenedConversationMessages, GroupedTimestamp, MechanismEnum, ReferencedAnchor, ReferencedAsset, ReferencedConversation, ReferencedModel, ReferencedPerson, Score } from './';
 /**
  * An Annotation is the replacement for descriptions, this will enable comments, description, summaries and many more.
  *

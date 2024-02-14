@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, RelevantQGPTSeed } from './index';
+import { EmbeddedModelSchema, RelevantQGPTSeed } from './';
 /**
  * This is a plural of RelevantQGPTSeed.
  * @export

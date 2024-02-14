@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Distribution, EmbeddedModelSchema } from './index';
+import { Distribution, EmbeddedModelSchema } from './';
 /**
  * This is the plural Model of a Distribution.
  * @export

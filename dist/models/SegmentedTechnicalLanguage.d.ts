@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SegmentedTechnicalLanguageFragment } from './index';
+import { EmbeddedModelSchema, SegmentedTechnicalLanguageFragment } from './';
 /**
  * This is the output model for '/machine_learning/text/technical_language/parsers/segmentation'
  *

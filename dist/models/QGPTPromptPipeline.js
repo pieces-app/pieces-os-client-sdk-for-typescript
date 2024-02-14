@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTPromptPipelineToJSON = exports.QGPTPromptPipelineFromJSONTyped = exports.QGPTPromptPipelineFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function QGPTPromptPipelineFromJSON(json) {
     return QGPTPromptPipelineFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function QGPTPromptPipelineFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'task': !(0, runtime_1.exists)(json, 'task') ? undefined : (0, index_1.QGPTTaskPipelineFromJSON)(json['task']),
-        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, index_1.QGPTConversationPipelineFromJSON)(json['conversation']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'task': !(0, runtime_1.exists)(json, 'task') ? undefined : (0, _1.QGPTTaskPipelineFromJSON)(json['task']),
+        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, _1.QGPTConversationPipelineFromJSON)(json['conversation']),
     };
 }
 exports.QGPTPromptPipelineFromJSONTyped = QGPTPromptPipelineFromJSONTyped;
@@ -39,9 +39,9 @@ function QGPTPromptPipelineToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'task': (0, index_1.QGPTTaskPipelineToJSON)(value.task),
-        'conversation': (0, index_1.QGPTConversationPipelineToJSON)(value.conversation),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'task': (0, _1.QGPTTaskPipelineToJSON)(value.task),
+        'conversation': (0, _1.QGPTConversationPipelineToJSON)(value.conversation),
     };
 }
 exports.QGPTPromptPipelineToJSON = QGPTPromptPipelineToJSON;

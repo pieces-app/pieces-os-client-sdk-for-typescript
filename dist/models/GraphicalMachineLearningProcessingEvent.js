@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GraphicalMachineLearningProcessingEventToJSON = exports.GraphicalMachineLearningProcessingEventFromJSONTyped = exports.GraphicalMachineLearningProcessingEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function GraphicalMachineLearningProcessingEventFromJSON(json) {
     return GraphicalMachineLearningProcessingEventFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function GraphicalMachineLearningProcessingEventFromJSONTyped(json, ignoreDiscri
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'ocr': !(0, runtime_1.exists)(json, 'ocr') ? undefined : (0, index_1.GraphicalOCRProcessingFromJSON)(json['ocr']),
-        'image': !(0, runtime_1.exists)(json, 'image') ? undefined : (0, index_1.GraphicalImageProcessingFromJSON)(json['image']),
-        'svg': !(0, runtime_1.exists)(json, 'svg') ? undefined : (0, index_1.GraphicalSVGStatisticsFromJSON)(json['svg']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'ocr': !(0, runtime_1.exists)(json, 'ocr') ? undefined : (0, _1.GraphicalOCRProcessingFromJSON)(json['ocr']),
+        'image': !(0, runtime_1.exists)(json, 'image') ? undefined : (0, _1.GraphicalImageProcessingFromJSON)(json['image']),
+        'svg': !(0, runtime_1.exists)(json, 'svg') ? undefined : (0, _1.GraphicalSVGStatisticsFromJSON)(json['svg']),
     };
 }
 exports.GraphicalMachineLearningProcessingEventFromJSONTyped = GraphicalMachineLearningProcessingEventFromJSONTyped;
@@ -40,10 +40,10 @@ function GraphicalMachineLearningProcessingEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'ocr': (0, index_1.GraphicalOCRProcessingToJSON)(value.ocr),
-        'image': (0, index_1.GraphicalImageProcessingToJSON)(value.image),
-        'svg': (0, index_1.GraphicalSVGStatisticsToJSON)(value.svg),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'ocr': (0, _1.GraphicalOCRProcessingToJSON)(value.ocr),
+        'image': (0, _1.GraphicalImageProcessingToJSON)(value.image),
+        'svg': (0, _1.GraphicalSVGStatisticsToJSON)(value.svg),
     };
 }
 exports.GraphicalMachineLearningProcessingEventToJSON = GraphicalMachineLearningProcessingEventToJSON;

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededTrackedApplication } from './index';
+import { EmbeddedModelSchema, SeededTrackedApplication } from './';
 /**
  * A model that is passed to the context API at bootup
  * @export

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ModelDeleteCacheOutputToJSON = exports.ModelDeleteCacheOutputFromJSONTyped = exports.ModelDeleteCacheOutputFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ModelDeleteCacheOutputFromJSON(json) {
     return ModelDeleteCacheOutputFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function ModelDeleteCacheOutputFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'model': (0, index_1.ReferencedModelFromJSON)(json['model']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'model': (0, _1.ReferencedModelFromJSON)(json['model']),
     };
 }
 exports.ModelDeleteCacheOutputFromJSONTyped = ModelDeleteCacheOutputFromJSONTyped;
@@ -38,8 +38,8 @@ function ModelDeleteCacheOutputToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'model': (0, index_1.ReferencedModelToJSON)(value.model),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'model': (0, _1.ReferencedModelToJSON)(value.model),
     };
 }
 exports.ModelDeleteCacheOutputToJSON = ModelDeleteCacheOutputToJSON;

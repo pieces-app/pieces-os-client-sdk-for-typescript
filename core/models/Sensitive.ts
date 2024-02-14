@@ -46,7 +46,7 @@ import {
     SensitiveSeverityEnumFromJSON,
     SensitiveSeverityEnumFromJSONTyped,
     SensitiveSeverityEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a fully referenced representation of a sensitive pieces of data.

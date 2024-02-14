@@ -22,7 +22,7 @@ import {
     GitHubGistDistributionFromJSON,
     GitHubGistDistributionFromJSONTyped,
     GitHubGistDistributionToJSON,
-} from './index';
+} from './';
 
 /**
  * 

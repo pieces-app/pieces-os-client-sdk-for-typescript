@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Embedding } from './index';
+import { Embedding } from './';
 /**
  *
  * @export

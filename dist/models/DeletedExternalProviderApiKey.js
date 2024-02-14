@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeletedExternalProviderApiKeyToJSON = exports.DeletedExternalProviderApiKeyFromJSONTyped = exports.DeletedExternalProviderApiKeyFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function DeletedExternalProviderApiKeyFromJSON(json) {
     return DeletedExternalProviderApiKeyFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function DeletedExternalProviderApiKeyFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'metadata': (0, index_1.Auth0UserMetadataFromJSON)(json['metadata']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'metadata': (0, _1.Auth0UserMetadataFromJSON)(json['metadata']),
     };
 }
 exports.DeletedExternalProviderApiKeyFromJSONTyped = DeletedExternalProviderApiKeyFromJSONTyped;
@@ -38,8 +38,8 @@ function DeletedExternalProviderApiKeyToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'metadata': (0, index_1.Auth0UserMetadataToJSON)(value.metadata),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'metadata': (0, _1.Auth0UserMetadataToJSON)(value.metadata),
     };
 }
 exports.DeletedExternalProviderApiKeyToJSON = DeletedExternalProviderApiKeyToJSON;

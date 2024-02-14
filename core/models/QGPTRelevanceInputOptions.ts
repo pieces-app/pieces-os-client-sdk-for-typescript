@@ -22,7 +22,7 @@ import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-} from './index';
+} from './';
 
 /**
  * 

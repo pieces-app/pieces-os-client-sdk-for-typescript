@@ -30,7 +30,7 @@ import {
     QGPTStreamEnumFromJSON,
     QGPTStreamEnumFromJSONTyped,
     QGPTStreamEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the out for the /qgpt/stream endpoint.

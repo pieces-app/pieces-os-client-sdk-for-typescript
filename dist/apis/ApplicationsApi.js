@@ -44,6 +44,52 @@ const models_1 = require("../models");
  */
 class ApplicationsApi extends runtime.BaseAPI {
     /**
+     * This will get the Applications that are currently installed on your Machine, that we have detected that we have an available Pieces integration for, however that you as a user have not installed yet. + applications that are installed where Pieces is going to be coming soon.
+     * /applications/external/related [GET]
+     */
+    async applicationsExternalRelatedRaw() {
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/applications/external/related`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.DetectedExternalApplicationsFromJSON)(jsonValue));
+    }
+    /**
+     * This will get the Applications that are currently installed on your Machine, that we have detected that we have an available Pieces integration for, however that you as a user have not installed yet. + applications that are installed where Pieces is going to be coming soon.
+     * /applications/external/related [GET]
+     */
+    async applicationsExternalRelated() {
+        const response = await this.applicationsExternalRelatedRaw();
+        return await response.value();
+    }
+    /**
+     * This will get a snapshot of your installed applications on your local Machine. Applications like \"Microsoft Teams classic\", \"Google Chat\", \"Obsidian\", etc...
+     * /applications/external [GET]
+     */
+    async applicationsExternalSnapshotRaw() {
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/applications/external`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.DetectedExternalApplicationsFromJSON)(jsonValue));
+    }
+    /**
+     * This will get a snapshot of your installed applications on your local Machine. Applications like \"Microsoft Teams classic\", \"Google Chat\", \"Obsidian\", etc...
+     * /applications/external [GET]
+     */
+    async applicationsExternalSnapshot() {
+        const response = await this.applicationsExternalSnapshotRaw();
+        return await response.value();
+    }
+    /**
      * This will register a connected applicaiton.
      * /applications/register [POST]
      */

@@ -18,7 +18,7 @@ import {
     SystemExecutionCpuInformationFromJSON,
     SystemExecutionCpuInformationFromJSONTyped,
     SystemExecutionCpuInformationToJSON,
-} from './index';
+} from './';
 
 /**
  * This is system information that we are able to get from the users machine(rust package TBD). TODO potentially pull this out of TLP.

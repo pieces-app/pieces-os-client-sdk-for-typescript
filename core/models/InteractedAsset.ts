@@ -18,7 +18,7 @@ import {
     InteractedAssetInteractionsFromJSON,
     InteractedAssetInteractionsFromJSONTyped,
     InteractedAssetInteractionsToJSON,
-} from './index';
+} from './';
 
 /**
  * A model that represents an asset that has been interacted with. 

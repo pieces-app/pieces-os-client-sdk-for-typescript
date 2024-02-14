@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeedToJSON = exports.SeedFromJSONTyped = exports.SeedFromJSON = exports.SeedTypeEnum = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 /**
 * @export
 * @enum {string}
@@ -34,8 +34,8 @@ function SeedFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.SeededAssetFromJSON)(json['asset']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.SeededAssetFromJSON)(json['asset']),
         'type': json['type'],
     };
 }
@@ -48,8 +48,8 @@ function SeedToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'asset': (0, index_1.SeededAssetToJSON)(value.asset),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'asset': (0, _1.SeededAssetToJSON)(value.asset),
         'type': value.type,
     };
 }

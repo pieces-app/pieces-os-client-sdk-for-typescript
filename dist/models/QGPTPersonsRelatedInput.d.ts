@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTConversation, Seed } from './index';
+import { EmbeddedModelSchema, QGPTConversation, Seed } from './';
 /**
  * This is used for /qgpt/persons/related.
  *

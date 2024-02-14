@@ -22,7 +22,7 @@ import {
     TLPCodeSnippetTagifyCodeFromJSON,
     TLPCodeSnippetTagifyCodeFromJSONTyped,
     TLPCodeSnippetTagifyCodeToJSON,
-} from './index';
+} from './';
 
 /**
  * 

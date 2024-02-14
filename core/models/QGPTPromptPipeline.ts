@@ -26,7 +26,7 @@ import {
     QGPTTaskPipelineFromJSON,
     QGPTTaskPipelineFromJSONTyped,
     QGPTTaskPipelineToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a model related to switching between different prompts based on if we are dealing with 

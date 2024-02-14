@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededTrackedAdoptionEventToJSON = exports.SeededTrackedAdoptionEventFromJSONTyped = exports.SeededTrackedAdoptionEventFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededTrackedAdoptionEventFromJSON(json) {
     return SeededTrackedAdoptionEventFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function SeededTrackedAdoptionEventFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'identifierDescriptionPair': !(0, runtime_1.exists)(json, 'identifier_description_pair') ? undefined : (0, index_1.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'identifierDescriptionPair': !(0, runtime_1.exists)(json, 'identifier_description_pair') ? undefined : (0, _1.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON)(json['identifier_description_pair']),
     };
 }
 exports.SeededTrackedAdoptionEventFromJSONTyped = SeededTrackedAdoptionEventFromJSONTyped;
@@ -38,8 +38,8 @@ function SeededTrackedAdoptionEventToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'identifier_description_pair': (0, index_1.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'identifier_description_pair': (0, _1.AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON)(value.identifierDescriptionPair),
     };
 }
 exports.SeededTrackedAdoptionEventToJSON = SeededTrackedAdoptionEventToJSON;

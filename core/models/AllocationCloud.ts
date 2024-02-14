@@ -30,7 +30,7 @@ import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './index';
+} from './';
 
 /**
  * update && version: will be present only if your cloud was successfully spun up && running.

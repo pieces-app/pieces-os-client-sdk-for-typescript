@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedTag, Score } from './index';
+import { EmbeddedModelSchema, ReferencedTag, Score } from './';
 /**
  * This is multiple ReferencedTags(which includes an optional FlattenedTag Model within the reference model).
  * @export

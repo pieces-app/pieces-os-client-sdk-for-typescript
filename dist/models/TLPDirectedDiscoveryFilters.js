@@ -14,7 +14,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPDirectedDiscoveryFiltersToJSON = exports.TLPDirectedDiscoveryFiltersFromJSONTyped = exports.TLPDirectedDiscoveryFiltersFromJSON = void 0;
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPDirectedDiscoveryFiltersFromJSON(json) {
     return TLPDirectedDiscoveryFiltersFromJSONTyped(json, false);
 }
@@ -24,7 +24,7 @@ function TLPDirectedDiscoveryFiltersFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'iterable': (json['iterable'].map(index_1.TLPDirectedDiscoveryFilterFromJSON)),
+        'iterable': (json['iterable'].map(_1.TLPDirectedDiscoveryFilterFromJSON)),
     };
 }
 exports.TLPDirectedDiscoveryFiltersFromJSONTyped = TLPDirectedDiscoveryFiltersFromJSONTyped;
@@ -36,7 +36,7 @@ function TLPDirectedDiscoveryFiltersToJSON(value) {
         return null;
     }
     return {
-        'iterable': (value.iterable.map(index_1.TLPDirectedDiscoveryFilterToJSON)),
+        'iterable': (value.iterable.map(_1.TLPDirectedDiscoveryFilterToJSON)),
     };
 }
 exports.TLPDirectedDiscoveryFiltersToJSON = TLPDirectedDiscoveryFiltersToJSON;

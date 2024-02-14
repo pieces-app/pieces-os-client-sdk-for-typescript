@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReferencedAssetToJSON = exports.ReferencedAssetFromJSONTyped = exports.ReferencedAssetFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ReferencedAssetFromJSON(json) {
     return ReferencedAssetFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function ReferencedAssetFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, index_1.FlattenedAssetFromJSON)(json['reference']),
+        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, _1.FlattenedAssetFromJSON)(json['reference']),
     };
 }
 exports.ReferencedAssetFromJSONTyped = ReferencedAssetFromJSONTyped;
@@ -39,9 +39,9 @@ function ReferencedAssetToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'reference': (0, index_1.FlattenedAssetToJSON)(value.reference),
+        'reference': (0, _1.FlattenedAssetToJSON)(value.reference),
     };
 }
 exports.ReferencedAssetToJSON = ReferencedAssetToJSON;

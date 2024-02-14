@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ClassificationGenericEnum, ClassificationSpecificEnum, EmbeddedModelSchema, FragmentFormat } from './index';
+import { ClassificationGenericEnum, ClassificationSpecificEnum, EmbeddedModelSchema, FragmentFormat } from './';
 /**
  * This is the output iterable model for '/machine_learning/text/technical_language/parsers/segmentation'
  *

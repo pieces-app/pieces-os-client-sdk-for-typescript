@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * This is a specific Model for the SeededAsset that will enable the developer to modify the enrichment levels of persons, tags, websites.
  *

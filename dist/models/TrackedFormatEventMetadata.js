@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedFormatEventMetadataToJSON = exports.TrackedFormatEventMetadataFromJSONTyped = exports.TrackedFormatEventMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TrackedFormatEventMetadataFromJSON(json) {
     return TrackedFormatEventMetadataFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function TrackedFormatEventMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'reclassification': !(0, runtime_1.exists)(json, 'reclassification') ? undefined : (0, index_1.TrackedAssetEventFormatReclassificationMetadataFromJSON)(json['reclassification']),
+        'reclassification': !(0, runtime_1.exists)(json, 'reclassification') ? undefined : (0, _1.TrackedAssetEventFormatReclassificationMetadataFromJSON)(json['reclassification']),
     };
 }
 exports.TrackedFormatEventMetadataFromJSONTyped = TrackedFormatEventMetadataFromJSONTyped;
@@ -37,7 +37,7 @@ function TrackedFormatEventMetadataToJSON(value) {
         return null;
     }
     return {
-        'reclassification': (0, index_1.TrackedAssetEventFormatReclassificationMetadataToJSON)(value.reclassification),
+        'reclassification': (0, _1.TrackedAssetEventFormatReclassificationMetadataToJSON)(value.reclassification),
     };
 }
 exports.TrackedFormatEventMetadataToJSON = TrackedFormatEventMetadataToJSON;

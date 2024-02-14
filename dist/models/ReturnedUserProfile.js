@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReturnedUserProfileToJSON = exports.ReturnedUserProfileFromJSONTyped = exports.ReturnedUserProfileFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ReturnedUserProfileFromJSON(json) {
     return ReturnedUserProfileFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function ReturnedUserProfileFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, index_1.UserProfileFromJSON)(json['user']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.UserProfileFromJSON)(json['user']),
     };
 }
 exports.ReturnedUserProfileFromJSONTyped = ReturnedUserProfileFromJSONTyped;
@@ -38,8 +38,8 @@ function ReturnedUserProfileToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'user': (0, index_1.UserProfileToJSON)(value.user),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'user': (0, _1.UserProfileToJSON)(value.user),
     };
 }
 exports.ReturnedUserProfileToJSON = ReturnedUserProfileToJSON;

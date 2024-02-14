@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { Application, Applications, SeededTrackedInteractionEvent, SeededTrackedKeyboardEvent, Session, TrackedApplicationInstall, TrackedApplicationUpdate, TrackedInteractionEvent, TrackedKeyboardEvent } from '../models';
+import { Application, Applications, DetectedExternalApplications, SeededTrackedInteractionEvent, SeededTrackedKeyboardEvent, Session, TrackedApplicationInstall, TrackedApplicationUpdate, TrackedInteractionEvent, TrackedKeyboardEvent } from '../models';
 export interface ApplicationsRegisterRequest {
     application?: Application;
 }
@@ -39,6 +39,26 @@ export interface PostApplicationsUsageUpdatedRequest {
  *
  */
 export declare class ApplicationsApi extends runtime.BaseAPI {
+    /**
+     * This will get the Applications that are currently installed on your Machine, that we have detected that we have an available Pieces integration for, however that you as a user have not installed yet. + applications that are installed where Pieces is going to be coming soon.
+     * /applications/external/related [GET]
+     */
+    applicationsExternalRelatedRaw(): Promise<runtime.ApiResponse<DetectedExternalApplications>>;
+    /**
+     * This will get the Applications that are currently installed on your Machine, that we have detected that we have an available Pieces integration for, however that you as a user have not installed yet. + applications that are installed where Pieces is going to be coming soon.
+     * /applications/external/related [GET]
+     */
+    applicationsExternalRelated(): Promise<DetectedExternalApplications>;
+    /**
+     * This will get a snapshot of your installed applications on your local Machine. Applications like \"Microsoft Teams classic\", \"Google Chat\", \"Obsidian\", etc...
+     * /applications/external [GET]
+     */
+    applicationsExternalSnapshotRaw(): Promise<runtime.ApiResponse<DetectedExternalApplications>>;
+    /**
+     * This will get a snapshot of your installed applications on your local Machine. Applications like \"Microsoft Teams classic\", \"Google Chat\", \"Obsidian\", etc...
+     * /applications/external [GET]
+     */
+    applicationsExternalSnapshot(): Promise<DetectedExternalApplications>;
     /**
      * This will register a connected applicaiton.
      * /applications/register [POST]

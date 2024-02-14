@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ExportedDatabaseFormat } from './index';
+import { EmbeddedModelSchema, ExportedDatabaseFormat } from './';
 /**
  *
  * @export

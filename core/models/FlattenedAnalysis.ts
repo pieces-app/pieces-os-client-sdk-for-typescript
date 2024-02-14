@@ -26,7 +26,7 @@ import {
     FlattenedImageAnalysisFromJSON,
     FlattenedImageAnalysisFromJSONTyped,
     FlattenedImageAnalysisToJSON,
-} from './index';
+} from './';
 
 /**
  * 

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTRelevanceInputOptionsToJSON = exports.QGPTRelevanceInputOptionsFromJSONTyped = exports.QGPTRelevanceInputOptionsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function QGPTRelevanceInputOptionsFromJSON(json) {
     return QGPTRelevanceInputOptionsFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function QGPTRelevanceInputOptionsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'database': !(0, runtime_1.exists)(json, 'database') ? undefined : json['database'],
         'question': !(0, runtime_1.exists)(json, 'question') ? undefined : json['question'],
-        'pipeline': !(0, runtime_1.exists)(json, 'pipeline') ? undefined : (0, index_1.QGPTPromptPipelineFromJSON)(json['pipeline']),
+        'pipeline': !(0, runtime_1.exists)(json, 'pipeline') ? undefined : (0, _1.QGPTPromptPipelineFromJSON)(json['pipeline']),
     };
 }
 exports.QGPTRelevanceInputOptionsFromJSONTyped = QGPTRelevanceInputOptionsFromJSONTyped;
@@ -40,10 +40,10 @@ function QGPTRelevanceInputOptionsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'database': value.database,
         'question': value.question,
-        'pipeline': (0, index_1.QGPTPromptPipelineToJSON)(value.pipeline),
+        'pipeline': (0, _1.QGPTPromptPipelineToJSON)(value.pipeline),
     };
 }
 exports.QGPTRelevanceInputOptionsToJSON = QGPTRelevanceInputOptionsToJSON;

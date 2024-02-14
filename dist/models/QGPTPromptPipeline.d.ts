@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTConversationPipeline, QGPTTaskPipeline } from './index';
+import { EmbeddedModelSchema, QGPTConversationPipeline, QGPTTaskPipeline } from './';
 /**
  * This is a model related to switching between different prompts based on if we are dealing with
  * various tasks or if we are attempting to converse with LLMs via conversation.

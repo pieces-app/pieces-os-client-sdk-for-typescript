@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RelationshipToJSON = exports.RelationshipFromJSONTyped = exports.RelationshipFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function RelationshipFromJSON(json) {
     return RelationshipFromJSONTyped(json, false);
 }
@@ -26,12 +26,12 @@ function RelationshipFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'id': json['id'],
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'embeddings': (0, index_1.EmbeddingsFromJSON)(json['embeddings']),
-        'edges': (0, index_1.EdgesFromJSON)(json['edges']),
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'embeddings': (0, _1.EmbeddingsFromJSON)(json['embeddings']),
+        'edges': (0, _1.EdgesFromJSON)(json['edges']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
     };
 }
 exports.RelationshipFromJSONTyped = RelationshipFromJSONTyped;
@@ -44,12 +44,12 @@ function RelationshipToJSON(value) {
     }
     return {
         'id': value.id,
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'embeddings': (0, index_1.EmbeddingsToJSON)(value.embeddings),
-        'edges': (0, index_1.EdgesToJSON)(value.edges),
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'embeddings': (0, _1.EmbeddingsToJSON)(value.embeddings),
+        'edges': (0, _1.EdgesToJSON)(value.edges),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
     };
 }
 exports.RelationshipToJSON = RelationshipToJSON;

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededConnectorTrackingToJSON = exports.SeededConnectorTrackingFromJSONTyped = exports.SeededConnectorTrackingFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededConnectorTrackingFromJSON(json) {
     return SeededConnectorTrackingFromJSONTyped(json, false);
 }
@@ -25,16 +25,16 @@ function SeededConnectorTrackingFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, index_1.SeededTrackedFormatEventFromJSON)(json['format']),
-        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, index_1.SeededTrackedAssetEventFromJSON)(json['asset']),
-        'interaction': !(0, runtime_1.exists)(json, 'interaction') ? undefined : (0, index_1.SeededTrackedInteractionEventFromJSON)(json['interaction']),
-        'keyboard': !(0, runtime_1.exists)(json, 'keyboard') ? undefined : (0, index_1.SeededTrackedKeyboardEventFromJSON)(json['keyboard']),
-        'session': !(0, runtime_1.exists)(json, 'session') ? undefined : (0, index_1.SeededTrackedSessionEventFromJSON)(json['session']),
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.SeededTrackedAssetsEventFromJSON)(json['assets']),
-        'ml': !(0, runtime_1.exists)(json, 'ml') ? undefined : (0, index_1.SeededTrackedMachineLearningEventFromJSON)(json['ml']),
-        'adoption': !(0, runtime_1.exists)(json, 'adoption') ? undefined : (0, index_1.SeededTrackedAdoptionEventFromJSON)(json['adoption']),
-        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, index_1.SeededTrackedConversationEventFromJSON)(json['conversation']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'format': !(0, runtime_1.exists)(json, 'format') ? undefined : (0, _1.SeededTrackedFormatEventFromJSON)(json['format']),
+        'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : (0, _1.SeededTrackedAssetEventFromJSON)(json['asset']),
+        'interaction': !(0, runtime_1.exists)(json, 'interaction') ? undefined : (0, _1.SeededTrackedInteractionEventFromJSON)(json['interaction']),
+        'keyboard': !(0, runtime_1.exists)(json, 'keyboard') ? undefined : (0, _1.SeededTrackedKeyboardEventFromJSON)(json['keyboard']),
+        'session': !(0, runtime_1.exists)(json, 'session') ? undefined : (0, _1.SeededTrackedSessionEventFromJSON)(json['session']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.SeededTrackedAssetsEventFromJSON)(json['assets']),
+        'ml': !(0, runtime_1.exists)(json, 'ml') ? undefined : (0, _1.SeededTrackedMachineLearningEventFromJSON)(json['ml']),
+        'adoption': !(0, runtime_1.exists)(json, 'adoption') ? undefined : (0, _1.SeededTrackedAdoptionEventFromJSON)(json['adoption']),
+        'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : (0, _1.SeededTrackedConversationEventFromJSON)(json['conversation']),
     };
 }
 exports.SeededConnectorTrackingFromJSONTyped = SeededConnectorTrackingFromJSONTyped;
@@ -46,16 +46,16 @@ function SeededConnectorTrackingToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'format': (0, index_1.SeededTrackedFormatEventToJSON)(value.format),
-        'asset': (0, index_1.SeededTrackedAssetEventToJSON)(value.asset),
-        'interaction': (0, index_1.SeededTrackedInteractionEventToJSON)(value.interaction),
-        'keyboard': (0, index_1.SeededTrackedKeyboardEventToJSON)(value.keyboard),
-        'session': (0, index_1.SeededTrackedSessionEventToJSON)(value.session),
-        'assets': (0, index_1.SeededTrackedAssetsEventToJSON)(value.assets),
-        'ml': (0, index_1.SeededTrackedMachineLearningEventToJSON)(value.ml),
-        'adoption': (0, index_1.SeededTrackedAdoptionEventToJSON)(value.adoption),
-        'conversation': (0, index_1.SeededTrackedConversationEventToJSON)(value.conversation),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'format': (0, _1.SeededTrackedFormatEventToJSON)(value.format),
+        'asset': (0, _1.SeededTrackedAssetEventToJSON)(value.asset),
+        'interaction': (0, _1.SeededTrackedInteractionEventToJSON)(value.interaction),
+        'keyboard': (0, _1.SeededTrackedKeyboardEventToJSON)(value.keyboard),
+        'session': (0, _1.SeededTrackedSessionEventToJSON)(value.session),
+        'assets': (0, _1.SeededTrackedAssetsEventToJSON)(value.assets),
+        'ml': (0, _1.SeededTrackedMachineLearningEventToJSON)(value.ml),
+        'adoption': (0, _1.SeededTrackedAdoptionEventToJSON)(value.adoption),
+        'conversation': (0, _1.SeededTrackedConversationEventToJSON)(value.conversation),
     };
 }
 exports.SeededConnectorTrackingToJSON = SeededConnectorTrackingToJSON;

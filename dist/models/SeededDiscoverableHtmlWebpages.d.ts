@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededDiscoverableHtmlWebpage } from './index';
+import { EmbeddedModelSchema, SeededDiscoverableHtmlWebpage } from './';
 /**
  *
  * @export

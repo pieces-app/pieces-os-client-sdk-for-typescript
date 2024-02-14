@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, TextMatch } from './index';
+import { EmbeddedModelSchema, TextMatch } from './';
 /**
  * This is optional metatdata attached to a sensitive piece of data.
  * @export

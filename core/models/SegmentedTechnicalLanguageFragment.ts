@@ -30,7 +30,7 @@ import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the output iterable model for '/machine_learning/text/technical_language/parsers/segmentation'

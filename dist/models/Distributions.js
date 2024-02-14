@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DistributionsToJSON = exports.DistributionsFromJSONTyped = exports.DistributionsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function DistributionsFromJSON(json) {
     return DistributionsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function DistributionsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'iterable': (json['iterable'].map(index_1.DistributionFromJSON)),
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.DistributionFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
     };
 }
 exports.DistributionsFromJSONTyped = DistributionsFromJSONTyped;
@@ -38,8 +38,8 @@ function DistributionsToJSON(value) {
         return null;
     }
     return {
-        'iterable': (value.iterable.map(index_1.DistributionToJSON)),
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.DistributionToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
     };
 }
 exports.DistributionsToJSON = DistributionsToJSON;

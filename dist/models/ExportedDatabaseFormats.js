@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ExportedDatabaseFormatsToJSON = exports.ExportedDatabaseFormatsFromJSONTyped = exports.ExportedDatabaseFormatsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ExportedDatabaseFormatsFromJSON(json) {
     return ExportedDatabaseFormatsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function ExportedDatabaseFormatsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.ExportedDatabaseFormatFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.ExportedDatabaseFormatFromJSON)),
     };
 }
 exports.ExportedDatabaseFormatsFromJSONTyped = ExportedDatabaseFormatsFromJSONTyped;
@@ -38,8 +38,8 @@ function ExportedDatabaseFormatsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.ExportedDatabaseFormatToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.ExportedDatabaseFormatToJSON)),
     };
 }
 exports.ExportedDatabaseFormatsToJSON = ExportedDatabaseFormatsToJSON;

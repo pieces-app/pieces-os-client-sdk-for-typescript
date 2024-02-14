@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Auth0ToJSON = exports.Auth0FromJSONTyped = exports.Auth0FromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function Auth0FromJSON(json) {
     return Auth0FromJSONTyped(json, false);
 }
@@ -25,14 +25,14 @@ function Auth0FromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'identity': !(0, runtime_1.exists)(json, 'identity') ? undefined : (0, index_1.Auth0IdentityFromJSON)(json['identity']),
-        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, index_1.Auth0UserFromJSON)(json['user']),
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.Auth0UserMetadataFromJSON)(json['metadata']),
+        'identity': !(0, runtime_1.exists)(json, 'identity') ? undefined : (0, _1.Auth0IdentityFromJSON)(json['identity']),
+        'user': !(0, runtime_1.exists)(json, 'user') ? undefined : (0, _1.Auth0UserFromJSON)(json['user']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.Auth0UserMetadataFromJSON)(json['metadata']),
         'domain': json['domain'],
         'client': json['client'],
         'audience': json['audience'],
-        'redirects': (0, index_1.Auth0RedirectsFromJSON)(json['redirects']),
-        'oAuth': (0, index_1.OAuthGroupFromJSON)(json['oAuth']),
+        'redirects': (0, _1.Auth0RedirectsFromJSON)(json['redirects']),
+        'oAuth': (0, _1.OAuthGroupFromJSON)(json['oAuth']),
         'namespace': !(0, runtime_1.exists)(json, 'namespace') ? undefined : json['namespace'],
     };
 }
@@ -45,14 +45,14 @@ function Auth0ToJSON(value) {
         return null;
     }
     return {
-        'identity': (0, index_1.Auth0IdentityToJSON)(value.identity),
-        'user': (0, index_1.Auth0UserToJSON)(value.user),
-        'metadata': (0, index_1.Auth0UserMetadataToJSON)(value.metadata),
+        'identity': (0, _1.Auth0IdentityToJSON)(value.identity),
+        'user': (0, _1.Auth0UserToJSON)(value.user),
+        'metadata': (0, _1.Auth0UserMetadataToJSON)(value.metadata),
         'domain': value.domain,
         'client': value.client,
         'audience': value.audience,
-        'redirects': (0, index_1.Auth0RedirectsToJSON)(value.redirects),
-        'oAuth': (0, index_1.OAuthGroupToJSON)(value.oAuth),
+        'redirects': (0, _1.Auth0RedirectsToJSON)(value.redirects),
+        'oAuth': (0, _1.OAuthGroupToJSON)(value.oAuth),
         'namespace': value.namespace,
     };
 }

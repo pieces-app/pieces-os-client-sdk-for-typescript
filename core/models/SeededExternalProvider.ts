@@ -18,7 +18,7 @@ import {
     ExternalProviderTypeEnumFromJSON,
     ExternalProviderTypeEnumFromJSONTyped,
     ExternalProviderTypeEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the minimum information needed to connect an additional provider.

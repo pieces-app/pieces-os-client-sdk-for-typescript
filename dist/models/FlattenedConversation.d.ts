@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, FlattenedWebsites, GroupedTimestamp, QGPTPromptPipeline, ReferencedModel, Score } from './index';
+import { Application, ConversationGrounding, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAnchors, FlattenedAnnotations, FlattenedAssets, FlattenedConversationMessages, FlattenedWebsites, GroupedTimestamp, QGPTPromptPipeline, ReferencedModel, Score } from './';
 /**
  * This is a flattend version of the Convsersation for DAG-Safety.
  *

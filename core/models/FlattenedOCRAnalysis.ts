@@ -26,7 +26,7 @@ import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-} from './index';
+} from './';
 
 /**
  * [DAG Safe] Ocr Analysis that will reference FlattenedFormats.

@@ -18,7 +18,7 @@ import {
     RelationshipFromJSON,
     RelationshipFromJSONTyped,
     RelationshipToJSON,
-} from './index';
+} from './';
 
 /**
  * 

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Auth0OpenAIUserMetadataToJSON = exports.Auth0OpenAIUserMetadataFromJSONTyped = exports.Auth0OpenAIUserMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function Auth0OpenAIUserMetadataFromJSON(json) {
     return Auth0OpenAIUserMetadataFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function Auth0OpenAIUserMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'apiKey': !(0, runtime_1.exists)(json, 'api_key') ? undefined : json['api_key'],
         'apiKeyName': !(0, runtime_1.exists)(json, 'api_key_name') ? undefined : json['api_key_name'],
         'organizationKey': !(0, runtime_1.exists)(json, 'organization_key') ? undefined : json['organization_key'],
@@ -40,7 +40,7 @@ function Auth0OpenAIUserMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'api_key': value.apiKey,
         'api_key_name': value.apiKeyName,
         'organization_key': value.organizationKey,

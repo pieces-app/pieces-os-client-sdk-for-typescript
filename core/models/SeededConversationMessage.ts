@@ -42,7 +42,7 @@ import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a seeded version of a ConversationMessage.

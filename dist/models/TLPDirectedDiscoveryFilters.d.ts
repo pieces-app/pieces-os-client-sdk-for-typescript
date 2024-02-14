@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { TLPDirectedDiscoveryFilter } from './index';
+import { TLPDirectedDiscoveryFilter } from './';
 /**
  * Contains array of TLPDirectedDiscoveryFilter
  * @export

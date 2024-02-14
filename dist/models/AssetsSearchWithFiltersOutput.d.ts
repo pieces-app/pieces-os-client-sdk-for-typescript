@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SearchedAssets } from './index';
+import { EmbeddedModelSchema, SearchedAssets } from './';
 /**
  * output for the /assets/search [POST]
  * @export

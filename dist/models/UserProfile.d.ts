@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Aesthetics, AllocationCloud, Auth0UserMetadata, EmbeddedModelSchema, ExternalProviders, GroupedTimestamp } from './index';
+import { Aesthetics, AllocationCloud, Auth0UserMetadata, EmbeddedModelSchema, ExternalProviders, GroupedTimestamp } from './';
 /**
  * This is the model for a user logged into Pieces.
  * @export

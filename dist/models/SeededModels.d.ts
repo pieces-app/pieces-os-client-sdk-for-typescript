@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededModel } from './index';
+import { EmbeddedModelSchema, SeededModel } from './';
 /**
  * This is a Model that will hold an iterable of SeededModels.
  * @export

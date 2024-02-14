@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormatMetricToJSON = exports.FormatMetricFromJSONTyped = exports.FormatMetricFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FormatMetricFromJSON(json) {
     return FormatMetricFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function FormatMetricFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'generic': (0, index_1.ClassificationGenericEnumFromJSON)(json['generic']),
-        'specific': (0, index_1.ClassificationSpecificEnumFromJSON)(json['specific']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'generic': (0, _1.ClassificationGenericEnumFromJSON)(json['generic']),
+        'specific': (0, _1.ClassificationSpecificEnumFromJSON)(json['specific']),
         'identifiers': json['identifiers'],
     };
 }
@@ -40,9 +40,9 @@ function FormatMetricToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'generic': (0, index_1.ClassificationGenericEnumToJSON)(value.generic),
-        'specific': (0, index_1.ClassificationSpecificEnumToJSON)(value.specific),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'generic': (0, _1.ClassificationGenericEnumToJSON)(value.generic),
+        'specific': (0, _1.ClassificationSpecificEnumToJSON)(value.specific),
         'identifiers': value.identifiers,
     };
 }

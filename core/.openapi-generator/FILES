@@ -133,6 +133,8 @@ models/Conversations.ts
 models/ConversationsCreateFromAssetOutput.ts
 models/CreatedExternalProviderApiKey.ts
 models/DeletedExternalProviderApiKey.ts
+models/DetectedExternalApplication.ts
+models/DetectedExternalApplications.ts
 models/DiscoveredAsset.ts
 models/DiscoveredAssets.ts
 models/DiscoveredHtmlWebpage.ts
@@ -252,6 +254,7 @@ models/OAuthToken.ts
 models/OCRAnalyses.ts
 models/OCRAnalysis.ts
 models/OSHealth.ts
+models/OnboardedPersonaDetails.ts
 models/OpenAIModelsListInput.ts
 models/OpenAIModelsListOutput.ts
 models/OrderedMetrics.ts
@@ -266,6 +269,7 @@ models/Persons.ts
 models/PlatformEnum.ts
 models/PrecreatedExternalProviderApiKey.ts
 models/PredeletedExternalProviderApiKey.ts
+models/PreonboardedPersonaDetails.ts
 models/PreupdatedExternalProviderApiKey.ts
 models/Preview.ts
 models/PrivacyEnum.ts
@@ -297,8 +301,10 @@ models/QGPTStreamInput.ts
 models/QGPTStreamOutput.ts
 models/QGPTTaskPipeline.ts
 models/QGPTTaskPipelineForCodeCommentation.ts
+models/QGPTTaskPipelineForCodeCompletion.ts
 models/QGPTTaskPipelineForCodeExplanation.ts
 models/QGPTTaskPipelineForCodeFix.ts
+models/QGPTTaskPipelineForCodeModification.ts
 models/Reaction.ts
 models/Recipients.ts
 models/ReferencedActivity.ts

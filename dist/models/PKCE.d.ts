@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0, ChallengedPKCE, EmbeddedModelSchema, ResultedPKCE, RevokedPKCE, SeededPKCE, TokenizedPKCE } from './index';
+import { Auth0, ChallengedPKCE, EmbeddedModelSchema, ResultedPKCE, RevokedPKCE, SeededPKCE, TokenizedPKCE } from './';
 /**
  * An object representing all of the properties involved in a PKCE Authentication Flow
  * @export

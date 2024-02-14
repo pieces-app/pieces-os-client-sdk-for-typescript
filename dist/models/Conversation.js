@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConversationToJSON = exports.ConversationFromJSONTyped = exports.ConversationFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ConversationFromJSON(json) {
     return ConversationFromJSONTyped(json, false);
 }
@@ -25,24 +25,24 @@ function ConversationFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
-        'created': (0, index_1.GroupedTimestampFromJSON)(json['created']),
-        'updated': (0, index_1.GroupedTimestampFromJSON)(json['updated']),
-        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['deleted']),
+        'created': (0, _1.GroupedTimestampFromJSON)(json['created']),
+        'updated': (0, _1.GroupedTimestampFromJSON)(json['updated']),
+        'deleted': !(0, runtime_1.exists)(json, 'deleted') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['deleted']),
         'favorited': !(0, runtime_1.exists)(json, 'favorited') ? undefined : json['favorited'],
-        'application': !(0, runtime_1.exists)(json, 'application') ? undefined : (0, index_1.ApplicationFromJSON)(json['application']),
-        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (0, index_1.FlattenedAnnotationsFromJSON)(json['annotations']),
-        'messages': (0, index_1.FlattenedConversationMessagesFromJSON)(json['messages']),
-        'model': !(0, runtime_1.exists)(json, 'model') ? undefined : (0, index_1.ReferencedModelFromJSON)(json['model']),
-        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, index_1.FlattenedAssetsFromJSON)(json['assets']),
-        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (0, index_1.FlattenedWebsitesFromJSON)(json['websites']),
-        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (0, index_1.FlattenedAnchorsFromJSON)(json['anchors']),
-        'type': (0, index_1.ConversationTypeEnumFromJSON)(json['type']),
-        'grounding': !(0, runtime_1.exists)(json, 'grounding') ? undefined : (0, index_1.ConversationGroundingFromJSON)(json['grounding']),
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
-        'pipeline': !(0, runtime_1.exists)(json, 'pipeline') ? undefined : (0, index_1.QGPTPromptPipelineFromJSON)(json['pipeline']),
+        'application': !(0, runtime_1.exists)(json, 'application') ? undefined : (0, _1.ApplicationFromJSON)(json['application']),
+        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (0, _1.FlattenedAnnotationsFromJSON)(json['annotations']),
+        'messages': (0, _1.FlattenedConversationMessagesFromJSON)(json['messages']),
+        'model': !(0, runtime_1.exists)(json, 'model') ? undefined : (0, _1.ReferencedModelFromJSON)(json['model']),
+        'assets': !(0, runtime_1.exists)(json, 'assets') ? undefined : (0, _1.FlattenedAssetsFromJSON)(json['assets']),
+        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (0, _1.FlattenedWebsitesFromJSON)(json['websites']),
+        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (0, _1.FlattenedAnchorsFromJSON)(json['anchors']),
+        'type': (0, _1.ConversationTypeEnumFromJSON)(json['type']),
+        'grounding': !(0, runtime_1.exists)(json, 'grounding') ? undefined : (0, _1.ConversationGroundingFromJSON)(json['grounding']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
+        'pipeline': !(0, runtime_1.exists)(json, 'pipeline') ? undefined : (0, _1.QGPTPromptPipelineFromJSON)(json['pipeline']),
     };
 }
 exports.ConversationFromJSONTyped = ConversationFromJSONTyped;
@@ -54,24 +54,24 @@ function ConversationToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'name': value.name,
-        'created': (0, index_1.GroupedTimestampToJSON)(value.created),
-        'updated': (0, index_1.GroupedTimestampToJSON)(value.updated),
-        'deleted': (0, index_1.GroupedTimestampToJSON)(value.deleted),
+        'created': (0, _1.GroupedTimestampToJSON)(value.created),
+        'updated': (0, _1.GroupedTimestampToJSON)(value.updated),
+        'deleted': (0, _1.GroupedTimestampToJSON)(value.deleted),
         'favorited': value.favorited,
-        'application': (0, index_1.ApplicationToJSON)(value.application),
-        'annotations': (0, index_1.FlattenedAnnotationsToJSON)(value.annotations),
-        'messages': (0, index_1.FlattenedConversationMessagesToJSON)(value.messages),
-        'model': (0, index_1.ReferencedModelToJSON)(value.model),
-        'assets': (0, index_1.FlattenedAssetsToJSON)(value.assets),
-        'websites': (0, index_1.FlattenedWebsitesToJSON)(value.websites),
-        'anchors': (0, index_1.FlattenedAnchorsToJSON)(value.anchors),
-        'type': (0, index_1.ConversationTypeEnumToJSON)(value.type),
-        'grounding': (0, index_1.ConversationGroundingToJSON)(value.grounding),
-        'score': (0, index_1.ScoreToJSON)(value.score),
-        'pipeline': (0, index_1.QGPTPromptPipelineToJSON)(value.pipeline),
+        'application': (0, _1.ApplicationToJSON)(value.application),
+        'annotations': (0, _1.FlattenedAnnotationsToJSON)(value.annotations),
+        'messages': (0, _1.FlattenedConversationMessagesToJSON)(value.messages),
+        'model': (0, _1.ReferencedModelToJSON)(value.model),
+        'assets': (0, _1.FlattenedAssetsToJSON)(value.assets),
+        'websites': (0, _1.FlattenedWebsitesToJSON)(value.websites),
+        'anchors': (0, _1.FlattenedAnchorsToJSON)(value.anchors),
+        'type': (0, _1.ConversationTypeEnumToJSON)(value.type),
+        'grounding': (0, _1.ConversationGroundingToJSON)(value.grounding),
+        'score': (0, _1.ScoreToJSON)(value.score),
+        'pipeline': (0, _1.QGPTPromptPipelineToJSON)(value.pipeline),
     };
 }
 exports.ConversationToJSON = ConversationToJSON;

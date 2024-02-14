@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAssetMetadataToJSON = exports.SeededAssetMetadataFromJSONTyped = exports.SeededAssetMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededAssetMetadataFromJSON(json) {
     return SeededAssetMetadataFromJSONTyped(json, false);
 }
@@ -25,16 +25,16 @@ function SeededAssetMetadataFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
-        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
-        'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : (json['tags'].map(index_1.SeededAssetTagFromJSON)),
-        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (json['websites'].map(index_1.SeededAssetWebsiteFromJSON)),
-        'sensitives': !(0, runtime_1.exists)(json, 'sensitives') ? undefined : (json['sensitives'].map(index_1.SeededAssetSensitiveFromJSON)),
-        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (json['persons'].map(index_1.SeededPersonFromJSON)),
-        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (json['annotations'].map(index_1.SeededAnnotationFromJSON)),
-        'hints': !(0, runtime_1.exists)(json, 'hints') ? undefined : (json['hints'].map(index_1.SeededHintFromJSON)),
-        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (json['anchors'].map(index_1.SeededAnchorFromJSON)),
+        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
+        'tags': !(0, runtime_1.exists)(json, 'tags') ? undefined : (json['tags'].map(_1.SeededAssetTagFromJSON)),
+        'websites': !(0, runtime_1.exists)(json, 'websites') ? undefined : (json['websites'].map(_1.SeededAssetWebsiteFromJSON)),
+        'sensitives': !(0, runtime_1.exists)(json, 'sensitives') ? undefined : (json['sensitives'].map(_1.SeededAssetSensitiveFromJSON)),
+        'persons': !(0, runtime_1.exists)(json, 'persons') ? undefined : (json['persons'].map(_1.SeededPersonFromJSON)),
+        'annotations': !(0, runtime_1.exists)(json, 'annotations') ? undefined : (json['annotations'].map(_1.SeededAnnotationFromJSON)),
+        'hints': !(0, runtime_1.exists)(json, 'hints') ? undefined : (json['hints'].map(_1.SeededHintFromJSON)),
+        'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (json['anchors'].map(_1.SeededAnchorFromJSON)),
     };
 }
 exports.SeededAssetMetadataFromJSONTyped = SeededAssetMetadataFromJSONTyped;
@@ -46,16 +46,16 @@ function SeededAssetMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'name': value.name,
-        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
-        'tags': value.tags === undefined ? undefined : (value.tags.map(index_1.SeededAssetTagToJSON)),
-        'websites': value.websites === undefined ? undefined : (value.websites.map(index_1.SeededAssetWebsiteToJSON)),
-        'sensitives': value.sensitives === undefined ? undefined : (value.sensitives.map(index_1.SeededAssetSensitiveToJSON)),
-        'persons': value.persons === undefined ? undefined : (value.persons.map(index_1.SeededPersonToJSON)),
-        'annotations': value.annotations === undefined ? undefined : (value.annotations.map(index_1.SeededAnnotationToJSON)),
-        'hints': value.hints === undefined ? undefined : (value.hints.map(index_1.SeededHintToJSON)),
-        'anchors': value.anchors === undefined ? undefined : (value.anchors.map(index_1.SeededAnchorToJSON)),
+        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
+        'tags': value.tags === undefined ? undefined : (value.tags.map(_1.SeededAssetTagToJSON)),
+        'websites': value.websites === undefined ? undefined : (value.websites.map(_1.SeededAssetWebsiteToJSON)),
+        'sensitives': value.sensitives === undefined ? undefined : (value.sensitives.map(_1.SeededAssetSensitiveToJSON)),
+        'persons': value.persons === undefined ? undefined : (value.persons.map(_1.SeededPersonToJSON)),
+        'annotations': value.annotations === undefined ? undefined : (value.annotations.map(_1.SeededAnnotationToJSON)),
+        'hints': value.hints === undefined ? undefined : (value.hints.map(_1.SeededHintToJSON)),
+        'anchors': value.anchors === undefined ? undefined : (value.anchors.map(_1.SeededAnchorToJSON)),
     };
 }
 exports.SeededAssetMetadataToJSON = SeededAssetMetadataToJSON;

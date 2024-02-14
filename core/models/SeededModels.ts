@@ -22,7 +22,7 @@ import {
     SeededModelFromJSON,
     SeededModelFromJSONTyped,
     SeededModelToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a Model that will hold an iterable of SeededModels.

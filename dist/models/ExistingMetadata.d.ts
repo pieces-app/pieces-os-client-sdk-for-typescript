@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedTag, ReferencedWebsite } from './index';
+import { EmbeddedModelSchema, ReferencedTag, ReferencedWebsite } from './';
 /**
  * This is a shared input model for all the exists endpoints:
  * /tags/exists : if the tag exists you will have a defined tag:ReferencedTag, if not then it doesnt exist.

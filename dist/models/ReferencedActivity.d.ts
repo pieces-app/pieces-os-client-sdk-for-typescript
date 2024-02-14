@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedActivity } from './index';
+import { EmbeddedModelSchema, FlattenedActivity } from './';
 /**
  *
  * @export

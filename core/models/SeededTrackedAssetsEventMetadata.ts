@@ -18,7 +18,7 @@ import {
     TrackedAssetsEventSearchMetadataFromJSON,
     TrackedAssetsEventSearchMetadataFromJSONTyped,
     TrackedAssetsEventSearchMetadataToJSON,
-} from './index';
+} from './';
 
 /**
  * Additional Metadata as Neeeded i.e. Search + Query, etc

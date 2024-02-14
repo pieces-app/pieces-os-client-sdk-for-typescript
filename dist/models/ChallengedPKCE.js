@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChallengedPKCEToJSON = exports.ChallengedPKCEFromJSONTyped = exports.ChallengedPKCEFromJSON = exports.ChallengedPKCEMethodEnum = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 /**
 * @export
 * @enum {string}
@@ -33,7 +33,7 @@ function ChallengedPKCEFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'state': json['state'],
         'nonce': json['nonce'],
         'challenge': json['challenge'],
@@ -50,7 +50,7 @@ function ChallengedPKCEToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'state': value.state,
         'nonce': value.nonce,
         'challenge': value.challenge,

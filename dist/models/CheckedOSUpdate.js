@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CheckedOSUpdateToJSON = exports.CheckedOSUpdateFromJSONTyped = exports.CheckedOSUpdateFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function CheckedOSUpdateFromJSON(json) {
     return CheckedOSUpdateFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function CheckedOSUpdateFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'status': (0, index_1.UpdatingStatusEnumFromJSON)(json['status']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'status': (0, _1.UpdatingStatusEnumFromJSON)(json['status']),
     };
 }
 exports.CheckedOSUpdateFromJSONTyped = CheckedOSUpdateFromJSONTyped;
@@ -38,8 +38,8 @@ function CheckedOSUpdateToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'status': (0, index_1.UpdatingStatusEnumToJSON)(value.status),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'status': (0, _1.UpdatingStatusEnumToJSON)(value.status),
     };
 }
 exports.CheckedOSUpdateToJSON = CheckedOSUpdateToJSON;

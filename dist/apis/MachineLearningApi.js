@@ -44,6 +44,31 @@ const models_1 = require("../models");
  */
 class MachineLearningApi extends runtime.BaseAPI {
     /**
+     * This is going to take in some personification details ie languages & personas.  and will return generated Seeds that can be used as snippets post/pre onboarding.
+     * /machine_learning/text/technical_language/generators/personification [GET]
+     */
+    async personificationTechnicalLanguageGenerationRaw(requestParameters) {
+        const queryParameters = {};
+        const headerParameters = {};
+        headerParameters['Content-Type'] = 'application/json';
+        const response = await this.request({
+            path: `/machine_learning/text/technical_language/generators/personification`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: (0, models_1.PreonboardedPersonaDetailsToJSON)(requestParameters.preonboardedPersonaDetails),
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.OnboardedPersonaDetailsFromJSON)(jsonValue));
+    }
+    /**
+     * This is going to take in some personification details ie languages & personas.  and will return generated Seeds that can be used as snippets post/pre onboarding.
+     * /machine_learning/text/technical_language/generators/personification [GET]
+     */
+    async personificationTechnicalLanguageGeneration(requestParameters) {
+        const response = await this.personificationTechnicalLanguageGenerationRaw(requestParameters);
+        return await response.value();
+    }
+    /**
      * This is a functional endpoint that will parse a message or text in to text or code.  if the optional query param is passed along \'classify\' then we will optionally classify the just the code that is segmented.
      * /machine_learning/text/technical_language/parsers/segmentation [POST]
      */

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededTag } from './index';
+import { EmbeddedModelSchema, SeededTag } from './';
 /**
  *
  * @export

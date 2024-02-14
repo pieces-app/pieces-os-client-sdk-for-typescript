@@ -29,6 +29,8 @@ function QGPTTaskPipelineFromJSONTyped(json, ignoreDiscriminator) {
         'codeExplanation': !(0, runtime_1.exists)(json, 'code_explanation') ? undefined : (0, index_1.QGPTTaskPipelineForCodeExplanationFromJSON)(json['code_explanation']),
         'codeCommentation': !(0, runtime_1.exists)(json, 'code_commentation') ? undefined : (0, index_1.QGPTTaskPipelineForCodeCommentationFromJSON)(json['code_commentation']),
         'codeFix': !(0, runtime_1.exists)(json, 'code_fix') ? undefined : (0, index_1.QGPTTaskPipelineForCodeFixFromJSON)(json['code_fix']),
+        'codeModification': !(0, runtime_1.exists)(json, 'code_modification') ? undefined : (0, index_1.QGPTTaskPipelineForCodeModificationFromJSON)(json['code_modification']),
+        'codeCompletion': !(0, runtime_1.exists)(json, 'code_completion') ? undefined : (0, index_1.QGPTTaskPipelineForCodeCompletionFromJSON)(json['code_completion']),
     };
 }
 exports.QGPTTaskPipelineFromJSONTyped = QGPTTaskPipelineFromJSONTyped;
@@ -44,6 +46,8 @@ function QGPTTaskPipelineToJSON(value) {
         'code_explanation': (0, index_1.QGPTTaskPipelineForCodeExplanationToJSON)(value.codeExplanation),
         'code_commentation': (0, index_1.QGPTTaskPipelineForCodeCommentationToJSON)(value.codeCommentation),
         'code_fix': (0, index_1.QGPTTaskPipelineForCodeFixToJSON)(value.codeFix),
+        'code_modification': (0, index_1.QGPTTaskPipelineForCodeModificationToJSON)(value.codeModification),
+        'code_completion': (0, index_1.QGPTTaskPipelineForCodeCompletionToJSON)(value.codeCompletion),
     };
 }
 exports.QGPTTaskPipelineToJSON = QGPTTaskPipelineToJSON;

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedAssetEventIdentifierDescriptionPairsToJSON = exports.TrackedAssetEventIdentifierDescriptionPairsFromJSONTyped = exports.TrackedAssetEventIdentifierDescriptionPairsFromJSON = exports.TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum = exports.TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 /**
 * @export
 * @enum {string}
@@ -278,7 +278,7 @@ function TrackedAssetEventIdentifierDescriptionPairsFromJSONTyped(json, ignoreDi
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'assetCreated': !(0, runtime_1.exists)(json, 'asset_created') ? undefined : json['asset_created'],
         'assetViewed': !(0, runtime_1.exists)(json, 'asset_viewed') ? undefined : json['asset_viewed'],
         'assetFormatCopied': !(0, runtime_1.exists)(json, 'asset_format_copied') ? undefined : json['asset_format_copied'],
@@ -326,7 +326,7 @@ function TrackedAssetEventIdentifierDescriptionPairsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'asset_created': value.assetCreated,
         'asset_viewed': value.assetViewed,
         'asset_format_copied': value.assetFormatCopied,

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnalysisToJSON = exports.AnalysisFromJSONTyped = exports.AnalysisFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AnalysisFromJSON(json) {
     return AnalysisFromJSONTyped(json, false);
 }
@@ -25,11 +25,11 @@ function AnalysisFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'code': !(0, runtime_1.exists)(json, 'code') ? undefined : (0, index_1.CodeAnalysisFromJSON)(json['code']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'code': !(0, runtime_1.exists)(json, 'code') ? undefined : (0, _1.CodeAnalysisFromJSON)(json['code']),
         'id': json['id'],
         'format': json['format'],
-        'image': !(0, runtime_1.exists)(json, 'image') ? undefined : (0, index_1.ImageAnalysisFromJSON)(json['image']),
+        'image': !(0, runtime_1.exists)(json, 'image') ? undefined : (0, _1.ImageAnalysisFromJSON)(json['image']),
     };
 }
 exports.AnalysisFromJSONTyped = AnalysisFromJSONTyped;
@@ -41,11 +41,11 @@ function AnalysisToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'code': (0, index_1.CodeAnalysisToJSON)(value.code),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'code': (0, _1.CodeAnalysisToJSON)(value.code),
         'id': value.id,
         'format': value.format,
-        'image': (0, index_1.ImageAnalysisToJSON)(value.image),
+        'image': (0, _1.ImageAnalysisToJSON)(value.image),
     };
 }
 exports.AnalysisToJSON = AnalysisToJSON;

@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Classification, EmbeddedModelSchema, Role } from './index';
+import { Classification, EmbeddedModelSchema, Role } from './';
 /**
  * A minimal format to send to Mixpanel
  * @export

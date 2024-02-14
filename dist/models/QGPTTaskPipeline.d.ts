@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTTaskPipelineForCodeCommentation, QGPTTaskPipelineForCodeExplanation, QGPTTaskPipelineForCodeFix } from './index';
+import { EmbeddedModelSchema, QGPTTaskPipelineForCodeCommentation, QGPTTaskPipelineForCodeCompletion, QGPTTaskPipelineForCodeExplanation, QGPTTaskPipelineForCodeFix, QGPTTaskPipelineForCodeModification } from './index';
 /**
  * This model is specifically for QGPT Task pipelines, the model is used to group one off tasks for instance fix/explaining/commenting
  * that dont necessarily require a conversation form factor.
@@ -41,6 +41,18 @@ export interface QGPTTaskPipeline {
      * @memberof QGPTTaskPipeline
      */
     codeFix?: QGPTTaskPipelineForCodeFix;
+    /**
+     *
+     * @type {QGPTTaskPipelineForCodeModification}
+     * @memberof QGPTTaskPipeline
+     */
+    codeModification?: QGPTTaskPipelineForCodeModification;
+    /**
+     *
+     * @type {QGPTTaskPipelineForCodeCompletion}
+     * @memberof QGPTTaskPipeline
+     */
+    codeCompletion?: QGPTTaskPipelineForCodeCompletion;
 }
 export declare function QGPTTaskPipelineFromJSON(json: any): QGPTTaskPipeline;
 export declare function QGPTTaskPipelineFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipeline;

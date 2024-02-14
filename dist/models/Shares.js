@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SharesToJSON = exports.SharesFromJSONTyped = exports.SharesFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SharesFromJSON(json) {
     return SharesFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function SharesFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.ShareFromJSON)),
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.ShareFromJSON)),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
     };
 }
 exports.SharesFromJSONTyped = SharesFromJSONTyped;
@@ -39,9 +39,9 @@ function SharesToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.ShareToJSON)),
-        'score': (0, index_1.ScoreToJSON)(value.score),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.ShareToJSON)),
+        'score': (0, _1.ScoreToJSON)(value.score),
     };
 }
 exports.SharesToJSON = SharesToJSON;

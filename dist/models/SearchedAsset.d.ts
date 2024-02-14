@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Asset, EmbeddedModelSchema, SearchedMatchEnum } from './index';
+import { Asset, EmbeddedModelSchema, SearchedMatchEnum } from './';
 /**
  * This is a modle that will represent a searched asset!
  * @export

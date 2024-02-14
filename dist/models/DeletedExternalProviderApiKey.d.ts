@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0UserMetadata, EmbeddedModelSchema } from './index';
+import { Auth0UserMetadata, EmbeddedModelSchema } from './';
 /**
  * This is the returnable for the ""/external_provider/api_key/delete" endpoint
  * @export

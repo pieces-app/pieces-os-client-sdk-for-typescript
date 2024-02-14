@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTConversationPipelineForContextualizedCodeDialog, QGPTConversationPipelineForContextualizedCodeGeneration, QGPTConversationPipelineForGeneralizedCodeDialog } from './index';
+import { EmbeddedModelSchema, QGPTConversationPipelineForContextualizedCodeDialog, QGPTConversationPipelineForContextualizedCodeGeneration, QGPTConversationPipelineForGeneralizedCodeDialog } from './';
 /**
  * This model is specifically for QGPT Conversation pipelines, the model is used to group conversational prompts for instance a conversation around generating code.
  *

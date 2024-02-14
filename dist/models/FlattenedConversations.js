@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedConversationsToJSON = exports.FlattenedConversationsFromJSONTyped = exports.FlattenedConversationsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FlattenedConversationsFromJSON(json) {
     return FlattenedConversationsFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function FlattenedConversationsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.ReferencedConversationFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.ReferencedConversationFromJSON)),
         'indices': !(0, runtime_1.exists)(json, 'indices') ? undefined : json['indices'],
-        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, index_1.ScoreFromJSON)(json['score']),
+        'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
     };
 }
 exports.FlattenedConversationsFromJSONTyped = FlattenedConversationsFromJSONTyped;
@@ -40,10 +40,10 @@ function FlattenedConversationsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.ReferencedConversationToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.ReferencedConversationToJSON)),
         'indices': value.indices,
-        'score': (0, index_1.ScoreToJSON)(value.score),
+        'score': (0, _1.ScoreToJSON)(value.score),
     };
 }
 exports.FlattenedConversationsToJSON = FlattenedConversationsToJSON;

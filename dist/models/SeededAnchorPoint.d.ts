@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AnchorTypeEnum, EmbeddedModelSchema, PlatformEnum } from './index';
+import { AnchorTypeEnum, EmbeddedModelSchema, PlatformEnum } from './';
 /**
  *
  * @export

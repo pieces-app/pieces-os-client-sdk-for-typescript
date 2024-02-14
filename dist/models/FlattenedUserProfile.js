@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FlattenedUserProfileToJSON = exports.FlattenedUserProfileFromJSONTyped = exports.FlattenedUserProfileFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FlattenedUserProfileFromJSON(json) {
     return FlattenedUserProfileFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function FlattenedUserProfileFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
         'email': !(0, runtime_1.exists)(json, 'email') ? undefined : json['email'],
         'name': !(0, runtime_1.exists)(json, 'name') ? undefined : json['name'],
@@ -43,7 +43,7 @@ function FlattenedUserProfileToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
         'email': value.email,
         'name': value.name,

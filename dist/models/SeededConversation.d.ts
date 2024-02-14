@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Application, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAssets, FlattenedWebsites, QGPTPromptPipeline, ReferencedModel, SeededAnchor, SeededAnnotation, SeededConversationMessage } from './index';
+import { Application, ConversationTypeEnum, EmbeddedModelSchema, FlattenedAssets, FlattenedWebsites, QGPTPromptPipeline, ReferencedModel, SeededAnchor, SeededAnnotation, SeededConversationMessage } from './';
 /**
  * This is a pre-Conversation object.
  *

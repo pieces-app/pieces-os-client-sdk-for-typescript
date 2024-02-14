@@ -10,7 +10,10 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { SegmentedTechnicalLanguage, UnsegmentedTechnicalLanguage } from '../models';
+import { OnboardedPersonaDetails, PreonboardedPersonaDetails, SegmentedTechnicalLanguage, UnsegmentedTechnicalLanguage } from '../models';
+export interface PersonificationTechnicalLanguageGenerationRequest {
+    preonboardedPersonaDetails?: PreonboardedPersonaDetails;
+}
 export interface SegmentTechnicalLanguageRequest {
     classify?: boolean;
     unsegmentedTechnicalLanguage?: UnsegmentedTechnicalLanguage;
@@ -19,6 +22,16 @@ export interface SegmentTechnicalLanguageRequest {
  *
  */
 export declare class MachineLearningApi extends runtime.BaseAPI {
+    /**
+     * This is going to take in some personification details ie languages & personas.  and will return generated Seeds that can be used as snippets post/pre onboarding.
+     * /machine_learning/text/technical_language/generators/personification [GET]
+     */
+    personificationTechnicalLanguageGenerationRaw(requestParameters: PersonificationTechnicalLanguageGenerationRequest): Promise<runtime.ApiResponse<OnboardedPersonaDetails>>;
+    /**
+     * This is going to take in some personification details ie languages & personas.  and will return generated Seeds that can be used as snippets post/pre onboarding.
+     * /machine_learning/text/technical_language/generators/personification [GET]
+     */
+    personificationTechnicalLanguageGeneration(requestParameters: PersonificationTechnicalLanguageGenerationRequest): Promise<OnboardedPersonaDetails>;
     /**
      * This is a functional endpoint that will parse a message or text in to text or code.  if the optional query param is passed along \'classify\' then we will optionally classify the just the code that is segmented.
      * /machine_learning/text/technical_language/parsers/segmentation [POST]

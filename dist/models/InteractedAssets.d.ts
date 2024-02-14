@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, InteractedAsset } from './index';
+import { EmbeddedModelSchema, InteractedAsset } from './';
 /**
  * A model which contains a list of InteractedAssets with potentially additional properties.
  * @export

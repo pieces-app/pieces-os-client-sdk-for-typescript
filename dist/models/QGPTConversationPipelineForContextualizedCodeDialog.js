@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTConversationPipelineForContextualizedCodeDialogToJSON = exports.QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped = exports.QGPTConversationPipelineForContextualizedCodeDialogFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json) {
     return QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped(json, 
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
     };
 }
 exports.QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped = QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped;
@@ -37,7 +37,7 @@ function QGPTConversationPipelineForContextualizedCodeDialogToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
     };
 }
 exports.QGPTConversationPipelineForContextualizedCodeDialogToJSON = QGPTConversationPipelineForContextualizedCodeDialogToJSON;

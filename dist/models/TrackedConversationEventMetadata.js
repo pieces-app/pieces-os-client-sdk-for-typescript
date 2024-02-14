@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackedConversationEventMetadataToJSON = exports.TrackedConversationEventMetadataFromJSONTyped = exports.TrackedConversationEventMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TrackedConversationEventMetadataFromJSON(json) {
     return TrackedConversationEventMetadataFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function TrackedConversationEventMetadataFromJSONTyped(json, ignoreDiscriminator
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'rename': !(0, runtime_1.exists)(json, 'rename') ? undefined : (0, index_1.TrackedConversationEventRenameMetadataFromJSON)(json['rename']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'rename': !(0, runtime_1.exists)(json, 'rename') ? undefined : (0, _1.TrackedConversationEventRenameMetadataFromJSON)(json['rename']),
     };
 }
 exports.TrackedConversationEventMetadataFromJSONTyped = TrackedConversationEventMetadataFromJSONTyped;
@@ -38,8 +38,8 @@ function TrackedConversationEventMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'rename': (0, index_1.TrackedConversationEventRenameMetadataToJSON)(value.rename),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'rename': (0, _1.TrackedConversationEventRenameMetadataToJSON)(value.rename),
     };
 }
 exports.TrackedConversationEventMetadataToJSON = TrackedConversationEventMetadataToJSON;

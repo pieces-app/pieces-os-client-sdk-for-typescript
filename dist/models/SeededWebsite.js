@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededWebsiteToJSON = exports.SeededWebsiteFromJSONTyped = exports.SeededWebsiteFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededWebsiteFromJSON(json) {
     return SeededWebsiteFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function SeededWebsiteFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'asset': !(0, runtime_1.exists)(json, 'asset') ? undefined : json['asset'],
         'conversation': !(0, runtime_1.exists)(json, 'conversation') ? undefined : json['conversation'],
         'url': json['url'],
         'name': json['name'],
-        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
+        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
         'person': !(0, runtime_1.exists)(json, 'person') ? undefined : json['person'],
     };
 }
@@ -43,12 +43,12 @@ function SeededWebsiteToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'asset': value.asset,
         'conversation': value.conversation,
         'url': value.url,
         'name': value.name,
-        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
+        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
         'person': value.person,
     };
 }

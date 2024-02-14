@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedActivities, FlattenedAnchors, FlattenedAnnotations, FlattenedConversations, FlattenedFormats, FlattenedHints, FlattenedPersons, FlattenedPreview, FlattenedSensitives, FlattenedShares, FlattenedTags, FlattenedWebsites, GroupedTimestamp, MechanismEnum, Score } from './index';
+import { EmbeddedModelSchema, FlattenedActivities, FlattenedAnchors, FlattenedAnnotations, FlattenedConversations, FlattenedFormats, FlattenedHints, FlattenedPersons, FlattenedPreview, FlattenedSensitives, FlattenedShares, FlattenedTags, FlattenedWebsites, GroupedTimestamp, MechanismEnum, Score } from './';
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats. [DAG Compatible - Directed Acyclic Graph Data Structure]
  *

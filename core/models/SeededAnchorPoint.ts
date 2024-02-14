@@ -26,7 +26,7 @@ import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * 

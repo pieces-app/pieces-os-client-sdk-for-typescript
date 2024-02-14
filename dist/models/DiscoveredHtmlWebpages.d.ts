@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { DiscoveredHtmlWebpage, EmbeddedModelSchema } from './index';
+import { DiscoveredHtmlWebpage, EmbeddedModelSchema } from './';
 /**
  * Assumption: The iterable will be in the exact same order as it was passed in within the seededDiscoveredHtmlWebpages
  * @export

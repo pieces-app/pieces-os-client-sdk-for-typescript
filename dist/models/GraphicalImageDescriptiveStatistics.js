@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GraphicalImageDescriptiveStatisticsToJSON = exports.GraphicalImageDescriptiveStatisticsFromJSONTyped = exports.GraphicalImageDescriptiveStatisticsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function GraphicalImageDescriptiveStatisticsFromJSON(json) {
     return GraphicalImageDescriptiveStatisticsFromJSONTyped(json, false);
 }
@@ -25,7 +25,7 @@ function GraphicalImageDescriptiveStatisticsFromJSONTyped(json, ignoreDiscrimina
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'width': json['width'],
         'height': json['height'],
         'channels': json['channels'],
@@ -44,7 +44,7 @@ function GraphicalImageDescriptiveStatisticsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'width': value.width,
         'height': value.height,
         'channels': value.channels,

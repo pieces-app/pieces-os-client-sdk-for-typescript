@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetFilterTimestampToJSON = exports.AssetFilterTimestampFromJSONTyped = exports.AssetFilterTimestampFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function AssetFilterTimestampFromJSON(json) {
     return AssetFilterTimestampFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function AssetFilterTimestampFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'from': !(0, runtime_1.exists)(json, 'from') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['from']),
-        'to': !(0, runtime_1.exists)(json, 'to') ? undefined : (0, index_1.GroupedTimestampFromJSON)(json['to']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'from': !(0, runtime_1.exists)(json, 'from') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['from']),
+        'to': !(0, runtime_1.exists)(json, 'to') ? undefined : (0, _1.GroupedTimestampFromJSON)(json['to']),
         'between': !(0, runtime_1.exists)(json, 'between') ? undefined : json['between'],
     };
 }
@@ -40,9 +40,9 @@ function AssetFilterTimestampToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'from': (0, index_1.GroupedTimestampToJSON)(value.from),
-        'to': (0, index_1.GroupedTimestampToJSON)(value.to),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'from': (0, _1.GroupedTimestampToJSON)(value.from),
+        'to': (0, _1.GroupedTimestampToJSON)(value.to),
         'between': value.between,
     };
 }

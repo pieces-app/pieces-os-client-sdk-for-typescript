@@ -22,7 +22,7 @@ import {
     SearchedAssetsFromJSON,
     SearchedAssetsFromJSONTyped,
     SearchedAssetsToJSON,
-} from './index';
+} from './';
 
 /**
  * output for the /assets/search [POST] 

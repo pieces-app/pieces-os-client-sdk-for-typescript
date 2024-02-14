@@ -30,7 +30,7 @@ import {
     TrackedFormatEventMetadataFromJSON,
     TrackedFormatEventMetadataFromJSONTyped,
     TrackedFormatEventMetadataToJSON,
-} from './index';
+} from './';
 
 /**
  * Again this is a model designed to be sent over to a context server to be built and then sent along to segment.

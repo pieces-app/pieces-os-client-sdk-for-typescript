@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { CodeAnalysis, EmbeddedModelSchema, ImageAnalysis } from './index';
+import { CodeAnalysis, EmbeddedModelSchema, ImageAnalysis } from './';
 /**
  * This the the MlAnalysis Object, that will go on a format.
  *

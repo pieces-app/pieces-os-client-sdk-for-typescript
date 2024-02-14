@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTAgentRoutesToJSON = exports.QGPTAgentRoutesFromJSONTyped = exports.QGPTAgentRoutesFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function QGPTAgentRoutesFromJSON(json) {
     return QGPTAgentRoutesFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function QGPTAgentRoutesFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'related': !(0, runtime_1.exists)(json, 'related') ? undefined : (0, index_1.QGPTAgentRelatedRoutesFromJSON)(json['related']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'related': !(0, runtime_1.exists)(json, 'related') ? undefined : (0, _1.QGPTAgentRelatedRoutesFromJSON)(json['related']),
     };
 }
 exports.QGPTAgentRoutesFromJSONTyped = QGPTAgentRoutesFromJSONTyped;
@@ -38,8 +38,8 @@ function QGPTAgentRoutesToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'related': (0, index_1.QGPTAgentRelatedRoutesToJSON)(value.related),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'related': (0, _1.QGPTAgentRelatedRoutesToJSON)(value.related),
     };
 }
 exports.QGPTAgentRoutesToJSON = QGPTAgentRoutesToJSON;

@@ -26,7 +26,7 @@ import {
     SeededGitHubDistributionFromJSON,
     SeededGitHubDistributionFromJSONTyped,
     SeededGitHubDistributionToJSON,
-} from './index';
+} from './';
 
 /**
  * TODO if we add another distribution add to this, Distribution, and flattenedDistribution.

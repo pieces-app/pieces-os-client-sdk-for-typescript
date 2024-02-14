@@ -22,7 +22,7 @@ import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-} from './index';
+} from './';
 
 /**
  * A object to reference a user's ID and optionally a FlattenedUserProfile Instance 

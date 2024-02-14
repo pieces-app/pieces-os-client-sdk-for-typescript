@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, SeededFile, SeededFragment, TLPDirectedDiscoveryFilters } from './index';
+import { EmbeddedModelSchema, SeededFile, SeededFragment, TLPDirectedDiscoveryFilters } from './';
 /**
  * Assumption: filters applied in this model will overwrite filters passed in SeededDiscoverableAssets
  * @export

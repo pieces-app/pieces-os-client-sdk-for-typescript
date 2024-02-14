@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema } from './index';
+import { EmbeddedModelSchema } from './';
 /**
  * This is a shared output model for all the exists endpoints:
  * /tags/exists : value here is the tag that you want to see if it exists.

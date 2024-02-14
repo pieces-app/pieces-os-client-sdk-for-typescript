@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RelevantQGPTSeedsToJSON = exports.RelevantQGPTSeedsFromJSONTyped = exports.RelevantQGPTSeedsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function RelevantQGPTSeedsFromJSON(json) {
     return RelevantQGPTSeedsFromJSONTyped(json, false);
 }
@@ -25,8 +25,8 @@ function RelevantQGPTSeedsFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'iterable': (json['iterable'].map(index_1.RelevantQGPTSeedFromJSON)),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'iterable': (json['iterable'].map(_1.RelevantQGPTSeedFromJSON)),
     };
 }
 exports.RelevantQGPTSeedsFromJSONTyped = RelevantQGPTSeedsFromJSONTyped;
@@ -38,8 +38,8 @@ function RelevantQGPTSeedsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'iterable': (value.iterable.map(index_1.RelevantQGPTSeedToJSON)),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'iterable': (value.iterable.map(_1.RelevantQGPTSeedToJSON)),
     };
 }
 exports.RelevantQGPTSeedsToJSON = RelevantQGPTSeedsToJSON;

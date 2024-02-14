@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { AllocationCloud, EmbeddedModelSchema } from './index';
+import { AllocationCloud, EmbeddedModelSchema } from './';
 /**
  *
  * @export

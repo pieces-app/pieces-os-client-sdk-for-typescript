@@ -22,7 +22,7 @@ import {
     QGPTQuestionAnswersFromJSON,
     QGPTQuestionAnswersFromJSONTyped,
     QGPTQuestionAnswersToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the output/returned value from the /qgpt/question endpoint. && /qgpt/followup

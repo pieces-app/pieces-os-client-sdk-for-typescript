@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, FlattenedUserProfile } from './index';
+import { EmbeddedModelSchema, FlattenedUserProfile } from './';
 /**
  * This is a pre-created accessor that simply takes an os id and an optional user(flattened)
  * @export

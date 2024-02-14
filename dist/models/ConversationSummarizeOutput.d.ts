@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, ReferencedAnnotation, ReferencedConversation } from './index';
+import { EmbeddedModelSchema, ReferencedAnnotation, ReferencedConversation } from './';
 /**
  * This is the output model for "/conversation/{conversation}/summarize
  * @export

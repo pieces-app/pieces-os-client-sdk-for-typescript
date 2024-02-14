@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Relationship } from './index';
+import { Relationship } from './';
 /**
  *
  * @export

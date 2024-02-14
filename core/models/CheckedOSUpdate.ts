@@ -22,7 +22,7 @@ import {
     UpdatingStatusEnumFromJSON,
     UpdatingStatusEnumFromJSONTyped,
     UpdatingStatusEnumToJSON,
-} from './index';
+} from './';
 
 /**
  * This is the returnable for /os/update/check

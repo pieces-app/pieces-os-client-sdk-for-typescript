@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FragmentFormatToJSON = exports.FragmentFormatFromJSONTyped = exports.FragmentFormatFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FragmentFormatFromJSON(json) {
     return FragmentFormatFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function FragmentFormatFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'string': !(0, runtime_1.exists)(json, 'string') ? undefined : (0, index_1.TransferableStringFromJSON)(json['string']),
-        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, index_1.TransferableBytesFromJSON)(json['bytes']),
-        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, index_1.FragmentMetadataFromJSON)(json['metadata']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'string': !(0, runtime_1.exists)(json, 'string') ? undefined : (0, _1.TransferableStringFromJSON)(json['string']),
+        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, _1.TransferableBytesFromJSON)(json['bytes']),
+        'metadata': !(0, runtime_1.exists)(json, 'metadata') ? undefined : (0, _1.FragmentMetadataFromJSON)(json['metadata']),
     };
 }
 exports.FragmentFormatFromJSONTyped = FragmentFormatFromJSONTyped;
@@ -40,10 +40,10 @@ function FragmentFormatToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'string': (0, index_1.TransferableStringToJSON)(value.string),
-        'bytes': (0, index_1.TransferableBytesToJSON)(value.bytes),
-        'metadata': (0, index_1.FragmentMetadataToJSON)(value.metadata),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'string': (0, _1.TransferableStringToJSON)(value.string),
+        'bytes': (0, _1.TransferableBytesToJSON)(value.bytes),
+        'metadata': (0, _1.FragmentMetadataToJSON)(value.metadata),
     };
 }
 exports.FragmentFormatToJSON = FragmentFormatToJSON;

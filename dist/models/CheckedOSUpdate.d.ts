@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, UpdatingStatusEnum } from './index';
+import { EmbeddedModelSchema, UpdatingStatusEnum } from './';
 /**
  * This is the returnable for /os/update/check
  * @export

@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SeededAssetWebsiteToJSON = exports.SeededAssetWebsiteFromJSONTyped = exports.SeededAssetWebsiteFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function SeededAssetWebsiteFromJSON(json) {
     return SeededAssetWebsiteFromJSONTyped(json, false);
 }
@@ -25,10 +25,10 @@ function SeededAssetWebsiteFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'url': json['url'],
         'name': json['name'],
-        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, index_1.MechanismEnumFromJSON)(json['mechanism']),
+        'mechanism': !(0, runtime_1.exists)(json, 'mechanism') ? undefined : (0, _1.MechanismEnumFromJSON)(json['mechanism']),
     };
 }
 exports.SeededAssetWebsiteFromJSONTyped = SeededAssetWebsiteFromJSONTyped;
@@ -40,10 +40,10 @@ function SeededAssetWebsiteToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'url': value.url,
         'name': value.name,
-        'mechanism': (0, index_1.MechanismEnumToJSON)(value.mechanism),
+        'mechanism': (0, _1.MechanismEnumToJSON)(value.mechanism),
     };
 }
 exports.SeededAssetWebsiteToJSON = SeededAssetWebsiteToJSON;

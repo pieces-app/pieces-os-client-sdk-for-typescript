@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { Auth0OpenAIUserMetadata, EmbeddedModelSchema } from './index';
+import { Auth0OpenAIUserMetadata, EmbeddedModelSchema } from './';
 /**
  * This is the endput model for "/external_provider/api_key/update". everything but the uder will be optional, anything that is defined will get an update.
  * @export

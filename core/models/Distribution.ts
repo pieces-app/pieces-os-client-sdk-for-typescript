@@ -34,7 +34,7 @@ import {
     MailgunDistributionFromJSON,
     MailgunDistributionFromJSONTyped,
     MailgunDistributionToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a fully referenced version of a Distribution.

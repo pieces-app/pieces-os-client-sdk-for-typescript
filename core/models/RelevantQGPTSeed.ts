@@ -26,7 +26,7 @@ import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
-} from './index';
+} from './';
 
 /**
  * This is a generic model used, to wrap a seed, as well as give an identifier used to further identifiy this snippet.

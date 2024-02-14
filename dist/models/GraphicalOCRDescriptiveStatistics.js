@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GraphicalOCRDescriptiveStatisticsToJSON = exports.GraphicalOCRDescriptiveStatisticsFromJSONTyped = exports.GraphicalOCRDescriptiveStatisticsFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function GraphicalOCRDescriptiveStatisticsFromJSON(json) {
     return GraphicalOCRDescriptiveStatisticsFromJSONTyped(json, false);
 }
@@ -25,13 +25,13 @@ function GraphicalOCRDescriptiveStatisticsFromJSONTyped(json, ignoreDiscriminato
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'asset': json['asset'],
         'user': json['user'],
         'model': json['model'],
         'created': json['created'],
         'os': json['os'],
-        'confidence': (0, index_1.GraphicalOCRDescriptiveStatisticsConfidenceFromJSON)(json['confidence']),
+        'confidence': (0, _1.GraphicalOCRDescriptiveStatisticsConfidenceFromJSON)(json['confidence']),
         'duration': json['duration'],
     };
 }
@@ -44,13 +44,13 @@ function GraphicalOCRDescriptiveStatisticsToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'asset': value.asset,
         'user': value.user,
         'model': value.model,
         'created': value.created,
         'os': value.os,
-        'confidence': (0, index_1.GraphicalOCRDescriptiveStatisticsConfidenceToJSON)(value.confidence),
+        'confidence': (0, _1.GraphicalOCRDescriptiveStatisticsConfidenceToJSON)(value.confidence),
         'duration': value.duration,
     };
 }

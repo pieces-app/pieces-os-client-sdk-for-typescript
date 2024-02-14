@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TLPCodeFragmentClassificationMetadataToJSON = exports.TLPCodeFragmentClassificationMetadataFromJSONTyped = exports.TLPCodeFragmentClassificationMetadataFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function TLPCodeFragmentClassificationMetadataFromJSON(json) {
     return TLPCodeFragmentClassificationMetadataFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function TLPCodeFragmentClassificationMetadataFromJSONTyped(json, ignoreDiscrimi
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'context': !(0, runtime_1.exists)(json, 'context') ? undefined : (0, index_1.ClassificationFromJSON)(json['context']),
-        'prior': !(0, runtime_1.exists)(json, 'prior') ? undefined : (0, index_1.ClassificationFromJSON)(json['prior']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'context': !(0, runtime_1.exists)(json, 'context') ? undefined : (0, _1.ClassificationFromJSON)(json['context']),
+        'prior': !(0, runtime_1.exists)(json, 'prior') ? undefined : (0, _1.ClassificationFromJSON)(json['prior']),
     };
 }
 exports.TLPCodeFragmentClassificationMetadataFromJSONTyped = TLPCodeFragmentClassificationMetadataFromJSONTyped;
@@ -39,9 +39,9 @@ function TLPCodeFragmentClassificationMetadataToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'context': (0, index_1.ClassificationToJSON)(value.context),
-        'prior': (0, index_1.ClassificationToJSON)(value.prior),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'context': (0, _1.ClassificationToJSON)(value.context),
+        'prior': (0, _1.ClassificationToJSON)(value.prior),
     };
 }
 exports.TLPCodeFragmentClassificationMetadataToJSON = TLPCodeFragmentClassificationMetadataToJSON;

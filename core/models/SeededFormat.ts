@@ -30,7 +30,7 @@ import {
     SeededFragmentFromJSON,
     SeededFragmentFromJSONTyped,
     SeededFragmentToJSON,
-} from './index';
+} from './';
 
 /**
  * This is seeded data that will be come a format.

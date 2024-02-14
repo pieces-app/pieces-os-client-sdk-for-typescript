@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileFormatToJSON = exports.FileFormatFromJSONTyped = exports.FileFormatFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function FileFormatFromJSON(json) {
     return FileFormatFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function FileFormatFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, index_1.TransferableBytesFromJSON)(json['bytes']),
-        'string': !(0, runtime_1.exists)(json, 'string') ? undefined : (0, index_1.TransferableStringFromJSON)(json['string']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'bytes': !(0, runtime_1.exists)(json, 'bytes') ? undefined : (0, _1.TransferableBytesFromJSON)(json['bytes']),
+        'string': !(0, runtime_1.exists)(json, 'string') ? undefined : (0, _1.TransferableStringFromJSON)(json['string']),
     };
 }
 exports.FileFormatFromJSONTyped = FileFormatFromJSONTyped;
@@ -39,9 +39,9 @@ function FileFormatToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'bytes': (0, index_1.TransferableBytesToJSON)(value.bytes),
-        'string': (0, index_1.TransferableStringToJSON)(value.string),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'bytes': (0, _1.TransferableBytesToJSON)(value.bytes),
+        'string': (0, _1.TransferableStringToJSON)(value.string),
     };
 }
 exports.FileFormatToJSON = FileFormatToJSON;

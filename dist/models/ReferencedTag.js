@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReferencedTagToJSON = exports.ReferencedTagFromJSONTyped = exports.ReferencedTagFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function ReferencedTagFromJSON(json) {
     return ReferencedTagFromJSONTyped(json, false);
 }
@@ -25,9 +25,9 @@ function ReferencedTagFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
         'id': json['id'],
-        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, index_1.FlattenedTagFromJSON)(json['reference']),
+        'reference': !(0, runtime_1.exists)(json, 'reference') ? undefined : (0, _1.FlattenedTagFromJSON)(json['reference']),
     };
 }
 exports.ReferencedTagFromJSONTyped = ReferencedTagFromJSONTyped;
@@ -39,9 +39,9 @@ function ReferencedTagToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
         'id': value.id,
-        'reference': (0, index_1.FlattenedTagToJSON)(value.reference),
+        'reference': (0, _1.FlattenedTagToJSON)(value.reference),
     };
 }
 exports.ReferencedTagToJSON = ReferencedTagToJSON;
