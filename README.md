@@ -115,6 +115,7 @@ import * as pieces from '@pieces.app/pieces-os-client'
 >
 > **If you are having issues with your installation, it is likely due to a conflict in Typescript versions - `npm uninstall typescript` - then go back and perform all other npm installations before reinstalling typescript again**.
 
+You can get it here: [GitHub Repo](https://github.com/pieces-app/example-typescript)
 
 ## Creating a Project from Scratch
 Let's get started with the base of your new React project! We will do this by learning more about manipulating Pieces OS and creating our own assets locally on device. First, we will create a directory for you project along with some dependancy setup:
