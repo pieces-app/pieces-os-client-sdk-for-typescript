@@ -1,0 +1,22 @@
+export const __esModule: boolean;
+export function AnnotationFromJSON(json: any): any;
+export function AnnotationFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function AnnotationToJSON(value: any): {
+    schema: any;
+    id: any;
+    created: any;
+    updated: any;
+    deleted: any;
+    mechanism: any;
+    asset: any;
+    person: any;
+    type: any;
+    text: any;
+    model: any;
+    pseudo: any;
+    favorited: any;
+    anchor: any;
+    conversation: any;
+    score: any;
+    messages: any;
+} | null | undefined;

@@ -1,0 +1,24 @@
+export const __esModule: boolean;
+export function ConversationFromJSON(json: any): any;
+export function ConversationFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function ConversationToJSON(value: any): {
+    schema: any;
+    id: any;
+    name: any;
+    created: any;
+    updated: any;
+    deleted: any;
+    favorited: any;
+    application: any;
+    annotations: any;
+    messages: any;
+    model: any;
+    assets: any;
+    websites: any;
+    anchors: any;
+    type: any;
+    grounding: any;
+    score: any;
+    pipeline: any;
+    demo: any;
+} | null | undefined;

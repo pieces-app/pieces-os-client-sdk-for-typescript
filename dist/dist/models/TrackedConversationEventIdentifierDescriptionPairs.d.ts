@@ -1,0 +1,20 @@
+export const __esModule: boolean;
+export const TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum: {};
+export const TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum: {};
+export const TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum: {};
+export const TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum: {};
+export const TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum: {};
+export const TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum: {};
+export const TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum: {};
+export function TrackedConversationEventIdentifierDescriptionPairsFromJSON(json: any): any;
+export function TrackedConversationEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function TrackedConversationEventIdentifierDescriptionPairsToJSON(value: any): {
+    schema: any;
+    conversation_created: any;
+    conversation_referenced: any;
+    conversation_deleted: any;
+    conversation_summary_annotation_generated_by_the_user: any;
+    conversation_name_updated_by_the_system: any;
+    conversation_name_updated_by_the_user: any;
+    conversation_summary_annotation_generated_by_the_system: any;
+} | null | undefined;

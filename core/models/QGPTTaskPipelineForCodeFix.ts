@@ -24,6 +24,8 @@ import {
  * This task is for fixing a bit of code.
  * 
  * This is a class so that we can add optional properties in the future.
+ * 
+ * Note: the snippet && language that needs to be fixed should be within the QGPTQuestionInput.relevant.
  * @export
  * @interface QGPTTaskPipelineForCodeFix
  */
@@ -34,6 +36,12 @@ export interface QGPTTaskPipelineForCodeFix {
      * @memberof QGPTTaskPipelineForCodeFix
      */
     schema?: EmbeddedModelSchema;
+    /**
+     * This is the error message provided from the IDE, that we can use to provide the solution.
+     * @type {string}
+     * @memberof QGPTTaskPipelineForCodeFix
+     */
+    error?: string;
 }
 
 export function QGPTTaskPipelineForCodeFixFromJSON(json: any): QGPTTaskPipelineForCodeFix {
@@ -47,6 +55,7 @@ export function QGPTTaskPipelineForCodeFixFromJSONTyped(json: any, ignoreDiscrim
     return {
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'error': !exists(json, 'error') ? undefined : json['error'],
     };
 }
 
@@ -60,6 +69,7 @@ export function QGPTTaskPipelineForCodeFixToJSON(value?: QGPTTaskPipelineForCode
     return {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'error': value.error,
     };
 }
 

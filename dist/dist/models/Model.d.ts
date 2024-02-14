@@ -1,0 +1,27 @@
+export const __esModule: boolean;
+export function ModelFromJSON(json: any): any;
+export function ModelFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function ModelToJSON(value: any): {
+    schema: any;
+    id: any;
+    version: any;
+    created: any;
+    name: any;
+    description: any;
+    cloud: any;
+    type: any;
+    usage: any;
+    bytes: any;
+    ram: any;
+    quantization: any;
+    foundation: any;
+    downloaded: any;
+    loaded: any;
+    unique: any;
+    parameters: any;
+    provider: any;
+    cpu: any;
+    downloading: any;
+    maxTokens: any;
+    custom: any;
+} | null | undefined;

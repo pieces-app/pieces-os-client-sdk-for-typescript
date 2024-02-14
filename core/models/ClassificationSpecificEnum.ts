@@ -509,7 +509,9 @@ export enum ClassificationSpecificEnum {
     Cfm = 'cfm',
     Fs = 'fs',
     Fsi = 'fsi',
-    Fsx = 'fsx'
+    Fsx = 'fsx',
+    Tf = 'tf',
+    Vba = 'vba'
 }
 
 export function ClassificationSpecificEnumFromJSON(json: any): ClassificationSpecificEnum {

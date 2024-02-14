@@ -38,7 +38,7 @@ import {
     QGPTTaskPipelineForCodeModificationFromJSON,
     QGPTTaskPipelineForCodeModificationFromJSONTyped,
     QGPTTaskPipelineForCodeModificationToJSON,
-} from './index';
+} from './';
 
 /**
  * This model is specifically for QGPT Task pipelines, the model is used to group one off tasks for instance fix/explaining/commenting

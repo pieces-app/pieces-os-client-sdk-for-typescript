@@ -188,6 +188,12 @@ export interface FlattenedConversation {
      * @memberof FlattenedConversation
      */
     pipeline?: QGPTPromptPipeline;
+    /**
+     * This will let us know if this conversation was generated as a 'demo' conversation
+     * @type {boolean}
+     * @memberof FlattenedConversation
+     */
+    demo?: boolean;
 }
 
 export function FlattenedConversationFromJSON(json: any): FlattenedConversation {
@@ -218,6 +224,7 @@ export function FlattenedConversationFromJSONTyped(json: any, ignoreDiscriminato
         'grounding': !exists(json, 'grounding') ? undefined : ConversationGroundingFromJSON(json['grounding']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
@@ -248,6 +255,7 @@ export function FlattenedConversationToJSON(value?: FlattenedConversation | null
         'grounding': ConversationGroundingToJSON(value.grounding),
         'score': ScoreToJSON(value.score),
         'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
+        'demo': value.demo,
     };
 }
 

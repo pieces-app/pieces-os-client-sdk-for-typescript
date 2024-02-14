@@ -1,0 +1,24 @@
+export const __esModule: boolean;
+export function FlattenedFormatFromJSON(json: any): any;
+export function FlattenedFormatFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function FlattenedFormatToJSON(value: any): {
+    schema: any;
+    id: any;
+    creator: any;
+    classification: any;
+    icon: any;
+    role: any;
+    application: any;
+    asset: any;
+    bytes: any;
+    created: any;
+    updated: any;
+    deleted: any;
+    synced: any;
+    cloud: any;
+    fragment: any;
+    file: any;
+    analysis: any;
+    relationship: any;
+    activities: any;
+} | null | undefined;

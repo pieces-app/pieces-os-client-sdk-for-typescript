@@ -21,6 +21,9 @@ import {
     FilePickerInput,
     FilePickerInputFromJSON,
     FilePickerInputToJSON,
+    OSDeviceInformationReturnable,
+    OSDeviceInformationReturnableFromJSON,
+    OSDeviceInformationReturnableToJSON,
     ReturnedUserProfile,
     ReturnedUserProfileFromJSON,
     ReturnedUserProfileToJSON,
@@ -83,6 +86,34 @@ export class OSApi extends runtime.BaseAPI {
      */
     async linkProvider(requestParameters: LinkProviderRequest): Promise<ReturnedUserProfile> {
         const response = await this.linkProviderRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will get information related to your specific device.
+     * /os/device/information [GET]
+     */
+    async osDeviceInformationRaw(): Promise<runtime.ApiResponse<OSDeviceInformationReturnable>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/device/information`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSDeviceInformationReturnableFromJSON(jsonValue));
+    }
+
+    /**
+     * This will get information related to your specific device.
+     * /os/device/information [GET]
+     */
+    async osDeviceInformation(): Promise<OSDeviceInformationReturnable> {
+        const response = await this.osDeviceInformationRaw();
         return await response.value();
     }
 

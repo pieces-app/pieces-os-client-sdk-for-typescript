@@ -259,6 +259,12 @@ export interface FlattenedAsset {
      * @memberof FlattenedAsset
      */
     conversations?: FlattenedConversations;
+    /**
+     * This will let us know if this asset was generated as a 'demo' snippet
+     * @type {boolean}
+     * @memberof FlattenedAsset
+     */
+    demo?: boolean;
 }
 
 export function FlattenedAssetFromJSON(json: any): FlattenedAsset {
@@ -299,6 +305,7 @@ export function FlattenedAssetFromJSONTyped(json: any, ignoreDiscriminator: bool
         'hints': !exists(json, 'hints') ? undefined : FlattenedHintsFromJSON(json['hints']),
         'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
         'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
@@ -339,6 +346,7 @@ export function FlattenedAssetToJSON(value?: FlattenedAsset | null): any {
         'hints': FlattenedHintsToJSON(value.hints),
         'anchors': FlattenedAnchorsToJSON(value.anchors),
         'conversations': FlattenedConversationsToJSON(value.conversations),
+        'demo': value.demo,
     };
 }
 

@@ -1,6 +1,6 @@
 # Get Started with Pieces OS and the @pieces.app/pieces-os-client npm package
 
-Follow this guide to get an early look at using Pieces OS in your own development environment. You can use this to get familiar with some key terms and endpoints: `assets`, `asset`, `connect`, `format`, `formats`, and `create`. There are other topics that are touched on, and further expansion on this starter project is coming soon.
+Follow this guide to get an early look at using Pieces OS in your own development environment. Create your own copilot plugin with this toolset, and you can use this readme to get familiar with some key terms and endpoints: `assets`, `asset`, `connect`, `format`, `formats`, and `create`. There are other topics that are touched on, and further expansion on this starter project is coming soon.
 
 [![npm version](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client.svg)](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client)
 

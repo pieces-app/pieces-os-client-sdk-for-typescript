@@ -1,0 +1,20 @@
+export const __esModule: boolean;
+export function SensitiveFromJSON(json: any): any;
+export function SensitiveFromJSONTyped(json: any, ignoreDiscriminator: any): any;
+export function SensitiveToJSON(value: any): {
+    schema: any;
+    id: any;
+    created: any;
+    updated: any;
+    deleted: any;
+    asset: any;
+    text: any;
+    mechanism: any;
+    category: any;
+    severity: any;
+    name: any;
+    description: any;
+    metadata: any;
+    interactions: any;
+    score: any;
+} | null | undefined;
