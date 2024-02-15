@@ -189,6 +189,12 @@ export interface FlattenedAsset {
      * @memberof FlattenedAsset
      */
     conversations?: FlattenedConversations;
+    /**
+     * This will let us know if this asset was generated as a 'demo' snippet
+     * @type {boolean}
+     * @memberof FlattenedAsset
+     */
+    demo?: boolean;
 }
 export declare function FlattenedAssetFromJSON(json: any): FlattenedAsset;
 export declare function FlattenedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAsset;

@@ -47,6 +47,17 @@ var ApplicationNameEnum;
     ApplicationNameEnum["Slack"] = "SLACK";
     ApplicationNameEnum["AzureDataStudio"] = "AZURE_DATA_STUDIO";
     ApplicationNameEnum["OpenSource"] = "OPEN_SOURCE";
+    ApplicationNameEnum["RStudio"] = "R_STUDIO";
+    ApplicationNameEnum["Vim"] = "VIM";
+    ApplicationNameEnum["Notion"] = "NOTION";
+    ApplicationNameEnum["GithubDesktop"] = "GITHUB_DESKTOP";
+    ApplicationNameEnum["Raycast"] = "RAYCAST";
+    ApplicationNameEnum["Replit"] = "REPLIT";
+    ApplicationNameEnum["Alfred"] = "ALFRED";
+    ApplicationNameEnum["Figma"] = "FIGMA";
+    ApplicationNameEnum["Sketch"] = "SKETCH";
+    ApplicationNameEnum["AdobeIllustrator"] = "ADOBE_ILLUSTRATOR";
+    ApplicationNameEnum["NotepadPlusPlus"] = "NOTEPAD_PLUS_PLUS";
     ApplicationNameEnum["Unknown"] = "UNKNOWN";
 })(ApplicationNameEnum || (exports.ApplicationNameEnum = ApplicationNameEnum = {}));
 function ApplicationNameEnumFromJSON(json) {

@@ -186,6 +186,12 @@ export interface Asset {
      * @memberof Asset
      */
     conversations?: Conversations;
+    /**
+     * This will let us know if this asset was generated as a 'demo' snippet
+     * @type {boolean}
+     * @memberof Asset
+     */
+    demo?: boolean;
 }
 export declare function AssetFromJSON(json: any): Asset;
 export declare function AssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): Asset;

@@ -253,6 +253,12 @@ models/OAuthGroup.ts
 models/OAuthToken.ts
 models/OCRAnalyses.ts
 models/OCRAnalysis.ts
+models/OSDeviceCPUHardwareInformation.ts
+models/OSDeviceDependenciesInformation.ts
+models/OSDeviceGPUHardwareCapabilitiesInformation.ts
+models/OSDeviceGPUHardwareInformation.ts
+models/OSDeviceHardwareInformation.ts
+models/OSDeviceInformationReturnable.ts
 models/OSHealth.ts
 models/OnboardedPersonaDetails.ts
 models/OpenAIModelsListInput.ts

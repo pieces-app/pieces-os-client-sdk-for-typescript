@@ -140,6 +140,12 @@ export interface SeededConversation {
      * @memberof SeededConversation
      */
     pipeline?: QGPTPromptPipeline;
+    /**
+     * This will let us know if this conversation was generated as a 'demo' conversation
+     * @type {boolean}
+     * @memberof SeededConversation
+     */
+    demo?: boolean;
 }
 
 export function SeededConversationFromJSON(json: any): SeededConversation {
@@ -164,6 +170,7 @@ export function SeededConversationFromJSONTyped(json: any, ignoreDiscriminator: 
         'anchors': !exists(json, 'anchors') ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
         'type': ConversationTypeEnumFromJSON(json['type']),
         'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
@@ -188,6 +195,7 @@ export function SeededConversationToJSON(value?: SeededConversation | null): any
         'anchors': value.anchors === undefined ? undefined : ((value.anchors as Array<any>).map(SeededAnchorToJSON)),
         'type': ConversationTypeEnumToJSON(value.type),
         'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
+        'demo': value.demo,
     };
 }
 

@@ -26,6 +26,7 @@ function QGPTTaskPipelineForCodeFixFromJSONTyped(json, ignoreDiscriminator) {
     }
     return {
         'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'error': !(0, runtime_1.exists)(json, 'error') ? undefined : json['error'],
     };
 }
 exports.QGPTTaskPipelineForCodeFixFromJSONTyped = QGPTTaskPipelineForCodeFixFromJSONTyped;
@@ -38,6 +39,7 @@ function QGPTTaskPipelineForCodeFixToJSON(value) {
     }
     return {
         'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'error': value.error,
     };
 }
 exports.QGPTTaskPipelineForCodeFixToJSON = QGPTTaskPipelineForCodeFixToJSON;

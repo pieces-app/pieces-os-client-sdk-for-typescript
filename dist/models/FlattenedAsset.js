@@ -53,6 +53,7 @@ function FlattenedAssetFromJSONTyped(json, ignoreDiscriminator) {
         'hints': !(0, runtime_1.exists)(json, 'hints') ? undefined : (0, _1.FlattenedHintsFromJSON)(json['hints']),
         'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (0, _1.FlattenedAnchorsFromJSON)(json['anchors']),
         'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : (0, _1.FlattenedConversationsFromJSON)(json['conversations']),
+        'demo': !(0, runtime_1.exists)(json, 'demo') ? undefined : json['demo'],
     };
 }
 exports.FlattenedAssetFromJSONTyped = FlattenedAssetFromJSONTyped;
@@ -92,6 +93,7 @@ function FlattenedAssetToJSON(value) {
         'hints': (0, _1.FlattenedHintsToJSON)(value.hints),
         'anchors': (0, _1.FlattenedAnchorsToJSON)(value.anchors),
         'conversations': (0, _1.FlattenedConversationsToJSON)(value.conversations),
+        'demo': value.demo,
     };
 }
 exports.FlattenedAssetToJSON = FlattenedAssetToJSON;

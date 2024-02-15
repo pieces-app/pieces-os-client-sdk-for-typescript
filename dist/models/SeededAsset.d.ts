@@ -70,6 +70,12 @@ export interface SeededAsset {
      * @memberof SeededAsset
      */
     enrichment?: SeededAssetEnrichment;
+    /**
+     * This will let us know if this asset was generated as a 'demo' snippet
+     * @type {boolean}
+     * @memberof SeededAsset
+     */
+    demo?: boolean;
 }
 export declare function SeededAssetFromJSON(json: any): SeededAsset;
 export declare function SeededAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAsset;

@@ -513,6 +513,8 @@ var ClassificationSpecificEnum;
     ClassificationSpecificEnum["Fs"] = "fs";
     ClassificationSpecificEnum["Fsi"] = "fsi";
     ClassificationSpecificEnum["Fsx"] = "fsx";
+    ClassificationSpecificEnum["Tf"] = "tf";
+    ClassificationSpecificEnum["Vba"] = "vba";
 })(ClassificationSpecificEnum || (exports.ClassificationSpecificEnum = ClassificationSpecificEnum = {}));
 function ClassificationSpecificEnumFromJSON(json) {
     return ClassificationSpecificEnumFromJSONTyped(json, false);

@@ -37,6 +37,7 @@ function SeededConversationFromJSONTyped(json, ignoreDiscriminator) {
         'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (json['anchors'].map(_1.SeededAnchorFromJSON)),
         'type': (0, _1.ConversationTypeEnumFromJSON)(json['type']),
         'pipeline': !(0, runtime_1.exists)(json, 'pipeline') ? undefined : (0, _1.QGPTPromptPipelineFromJSON)(json['pipeline']),
+        'demo': !(0, runtime_1.exists)(json, 'demo') ? undefined : json['demo'],
     };
 }
 exports.SeededConversationFromJSONTyped = SeededConversationFromJSONTyped;
@@ -60,6 +61,7 @@ function SeededConversationToJSON(value) {
         'anchors': value.anchors === undefined ? undefined : (value.anchors.map(_1.SeededAnchorToJSON)),
         'type': (0, _1.ConversationTypeEnumToJSON)(value.type),
         'pipeline': (0, _1.QGPTPromptPipelineToJSON)(value.pipeline),
+        'demo': value.demo,
     };
 }
 exports.SeededConversationToJSON = SeededConversationToJSON;

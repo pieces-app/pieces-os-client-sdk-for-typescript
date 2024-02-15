@@ -97,6 +97,9 @@ var ModelFoundationEnum;
     ModelFoundationEnum["Gemini"] = "GEMINI";
     ModelFoundationEnum["FastText"] = "FAST_TEXT";
     ModelFoundationEnum["Unixcoder"] = "UNIXCODER";
+    ModelFoundationEnum["Phi15"] = "PHI_1.5";
+    ModelFoundationEnum["Phi2"] = "PHI_2";
+    ModelFoundationEnum["Mixtral8X7B"] = "MIXTRAL_8_x_7B";
 })(ModelFoundationEnum || (exports.ModelFoundationEnum = ModelFoundationEnum = {}));
 function ModelFoundationEnumFromJSON(json) {
     return ModelFoundationEnumFromJSONTyped(json, false);

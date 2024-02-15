@@ -130,6 +130,12 @@ export interface FlattenedConversation {
      * @memberof FlattenedConversation
      */
     pipeline?: QGPTPromptPipeline;
+    /**
+     * This will let us know if this conversation was generated as a 'demo' conversation
+     * @type {boolean}
+     * @memberof FlattenedConversation
+     */
+    demo?: boolean;
 }
 export declare function FlattenedConversationFromJSON(json: any): FlattenedConversation;
 export declare function FlattenedConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedConversation;

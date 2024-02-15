@@ -93,7 +93,10 @@ export enum ModelFoundationEnum {
     Mistral7B = 'MISTRAL_7B',
     Gemini = 'GEMINI',
     FastText = 'FAST_TEXT',
-    Unixcoder = 'UNIXCODER'
+    Unixcoder = 'UNIXCODER',
+    Phi15 = 'PHI_1.5',
+    Phi2 = 'PHI_2',
+    Mixtral8X7B = 'MIXTRAL_8_x_7B'
 }
 
 export function ModelFoundationEnumFromJSON(json: any): ModelFoundationEnum {

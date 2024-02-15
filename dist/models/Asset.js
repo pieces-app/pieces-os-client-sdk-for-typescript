@@ -53,6 +53,7 @@ function AssetFromJSONTyped(json, ignoreDiscriminator) {
         'hints': !(0, runtime_1.exists)(json, 'hints') ? undefined : (0, _1.HintsFromJSON)(json['hints']),
         'anchors': !(0, runtime_1.exists)(json, 'anchors') ? undefined : (0, _1.AnchorsFromJSON)(json['anchors']),
         'conversations': !(0, runtime_1.exists)(json, 'conversations') ? undefined : (0, _1.ConversationsFromJSON)(json['conversations']),
+        'demo': !(0, runtime_1.exists)(json, 'demo') ? undefined : json['demo'],
     };
 }
 exports.AssetFromJSONTyped = AssetFromJSONTyped;
@@ -92,6 +93,7 @@ function AssetToJSON(value) {
         'hints': (0, _1.HintsToJSON)(value.hints),
         'anchors': (0, _1.AnchorsToJSON)(value.anchors),
         'conversations': (0, _1.ConversationsToJSON)(value.conversations),
+        'demo': value.demo,
     };
 }
 exports.AssetToJSON = AssetToJSON;

@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import * as runtime from '../runtime';
-import { CheckedOSUpdate, FilePickerInput, ReturnedUserProfile, SeededExternalProvider, UncheckedOSUpdate, UserProfile, Users } from '../models';
+import { CheckedOSUpdate, FilePickerInput, OSDeviceInformationReturnable, ReturnedUserProfile, SeededExternalProvider, UncheckedOSUpdate, UserProfile, Users } from '../models';
 export interface LinkProviderRequest {
     seededExternalProvider?: SeededExternalProvider;
 }
@@ -34,6 +34,16 @@ export declare class OSApi extends runtime.BaseAPI {
      * /os/link_provider [POST]
      */
     linkProvider(requestParameters: LinkProviderRequest): Promise<ReturnedUserProfile>;
+    /**
+     * This will get information related to your specific device.
+     * /os/device/information [GET]
+     */
+    osDeviceInformationRaw(): Promise<runtime.ApiResponse<OSDeviceInformationReturnable>>;
+    /**
+     * This will get information related to your specific device.
+     * /os/device/information [GET]
+     */
+    osDeviceInformation(): Promise<OSDeviceInformationReturnable>;
     /**
      * This will restart PiecesOS, if successfull with return a 204. This is a LOCALOS Only Endpoint.
      * Your GET endpoint

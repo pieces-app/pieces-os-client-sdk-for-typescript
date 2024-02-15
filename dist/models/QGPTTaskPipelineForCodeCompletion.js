@@ -26,6 +26,7 @@ function QGPTTaskPipelineForCodeCompletionFromJSONTyped(json, ignoreDiscriminato
     }
     return {
         'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'context': !(0, runtime_1.exists)(json, 'context') ? undefined : json['context'],
     };
 }
 exports.QGPTTaskPipelineForCodeCompletionFromJSONTyped = QGPTTaskPipelineForCodeCompletionFromJSONTyped;
@@ -38,6 +39,7 @@ function QGPTTaskPipelineForCodeCompletionToJSON(value) {
     }
     return {
         'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'context': value.context,
     };
 }
 exports.QGPTTaskPipelineForCodeCompletionToJSON = QGPTTaskPipelineForCodeCompletionToJSON;

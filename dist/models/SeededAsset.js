@@ -33,6 +33,7 @@ function SeededAssetFromJSONTyped(json, ignoreDiscriminator) {
         'available': !(0, runtime_1.exists)(json, 'available') ? undefined : (0, _1.AvailableFormatsFromJSON)(json['available']),
         'pseudo': !(0, runtime_1.exists)(json, 'pseudo') ? undefined : json['pseudo'],
         'enrichment': !(0, runtime_1.exists)(json, 'enrichment') ? undefined : (0, _1.SeededAssetEnrichmentFromJSON)(json['enrichment']),
+        'demo': !(0, runtime_1.exists)(json, 'demo') ? undefined : json['demo'],
     };
 }
 exports.SeededAssetFromJSONTyped = SeededAssetFromJSONTyped;
@@ -52,6 +53,7 @@ function SeededAssetToJSON(value) {
         'available': (0, _1.AvailableFormatsToJSON)(value.available),
         'pseudo': value.pseudo,
         'enrichment': (0, _1.SeededAssetEnrichmentToJSON)(value.enrichment),
+        'demo': value.demo,
     };
 }
 exports.SeededAssetToJSON = SeededAssetToJSON;

@@ -43,6 +43,7 @@ function ConversationFromJSONTyped(json, ignoreDiscriminator) {
         'grounding': !(0, runtime_1.exists)(json, 'grounding') ? undefined : (0, _1.ConversationGroundingFromJSON)(json['grounding']),
         'score': !(0, runtime_1.exists)(json, 'score') ? undefined : (0, _1.ScoreFromJSON)(json['score']),
         'pipeline': !(0, runtime_1.exists)(json, 'pipeline') ? undefined : (0, _1.QGPTPromptPipelineFromJSON)(json['pipeline']),
+        'demo': !(0, runtime_1.exists)(json, 'demo') ? undefined : json['demo'],
     };
 }
 exports.ConversationFromJSONTyped = ConversationFromJSONTyped;
@@ -72,6 +73,7 @@ function ConversationToJSON(value) {
         'grounding': (0, _1.ConversationGroundingToJSON)(value.grounding),
         'score': (0, _1.ScoreToJSON)(value.score),
         'pipeline': (0, _1.QGPTPromptPipelineToJSON)(value.pipeline),
+        'demo': value.demo,
     };
 }
 exports.ConversationToJSON = ConversationToJSON;

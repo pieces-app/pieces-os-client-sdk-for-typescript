@@ -130,6 +130,12 @@ export interface Conversation {
      * @memberof Conversation
      */
     pipeline?: QGPTPromptPipeline;
+    /**
+     * This will let us know if this conversation was generated as a 'demo' conversation
+     * @type {boolean}
+     * @memberof Conversation
+     */
+    demo?: boolean;
 }
 export declare function ConversationFromJSON(json: any): Conversation;
 export declare function ConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): Conversation;

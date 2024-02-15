@@ -14,6 +14,8 @@ import { EmbeddedModelSchema } from './';
  * This task is for fixing a bit of code.
  *
  * This is a class so that we can add optional properties in the future.
+ *
+ * Note: the snippet && language that needs to be fixed should be within the QGPTQuestionInput.relevant.
  * @export
  * @interface QGPTTaskPipelineForCodeFix
  */
@@ -24,6 +26,12 @@ export interface QGPTTaskPipelineForCodeFix {
      * @memberof QGPTTaskPipelineForCodeFix
      */
     schema?: EmbeddedModelSchema;
+    /**
+     * This is the error message provided from the IDE, that we can use to provide the solution.
+     * @type {string}
+     * @memberof QGPTTaskPipelineForCodeFix
+     */
+    error?: string;
 }
 export declare function QGPTTaskPipelineForCodeFixFromJSON(json: any): QGPTTaskPipelineForCodeFix;
 export declare function QGPTTaskPipelineForCodeFixFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeFix;

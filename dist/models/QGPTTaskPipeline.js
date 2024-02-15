@@ -15,7 +15,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.QGPTTaskPipelineToJSON = exports.QGPTTaskPipelineFromJSONTyped = exports.QGPTTaskPipelineFromJSON = void 0;
 const runtime_1 = require("../runtime");
-const index_1 = require("./index");
+const _1 = require("./");
 function QGPTTaskPipelineFromJSON(json) {
     return QGPTTaskPipelineFromJSONTyped(json, false);
 }
@@ -25,12 +25,12 @@ function QGPTTaskPipelineFromJSONTyped(json, ignoreDiscriminator) {
         return json;
     }
     return {
-        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, index_1.EmbeddedModelSchemaFromJSON)(json['schema']),
-        'codeExplanation': !(0, runtime_1.exists)(json, 'code_explanation') ? undefined : (0, index_1.QGPTTaskPipelineForCodeExplanationFromJSON)(json['code_explanation']),
-        'codeCommentation': !(0, runtime_1.exists)(json, 'code_commentation') ? undefined : (0, index_1.QGPTTaskPipelineForCodeCommentationFromJSON)(json['code_commentation']),
-        'codeFix': !(0, runtime_1.exists)(json, 'code_fix') ? undefined : (0, index_1.QGPTTaskPipelineForCodeFixFromJSON)(json['code_fix']),
-        'codeModification': !(0, runtime_1.exists)(json, 'code_modification') ? undefined : (0, index_1.QGPTTaskPipelineForCodeModificationFromJSON)(json['code_modification']),
-        'codeCompletion': !(0, runtime_1.exists)(json, 'code_completion') ? undefined : (0, index_1.QGPTTaskPipelineForCodeCompletionFromJSON)(json['code_completion']),
+        'schema': !(0, runtime_1.exists)(json, 'schema') ? undefined : (0, _1.EmbeddedModelSchemaFromJSON)(json['schema']),
+        'codeExplanation': !(0, runtime_1.exists)(json, 'code_explanation') ? undefined : (0, _1.QGPTTaskPipelineForCodeExplanationFromJSON)(json['code_explanation']),
+        'codeCommentation': !(0, runtime_1.exists)(json, 'code_commentation') ? undefined : (0, _1.QGPTTaskPipelineForCodeCommentationFromJSON)(json['code_commentation']),
+        'codeFix': !(0, runtime_1.exists)(json, 'code_fix') ? undefined : (0, _1.QGPTTaskPipelineForCodeFixFromJSON)(json['code_fix']),
+        'codeModification': !(0, runtime_1.exists)(json, 'code_modification') ? undefined : (0, _1.QGPTTaskPipelineForCodeModificationFromJSON)(json['code_modification']),
+        'codeCompletion': !(0, runtime_1.exists)(json, 'code_completion') ? undefined : (0, _1.QGPTTaskPipelineForCodeCompletionFromJSON)(json['code_completion']),
     };
 }
 exports.QGPTTaskPipelineFromJSONTyped = QGPTTaskPipelineFromJSONTyped;
@@ -42,12 +42,12 @@ function QGPTTaskPipelineToJSON(value) {
         return null;
     }
     return {
-        'schema': (0, index_1.EmbeddedModelSchemaToJSON)(value.schema),
-        'code_explanation': (0, index_1.QGPTTaskPipelineForCodeExplanationToJSON)(value.codeExplanation),
-        'code_commentation': (0, index_1.QGPTTaskPipelineForCodeCommentationToJSON)(value.codeCommentation),
-        'code_fix': (0, index_1.QGPTTaskPipelineForCodeFixToJSON)(value.codeFix),
-        'code_modification': (0, index_1.QGPTTaskPipelineForCodeModificationToJSON)(value.codeModification),
-        'code_completion': (0, index_1.QGPTTaskPipelineForCodeCompletionToJSON)(value.codeCompletion),
+        'schema': (0, _1.EmbeddedModelSchemaToJSON)(value.schema),
+        'code_explanation': (0, _1.QGPTTaskPipelineForCodeExplanationToJSON)(value.codeExplanation),
+        'code_commentation': (0, _1.QGPTTaskPipelineForCodeCommentationToJSON)(value.codeCommentation),
+        'code_fix': (0, _1.QGPTTaskPipelineForCodeFixToJSON)(value.codeFix),
+        'code_modification': (0, _1.QGPTTaskPipelineForCodeModificationToJSON)(value.codeModification),
+        'code_completion': (0, _1.QGPTTaskPipelineForCodeCompletionToJSON)(value.codeCompletion),
     };
 }
 exports.QGPTTaskPipelineToJSON = QGPTTaskPipelineToJSON;

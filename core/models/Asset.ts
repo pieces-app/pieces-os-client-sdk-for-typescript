@@ -260,6 +260,12 @@ export interface Asset {
      * @memberof Asset
      */
     conversations?: Conversations;
+    /**
+     * This will let us know if this asset was generated as a 'demo' snippet
+     * @type {boolean}
+     * @memberof Asset
+     */
+    demo?: boolean;
 }
 
 export function AssetFromJSON(json: any): Asset {
@@ -300,6 +306,7 @@ export function AssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ass
         'hints': !exists(json, 'hints') ? undefined : HintsFromJSON(json['hints']),
         'anchors': !exists(json, 'anchors') ? undefined : AnchorsFromJSON(json['anchors']),
         'conversations': !exists(json, 'conversations') ? undefined : ConversationsFromJSON(json['conversations']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
@@ -340,6 +347,7 @@ export function AssetToJSON(value?: Asset | null): any {
         'hints': HintsToJSON(value.hints),
         'anchors': AnchorsToJSON(value.anchors),
         'conversations': ConversationsToJSON(value.conversations),
+        'demo': value.demo,
     };
 }
 

@@ -24,6 +24,8 @@ import {
  * This task is for modifying a bit of code, IE modify this code to do xyz.
  * 
  * This is a class so that we can add optional properties in the future.
+ * 
+ * Note: the snippet && language that needs to be modified should be within the QGPTQuestionInput.relevant
  * @export
  * @interface QGPTTaskPipelineForCodeModification
  */
@@ -34,6 +36,12 @@ export interface QGPTTaskPipelineForCodeModification {
      * @memberof QGPTTaskPipelineForCodeModification
      */
     schema?: EmbeddedModelSchema;
+    /**
+     * This is the instruction that we will use to modify this snippet.
+     * @type {string}
+     * @memberof QGPTTaskPipelineForCodeModification
+     */
+    instruction?: string;
 }
 
 export function QGPTTaskPipelineForCodeModificationFromJSON(json: any): QGPTTaskPipelineForCodeModification {
@@ -47,6 +55,7 @@ export function QGPTTaskPipelineForCodeModificationFromJSONTyped(json: any, igno
     return {
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'instruction': !exists(json, 'instruction') ? undefined : json['instruction'],
     };
 }
 
@@ -60,6 +69,7 @@ export function QGPTTaskPipelineForCodeModificationToJSON(value?: QGPTTaskPipeli
     return {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'instruction': value.instruction,
     };
 }
 

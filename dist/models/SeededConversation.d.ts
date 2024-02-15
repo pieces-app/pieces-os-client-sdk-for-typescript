@@ -94,6 +94,12 @@ export interface SeededConversation {
      * @memberof SeededConversation
      */
     pipeline?: QGPTPromptPipeline;
+    /**
+     * This will let us know if this conversation was generated as a 'demo' conversation
+     * @type {boolean}
+     * @memberof SeededConversation
+     */
+    demo?: boolean;
 }
 export declare function SeededConversationFromJSON(json: any): SeededConversation;
 export declare function SeededConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConversation;

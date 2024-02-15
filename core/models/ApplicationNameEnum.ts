@@ -44,6 +44,17 @@ export enum ApplicationNameEnum {
     Slack = 'SLACK',
     AzureDataStudio = 'AZURE_DATA_STUDIO',
     OpenSource = 'OPEN_SOURCE',
+    RStudio = 'R_STUDIO',
+    Vim = 'VIM',
+    Notion = 'NOTION',
+    GithubDesktop = 'GITHUB_DESKTOP',
+    Raycast = 'RAYCAST',
+    Replit = 'REPLIT',
+    Alfred = 'ALFRED',
+    Figma = 'FIGMA',
+    Sketch = 'SKETCH',
+    AdobeIllustrator = 'ADOBE_ILLUSTRATOR',
+    NotepadPlusPlus = 'NOTEPAD_PLUS_PLUS',
     Unknown = 'UNKNOWN'
 }
 

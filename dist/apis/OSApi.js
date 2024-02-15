@@ -69,6 +69,29 @@ class OSApi extends runtime.BaseAPI {
         return await response.value();
     }
     /**
+     * This will get information related to your specific device.
+     * /os/device/information [GET]
+     */
+    async osDeviceInformationRaw() {
+        const queryParameters = {};
+        const headerParameters = {};
+        const response = await this.request({
+            path: `/os/device/information`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+        return new runtime.JSONApiResponse(response, (jsonValue) => (0, models_1.OSDeviceInformationReturnableFromJSON)(jsonValue));
+    }
+    /**
+     * This will get information related to your specific device.
+     * /os/device/information [GET]
+     */
+    async osDeviceInformation() {
+        const response = await this.osDeviceInformationRaw();
+        return await response.value();
+    }
+    /**
      * This will restart PiecesOS, if successfull with return a 204. This is a LOCALOS Only Endpoint.
      * Your GET endpoint
      */

@@ -100,6 +100,12 @@ export interface SeededAsset {
      * @memberof SeededAsset
      */
     enrichment?: SeededAssetEnrichment;
+    /**
+     * This will let us know if this asset was generated as a 'demo' snippet
+     * @type {boolean}
+     * @memberof SeededAsset
+     */
+    demo?: boolean;
 }
 
 export function SeededAssetFromJSON(json: any): SeededAsset {
@@ -120,6 +126,7 @@ export function SeededAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'available': !exists(json, 'available') ? undefined : AvailableFormatsFromJSON(json['available']),
         'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
         'enrichment': !exists(json, 'enrichment') ? undefined : SeededAssetEnrichmentFromJSON(json['enrichment']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
@@ -140,6 +147,7 @@ export function SeededAssetToJSON(value?: SeededAsset | null): any {
         'available': AvailableFormatsToJSON(value.available),
         'pseudo': value.pseudo,
         'enrichment': SeededAssetEnrichmentToJSON(value.enrichment),
+        'demo': value.demo,
     };
 }
 

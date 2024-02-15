@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { EmbeddedModelSchema, QGPTTaskPipelineForCodeCommentation, QGPTTaskPipelineForCodeCompletion, QGPTTaskPipelineForCodeExplanation, QGPTTaskPipelineForCodeFix, QGPTTaskPipelineForCodeModification } from './index';
+import { EmbeddedModelSchema, QGPTTaskPipelineForCodeCommentation, QGPTTaskPipelineForCodeCompletion, QGPTTaskPipelineForCodeExplanation, QGPTTaskPipelineForCodeFix, QGPTTaskPipelineForCodeModification } from './';
 /**
  * This model is specifically for QGPT Task pipelines, the model is used to group one off tasks for instance fix/explaining/commenting
  * that dont necessarily require a conversation form factor.
