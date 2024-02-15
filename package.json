@@ -21,39 +21,16 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "clean": "rm -r node_modules && rm package-lock.json && rm -r dist",
     "export": "npm pack --pack-destination ~",
-    "publish": "npm publish --access public",
-    "dev": "ts-node index.tsx",
-    "clean": "rm -r node_modules && rm package-lock.json",
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "publish": "npm publish --access public"
   },
   "author": "Pieces for Developers",
   "license": "MIT",
   "dependencies": {
-    "@pieces.app/pieces-os-client": "2.0.0-1",
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^3.2.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.17",
-    "tslib": "^2.6.2"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "typescript": "^5.2.2"
   }
 }
