@@ -4,6 +4,7 @@
     "@core/*": ["@core/*"]
   },
   "compilerOptions": {
+    "jsx": "react",
     "target": "es2020",
     "module": "CommonJS",
     "declaration": true,
@@ -29,6 +30,7 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
+  "include": ["src"],
   "exclude": [
     "node_modules"
   ],
