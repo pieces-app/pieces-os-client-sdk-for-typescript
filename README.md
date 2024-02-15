@@ -163,7 +163,7 @@ Next you can go ahead and create a new directory called `public` that will hold 
 ```html
 <!DOCTYPE html>  
 <html lang="en">  
-    <div id="root"></div>
+
 </html>
 ```
 
@@ -191,8 +191,6 @@ Once you open `index.tsx` you should follow these steps to get your base Applica
                 <h1>Hello Pieces Dev Community :)</h1>  
             </div>
         )}
-
-    root.render(<App />);
     ```
 
 3. And then add these last two lines to target the `root` element by using the ID that is on it:
