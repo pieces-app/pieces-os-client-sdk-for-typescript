@@ -92,6 +92,7 @@ export enum ModelFoundationEnum {
     Distilroberta = 'DISTILROBERTA',
     Mistral7B = 'MISTRAL_7B',
     Gemini = 'GEMINI',
+    Gemini15 = 'GEMINI_1.5',
     FastText = 'FAST_TEXT',
     Unixcoder = 'UNIXCODER',
     Phi15 = 'PHI_1.5',
