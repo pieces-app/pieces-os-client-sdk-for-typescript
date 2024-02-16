@@ -7,8 +7,8 @@ This package contains the endpoints for communicating with [Pieces OS](https://d
 Follow [this guide](https://code.pieces.app/blog/build-your-own-copilot-in-less-than-10-minutes-with-pieces-os-client) to get started with the Pieces Client in your own development environment. Check out the table of contents below to understand specific functionality, but we recommend reading along the [Copilot Series](https://code.pieces.app/blog/build-your-own-open-source-copilot-with-pieces)
 
 [![npm version](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client.svg)](https://badge.fury.io/js/@pieces.app%2Fpieces-os-client)
-![npm version](https://img.shields.io/npm/dm/@pieces.app/pieces-os-client.svg)
-![npm version](https://img.shields.io/npm/dt/@pieces.app/pieces-os-client.svg)
+[![npm version](https://img.shields.io/npm/dm/@pieces.app/pieces-os-client.svg)](https://img.shields.io/npm/dm/@pieces.app/pieces-os-client.svg)
+[![npm version](https://img.shields.io/npm/dt/@pieces.app/pieces-os-client.svg)](https://img.shields.io/npm/dt/@pieces.app/pieces-os-client.svg)
 
 ## Table of Contents
 
