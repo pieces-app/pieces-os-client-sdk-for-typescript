@@ -40,8 +40,6 @@ Follow [this guide](https://code.pieces.app/blog/build-your-own-copilot-in-less-
 
 You can choose to follow the following steps to configure your project by hand, or you can use `npx create-react-app <your-app-name>` instead.
 
-Jump to the 
-
 ## Installing
 When developing on the Pieces platform, you need two primary things:
 
