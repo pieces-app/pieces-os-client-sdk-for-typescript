@@ -1,7 +1,7 @@
 {
   "name": "@pieces.app/pieces-os-client",
-  "version": "2.0.0-1",
-  "description": "Build your own local contextual copilot and so much more with Pieces OS.",
+  "version": "2.0.0-2",
+  "description": "@pieces.app/pieces-os-client is an open source on-device AI development workflow assistant. Follow along the README.md to get started and add Pieces Copilot functionality to your application or project.",
   "keywords": [
     "pieces",
     "pieces for developers",
