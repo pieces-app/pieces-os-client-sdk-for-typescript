@@ -226,8 +226,8 @@ And after a few seconds you should be able to see in your Chrome browser (or you
 ## Connecting your Application
 When Pieces OS is running in the background of your machine, it is communicating with other local applications that use Pieces software, and up until recently only supporting internally built tools.
 
-As each plugin, extension, or application initializes they 'reach out' to Pieces OS and authenticate with the application themselves. There are a number of application formats that we support and provide for each of our applications. ==When developing on Pieces OS, you can use **"LOCAL_DEV"**
-to avoid any issues with other applications.==
+As each plugin, extension, or application initializes they 'reach out' to Pieces OS and authenticate with the application themselves. There are a number of application formats that we support and provide for each of our applications. When developing on Pieces OS, you can use **"LOCAL_DEV"**
+to avoid any issues with other applications.
 
 ### Creating `Application`
 The `application` model describes what application a format or analytics event originated from. This is passed along when initializing your dev environment and creates a connection to Pieces OS.
