@@ -28,8 +28,6 @@
   },
   "author": "Pieces for Developers",
   "license": "MIT",
-  "dependencies": {
-  },
   "devDependencies": {
     "typescript": "^5.2.2"
   }
