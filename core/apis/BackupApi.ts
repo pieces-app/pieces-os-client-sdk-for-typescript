@@ -21,6 +21,12 @@ import {
     Assets,
     AssetsFromJSON,
     AssetsToJSON,
+    Backup,
+    BackupFromJSON,
+    BackupToJSON,
+    BackupStreamedProgress,
+    BackupStreamedProgressFromJSON,
+    BackupStreamedProgressToJSON,
 } from '../models';
 
 export interface BackupRequest {
@@ -29,6 +35,20 @@ export interface BackupRequest {
 
 export interface BackupAssetRequest {
     asset?: Asset;
+}
+
+export interface BackupRestoreSpecificBackupRequest {
+    backup: string;
+    backup2?: Backup;
+}
+
+export interface BackupRestoreSpecificBackupStreamedRequest {
+    backup: string;
+    backup2?: Backup;
+}
+
+export interface BackupSpecificBackupSnapshotRequest {
+    backup: string;
 }
 
 /**
@@ -90,6 +110,108 @@ export class BackupApi extends runtime.BaseAPI {
      */
     async backupAsset(requestParameters: BackupAssetRequest): Promise<void> {
         await this.backupAssetRaw(requestParameters);
+    }
+
+    /**
+     * Given a backup identifier version_timestamp.  we will restore a given backup from the cloud and override your local database!!!  NOTE!!!! This will NOT sync, ie all local snippets will get replaced with the restored database.
+     * /backup/{backup}/restore [POST]
+     */
+    async backupRestoreSpecificBackupRaw(requestParameters: BackupRestoreSpecificBackupRequest): Promise<runtime.ApiResponse<Backup>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupRestoreSpecificBackup.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/backup/{backup}/restore`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BackupToJSON(requestParameters.backup2),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupFromJSON(jsonValue));
+    }
+
+    /**
+     * Given a backup identifier version_timestamp.  we will restore a given backup from the cloud and override your local database!!!  NOTE!!!! This will NOT sync, ie all local snippets will get replaced with the restored database.
+     * /backup/{backup}/restore [POST]
+     */
+    async backupRestoreSpecificBackup(requestParameters: BackupRestoreSpecificBackupRequest): Promise<Backup> {
+        const response = await this.backupRestoreSpecificBackupRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * /backup/{backup}/restore/streamed [POST]
+     */
+    async backupRestoreSpecificBackupStreamedRaw(requestParameters: BackupRestoreSpecificBackupStreamedRequest): Promise<runtime.ApiResponse<BackupStreamedProgress>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupRestoreSpecificBackupStreamed.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/backup/{backup}/restore/streamed`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BackupToJSON(requestParameters.backup2),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupStreamedProgressFromJSON(jsonValue));
+    }
+
+    /**
+     * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * /backup/{backup}/restore/streamed [POST]
+     */
+    async backupRestoreSpecificBackupStreamed(requestParameters: BackupRestoreSpecificBackupStreamedRequest): Promise<BackupStreamedProgress> {
+        const response = await this.backupRestoreSpecificBackupStreamedRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will just get the metadata associated with a specific backup.
+     * /backup/{backup} [GET]
+     */
+    async backupSpecificBackupSnapshotRaw(requestParameters: BackupSpecificBackupSnapshotRequest): Promise<runtime.ApiResponse<Backup>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupSpecificBackupSnapshot.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/backup/{backup}`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupFromJSON(jsonValue));
+    }
+
+    /**
+     * This will just get the metadata associated with a specific backup.
+     * /backup/{backup} [GET]
+     */
+    async backupSpecificBackupSnapshot(requestParameters: BackupSpecificBackupSnapshotRequest): Promise<Backup> {
+        const response = await this.backupSpecificBackupSnapshotRaw(requestParameters);
+        return await response.value();
     }
 
 }
