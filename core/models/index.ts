@@ -393,6 +393,7 @@ export * from './Tags';
 export * from './TextLocation';
 export * from './TextMatch';
 export * from './Theme';
+export * from './TimestampRange';
 export * from './TokenizedPKCE';
 export * from './TrackedApplication';
 export * from './TrackedApplicationInstall';

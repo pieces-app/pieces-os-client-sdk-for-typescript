@@ -461,6 +461,7 @@ models/Tags.ts
 models/TextLocation.ts
 models/TextMatch.ts
 models/Theme.ts
+models/TimestampRange.ts
 models/TokenizedPKCE.ts
 models/TrackedApplication.ts
 models/TrackedApplicationInstall.ts

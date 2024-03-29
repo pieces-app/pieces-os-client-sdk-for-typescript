@@ -26,6 +26,10 @@ import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    TimestampRange,
+    TimestampRangeFromJSON,
+    TimestampRangeFromJSONTyped,
+    TimestampRangeToJSON,
 } from './';
 
 /**
@@ -76,6 +80,12 @@ export interface Auth0UserMetadata {
      * @memberof Auth0UserMetadata
      */
     openAI?: Auth0OpenAIUserMetadata;
+    /**
+     * 
+     * @type {TimestampRange}
+     * @memberof Auth0UserMetadata
+     */
+    beta?: TimestampRange;
 }
 
 export function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata {
@@ -95,6 +105,7 @@ export function Auth0UserMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
         'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
         'allocation': !exists(json, 'allocation') ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
         'openAI': !exists(json, 'open_AI') ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
+        'beta': !exists(json, 'beta') ? undefined : TimestampRangeFromJSON(json['beta']),
     };
 }
 
@@ -114,6 +125,7 @@ export function Auth0UserMetadataToJSON(value?: Auth0UserMetadata | null): any {
         'vanityname': value.vanityname,
         'allocation': Auth0UserAllocationMetadataToJSON(value.allocation),
         'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
+        'beta': TimestampRangeToJSON(value.beta),
     };
 }
 
