@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+//@ts-nocheck
 /**
  * This is an open API that holds specific endpoints as a base for Pieces Context Systems
  * The point of this API is to allow us to organize and Auto Generate Code Specific for Connected Applications - this will allow for stateful context abstraction & less code within the Core Connector
@@ -88,7 +89,6 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.pre) {
                 fetchParams = await middleware.pre({
-                    // @ts-ignore
                     fetch: this.fetchApi,
                     ...fetchParams,
                 }) || fetchParams;
@@ -98,7 +98,6 @@ export class BaseAPI {
         for (const middleware of this.middleware) {
             if (middleware.post) {
                 response = await middleware.post({
-                    // @ts-ignore
                     fetch: this.fetchApi,
                     url: fetchParams.url,
                     init: fetchParams.init,
@@ -122,7 +121,7 @@ export class BaseAPI {
 };
 
 export class RequiredError extends Error {
-    override name: "RequiredError" = "RequiredError";
+    name: "RequiredError" = "RequiredError";
     constructor(public field: string, msg?: string) {
         super(msg);
     }

@@ -71,6 +71,34 @@ export class UserApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will refresh a user.
+     * /user/refresh [GET]
+     */
+    async refreshUserRaw(): Promise<runtime.ApiResponse<UserProfile>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/user/refresh`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
+    }
+
+    /**
+     * This will refresh a user.
+     * /user/refresh [GET]
+     */
+    async refreshUser(): Promise<UserProfile> {
+        const response = await this.refreshUserRaw();
+        return await response.value();
+    }
+
+    /**
      * This will select the current user.
      * /user/select [POST]
      */

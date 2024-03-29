@@ -15,6 +15,7 @@ export * from './AssetApi';
 export * from './AssetsApi';
 export * from './Auth0Api';
 export * from './BackupApi';
+export * from './BackupsApi';
 export * from './ClassificationApi';
 export * from './CodeAnalysesApi';
 export * from './ConnectorApi';

@@ -48,6 +48,11 @@ export interface MessageSpecificMessageUpdateRequest {
     conversationMessage?: ConversationMessage;
 }
 
+export interface MessageUpdateValueRequest {
+    transferables?: boolean;
+    conversationMessage?: ConversationMessage;
+}
+
 /**
  * 
  */
@@ -225,6 +230,41 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      */
     async messageSpecificMessageUpdate(requestParameters: MessageSpecificMessageUpdateRequest): Promise<ConversationMessage> {
         const response = await this.messageSpecificMessageUpdateRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * This will update the value of a conversation message.
+     * /message/update/value [POST]
+     */
+    async messageUpdateValueRaw(requestParameters: MessageUpdateValueRequest): Promise<runtime.ApiResponse<ConversationMessage>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/message/update/value`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ConversationMessageToJSON(requestParameters.conversationMessage),
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessageFromJSON(jsonValue));
+    }
+
+    /**
+     * This will update the value of a conversation message.
+     * /message/update/value [POST]
+     */
+    async messageUpdateValue(requestParameters: MessageUpdateValueRequest): Promise<ConversationMessage> {
+        const response = await this.messageUpdateValueRaw(requestParameters);
         return await response.value();
     }
 

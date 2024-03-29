@@ -15,6 +15,7 @@ apis/AssetApi.ts
 apis/AssetsApi.ts
 apis/Auth0Api.ts
 apis/BackupApi.ts
+apis/BackupsApi.ts
 apis/ClassificationApi.ts
 apis/CodeAnalysesApi.ts
 apis/ConnectorApi.ts
@@ -110,6 +111,9 @@ models/Auth0User.ts
 models/Auth0UserAllocationMetadata.ts
 models/Auth0UserMetadata.ts
 models/AvailableFormats.ts
+models/Backup.ts
+models/BackupStreamedProgress.ts
+models/Backups.ts
 models/ByteDescriptor.ts
 models/CapabilitiesEnum.ts
 models/ChallengedPKCE.ts
@@ -359,6 +363,7 @@ models/SeededAssetTag.ts
 models/SeededAssetTags.ts
 models/SeededAssetWebsite.ts
 models/SeededAssetsRecommendation.ts
+models/SeededBackup.ts
 models/SeededClassification.ts
 models/SeededConnectorAsset.ts
 models/SeededConnectorConnection.ts
@@ -456,6 +461,7 @@ models/Tags.ts
 models/TextLocation.ts
 models/TextMatch.ts
 models/Theme.ts
+models/TimestampRange.ts
 models/TokenizedPKCE.ts
 models/TrackedApplication.ts
 models/TrackedApplicationInstall.ts
