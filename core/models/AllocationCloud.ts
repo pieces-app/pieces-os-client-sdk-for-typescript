@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AllocationCloudStatus } from './AllocationCloudStatus';
 import {
     AllocationCloudStatusFromJSON,
@@ -106,12 +106,14 @@ export interface AllocationCloud {
  * Check if a given object implements the AllocationCloud interface.
  */
 export function instanceOfAllocationCloud(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('user' in value)) return false;
-    if (!('urls' in value)) return false;
-    if (!('status' in value)) return false;
-    if (!('project' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "urls" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "project" in value;
+
+    return isInstance;
 }
 
 export function AllocationCloudFromJSON(json: any): AllocationCloud {
@@ -119,38 +121,41 @@ export function AllocationCloudFromJSON(json: any): AllocationCloud {
 }
 
 export function AllocationCloudFromJSONTyped(json: any, ignoreDiscriminator: boolean): AllocationCloud {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'user': json['user'],
         'urls': AllocationCloudUrlsFromJSON(json['urls']),
         'status': AllocationCloudStatusFromJSON(json['status']),
         'project': json['project'],
-        'updated': json['updated'] == null ? undefined : GroupedTimestampFromJSON(json['updated']),
-        'version': json['version'] == null ? undefined : json['version'],
-        'region': json['region'] == null ? undefined : json['region'],
+        'updated': !exists(json, 'updated') ? undefined : GroupedTimestampFromJSON(json['updated']),
+        'version': !exists(json, 'version') ? undefined : json['version'],
+        'region': !exists(json, 'region') ? undefined : json['region'],
     };
 }
 
 export function AllocationCloudToJSON(value?: AllocationCloud | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'user': value['user'],
-        'urls': AllocationCloudUrlsToJSON(value['urls']),
-        'status': AllocationCloudStatusToJSON(value['status']),
-        'project': value['project'],
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'version': value['version'],
-        'region': value['region'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'user': value.user,
+        'urls': AllocationCloudUrlsToJSON(value.urls),
+        'status': AllocationCloudStatusToJSON(value.status),
+        'project': value.project,
+        'updated': GroupedTimestampToJSON(value.updated),
+        'version': value.version,
+        'region': value.region,
     };
 }
 

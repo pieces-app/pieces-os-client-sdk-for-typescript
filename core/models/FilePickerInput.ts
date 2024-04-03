@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,7 +44,9 @@ export interface FilePickerInput {
  * Check if a given object implements the FilePickerInput interface.
  */
 export function instanceOfFilePickerInput(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FilePickerInputFromJSON(json: any): FilePickerInput {
@@ -52,24 +54,27 @@ export function FilePickerInputFromJSON(json: any): FilePickerInput {
 }
 
 export function FilePickerInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): FilePickerInput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'allowedExtensions': json['allowedExtensions'] == null ? undefined : json['allowedExtensions'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'allowedExtensions': !exists(json, 'allowedExtensions') ? undefined : json['allowedExtensions'],
     };
 }
 
 export function FilePickerInputToJSON(value?: FilePickerInput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'allowedExtensions': value['allowedExtensions'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'allowedExtensions': value.allowedExtensions,
     };
 }
 

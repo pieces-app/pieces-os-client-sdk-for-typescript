@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -74,9 +74,11 @@ export interface Reaction {
  * Check if a given object implements the Reaction interface.
  */
 export function instanceOfReaction(value: object): boolean {
-    if (!('save' in value)) return false;
-    if (!('seed' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "save" in value;
+    isInstance = isInstance && "seed" in value;
+
+    return isInstance;
 }
 
 export function ReactionFromJSON(json: any): Reaction {
@@ -84,28 +86,31 @@ export function ReactionFromJSON(json: any): Reaction {
 }
 
 export function ReactionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Reaction {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'save': json['save'],
-        'reuse': json['reuse'] == null ? undefined : ReuseReactionFromJSON(json['reuse']),
+        'reuse': !exists(json, 'reuse') ? undefined : ReuseReactionFromJSON(json['reuse']),
         'seed': SeededConnectorCreationFromJSON(json['seed']),
     };
 }
 
 export function ReactionToJSON(value?: Reaction | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'save': value['save'],
-        'reuse': ReuseReactionToJSON(value['reuse']),
-        'seed': SeededConnectorCreationToJSON(value['seed']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'save': value.save,
+        'reuse': ReuseReactionToJSON(value.reuse),
+        'seed': SeededConnectorCreationToJSON(value.seed),
     };
 }
 

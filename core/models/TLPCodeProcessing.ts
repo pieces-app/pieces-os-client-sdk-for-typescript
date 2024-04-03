@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -86,7 +86,9 @@ export interface TLPCodeProcessing {
  * Check if a given object implements the TLPCodeProcessing interface.
  */
 export function instanceOfTLPCodeProcessing(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeProcessingFromJSON(json: any): TLPCodeProcessing {
@@ -94,30 +96,33 @@ export function TLPCodeProcessingFromJSON(json: any): TLPCodeProcessing {
 }
 
 export function TLPCodeProcessingFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeProcessing {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'fragment': json['fragment'] == null ? undefined : TLPCodeSnippetAnalyticsFromJSON(json['fragment']),
-        'file': json['file'] == null ? undefined : TLPCodeFileAnalyticsFromJSON(json['file']),
-        'directory': json['directory'] == null ? undefined : TLPCodeDirectoryAnalyticsFromJSON(json['directory']),
-        'repository': json['repository'] == null ? undefined : TLPCodeRepositoryAnalyticsFromJSON(json['repository']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'fragment': !exists(json, 'fragment') ? undefined : TLPCodeSnippetAnalyticsFromJSON(json['fragment']),
+        'file': !exists(json, 'file') ? undefined : TLPCodeFileAnalyticsFromJSON(json['file']),
+        'directory': !exists(json, 'directory') ? undefined : TLPCodeDirectoryAnalyticsFromJSON(json['directory']),
+        'repository': !exists(json, 'repository') ? undefined : TLPCodeRepositoryAnalyticsFromJSON(json['repository']),
     };
 }
 
 export function TLPCodeProcessingToJSON(value?: TLPCodeProcessing | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'fragment': TLPCodeSnippetAnalyticsToJSON(value['fragment']),
-        'file': TLPCodeFileAnalyticsToJSON(value['file']),
-        'directory': TLPCodeDirectoryAnalyticsToJSON(value['directory']),
-        'repository': TLPCodeRepositoryAnalyticsToJSON(value['repository']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'fragment': TLPCodeSnippetAnalyticsToJSON(value.fragment),
+        'file': TLPCodeFileAnalyticsToJSON(value.file),
+        'directory': TLPCodeDirectoryAnalyticsToJSON(value.directory),
+        'repository': TLPCodeRepositoryAnalyticsToJSON(value.repository),
     };
 }
 

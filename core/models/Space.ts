@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * This is used in the TrackedAssetsEventSearchMetadata
  * @export
@@ -37,7 +37,9 @@ export interface Space {
  * Check if a given object implements the Space interface.
  */
 export function instanceOfSpace(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SpaceFromJSON(json: any): Space {
@@ -45,24 +47,27 @@ export function SpaceFromJSON(json: any): Space {
 }
 
 export function SpaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Space {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'size': json['size'] == null ? undefined : json['size'],
-        'duration': json['duration'] == null ? undefined : json['duration'],
+        'size': !exists(json, 'size') ? undefined : json['size'],
+        'duration': !exists(json, 'duration') ? undefined : json['duration'],
     };
 }
 
 export function SpaceToJSON(value?: Space | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'size': value['size'],
-        'duration': value['duration'],
+        'size': value.size,
+        'duration': value.duration,
     };
 }
 

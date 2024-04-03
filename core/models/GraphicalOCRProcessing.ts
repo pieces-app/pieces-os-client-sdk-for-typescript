@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface GraphicalOCRProcessing {
  * Check if a given object implements the GraphicalOCRProcessing interface.
  */
 export function instanceOfGraphicalOCRProcessing(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalOCRProcessingFromJSON(json: any): GraphicalOCRProcessing {
@@ -58,24 +60,27 @@ export function GraphicalOCRProcessingFromJSON(json: any): GraphicalOCRProcessin
 }
 
 export function GraphicalOCRProcessingFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRProcessing {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'statistics': json['statistics'] == null ? undefined : GraphicalOCRStatisticsFromJSON(json['statistics']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'statistics': !exists(json, 'statistics') ? undefined : GraphicalOCRStatisticsFromJSON(json['statistics']),
     };
 }
 
 export function GraphicalOCRProcessingToJSON(value?: GraphicalOCRProcessing | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'statistics': GraphicalOCRStatisticsToJSON(value['statistics']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'statistics': GraphicalOCRStatisticsToJSON(value.statistics),
     };
 }
 

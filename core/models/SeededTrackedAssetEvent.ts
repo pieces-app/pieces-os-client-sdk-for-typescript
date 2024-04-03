@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -74,9 +74,11 @@ export interface SeededTrackedAssetEvent {
  * Check if a given object implements the SeededTrackedAssetEvent interface.
  */
 export function instanceOfSeededTrackedAssetEvent(value: object): boolean {
-    if (!('asset' in value)) return false;
-    if (!('identifierDescriptionPair' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedAssetEventFromJSON(json: any): SeededTrackedAssetEvent {
@@ -84,28 +86,31 @@ export function SeededTrackedAssetEventFromJSON(json: any): SeededTrackedAssetEv
 }
 
 export function SeededTrackedAssetEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedAssetEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': ReferencedAssetFromJSON(json['asset']),
         'identifierDescriptionPair': TrackedAssetEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
-        'metadata': json['metadata'] == null ? undefined : TrackedAssetEventMetadataFromJSON(json['metadata']),
+        'metadata': !exists(json, 'metadata') ? undefined : TrackedAssetEventMetadataFromJSON(json['metadata']),
     };
 }
 
 export function SeededTrackedAssetEventToJSON(value?: SeededTrackedAssetEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset': ReferencedAssetToJSON(value['asset']),
-        'identifier_description_pair': TrackedAssetEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
-        'metadata': TrackedAssetEventMetadataToJSON(value['metadata']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset': ReferencedAssetToJSON(value.asset),
+        'identifier_description_pair': TrackedAssetEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
+        'metadata': TrackedAssetEventMetadataToJSON(value.metadata),
     };
 }
 

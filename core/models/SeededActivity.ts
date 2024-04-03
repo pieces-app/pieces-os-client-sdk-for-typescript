@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -116,9 +116,11 @@ export interface SeededActivity {
  * Check if a given object implements the SeededActivity interface.
  */
 export function instanceOfSeededActivity(value: object): boolean {
-    if (!('event' in value)) return false;
-    if (!('application' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "event" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededActivityFromJSON(json: any): SeededActivity {
@@ -126,34 +128,37 @@ export function SeededActivityFromJSON(json: any): SeededActivity {
 }
 
 export function SeededActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededActivity {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'event': SeededConnectorTrackingFromJSON(json['event']),
         'application': ApplicationFromJSON(json['application']),
-        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'user': json['user'] == null ? undefined : ReferencedUserFromJSON(json['user']),
-        'format': json['format'] == null ? undefined : ReferencedFormatFromJSON(json['format']),
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'user': !exists(json, 'user') ? undefined : ReferencedUserFromJSON(json['user']),
+        'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
     };
 }
 
 export function SeededActivityToJSON(value?: SeededActivity | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'event': SeededConnectorTrackingToJSON(value['event']),
-        'application': ApplicationToJSON(value['application']),
-        'asset': ReferencedAssetToJSON(value['asset']),
-        'user': ReferencedUserToJSON(value['user']),
-        'format': ReferencedFormatToJSON(value['format']),
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'event': SeededConnectorTrackingToJSON(value.event),
+        'application': ApplicationToJSON(value.application),
+        'asset': ReferencedAssetToJSON(value.asset),
+        'user': ReferencedUserToJSON(value.user),
+        'format': ReferencedFormatToJSON(value.format),
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'conversation': ReferencedConversationToJSON(value.conversation),
     };
 }
 

@@ -50,7 +50,7 @@ export class UltraSuiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededUltraSuiteAssetToJSON(requestParameters['seededUltraSuiteAsset']),
+            body: SeededUltraSuiteAssetToJSON(requestParameters.seededUltraSuiteAsset),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));

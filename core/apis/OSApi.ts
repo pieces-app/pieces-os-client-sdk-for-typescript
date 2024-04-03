@@ -76,7 +76,7 @@ export class OSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededExternalProviderToJSON(requestParameters['seededExternalProvider']),
+            body: SeededExternalProviderToJSON(requestParameters.seededExternalProvider),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReturnedUserProfileFromJSON(jsonValue));
@@ -162,7 +162,7 @@ export class OSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UncheckedOSUpdateToJSON(requestParameters['uncheckedOSUpdate']),
+            body: UncheckedOSUpdateToJSON(requestParameters.uncheckedOSUpdate),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CheckedOSUpdateFromJSON(jsonValue));
@@ -193,7 +193,7 @@ export class OSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: FilePickerInputToJSON(requestParameters['filePickerInput']),
+            body: FilePickerInputToJSON(requestParameters.filePickerInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);

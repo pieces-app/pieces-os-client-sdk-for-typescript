@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface FlattenedPreview {
  * Check if a given object implements the FlattenedPreview interface.
  */
 export function instanceOfFlattenedPreview(value: object): boolean {
-    if (!('base' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "base" in value;
+
+    return isInstance;
 }
 
 export function FlattenedPreviewFromJSON(json: any): FlattenedPreview {
@@ -59,26 +61,29 @@ export function FlattenedPreviewFromJSON(json: any): FlattenedPreview {
 }
 
 export function FlattenedPreviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedPreview {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'base': json['base'],
-        'overlay': json['overlay'] == null ? undefined : json['overlay'],
+        'overlay': !exists(json, 'overlay') ? undefined : json['overlay'],
     };
 }
 
 export function FlattenedPreviewToJSON(value?: FlattenedPreview | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'base': value['base'],
-        'overlay': value['overlay'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'base': value.base,
+        'overlay': value.overlay,
     };
 }
 

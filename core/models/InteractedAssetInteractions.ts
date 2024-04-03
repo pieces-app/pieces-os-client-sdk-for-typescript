@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -43,8 +43,10 @@ export interface InteractedAssetInteractions {
  * Check if a given object implements the InteractedAssetInteractions interface.
  */
 export function instanceOfInteractedAssetInteractions(value: object): boolean {
-    if (!('viewed' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "viewed" in value;
+
+    return isInstance;
 }
 
 export function InteractedAssetInteractionsFromJSON(json: any): InteractedAssetInteractions {
@@ -52,26 +54,29 @@ export function InteractedAssetInteractionsFromJSON(json: any): InteractedAssetI
 }
 
 export function InteractedAssetInteractionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): InteractedAssetInteractions {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'viewed': json['viewed'],
-        'touched': json['touched'] == null ? undefined : json['touched'],
-        'scrolled': json['scrolled'] == null ? undefined : json['scrolled'],
+        'touched': !exists(json, 'touched') ? undefined : json['touched'],
+        'scrolled': !exists(json, 'scrolled') ? undefined : json['scrolled'],
     };
 }
 
 export function InteractedAssetInteractionsToJSON(value?: InteractedAssetInteractions | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'viewed': value['viewed'],
-        'touched': value['touched'],
-        'scrolled': value['scrolled'],
+        'viewed': value.viewed,
+        'touched': value.touched,
+        'scrolled': value.scrolled,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Assets } from './Assets';
 import {
     AssetsFromJSON,
@@ -60,9 +60,11 @@ export interface ReuseSuggestion {
  * Check if a given object implements the ReuseSuggestion interface.
  */
 export function instanceOfReuseSuggestion(value: object): boolean {
-    if (!('suggested' in value)) return false;
-    if (!('assets' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "suggested" in value;
+    isInstance = isInstance && "assets" in value;
+
+    return isInstance;
 }
 
 export function ReuseSuggestionFromJSON(json: any): ReuseSuggestion {
@@ -70,26 +72,29 @@ export function ReuseSuggestionFromJSON(json: any): ReuseSuggestion {
 }
 
 export function ReuseSuggestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReuseSuggestion {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'suggested': json['suggested'],
         'assets': AssetsFromJSON(json['assets']),
     };
 }
 
 export function ReuseSuggestionToJSON(value?: ReuseSuggestion | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'suggested': value['suggested'],
-        'assets': AssetsToJSON(value['assets']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'suggested': value.suggested,
+        'assets': AssetsToJSON(value.assets),
     };
 }
 

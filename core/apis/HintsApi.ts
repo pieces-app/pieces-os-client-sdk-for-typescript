@@ -57,7 +57,7 @@ export class HintsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededHintToJSON(requestParameters['seededHint']),
+            body: SeededHintToJSON(requestParameters.seededHint),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintFromJSON(jsonValue));
@@ -77,11 +77,8 @@ export class HintsApi extends runtime.BaseAPI {
      * /hints/{hint}/delete [POST]
      */
     async hintsDeleteSpecificHintRaw(requestParameters: HintsDeleteSpecificHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['hint'] == null) {
-            throw new runtime.RequiredError(
-                'hint',
-                'Required parameter "hint" was null or undefined when calling hintsDeleteSpecificHint().'
-            );
+        if (requestParameters.hint === null || requestParameters.hint === undefined) {
+            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintsDeleteSpecificHint.');
         }
 
         const queryParameters: any = {};
@@ -89,7 +86,7 @@ export class HintsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/hints/{hint}/delete`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
+            path: `/hints/{hint}/delete`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

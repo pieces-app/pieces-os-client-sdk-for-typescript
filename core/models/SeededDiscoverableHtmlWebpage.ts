@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -51,9 +51,11 @@ export interface SeededDiscoverableHtmlWebpage {
  * Check if a given object implements the SeededDiscoverableHtmlWebpage interface.
  */
 export function instanceOfSeededDiscoverableHtmlWebpage(value: object): boolean {
-    if (!('url' in value)) return false;
-    if (!('page' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "page" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableHtmlWebpageFromJSON(json: any): SeededDiscoverableHtmlWebpage {
@@ -61,26 +63,29 @@ export function SeededDiscoverableHtmlWebpageFromJSON(json: any): SeededDiscover
 }
 
 export function SeededDiscoverableHtmlWebpageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableHtmlWebpage {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'url': json['url'],
         'page': json['page'],
     };
 }
 
 export function SeededDiscoverableHtmlWebpageToJSON(value?: SeededDiscoverableHtmlWebpage | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'url': value['url'],
-        'page': value['page'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'url': value.url,
+        'page': value.page,
     };
 }
 

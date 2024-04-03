@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface GraphicalImageProcessing {
  * Check if a given object implements the GraphicalImageProcessing interface.
  */
 export function instanceOfGraphicalImageProcessing(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalImageProcessingFromJSON(json: any): GraphicalImageProcessing {
@@ -58,24 +60,27 @@ export function GraphicalImageProcessingFromJSON(json: any): GraphicalImageProce
 }
 
 export function GraphicalImageProcessingFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalImageProcessing {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'statistics': json['statistics'] == null ? undefined : GraphicalImageStatisticsFromJSON(json['statistics']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'statistics': !exists(json, 'statistics') ? undefined : GraphicalImageStatisticsFromJSON(json['statistics']),
     };
 }
 
 export function GraphicalImageProcessingToJSON(value?: GraphicalImageProcessing | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'statistics': GraphicalImageStatisticsToJSON(value['statistics']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'statistics': GraphicalImageStatisticsToJSON(value.statistics),
     };
 }
 

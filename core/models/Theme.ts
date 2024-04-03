@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,8 +44,10 @@ export interface Theme {
  * Check if a given object implements the Theme interface.
  */
 export function instanceOfTheme(value: object): boolean {
-    if (!('dark' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "dark" in value;
+
+    return isInstance;
 }
 
 export function ThemeFromJSON(json: any): Theme {
@@ -53,24 +55,27 @@ export function ThemeFromJSON(json: any): Theme {
 }
 
 export function ThemeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Theme {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'dark': json['dark'],
     };
 }
 
 export function ThemeToJSON(value?: Theme | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'dark': value['dark'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'dark': value.dark,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -76,11 +76,13 @@ export interface Accessor {
  * Check if a given object implements the Accessor interface.
  */
 export function instanceOfAccessor(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('os' in value)) return false;
-    if (!('share' in value)) return false;
-    if (!('count' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "share" in value;
+    isInstance = isInstance && "count" in value;
+
+    return isInstance;
 }
 
 export function AccessorFromJSON(json: any): Accessor {
@@ -88,32 +90,35 @@ export function AccessorFromJSON(json: any): Accessor {
 }
 
 export function AccessorFromJSONTyped(json: any, ignoreDiscriminator: boolean): Accessor {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'os': json['os'],
         'share': json['share'],
         'count': json['count'],
-        'user': json['user'] == null ? undefined : FlattenedUserProfileFromJSON(json['user']),
+        'user': !exists(json, 'user') ? undefined : FlattenedUserProfileFromJSON(json['user']),
     };
 }
 
 export function AccessorToJSON(value?: Accessor | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'os': value['os'],
-        'share': value['share'],
-        'count': value['count'],
-        'user': FlattenedUserProfileToJSON(value['user']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'os': value.os,
+        'share': value.share,
+        'count': value.count,
+        'user': FlattenedUserProfileToJSON(value.user),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -116,14 +116,16 @@ export interface TLPCodeFragmentClassification {
  * Check if a given object implements the TLPCodeFragmentClassification interface.
  */
 export function instanceOfTLPCodeFragmentClassification(value: object): boolean {
-    if (!('asset' in value)) return false;
-    if (!('model' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('classification' in value)) return false;
-    if (!('probability' in value)) return false;
-    if (!('context' in value)) return false;
-    if (!('user' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "classification" in value;
+    isInstance = isInstance && "probability" in value;
+    isInstance = isInstance && "context" in value;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentClassificationFromJSON(json: any): TLPCodeFragmentClassification {
@@ -131,44 +133,47 @@ export function TLPCodeFragmentClassificationFromJSON(json: any): TLPCodeFragmen
 }
 
 export function TLPCodeFragmentClassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentClassification {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
         'model': json['model'],
         'created': json['created'],
         'classification': json['classification'],
         'probability': json['probability'],
         'context': json['context'],
-        'distribution': json['distribution'] == null ? undefined : json['distribution'],
-        'metadata': json['metadata'] == null ? undefined : TLPCodeFragmentClassificationMetadataFromJSON(json['metadata']),
+        'distribution': !exists(json, 'distribution') ? undefined : json['distribution'],
+        'metadata': !exists(json, 'metadata') ? undefined : TLPCodeFragmentClassificationMetadataFromJSON(json['metadata']),
         'user': json['user'],
-        'latency': json['latency'] == null ? undefined : json['latency'],
-        'system': json['system'] == null ? undefined : SystemExecutionInformationFromJSON(json['system']),
+        'latency': !exists(json, 'latency') ? undefined : json['latency'],
+        'system': !exists(json, 'system') ? undefined : SystemExecutionInformationFromJSON(json['system']),
     };
 }
 
 export function TLPCodeFragmentClassificationToJSON(value?: TLPCodeFragmentClassification | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset': value['asset'],
-        'model': value['model'],
-        'created': value['created'],
-        'classification': value['classification'],
-        'probability': value['probability'],
-        'context': value['context'],
-        'distribution': value['distribution'],
-        'metadata': TLPCodeFragmentClassificationMetadataToJSON(value['metadata']),
-        'user': value['user'],
-        'latency': value['latency'],
-        'system': SystemExecutionInformationToJSON(value['system']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset': value.asset,
+        'model': value.model,
+        'created': value.created,
+        'classification': value.classification,
+        'probability': value.probability,
+        'context': value.context,
+        'distribution': value.distribution,
+        'metadata': TLPCodeFragmentClassificationMetadataToJSON(value.metadata),
+        'user': value.user,
+        'latency': value.latency,
+        'system': SystemExecutionInformationToJSON(value.system),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface ConversationsCreateFromAssetOutput {
  * Check if a given object implements the ConversationsCreateFromAssetOutput interface.
  */
 export function instanceOfConversationsCreateFromAssetOutput(value: object): boolean {
-    if (!('conversation' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "conversation" in value;
+
+    return isInstance;
 }
 
 export function ConversationsCreateFromAssetOutputFromJSON(json: any): ConversationsCreateFromAssetOutput {
@@ -59,24 +61,27 @@ export function ConversationsCreateFromAssetOutputFromJSON(json: any): Conversat
 }
 
 export function ConversationsCreateFromAssetOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationsCreateFromAssetOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
     };
 }
 
 export function ConversationsCreateFromAssetOutputToJSON(value?: ConversationsCreateFromAssetOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'conversation': ReferencedConversationToJSON(value.conversation),
     };
 }
 

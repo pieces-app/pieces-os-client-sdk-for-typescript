@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DiscoveredAssets } from './DiscoveredAssets';
 import {
     DiscoveredAssetsFromJSON,
@@ -56,9 +56,11 @@ export interface DiscoveredHtmlWebpage {
  * Check if a given object implements the DiscoveredHtmlWebpage interface.
  */
 export function instanceOfDiscoveredHtmlWebpage(value: object): boolean {
-    if (!('assets' in value)) return false;
-    if (!('url' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredHtmlWebpageFromJSON(json: any): DiscoveredHtmlWebpage {
@@ -66,26 +68,29 @@ export function DiscoveredHtmlWebpageFromJSON(json: any): DiscoveredHtmlWebpage 
 }
 
 export function DiscoveredHtmlWebpageFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredHtmlWebpage {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'assets': DiscoveredAssetsFromJSON(json['assets']),
         'url': json['url'],
     };
 }
 
 export function DiscoveredHtmlWebpageToJSON(value?: DiscoveredHtmlWebpage | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'assets': DiscoveredAssetsToJSON(value['assets']),
-        'url': value['url'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'assets': DiscoveredAssetsToJSON(value.assets),
+        'url': value.url,
     };
 }
 

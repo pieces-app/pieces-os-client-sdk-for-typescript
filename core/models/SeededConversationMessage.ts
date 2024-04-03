@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
 import {
     ConversationMessageSentimentEnumFromJSON,
@@ -112,9 +112,11 @@ export interface SeededConversationMessage {
  * Check if a given object implements the SeededConversationMessage interface.
  */
 export function instanceOfSeededConversationMessage(value: object): boolean {
-    if (!('fragment' in value)) return false;
-    if (!('role' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "fragment" in value;
+    isInstance = isInstance && "role" in value;
+
+    return isInstance;
 }
 
 export function SeededConversationMessageFromJSON(json: any): SeededConversationMessage {
@@ -122,34 +124,37 @@ export function SeededConversationMessageFromJSON(json: any): SeededConversation
 }
 
 export function SeededConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConversationMessage {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'created': json['created'] == null ? undefined : GroupedTimestampFromJSON(json['created']),
-        'model': json['model'] == null ? undefined : ModelFromJSON(json['model']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'created': !exists(json, 'created') ? undefined : GroupedTimestampFromJSON(json['created']),
+        'model': !exists(json, 'model') ? undefined : ModelFromJSON(json['model']),
         'fragment': FragmentFormatFromJSON(json['fragment']),
-        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
-        'sentiment': json['sentiment'] == null ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
+        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'sentiment': !exists(json, 'sentiment') ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
         'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
     };
 }
 
 export function SeededConversationMessageToJSON(value?: SeededConversationMessage | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'model': ModelToJSON(value['model']),
-        'fragment': FragmentFormatToJSON(value['fragment']),
-        'conversation': ReferencedConversationToJSON(value['conversation']),
-        'sentiment': ConversationMessageSentimentEnumToJSON(value['sentiment']),
-        'role': QGPTConversationMessageRoleEnumToJSON(value['role']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'created': GroupedTimestampToJSON(value.created),
+        'model': ModelToJSON(value.model),
+        'fragment': FragmentFormatToJSON(value.fragment),
+        'conversation': ReferencedConversationToJSON(value.conversation),
+        'sentiment': ConversationMessageSentimentEnumToJSON(value.sentiment),
+        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
     };
 }
 

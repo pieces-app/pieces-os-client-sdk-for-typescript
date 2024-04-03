@@ -90,18 +90,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/assets/associate/{asset} [POST]
      */
     async websiteAssociateAssetRaw(requestParameters: WebsiteAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling websiteAssociateAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling websiteAssociateAsset.');
         }
 
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteAssociateAsset().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -109,7 +103,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            path: `/website/{website}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -131,18 +125,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/conversations/associate/{conversation} [POST]
      */
     async websiteAssociateConversationRaw(requestParameters: WebsiteAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteAssociateConversation().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateConversation.');
         }
 
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling websiteAssociateConversation().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling websiteAssociateConversation.');
         }
 
         const queryParameters: any = {};
@@ -150,7 +138,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/conversations/associate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/website/{website}/conversations/associate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -172,18 +160,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/persons/associate/{person} [POST]
      */
     async websiteAssociatePersonRaw(requestParameters: WebsiteAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteAssociatePerson().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociatePerson.');
         }
 
-        if (requestParameters['person'] == null) {
-            throw new runtime.RequiredError(
-                'person',
-                'Required parameter "person" was null or undefined when calling websiteAssociatePerson().'
-            );
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling websiteAssociatePerson.');
         }
 
         const queryParameters: any = {};
@@ -191,7 +173,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/persons/associate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            path: `/website/{website}/persons/associate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -213,18 +195,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/workstream_summaries/associate/{workstream_summary} [POST]
      */
     async websiteAssociateWorkstreamSummaryRaw(requestParameters: WebsiteAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteAssociateWorkstreamSummary().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateWorkstreamSummary.');
         }
 
-        if (requestParameters['workstreamSummary'] == null) {
-            throw new runtime.RequiredError(
-                'workstreamSummary',
-                'Required parameter "workstreamSummary" was null or undefined when calling websiteAssociateWorkstreamSummary().'
-            );
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling websiteAssociateWorkstreamSummary.');
         }
 
         const queryParameters: any = {};
@@ -232,7 +208,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            path: `/website/{website}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -254,18 +230,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/assets/disassociate/{asset} [POST]
      */
     async websiteDisassociateAssetRaw(requestParameters: WebsiteDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteDisassociateAsset().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateAsset.');
         }
 
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling websiteDisassociateAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling websiteDisassociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -273,7 +243,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/assets/disassociate/{asset}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/website/{website}/assets/disassociate/{asset}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -295,18 +265,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/conversations/disassociate/{conversation} [POST]
      */
     async websiteDisassociateConversationRaw(requestParameters: WebsiteDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteDisassociateConversation().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateConversation.');
         }
 
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling websiteDisassociateConversation().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling websiteDisassociateConversation.');
         }
 
         const queryParameters: any = {};
@@ -314,7 +278,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/conversations/disassociate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/website/{website}/conversations/disassociate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -336,18 +300,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/persons/disassociate/{person} [POST]
      */
     async websiteDisassociatePersonRaw(requestParameters: WebsiteDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteDisassociatePerson().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociatePerson.');
         }
 
-        if (requestParameters['person'] == null) {
-            throw new runtime.RequiredError(
-                'person',
-                'Required parameter "person" was null or undefined when calling websiteDisassociatePerson().'
-            );
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling websiteDisassociatePerson.');
         }
 
         const queryParameters: any = {};
@@ -355,7 +313,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/persons/disassociate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            path: `/website/{website}/persons/disassociate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -377,18 +335,12 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/workstream_summaries/disassociate/{workstream_summary} [POST]
      */
     async websiteDisassociateWorkstreamSummaryRaw(requestParameters: WebsiteDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteDisassociateWorkstreamSummary().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateWorkstreamSummary.');
         }
 
-        if (requestParameters['workstreamSummary'] == null) {
-            throw new runtime.RequiredError(
-                'workstreamSummary',
-                'Required parameter "workstreamSummary" was null or undefined when calling websiteDisassociateWorkstreamSummary().'
-            );
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling websiteDisassociateWorkstreamSummary.');
         }
 
         const queryParameters: any = {};
@@ -396,7 +348,7 @@ export class WebsiteApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            path: `/website/{website}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -418,11 +370,8 @@ export class WebsiteApi extends runtime.BaseAPI {
      * \'/website/{website}/scores/increment\' [POST]
      */
     async websiteScoresIncrementRaw(requestParameters: WebsiteScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websiteScoresIncrement().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteScoresIncrement.');
         }
 
         const queryParameters: any = {};
@@ -432,11 +381,11 @@ export class WebsiteApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/website/{website}/scores/increment`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            path: `/website/{website}/scores/increment`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -457,8 +406,8 @@ export class WebsiteApi extends runtime.BaseAPI {
     async websiteUpdateRaw(requestParameters: WebsiteUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -470,7 +419,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WebsiteToJSON(requestParameters['website']),
+            body: WebsiteToJSON(requestParameters.website),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsiteFromJSON(jsonValue));
@@ -490,23 +439,20 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website} [GET]
      */
     async websitesSpecificWebsiteSnapshotRaw(requestParameters: WebsitesSpecificWebsiteSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websitesSpecificWebsiteSnapshot().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websitesSpecificWebsiteSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/website/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            path: `/website/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

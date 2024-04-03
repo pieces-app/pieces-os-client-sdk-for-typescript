@@ -58,8 +58,8 @@ export class SharesApi extends runtime.BaseAPI {
     async sharesCreateNewShareRaw(requestParameters: SharesCreateNewShareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Shares>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -71,7 +71,7 @@ export class SharesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededShareToJSON(requestParameters['seededShare']),
+            body: SeededShareToJSON(requestParameters.seededShare),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SharesFromJSON(jsonValue));
@@ -91,11 +91,8 @@ export class SharesApi extends runtime.BaseAPI {
      * /shares/{share}/delete [POST]
      */
     async sharesDeleteShareRaw(requestParameters: SharesDeleteShareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters['share'] == null) {
-            throw new runtime.RequiredError(
-                'share',
-                'Required parameter "share" was null or undefined when calling sharesDeleteShare().'
-            );
+        if (requestParameters.share === null || requestParameters.share === undefined) {
+            throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling sharesDeleteShare.');
         }
 
         const queryParameters: any = {};
@@ -103,7 +100,7 @@ export class SharesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/shares/{share}/delete`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters['share']))),
+            path: `/shares/{share}/delete`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters.share))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -132,8 +129,8 @@ export class SharesApi extends runtime.BaseAPI {
     async sharesSnapshotRaw(requestParameters: SharesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Shares>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -162,23 +159,20 @@ export class SharesApi extends runtime.BaseAPI {
      * /shares/{share} [GET]
      */
     async sharesSpecificShareSnapshotRaw(requestParameters: SharesSpecificShareSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Share>> {
-        if (requestParameters['share'] == null) {
-            throw new runtime.RequiredError(
-                'share',
-                'Required parameter "share" was null or undefined when calling sharesSpecificShareSnapshot().'
-            );
+        if (requestParameters.share === null || requestParameters.share === undefined) {
+            throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling sharesSpecificShareSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/shares/{share}`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters['share']))),
+            path: `/shares/{share}`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters.share))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

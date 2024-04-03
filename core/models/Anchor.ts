@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AnchorTypeEnum } from './AnchorTypeEnum';
 import {
     AnchorTypeEnumFromJSON,
@@ -164,12 +164,14 @@ export interface Anchor {
  * Check if a given object implements the Anchor interface.
  */
 export function instanceOfAnchor(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('type' in value)) return false;
-    if (!('points' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "points" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
 }
 
 export function AnchorFromJSON(json: any): Anchor {
@@ -177,48 +179,51 @@ export function AnchorFromJSON(json: any): Anchor {
 }
 
 export function AnchorFromJSONTyped(json: any, ignoreDiscriminator: boolean): Anchor {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
         'type': AnchorTypeEnumFromJSON(json['type']),
-        'watch': json['watch'] == null ? undefined : json['watch'],
+        'watch': !exists(json, 'watch') ? undefined : json['watch'],
         'points': FlattenedAnchorPointsFromJSON(json['points']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
-        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
-        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
 export function AnchorToJSON(value?: Anchor | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'name': value['name'],
-        'type': AnchorTypeEnumToJSON(value['type']),
-        'watch': value['watch'],
-        'points': FlattenedAnchorPointsToJSON(value['points']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'assets': FlattenedAssetsToJSON(value['assets']),
-        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
-        'conversations': FlattenedConversationsToJSON(value['conversations']),
-        'score': ScoreToJSON(value['score']),
-        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'name': value.name,
+        'type': AnchorTypeEnumToJSON(value.type),
+        'watch': value.watch,
+        'points': FlattenedAnchorPointsToJSON(value.points),
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'assets': FlattenedAssetsToJSON(value.assets),
+        'annotations': FlattenedAnnotationsToJSON(value.annotations),
+        'conversations': FlattenedConversationsToJSON(value.conversations),
+        'score': ScoreToJSON(value.score),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }
 

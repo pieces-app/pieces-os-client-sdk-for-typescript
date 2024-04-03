@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Activities } from './Activities';
 import {
     ActivitiesFromJSON,
@@ -316,15 +316,17 @@ export interface Asset {
  * Check if a given object implements the Asset interface.
  */
 export function instanceOfAsset(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('creator' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('formats' in value)) return false;
-    if (!('preview' in value)) return false;
-    if (!('original' in value)) return false;
-    if (!('mechanism' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "creator" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "formats" in value;
+    isInstance = isInstance && "preview" in value;
+    isInstance = isInstance && "original" in value;
+    isInstance = isInstance && "mechanism" in value;
+
+    return isInstance;
 }
 
 export function AssetFromJSON(json: any): Asset {
@@ -332,80 +334,83 @@ export function AssetFromJSON(json: any): Asset {
 }
 
 export function AssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): Asset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
         'creator': json['creator'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'synced': json['synced'] == null ? undefined : GroupedTimestampFromJSON(json['synced']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'synced': !exists(json, 'synced') ? undefined : GroupedTimestampFromJSON(json['synced']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'formats': FormatsFromJSON(json['formats']),
         'preview': PreviewFromJSON(json['preview']),
         'original': ReferencedFormatFromJSON(json['original']),
-        'shares': json['shares'] == null ? undefined : SharesFromJSON(json['shares']),
+        'shares': !exists(json, 'shares') ? undefined : SharesFromJSON(json['shares']),
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
-        'websites': json['websites'] == null ? undefined : WebsitesFromJSON(json['websites']),
-        'interacted': json['interacted'] == null ? undefined : GroupedTimestampFromJSON(json['interacted']),
-        'tags': json['tags'] == null ? undefined : TagsFromJSON(json['tags']),
-        'sensitives': json['sensitives'] == null ? undefined : SensitivesFromJSON(json['sensitives']),
-        'persons': json['persons'] == null ? undefined : PersonsFromJSON(json['persons']),
-        'curated': json['curated'] == null ? undefined : json['curated'],
-        'discovered': json['discovered'] == null ? undefined : json['discovered'],
-        'activities': json['activities'] == null ? undefined : ActivitiesFromJSON(json['activities']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
-        'favorited': json['favorited'] == null ? undefined : json['favorited'],
-        'pseudo': json['pseudo'] == null ? undefined : json['pseudo'],
-        'annotations': json['annotations'] == null ? undefined : AnnotationsFromJSON(json['annotations']),
-        'hints': json['hints'] == null ? undefined : HintsFromJSON(json['hints']),
-        'anchors': json['anchors'] == null ? undefined : AnchorsFromJSON(json['anchors']),
-        'conversations': json['conversations'] == null ? undefined : ConversationsFromJSON(json['conversations']),
-        'summaries': json['summaries'] == null ? undefined : WorkstreamSummariesFromJSON(json['summaries']),
-        'demo': json['demo'] == null ? undefined : json['demo'],
+        'websites': !exists(json, 'websites') ? undefined : WebsitesFromJSON(json['websites']),
+        'interacted': !exists(json, 'interacted') ? undefined : GroupedTimestampFromJSON(json['interacted']),
+        'tags': !exists(json, 'tags') ? undefined : TagsFromJSON(json['tags']),
+        'sensitives': !exists(json, 'sensitives') ? undefined : SensitivesFromJSON(json['sensitives']),
+        'persons': !exists(json, 'persons') ? undefined : PersonsFromJSON(json['persons']),
+        'curated': !exists(json, 'curated') ? undefined : json['curated'],
+        'discovered': !exists(json, 'discovered') ? undefined : json['discovered'],
+        'activities': !exists(json, 'activities') ? undefined : ActivitiesFromJSON(json['activities']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
+        'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
+        'annotations': !exists(json, 'annotations') ? undefined : AnnotationsFromJSON(json['annotations']),
+        'hints': !exists(json, 'hints') ? undefined : HintsFromJSON(json['hints']),
+        'anchors': !exists(json, 'anchors') ? undefined : AnchorsFromJSON(json['anchors']),
+        'conversations': !exists(json, 'conversations') ? undefined : ConversationsFromJSON(json['conversations']),
+        'summaries': !exists(json, 'summaries') ? undefined : WorkstreamSummariesFromJSON(json['summaries']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
 export function AssetToJSON(value?: Asset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'name': value['name'],
-        'creator': value['creator'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'synced': GroupedTimestampToJSON(value['synced']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'formats': FormatsToJSON(value['formats']),
-        'preview': PreviewToJSON(value['preview']),
-        'original': ReferencedFormatToJSON(value['original']),
-        'shares': SharesToJSON(value['shares']),
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'websites': WebsitesToJSON(value['websites']),
-        'interacted': GroupedTimestampToJSON(value['interacted']),
-        'tags': TagsToJSON(value['tags']),
-        'sensitives': SensitivesToJSON(value['sensitives']),
-        'persons': PersonsToJSON(value['persons']),
-        'curated': value['curated'],
-        'discovered': value['discovered'],
-        'activities': ActivitiesToJSON(value['activities']),
-        'score': ScoreToJSON(value['score']),
-        'favorited': value['favorited'],
-        'pseudo': value['pseudo'],
-        'annotations': AnnotationsToJSON(value['annotations']),
-        'hints': HintsToJSON(value['hints']),
-        'anchors': AnchorsToJSON(value['anchors']),
-        'conversations': ConversationsToJSON(value['conversations']),
-        'summaries': WorkstreamSummariesToJSON(value['summaries']),
-        'demo': value['demo'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'name': value.name,
+        'creator': value.creator,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'synced': GroupedTimestampToJSON(value.synced),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'formats': FormatsToJSON(value.formats),
+        'preview': PreviewToJSON(value.preview),
+        'original': ReferencedFormatToJSON(value.original),
+        'shares': SharesToJSON(value.shares),
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'websites': WebsitesToJSON(value.websites),
+        'interacted': GroupedTimestampToJSON(value.interacted),
+        'tags': TagsToJSON(value.tags),
+        'sensitives': SensitivesToJSON(value.sensitives),
+        'persons': PersonsToJSON(value.persons),
+        'curated': value.curated,
+        'discovered': value.discovered,
+        'activities': ActivitiesToJSON(value.activities),
+        'score': ScoreToJSON(value.score),
+        'favorited': value.favorited,
+        'pseudo': value.pseudo,
+        'annotations': AnnotationsToJSON(value.annotations),
+        'hints': HintsToJSON(value.hints),
+        'anchors': AnchorsToJSON(value.anchors),
+        'conversations': ConversationsToJSON(value.conversations),
+        'summaries': WorkstreamSummariesToJSON(value.summaries),
+        'demo': value.demo,
     };
 }
 

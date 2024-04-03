@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Asset } from './Asset';
 import {
     AssetFromJSON,
@@ -86,11 +86,13 @@ export interface SearchedAsset {
  * Check if a given object implements the SearchedAsset interface.
  */
 export function instanceOfSearchedAsset(value: object): boolean {
-    if (!('exact' in value)) return false;
-    if (!('score' in value)) return false;
-    if (!('match' in value)) return false;
-    if (!('identifier' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "exact" in value;
+    isInstance = isInstance && "score" in value;
+    isInstance = isInstance && "match" in value;
+    isInstance = isInstance && "identifier" in value;
+
+    return isInstance;
 }
 
 export function SearchedAssetFromJSON(json: any): SearchedAsset {
@@ -98,34 +100,37 @@ export function SearchedAssetFromJSON(json: any): SearchedAsset {
 }
 
 export function SearchedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedAsset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': json['asset'] == null ? undefined : AssetFromJSON(json['asset']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': !exists(json, 'asset') ? undefined : AssetFromJSON(json['asset']),
         'exact': json['exact'],
         'score': json['score'],
         'match': SearchedMatchEnumFromJSON(json['match']),
         'identifier': json['identifier'],
-        'pseudo': json['pseudo'] == null ? undefined : json['pseudo'],
+        'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
     };
 }
 
 export function SearchedAssetToJSON(value?: SearchedAsset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset': AssetToJSON(value['asset']),
-        'exact': value['exact'],
-        'score': value['score'],
-        'match': SearchedMatchEnumToJSON(value['match']),
-        'identifier': value['identifier'],
-        'pseudo': value['pseudo'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset': AssetToJSON(value.asset),
+        'exact': value.exact,
+        'score': value.score,
+        'match': SearchedMatchEnumToJSON(value.match),
+        'identifier': value.identifier,
+        'pseudo': value.pseudo,
     };
 }
 

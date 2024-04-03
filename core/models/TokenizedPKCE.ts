@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -85,12 +85,14 @@ export type TokenizedPKCEGrantTypeEnum = typeof TokenizedPKCEGrantTypeEnum[keyof
  * Check if a given object implements the TokenizedPKCE interface.
  */
 export function instanceOfTokenizedPKCE(value: object): boolean {
-    if (!('grantType' in value)) return false;
-    if (!('clientId' in value)) return false;
-    if (!('code' in value)) return false;
-    if (!('redirectUri' in value)) return false;
-    if (!('codeVerifier' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "grantType" in value;
+    isInstance = isInstance && "clientId" in value;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "redirectUri" in value;
+    isInstance = isInstance && "codeVerifier" in value;
+
+    return isInstance;
 }
 
 export function TokenizedPKCEFromJSON(json: any): TokenizedPKCE {
@@ -98,34 +100,37 @@ export function TokenizedPKCEFromJSON(json: any): TokenizedPKCE {
 }
 
 export function TokenizedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenizedPKCE {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'grantType': json['grant_type'],
         'clientId': json['client_id'],
         'code': json['code'],
         'redirectUri': json['redirect_uri'],
         'codeVerifier': json['code_verifier'],
-        'audience': json['audience'] == null ? undefined : json['audience'],
+        'audience': !exists(json, 'audience') ? undefined : json['audience'],
     };
 }
 
 export function TokenizedPKCEToJSON(value?: TokenizedPKCE | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'grant_type': value['grantType'],
-        'client_id': value['clientId'],
-        'code': value['code'],
-        'redirect_uri': value['redirectUri'],
-        'code_verifier': value['codeVerifier'],
-        'audience': value['audience'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'grant_type': value.grantType,
+        'client_id': value.clientId,
+        'code': value.code,
+        'redirect_uri': value.redirectUri,
+        'code_verifier': value.codeVerifier,
+        'audience': value.audience,
     };
 }
 

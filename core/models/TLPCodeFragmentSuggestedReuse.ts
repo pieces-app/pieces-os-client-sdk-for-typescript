@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,7 +44,9 @@ export interface TLPCodeFragmentSuggestedReuse {
  * Check if a given object implements the TLPCodeFragmentSuggestedReuse interface.
  */
 export function instanceOfTLPCodeFragmentSuggestedReuse(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentSuggestedReuseFromJSON(json: any): TLPCodeFragmentSuggestedReuse {
@@ -52,24 +54,27 @@ export function TLPCodeFragmentSuggestedReuseFromJSON(json: any): TLPCodeFragmen
 }
 
 export function TLPCodeFragmentSuggestedReuseFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentSuggestedReuse {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': json['id'] == null ? undefined : json['id'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': !exists(json, 'id') ? undefined : json['id'],
     };
 }
 
 export function TLPCodeFragmentSuggestedReuseToJSON(value?: TLPCodeFragmentSuggestedReuse | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
     };
 }
 

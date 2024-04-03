@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,9 +62,11 @@ export interface Aesthetics {
  * Check if a given object implements the Aesthetics interface.
  */
 export function instanceOfAesthetics(value: object): boolean {
-    if (!('theme' in value)) return false;
-    if (!('font' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "theme" in value;
+    isInstance = isInstance && "font" in value;
+
+    return isInstance;
 }
 
 export function AestheticsFromJSON(json: any): Aesthetics {
@@ -72,26 +74,29 @@ export function AestheticsFromJSON(json: any): Aesthetics {
 }
 
 export function AestheticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Aesthetics {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'theme': ThemeFromJSON(json['theme']),
         'font': FontFromJSON(json['font']),
     };
 }
 
 export function AestheticsToJSON(value?: Aesthetics | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'theme': ThemeToJSON(value['theme']),
-        'font': FontToJSON(value['font']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'theme': ThemeToJSON(value.theme),
+        'font': FontToJSON(value.font),
     };
 }
 

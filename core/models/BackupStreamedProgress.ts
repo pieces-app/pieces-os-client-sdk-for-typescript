@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Backup } from './Backup';
 import {
     BackupFromJSON,
@@ -55,7 +55,7 @@ export interface BackupStreamedProgress {
      * @type {number}
      * @memberof BackupStreamedProgress
      */
-    percentage?: number;
+    percentage?: number | null;
     /**
      * 
      * @type {Backup}
@@ -68,7 +68,9 @@ export interface BackupStreamedProgress {
  * Check if a given object implements the BackupStreamedProgress interface.
  */
 export function instanceOfBackupStreamedProgress(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function BackupStreamedProgressFromJSON(json: any): BackupStreamedProgress {
@@ -76,28 +78,31 @@ export function BackupStreamedProgressFromJSON(json: any): BackupStreamedProgres
 }
 
 export function BackupStreamedProgressFromJSONTyped(json: any, ignoreDiscriminator: boolean): BackupStreamedProgress {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'status': json['status'] == null ? undefined : ModelDownloadProgressStatusEnumFromJSON(json['status']),
-        'percentage': json['percentage'] == null ? undefined : json['percentage'],
-        'backup': json['backup'] == null ? undefined : BackupFromJSON(json['backup']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'status': !exists(json, 'status') ? undefined : ModelDownloadProgressStatusEnumFromJSON(json['status']),
+        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
+        'backup': !exists(json, 'backup') ? undefined : BackupFromJSON(json['backup']),
     };
 }
 
 export function BackupStreamedProgressToJSON(value?: BackupStreamedProgress | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'status': ModelDownloadProgressStatusEnumToJSON(value['status']),
-        'percentage': value['percentage'],
-        'backup': BackupToJSON(value['backup']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'status': ModelDownloadProgressStatusEnumToJSON(value.status),
+        'percentage': value.percentage,
+        'backup': BackupToJSON(value.backup),
     };
 }
 

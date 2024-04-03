@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -74,7 +74,9 @@ export interface FragmentFormat {
  * Check if a given object implements the FragmentFormat interface.
  */
 export function instanceOfFragmentFormat(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FragmentFormatFromJSON(json: any): FragmentFormat {
@@ -82,28 +84,31 @@ export function FragmentFormatFromJSON(json: any): FragmentFormat {
 }
 
 export function FragmentFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): FragmentFormat {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'string': json['string'] == null ? undefined : TransferableStringFromJSON(json['string']),
-        'bytes': json['bytes'] == null ? undefined : TransferableBytesFromJSON(json['bytes']),
-        'metadata': json['metadata'] == null ? undefined : FragmentMetadataFromJSON(json['metadata']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'string': !exists(json, 'string') ? undefined : TransferableStringFromJSON(json['string']),
+        'bytes': !exists(json, 'bytes') ? undefined : TransferableBytesFromJSON(json['bytes']),
+        'metadata': !exists(json, 'metadata') ? undefined : FragmentMetadataFromJSON(json['metadata']),
     };
 }
 
 export function FragmentFormatToJSON(value?: FragmentFormat | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'string': TransferableStringToJSON(value['string']),
-        'bytes': TransferableBytesToJSON(value['bytes']),
-        'metadata': FragmentMetadataToJSON(value['metadata']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'string': TransferableStringToJSON(value.string),
+        'bytes': TransferableBytesToJSON(value.bytes),
+        'metadata': FragmentMetadataToJSON(value.metadata),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
     ClassificationGenericEnumFromJSON,
@@ -112,11 +112,13 @@ export interface CodeAnalysis {
  * Check if a given object implements the CodeAnalysis interface.
  */
 export function instanceOfCodeAnalysis(value: object): boolean {
-    if (!('type' in value)) return false;
-    if (!('id' in value)) return false;
-    if (!('analysis' in value)) return false;
-    if (!('model' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "analysis" in value;
+    isInstance = isInstance && "model" in value;
+
+    return isInstance;
 }
 
 export function CodeAnalysisFromJSON(json: any): CodeAnalysis {
@@ -124,19 +126,19 @@ export function CodeAnalysisFromJSON(json: any): CodeAnalysis {
 }
 
 export function CodeAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): CodeAnalysis {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'tokenized': json['tokenized'] == null ? undefined : json['tokenized'],
-        'language': json['language'] == null ? undefined : json['language'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'tokenized': !exists(json, 'tokenized') ? undefined : json['tokenized'],
+        'language': !exists(json, 'language') ? undefined : json['language'],
         'type': ClassificationGenericEnumFromJSON(json['type']),
-        'prediction': json['prediction'] == null ? undefined : json['prediction'],
-        'similarity': json['similarity'] == null ? undefined : json['similarity'],
-        'top5Colors': json['top5Colors'] == null ? undefined : json['top5Colors'],
-        'top5Sorted': json['top5Sorted'] == null ? undefined : json['top5Sorted'],
+        'prediction': !exists(json, 'prediction') ? undefined : json['prediction'],
+        'similarity': !exists(json, 'similarity') ? undefined : json['similarity'],
+        'top5Colors': !exists(json, 'top5Colors') ? undefined : json['top5Colors'],
+        'top5Sorted': !exists(json, 'top5Sorted') ? undefined : json['top5Sorted'],
         'id': json['id'],
         'analysis': json['analysis'],
         'model': ModelFromJSON(json['model']),
@@ -144,22 +146,25 @@ export function CodeAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function CodeAnalysisToJSON(value?: CodeAnalysis | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'tokenized': value['tokenized'],
-        'language': value['language'],
-        'type': ClassificationGenericEnumToJSON(value['type']),
-        'prediction': value['prediction'],
-        'similarity': value['similarity'],
-        'top5Colors': value['top5Colors'],
-        'top5Sorted': value['top5Sorted'],
-        'id': value['id'],
-        'analysis': value['analysis'],
-        'model': ModelToJSON(value['model']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'tokenized': value.tokenized,
+        'language': value.language,
+        'type': ClassificationGenericEnumToJSON(value.type),
+        'prediction': value.prediction,
+        'similarity': value.similarity,
+        'top5Colors': value.top5Colors,
+        'top5Sorted': value.top5Sorted,
+        'id': value.id,
+        'analysis': value.analysis,
+        'model': ModelToJSON(value.model),
     };
 }
 

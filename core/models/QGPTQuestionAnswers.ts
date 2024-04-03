@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface QGPTQuestionAnswers {
  * Check if a given object implements the QGPTQuestionAnswers interface.
  */
 export function instanceOfQGPTQuestionAnswers(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function QGPTQuestionAnswersFromJSON(json: any): QGPTQuestionAnswers {
@@ -59,24 +61,27 @@ export function QGPTQuestionAnswersFromJSON(json: any): QGPTQuestionAnswers {
 }
 
 export function QGPTQuestionAnswersFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionAnswers {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(QGPTQuestionAnswerFromJSON)),
     };
 }
 
 export function QGPTQuestionAnswersToJSON(value?: QGPTQuestionAnswers | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(QGPTQuestionAnswerToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(QGPTQuestionAnswerToJSON)),
     };
 }
 

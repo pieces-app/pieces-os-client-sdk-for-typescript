@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * A Model to support account creation to Auth0's Database.
  * @export
@@ -79,16 +79,18 @@ export interface OAuthAccount {
  * Check if a given object implements the OAuthAccount interface.
  */
 export function instanceOfOAuthAccount(value: object): boolean {
-    if (!('clientId' in value)) return false;
-    if (!('email' in value)) return false;
-    if (!('connection' in value)) return false;
-    if (!('username' in value)) return false;
-    if (!('givenName' in value)) return false;
-    if (!('familyName' in value)) return false;
-    if (!('name' in value)) return false;
-    if (!('picture' in value)) return false;
-    if (!('nickname' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "clientId" in value;
+    isInstance = isInstance && "email" in value;
+    isInstance = isInstance && "connection" in value;
+    isInstance = isInstance && "username" in value;
+    isInstance = isInstance && "givenName" in value;
+    isInstance = isInstance && "familyName" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "picture" in value;
+    isInstance = isInstance && "nickname" in value;
+
+    return isInstance;
 }
 
 export function OAuthAccountFromJSON(json: any): OAuthAccount {
@@ -96,7 +98,7 @@ export function OAuthAccountFromJSON(json: any): OAuthAccount {
 }
 
 export function OAuthAccountFromJSONTyped(json: any, ignoreDiscriminator: boolean): OAuthAccount {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -114,20 +116,23 @@ export function OAuthAccountFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function OAuthAccountToJSON(value?: OAuthAccount | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'client_id': value['clientId'],
-        'email': value['email'],
-        'connection': value['connection'],
-        'username': value['username'],
-        'given_name': value['givenName'],
-        'family_name': value['familyName'],
-        'name': value['name'],
-        'picture': value['picture'],
-        'nickname': value['nickname'],
+        'client_id': value.clientId,
+        'email': value.email,
+        'connection': value.connection,
+        'username': value.username,
+        'given_name': value.givenName,
+        'family_name': value.familyName,
+        'name': value.name,
+        'picture': value.picture,
+        'nickname': value.nickname,
     };
 }
 

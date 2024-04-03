@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -48,7 +48,9 @@ export interface QGPTTaskPipelineForCodeModification {
  * Check if a given object implements the QGPTTaskPipelineForCodeModification interface.
  */
 export function instanceOfQGPTTaskPipelineForCodeModification(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTTaskPipelineForCodeModificationFromJSON(json: any): QGPTTaskPipelineForCodeModification {
@@ -56,24 +58,27 @@ export function QGPTTaskPipelineForCodeModificationFromJSON(json: any): QGPTTask
 }
 
 export function QGPTTaskPipelineForCodeModificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeModification {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'instruction': json['instruction'] == null ? undefined : json['instruction'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'instruction': !exists(json, 'instruction') ? undefined : json['instruction'],
     };
 }
 
 export function QGPTTaskPipelineForCodeModificationToJSON(value?: QGPTTaskPipelineForCodeModification | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'instruction': value['instruction'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'instruction': value.instruction,
     };
 }
 

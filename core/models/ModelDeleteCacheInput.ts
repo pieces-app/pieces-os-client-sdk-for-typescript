@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -38,7 +38,9 @@ export interface ModelDeleteCacheInput {
  * Check if a given object implements the ModelDeleteCacheInput interface.
  */
 export function instanceOfModelDeleteCacheInput(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ModelDeleteCacheInputFromJSON(json: any): ModelDeleteCacheInput {
@@ -46,22 +48,25 @@ export function ModelDeleteCacheInputFromJSON(json: any): ModelDeleteCacheInput 
 }
 
 export function ModelDeleteCacheInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDeleteCacheInput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function ModelDeleteCacheInputToJSON(value?: ModelDeleteCacheInput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
 

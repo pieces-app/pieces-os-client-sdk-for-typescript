@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -80,12 +80,14 @@ export interface OCRAnalysis {
  * Check if a given object implements the OCRAnalysis interface.
  */
 export function instanceOfOCRAnalysis(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('raw' in value)) return false;
-    if (!('hocr' in value)) return false;
-    if (!('image' in value)) return false;
-    if (!('model' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "raw" in value;
+    isInstance = isInstance && "hocr" in value;
+    isInstance = isInstance && "image" in value;
+    isInstance = isInstance && "model" in value;
+
+    return isInstance;
 }
 
 export function OCRAnalysisFromJSON(json: any): OCRAnalysis {
@@ -93,12 +95,12 @@ export function OCRAnalysisFromJSON(json: any): OCRAnalysis {
 }
 
 export function OCRAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): OCRAnalysis {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'raw': FormatFromJSON(json['raw']),
         'hocr': FormatFromJSON(json['hocr']),
@@ -108,17 +110,20 @@ export function OCRAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean
 }
 
 export function OCRAnalysisToJSON(value?: OCRAnalysis | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'raw': FormatToJSON(value['raw']),
-        'hocr': FormatToJSON(value['hocr']),
-        'image': value['image'],
-        'model': ModelToJSON(value['model']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'raw': FormatToJSON(value.raw),
+        'hocr': FormatToJSON(value.hocr),
+        'image': value.image,
+        'model': ModelToJSON(value.model),
     };
 }
 

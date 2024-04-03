@@ -129,18 +129,12 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/tags/associate/{tag} [POST]
      */
     async assetAssociateTagRaw(requestParameters: AssetAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetAssociateTag().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateTag.');
         }
 
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling assetAssociateTag().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling assetAssociateTag.');
         }
 
         const queryParameters: any = {};
@@ -148,7 +142,7 @@ export class AssetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/tags/associate/{tag}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            path: `/asset/{asset}/tags/associate/{tag}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -170,18 +164,12 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/websites/associate/{website} [POST]
      */
     async assetAssociateWebsiteRaw(requestParameters: AssetAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetAssociateWebsite().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateWebsite.');
         }
 
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling assetAssociateWebsite().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling assetAssociateWebsite.');
         }
 
         const queryParameters: any = {};
@@ -189,7 +177,7 @@ export class AssetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/websites/associate/{website}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            path: `/asset/{asset}/websites/associate/{website}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -211,18 +199,12 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/workstream_summaries/associate/{workstream_summary} [POST]
      */
     async assetAssociateWorkstreamSummaryRaw(requestParameters: AssetAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetAssociateWorkstreamSummary().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateWorkstreamSummary.');
         }
 
-        if (requestParameters['workstreamSummary'] == null) {
-            throw new runtime.RequiredError(
-                'workstreamSummary',
-                'Required parameter "workstreamSummary" was null or undefined when calling assetAssociateWorkstreamSummary().'
-            );
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling assetAssociateWorkstreamSummary.');
         }
 
         const queryParameters: any = {};
@@ -230,7 +212,7 @@ export class AssetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            path: `/asset/{asset}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -252,18 +234,12 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/tags/disassociate/{tag} [POST]
      */
     async assetDisassociateTagRaw(requestParameters: AssetDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling assetDisassociateTag().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling assetDisassociateTag.');
         }
 
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetDisassociateTag().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateTag.');
         }
 
         const queryParameters: any = {};
@@ -271,7 +247,7 @@ export class AssetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/tags/disassociate/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}/tags/disassociate/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -293,18 +269,12 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/websites/disassociate/{website} [POST]
      */
     async assetDisassociateWebsiteRaw(requestParameters: AssetDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling assetDisassociateWebsite().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling assetDisassociateWebsite.');
         }
 
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetDisassociateWebsite().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateWebsite.');
         }
 
         const queryParameters: any = {};
@@ -312,7 +282,7 @@ export class AssetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/websites/disassociate/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}/websites/disassociate/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -334,18 +304,12 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/workstream_summaries/disassociate/{workstream_summary} [POST]
      */
     async assetDisassociateWorkstreamSummaryRaw(requestParameters: AssetDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetDisassociateWorkstreamSummary().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateWorkstreamSummary.');
         }
 
-        if (requestParameters['workstreamSummary'] == null) {
-            throw new runtime.RequiredError(
-                'workstreamSummary',
-                'Required parameter "workstreamSummary" was null or undefined when calling assetDisassociateWorkstreamSummary().'
-            );
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling assetDisassociateWorkstreamSummary.');
         }
 
         const queryParameters: any = {};
@@ -353,7 +317,7 @@ export class AssetApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            path: `/asset/{asset}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -375,23 +339,20 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
     async assetFormatsRaw(requestParameters: AssetFormatsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Formats>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetFormats().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetFormats.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/formats`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}/formats`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -416,8 +377,8 @@ export class AssetApi extends runtime.BaseAPI {
     async assetReclassifyRaw(requestParameters: AssetReclassifyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -429,7 +390,7 @@ export class AssetApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetReclassificationToJSON(requestParameters['assetReclassification']),
+            body: AssetReclassificationToJSON(requestParameters.assetReclassification),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
@@ -449,11 +410,8 @@ export class AssetApi extends runtime.BaseAPI {
      * \'/asset/{asset}/scores/increment\' [POST]
      */
     async assetScoresIncrementRaw(requestParameters: AssetScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetScoresIncrement().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetScoresIncrement.');
         }
 
         const queryParameters: any = {};
@@ -463,11 +421,11 @@ export class AssetApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/asset/{asset}/scores/increment`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}/scores/increment`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -486,23 +444,20 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset} [GET] Scoped To Asset
      */
     async assetSnapshotRaw(requestParameters: AssetSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetSnapshot().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -525,17 +480,14 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset} [POST] Scoped to an Asset
      */
     async assetSnapshotPostRaw(requestParameters: AssetSnapshotPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetSnapshotPost().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSnapshotPost.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -543,11 +495,11 @@ export class AssetApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAccessorToJSON(requestParameters['seededAccessor']),
+            body: SeededAccessorToJSON(requestParameters.seededAccessor),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
@@ -567,23 +519,20 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/activities [GET]
      */
     async assetSpecificAssetActivitiesRaw(requestParameters: AssetSpecificAssetActivitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activities>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetSpecificAssetActivities().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetActivities.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/activities`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}/activities`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -606,23 +555,20 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/conversations [GET]
      */
     async assetSpecificAssetConversationsRaw(requestParameters: AssetSpecificAssetConversationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversations>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetSpecificAssetConversations().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetConversations.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/conversations`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}/conversations`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -645,30 +591,24 @@ export class AssetApi extends runtime.BaseAPI {
      * [GET] /asset/{asset}/export
      */
     async assetSpecificAssetExportRaw(requestParameters: AssetSpecificAssetExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportedAsset>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetSpecificAssetExport().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetExport.');
         }
 
-        if (requestParameters['exportType'] == null) {
-            throw new runtime.RequiredError(
-                'exportType',
-                'Required parameter "exportType" was null or undefined when calling assetSpecificAssetExport().'
-            );
+        if (requestParameters.exportType === null || requestParameters.exportType === undefined) {
+            throw new runtime.RequiredError('exportType','Required parameter requestParameters.exportType was null or undefined when calling assetSpecificAssetExport.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['exportType'] != null) {
-            queryParameters['export_type'] = requestParameters['exportType'];
+        if (requestParameters.exportType !== undefined) {
+            queryParameters['export_type'] = requestParameters.exportType;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/asset/{asset}/export`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/asset/{asset}/export`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -693,8 +633,8 @@ export class AssetApi extends runtime.BaseAPI {
     async assetUpdateRaw(requestParameters: AssetUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -706,7 +646,7 @@ export class AssetApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetToJSON(requestParameters['asset']),
+            body: AssetToJSON(requestParameters.asset),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));

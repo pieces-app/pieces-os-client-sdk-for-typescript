@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { SystemExecutionCpuInformation } from './SystemExecutionCpuInformation';
 import {
     SystemExecutionCpuInformationFromJSON,
@@ -56,11 +56,13 @@ export interface SystemExecutionInformation {
  * Check if a given object implements the SystemExecutionInformation interface.
  */
 export function instanceOfSystemExecutionInformation(value: object): boolean {
-    if (!('memory' in value)) return false;
-    if (!('os' in value)) return false;
-    if (!('kernel' in value)) return false;
-    if (!('cpu' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "memory" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "kernel" in value;
+    isInstance = isInstance && "cpu" in value;
+
+    return isInstance;
 }
 
 export function SystemExecutionInformationFromJSON(json: any): SystemExecutionInformation {
@@ -68,7 +70,7 @@ export function SystemExecutionInformationFromJSON(json: any): SystemExecutionIn
 }
 
 export function SystemExecutionInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SystemExecutionInformation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -81,15 +83,18 @@ export function SystemExecutionInformationFromJSONTyped(json: any, ignoreDiscrim
 }
 
 export function SystemExecutionInformationToJSON(value?: SystemExecutionInformation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'memory': value['memory'],
-        'os': value['os'],
-        'kernel': value['kernel'],
-        'cpu': SystemExecutionCpuInformationToJSON(value['cpu']),
+        'memory': value.memory,
+        'os': value.os,
+        'kernel': value.kernel,
+        'cpu': SystemExecutionCpuInformationToJSON(value.cpu),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,9 +62,11 @@ export interface ImageAnalysis {
  * Check if a given object implements the ImageAnalysis interface.
  */
 export function instanceOfImageAnalysis(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('analysis' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "analysis" in value;
+
+    return isInstance;
 }
 
 export function ImageAnalysisFromJSON(json: any): ImageAnalysis {
@@ -72,28 +74,31 @@ export function ImageAnalysisFromJSON(json: any): ImageAnalysis {
 }
 
 export function ImageAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): ImageAnalysis {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'analysis': json['analysis'],
-        'ocr': json['ocr'] == null ? undefined : OCRAnalysisFromJSON(json['ocr']),
+        'ocr': !exists(json, 'ocr') ? undefined : OCRAnalysisFromJSON(json['ocr']),
     };
 }
 
 export function ImageAnalysisToJSON(value?: ImageAnalysis | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'analysis': value['analysis'],
-        'ocr': OCRAnalysisToJSON(value['ocr']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'analysis': value.analysis,
+        'ocr': OCRAnalysisToJSON(value.ocr),
     };
 }
 

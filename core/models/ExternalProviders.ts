@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface ExternalProviders {
  * Check if a given object implements the ExternalProviders interface.
  */
 export function instanceOfExternalProviders(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ExternalProvidersFromJSON(json: any): ExternalProviders {
@@ -59,24 +61,27 @@ export function ExternalProvidersFromJSON(json: any): ExternalProviders {
 }
 
 export function ExternalProvidersFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExternalProviders {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ExternalProviderFromJSON)),
     };
 }
 
 export function ExternalProvidersToJSON(value?: ExternalProviders | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(ExternalProviderToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(ExternalProviderToJSON)),
     };
 }
 

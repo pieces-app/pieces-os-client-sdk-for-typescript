@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { QGPTAgentRoutes } from './QGPTAgentRoutes';
 import {
     QGPTAgentRoutesFromJSON,
@@ -85,7 +85,7 @@ export interface QGPTStreamOutput {
      * @type {number}
      * @memberof QGPTStreamOutput
      */
-    statusCode?: number;
+    statusCode?: number | null;
     /**
      * optional error message is the status code is NOT 200
      * @type {string}
@@ -104,8 +104,10 @@ export interface QGPTStreamOutput {
  * Check if a given object implements the QGPTStreamOutput interface.
  */
 export function instanceOfQGPTStreamOutput(value: object): boolean {
-    if (!('conversation' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "conversation" in value;
+
+    return isInstance;
 }
 
 export function QGPTStreamOutputFromJSON(json: any): QGPTStreamOutput {
@@ -113,36 +115,39 @@ export function QGPTStreamOutputFromJSON(json: any): QGPTStreamOutput {
 }
 
 export function QGPTStreamOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTStreamOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'request': json['request'] == null ? undefined : json['request'],
-        'relevance': json['relevance'] == null ? undefined : QGPTRelevanceOutputFromJSON(json['relevance']),
-        'question': json['question'] == null ? undefined : QGPTQuestionOutputFromJSON(json['question']),
-        'status': json['status'] == null ? undefined : QGPTStreamEnumFromJSON(json['status']),
+        'request': !exists(json, 'request') ? undefined : json['request'],
+        'relevance': !exists(json, 'relevance') ? undefined : QGPTRelevanceOutputFromJSON(json['relevance']),
+        'question': !exists(json, 'question') ? undefined : QGPTQuestionOutputFromJSON(json['question']),
+        'status': !exists(json, 'status') ? undefined : QGPTStreamEnumFromJSON(json['status']),
         'conversation': json['conversation'],
-        'statusCode': json['statusCode'] == null ? undefined : json['statusCode'],
-        'errorMessage': json['errorMessage'] == null ? undefined : json['errorMessage'],
-        'agentRoutes': json['agentRoutes'] == null ? undefined : QGPTAgentRoutesFromJSON(json['agentRoutes']),
+        'statusCode': !exists(json, 'statusCode') ? undefined : json['statusCode'],
+        'errorMessage': !exists(json, 'errorMessage') ? undefined : json['errorMessage'],
+        'agentRoutes': !exists(json, 'agentRoutes') ? undefined : QGPTAgentRoutesFromJSON(json['agentRoutes']),
     };
 }
 
 export function QGPTStreamOutputToJSON(value?: QGPTStreamOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'request': value['request'],
-        'relevance': QGPTRelevanceOutputToJSON(value['relevance']),
-        'question': QGPTQuestionOutputToJSON(value['question']),
-        'status': QGPTStreamEnumToJSON(value['status']),
-        'conversation': value['conversation'],
-        'statusCode': value['statusCode'],
-        'errorMessage': value['errorMessage'],
-        'agentRoutes': QGPTAgentRoutesToJSON(value['agentRoutes']),
+        'request': value.request,
+        'relevance': QGPTRelevanceOutputToJSON(value.relevance),
+        'question': QGPTQuestionOutputToJSON(value.question),
+        'status': QGPTStreamEnumToJSON(value.status),
+        'conversation': value.conversation,
+        'statusCode': value.statusCode,
+        'errorMessage': value.errorMessage,
+        'agentRoutes': QGPTAgentRoutesToJSON(value.agentRoutes),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -31,8 +31,10 @@ export interface GraphicalOCRDescriptiveStatisticsConfidence {
  * Check if a given object implements the GraphicalOCRDescriptiveStatisticsConfidence interface.
  */
 export function instanceOfGraphicalOCRDescriptiveStatisticsConfidence(value: object): boolean {
-    if (!('mean' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "mean" in value;
+
+    return isInstance;
 }
 
 export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSON(json: any): GraphicalOCRDescriptiveStatisticsConfidence {
@@ -40,7 +42,7 @@ export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSON(json: any): 
 }
 
 export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRDescriptiveStatisticsConfidence {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -50,12 +52,15 @@ export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json: a
 }
 
 export function GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value?: GraphicalOCRDescriptiveStatisticsConfidence | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'mean': value['mean'],
+        'mean': value.mean,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,7 +44,9 @@ export interface SeededRangeConversationGroundingTemporalAssociation {
  * Check if a given object implements the SeededRangeConversationGroundingTemporalAssociation interface.
  */
 export function instanceOfSeededRangeConversationGroundingTemporalAssociation(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededRangeConversationGroundingTemporalAssociationFromJSON(json: any): SeededRangeConversationGroundingTemporalAssociation {
@@ -52,24 +54,27 @@ export function SeededRangeConversationGroundingTemporalAssociationFromJSON(json
 }
 
 export function SeededRangeConversationGroundingTemporalAssociationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededRangeConversationGroundingTemporalAssociation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'workstream': json['workstream'] == null ? undefined : json['workstream'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'workstream': !exists(json, 'workstream') ? undefined : json['workstream'],
     };
 }
 
 export function SeededRangeConversationGroundingTemporalAssociationToJSON(value?: SeededRangeConversationGroundingTemporalAssociation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'workstream': value['workstream'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'workstream': value.workstream,
     };
 }
 

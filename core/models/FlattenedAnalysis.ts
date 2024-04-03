@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CodeAnalysis } from './CodeAnalysis';
 import {
     CodeAnalysisFromJSON,
@@ -74,9 +74,11 @@ export interface FlattenedAnalysis {
  * Check if a given object implements the FlattenedAnalysis interface.
  */
 export function instanceOfFlattenedAnalysis(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('format' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function FlattenedAnalysisFromJSON(json: any): FlattenedAnalysis {
@@ -84,30 +86,33 @@ export function FlattenedAnalysisFromJSON(json: any): FlattenedAnalysis {
 }
 
 export function FlattenedAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAnalysis {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'code': json['code'] == null ? undefined : CodeAnalysisFromJSON(json['code']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'code': !exists(json, 'code') ? undefined : CodeAnalysisFromJSON(json['code']),
         'id': json['id'],
         'format': json['format'],
-        'image': json['image'] == null ? undefined : FlattenedImageAnalysisFromJSON(json['image']),
+        'image': !exists(json, 'image') ? undefined : FlattenedImageAnalysisFromJSON(json['image']),
     };
 }
 
 export function FlattenedAnalysisToJSON(value?: FlattenedAnalysis | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'code': CodeAnalysisToJSON(value['code']),
-        'id': value['id'],
-        'format': value['format'],
-        'image': FlattenedImageAnalysisToJSON(value['image']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'code': CodeAnalysisToJSON(value.code),
+        'id': value.id,
+        'format': value.format,
+        'image': FlattenedImageAnalysisToJSON(value.image),
     };
 }
 

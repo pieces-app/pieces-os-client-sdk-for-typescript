@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -64,7 +64,9 @@ export interface SeededScore {
  * Check if a given object implements the SeededScore interface.
  */
 export function instanceOfSeededScore(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededScoreFromJSON(json: any): SeededScore {
@@ -72,30 +74,33 @@ export function SeededScoreFromJSON(json: any): SeededScore {
 }
 
 export function SeededScoreFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededScore {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'reuse': json['reuse'] == null ? undefined : json['reuse'],
-        'update': json['update'] == null ? undefined : json['update'],
-        'reference': json['reference'] == null ? undefined : json['reference'],
-        'priority': json['priority'] == null ? undefined : json['priority'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'reuse': !exists(json, 'reuse') ? undefined : json['reuse'],
+        'update': !exists(json, 'update') ? undefined : json['update'],
+        'reference': !exists(json, 'reference') ? undefined : json['reference'],
+        'priority': !exists(json, 'priority') ? undefined : json['priority'],
     };
 }
 
 export function SeededScoreToJSON(value?: SeededScore | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'reuse': value['reuse'],
-        'update': value['update'],
-        'reference': value['reference'],
-        'priority': value['priority'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'reuse': value.reuse,
+        'update': value.update,
+        'reference': value.reference,
+        'priority': value.priority,
     };
 }
 

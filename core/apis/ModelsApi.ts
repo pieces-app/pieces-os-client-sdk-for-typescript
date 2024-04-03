@@ -68,7 +68,7 @@ export class ModelsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededModelToJSON(requestParameters['seededModel']),
+            body: SeededModelToJSON(requestParameters.seededModel),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelFromJSON(jsonValue));
@@ -88,11 +88,8 @@ export class ModelsApi extends runtime.BaseAPI {
      * /models/{model}/delete [POST]
      */
     async modelsDeleteSpecificModelRaw(requestParameters: ModelsDeleteSpecificModelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['model'] == null) {
-            throw new runtime.RequiredError(
-                'model',
-                'Required parameter "model" was null or undefined when calling modelsDeleteSpecificModel().'
-            );
+        if (requestParameters.model === null || requestParameters.model === undefined) {
+            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelsDeleteSpecificModel.');
         }
 
         const queryParameters: any = {};
@@ -100,7 +97,7 @@ export class ModelsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/models/{model}/delete`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
+            path: `/models/{model}/delete`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -122,11 +119,8 @@ export class ModelsApi extends runtime.BaseAPI {
      * /models/{model}/delete/cache [POST]
      */
     async modelsDeleteSpecificModelCacheRaw(requestParameters: ModelsDeleteSpecificModelCacheRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelDeleteCacheOutput>> {
-        if (requestParameters['model'] == null) {
-            throw new runtime.RequiredError(
-                'model',
-                'Required parameter "model" was null or undefined when calling modelsDeleteSpecificModelCache().'
-            );
+        if (requestParameters.model === null || requestParameters.model === undefined) {
+            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelsDeleteSpecificModelCache.');
         }
 
         const queryParameters: any = {};
@@ -136,11 +130,11 @@ export class ModelsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/models/{model}/delete/cache`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
+            path: `/models/{model}/delete/cache`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ModelDeleteCacheInputToJSON(requestParameters['modelDeleteCacheInput']),
+            body: ModelDeleteCacheInputToJSON(requestParameters.modelDeleteCacheInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelDeleteCacheOutputFromJSON(jsonValue));

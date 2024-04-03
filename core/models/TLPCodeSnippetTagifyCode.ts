@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -99,17 +99,19 @@ export interface TLPCodeSnippetTagifyCode {
  * Check if a given object implements the TLPCodeSnippetTagifyCode interface.
  */
 export function instanceOfTLPCodeSnippetTagifyCode(value: object): boolean {
-    if (!('distribution' in value)) return false;
-    if (!('inferredDistribution' in value)) return false;
-    if (!('tags' in value)) return false;
-    if (!('inferredTags' in value)) return false;
-    if (!('model' in value)) return false;
-    if (!('labelVersion' in value)) return false;
-    if (!('threshold' in value)) return false;
-    if (!('inferredThreshold' in value)) return false;
-    if (!('context' in value)) return false;
-    if (!('asset' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "distribution" in value;
+    isInstance = isInstance && "inferredDistribution" in value;
+    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "inferredTags" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "labelVersion" in value;
+    isInstance = isInstance && "threshold" in value;
+    isInstance = isInstance && "inferredThreshold" in value;
+    isInstance = isInstance && "context" in value;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
 }
 
 export function TLPCodeSnippetTagifyCodeFromJSON(json: any): TLPCodeSnippetTagifyCode {
@@ -117,12 +119,12 @@ export function TLPCodeSnippetTagifyCodeFromJSON(json: any): TLPCodeSnippetTagif
 }
 
 export function TLPCodeSnippetTagifyCodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeSnippetTagifyCode {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'distribution': json['distribution'],
         'inferredDistribution': json['inferred_distribution'],
         'tags': json['tags'],
@@ -137,22 +139,25 @@ export function TLPCodeSnippetTagifyCodeFromJSONTyped(json: any, ignoreDiscrimin
 }
 
 export function TLPCodeSnippetTagifyCodeToJSON(value?: TLPCodeSnippetTagifyCode | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'distribution': value['distribution'],
-        'inferred_distribution': value['inferredDistribution'],
-        'tags': value['tags'],
-        'inferred_tags': value['inferredTags'],
-        'model': value['model'],
-        'label_version': value['labelVersion'],
-        'threshold': value['threshold'],
-        'inferred_threshold': value['inferredThreshold'],
-        'context': value['context'],
-        'asset': value['asset'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'distribution': value.distribution,
+        'inferred_distribution': value.inferredDistribution,
+        'tags': value.tags,
+        'inferred_tags': value.inferredTags,
+        'model': value.model,
+        'label_version': value.labelVersion,
+        'threshold': value.threshold,
+        'inferred_threshold': value.inferredThreshold,
+        'context': value.context,
+        'asset': value.asset,
     };
 }
 

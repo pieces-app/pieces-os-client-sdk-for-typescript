@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -79,7 +79,9 @@ export interface QGPTConversationPipeline {
  * Check if a given object implements the QGPTConversationPipeline interface.
  */
 export function instanceOfQGPTConversationPipeline(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTConversationPipelineFromJSON(json: any): QGPTConversationPipeline {
@@ -87,28 +89,31 @@ export function QGPTConversationPipelineFromJSON(json: any): QGPTConversationPip
 }
 
 export function QGPTConversationPipelineFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipeline {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'contextualizedCodeGeneration': json['contextualized_code_generation'] == null ? undefined : QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(json['contextualized_code_generation']),
-        'generalizedCodeDialog': json['generalized_code_dialog'] == null ? undefined : QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json['generalized_code_dialog']),
-        'contextualizedCodeDialog': json['contextualized_code_dialog'] == null ? undefined : QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json['contextualized_code_dialog']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'contextualizedCodeGeneration': !exists(json, 'contextualized_code_generation') ? undefined : QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(json['contextualized_code_generation']),
+        'generalizedCodeDialog': !exists(json, 'generalized_code_dialog') ? undefined : QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json['generalized_code_dialog']),
+        'contextualizedCodeDialog': !exists(json, 'contextualized_code_dialog') ? undefined : QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json['contextualized_code_dialog']),
     };
 }
 
 export function QGPTConversationPipelineToJSON(value?: QGPTConversationPipeline | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'contextualized_code_generation': QGPTConversationPipelineForContextualizedCodeGenerationToJSON(value['contextualizedCodeGeneration']),
-        'generalized_code_dialog': QGPTConversationPipelineForGeneralizedCodeDialogToJSON(value['generalizedCodeDialog']),
-        'contextualized_code_dialog': QGPTConversationPipelineForContextualizedCodeDialogToJSON(value['contextualizedCodeDialog']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'contextualized_code_generation': QGPTConversationPipelineForContextualizedCodeGenerationToJSON(value.contextualizedCodeGeneration),
+        'generalized_code_dialog': QGPTConversationPipelineForGeneralizedCodeDialogToJSON(value.generalizedCodeDialog),
+        'contextualized_code_dialog': QGPTConversationPipelineForContextualizedCodeDialogToJSON(value.contextualizedCodeDialog),
     };
 }
 

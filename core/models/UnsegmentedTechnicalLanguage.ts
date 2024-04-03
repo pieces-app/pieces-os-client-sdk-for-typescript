@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -46,8 +46,10 @@ export interface UnsegmentedTechnicalLanguage {
  * Check if a given object implements the UnsegmentedTechnicalLanguage interface.
  */
 export function instanceOfUnsegmentedTechnicalLanguage(value: object): boolean {
-    if (!('value' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
 }
 
 export function UnsegmentedTechnicalLanguageFromJSON(json: any): UnsegmentedTechnicalLanguage {
@@ -55,24 +57,27 @@ export function UnsegmentedTechnicalLanguageFromJSON(json: any): UnsegmentedTech
 }
 
 export function UnsegmentedTechnicalLanguageFromJSONTyped(json: any, ignoreDiscriminator: boolean): UnsegmentedTechnicalLanguage {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'value': json['value'],
     };
 }
 
 export function UnsegmentedTechnicalLanguageToJSON(value?: UnsegmentedTechnicalLanguage | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'value': value['value'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'value': value.value,
     };
 }
 

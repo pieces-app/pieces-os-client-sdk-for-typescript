@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -86,14 +86,16 @@ export interface GraphicalOCRDescriptiveStatistics {
  * Check if a given object implements the GraphicalOCRDescriptiveStatistics interface.
  */
 export function instanceOfGraphicalOCRDescriptiveStatistics(value: object): boolean {
-    if (!('asset' in value)) return false;
-    if (!('user' in value)) return false;
-    if (!('model' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('os' in value)) return false;
-    if (!('confidence' in value)) return false;
-    if (!('duration' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "confidence" in value;
+    isInstance = isInstance && "duration" in value;
+
+    return isInstance;
 }
 
 export function GraphicalOCRDescriptiveStatisticsFromJSON(json: any): GraphicalOCRDescriptiveStatistics {
@@ -101,12 +103,12 @@ export function GraphicalOCRDescriptiveStatisticsFromJSON(json: any): GraphicalO
 }
 
 export function GraphicalOCRDescriptiveStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRDescriptiveStatistics {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
         'user': json['user'],
         'model': json['model'],
@@ -118,19 +120,22 @@ export function GraphicalOCRDescriptiveStatisticsFromJSONTyped(json: any, ignore
 }
 
 export function GraphicalOCRDescriptiveStatisticsToJSON(value?: GraphicalOCRDescriptiveStatistics | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset': value['asset'],
-        'user': value['user'],
-        'model': value['model'],
-        'created': value['created'],
-        'os': value['os'],
-        'confidence': GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value['confidence']),
-        'duration': value['duration'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset': value.asset,
+        'user': value.user,
+        'model': value.model,
+        'created': value.created,
+        'os': value.os,
+        'confidence': GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value.confidence),
+        'duration': value.duration,
     };
 }
 

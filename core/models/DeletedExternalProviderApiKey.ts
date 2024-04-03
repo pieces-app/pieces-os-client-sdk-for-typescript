@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
     Auth0UserMetadataFromJSON,
@@ -50,8 +50,10 @@ export interface DeletedExternalProviderApiKey {
  * Check if a given object implements the DeletedExternalProviderApiKey interface.
  */
 export function instanceOfDeletedExternalProviderApiKey(value: object): boolean {
-    if (!('metadata' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "metadata" in value;
+
+    return isInstance;
 }
 
 export function DeletedExternalProviderApiKeyFromJSON(json: any): DeletedExternalProviderApiKey {
@@ -59,24 +61,27 @@ export function DeletedExternalProviderApiKeyFromJSON(json: any): DeletedExterna
 }
 
 export function DeletedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeletedExternalProviderApiKey {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'metadata': Auth0UserMetadataFromJSON(json['metadata']),
     };
 }
 
 export function DeletedExternalProviderApiKeyToJSON(value?: DeletedExternalProviderApiKey | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'metadata': Auth0UserMetadataToJSON(value['metadata']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'metadata': Auth0UserMetadataToJSON(value.metadata),
     };
 }
 

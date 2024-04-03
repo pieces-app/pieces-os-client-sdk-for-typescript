@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Assets } from './Assets';
 import {
     AssetsFromJSON,
@@ -99,11 +99,13 @@ export interface Suggestion {
  * Check if a given object implements the Suggestion interface.
  */
 export function instanceOfSuggestion(value: object): boolean {
-    if (!('reuse' in value)) return false;
-    if (!('save' in value)) return false;
-    if (!('target' in value)) return false;
-    if (!('assets' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "reuse" in value;
+    isInstance = isInstance && "save" in value;
+    isInstance = isInstance && "target" in value;
+    isInstance = isInstance && "assets" in value;
+
+    return isInstance;
 }
 
 export function SuggestionFromJSON(json: any): Suggestion {
@@ -111,32 +113,35 @@ export function SuggestionFromJSON(json: any): Suggestion {
 }
 
 export function SuggestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Suggestion {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'reuse': ReuseSuggestionFromJSON(json['reuse']),
         'save': SaveSuggestionFromJSON(json['save']),
         'target': SuggestionTargetFromJSON(json['target']),
         'assets': AssetsFromJSON(json['assets']),
-        'distribution': json['distribution'] == null ? undefined : json['distribution'],
+        'distribution': !exists(json, 'distribution') ? undefined : json['distribution'],
     };
 }
 
 export function SuggestionToJSON(value?: Suggestion | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'reuse': ReuseSuggestionToJSON(value['reuse']),
-        'save': SaveSuggestionToJSON(value['save']),
-        'target': SuggestionTargetToJSON(value['target']),
-        'assets': AssetsToJSON(value['assets']),
-        'distribution': value['distribution'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'reuse': ReuseSuggestionToJSON(value.reuse),
+        'save': SaveSuggestionToJSON(value.save),
+        'target': SuggestionTargetToJSON(value.target),
+        'assets': AssetsToJSON(value.assets),
+        'distribution': value.distribution,
     };
 }
 

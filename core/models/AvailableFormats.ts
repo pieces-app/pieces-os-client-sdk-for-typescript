@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Classification } from './Classification';
 import {
     ClassificationFromJSON,
@@ -50,8 +50,10 @@ export interface AvailableFormats {
  * Check if a given object implements the AvailableFormats interface.
  */
 export function instanceOfAvailableFormats(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AvailableFormatsFromJSON(json: any): AvailableFormats {
@@ -59,24 +61,27 @@ export function AvailableFormatsFromJSON(json: any): AvailableFormats {
 }
 
 export function AvailableFormatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AvailableFormats {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ClassificationFromJSON)),
     };
 }
 
 export function AvailableFormatsToJSON(value?: AvailableFormats | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(ClassificationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(ClassificationToJSON)),
     };
 }
 

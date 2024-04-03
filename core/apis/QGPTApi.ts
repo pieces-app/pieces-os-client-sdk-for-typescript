@@ -98,7 +98,7 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTHintsInputToJSON(requestParameters['qGPTHintsInput']),
+            body: QGPTHintsInputToJSON(requestParameters.qGPTHintsInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTQuestionOutputFromJSON(jsonValue));
@@ -120,8 +120,8 @@ export class QGPTApi extends runtime.BaseAPI {
     async personsRelatedRaw(requestParameters: PersonsRelatedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTPersonsRelatedOutput>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -133,7 +133,7 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTPersonsRelatedInputToJSON(requestParameters['qGPTPersonsRelatedInput']),
+            body: QGPTPersonsRelatedInputToJSON(requestParameters.qGPTPersonsRelatedInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTPersonsRelatedOutputFromJSON(jsonValue));
@@ -164,7 +164,7 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTStreamInputToJSON(requestParameters['qGPTStreamInput']),
+            body: QGPTStreamInputToJSON(requestParameters.qGPTStreamInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTStreamOutputFromJSON(jsonValue));
@@ -195,7 +195,7 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTQuestionInputToJSON(requestParameters['qGPTQuestionInput']),
+            body: QGPTQuestionInputToJSON(requestParameters.qGPTQuestionInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTQuestionOutputFromJSON(jsonValue));
@@ -226,7 +226,7 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTRelevanceInputToJSON(requestParameters['qGPTRelevanceInput']),
+            body: QGPTRelevanceInputToJSON(requestParameters.qGPTRelevanceInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTRelevanceOutputFromJSON(jsonValue));
@@ -257,7 +257,7 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTRepromptInputToJSON(requestParameters['qGPTRepromptInput']),
+            body: QGPTRepromptInputToJSON(requestParameters.qGPTRepromptInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTRepromptOutputFromJSON(jsonValue));

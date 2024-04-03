@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AccessEnum } from './AccessEnum';
 import {
     AccessEnumFromJSON,
@@ -101,8 +101,10 @@ export interface Linkify {
  * Check if a given object implements the Linkify interface.
  */
 export function instanceOfLinkify(value: object): boolean {
-    if (!('access' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "access" in value;
+
+    return isInstance;
 }
 
 export function LinkifyFromJSON(json: any): Linkify {
@@ -110,32 +112,35 @@ export function LinkifyFromJSON(json: any): Linkify {
 }
 
 export function LinkifyFromJSONTyped(json: any, ignoreDiscriminator: boolean): Linkify {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'seed': json['seed'] == null ? undefined : SeedFromJSON(json['seed']),
-        'asset': json['asset'] == null ? undefined : AssetFromJSON(json['asset']),
-        'users': json['users'] == null ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
+        'asset': !exists(json, 'asset') ? undefined : AssetFromJSON(json['asset']),
+        'users': !exists(json, 'users') ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
         'access': AccessEnumFromJSON(json['access']),
-        'distributions': json['distributions'] == null ? undefined : SeededDistributionsFromJSON(json['distributions']),
+        'distributions': !exists(json, 'distributions') ? undefined : SeededDistributionsFromJSON(json['distributions']),
     };
 }
 
 export function LinkifyToJSON(value?: Linkify | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'seed': SeedToJSON(value['seed']),
-        'asset': AssetToJSON(value['asset']),
-        'users': value['users'] == null ? undefined : ((value['users'] as Array<any>).map(SeededUserToJSON)),
-        'access': AccessEnumToJSON(value['access']),
-        'distributions': SeededDistributionsToJSON(value['distributions']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'seed': SeedToJSON(value.seed),
+        'asset': AssetToJSON(value.asset),
+        'users': value.users === undefined ? undefined : ((value.users as Array<any>).map(SeededUserToJSON)),
+        'access': AccessEnumToJSON(value.access),
+        'distributions': SeededDistributionsToJSON(value.distributions),
     };
 }
 

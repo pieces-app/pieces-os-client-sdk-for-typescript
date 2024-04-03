@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -68,8 +68,10 @@ export interface FlattenedHints {
  * Check if a given object implements the FlattenedHints interface.
  */
 export function instanceOfFlattenedHints(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedHintsFromJSON(json: any): FlattenedHints {
@@ -77,28 +79,31 @@ export function FlattenedHintsFromJSON(json: any): FlattenedHints {
 }
 
 export function FlattenedHintsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedHints {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedHintFromJSON)),
-        'indices': json['indices'] == null ? undefined : json['indices'],
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedHintsToJSON(value?: FlattenedHints | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(ReferencedHintToJSON)),
-        'indices': value['indices'],
-        'score': ScoreToJSON(value['score']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(ReferencedHintToJSON)),
+        'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

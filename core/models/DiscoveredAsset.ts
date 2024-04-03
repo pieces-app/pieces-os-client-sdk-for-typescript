@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -92,7 +92,9 @@ export interface DiscoveredAsset {
  * Check if a given object implements the DiscoveredAsset interface.
  */
 export function instanceOfDiscoveredAsset(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function DiscoveredAssetFromJSON(json: any): DiscoveredAsset {
@@ -100,32 +102,35 @@ export function DiscoveredAssetFromJSON(json: any): DiscoveredAsset {
 }
 
 export function DiscoveredAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredAsset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'file': json['file'] == null ? undefined : SeededFileFromJSON(json['file']),
-        'fragment': json['fragment'] == null ? undefined : SeededFragmentFromJSON(json['fragment']),
-        'directory': json['directory'] == null ? undefined : json['directory'],
-        'metadata': json['metadata'] == null ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
-        'filters': json['filters'] == null ? undefined : TLPDirectedDiscoveryFiltersFromJSON(json['filters']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'file': !exists(json, 'file') ? undefined : SeededFileFromJSON(json['file']),
+        'fragment': !exists(json, 'fragment') ? undefined : SeededFragmentFromJSON(json['fragment']),
+        'directory': !exists(json, 'directory') ? undefined : json['directory'],
+        'metadata': !exists(json, 'metadata') ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
+        'filters': !exists(json, 'filters') ? undefined : TLPDirectedDiscoveryFiltersFromJSON(json['filters']),
     };
 }
 
 export function DiscoveredAssetToJSON(value?: DiscoveredAsset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'file': SeededFileToJSON(value['file']),
-        'fragment': SeededFragmentToJSON(value['fragment']),
-        'directory': value['directory'],
-        'metadata': SeededAssetMetadataToJSON(value['metadata']),
-        'filters': TLPDirectedDiscoveryFiltersToJSON(value['filters']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'file': SeededFileToJSON(value.file),
+        'fragment': SeededFragmentToJSON(value.fragment),
+        'directory': value.directory,
+        'metadata': SeededAssetMetadataToJSON(value.metadata),
+        'filters': TLPDirectedDiscoveryFiltersToJSON(value.filters),
     };
 }
 

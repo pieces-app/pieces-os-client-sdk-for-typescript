@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
 import {
     ClassificationSpecificEnumFromJSON,
@@ -50,7 +50,9 @@ export interface FragmentMetadata {
  * Check if a given object implements the FragmentMetadata interface.
  */
 export function instanceOfFragmentMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FragmentMetadataFromJSON(json: any): FragmentMetadata {
@@ -58,24 +60,27 @@ export function FragmentMetadataFromJSON(json: any): FragmentMetadata {
 }
 
 export function FragmentMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): FragmentMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'ext': json['ext'] == null ? undefined : ClassificationSpecificEnumFromJSON(json['ext']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'ext': !exists(json, 'ext') ? undefined : ClassificationSpecificEnumFromJSON(json['ext']),
     };
 }
 
 export function FragmentMetadataToJSON(value?: FragmentMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'ext': ClassificationSpecificEnumToJSON(value['ext']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'ext': ClassificationSpecificEnumToJSON(value.ext),
     };
 }
 

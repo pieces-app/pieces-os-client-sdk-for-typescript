@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -104,14 +104,16 @@ export interface GitHubGistDistribution {
  * Check if a given object implements the GitHubGistDistribution interface.
  */
 export function instanceOfGitHubGistDistribution(value: object): boolean {
-    if (!('recipients' in value)) return false;
-    if (!('_public' in value)) return false;
-    if (!('name' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('githubId' in value)) return false;
-    if (!('url' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "recipients" in value;
+    isInstance = isInstance && "_public" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "githubId" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
 }
 
 export function GitHubGistDistributionFromJSON(json: any): GitHubGistDistribution {
@@ -119,40 +121,43 @@ export function GitHubGistDistributionFromJSON(json: any): GitHubGistDistributio
 }
 
 export function GitHubGistDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): GitHubGistDistribution {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'recipients': RecipientsFromJSON(json['recipients']),
         '_public': json['public'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': !exists(json, 'description') ? undefined : json['description'],
         'name': json['name'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'githubId': json['github_id'],
         'url': json['url'],
     };
 }
 
 export function GitHubGistDistributionToJSON(value?: GitHubGistDistribution | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'recipients': RecipientsToJSON(value['recipients']),
-        'public': value['_public'],
-        'description': value['description'],
-        'name': value['name'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'github_id': value['githubId'],
-        'url': value['url'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'recipients': RecipientsToJSON(value.recipients),
+        'public': value._public,
+        'description': value.description,
+        'name': value.name,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'github_id': value.githubId,
+        'url': value.url,
     };
 }
 

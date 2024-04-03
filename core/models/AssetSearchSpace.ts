@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface AssetSearchSpace {
  * Check if a given object implements the AssetSearchSpace interface.
  */
 export function instanceOfAssetSearchSpace(value: object): boolean {
-    if (!('identifers' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "identifers" in value;
+
+    return isInstance;
 }
 
 export function AssetSearchSpaceFromJSON(json: any): AssetSearchSpace {
@@ -59,24 +61,27 @@ export function AssetSearchSpaceFromJSON(json: any): AssetSearchSpace {
 }
 
 export function AssetSearchSpaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetSearchSpace {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'identifers': FlattenedAssetsFromJSON(json['identifers']),
     };
 }
 
 export function AssetSearchSpaceToJSON(value?: AssetSearchSpace | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'identifers': FlattenedAssetsToJSON(value['identifers']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'identifers': FlattenedAssetsToJSON(value.identifers),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AssetFilters } from './AssetFilters';
 import {
     AssetFiltersFromJSON,
@@ -74,7 +74,9 @@ export interface AssetsSearchWithFiltersInput {
  * Check if a given object implements the AssetsSearchWithFiltersInput interface.
  */
 export function instanceOfAssetsSearchWithFiltersInput(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function AssetsSearchWithFiltersInputFromJSON(json: any): AssetsSearchWithFiltersInput {
@@ -82,30 +84,33 @@ export function AssetsSearchWithFiltersInputFromJSON(json: any): AssetsSearchWit
 }
 
 export function AssetsSearchWithFiltersInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetsSearchWithFiltersInput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'query': json['query'] == null ? undefined : json['query'],
-        'space': json['space'] == null ? undefined : AssetSearchSpaceFromJSON(json['space']),
-        'filters': json['filters'] == null ? undefined : AssetFiltersFromJSON(json['filters']),
-        'casing': json['casing'] == null ? undefined : json['casing'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'query': !exists(json, 'query') ? undefined : json['query'],
+        'space': !exists(json, 'space') ? undefined : AssetSearchSpaceFromJSON(json['space']),
+        'filters': !exists(json, 'filters') ? undefined : AssetFiltersFromJSON(json['filters']),
+        'casing': !exists(json, 'casing') ? undefined : json['casing'],
     };
 }
 
 export function AssetsSearchWithFiltersInputToJSON(value?: AssetsSearchWithFiltersInput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'query': value['query'],
-        'space': AssetSearchSpaceToJSON(value['space']),
-        'filters': AssetFiltersToJSON(value['filters']),
-        'casing': value['casing'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'query': value.query,
+        'space': AssetSearchSpaceToJSON(value.space),
+        'filters': AssetFiltersToJSON(value.filters),
+        'casing': value.casing,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AccessEnum } from './AccessEnum';
 import {
     AccessEnumFromJSON,
@@ -154,13 +154,15 @@ export interface Share {
  * Check if a given object implements the Share interface.
  */
 export function instanceOfShare(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('link' in value)) return false;
-    if (!('access' in value)) return false;
-    if (!('accessors' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('_short' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "link" in value;
+    isInstance = isInstance && "access" in value;
+    isInstance = isInstance && "accessors" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "_short" in value;
+
+    return isInstance;
 }
 
 export function ShareFromJSON(json: any): Share {
@@ -168,46 +170,49 @@ export function ShareFromJSON(json: any): Share {
 }
 
 export function ShareFromJSONTyped(json: any, ignoreDiscriminator: boolean): Share {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'user': json['user'] == null ? undefined : json['user'],
-        'asset': json['asset'] == null ? undefined : FlattenedAssetFromJSON(json['asset']),
-        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'user': !exists(json, 'user') ? undefined : json['user'],
+        'asset': !exists(json, 'asset') ? undefined : FlattenedAssetFromJSON(json['asset']),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'link': json['link'],
         'access': AccessEnumFromJSON(json['access']),
         'accessors': AccessorsFromJSON(json['accessors']),
         'created': GroupedTimestampFromJSON(json['created']),
         '_short': json['short'],
-        'name': json['name'] == null ? undefined : json['name'],
-        'distributions': json['distributions'] == null ? undefined : DistributionsFromJSON(json['distributions']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'distributions': !exists(json, 'distributions') ? undefined : DistributionsFromJSON(json['distributions']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function ShareToJSON(value?: Share | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'user': value['user'],
-        'asset': FlattenedAssetToJSON(value['asset']),
-        'assets': FlattenedAssetsToJSON(value['assets']),
-        'link': value['link'],
-        'access': AccessEnumToJSON(value['access']),
-        'accessors': AccessorsToJSON(value['accessors']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'short': value['_short'],
-        'name': value['name'],
-        'distributions': DistributionsToJSON(value['distributions']),
-        'score': ScoreToJSON(value['score']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'user': value.user,
+        'asset': FlattenedAssetToJSON(value.asset),
+        'assets': FlattenedAssetsToJSON(value.assets),
+        'link': value.link,
+        'access': AccessEnumToJSON(value.access),
+        'accessors': AccessorsToJSON(value.accessors),
+        'created': GroupedTimestampToJSON(value.created),
+        'short': value._short,
+        'name': value.name,
+        'distributions': DistributionsToJSON(value.distributions),
+        'score': ScoreToJSON(value.score),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -74,9 +74,11 @@ export interface SeededTrackedConversationEvent {
  * Check if a given object implements the SeededTrackedConversationEvent interface.
  */
 export function instanceOfSeededTrackedConversationEvent(value: object): boolean {
-    if (!('identifierDescriptionPair' in value)) return false;
-    if (!('conversation' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+    isInstance = isInstance && "conversation" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedConversationEventFromJSON(json: any): SeededTrackedConversationEvent {
@@ -84,28 +86,31 @@ export function SeededTrackedConversationEventFromJSON(json: any): SeededTracked
 }
 
 export function SeededTrackedConversationEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedConversationEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'identifierDescriptionPair': TrackedConversationEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
-        'metadata': json['metadata'] == null ? undefined : TrackedConversationEventMetadataFromJSON(json['metadata']),
+        'metadata': !exists(json, 'metadata') ? undefined : TrackedConversationEventMetadataFromJSON(json['metadata']),
     };
 }
 
 export function SeededTrackedConversationEventToJSON(value?: SeededTrackedConversationEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'identifier_description_pair': TrackedConversationEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
-        'conversation': ReferencedConversationToJSON(value['conversation']),
-        'metadata': TrackedConversationEventMetadataToJSON(value['metadata']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'identifier_description_pair': TrackedConversationEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
+        'conversation': ReferencedConversationToJSON(value.conversation),
+        'metadata': TrackedConversationEventMetadataToJSON(value.metadata),
     };
 }
 

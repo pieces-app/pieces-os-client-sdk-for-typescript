@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -68,8 +68,10 @@ export interface TrackedApplicationUpdate {
  * Check if a given object implements the TrackedApplicationUpdate interface.
  */
 export function instanceOfTrackedApplicationUpdate(value: object): boolean {
-    if (!('current' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "current" in value;
+
+    return isInstance;
 }
 
 export function TrackedApplicationUpdateFromJSON(json: any): TrackedApplicationUpdate {
@@ -77,28 +79,31 @@ export function TrackedApplicationUpdateFromJSON(json: any): TrackedApplicationU
 }
 
 export function TrackedApplicationUpdateFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedApplicationUpdate {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'current': TrackedApplicationFromJSON(json['current']),
-        'previous': json['previous'] == null ? undefined : TrackedApplicationFromJSON(json['previous']),
-        'user': json['user'] == null ? undefined : TrackedUserProfileFromJSON(json['user']),
+        'previous': !exists(json, 'previous') ? undefined : TrackedApplicationFromJSON(json['previous']),
+        'user': !exists(json, 'user') ? undefined : TrackedUserProfileFromJSON(json['user']),
     };
 }
 
 export function TrackedApplicationUpdateToJSON(value?: TrackedApplicationUpdate | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'current': TrackedApplicationToJSON(value['current']),
-        'previous': TrackedApplicationToJSON(value['previous']),
-        'user': TrackedUserProfileToJSON(value['user']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'current': TrackedApplicationToJSON(value.current),
+        'previous': TrackedApplicationToJSON(value.previous),
+        'user': TrackedUserProfileToJSON(value.user),
     };
 }
 

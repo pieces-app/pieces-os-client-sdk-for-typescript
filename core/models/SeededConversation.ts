@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -170,8 +170,10 @@ export interface SeededConversation {
  * Check if a given object implements the SeededConversation interface.
  */
 export function instanceOfSeededConversation(value: object): boolean {
-    if (!('type' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function SeededConversationFromJSON(json: any): SeededConversation {
@@ -179,46 +181,49 @@ export function SeededConversationFromJSON(json: any): SeededConversation {
 }
 
 export function SeededConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConversation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': json['name'] == null ? undefined : json['name'],
-        'favorited': json['favorited'] == null ? undefined : json['favorited'],
-        'application': json['application'] == null ? undefined : ApplicationFromJSON(json['application']),
-        'annotations': json['annotations'] == null ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
-        'messages': json['messages'] == null ? undefined : ((json['messages'] as Array<any>).map(SeededConversationMessageFromJSON)),
-        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
-        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'anchors': json['anchors'] == null ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
+        'application': !exists(json, 'application') ? undefined : ApplicationFromJSON(json['application']),
+        'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
+        'messages': !exists(json, 'messages') ? undefined : ((json['messages'] as Array<any>).map(SeededConversationMessageFromJSON)),
+        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'anchors': !exists(json, 'anchors') ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
         'type': ConversationTypeEnumFromJSON(json['type']),
-        'pipeline': json['pipeline'] == null ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
-        'demo': json['demo'] == null ? undefined : json['demo'],
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
 export function SeededConversationToJSON(value?: SeededConversation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'name': value['name'],
-        'favorited': value['favorited'],
-        'application': ApplicationToJSON(value['application']),
-        'annotations': value['annotations'] == null ? undefined : ((value['annotations'] as Array<any>).map(SeededAnnotationToJSON)),
-        'messages': value['messages'] == null ? undefined : ((value['messages'] as Array<any>).map(SeededConversationMessageToJSON)),
-        'model': ReferencedModelToJSON(value['model']),
-        'assets': FlattenedAssetsToJSON(value['assets']),
-        'websites': FlattenedWebsitesToJSON(value['websites']),
-        'anchors': value['anchors'] == null ? undefined : ((value['anchors'] as Array<any>).map(SeededAnchorToJSON)),
-        'type': ConversationTypeEnumToJSON(value['type']),
-        'pipeline': QGPTPromptPipelineToJSON(value['pipeline']),
-        'demo': value['demo'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'name': value.name,
+        'favorited': value.favorited,
+        'application': ApplicationToJSON(value.application),
+        'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
+        'messages': value.messages === undefined ? undefined : ((value.messages as Array<any>).map(SeededConversationMessageToJSON)),
+        'model': ReferencedModelToJSON(value.model),
+        'assets': FlattenedAssetsToJSON(value.assets),
+        'websites': FlattenedWebsitesToJSON(value.websites),
+        'anchors': value.anchors === undefined ? undefined : ((value.anchors as Array<any>).map(SeededAnchorToJSON)),
+        'type': ConversationTypeEnumToJSON(value.type),
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
+        'demo': value.demo,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,9 +56,11 @@ export interface DiscoveredSensitive {
  * Check if a given object implements the DiscoveredSensitive interface.
  */
 export function instanceOfDiscoveredSensitive(value: object): boolean {
-    if (!('seed' in value)) return false;
-    if (!('text' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "seed" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredSensitiveFromJSON(json: any): DiscoveredSensitive {
@@ -66,26 +68,29 @@ export function DiscoveredSensitiveFromJSON(json: any): DiscoveredSensitive {
 }
 
 export function DiscoveredSensitiveFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredSensitive {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seed': SeededSensitiveFromJSON(json['seed']),
         'text': json['text'],
     };
 }
 
 export function DiscoveredSensitiveToJSON(value?: DiscoveredSensitive | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'seed': SeededSensitiveToJSON(value['seed']),
-        'text': value['text'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'seed': SeededSensitiveToJSON(value.seed),
+        'text': value.text,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -180,7 +180,9 @@ export type TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum = 
  * Check if a given object implements the TrackedFormatEventIdentifierDescriptionPairs interface.
  */
 export function instanceOfTrackedFormatEventIdentifierDescriptionPairs(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedFormatEventIdentifierDescriptionPairsFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairs {
@@ -188,42 +190,45 @@ export function TrackedFormatEventIdentifierDescriptionPairsFromJSON(json: any):
 }
 
 export function TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairs {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'formatCreated': json['format_created'] == null ? undefined : json['format_created'],
-        'formatCopied': json['format_copied'] == null ? undefined : json['format_copied'],
-        'formatPartiallyCopied': json['format_partially_copied'] == null ? undefined : json['format_partially_copied'],
-        'formatDownloaded': json['format_downloaded'] == null ? undefined : json['format_downloaded'],
-        'formatDeleted': json['format_deleted'] == null ? undefined : json['format_deleted'],
-        'formatGenericClassificationUpdated': json['format_generic_classification_updated'] == null ? undefined : json['format_generic_classification_updated'],
-        'formatSpecificClassificationUpdated': json['format_specific_classification_updated'] == null ? undefined : json['format_specific_classification_updated'],
-        'formatUpdated': json['format_updated'] == null ? undefined : json['format_updated'],
-        'formatInserted': json['format_inserted'] == null ? undefined : json['format_inserted'],
-        'formatValueEdited': json['format_value_edited'] == null ? undefined : json['format_value_edited'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'formatCreated': !exists(json, 'format_created') ? undefined : json['format_created'],
+        'formatCopied': !exists(json, 'format_copied') ? undefined : json['format_copied'],
+        'formatPartiallyCopied': !exists(json, 'format_partially_copied') ? undefined : json['format_partially_copied'],
+        'formatDownloaded': !exists(json, 'format_downloaded') ? undefined : json['format_downloaded'],
+        'formatDeleted': !exists(json, 'format_deleted') ? undefined : json['format_deleted'],
+        'formatGenericClassificationUpdated': !exists(json, 'format_generic_classification_updated') ? undefined : json['format_generic_classification_updated'],
+        'formatSpecificClassificationUpdated': !exists(json, 'format_specific_classification_updated') ? undefined : json['format_specific_classification_updated'],
+        'formatUpdated': !exists(json, 'format_updated') ? undefined : json['format_updated'],
+        'formatInserted': !exists(json, 'format_inserted') ? undefined : json['format_inserted'],
+        'formatValueEdited': !exists(json, 'format_value_edited') ? undefined : json['format_value_edited'],
     };
 }
 
 export function TrackedFormatEventIdentifierDescriptionPairsToJSON(value?: TrackedFormatEventIdentifierDescriptionPairs | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'format_created': value['formatCreated'],
-        'format_copied': value['formatCopied'],
-        'format_partially_copied': value['formatPartiallyCopied'],
-        'format_downloaded': value['formatDownloaded'],
-        'format_deleted': value['formatDeleted'],
-        'format_generic_classification_updated': value['formatGenericClassificationUpdated'],
-        'format_specific_classification_updated': value['formatSpecificClassificationUpdated'],
-        'format_updated': value['formatUpdated'],
-        'format_inserted': value['formatInserted'],
-        'format_value_edited': value['formatValueEdited'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'format_created': value.formatCreated,
+        'format_copied': value.formatCopied,
+        'format_partially_copied': value.formatPartiallyCopied,
+        'format_downloaded': value.formatDownloaded,
+        'format_deleted': value.formatDeleted,
+        'format_generic_classification_updated': value.formatGenericClassificationUpdated,
+        'format_specific_classification_updated': value.formatSpecificClassificationUpdated,
+        'format_updated': value.formatUpdated,
+        'format_inserted': value.formatInserted,
+        'format_value_edited': value.formatValueEdited,
     };
 }
 

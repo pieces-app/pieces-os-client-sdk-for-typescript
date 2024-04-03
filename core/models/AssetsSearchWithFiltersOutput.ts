@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface AssetsSearchWithFiltersOutput {
  * Check if a given object implements the AssetsSearchWithFiltersOutput interface.
  */
 export function instanceOfAssetsSearchWithFiltersOutput(value: object): boolean {
-    if (!('results' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "results" in value;
+
+    return isInstance;
 }
 
 export function AssetsSearchWithFiltersOutputFromJSON(json: any): AssetsSearchWithFiltersOutput {
@@ -59,24 +61,27 @@ export function AssetsSearchWithFiltersOutputFromJSON(json: any): AssetsSearchWi
 }
 
 export function AssetsSearchWithFiltersOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetsSearchWithFiltersOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'results': SearchedAssetsFromJSON(json['results']),
     };
 }
 
 export function AssetsSearchWithFiltersOutputToJSON(value?: AssetsSearchWithFiltersOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'results': SearchedAssetsToJSON(value['results']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'results': SearchedAssetsToJSON(value.results),
     };
 }
 

@@ -48,11 +48,8 @@ export class HintApi extends runtime.BaseAPI {
      * \'/hint/{hint}/scores/increment\' [POST]
      */
     async hintScoresIncrementRaw(requestParameters: HintScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['hint'] == null) {
-            throw new runtime.RequiredError(
-                'hint',
-                'Required parameter "hint" was null or undefined when calling hintScoresIncrement().'
-            );
+        if (requestParameters.hint === null || requestParameters.hint === undefined) {
+            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintScoresIncrement.');
         }
 
         const queryParameters: any = {};
@@ -62,11 +59,11 @@ export class HintApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/hint/{hint}/scores/increment`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
+            path: `/hint/{hint}/scores/increment`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -85,11 +82,8 @@ export class HintApi extends runtime.BaseAPI {
      * /hint/{hint} [POST]
      */
     async hintSpecificHintSnapshotRaw(requestParameters: HintSpecificHintSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Hint>> {
-        if (requestParameters['hint'] == null) {
-            throw new runtime.RequiredError(
-                'hint',
-                'Required parameter "hint" was null or undefined when calling hintSpecificHintSnapshot().'
-            );
+        if (requestParameters.hint === null || requestParameters.hint === undefined) {
+            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintSpecificHintSnapshot.');
         }
 
         const queryParameters: any = {};
@@ -97,7 +91,7 @@ export class HintApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/hint/{hint}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
+            path: `/hint/{hint}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -131,7 +125,7 @@ export class HintApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: HintToJSON(requestParameters['hint']),
+            body: HintToJSON(requestParameters.hint),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintFromJSON(jsonValue));

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,8 +44,10 @@ export interface Font {
  * Check if a given object implements the Font interface.
  */
 export function instanceOfFont(value: object): boolean {
-    if (!('size' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "size" in value;
+
+    return isInstance;
 }
 
 export function FontFromJSON(json: any): Font {
@@ -53,24 +55,27 @@ export function FontFromJSON(json: any): Font {
 }
 
 export function FontFromJSONTyped(json: any, ignoreDiscriminator: boolean): Font {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'size': json['size'],
     };
 }
 
 export function FontToJSON(value?: Font | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'size': value['size'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'size': value.size,
     };
 }
 

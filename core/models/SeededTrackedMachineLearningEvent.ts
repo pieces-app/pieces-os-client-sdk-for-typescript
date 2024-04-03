@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,7 +62,9 @@ export interface SeededTrackedMachineLearningEvent {
  * Check if a given object implements the SeededTrackedMachineLearningEvent interface.
  */
 export function instanceOfSeededTrackedMachineLearningEvent(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedMachineLearningEventFromJSON(json: any): SeededTrackedMachineLearningEvent {
@@ -70,26 +72,29 @@ export function SeededTrackedMachineLearningEventFromJSON(json: any): SeededTrac
 }
 
 export function SeededTrackedMachineLearningEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedMachineLearningEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'tlp': json['tlp'] == null ? undefined : TLPMachineLearningProcessingEventFromJSON(json['tlp']),
-        'graphical': json['graphical'] == null ? undefined : GraphicalMachineLearningProcessingEventFromJSON(json['graphical']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'tlp': !exists(json, 'tlp') ? undefined : TLPMachineLearningProcessingEventFromJSON(json['tlp']),
+        'graphical': !exists(json, 'graphical') ? undefined : GraphicalMachineLearningProcessingEventFromJSON(json['graphical']),
     };
 }
 
 export function SeededTrackedMachineLearningEventToJSON(value?: SeededTrackedMachineLearningEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'tlp': TLPMachineLearningProcessingEventToJSON(value['tlp']),
-        'graphical': GraphicalMachineLearningProcessingEventToJSON(value['graphical']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'tlp': TLPMachineLearningProcessingEventToJSON(value.tlp),
+        'graphical': GraphicalMachineLearningProcessingEventToJSON(value.graphical),
     };
 }
 

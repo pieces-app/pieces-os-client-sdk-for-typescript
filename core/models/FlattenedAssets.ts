@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -72,7 +72,9 @@ export interface FlattenedAssets {
  * Check if a given object implements the FlattenedAssets interface.
  */
 export function instanceOfFlattenedAssets(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FlattenedAssetsFromJSON(json: any): FlattenedAssets {
@@ -80,28 +82,31 @@ export function FlattenedAssetsFromJSON(json: any): FlattenedAssets {
 }
 
 export function FlattenedAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAssets {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'iterable': json['iterable'] == null ? undefined : ((json['iterable'] as Array<any>).map(ReferencedAssetFromJSON)),
-        'indices': json['indices'] == null ? undefined : json['indices'],
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'iterable': !exists(json, 'iterable') ? undefined : ((json['iterable'] as Array<any>).map(ReferencedAssetFromJSON)),
+        'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedAssetsToJSON(value?: FlattenedAssets | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': value['iterable'] == null ? undefined : ((value['iterable'] as Array<any>).map(ReferencedAssetToJSON)),
-        'indices': value['indices'],
-        'score': ScoreToJSON(value['score']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(ReferencedAssetToJSON)),
+        'indices': value.indices,
+        'score': ScoreToJSON(value.score),
     };
 }
 

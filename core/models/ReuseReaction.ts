@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,8 +44,10 @@ export interface ReuseReaction {
  * Check if a given object implements the ReuseReaction interface.
  */
 export function instanceOfReuseReaction(value: object): boolean {
-    if (!('asset' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
 }
 
 export function ReuseReactionFromJSON(json: any): ReuseReaction {
@@ -53,24 +55,27 @@ export function ReuseReactionFromJSON(json: any): ReuseReaction {
 }
 
 export function ReuseReactionFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReuseReaction {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
     };
 }
 
 export function ReuseReactionToJSON(value?: ReuseReaction | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset': value['asset'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset': value.asset,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Distribution } from './Distribution';
 import {
     DistributionFromJSON,
@@ -50,8 +50,10 @@ export interface Distributions {
  * Check if a given object implements the Distributions interface.
  */
 export function instanceOfDistributions(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function DistributionsFromJSON(json: any): Distributions {
@@ -59,24 +61,27 @@ export function DistributionsFromJSON(json: any): Distributions {
 }
 
 export function DistributionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Distributions {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'iterable': ((json['iterable'] as Array<any>).map(DistributionFromJSON)),
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function DistributionsToJSON(value?: Distributions | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'iterable': ((value['iterable'] as Array<any>).map(DistributionToJSON)),
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value.iterable as Array<any>).map(DistributionToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -52,8 +52,10 @@ export interface QGPTQuestionOutput {
  * Check if a given object implements the QGPTQuestionOutput interface.
  */
 export function instanceOfQGPTQuestionOutput(value: object): boolean {
-    if (!('answers' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "answers" in value;
+
+    return isInstance;
 }
 
 export function QGPTQuestionOutputFromJSON(json: any): QGPTQuestionOutput {
@@ -61,24 +63,27 @@ export function QGPTQuestionOutputFromJSON(json: any): QGPTQuestionOutput {
 }
 
 export function QGPTQuestionOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'answers': QGPTQuestionAnswersFromJSON(json['answers']),
     };
 }
 
 export function QGPTQuestionOutputToJSON(value?: QGPTQuestionOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'answers': QGPTQuestionAnswersToJSON(value['answers']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'answers': QGPTQuestionAnswersToJSON(value.answers),
     };
 }
 

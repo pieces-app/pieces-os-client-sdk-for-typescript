@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,8 +56,10 @@ export interface ReferencedPerson {
  * Check if a given object implements the ReferencedPerson interface.
  */
 export function instanceOfReferencedPerson(value: object): boolean {
-    if (!('id' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedPersonFromJSON(json: any): ReferencedPerson {
@@ -65,26 +67,29 @@ export function ReferencedPersonFromJSON(json: any): ReferencedPerson {
 }
 
 export function ReferencedPersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedPerson {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': json['reference'] == null ? undefined : FlattenedPersonFromJSON(json['reference']),
+        'reference': !exists(json, 'reference') ? undefined : FlattenedPersonFromJSON(json['reference']),
     };
 }
 
 export function ReferencedPersonToJSON(value?: ReferencedPerson | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'reference': FlattenedPersonToJSON(value['reference']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'reference': FlattenedPersonToJSON(value.reference),
     };
 }
 

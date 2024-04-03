@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -68,9 +68,11 @@ export interface SeededDiscoverableAssets {
  * Check if a given object implements the SeededDiscoverableAssets interface.
  */
 export function instanceOfSeededDiscoverableAssets(value: object): boolean {
-    if (!('application' in value)) return false;
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableAssetsFromJSON(json: any): SeededDiscoverableAssets {
@@ -78,28 +80,31 @@ export function SeededDiscoverableAssetsFromJSON(json: any): SeededDiscoverableA
 }
 
 export function SeededDiscoverableAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableAssets {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
         'iterable': ((json['iterable'] as Array<any>).map(SeededDiscoverableAssetFromJSON)),
-        'filters': json['filters'] == null ? undefined : TLPDirectedDiscoveryFiltersFromJSON(json['filters']),
+        'filters': !exists(json, 'filters') ? undefined : TLPDirectedDiscoveryFiltersFromJSON(json['filters']),
     };
 }
 
 export function SeededDiscoverableAssetsToJSON(value?: SeededDiscoverableAssets | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'application': value['application'],
-        'iterable': ((value['iterable'] as Array<any>).map(SeededDiscoverableAssetToJSON)),
-        'filters': TLPDirectedDiscoveryFiltersToJSON(value['filters']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'application': value.application,
+        'iterable': ((value.iterable as Array<any>).map(SeededDiscoverableAssetToJSON)),
+        'filters': TLPDirectedDiscoveryFiltersToJSON(value.filters),
     };
 }
 

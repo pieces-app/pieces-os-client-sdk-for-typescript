@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Auth0Identity } from './Auth0Identity';
 import {
     Auth0IdentityFromJSON,
@@ -110,12 +110,14 @@ export interface Auth0 {
  * Check if a given object implements the Auth0 interface.
  */
 export function instanceOfAuth0(value: object): boolean {
-    if (!('domain' in value)) return false;
-    if (!('client' in value)) return false;
-    if (!('audience' in value)) return false;
-    if (!('redirects' in value)) return false;
-    if (!('oAuth' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "domain" in value;
+    isInstance = isInstance && "client" in value;
+    isInstance = isInstance && "audience" in value;
+    isInstance = isInstance && "redirects" in value;
+    isInstance = isInstance && "oAuth" in value;
+
+    return isInstance;
 }
 
 export function Auth0FromJSON(json: any): Auth0 {
@@ -123,38 +125,41 @@ export function Auth0FromJSON(json: any): Auth0 {
 }
 
 export function Auth0FromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0 {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'identity': json['identity'] == null ? undefined : Auth0IdentityFromJSON(json['identity']),
-        'user': json['user'] == null ? undefined : Auth0UserFromJSON(json['user']),
-        'metadata': json['metadata'] == null ? undefined : Auth0UserMetadataFromJSON(json['metadata']),
+        'identity': !exists(json, 'identity') ? undefined : Auth0IdentityFromJSON(json['identity']),
+        'user': !exists(json, 'user') ? undefined : Auth0UserFromJSON(json['user']),
+        'metadata': !exists(json, 'metadata') ? undefined : Auth0UserMetadataFromJSON(json['metadata']),
         'domain': json['domain'],
         'client': json['client'],
         'audience': json['audience'],
         'redirects': Auth0RedirectsFromJSON(json['redirects']),
         'oAuth': OAuthGroupFromJSON(json['oAuth']),
-        'namespace': json['namespace'] == null ? undefined : json['namespace'],
+        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
     };
 }
 
 export function Auth0ToJSON(value?: Auth0 | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'identity': Auth0IdentityToJSON(value['identity']),
-        'user': Auth0UserToJSON(value['user']),
-        'metadata': Auth0UserMetadataToJSON(value['metadata']),
-        'domain': value['domain'],
-        'client': value['client'],
-        'audience': value['audience'],
-        'redirects': Auth0RedirectsToJSON(value['redirects']),
-        'oAuth': OAuthGroupToJSON(value['oAuth']),
-        'namespace': value['namespace'],
+        'identity': Auth0IdentityToJSON(value.identity),
+        'user': Auth0UserToJSON(value.user),
+        'metadata': Auth0UserMetadataToJSON(value.metadata),
+        'domain': value.domain,
+        'client': value.client,
+        'audience': value.audience,
+        'redirects': Auth0RedirectsToJSON(value.redirects),
+        'oAuth': OAuthGroupToJSON(value.oAuth),
+        'namespace': value.namespace,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,9 +50,11 @@ export interface OSHealth {
  * Check if a given object implements the OSHealth interface.
  */
 export function instanceOfOSHealth(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('version' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
 }
 
 export function OSHealthFromJSON(json: any): OSHealth {
@@ -60,26 +62,29 @@ export function OSHealthFromJSON(json: any): OSHealth {
 }
 
 export function OSHealthFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSHealth {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'version': json['version'],
     };
 }
 
 export function OSHealthToJSON(value?: OSHealth | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'version': value['version'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'version': value.version,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,8 +44,10 @@ export interface ReferencedModel {
  * Check if a given object implements the ReferencedModel interface.
  */
 export function instanceOfReferencedModel(value: object): boolean {
-    if (!('id' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedModelFromJSON(json: any): ReferencedModel {
@@ -53,24 +55,27 @@ export function ReferencedModelFromJSON(json: any): ReferencedModel {
 }
 
 export function ReferencedModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedModel {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
     };
 }
 
 export function ReferencedModelToJSON(value?: ReferencedModel | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
     };
 }
 

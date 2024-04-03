@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -148,7 +148,9 @@ export interface SeededConnectorTracking {
  * Check if a given object implements the SeededConnectorTracking interface.
  */
 export function instanceOfSeededConnectorTracking(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededConnectorTrackingFromJSON(json: any): SeededConnectorTracking {
@@ -156,40 +158,43 @@ export function SeededConnectorTrackingFromJSON(json: any): SeededConnectorTrack
 }
 
 export function SeededConnectorTrackingFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConnectorTracking {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'format': json['format'] == null ? undefined : SeededTrackedFormatEventFromJSON(json['format']),
-        'asset': json['asset'] == null ? undefined : SeededTrackedAssetEventFromJSON(json['asset']),
-        'interaction': json['interaction'] == null ? undefined : SeededTrackedInteractionEventFromJSON(json['interaction']),
-        'keyboard': json['keyboard'] == null ? undefined : SeededTrackedKeyboardEventFromJSON(json['keyboard']),
-        'session': json['session'] == null ? undefined : SeededTrackedSessionEventFromJSON(json['session']),
-        'assets': json['assets'] == null ? undefined : SeededTrackedAssetsEventFromJSON(json['assets']),
-        'ml': json['ml'] == null ? undefined : SeededTrackedMachineLearningEventFromJSON(json['ml']),
-        'adoption': json['adoption'] == null ? undefined : SeededTrackedAdoptionEventFromJSON(json['adoption']),
-        'conversation': json['conversation'] == null ? undefined : SeededTrackedConversationEventFromJSON(json['conversation']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'format': !exists(json, 'format') ? undefined : SeededTrackedFormatEventFromJSON(json['format']),
+        'asset': !exists(json, 'asset') ? undefined : SeededTrackedAssetEventFromJSON(json['asset']),
+        'interaction': !exists(json, 'interaction') ? undefined : SeededTrackedInteractionEventFromJSON(json['interaction']),
+        'keyboard': !exists(json, 'keyboard') ? undefined : SeededTrackedKeyboardEventFromJSON(json['keyboard']),
+        'session': !exists(json, 'session') ? undefined : SeededTrackedSessionEventFromJSON(json['session']),
+        'assets': !exists(json, 'assets') ? undefined : SeededTrackedAssetsEventFromJSON(json['assets']),
+        'ml': !exists(json, 'ml') ? undefined : SeededTrackedMachineLearningEventFromJSON(json['ml']),
+        'adoption': !exists(json, 'adoption') ? undefined : SeededTrackedAdoptionEventFromJSON(json['adoption']),
+        'conversation': !exists(json, 'conversation') ? undefined : SeededTrackedConversationEventFromJSON(json['conversation']),
     };
 }
 
 export function SeededConnectorTrackingToJSON(value?: SeededConnectorTracking | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'format': SeededTrackedFormatEventToJSON(value['format']),
-        'asset': SeededTrackedAssetEventToJSON(value['asset']),
-        'interaction': SeededTrackedInteractionEventToJSON(value['interaction']),
-        'keyboard': SeededTrackedKeyboardEventToJSON(value['keyboard']),
-        'session': SeededTrackedSessionEventToJSON(value['session']),
-        'assets': SeededTrackedAssetsEventToJSON(value['assets']),
-        'ml': SeededTrackedMachineLearningEventToJSON(value['ml']),
-        'adoption': SeededTrackedAdoptionEventToJSON(value['adoption']),
-        'conversation': SeededTrackedConversationEventToJSON(value['conversation']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'format': SeededTrackedFormatEventToJSON(value.format),
+        'asset': SeededTrackedAssetEventToJSON(value.asset),
+        'interaction': SeededTrackedInteractionEventToJSON(value.interaction),
+        'keyboard': SeededTrackedKeyboardEventToJSON(value.keyboard),
+        'session': SeededTrackedSessionEventToJSON(value.session),
+        'assets': SeededTrackedAssetsEventToJSON(value.assets),
+        'ml': SeededTrackedMachineLearningEventToJSON(value.ml),
+        'adoption': SeededTrackedAdoptionEventToJSON(value.adoption),
+        'conversation': SeededTrackedConversationEventToJSON(value.conversation),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,9 +62,11 @@ export interface FlattenedImageAnalysis {
  * Check if a given object implements the FlattenedImageAnalysis interface.
  */
 export function instanceOfFlattenedImageAnalysis(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('analysis' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "analysis" in value;
+
+    return isInstance;
 }
 
 export function FlattenedImageAnalysisFromJSON(json: any): FlattenedImageAnalysis {
@@ -72,28 +74,31 @@ export function FlattenedImageAnalysisFromJSON(json: any): FlattenedImageAnalysi
 }
 
 export function FlattenedImageAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedImageAnalysis {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'ocr': json['ocr'] == null ? undefined : FlattenedOCRAnalysisFromJSON(json['ocr']),
+        'ocr': !exists(json, 'ocr') ? undefined : FlattenedOCRAnalysisFromJSON(json['ocr']),
         'analysis': json['analysis'],
     };
 }
 
 export function FlattenedImageAnalysisToJSON(value?: FlattenedImageAnalysis | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'ocr': FlattenedOCRAnalysisToJSON(value['ocr']),
-        'analysis': value['analysis'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'ocr': FlattenedOCRAnalysisToJSON(value.ocr),
+        'analysis': value.analysis,
     };
 }
 

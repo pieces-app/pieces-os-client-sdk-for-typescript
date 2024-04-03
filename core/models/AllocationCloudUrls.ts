@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AllocationCloudUrl } from './AllocationCloudUrl';
 import {
     AllocationCloudUrlFromJSON,
@@ -68,9 +68,11 @@ export interface AllocationCloudUrls {
  * Check if a given object implements the AllocationCloudUrls interface.
  */
 export function instanceOfAllocationCloudUrls(value: object): boolean {
-    if (!('base' in value)) return false;
-    if (!('id' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "base" in value;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function AllocationCloudUrlsFromJSON(json: any): AllocationCloudUrls {
@@ -78,28 +80,31 @@ export function AllocationCloudUrlsFromJSON(json: any): AllocationCloudUrls {
 }
 
 export function AllocationCloudUrlsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AllocationCloudUrls {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'base': AllocationCloudUrlFromJSON(json['base']),
         'id': AllocationCloudUrlFromJSON(json['id']),
-        'vanity': json['vanity'] == null ? undefined : AllocationCloudUrlFromJSON(json['vanity']),
+        'vanity': !exists(json, 'vanity') ? undefined : AllocationCloudUrlFromJSON(json['vanity']),
     };
 }
 
 export function AllocationCloudUrlsToJSON(value?: AllocationCloudUrls | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'base': AllocationCloudUrlToJSON(value['base']),
-        'id': AllocationCloudUrlToJSON(value['id']),
-        'vanity': AllocationCloudUrlToJSON(value['vanity']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'base': AllocationCloudUrlToJSON(value.base),
+        'id': AllocationCloudUrlToJSON(value.id),
+        'vanity': AllocationCloudUrlToJSON(value.vanity),
     };
 }
 

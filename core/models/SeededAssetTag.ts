@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -68,8 +68,10 @@ export interface SeededAssetTag {
  * Check if a given object implements the SeededAssetTag interface.
  */
 export function instanceOfSeededAssetTag(value: object): boolean {
-    if (!('text' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetTagFromJSON(json: any): SeededAssetTag {
@@ -77,28 +79,31 @@ export function SeededAssetTagFromJSON(json: any): SeededAssetTag {
 }
 
 export function SeededAssetTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetTag {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'category': json['category'] == null ? undefined : TagCategoryEnumFromJSON(json['category']),
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
     };
 }
 
 export function SeededAssetTagToJSON(value?: SeededAssetTag | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'text': value['text'],
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'category': TagCategoryEnumToJSON(value['category']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'text': value.text,
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'category': TagCategoryEnumToJSON(value.category),
     };
 }
 

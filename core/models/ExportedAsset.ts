@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { FileFormat } from './FileFormat';
 import {
     FileFormatFromJSON,
@@ -63,11 +63,13 @@ export interface ExportedAsset {
  * Check if a given object implements the ExportedAsset interface.
  */
 export function instanceOfExportedAsset(value: object): boolean {
-    if (!('name' in value)) return false;
-    if (!('description' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('raw' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "raw" in value;
+
+    return isInstance;
 }
 
 export function ExportedAssetFromJSON(json: any): ExportedAsset {
@@ -75,7 +77,7 @@ export function ExportedAssetFromJSON(json: any): ExportedAsset {
 }
 
 export function ExportedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportedAsset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -88,15 +90,18 @@ export function ExportedAssetFromJSONTyped(json: any, ignoreDiscriminator: boole
 }
 
 export function ExportedAssetToJSON(value?: ExportedAsset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'name': value['name'],
-        'description': value['description'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'raw': FileFormatToJSON(value['raw']),
+        'name': value.name,
+        'description': value.description,
+        'created': GroupedTimestampToJSON(value.created),
+        'raw': FileFormatToJSON(value.raw),
     };
 }
 

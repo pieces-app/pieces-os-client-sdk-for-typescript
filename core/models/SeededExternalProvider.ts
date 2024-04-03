@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ExternalProviderTypeEnum } from './ExternalProviderTypeEnum';
 import {
     ExternalProviderTypeEnumFromJSON,
@@ -38,8 +38,10 @@ export interface SeededExternalProvider {
  * Check if a given object implements the SeededExternalProvider interface.
  */
 export function instanceOfSeededExternalProvider(value: object): boolean {
-    if (!('type' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function SeededExternalProviderFromJSON(json: any): SeededExternalProvider {
@@ -47,7 +49,7 @@ export function SeededExternalProviderFromJSON(json: any): SeededExternalProvide
 }
 
 export function SeededExternalProviderFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededExternalProvider {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -57,12 +59,15 @@ export function SeededExternalProviderFromJSONTyped(json: any, ignoreDiscriminat
 }
 
 export function SeededExternalProviderToJSON(value?: SeededExternalProvider | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'type': ExternalProviderTypeEnumToJSON(value['type']),
+        'type': ExternalProviderTypeEnumToJSON(value.type),
     };
 }
 

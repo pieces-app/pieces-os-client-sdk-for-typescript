@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface Users {
  * Check if a given object implements the Users interface.
  */
 export function instanceOfUsers(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UsersFromJSON(json: any): Users {
@@ -58,24 +60,27 @@ export function UsersFromJSON(json: any): Users {
 }
 
 export function UsersFromJSONTyped(json: any, ignoreDiscriminator: boolean): Users {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'iterable': json['iterable'] == null ? undefined : ((json['iterable'] as Array<any>).map(UserProfileFromJSON)),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'iterable': !exists(json, 'iterable') ? undefined : ((json['iterable'] as Array<any>).map(UserProfileFromJSON)),
     };
 }
 
 export function UsersToJSON(value?: Users | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': value['iterable'] == null ? undefined : ((value['iterable'] as Array<any>).map(UserProfileToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(UserProfileToJSON)),
     };
 }
 

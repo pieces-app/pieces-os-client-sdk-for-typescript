@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { TrackedAssetsEventSearchMetadata } from './TrackedAssetsEventSearchMetadata';
 import {
     TrackedAssetsEventSearchMetadataFromJSON,
@@ -38,7 +38,9 @@ export interface SeededTrackedAssetsEventMetadata {
  * Check if a given object implements the SeededTrackedAssetsEventMetadata interface.
  */
 export function instanceOfSeededTrackedAssetsEventMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedAssetsEventMetadataFromJSON(json: any): SeededTrackedAssetsEventMetadata {
@@ -46,22 +48,25 @@ export function SeededTrackedAssetsEventMetadataFromJSON(json: any): SeededTrack
 }
 
 export function SeededTrackedAssetsEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedAssetsEventMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'search': json['search'] == null ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
+        'search': !exists(json, 'search') ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
     };
 }
 
 export function SeededTrackedAssetsEventMetadataToJSON(value?: SeededTrackedAssetsEventMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'search': TrackedAssetsEventSearchMetadataToJSON(value['search']),
+        'search': TrackedAssetsEventSearchMetadataToJSON(value.search),
     };
 }
 

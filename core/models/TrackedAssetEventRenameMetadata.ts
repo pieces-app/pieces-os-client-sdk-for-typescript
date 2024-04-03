@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,9 +50,11 @@ export interface TrackedAssetEventRenameMetadata {
  * Check if a given object implements the TrackedAssetEventRenameMetadata interface.
  */
 export function instanceOfTrackedAssetEventRenameMetadata(value: object): boolean {
-    if (!('previous' in value)) return false;
-    if (!('current' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "previous" in value;
+    isInstance = isInstance && "current" in value;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventRenameMetadataFromJSON(json: any): TrackedAssetEventRenameMetadata {
@@ -60,26 +62,29 @@ export function TrackedAssetEventRenameMetadataFromJSON(json: any): TrackedAsset
 }
 
 export function TrackedAssetEventRenameMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventRenameMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': json['previous'],
         'current': json['current'],
     };
 }
 
 export function TrackedAssetEventRenameMetadataToJSON(value?: TrackedAssetEventRenameMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'previous': value['previous'],
-        'current': value['current'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'previous': value.previous,
+        'current': value.current,
     };
 }
 

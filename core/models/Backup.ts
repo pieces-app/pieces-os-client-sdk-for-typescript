@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -92,14 +92,16 @@ export interface Backup {
  * Check if a given object implements the Backup interface.
  */
 export function instanceOfBackup(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('version' in value)) return false;
-    if (!('timestamp' in value)) return false;
-    if (!('bytes' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('deviceName' in value)) return false;
-    if (!('platform' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "timestamp" in value;
+    isInstance = isInstance && "bytes" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "deviceName" in value;
+    isInstance = isInstance && "platform" in value;
+
+    return isInstance;
 }
 
 export function BackupFromJSON(json: any): Backup {
@@ -107,12 +109,12 @@ export function BackupFromJSON(json: any): Backup {
 }
 
 export function BackupFromJSONTyped(json: any, ignoreDiscriminator: boolean): Backup {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'version': json['version'],
         'timestamp': json['timestamp'],
@@ -124,19 +126,22 @@ export function BackupFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ba
 }
 
 export function BackupToJSON(value?: Backup | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'version': value['version'],
-        'timestamp': value['timestamp'],
-        'bytes': value['bytes'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'device_name': value['deviceName'],
-        'platform': PlatformEnumToJSON(value['platform']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'version': value.version,
+        'timestamp': value.timestamp,
+        'bytes': value.bytes,
+        'created': GroupedTimestampToJSON(value.created),
+        'device_name': value.deviceName,
+        'platform': PlatformEnumToJSON(value.platform),
     };
 }
 

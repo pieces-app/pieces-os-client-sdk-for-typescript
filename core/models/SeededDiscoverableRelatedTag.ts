@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -80,9 +80,11 @@ export interface SeededDiscoverableRelatedTag {
  * Check if a given object implements the SeededDiscoverableRelatedTag interface.
  */
 export function instanceOfSeededDiscoverableRelatedTag(value: object): boolean {
-    if (!('text' in value)) return false;
-    if (!('asset' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableRelatedTagFromJSON(json: any): SeededDiscoverableRelatedTag {
@@ -90,32 +92,35 @@ export function SeededDiscoverableRelatedTagFromJSON(json: any): SeededDiscovera
 }
 
 export function SeededDiscoverableRelatedTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableRelatedTag {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
         'asset': json['asset'],
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'format': json['format'] == null ? undefined : json['format'],
-        'category': json['category'] == null ? undefined : TagCategoryEnumFromJSON(json['category']),
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'format': !exists(json, 'format') ? undefined : json['format'],
+        'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
     };
 }
 
 export function SeededDiscoverableRelatedTagToJSON(value?: SeededDiscoverableRelatedTag | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'text': value['text'],
-        'asset': value['asset'],
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'format': value['format'],
-        'category': TagCategoryEnumToJSON(value['category']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'text': value.text,
+        'asset': value.asset,
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'format': value.format,
+        'category': TagCategoryEnumToJSON(value.category),
     };
 }
 

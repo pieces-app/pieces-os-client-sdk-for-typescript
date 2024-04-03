@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface TrackedAssetEventCreationMetadataClipboard {
  * Check if a given object implements the TrackedAssetEventCreationMetadataClipboard interface.
  */
 export function instanceOfTrackedAssetEventCreationMetadataClipboard(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventCreationMetadataClipboardFromJSON(json: any): TrackedAssetEventCreationMetadataClipboard {
@@ -58,26 +60,29 @@ export function TrackedAssetEventCreationMetadataClipboardFromJSON(json: any): T
 }
 
 export function TrackedAssetEventCreationMetadataClipboardFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventCreationMetadataClipboard {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'keyboard': json['keyboard'] == null ? undefined : json['keyboard'],
-        'interaction': json['interaction'] == null ? undefined : json['interaction'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'keyboard': !exists(json, 'keyboard') ? undefined : json['keyboard'],
+        'interaction': !exists(json, 'interaction') ? undefined : json['interaction'],
     };
 }
 
 export function TrackedAssetEventCreationMetadataClipboardToJSON(value?: TrackedAssetEventCreationMetadataClipboard | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'keyboard': value['keyboard'],
-        'interaction': value['interaction'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'keyboard': value.keyboard,
+        'interaction': value.interaction,
     };
 }
 

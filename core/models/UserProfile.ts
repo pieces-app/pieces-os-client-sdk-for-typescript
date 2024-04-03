@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Aesthetics } from './Aesthetics';
 import {
     AestheticsFromJSON,
@@ -141,9 +141,11 @@ export interface UserProfile {
  * Check if a given object implements the UserProfile interface.
  */
 export function instanceOfUserProfile(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('aesthetics' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "aesthetics" in value;
+
+    return isInstance;
 }
 
 export function UserProfileFromJSON(json: any): UserProfile {
@@ -151,46 +153,49 @@ export function UserProfileFromJSON(json: any): UserProfile {
 }
 
 export function UserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserProfile {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'picture': json['picture'] == null ? undefined : json['picture'],
-        'email': json['email'] == null ? undefined : json['email'],
-        'created': json['created'] == null ? undefined : GroupedTimestampFromJSON(json['created']),
-        'updated': json['updated'] == null ? undefined : GroupedTimestampFromJSON(json['updated']),
-        'username': json['username'] == null ? undefined : json['username'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'picture': !exists(json, 'picture') ? undefined : json['picture'],
+        'email': !exists(json, 'email') ? undefined : json['email'],
+        'created': !exists(json, 'created') ? undefined : GroupedTimestampFromJSON(json['created']),
+        'updated': !exists(json, 'updated') ? undefined : GroupedTimestampFromJSON(json['updated']),
+        'username': !exists(json, 'username') ? undefined : json['username'],
         'id': json['id'],
-        'name': json['name'] == null ? undefined : json['name'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
         'aesthetics': AestheticsFromJSON(json['aesthetics']),
-        'vanityname': json['vanityname'] == null ? undefined : json['vanityname'],
-        'allocation': json['allocation'] == null ? undefined : AllocationCloudFromJSON(json['allocation']),
-        'providers': json['providers'] == null ? undefined : ExternalProvidersFromJSON(json['providers']),
-        'auth0': json['auth0'] == null ? undefined : Auth0UserMetadataFromJSON(json['auth0']),
+        'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
+        'allocation': !exists(json, 'allocation') ? undefined : AllocationCloudFromJSON(json['allocation']),
+        'providers': !exists(json, 'providers') ? undefined : ExternalProvidersFromJSON(json['providers']),
+        'auth0': !exists(json, 'auth0') ? undefined : Auth0UserMetadataFromJSON(json['auth0']),
     };
 }
 
 export function UserProfileToJSON(value?: UserProfile | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'picture': value['picture'],
-        'email': value['email'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'username': value['username'],
-        'id': value['id'],
-        'name': value['name'],
-        'aesthetics': AestheticsToJSON(value['aesthetics']),
-        'vanityname': value['vanityname'],
-        'allocation': AllocationCloudToJSON(value['allocation']),
-        'providers': ExternalProvidersToJSON(value['providers']),
-        'auth0': Auth0UserMetadataToJSON(value['auth0']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'picture': value.picture,
+        'email': value.email,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'username': value.username,
+        'id': value.id,
+        'name': value.name,
+        'aesthetics': AestheticsToJSON(value.aesthetics),
+        'vanityname': value.vanityname,
+        'allocation': AllocationCloudToJSON(value.allocation),
+        'providers': ExternalProvidersToJSON(value.providers),
+        'auth0': Auth0UserMetadataToJSON(value.auth0),
     };
 }
 

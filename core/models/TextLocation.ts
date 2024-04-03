@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,10 +56,12 @@ export interface TextLocation {
  * Check if a given object implements the TextLocation interface.
  */
 export function instanceOfTextLocation(value: object): boolean {
-    if (!('text' in value)) return false;
-    if (!('start' in value)) return false;
-    if (!('end' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "start" in value;
+    isInstance = isInstance && "end" in value;
+
+    return isInstance;
 }
 
 export function TextLocationFromJSON(json: any): TextLocation {
@@ -67,12 +69,12 @@ export function TextLocationFromJSON(json: any): TextLocation {
 }
 
 export function TextLocationFromJSONTyped(json: any, ignoreDiscriminator: boolean): TextLocation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
         'start': json['start'],
         'end': json['end'],
@@ -80,15 +82,18 @@ export function TextLocationFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function TextLocationToJSON(value?: TextLocation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'text': value['text'],
-        'start': value['start'],
-        'end': value['end'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'text': value.text,
+        'start': value.start,
+        'end': value.end,
     };
 }
 

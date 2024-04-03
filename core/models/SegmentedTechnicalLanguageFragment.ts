@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
     ClassificationGenericEnumFromJSON,
@@ -76,9 +76,11 @@ export interface SegmentedTechnicalLanguageFragment {
  * Check if a given object implements the SegmentedTechnicalLanguageFragment interface.
  */
 export function instanceOfSegmentedTechnicalLanguageFragment(value: object): boolean {
-    if (!('generic' in value)) return false;
-    if (!('fragment' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "generic" in value;
+    isInstance = isInstance && "fragment" in value;
+
+    return isInstance;
 }
 
 export function SegmentedTechnicalLanguageFragmentFromJSON(json: any): SegmentedTechnicalLanguageFragment {
@@ -86,28 +88,31 @@ export function SegmentedTechnicalLanguageFragmentFromJSON(json: any): Segmented
 }
 
 export function SegmentedTechnicalLanguageFragmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): SegmentedTechnicalLanguageFragment {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'generic': ClassificationGenericEnumFromJSON(json['generic']),
-        'specific': json['specific'] == null ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
+        'specific': !exists(json, 'specific') ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
         'fragment': FragmentFormatFromJSON(json['fragment']),
     };
 }
 
 export function SegmentedTechnicalLanguageFragmentToJSON(value?: SegmentedTechnicalLanguageFragment | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'generic': ClassificationGenericEnumToJSON(value['generic']),
-        'specific': ClassificationSpecificEnumToJSON(value['specific']),
-        'fragment': FragmentFormatToJSON(value['fragment']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'generic': ClassificationGenericEnumToJSON(value.generic),
+        'specific': ClassificationSpecificEnumToJSON(value.specific),
+        'fragment': FragmentFormatToJSON(value.fragment),
     };
 }
 

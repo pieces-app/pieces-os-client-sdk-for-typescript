@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ApplicationNameEnum } from './ApplicationNameEnum';
 import {
     ApplicationNameEnumFromJSON,
@@ -80,11 +80,13 @@ export interface TrackedApplication {
  * Check if a given object implements the TrackedApplication interface.
  */
 export function instanceOfTrackedApplication(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('name' in value)) return false;
-    if (!('version' in value)) return false;
-    if (!('platform' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "platform" in value;
+
+    return isInstance;
 }
 
 export function TrackedApplicationFromJSON(json: any): TrackedApplication {
@@ -92,32 +94,35 @@ export function TrackedApplicationFromJSON(json: any): TrackedApplication {
 }
 
 export function TrackedApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedApplication {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'name': ApplicationNameEnumFromJSON(json['name']),
         'version': json['version'],
         'platform': PlatformEnumFromJSON(json['platform']),
-        'automaticUnload': json['automaticUnload'] == null ? undefined : json['automaticUnload'],
+        'automaticUnload': !exists(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
 
 export function TrackedApplicationToJSON(value?: TrackedApplication | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'name': ApplicationNameEnumToJSON(value['name']),
-        'version': value['version'],
-        'platform': PlatformEnumToJSON(value['platform']),
-        'automaticUnload': value['automaticUnload'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'name': ApplicationNameEnumToJSON(value.name),
+        'version': value.version,
+        'platform': PlatformEnumToJSON(value.platform),
+        'automaticUnload': value.automaticUnload,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -77,7 +77,9 @@ export interface QGPTPersonsRelatedInput {
  * Check if a given object implements the QGPTPersonsRelatedInput interface.
  */
 export function instanceOfQGPTPersonsRelatedInput(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTPersonsRelatedInputFromJSON(json: any): QGPTPersonsRelatedInput {
@@ -85,30 +87,33 @@ export function QGPTPersonsRelatedInputFromJSON(json: any): QGPTPersonsRelatedIn
 }
 
 export function QGPTPersonsRelatedInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTPersonsRelatedInput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'seed': json['seed'] == null ? undefined : SeedFromJSON(json['seed']),
-        'conversation': json['conversation'] == null ? undefined : QGPTConversationFromJSON(json['conversation']),
-        'application': json['application'] == null ? undefined : json['application'],
-        'model': json['model'] == null ? undefined : json['model'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
+        'conversation': !exists(json, 'conversation') ? undefined : QGPTConversationFromJSON(json['conversation']),
+        'application': !exists(json, 'application') ? undefined : json['application'],
+        'model': !exists(json, 'model') ? undefined : json['model'],
     };
 }
 
 export function QGPTPersonsRelatedInputToJSON(value?: QGPTPersonsRelatedInput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'seed': SeedToJSON(value['seed']),
-        'conversation': QGPTConversationToJSON(value['conversation']),
-        'application': value['application'],
-        'model': value['model'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'seed': SeedToJSON(value.seed),
+        'conversation': QGPTConversationToJSON(value.conversation),
+        'application': value.application,
+        'model': value.model,
     };
 }
 

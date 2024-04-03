@@ -134,18 +134,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/anchors/associate/{anchor} [POST]
      */
     async conversationAssociateAnchorRaw(requestParameters: ConversationAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationAssociateAnchor().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationAssociateAnchor.');
         }
 
-        if (requestParameters['anchor'] == null) {
-            throw new runtime.RequiredError(
-                'anchor',
-                'Required parameter "anchor" was null or undefined when calling conversationAssociateAnchor().'
-            );
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling conversationAssociateAnchor.');
         }
 
         const queryParameters: any = {};
@@ -153,7 +147,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/anchors/associate/{anchor}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            path: `/conversation/{conversation}/anchors/associate/{anchor}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -175,18 +169,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/assets/associate/{asset} [POST]
      */
     async conversationAssociateAssetRaw(requestParameters: ConversationAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationAssociateAsset().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationAssociateAsset.');
         }
 
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling conversationAssociateAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling conversationAssociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -194,7 +182,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/assets/associate/{asset}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/conversation/{conversation}/assets/associate/{asset}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -216,18 +204,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/grounding/temporal/ranges/associate/{range} [POST]
      */
     async conversationAssociateGroundingTemporalRangeWorkstreamRaw(requestParameters: ConversationAssociateGroundingTemporalRangeWorkstreamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationAssociateGroundingTemporalRangeWorkstream().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationAssociateGroundingTemporalRangeWorkstream.');
         }
 
-        if (requestParameters['range'] == null) {
-            throw new runtime.RequiredError(
-                'range',
-                'Required parameter "range" was null or undefined when calling conversationAssociateGroundingTemporalRangeWorkstream().'
-            );
+        if (requestParameters.range === null || requestParameters.range === undefined) {
+            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling conversationAssociateGroundingTemporalRangeWorkstream.');
         }
 
         const queryParameters: any = {};
@@ -235,7 +217,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/grounding/temporal_range/workstreams/associate/{range}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
+            path: `/conversation/{conversation}/grounding/temporal_range/workstreams/associate/{range}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -257,18 +239,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/websites/associate/{website} [POST]
      */
     async conversationAssociateWebsiteRaw(requestParameters: ConversationAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationAssociateWebsite().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationAssociateWebsite.');
         }
 
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling conversationAssociateWebsite().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling conversationAssociateWebsite.');
         }
 
         const queryParameters: any = {};
@@ -276,7 +252,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/websites/associate/{website}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            path: `/conversation/{conversation}/websites/associate/{website}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -298,18 +274,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/workstream_summaries/associate/{workstream_summary} [POST]
      */
     async conversationAssociateWorkstreamSummaryRaw(requestParameters: ConversationAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationAssociateWorkstreamSummary().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationAssociateWorkstreamSummary.');
         }
 
-        if (requestParameters['workstreamSummary'] == null) {
-            throw new runtime.RequiredError(
-                'workstreamSummary',
-                'Required parameter "workstreamSummary" was null or undefined when calling conversationAssociateWorkstreamSummary().'
-            );
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling conversationAssociateWorkstreamSummary.');
         }
 
         const queryParameters: any = {};
@@ -317,7 +287,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            path: `/conversation/{conversation}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -339,18 +309,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/anchors/delete/{anchor} [POST]
      */
     async conversationDisassociateAnchorRaw(requestParameters: ConversationDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationDisassociateAnchor().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateAnchor.');
         }
 
-        if (requestParameters['anchor'] == null) {
-            throw new runtime.RequiredError(
-                'anchor',
-                'Required parameter "anchor" was null or undefined when calling conversationDisassociateAnchor().'
-            );
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling conversationDisassociateAnchor.');
         }
 
         const queryParameters: any = {};
@@ -358,7 +322,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/anchors/delete/{anchor}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            path: `/conversation/{conversation}/anchors/delete/{anchor}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -380,18 +344,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/assets/delete/{asset} [POST]
      */
     async conversationDisassociateAssetRaw(requestParameters: ConversationDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationDisassociateAsset().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateAsset.');
         }
 
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling conversationDisassociateAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling conversationDisassociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -399,7 +357,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/assets/delete/{asset}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/conversation/{conversation}/assets/delete/{asset}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -421,18 +379,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/grounding/temporal_range/workstreams/disassociate/{range} [POST]
      */
     async conversationDisassociateGroundingTemporalRangeWorkstreamRaw(requestParameters: ConversationDisassociateGroundingTemporalRangeWorkstreamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationDisassociateGroundingTemporalRangeWorkstream().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateGroundingTemporalRangeWorkstream.');
         }
 
-        if (requestParameters['range'] == null) {
-            throw new runtime.RequiredError(
-                'range',
-                'Required parameter "range" was null or undefined when calling conversationDisassociateGroundingTemporalRangeWorkstream().'
-            );
+        if (requestParameters.range === null || requestParameters.range === undefined) {
+            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling conversationDisassociateGroundingTemporalRangeWorkstream.');
         }
 
         const queryParameters: any = {};
@@ -440,7 +392,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/grounding/temporal_range/workstreams/disassociate/{range}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
+            path: `/conversation/{conversation}/grounding/temporal_range/workstreams/disassociate/{range}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -462,18 +414,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /website/{website}/websites/disassociate/{website} [POST]
      */
     async conversationDisassociateWebsiteRaw(requestParameters: ConversationDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationDisassociateWebsite().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateWebsite.');
         }
 
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling conversationDisassociateWebsite().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling conversationDisassociateWebsite.');
         }
 
         const queryParameters: any = {};
@@ -481,7 +427,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/websites/disassociate/{website}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            path: `/conversation/{conversation}/websites/disassociate/{website}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -503,18 +449,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/workstream_summaries/disassociate/{workstream_summary} [POST]
      */
     async conversationDisassociateWorkstreamSummaryRaw(requestParameters: ConversationDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationDisassociateWorkstreamSummary().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationDisassociateWorkstreamSummary.');
         }
 
-        if (requestParameters['workstreamSummary'] == null) {
-            throw new runtime.RequiredError(
-                'workstreamSummary',
-                'Required parameter "workstreamSummary" was null or undefined when calling conversationDisassociateWorkstreamSummary().'
-            );
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling conversationDisassociateWorkstreamSummary.');
         }
 
         const queryParameters: any = {};
@@ -522,7 +462,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            path: `/conversation/{conversation}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -544,23 +484,20 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation} [GET]
      */
     async conversationGetSpecificConversationRaw(requestParameters: ConversationGetSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationGetSpecificConversation().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationGetSpecificConversation.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/conversation/{conversation}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -583,18 +520,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/grounding/messages/associate/{message} [POST]
      */
     async conversationGroundingMessagesAssociateMessageRaw(requestParameters: ConversationGroundingMessagesAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationGroundingMessagesAssociateMessage().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationGroundingMessagesAssociateMessage.');
         }
 
-        if (requestParameters['message'] == null) {
-            throw new runtime.RequiredError(
-                'message',
-                'Required parameter "message" was null or undefined when calling conversationGroundingMessagesAssociateMessage().'
-            );
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling conversationGroundingMessagesAssociateMessage.');
         }
 
         const queryParameters: any = {};
@@ -602,7 +533,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/grounding/messages/associate/{message}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            path: `/conversation/{conversation}/grounding/messages/associate/{message}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -624,18 +555,12 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/grounding/messages/disassociate/{message} [POST]
      */
     async conversationGroundingMessagesDisassociateMessageRaw(requestParameters: ConversationGroundingMessagesDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationGroundingMessagesDisassociateMessage().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationGroundingMessagesDisassociateMessage.');
         }
 
-        if (requestParameters['message'] == null) {
-            throw new runtime.RequiredError(
-                'message',
-                'Required parameter "message" was null or undefined when calling conversationGroundingMessagesDisassociateMessage().'
-            );
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling conversationGroundingMessagesDisassociateMessage.');
         }
 
         const queryParameters: any = {};
@@ -643,7 +568,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/grounding/messages/disassociate/{message}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            path: `/conversation/{conversation}/grounding/messages/disassociate/{message}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -665,11 +590,8 @@ export class ConversationApi extends runtime.BaseAPI {
      * \'/conversation/{conversation}/scores/increment\' [POST]
      */
     async conversationScoresIncrementRaw(requestParameters: ConversationScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationScoresIncrement().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationScoresIncrement.');
         }
 
         const queryParameters: any = {};
@@ -679,11 +601,11 @@ export class ConversationApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/conversation/{conversation}/scores/increment`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/conversation/{conversation}/scores/increment`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -702,23 +624,20 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/messages [GET]
      */
     async conversationSpecificConversationMessagesRaw(requestParameters: ConversationSpecificConversationMessagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessages>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationSpecificConversationMessages().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationSpecificConversationMessages.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/messages`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/conversation/{conversation}/messages`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -741,23 +660,20 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/rename [POST]
      */
     async conversationSpecificConversationRenameRaw(requestParameters: ConversationSpecificConversationRenameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationSpecificConversationRename().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationSpecificConversationRename.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/rename`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/conversation/{conversation}/rename`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -780,11 +696,8 @@ export class ConversationApi extends runtime.BaseAPI {
      * /conversation/{conversation}/summarize [POST]
      */
     async conversationSummarizeRaw(requestParameters: ConversationSummarizeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationSummarizeOutput>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationSummarize().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationSummarize.');
         }
 
         const queryParameters: any = {};
@@ -794,11 +707,11 @@ export class ConversationApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/conversation/{conversation}/summarize`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/conversation/{conversation}/summarize`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ConversationSummarizeInputToJSON(requestParameters['conversationSummarizeInput']),
+            body: ConversationSummarizeInputToJSON(requestParameters.conversationSummarizeInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationSummarizeOutputFromJSON(jsonValue));
@@ -820,8 +733,8 @@ export class ConversationApi extends runtime.BaseAPI {
     async conversationUpdateRaw(requestParameters: ConversationUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -833,7 +746,7 @@ export class ConversationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ConversationToJSON(requestParameters['conversation']),
+            body: ConversationToJSON(requestParameters.conversation),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationFromJSON(jsonValue));

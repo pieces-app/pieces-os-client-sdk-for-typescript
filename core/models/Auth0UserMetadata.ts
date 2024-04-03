@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Auth0OpenAIUserMetadata } from './Auth0OpenAIUserMetadata';
 import {
     Auth0OpenAIUserMetadataFromJSON,
@@ -98,8 +98,10 @@ export interface Auth0UserMetadata {
  * Check if a given object implements the Auth0UserMetadata interface.
  */
 export function instanceOfAuth0UserMetadata(value: object): boolean {
-    if (!('globalId' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "globalId" in value;
+
+    return isInstance;
 }
 
 export function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata {
@@ -107,36 +109,39 @@ export function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata {
 }
 
 export function Auth0UserMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0UserMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'globalId': json['global_id'],
-        'cloudKey': json['cloud_key'] == null ? undefined : json['cloud_key'],
-        'stripeCustomerId': json['stripe_customer_id'] == null ? undefined : json['stripe_customer_id'],
-        'vanityname': json['vanityname'] == null ? undefined : json['vanityname'],
-        'allocation': json['allocation'] == null ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
-        'openAI': json['open_AI'] == null ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
-        'beta': json['beta'] == null ? undefined : TimestampRangeFromJSON(json['beta']),
+        'cloudKey': !exists(json, 'cloud_key') ? undefined : json['cloud_key'],
+        'stripeCustomerId': !exists(json, 'stripe_customer_id') ? undefined : json['stripe_customer_id'],
+        'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
+        'allocation': !exists(json, 'allocation') ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
+        'openAI': !exists(json, 'open_AI') ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
+        'beta': !exists(json, 'beta') ? undefined : TimestampRangeFromJSON(json['beta']),
     };
 }
 
 export function Auth0UserMetadataToJSON(value?: Auth0UserMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'global_id': value['globalId'],
-        'cloud_key': value['cloudKey'],
-        'stripe_customer_id': value['stripeCustomerId'],
-        'vanityname': value['vanityname'],
-        'allocation': Auth0UserAllocationMetadataToJSON(value['allocation']),
-        'open_AI': Auth0OpenAIUserMetadataToJSON(value['openAI']),
-        'beta': TimestampRangeToJSON(value['beta']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'global_id': value.globalId,
+        'cloud_key': value.cloudKey,
+        'stripe_customer_id': value.stripeCustomerId,
+        'vanityname': value.vanityname,
+        'allocation': Auth0UserAllocationMetadataToJSON(value.allocation),
+        'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
+        'beta': TimestampRangeToJSON(value.beta),
     };
 }
 

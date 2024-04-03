@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -224,24 +224,26 @@ export interface ExportedDatabase {
  * Check if a given object implements the ExportedDatabase interface.
  */
 export function instanceOfExportedDatabase(value: object): boolean {
-    if (!('analyses' in value)) return false;
-    if (!('applications' in value)) return false;
-    if (!('assets' in value)) return false;
-    if (!('codeAnalyses' in value)) return false;
-    if (!('files' in value)) return false;
-    if (!('formatMetrics' in value)) return false;
-    if (!('formats' in value)) return false;
-    if (!('fragments' in value)) return false;
-    if (!('imageAnalyses' in value)) return false;
-    if (!('models' in value)) return false;
-    if (!('ocrAnalyses' in value)) return false;
-    if (!('persons' in value)) return false;
-    if (!('sensitives' in value)) return false;
-    if (!('tags' in value)) return false;
-    if (!('websites' in value)) return false;
-    if (!('values' in value)) return false;
-    if (!('version' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "analyses" in value;
+    isInstance = isInstance && "applications" in value;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "codeAnalyses" in value;
+    isInstance = isInstance && "files" in value;
+    isInstance = isInstance && "formatMetrics" in value;
+    isInstance = isInstance && "formats" in value;
+    isInstance = isInstance && "fragments" in value;
+    isInstance = isInstance && "imageAnalyses" in value;
+    isInstance = isInstance && "models" in value;
+    isInstance = isInstance && "ocrAnalyses" in value;
+    isInstance = isInstance && "persons" in value;
+    isInstance = isInstance && "sensitives" in value;
+    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "websites" in value;
+    isInstance = isInstance && "values" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
 }
 
 export function ExportedDatabaseFromJSON(json: any): ExportedDatabase {
@@ -249,7 +251,7 @@ export function ExportedDatabaseFromJSON(json: any): ExportedDatabase {
 }
 
 export function ExportedDatabaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportedDatabase {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -271,60 +273,63 @@ export function ExportedDatabaseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'websites': json['websites'],
         'values': ExportedDatabaseFormatsFromJSON(json['values']),
         'version': json['version'],
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'relationships': json['relationships'] == null ? undefined : json['relationships'],
-        'activities': json['activities'] == null ? undefined : json['activities'],
-        'annotations': json['annotations'] == null ? undefined : json['annotations'],
-        'hints': json['hints'] == null ? undefined : json['hints'],
-        'anchors': json['anchors'] == null ? undefined : json['anchors'],
-        'anchorPoints': json['anchorPoints'] == null ? undefined : json['anchorPoints'],
-        'conversations': json['conversations'] == null ? undefined : json['conversations'],
-        'conversationMessages': json['conversationMessages'] == null ? undefined : json['conversationMessages'],
-        'workstreamEvents': json['workstreamEvents'] == null ? undefined : json['workstreamEvents'],
-        'ranges': json['ranges'] == null ? undefined : json['ranges'],
-        'workstreamSummaries': json['workstreamSummaries'] == null ? undefined : json['workstreamSummaries'],
-        'messageValues': json['messageValues'] == null ? undefined : ExportedDatabaseFormatsFromJSON(json['messageValues']),
-        'workstreamEventValues': json['workstreamEventValues'] == null ? undefined : ExportedDatabaseFormatsFromJSON(json['workstreamEventValues']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'relationships': !exists(json, 'relationships') ? undefined : json['relationships'],
+        'activities': !exists(json, 'activities') ? undefined : json['activities'],
+        'annotations': !exists(json, 'annotations') ? undefined : json['annotations'],
+        'hints': !exists(json, 'hints') ? undefined : json['hints'],
+        'anchors': !exists(json, 'anchors') ? undefined : json['anchors'],
+        'anchorPoints': !exists(json, 'anchorPoints') ? undefined : json['anchorPoints'],
+        'conversations': !exists(json, 'conversations') ? undefined : json['conversations'],
+        'conversationMessages': !exists(json, 'conversationMessages') ? undefined : json['conversationMessages'],
+        'workstreamEvents': !exists(json, 'workstreamEvents') ? undefined : json['workstreamEvents'],
+        'ranges': !exists(json, 'ranges') ? undefined : json['ranges'],
+        'workstreamSummaries': !exists(json, 'workstreamSummaries') ? undefined : json['workstreamSummaries'],
+        'messageValues': !exists(json, 'messageValues') ? undefined : ExportedDatabaseFormatsFromJSON(json['messageValues']),
+        'workstreamEventValues': !exists(json, 'workstreamEventValues') ? undefined : ExportedDatabaseFormatsFromJSON(json['workstreamEventValues']),
     };
 }
 
 export function ExportedDatabaseToJSON(value?: ExportedDatabase | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'analyses': value['analyses'],
-        'applications': value['applications'],
-        'assets': value['assets'],
-        'codeAnalyses': value['codeAnalyses'],
-        'files': value['files'],
-        'formatMetrics': value['formatMetrics'],
-        'formats': value['formats'],
-        'fragments': value['fragments'],
-        'imageAnalyses': value['imageAnalyses'],
-        'models': value['models'],
-        'ocrAnalyses': value['ocrAnalyses'],
-        'persons': value['persons'],
-        'sensitives': value['sensitives'],
-        'tags': value['tags'],
-        'websites': value['websites'],
-        'values': ExportedDatabaseFormatsToJSON(value['values']),
-        'version': value['version'],
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'relationships': value['relationships'],
-        'activities': value['activities'],
-        'annotations': value['annotations'],
-        'hints': value['hints'],
-        'anchors': value['anchors'],
-        'anchorPoints': value['anchorPoints'],
-        'conversations': value['conversations'],
-        'conversationMessages': value['conversationMessages'],
-        'workstreamEvents': value['workstreamEvents'],
-        'ranges': value['ranges'],
-        'workstreamSummaries': value['workstreamSummaries'],
-        'messageValues': ExportedDatabaseFormatsToJSON(value['messageValues']),
-        'workstreamEventValues': ExportedDatabaseFormatsToJSON(value['workstreamEventValues']),
+        'analyses': value.analyses,
+        'applications': value.applications,
+        'assets': value.assets,
+        'codeAnalyses': value.codeAnalyses,
+        'files': value.files,
+        'formatMetrics': value.formatMetrics,
+        'formats': value.formats,
+        'fragments': value.fragments,
+        'imageAnalyses': value.imageAnalyses,
+        'models': value.models,
+        'ocrAnalyses': value.ocrAnalyses,
+        'persons': value.persons,
+        'sensitives': value.sensitives,
+        'tags': value.tags,
+        'websites': value.websites,
+        'values': ExportedDatabaseFormatsToJSON(value.values),
+        'version': value.version,
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'relationships': value.relationships,
+        'activities': value.activities,
+        'annotations': value.annotations,
+        'hints': value.hints,
+        'anchors': value.anchors,
+        'anchorPoints': value.anchorPoints,
+        'conversations': value.conversations,
+        'conversationMessages': value.conversationMessages,
+        'workstreamEvents': value.workstreamEvents,
+        'ranges': value.ranges,
+        'workstreamSummaries': value.workstreamSummaries,
+        'messageValues': ExportedDatabaseFormatsToJSON(value.messageValues),
+        'workstreamEventValues': ExportedDatabaseFormatsToJSON(value.workstreamEventValues),
     };
 }
 

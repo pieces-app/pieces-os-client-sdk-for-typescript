@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { OAuthAccount } from './OAuthAccount';
 import {
     OAuthAccountFromJSON,
@@ -50,7 +50,9 @@ export interface OAuthGroup {
  * Check if a given object implements the OAuthGroup interface.
  */
 export function instanceOfOAuthGroup(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function OAuthGroupFromJSON(json: any): OAuthGroup {
@@ -58,24 +60,27 @@ export function OAuthGroupFromJSON(json: any): OAuthGroup {
 }
 
 export function OAuthGroupFromJSONTyped(json: any, ignoreDiscriminator: boolean): OAuthGroup {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'token': json['token'] == null ? undefined : OAuthTokenFromJSON(json['token']),
-        'account': json['account'] == null ? undefined : OAuthAccountFromJSON(json['account']),
+        'token': !exists(json, 'token') ? undefined : OAuthTokenFromJSON(json['token']),
+        'account': !exists(json, 'account') ? undefined : OAuthAccountFromJSON(json['account']),
     };
 }
 
 export function OAuthGroupToJSON(value?: OAuthGroup | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'token': OAuthTokenToJSON(value['token']),
-        'account': OAuthAccountToJSON(value['account']),
+        'token': OAuthTokenToJSON(value.token),
+        'account': OAuthAccountToJSON(value.account),
     };
 }
 

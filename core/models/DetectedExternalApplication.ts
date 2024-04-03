@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface DetectedExternalApplication {
  * Check if a given object implements the DetectedExternalApplication interface.
  */
 export function instanceOfDetectedExternalApplication(value: object): boolean {
-    if (!('name' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
 }
 
 export function DetectedExternalApplicationFromJSON(json: any): DetectedExternalApplication {
@@ -59,26 +61,29 @@ export function DetectedExternalApplicationFromJSON(json: any): DetectedExternal
 }
 
 export function DetectedExternalApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): DetectedExternalApplication {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'name': json['name'],
-        'version': json['version'] == null ? undefined : json['version'],
+        'version': !exists(json, 'version') ? undefined : json['version'],
     };
 }
 
 export function DetectedExternalApplicationToJSON(value?: DetectedExternalApplication | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'name': value['name'],
-        'version': value['version'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'name': value.name,
+        'version': value.version,
     };
 }
 

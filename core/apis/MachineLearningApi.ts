@@ -61,7 +61,7 @@ export class MachineLearningApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PreonboardedPersonaDetailsToJSON(requestParameters['preonboardedPersonaDetails']),
+            body: PreonboardedPersonaDetailsToJSON(requestParameters.preonboardedPersonaDetails),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OnboardedPersonaDetailsFromJSON(jsonValue));
@@ -83,8 +83,8 @@ export class MachineLearningApi extends runtime.BaseAPI {
     async segmentTechnicalLanguageRaw(requestParameters: SegmentTechnicalLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SegmentedTechnicalLanguage>> {
         const queryParameters: any = {};
 
-        if (requestParameters['classify'] != null) {
-            queryParameters['classify'] = requestParameters['classify'];
+        if (requestParameters.classify !== undefined) {
+            queryParameters['classify'] = requestParameters.classify;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -96,7 +96,7 @@ export class MachineLearningApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UnsegmentedTechnicalLanguageToJSON(requestParameters['unsegmentedTechnicalLanguage']),
+            body: UnsegmentedTechnicalLanguageToJSON(requestParameters.unsegmentedTechnicalLanguage),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SegmentedTechnicalLanguageFromJSON(jsonValue));

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -107,9 +107,11 @@ export interface QGPTQuestionInput {
  * Check if a given object implements the QGPTQuestionInput interface.
  */
 export function instanceOfQGPTQuestionInput(value: object): boolean {
-    if (!('relevant' in value)) return false;
-    if (!('query' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "relevant" in value;
+    isInstance = isInstance && "query" in value;
+
+    return isInstance;
 }
 
 export function QGPTQuestionInputFromJSON(json: any): QGPTQuestionInput {
@@ -117,36 +119,39 @@ export function QGPTQuestionInputFromJSON(json: any): QGPTQuestionInput {
 }
 
 export function QGPTQuestionInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionInput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'relevant': RelevantQGPTSeedsFromJSON(json['relevant']),
         'query': json['query'],
-        'application': json['application'] == null ? undefined : json['application'],
-        'model': json['model'] == null ? undefined : json['model'],
-        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
-        'pipeline': json['pipeline'] == null ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
-        'temporal': json['temporal'] == null ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
+        'application': !exists(json, 'application') ? undefined : json['application'],
+        'model': !exists(json, 'model') ? undefined : json['model'],
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
+        'temporal': !exists(json, 'temporal') ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
     };
 }
 
 export function QGPTQuestionInputToJSON(value?: QGPTQuestionInput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'relevant': RelevantQGPTSeedsToJSON(value['relevant']),
-        'query': value['query'],
-        'application': value['application'],
-        'model': value['model'],
-        'messages': FlattenedConversationMessagesToJSON(value['messages']),
-        'pipeline': QGPTPromptPipelineToJSON(value['pipeline']),
-        'temporal': TemporalRangeGroundingToJSON(value['temporal']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'relevant': RelevantQGPTSeedsToJSON(value.relevant),
+        'query': value.query,
+        'application': value.application,
+        'model': value.model,
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
+        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
+        'temporal': TemporalRangeGroundingToJSON(value.temporal),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Activities } from './Activities';
 import {
     ActivitiesFromJSON,
@@ -214,16 +214,18 @@ export interface Format {
  * Check if a given object implements the Format interface.
  */
 export function instanceOfFormat(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('creator' in value)) return false;
-    if (!('classification' in value)) return false;
-    if (!('role' in value)) return false;
-    if (!('application' in value)) return false;
-    if (!('asset' in value)) return false;
-    if (!('bytes' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "creator" in value;
+    isInstance = isInstance && "classification" in value;
+    isInstance = isInstance && "role" in value;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "bytes" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
 }
 
 export function FormatFromJSON(json: any): Format {
@@ -231,58 +233,61 @@ export function FormatFromJSON(json: any): Format {
 }
 
 export function FormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): Format {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'creator': json['creator'],
         'classification': ClassificationFromJSON(json['classification']),
-        'icon': json['icon'] == null ? undefined : json['icon'],
+        'icon': !exists(json, 'icon') ? undefined : json['icon'],
         'role': RoleFromJSON(json['role']),
         'application': ApplicationFromJSON(json['application']),
         'asset': FlattenedAssetFromJSON(json['asset']),
         'bytes': ByteDescriptorFromJSON(json['bytes']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'synced': json['synced'] == null ? undefined : GroupedTimestampFromJSON(json['synced']),
-        'cloud': json['cloud'] == null ? undefined : json['cloud'],
-        'fragment': json['fragment'] == null ? undefined : FragmentFormatFromJSON(json['fragment']),
-        'file': json['file'] == null ? undefined : FileFormatFromJSON(json['file']),
-        'analysis': json['analysis'] == null ? undefined : AnalysisFromJSON(json['analysis']),
-        'relationship': json['relationship'] == null ? undefined : RelationshipFromJSON(json['relationship']),
-        'activities': json['activities'] == null ? undefined : ActivitiesFromJSON(json['activities']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'synced': !exists(json, 'synced') ? undefined : GroupedTimestampFromJSON(json['synced']),
+        'cloud': !exists(json, 'cloud') ? undefined : json['cloud'],
+        'fragment': !exists(json, 'fragment') ? undefined : FragmentFormatFromJSON(json['fragment']),
+        'file': !exists(json, 'file') ? undefined : FileFormatFromJSON(json['file']),
+        'analysis': !exists(json, 'analysis') ? undefined : AnalysisFromJSON(json['analysis']),
+        'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
+        'activities': !exists(json, 'activities') ? undefined : ActivitiesFromJSON(json['activities']),
     };
 }
 
 export function FormatToJSON(value?: Format | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'creator': value['creator'],
-        'classification': ClassificationToJSON(value['classification']),
-        'icon': value['icon'],
-        'role': RoleToJSON(value['role']),
-        'application': ApplicationToJSON(value['application']),
-        'asset': FlattenedAssetToJSON(value['asset']),
-        'bytes': ByteDescriptorToJSON(value['bytes']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'synced': GroupedTimestampToJSON(value['synced']),
-        'cloud': value['cloud'],
-        'fragment': FragmentFormatToJSON(value['fragment']),
-        'file': FileFormatToJSON(value['file']),
-        'analysis': AnalysisToJSON(value['analysis']),
-        'relationship': RelationshipToJSON(value['relationship']),
-        'activities': ActivitiesToJSON(value['activities']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'creator': value.creator,
+        'classification': ClassificationToJSON(value.classification),
+        'icon': value.icon,
+        'role': RoleToJSON(value.role),
+        'application': ApplicationToJSON(value.application),
+        'asset': FlattenedAssetToJSON(value.asset),
+        'bytes': ByteDescriptorToJSON(value.bytes),
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'synced': GroupedTimestampToJSON(value.synced),
+        'cloud': value.cloud,
+        'fragment': FragmentFormatToJSON(value.fragment),
+        'file': FileFormatToJSON(value.file),
+        'analysis': AnalysisToJSON(value.analysis),
+        'relationship': RelationshipToJSON(value.relationship),
+        'activities': ActivitiesToJSON(value.activities),
     };
 }
 

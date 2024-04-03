@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -78,7 +78,9 @@ export interface RelevantQGPTSeed {
  * Check if a given object implements the RelevantQGPTSeed interface.
  */
 export function instanceOfRelevantQGPTSeed(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function RelevantQGPTSeedFromJSON(json: any): RelevantQGPTSeed {
@@ -86,30 +88,33 @@ export function RelevantQGPTSeedFromJSON(json: any): RelevantQGPTSeed {
 }
 
 export function RelevantQGPTSeedFromJSONTyped(json: any, ignoreDiscriminator: boolean): RelevantQGPTSeed {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': json['id'] == null ? undefined : json['id'],
-        'seed': json['seed'] == null ? undefined : SeedFromJSON(json['seed']),
-        'path': json['path'] == null ? undefined : json['path'],
-        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': !exists(json, 'id') ? undefined : json['id'],
+        'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
+        'path': !exists(json, 'path') ? undefined : json['path'],
+        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
     };
 }
 
 export function RelevantQGPTSeedToJSON(value?: RelevantQGPTSeed | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'seed': SeedToJSON(value['seed']),
-        'path': value['path'],
-        'asset': ReferencedAssetToJSON(value['asset']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'seed': SeedToJSON(value.seed),
+        'path': value.path,
+        'asset': ReferencedAssetToJSON(value.asset),
     };
 }
 

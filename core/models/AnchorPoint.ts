@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -116,12 +116,14 @@ export interface AnchorPoint {
  * Check if a given object implements the AnchorPoint interface.
  */
 export function instanceOfAnchorPoint(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('fullpath' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('anchor' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "fullpath" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "anchor" in value;
+
+    return isInstance;
 }
 
 export function AnchorPointFromJSON(json: any): AnchorPoint {
@@ -129,40 +131,43 @@ export function AnchorPointFromJSON(json: any): AnchorPoint {
 }
 
 export function AnchorPointFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnchorPoint {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'verified': json['verified'] == null ? undefined : json['verified'],
+        'verified': !exists(json, 'verified') ? undefined : json['verified'],
         'fullpath': json['fullpath'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'platform': json['platform'] == null ? undefined : PlatformEnumFromJSON(json['platform']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'platform': !exists(json, 'platform') ? undefined : PlatformEnumFromJSON(json['platform']),
         'anchor': ReferencedAnchorFromJSON(json['anchor']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function AnchorPointToJSON(value?: AnchorPoint | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'verified': value['verified'],
-        'fullpath': value['fullpath'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'platform': PlatformEnumToJSON(value['platform']),
-        'anchor': ReferencedAnchorToJSON(value['anchor']),
-        'score': ScoreToJSON(value['score']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'verified': value.verified,
+        'fullpath': value.fullpath,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'platform': PlatformEnumToJSON(value.platform),
+        'anchor': ReferencedAnchorToJSON(value.anchor),
+        'score': ScoreToJSON(value.score),
     };
 }
 

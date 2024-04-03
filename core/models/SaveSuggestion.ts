@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -46,8 +46,10 @@ export interface SaveSuggestion {
  * Check if a given object implements the SaveSuggestion interface.
  */
 export function instanceOfSaveSuggestion(value: object): boolean {
-    if (!('suggested' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "suggested" in value;
+
+    return isInstance;
 }
 
 export function SaveSuggestionFromJSON(json: any): SaveSuggestion {
@@ -55,24 +57,27 @@ export function SaveSuggestionFromJSON(json: any): SaveSuggestion {
 }
 
 export function SaveSuggestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SaveSuggestion {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'suggested': json['suggested'],
     };
 }
 
 export function SaveSuggestionToJSON(value?: SaveSuggestion | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'suggested': value['suggested'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'suggested': value.suggested,
     };
 }
 

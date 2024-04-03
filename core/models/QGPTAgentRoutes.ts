@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -51,7 +51,9 @@ export interface QGPTAgentRoutes {
  * Check if a given object implements the QGPTAgentRoutes interface.
  */
 export function instanceOfQGPTAgentRoutes(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTAgentRoutesFromJSON(json: any): QGPTAgentRoutes {
@@ -59,24 +61,27 @@ export function QGPTAgentRoutesFromJSON(json: any): QGPTAgentRoutes {
 }
 
 export function QGPTAgentRoutesFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTAgentRoutes {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'related': json['related'] == null ? undefined : QGPTAgentRelatedRoutesFromJSON(json['related']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'related': !exists(json, 'related') ? undefined : QGPTAgentRelatedRoutesFromJSON(json['related']),
     };
 }
 
 export function QGPTAgentRoutesToJSON(value?: QGPTAgentRoutes | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'related': QGPTAgentRelatedRoutesToJSON(value['related']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'related': QGPTAgentRelatedRoutesToJSON(value.related),
     };
 }
 

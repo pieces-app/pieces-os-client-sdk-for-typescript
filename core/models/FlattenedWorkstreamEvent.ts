@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -122,12 +122,14 @@ export interface FlattenedWorkstreamEvent {
  * Check if a given object implements the FlattenedWorkstreamEvent interface.
  */
 export function instanceOfFlattenedWorkstreamEvent(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('application' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('trigger' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "trigger" in value;
+
+    return isInstance;
 }
 
 export function FlattenedWorkstreamEventFromJSON(json: any): FlattenedWorkstreamEvent {
@@ -135,38 +137,41 @@ export function FlattenedWorkstreamEventFromJSON(json: any): FlattenedWorkstream
 }
 
 export function FlattenedWorkstreamEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedWorkstreamEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'application': ApplicationFromJSON(json['application']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'trigger': WorkstreamEventTriggerFromJSON(json['trigger']),
-        'metadata': json['metadata'] == null ? undefined : WorkstreamEventTriggerMetadataFromJSON(json['metadata']),
-        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'metadata': !exists(json, 'metadata') ? undefined : WorkstreamEventTriggerMetadataFromJSON(json['metadata']),
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
 export function FlattenedWorkstreamEventToJSON(value?: FlattenedWorkstreamEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'score': ScoreToJSON(value['score']),
-        'application': ApplicationToJSON(value['application']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'trigger': WorkstreamEventTriggerToJSON(value['trigger']),
-        'metadata': WorkstreamEventTriggerMetadataToJSON(value['metadata']),
-        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'score': ScoreToJSON(value.score),
+        'application': ApplicationToJSON(value.application),
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'trigger': WorkstreamEventTriggerToJSON(value.trigger),
+        'metadata': WorkstreamEventTriggerMetadataToJSON(value.metadata),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }
 

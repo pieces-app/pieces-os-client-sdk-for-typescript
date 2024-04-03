@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -123,9 +123,11 @@ export interface SeededAsset {
  * Check if a given object implements the SeededAsset interface.
  */
 export function instanceOfSeededAsset(value: object): boolean {
-    if (!('application' in value)) return false;
-    if (!('format' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetFromJSON(json: any): SeededAsset {
@@ -133,38 +135,41 @@ export function SeededAssetFromJSON(json: any): SeededAsset {
 }
 
 export function SeededAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAsset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'metadata': json['metadata'] == null ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'metadata': !exists(json, 'metadata') ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
         'application': ApplicationFromJSON(json['application']),
         'format': SeededFormatFromJSON(json['format']),
-        'discovered': json['discovered'] == null ? undefined : json['discovered'],
-        'available': json['available'] == null ? undefined : AvailableFormatsFromJSON(json['available']),
-        'pseudo': json['pseudo'] == null ? undefined : json['pseudo'],
-        'enrichment': json['enrichment'] == null ? undefined : SeededAssetEnrichmentFromJSON(json['enrichment']),
-        'demo': json['demo'] == null ? undefined : json['demo'],
+        'discovered': !exists(json, 'discovered') ? undefined : json['discovered'],
+        'available': !exists(json, 'available') ? undefined : AvailableFormatsFromJSON(json['available']),
+        'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
+        'enrichment': !exists(json, 'enrichment') ? undefined : SeededAssetEnrichmentFromJSON(json['enrichment']),
+        'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
 
 export function SeededAssetToJSON(value?: SeededAsset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'metadata': SeededAssetMetadataToJSON(value['metadata']),
-        'application': ApplicationToJSON(value['application']),
-        'format': SeededFormatToJSON(value['format']),
-        'discovered': value['discovered'],
-        'available': AvailableFormatsToJSON(value['available']),
-        'pseudo': value['pseudo'],
-        'enrichment': SeededAssetEnrichmentToJSON(value['enrichment']),
-        'demo': value['demo'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'metadata': SeededAssetMetadataToJSON(value.metadata),
+        'application': ApplicationToJSON(value.application),
+        'format': SeededFormatToJSON(value.format),
+        'discovered': value.discovered,
+        'available': AvailableFormatsToJSON(value.available),
+        'pseudo': value.pseudo,
+        'enrichment': SeededAssetEnrichmentToJSON(value.enrichment),
+        'demo': value.demo,
     };
 }
 

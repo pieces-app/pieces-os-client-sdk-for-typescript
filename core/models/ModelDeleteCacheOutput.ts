@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface ModelDeleteCacheOutput {
  * Check if a given object implements the ModelDeleteCacheOutput interface.
  */
 export function instanceOfModelDeleteCacheOutput(value: object): boolean {
-    if (!('model' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "model" in value;
+
+    return isInstance;
 }
 
 export function ModelDeleteCacheOutputFromJSON(json: any): ModelDeleteCacheOutput {
@@ -59,24 +61,27 @@ export function ModelDeleteCacheOutputFromJSON(json: any): ModelDeleteCacheOutpu
 }
 
 export function ModelDeleteCacheOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDeleteCacheOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'model': ReferencedModelFromJSON(json['model']),
     };
 }
 
 export function ModelDeleteCacheOutputToJSON(value?: ModelDeleteCacheOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'model': ReferencedModelToJSON(value['model']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'model': ReferencedModelToJSON(value.model),
     };
 }
 

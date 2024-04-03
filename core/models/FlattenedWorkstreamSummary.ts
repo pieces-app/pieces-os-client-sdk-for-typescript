@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Applications } from './Applications';
 import {
     ApplicationsFromJSON,
@@ -200,12 +200,14 @@ export interface FlattenedWorkstreamSummary {
  * Check if a given object implements the FlattenedWorkstreamSummary interface.
  */
 export function instanceOfFlattenedWorkstreamSummary(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('name' in value)) return false;
-    if (!('model' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "model" in value;
+
+    return isInstance;
 }
 
 export function FlattenedWorkstreamSummaryFromJSON(json: any): FlattenedWorkstreamSummary {
@@ -213,52 +215,55 @@ export function FlattenedWorkstreamSummaryFromJSON(json: any): FlattenedWorkstre
 }
 
 export function FlattenedWorkstreamSummaryFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedWorkstreamSummary {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'events': json['events'] == null ? undefined : FlattenedWorkstreamEventsFromJSON(json['events']),
+        'events': !exists(json, 'events') ? undefined : FlattenedWorkstreamEventsFromJSON(json['events']),
         'name': json['name'],
-        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
-        'ranges': json['ranges'] == null ? undefined : FlattenedRangesFromJSON(json['ranges']),
+        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'ranges': !exists(json, 'ranges') ? undefined : FlattenedRangesFromJSON(json['ranges']),
         'model': ModelFromJSON(json['model']),
-        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
-        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
-        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'applications': json['applications'] == null ? undefined : ApplicationsFromJSON(json['applications']),
+        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'applications': !exists(json, 'applications') ? undefined : ApplicationsFromJSON(json['applications']),
     };
 }
 
 export function FlattenedWorkstreamSummaryToJSON(value?: FlattenedWorkstreamSummary | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'score': ScoreToJSON(value['score']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'events': FlattenedWorkstreamEventsToJSON(value['events']),
-        'name': value['name'],
-        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
-        'ranges': FlattenedRangesToJSON(value['ranges']),
-        'model': ModelToJSON(value['model']),
-        'websites': FlattenedWebsitesToJSON(value['websites']),
-        'anchors': FlattenedAnchorsToJSON(value['anchors']),
-        'assets': FlattenedAssetsToJSON(value['assets']),
-        'conversations': FlattenedConversationsToJSON(value['conversations']),
-        'persons': FlattenedPersonsToJSON(value['persons']),
-        'applications': ApplicationsToJSON(value['applications']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'score': ScoreToJSON(value.score),
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'events': FlattenedWorkstreamEventsToJSON(value.events),
+        'name': value.name,
+        'annotations': FlattenedAnnotationsToJSON(value.annotations),
+        'ranges': FlattenedRangesToJSON(value.ranges),
+        'model': ModelToJSON(value.model),
+        'websites': FlattenedWebsitesToJSON(value.websites),
+        'anchors': FlattenedAnchorsToJSON(value.anchors),
+        'assets': FlattenedAssetsToJSON(value.assets),
+        'conversations': FlattenedConversationsToJSON(value.conversations),
+        'persons': FlattenedPersonsToJSON(value.persons),
+        'applications': ApplicationsToJSON(value.applications),
     };
 }
 

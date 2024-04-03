@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -52,8 +52,10 @@ export interface PredeletedExternalProviderApiKey {
  * Check if a given object implements the PredeletedExternalProviderApiKey interface.
  */
 export function instanceOfPredeletedExternalProviderApiKey(value: object): boolean {
-    if (!('user' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
 }
 
 export function PredeletedExternalProviderApiKeyFromJSON(json: any): PredeletedExternalProviderApiKey {
@@ -61,26 +63,29 @@ export function PredeletedExternalProviderApiKeyFromJSON(json: any): PredeletedE
 }
 
 export function PredeletedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): PredeletedExternalProviderApiKey {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
-        'openAI': json['open_AI'] == null ? undefined : json['open_AI'],
+        'openAI': !exists(json, 'open_AI') ? undefined : json['open_AI'],
     };
 }
 
 export function PredeletedExternalProviderApiKeyToJSON(value?: PredeletedExternalProviderApiKey | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'user': value['user'],
-        'open_AI': value['openAI'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'user': value.user,
+        'open_AI': value.openAI,
     };
 }
 

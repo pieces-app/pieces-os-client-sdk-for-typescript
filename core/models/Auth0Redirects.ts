@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * The redirect URI for you Auth 0 Service
  * @export
@@ -37,7 +37,9 @@ export interface Auth0Redirects {
  * Check if a given object implements the Auth0Redirects interface.
  */
 export function instanceOfAuth0Redirects(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function Auth0RedirectsFromJSON(json: any): Auth0Redirects {
@@ -45,24 +47,27 @@ export function Auth0RedirectsFromJSON(json: any): Auth0Redirects {
 }
 
 export function Auth0RedirectsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0Redirects {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'authenticated': json['authenticated'] == null ? undefined : json['authenticated'],
-        'unauthenticated': json['unauthenticated'] == null ? undefined : json['unauthenticated'],
+        'authenticated': !exists(json, 'authenticated') ? undefined : json['authenticated'],
+        'unauthenticated': !exists(json, 'unauthenticated') ? undefined : json['unauthenticated'],
     };
 }
 
 export function Auth0RedirectsToJSON(value?: Auth0Redirects | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'authenticated': value['authenticated'],
-        'unauthenticated': value['unauthenticated'],
+        'authenticated': value.authenticated,
+        'unauthenticated': value.unauthenticated,
     };
 }
 

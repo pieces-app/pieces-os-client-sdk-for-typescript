@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,9 +56,11 @@ export interface SeededDiscoverableRelatedTags {
  * Check if a given object implements the SeededDiscoverableRelatedTags interface.
  */
 export function instanceOfSeededDiscoverableRelatedTags(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    if (!('application' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableRelatedTagsFromJSON(json: any): SeededDiscoverableRelatedTags {
@@ -66,26 +68,29 @@ export function SeededDiscoverableRelatedTagsFromJSON(json: any): SeededDiscover
 }
 
 export function SeededDiscoverableRelatedTagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableRelatedTags {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SeededDiscoverableRelatedTagFromJSON)),
         'application': json['application'],
     };
 }
 
 export function SeededDiscoverableRelatedTagsToJSON(value?: SeededDiscoverableRelatedTags | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(SeededDiscoverableRelatedTagToJSON)),
-        'application': value['application'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(SeededDiscoverableRelatedTagToJSON)),
+        'application': value.application,
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * If an asset was created from a file attachment
  * @export
@@ -43,7 +43,9 @@ export interface TrackedAssetEventCreationMetadataFile {
  * Check if a given object implements the TrackedAssetEventCreationMetadataFile interface.
  */
 export function instanceOfTrackedAssetEventCreationMetadataFile(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventCreationMetadataFileFromJSON(json: any): TrackedAssetEventCreationMetadataFile {
@@ -51,26 +53,29 @@ export function TrackedAssetEventCreationMetadataFileFromJSON(json: any): Tracke
 }
 
 export function TrackedAssetEventCreationMetadataFileFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventCreationMetadataFile {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'keyboard': json['keyboard'] == null ? undefined : json['keyboard'],
-        'dragAndDrop': json['drag_and_drop'] == null ? undefined : json['drag_and_drop'],
-        'interaction': json['interaction'] == null ? undefined : json['interaction'],
+        'keyboard': !exists(json, 'keyboard') ? undefined : json['keyboard'],
+        'dragAndDrop': !exists(json, 'drag_and_drop') ? undefined : json['drag_and_drop'],
+        'interaction': !exists(json, 'interaction') ? undefined : json['interaction'],
     };
 }
 
 export function TrackedAssetEventCreationMetadataFileToJSON(value?: TrackedAssetEventCreationMetadataFile | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'keyboard': value['keyboard'],
-        'drag_and_drop': value['dragAndDrop'],
-        'interaction': value['interaction'],
+        'keyboard': value.keyboard,
+        'drag_and_drop': value.dragAndDrop,
+        'interaction': value.interaction,
     };
 }
 

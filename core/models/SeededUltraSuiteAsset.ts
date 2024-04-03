@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
 import {
     ClassificationSpecificEnumFromJSON,
@@ -76,8 +76,10 @@ export interface SeededUltraSuiteAsset {
  * Check if a given object implements the SeededUltraSuiteAsset interface.
  */
 export function instanceOfSeededUltraSuiteAsset(value: object): boolean {
-    if (!('format' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function SeededUltraSuiteAssetFromJSON(json: any): SeededUltraSuiteAsset {
@@ -85,30 +87,33 @@ export function SeededUltraSuiteAssetFromJSON(json: any): SeededUltraSuiteAsset 
 }
 
 export function SeededUltraSuiteAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededUltraSuiteAsset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': json['name'] == null ? undefined : json['name'],
-        'ext': json['ext'] == null ? undefined : ClassificationSpecificEnumFromJSON(json['ext']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'ext': !exists(json, 'ext') ? undefined : ClassificationSpecificEnumFromJSON(json['ext']),
         'format': SeededFormatFromJSON(json['format']),
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': !exists(json, 'description') ? undefined : json['description'],
     };
 }
 
 export function SeededUltraSuiteAssetToJSON(value?: SeededUltraSuiteAsset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'name': value['name'],
-        'ext': ClassificationSpecificEnumToJSON(value['ext']),
-        'format': SeededFormatToJSON(value['format']),
-        'description': value['description'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'name': value.name,
+        'ext': ClassificationSpecificEnumToJSON(value.ext),
+        'format': SeededFormatToJSON(value.format),
+        'description': value.description,
     };
 }
 

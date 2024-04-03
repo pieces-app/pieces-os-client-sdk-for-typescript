@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface TLPCodeFragmentStatistics {
  * Check if a given object implements the TLPCodeFragmentStatistics interface.
  */
 export function instanceOfTLPCodeFragmentStatistics(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentStatisticsFromJSON(json: any): TLPCodeFragmentStatistics {
@@ -58,24 +60,27 @@ export function TLPCodeFragmentStatisticsFromJSON(json: any): TLPCodeFragmentSta
 }
 
 export function TLPCodeFragmentStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentStatistics {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'descriptive': json['descriptive'] == null ? undefined : TLPCodeFragmentDescriptiveStatisticsFromJSON(json['descriptive']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'descriptive': !exists(json, 'descriptive') ? undefined : TLPCodeFragmentDescriptiveStatisticsFromJSON(json['descriptive']),
     };
 }
 
 export function TLPCodeFragmentStatisticsToJSON(value?: TLPCodeFragmentStatistics | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'descriptive': TLPCodeFragmentDescriptiveStatisticsToJSON(value['descriptive']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'descriptive': TLPCodeFragmentDescriptiveStatisticsToJSON(value.descriptive),
     };
 }
 

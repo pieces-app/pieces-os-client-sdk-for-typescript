@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AccessEnum } from './AccessEnum';
 import {
     AccessEnumFromJSON,
@@ -79,9 +79,11 @@ export interface LinkifyMultiple {
  * Check if a given object implements the LinkifyMultiple interface.
  */
 export function instanceOfLinkifyMultiple(value: object): boolean {
-    if (!('assets' in value)) return false;
-    if (!('access' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "access" in value;
+
+    return isInstance;
 }
 
 export function LinkifyMultipleFromJSON(json: any): LinkifyMultiple {
@@ -89,30 +91,33 @@ export function LinkifyMultipleFromJSON(json: any): LinkifyMultiple {
 }
 
 export function LinkifyMultipleFromJSONTyped(json: any, ignoreDiscriminator: boolean): LinkifyMultiple {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'assets': json['assets'],
-        'users': json['users'] == null ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
+        'users': !exists(json, 'users') ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
         'access': AccessEnumFromJSON(json['access']),
-        'name': json['name'] == null ? undefined : json['name'],
+        'name': !exists(json, 'name') ? undefined : json['name'],
     };
 }
 
 export function LinkifyMultipleToJSON(value?: LinkifyMultiple | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'assets': value['assets'],
-        'users': value['users'] == null ? undefined : ((value['users'] as Array<any>).map(SeededUserToJSON)),
-        'access': AccessEnumToJSON(value['access']),
-        'name': value['name'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'assets': value.assets,
+        'users': value.users === undefined ? undefined : ((value.users as Array<any>).map(SeededUserToJSON)),
+        'access': AccessEnumToJSON(value.access),
+        'name': value.name,
     };
 }
 

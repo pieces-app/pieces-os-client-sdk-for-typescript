@@ -61,11 +61,8 @@ export class ConversationsApi extends runtime.BaseAPI {
      * /conversations/create/from_asset/{asset} [POST]
      */
     async conversationsCreateFromAssetRaw(requestParameters: ConversationsCreateFromAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationsCreateFromAssetOutput>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling conversationsCreateFromAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling conversationsCreateFromAsset.');
         }
 
         const queryParameters: any = {};
@@ -73,7 +70,7 @@ export class ConversationsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversations/create/from_asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/conversations/create/from_asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -98,8 +95,8 @@ export class ConversationsApi extends runtime.BaseAPI {
     async conversationsCreateSpecificConversationRaw(requestParameters: ConversationsCreateSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -111,7 +108,7 @@ export class ConversationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededConversationToJSON(requestParameters['seededConversation']),
+            body: SeededConversationToJSON(requestParameters.seededConversation),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationFromJSON(jsonValue));
@@ -131,11 +128,8 @@ export class ConversationsApi extends runtime.BaseAPI {
      * /conversations/{conversation}/delete [POST]
      */
     async conversationsDeleteSpecificConversationRaw(requestParameters: ConversationsDeleteSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['conversation'] == null) {
-            throw new runtime.RequiredError(
-                'conversation',
-                'Required parameter "conversation" was null or undefined when calling conversationsDeleteSpecificConversation().'
-            );
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling conversationsDeleteSpecificConversation.');
         }
 
         const queryParameters: any = {};
@@ -143,7 +137,7 @@ export class ConversationsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversations/{conversation}/delete`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            path: `/conversations/{conversation}/delete`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -195,8 +189,8 @@ export class ConversationsApi extends runtime.BaseAPI {
     async conversationsSnapshotRaw(requestParameters: ConversationsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversations>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

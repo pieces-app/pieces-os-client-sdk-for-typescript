@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -69,8 +69,10 @@ export interface QGPTRelevanceOutput {
  * Check if a given object implements the QGPTRelevanceOutput interface.
  */
 export function instanceOfQGPTRelevanceOutput(value: object): boolean {
-    if (!('relevant' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "relevant" in value;
+
+    return isInstance;
 }
 
 export function QGPTRelevanceOutputFromJSON(json: any): QGPTRelevanceOutput {
@@ -78,26 +80,29 @@ export function QGPTRelevanceOutputFromJSON(json: any): QGPTRelevanceOutput {
 }
 
 export function QGPTRelevanceOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTRelevanceOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'answer': json['answer'] == null ? undefined : QGPTQuestionOutputFromJSON(json['answer']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'answer': !exists(json, 'answer') ? undefined : QGPTQuestionOutputFromJSON(json['answer']),
         'relevant': RelevantQGPTSeedsFromJSON(json['relevant']),
     };
 }
 
 export function QGPTRelevanceOutputToJSON(value?: QGPTRelevanceOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'answer': QGPTQuestionOutputToJSON(value['answer']),
-        'relevant': RelevantQGPTSeedsToJSON(value['relevant']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'answer': QGPTQuestionOutputToJSON(value.answer),
+        'relevant': RelevantQGPTSeedsToJSON(value.relevant),
     };
 }
 

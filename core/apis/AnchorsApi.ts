@@ -56,18 +56,12 @@ export class AnchorsApi extends runtime.BaseAPI {
      * /anchors/{anchor}/assets/delete/{asset} [POST]
      */
     async anchorDisassociateAssetRaw(requestParameters: AnchorDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['anchor'] == null) {
-            throw new runtime.RequiredError(
-                'anchor',
-                'Required parameter "anchor" was null or undefined when calling anchorDisassociateAsset().'
-            );
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateAsset.');
         }
 
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling anchorDisassociateAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling anchorDisassociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -75,7 +69,7 @@ export class AnchorsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/anchors/{anchor}/assets/delete/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/anchors/{anchor}/assets/delete/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -99,8 +93,8 @@ export class AnchorsApi extends runtime.BaseAPI {
     async anchorsCreateNewAnchorRaw(requestParameters: AnchorsCreateNewAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Anchor>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -112,7 +106,7 @@ export class AnchorsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAnchorToJSON(requestParameters['seededAnchor']),
+            body: SeededAnchorToJSON(requestParameters.seededAnchor),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnchorFromJSON(jsonValue));
@@ -132,11 +126,8 @@ export class AnchorsApi extends runtime.BaseAPI {
      * /anchors/{anchor}/delete [POST]
      */
     async anchorsDeleteSpecificAnchorRaw(requestParameters: AnchorsDeleteSpecificAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['anchor'] == null) {
-            throw new runtime.RequiredError(
-                'anchor',
-                'Required parameter "anchor" was null or undefined when calling anchorsDeleteSpecificAnchor().'
-            );
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorsDeleteSpecificAnchor.');
         }
 
         const queryParameters: any = {};
@@ -144,7 +135,7 @@ export class AnchorsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/anchors/{anchor}/delete`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            path: `/anchors/{anchor}/delete`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -168,8 +159,8 @@ export class AnchorsApi extends runtime.BaseAPI {
     async anchorsSnapshotRaw(requestParameters: AnchorsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Anchors>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

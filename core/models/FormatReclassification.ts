@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
 import {
     ClassificationSpecificEnumFromJSON,
@@ -62,9 +62,11 @@ export interface FormatReclassification {
  * Check if a given object implements the FormatReclassification interface.
  */
 export function instanceOfFormatReclassification(value: object): boolean {
-    if (!('ext' in value)) return false;
-    if (!('format' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "ext" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function FormatReclassificationFromJSON(json: any): FormatReclassification {
@@ -72,26 +74,29 @@ export function FormatReclassificationFromJSON(json: any): FormatReclassificatio
 }
 
 export function FormatReclassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): FormatReclassification {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'ext': ClassificationSpecificEnumFromJSON(json['ext']),
         'format': FormatFromJSON(json['format']),
     };
 }
 
 export function FormatReclassificationToJSON(value?: FormatReclassification | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'ext': ClassificationSpecificEnumToJSON(value['ext']),
-        'format': FormatToJSON(value['format']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'ext': ClassificationSpecificEnumToJSON(value.ext),
+        'format': FormatToJSON(value.format),
     };
 }
 

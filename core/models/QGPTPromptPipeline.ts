@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -69,7 +69,9 @@ export interface QGPTPromptPipeline {
  * Check if a given object implements the QGPTPromptPipeline interface.
  */
 export function instanceOfQGPTPromptPipeline(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTPromptPipelineFromJSON(json: any): QGPTPromptPipeline {
@@ -77,26 +79,29 @@ export function QGPTPromptPipelineFromJSON(json: any): QGPTPromptPipeline {
 }
 
 export function QGPTPromptPipelineFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTPromptPipeline {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'task': json['task'] == null ? undefined : QGPTTaskPipelineFromJSON(json['task']),
-        'conversation': json['conversation'] == null ? undefined : QGPTConversationPipelineFromJSON(json['conversation']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'task': !exists(json, 'task') ? undefined : QGPTTaskPipelineFromJSON(json['task']),
+        'conversation': !exists(json, 'conversation') ? undefined : QGPTConversationPipelineFromJSON(json['conversation']),
     };
 }
 
 export function QGPTPromptPipelineToJSON(value?: QGPTPromptPipeline | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'task': QGPTTaskPipelineToJSON(value['task']),
-        'conversation': QGPTConversationPipelineToJSON(value['conversation']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'task': QGPTTaskPipelineToJSON(value.task),
+        'conversation': QGPTConversationPipelineToJSON(value.conversation),
     };
 }
 

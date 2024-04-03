@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,8 +44,10 @@ export interface OrderedMetrics {
  * Check if a given object implements the OrderedMetrics interface.
  */
 export function instanceOfOrderedMetrics(value: object): boolean {
-    if (!('ordered' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "ordered" in value;
+
+    return isInstance;
 }
 
 export function OrderedMetricsFromJSON(json: any): OrderedMetrics {
@@ -53,24 +55,27 @@ export function OrderedMetricsFromJSON(json: any): OrderedMetrics {
 }
 
 export function OrderedMetricsFromJSONTyped(json: any, ignoreDiscriminator: boolean): OrderedMetrics {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'ordered': json['ordered'],
     };
 }
 
 export function OrderedMetricsToJSON(value?: OrderedMetrics | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'ordered': value['ordered'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'ordered': value.ordered,
     };
 }
 

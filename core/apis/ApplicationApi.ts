@@ -47,7 +47,7 @@ export class ApplicationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ApplicationToJSON(requestParameters['application']),
+            body: ApplicationToJSON(requestParameters.application),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationFromJSON(jsonValue));

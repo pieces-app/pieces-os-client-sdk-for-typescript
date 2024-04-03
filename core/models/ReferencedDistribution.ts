@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,8 +56,10 @@ export interface ReferencedDistribution {
  * Check if a given object implements the ReferencedDistribution interface.
  */
 export function instanceOfReferencedDistribution(value: object): boolean {
-    if (!('id' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedDistributionFromJSON(json: any): ReferencedDistribution {
@@ -65,26 +67,29 @@ export function ReferencedDistributionFromJSON(json: any): ReferencedDistributio
 }
 
 export function ReferencedDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedDistribution {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': json['reference'] == null ? undefined : FlattenedDistributionFromJSON(json['reference']),
+        'reference': !exists(json, 'reference') ? undefined : FlattenedDistributionFromJSON(json['reference']),
     };
 }
 
 export function ReferencedDistributionToJSON(value?: ReferencedDistribution | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'reference': FlattenedDistributionToJSON(value['reference']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'reference': FlattenedDistributionToJSON(value.reference),
     };
 }
 

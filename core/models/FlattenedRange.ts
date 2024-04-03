@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -116,10 +116,12 @@ export interface FlattenedRange {
  * Check if a given object implements the FlattenedRange interface.
  */
 export function instanceOfFlattenedRange(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
 }
 
 export function FlattenedRangeFromJSON(json: any): FlattenedRange {
@@ -127,40 +129,43 @@ export function FlattenedRangeFromJSON(json: any): FlattenedRange {
 }
 
 export function FlattenedRangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedRange {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'to': json['to'] == null ? undefined : GroupedTimestampFromJSON(json['to']),
-        'from': json['from'] == null ? undefined : GroupedTimestampFromJSON(json['from']),
-        'between': json['between'] == null ? undefined : json['between'],
-        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
-        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'to': !exists(json, 'to') ? undefined : GroupedTimestampFromJSON(json['to']),
+        'from': !exists(json, 'from') ? undefined : GroupedTimestampFromJSON(json['from']),
+        'between': !exists(json, 'between') ? undefined : json['between'],
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
     };
 }
 
 export function FlattenedRangeToJSON(value?: FlattenedRange | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'score': ScoreToJSON(value['score']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'to': GroupedTimestampToJSON(value['to']),
-        'from': GroupedTimestampToJSON(value['from']),
-        'between': value['between'],
-        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
-        'conversations': FlattenedConversationsToJSON(value['conversations']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'score': ScoreToJSON(value.score),
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'to': GroupedTimestampToJSON(value.to),
+        'from': GroupedTimestampToJSON(value.from),
+        'between': value.between,
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
+        'conversations': FlattenedConversationsToJSON(value.conversations),
     };
 }
 

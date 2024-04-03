@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -104,9 +104,11 @@ export interface SeededWorkstreamEvent {
  * Check if a given object implements the SeededWorkstreamEvent interface.
  */
 export function instanceOfSeededWorkstreamEvent(value: object): boolean {
-    if (!('application' in value)) return false;
-    if (!('trigger' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "trigger" in value;
+
+    return isInstance;
 }
 
 export function SeededWorkstreamEventFromJSON(json: any): SeededWorkstreamEvent {
@@ -114,34 +116,37 @@ export function SeededWorkstreamEventFromJSON(json: any): SeededWorkstreamEvent 
 }
 
 export function SeededWorkstreamEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededWorkstreamEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'application': ApplicationFromJSON(json['application']),
         'trigger': WorkstreamEventTriggerFromJSON(json['trigger']),
-        'metadata': json['metadata'] == null ? undefined : WorkstreamEventTriggerMetadataFromJSON(json['metadata']),
-        'summary': json['summary'] == null ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
-        'internalIdentifier': json['internal_identifier'] == null ? undefined : json['internal_identifier'],
+        'metadata': !exists(json, 'metadata') ? undefined : WorkstreamEventTriggerMetadataFromJSON(json['metadata']),
+        'summary': !exists(json, 'summary') ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
+        'internalIdentifier': !exists(json, 'internal_identifier') ? undefined : json['internal_identifier'],
     };
 }
 
 export function SeededWorkstreamEventToJSON(value?: SeededWorkstreamEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'score': ScoreToJSON(value['score']),
-        'application': ApplicationToJSON(value['application']),
-        'trigger': WorkstreamEventTriggerToJSON(value['trigger']),
-        'metadata': WorkstreamEventTriggerMetadataToJSON(value['metadata']),
-        'summary': ReferencedWorkstreamSummaryToJSON(value['summary']),
-        'internal_identifier': value['internalIdentifier'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'score': ScoreToJSON(value.score),
+        'application': ApplicationToJSON(value.application),
+        'trigger': WorkstreamEventTriggerToJSON(value.trigger),
+        'metadata': WorkstreamEventTriggerMetadataToJSON(value.metadata),
+        'summary': ReferencedWorkstreamSummaryToJSON(value.summary),
+        'internal_identifier': value.internalIdentifier,
     };
 }
 

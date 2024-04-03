@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,8 +44,10 @@ export interface SeededUser {
  * Check if a given object implements the SeededUser interface.
  */
 export function instanceOfSeededUser(value: object): boolean {
-    if (!('emails' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "emails" in value;
+
+    return isInstance;
 }
 
 export function SeededUserFromJSON(json: any): SeededUser {
@@ -53,24 +55,27 @@ export function SeededUserFromJSON(json: any): SeededUser {
 }
 
 export function SeededUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededUser {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'emails': json['emails'],
     };
 }
 
 export function SeededUserToJSON(value?: SeededUser | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'emails': value['emails'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'emails': value.emails,
     };
 }
 

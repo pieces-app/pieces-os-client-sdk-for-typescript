@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface GraphicalImageStatistics {
  * Check if a given object implements the GraphicalImageStatistics interface.
  */
 export function instanceOfGraphicalImageStatistics(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalImageStatisticsFromJSON(json: any): GraphicalImageStatistics {
@@ -58,24 +60,27 @@ export function GraphicalImageStatisticsFromJSON(json: any): GraphicalImageStati
 }
 
 export function GraphicalImageStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalImageStatistics {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'descriptive': json['descriptive'] == null ? undefined : GraphicalImageDescriptiveStatisticsFromJSON(json['descriptive']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'descriptive': !exists(json, 'descriptive') ? undefined : GraphicalImageDescriptiveStatisticsFromJSON(json['descriptive']),
     };
 }
 
 export function GraphicalImageStatisticsToJSON(value?: GraphicalImageStatistics | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'descriptive': GraphicalImageDescriptiveStatisticsToJSON(value['descriptive']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'descriptive': GraphicalImageDescriptiveStatisticsToJSON(value.descriptive),
     };
 }
 

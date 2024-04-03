@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -51,8 +51,10 @@ export interface TrackedInteractionEvent {
  * Check if a given object implements the TrackedInteractionEvent interface.
  */
 export function instanceOfTrackedInteractionEvent(value: object): boolean {
-    if (!('description' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+
+    return isInstance;
 }
 
 export function TrackedInteractionEventFromJSON(json: any): TrackedInteractionEvent {
@@ -60,26 +62,29 @@ export function TrackedInteractionEventFromJSON(json: any): TrackedInteractionEv
 }
 
 export function TrackedInteractionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedInteractionEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'description': json['description'],
-        'element': json['element'] == null ? undefined : json['element'],
+        'element': !exists(json, 'element') ? undefined : json['element'],
     };
 }
 
 export function TrackedInteractionEventToJSON(value?: TrackedInteractionEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'description': value['description'],
-        'element': value['element'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'description': value.description,
+        'element': value.element,
     };
 }
 

@@ -67,11 +67,8 @@ export class FormatApi extends runtime.BaseAPI {
      * /format/{format}/analysis [GET]
      */
     async formatAnalysisRaw(requestParameters: FormatAnalysisRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Analysis>> {
-        if (requestParameters['format'] == null) {
-            throw new runtime.RequiredError(
-                'format',
-                'Required parameter "format" was null or undefined when calling formatAnalysis().'
-            );
+        if (requestParameters.format === null || requestParameters.format === undefined) {
+            throw new runtime.RequiredError('format','Required parameter requestParameters.format was null or undefined when calling formatAnalysis.');
         }
 
         const queryParameters: any = {};
@@ -79,7 +76,7 @@ export class FormatApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/format/{format}/analysis`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters['format']))),
+            path: `/format/{format}/analysis`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters.format))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -104,8 +101,8 @@ export class FormatApi extends runtime.BaseAPI {
     async formatReclassifyRaw(requestParameters: FormatReclassifyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferable'] != null) {
-            queryParameters['transferable'] = requestParameters['transferable'];
+        if (requestParameters.transferable !== undefined) {
+            queryParameters['transferable'] = requestParameters.transferable;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -117,7 +114,7 @@ export class FormatApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: FormatReclassificationToJSON(requestParameters['formatReclassification']),
+            body: FormatReclassificationToJSON(requestParameters.formatReclassification),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FormatFromJSON(jsonValue));
@@ -137,23 +134,20 @@ export class FormatApi extends runtime.BaseAPI {
      * /format/{format} [GET] Scoped to Format
      */
     async formatSnapshotRaw(requestParameters: FormatSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
-        if (requestParameters['format'] == null) {
-            throw new runtime.RequiredError(
-                'format',
-                'Required parameter "format" was null or undefined when calling formatSnapshot().'
-            );
+        if (requestParameters.format === null || requestParameters.format === undefined) {
+            throw new runtime.RequiredError('format','Required parameter requestParameters.format was null or undefined when calling formatSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferable'] != null) {
-            queryParameters['transferable'] = requestParameters['transferable'];
+        if (requestParameters.transferable !== undefined) {
+            queryParameters['transferable'] = requestParameters.transferable;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/format/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters['format']))),
+            path: `/format/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters.format))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -178,8 +172,8 @@ export class FormatApi extends runtime.BaseAPI {
     async formatUpdateValueRaw(requestParameters: FormatUpdateValueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferable'] != null) {
-            queryParameters['transferable'] = requestParameters['transferable'];
+        if (requestParameters.transferable !== undefined) {
+            queryParameters['transferable'] = requestParameters.transferable;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -191,7 +185,7 @@ export class FormatApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: FormatToJSON(requestParameters['format']),
+            body: FormatToJSON(requestParameters.format),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FormatFromJSON(jsonValue));
@@ -222,7 +216,7 @@ export class FormatApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededTrackedFormatEventToJSON(requestParameters['seededTrackedFormatEvent']),
+            body: SeededTrackedFormatEventToJSON(requestParameters.seededTrackedFormatEvent),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TrackedFormatEventFromJSON(jsonValue));

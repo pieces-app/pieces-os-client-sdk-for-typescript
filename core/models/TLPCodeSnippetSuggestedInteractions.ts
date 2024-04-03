@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,7 +62,9 @@ export interface TLPCodeSnippetSuggestedInteractions {
  * Check if a given object implements the TLPCodeSnippetSuggestedInteractions interface.
  */
 export function instanceOfTLPCodeSnippetSuggestedInteractions(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeSnippetSuggestedInteractionsFromJSON(json: any): TLPCodeSnippetSuggestedInteractions {
@@ -70,26 +72,29 @@ export function TLPCodeSnippetSuggestedInteractionsFromJSON(json: any): TLPCodeS
 }
 
 export function TLPCodeSnippetSuggestedInteractionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeSnippetSuggestedInteractions {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'save': json['save'] == null ? undefined : TLPCodeFragmentSuggestedSaveFromJSON(json['save']),
-        'reuse': json['reuse'] == null ? undefined : TLPCodeFragmentSuggestedReuseFromJSON(json['reuse']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'save': !exists(json, 'save') ? undefined : TLPCodeFragmentSuggestedSaveFromJSON(json['save']),
+        'reuse': !exists(json, 'reuse') ? undefined : TLPCodeFragmentSuggestedReuseFromJSON(json['reuse']),
     };
 }
 
 export function TLPCodeSnippetSuggestedInteractionsToJSON(value?: TLPCodeSnippetSuggestedInteractions | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'save': TLPCodeFragmentSuggestedSaveToJSON(value['save']),
-        'reuse': TLPCodeFragmentSuggestedReuseToJSON(value['reuse']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'save': TLPCodeFragmentSuggestedSaveToJSON(value.save),
+        'reuse': TLPCodeFragmentSuggestedReuseToJSON(value.reuse),
     };
 }
 

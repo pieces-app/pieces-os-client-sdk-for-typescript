@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ReferencedAnchor } from './ReferencedAnchor';
 import {
     ReferencedAnchorFromJSON,
@@ -170,7 +170,9 @@ export interface TrackedAssetEventMetadata {
  * Check if a given object implements the TrackedAssetEventMetadata interface.
  */
 export function instanceOfTrackedAssetEventMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventMetadataFromJSON(json: any): TrackedAssetEventMetadata {
@@ -178,44 +180,47 @@ export function TrackedAssetEventMetadataFromJSON(json: any): TrackedAssetEventM
 }
 
 export function TrackedAssetEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'reclassification': json['reclassification'] == null ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
-        'creation': json['creation'] == null ? undefined : TrackedAssetEventCreationMetadataFromJSON(json['creation']),
-        'rename': json['rename'] == null ? undefined : TrackedAssetEventRenameMetadataFromJSON(json['rename']),
-        'tag': json['tag'] == null ? undefined : ReferencedTagFromJSON(json['tag']),
-        'website': json['website'] == null ? undefined : ReferencedWebsiteFromJSON(json['website']),
-        'person': json['person'] == null ? undefined : ReferencedPersonFromJSON(json['person']),
-        'sensitive': json['sensitive'] == null ? undefined : ReferencedSensitiveFromJSON(json['sensitive']),
-        'share': json['share'] == null ? undefined : ReferencedShareFromJSON(json['share']),
-        'search': json['search'] == null ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
-        'annotation': json['annotation'] == null ? undefined : ReferencedAnnotationFromJSON(json['annotation']),
-        'hint': json['hint'] == null ? undefined : ReferencedHintFromJSON(json['hint']),
-        'anchor': json['anchor'] == null ? undefined : ReferencedAnchorFromJSON(json['anchor']),
+        'reclassification': !exists(json, 'reclassification') ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
+        'creation': !exists(json, 'creation') ? undefined : TrackedAssetEventCreationMetadataFromJSON(json['creation']),
+        'rename': !exists(json, 'rename') ? undefined : TrackedAssetEventRenameMetadataFromJSON(json['rename']),
+        'tag': !exists(json, 'tag') ? undefined : ReferencedTagFromJSON(json['tag']),
+        'website': !exists(json, 'website') ? undefined : ReferencedWebsiteFromJSON(json['website']),
+        'person': !exists(json, 'person') ? undefined : ReferencedPersonFromJSON(json['person']),
+        'sensitive': !exists(json, 'sensitive') ? undefined : ReferencedSensitiveFromJSON(json['sensitive']),
+        'share': !exists(json, 'share') ? undefined : ReferencedShareFromJSON(json['share']),
+        'search': !exists(json, 'search') ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
+        'annotation': !exists(json, 'annotation') ? undefined : ReferencedAnnotationFromJSON(json['annotation']),
+        'hint': !exists(json, 'hint') ? undefined : ReferencedHintFromJSON(json['hint']),
+        'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
     };
 }
 
 export function TrackedAssetEventMetadataToJSON(value?: TrackedAssetEventMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value['reclassification']),
-        'creation': TrackedAssetEventCreationMetadataToJSON(value['creation']),
-        'rename': TrackedAssetEventRenameMetadataToJSON(value['rename']),
-        'tag': ReferencedTagToJSON(value['tag']),
-        'website': ReferencedWebsiteToJSON(value['website']),
-        'person': ReferencedPersonToJSON(value['person']),
-        'sensitive': ReferencedSensitiveToJSON(value['sensitive']),
-        'share': ReferencedShareToJSON(value['share']),
-        'search': TrackedAssetsEventSearchMetadataToJSON(value['search']),
-        'annotation': ReferencedAnnotationToJSON(value['annotation']),
-        'hint': ReferencedHintToJSON(value['hint']),
-        'anchor': ReferencedAnchorToJSON(value['anchor']),
+        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value.reclassification),
+        'creation': TrackedAssetEventCreationMetadataToJSON(value.creation),
+        'rename': TrackedAssetEventRenameMetadataToJSON(value.rename),
+        'tag': ReferencedTagToJSON(value.tag),
+        'website': ReferencedWebsiteToJSON(value.website),
+        'person': ReferencedPersonToJSON(value.person),
+        'sensitive': ReferencedSensitiveToJSON(value.sensitive),
+        'share': ReferencedShareToJSON(value.share),
+        'search': TrackedAssetsEventSearchMetadataToJSON(value.search),
+        'annotation': ReferencedAnnotationToJSON(value.annotation),
+        'hint': ReferencedHintToJSON(value.hint),
+        'anchor': ReferencedAnchorToJSON(value.anchor),
     };
 }
 

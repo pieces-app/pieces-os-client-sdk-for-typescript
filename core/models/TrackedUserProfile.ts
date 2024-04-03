@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -74,10 +74,12 @@ export type TrackedUserProfileGranularityEnum = typeof TrackedUserProfileGranula
  * Check if a given object implements the TrackedUserProfile interface.
  */
 export function instanceOfTrackedUserProfile(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('username' in value)) return false;
-    if (!('granularity' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "username" in value;
+    isInstance = isInstance && "granularity" in value;
+
+    return isInstance;
 }
 
 export function TrackedUserProfileFromJSON(json: any): TrackedUserProfile {
@@ -85,30 +87,33 @@ export function TrackedUserProfileFromJSON(json: any): TrackedUserProfile {
 }
 
 export function TrackedUserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedUserProfile {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'username': json['username'],
-        'email': json['email'] == null ? undefined : json['email'],
+        'email': !exists(json, 'email') ? undefined : json['email'],
         'granularity': json['granularity'],
     };
 }
 
 export function TrackedUserProfileToJSON(value?: TrackedUserProfile | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'username': value['username'],
-        'email': value['email'],
-        'granularity': value['granularity'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'username': value.username,
+        'email': value.email,
+        'granularity': value.granularity,
     };
 }
 

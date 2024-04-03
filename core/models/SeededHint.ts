@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -80,9 +80,11 @@ export interface SeededHint {
  * Check if a given object implements the SeededHint interface.
  */
 export function instanceOfSeededHint(value: object): boolean {
-    if (!('type' in value)) return false;
-    if (!('text' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function SeededHintFromJSON(json: any): SeededHint {
@@ -90,32 +92,35 @@ export function SeededHintFromJSON(json: any): SeededHint {
 }
 
 export function SeededHintFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededHint {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'asset': json['asset'] == null ? undefined : json['asset'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'asset': !exists(json, 'asset') ? undefined : json['asset'],
         'type': HintTypeEnumFromJSON(json['type']),
         'text': json['text'],
-        'model': json['model'] == null ? undefined : json['model'],
+        'model': !exists(json, 'model') ? undefined : json['model'],
     };
 }
 
 export function SeededHintToJSON(value?: SeededHint | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'asset': value['asset'],
-        'type': HintTypeEnumToJSON(value['type']),
-        'text': value['text'],
-        'model': value['model'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'asset': value.asset,
+        'type': HintTypeEnumToJSON(value.type),
+        'text': value.text,
+        'model': value.model,
     };
 }
 

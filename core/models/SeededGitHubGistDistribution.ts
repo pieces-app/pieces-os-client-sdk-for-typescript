@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -68,8 +68,10 @@ export interface SeededGitHubGistDistribution {
  * Check if a given object implements the SeededGitHubGistDistribution interface.
  */
 export function instanceOfSeededGitHubGistDistribution(value: object): boolean {
-    if (!('name' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
 }
 
 export function SeededGitHubGistDistributionFromJSON(json: any): SeededGitHubGistDistribution {
@@ -77,30 +79,33 @@ export function SeededGitHubGistDistributionFromJSON(json: any): SeededGitHubGis
 }
 
 export function SeededGitHubGistDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededGitHubGistDistribution {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'recipients': json['recipients'] == null ? undefined : RecipientsFromJSON(json['recipients']),
-        '_public': json['public'] == null ? undefined : json['public'],
-        'description': json['description'] == null ? undefined : json['description'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'recipients': !exists(json, 'recipients') ? undefined : RecipientsFromJSON(json['recipients']),
+        '_public': !exists(json, 'public') ? undefined : json['public'],
+        'description': !exists(json, 'description') ? undefined : json['description'],
         'name': json['name'],
     };
 }
 
 export function SeededGitHubGistDistributionToJSON(value?: SeededGitHubGistDistribution | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'recipients': RecipientsToJSON(value['recipients']),
-        'public': value['_public'],
-        'description': value['description'],
-        'name': value['name'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'recipients': RecipientsToJSON(value.recipients),
+        'public': value._public,
+        'description': value.description,
+        'name': value.name,
     };
 }
 

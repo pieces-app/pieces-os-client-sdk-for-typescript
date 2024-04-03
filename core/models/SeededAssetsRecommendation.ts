@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Assets } from './Assets';
 import {
     AssetsFromJSON,
@@ -62,9 +62,11 @@ export interface SeededAssetsRecommendation {
  * Check if a given object implements the SeededAssetsRecommendation interface.
  */
 export function instanceOfSeededAssetsRecommendation(value: object): boolean {
-    if (!('assets' in value)) return false;
-    if (!('interactions' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "interactions" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetsRecommendationFromJSON(json: any): SeededAssetsRecommendation {
@@ -72,26 +74,29 @@ export function SeededAssetsRecommendationFromJSON(json: any): SeededAssetsRecom
 }
 
 export function SeededAssetsRecommendationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetsRecommendation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'assets': AssetsFromJSON(json['assets']),
         'interactions': InteractedAssetsFromJSON(json['interactions']),
     };
 }
 
 export function SeededAssetsRecommendationToJSON(value?: SeededAssetsRecommendation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'assets': AssetsToJSON(value['assets']),
-        'interactions': InteractedAssetsToJSON(value['interactions']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'assets': AssetsToJSON(value.assets),
+        'interactions': InteractedAssetsToJSON(value.interactions),
     };
 }
 

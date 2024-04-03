@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { SeededAssetTag } from './SeededAssetTag';
 import {
     SeededAssetTagFromJSON,
@@ -38,8 +38,10 @@ export interface SeededAssetTags {
  * Check if a given object implements the SeededAssetTags interface.
  */
 export function instanceOfSeededAssetTags(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetTagsFromJSON(json: any): SeededAssetTags {
@@ -47,7 +49,7 @@ export function SeededAssetTagsFromJSON(json: any): SeededAssetTags {
 }
 
 export function SeededAssetTagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetTags {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -57,12 +59,15 @@ export function SeededAssetTagsFromJSONTyped(json: any, ignoreDiscriminator: boo
 }
 
 export function SeededAssetTagsToJSON(value?: SeededAssetTags | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'iterable': ((value['iterable'] as Array<any>).map(SeededAssetTagToJSON)),
+        'iterable': ((value.iterable as Array<any>).map(SeededAssetTagToJSON)),
     };
 }
 

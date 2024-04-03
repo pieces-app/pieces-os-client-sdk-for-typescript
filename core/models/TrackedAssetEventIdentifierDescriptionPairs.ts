@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -544,7 +544,9 @@ export type TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum = 
  * Check if a given object implements the TrackedAssetEventIdentifierDescriptionPairs interface.
  */
 export function instanceOfTrackedAssetEventIdentifierDescriptionPairs(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventIdentifierDescriptionPairsFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairs {
@@ -552,94 +554,97 @@ export function TrackedAssetEventIdentifierDescriptionPairsFromJSON(json: any): 
 }
 
 export function TrackedAssetEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairs {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'assetCreated': json['asset_created'] == null ? undefined : json['asset_created'],
-        'assetViewed': json['asset_viewed'] == null ? undefined : json['asset_viewed'],
-        'assetFormatCopied': json['asset_format_copied'] == null ? undefined : json['asset_format_copied'],
-        'assetFormatDownloaded': json['asset_format_downloaded'] == null ? undefined : json['asset_format_downloaded'],
-        'assetDeleted': json['asset_deleted'] == null ? undefined : json['asset_deleted'],
-        'assetDescriptionUpdated': json['asset_description_updated'] == null ? undefined : json['asset_description_updated'],
-        'assetNameUpdated': json['asset_name_updated'] == null ? undefined : json['asset_name_updated'],
-        'assetFormatGenericClassificationUpdated': json['asset_format_generic_classification_updated'] == null ? undefined : json['asset_format_generic_classification_updated'],
-        'assetFormatSpecificClassificationUpdated': json['asset_format_specific_classification_updated'] == null ? undefined : json['asset_format_specific_classification_updated'],
-        'assetCreationFailed': json['asset_creation_failed'] == null ? undefined : json['asset_creation_failed'],
-        'assetTagAdded': json['asset_tag_added'] == null ? undefined : json['asset_tag_added'],
-        'assetLinkAdded': json['asset_link_added'] == null ? undefined : json['asset_link_added'],
-        'assetLinkGenerated': json['asset_link_generated'] == null ? undefined : json['asset_link_generated'],
-        'assetLinkDeleted': json['asset_link_deleted'] == null ? undefined : json['asset_link_deleted'],
-        'assetTagDeleted': json['asset_tag_deleted'] == null ? undefined : json['asset_tag_deleted'],
-        'assetUpdated': json['asset_updated'] == null ? undefined : json['asset_updated'],
-        'assetFormatValueEdited': json['asset_format_value_edited'] == null ? undefined : json['asset_format_value_edited'],
-        'assetFormatUpdated': json['asset_format_updated'] == null ? undefined : json['asset_format_updated'],
-        'assetLinkRevoked': json['asset_link_revoked'] == null ? undefined : json['asset_link_revoked'],
-        'assetPersonAdded': json['asset_person_added'] == null ? undefined : json['asset_person_added'],
-        'assetPersonDeleted': json['asset_person_deleted'] == null ? undefined : json['asset_person_deleted'],
-        'assetSensitiveAdded': json['asset_sensitive_added'] == null ? undefined : json['asset_sensitive_added'],
-        'assetSensitiveDeleted': json['asset_sensitive_deleted'] == null ? undefined : json['asset_sensitive_deleted'],
-        'suggestedAssetReferenced': json['suggested_asset_referenced'] == null ? undefined : json['suggested_asset_referenced'],
-        'searchedAssetReferenced': json['searched_asset_referenced'] == null ? undefined : json['searched_asset_referenced'],
-        'assetReferenced': json['asset_referenced'] == null ? undefined : json['asset_referenced'],
-        'activityAssetReferenced': json['activity_asset_referenced'] == null ? undefined : json['activity_asset_referenced'],
-        'assetAnnotationAdded': json['asset_annotation_added'] == null ? undefined : json['asset_annotation_added'],
-        'assetAnnotationDeleted': json['asset_annotation_deleted'] == null ? undefined : json['asset_annotation_deleted'],
-        'assetAnnotationUpdated': json['asset_annotation_updated'] == null ? undefined : json['asset_annotation_updated'],
-        'assetHintAdded': json['asset_hint_added'] == null ? undefined : json['asset_hint_added'],
-        'assetHintDeleted': json['asset_hint_deleted'] == null ? undefined : json['asset_hint_deleted'],
-        'assetHintUpdated': json['asset_hint_updated'] == null ? undefined : json['asset_hint_updated'],
-        'assetAnchorAdded': json['asset_anchor_added'] == null ? undefined : json['asset_anchor_added'],
-        'assetAnchorDeleted': json['asset_anchor_deleted'] == null ? undefined : json['asset_anchor_deleted'],
-        'assetAnchorUpdated': json['asset_anchor_updated'] == null ? undefined : json['asset_anchor_updated'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'assetCreated': !exists(json, 'asset_created') ? undefined : json['asset_created'],
+        'assetViewed': !exists(json, 'asset_viewed') ? undefined : json['asset_viewed'],
+        'assetFormatCopied': !exists(json, 'asset_format_copied') ? undefined : json['asset_format_copied'],
+        'assetFormatDownloaded': !exists(json, 'asset_format_downloaded') ? undefined : json['asset_format_downloaded'],
+        'assetDeleted': !exists(json, 'asset_deleted') ? undefined : json['asset_deleted'],
+        'assetDescriptionUpdated': !exists(json, 'asset_description_updated') ? undefined : json['asset_description_updated'],
+        'assetNameUpdated': !exists(json, 'asset_name_updated') ? undefined : json['asset_name_updated'],
+        'assetFormatGenericClassificationUpdated': !exists(json, 'asset_format_generic_classification_updated') ? undefined : json['asset_format_generic_classification_updated'],
+        'assetFormatSpecificClassificationUpdated': !exists(json, 'asset_format_specific_classification_updated') ? undefined : json['asset_format_specific_classification_updated'],
+        'assetCreationFailed': !exists(json, 'asset_creation_failed') ? undefined : json['asset_creation_failed'],
+        'assetTagAdded': !exists(json, 'asset_tag_added') ? undefined : json['asset_tag_added'],
+        'assetLinkAdded': !exists(json, 'asset_link_added') ? undefined : json['asset_link_added'],
+        'assetLinkGenerated': !exists(json, 'asset_link_generated') ? undefined : json['asset_link_generated'],
+        'assetLinkDeleted': !exists(json, 'asset_link_deleted') ? undefined : json['asset_link_deleted'],
+        'assetTagDeleted': !exists(json, 'asset_tag_deleted') ? undefined : json['asset_tag_deleted'],
+        'assetUpdated': !exists(json, 'asset_updated') ? undefined : json['asset_updated'],
+        'assetFormatValueEdited': !exists(json, 'asset_format_value_edited') ? undefined : json['asset_format_value_edited'],
+        'assetFormatUpdated': !exists(json, 'asset_format_updated') ? undefined : json['asset_format_updated'],
+        'assetLinkRevoked': !exists(json, 'asset_link_revoked') ? undefined : json['asset_link_revoked'],
+        'assetPersonAdded': !exists(json, 'asset_person_added') ? undefined : json['asset_person_added'],
+        'assetPersonDeleted': !exists(json, 'asset_person_deleted') ? undefined : json['asset_person_deleted'],
+        'assetSensitiveAdded': !exists(json, 'asset_sensitive_added') ? undefined : json['asset_sensitive_added'],
+        'assetSensitiveDeleted': !exists(json, 'asset_sensitive_deleted') ? undefined : json['asset_sensitive_deleted'],
+        'suggestedAssetReferenced': !exists(json, 'suggested_asset_referenced') ? undefined : json['suggested_asset_referenced'],
+        'searchedAssetReferenced': !exists(json, 'searched_asset_referenced') ? undefined : json['searched_asset_referenced'],
+        'assetReferenced': !exists(json, 'asset_referenced') ? undefined : json['asset_referenced'],
+        'activityAssetReferenced': !exists(json, 'activity_asset_referenced') ? undefined : json['activity_asset_referenced'],
+        'assetAnnotationAdded': !exists(json, 'asset_annotation_added') ? undefined : json['asset_annotation_added'],
+        'assetAnnotationDeleted': !exists(json, 'asset_annotation_deleted') ? undefined : json['asset_annotation_deleted'],
+        'assetAnnotationUpdated': !exists(json, 'asset_annotation_updated') ? undefined : json['asset_annotation_updated'],
+        'assetHintAdded': !exists(json, 'asset_hint_added') ? undefined : json['asset_hint_added'],
+        'assetHintDeleted': !exists(json, 'asset_hint_deleted') ? undefined : json['asset_hint_deleted'],
+        'assetHintUpdated': !exists(json, 'asset_hint_updated') ? undefined : json['asset_hint_updated'],
+        'assetAnchorAdded': !exists(json, 'asset_anchor_added') ? undefined : json['asset_anchor_added'],
+        'assetAnchorDeleted': !exists(json, 'asset_anchor_deleted') ? undefined : json['asset_anchor_deleted'],
+        'assetAnchorUpdated': !exists(json, 'asset_anchor_updated') ? undefined : json['asset_anchor_updated'],
     };
 }
 
 export function TrackedAssetEventIdentifierDescriptionPairsToJSON(value?: TrackedAssetEventIdentifierDescriptionPairs | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset_created': value['assetCreated'],
-        'asset_viewed': value['assetViewed'],
-        'asset_format_copied': value['assetFormatCopied'],
-        'asset_format_downloaded': value['assetFormatDownloaded'],
-        'asset_deleted': value['assetDeleted'],
-        'asset_description_updated': value['assetDescriptionUpdated'],
-        'asset_name_updated': value['assetNameUpdated'],
-        'asset_format_generic_classification_updated': value['assetFormatGenericClassificationUpdated'],
-        'asset_format_specific_classification_updated': value['assetFormatSpecificClassificationUpdated'],
-        'asset_creation_failed': value['assetCreationFailed'],
-        'asset_tag_added': value['assetTagAdded'],
-        'asset_link_added': value['assetLinkAdded'],
-        'asset_link_generated': value['assetLinkGenerated'],
-        'asset_link_deleted': value['assetLinkDeleted'],
-        'asset_tag_deleted': value['assetTagDeleted'],
-        'asset_updated': value['assetUpdated'],
-        'asset_format_value_edited': value['assetFormatValueEdited'],
-        'asset_format_updated': value['assetFormatUpdated'],
-        'asset_link_revoked': value['assetLinkRevoked'],
-        'asset_person_added': value['assetPersonAdded'],
-        'asset_person_deleted': value['assetPersonDeleted'],
-        'asset_sensitive_added': value['assetSensitiveAdded'],
-        'asset_sensitive_deleted': value['assetSensitiveDeleted'],
-        'suggested_asset_referenced': value['suggestedAssetReferenced'],
-        'searched_asset_referenced': value['searchedAssetReferenced'],
-        'asset_referenced': value['assetReferenced'],
-        'activity_asset_referenced': value['activityAssetReferenced'],
-        'asset_annotation_added': value['assetAnnotationAdded'],
-        'asset_annotation_deleted': value['assetAnnotationDeleted'],
-        'asset_annotation_updated': value['assetAnnotationUpdated'],
-        'asset_hint_added': value['assetHintAdded'],
-        'asset_hint_deleted': value['assetHintDeleted'],
-        'asset_hint_updated': value['assetHintUpdated'],
-        'asset_anchor_added': value['assetAnchorAdded'],
-        'asset_anchor_deleted': value['assetAnchorDeleted'],
-        'asset_anchor_updated': value['assetAnchorUpdated'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset_created': value.assetCreated,
+        'asset_viewed': value.assetViewed,
+        'asset_format_copied': value.assetFormatCopied,
+        'asset_format_downloaded': value.assetFormatDownloaded,
+        'asset_deleted': value.assetDeleted,
+        'asset_description_updated': value.assetDescriptionUpdated,
+        'asset_name_updated': value.assetNameUpdated,
+        'asset_format_generic_classification_updated': value.assetFormatGenericClassificationUpdated,
+        'asset_format_specific_classification_updated': value.assetFormatSpecificClassificationUpdated,
+        'asset_creation_failed': value.assetCreationFailed,
+        'asset_tag_added': value.assetTagAdded,
+        'asset_link_added': value.assetLinkAdded,
+        'asset_link_generated': value.assetLinkGenerated,
+        'asset_link_deleted': value.assetLinkDeleted,
+        'asset_tag_deleted': value.assetTagDeleted,
+        'asset_updated': value.assetUpdated,
+        'asset_format_value_edited': value.assetFormatValueEdited,
+        'asset_format_updated': value.assetFormatUpdated,
+        'asset_link_revoked': value.assetLinkRevoked,
+        'asset_person_added': value.assetPersonAdded,
+        'asset_person_deleted': value.assetPersonDeleted,
+        'asset_sensitive_added': value.assetSensitiveAdded,
+        'asset_sensitive_deleted': value.assetSensitiveDeleted,
+        'suggested_asset_referenced': value.suggestedAssetReferenced,
+        'searched_asset_referenced': value.searchedAssetReferenced,
+        'asset_referenced': value.assetReferenced,
+        'activity_asset_referenced': value.activityAssetReferenced,
+        'asset_annotation_added': value.assetAnnotationAdded,
+        'asset_annotation_deleted': value.assetAnnotationDeleted,
+        'asset_annotation_updated': value.assetAnnotationUpdated,
+        'asset_hint_added': value.assetHintAdded,
+        'asset_hint_deleted': value.assetHintDeleted,
+        'asset_hint_updated': value.assetHintUpdated,
+        'asset_anchor_added': value.assetAnchorAdded,
+        'asset_anchor_deleted': value.assetAnchorDeleted,
+        'asset_anchor_updated': value.assetAnchorUpdated,
     };
 }
 

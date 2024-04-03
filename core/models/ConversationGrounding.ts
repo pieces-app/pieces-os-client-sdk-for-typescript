@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,7 +62,9 @@ export interface ConversationGrounding {
  * Check if a given object implements the ConversationGrounding interface.
  */
 export function instanceOfConversationGrounding(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ConversationGroundingFromJSON(json: any): ConversationGrounding {
@@ -70,26 +72,29 @@ export function ConversationGroundingFromJSON(json: any): ConversationGrounding 
 }
 
 export function ConversationGroundingFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationGrounding {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
-        'temporal': json['temporal'] == null ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'temporal': !exists(json, 'temporal') ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
     };
 }
 
 export function ConversationGroundingToJSON(value?: ConversationGrounding | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'messages': FlattenedConversationMessagesToJSON(value['messages']),
-        'temporal': TemporalRangeGroundingToJSON(value['temporal']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
+        'temporal': TemporalRangeGroundingToJSON(value.temporal),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { QGPTQuestionAnswer } from './QGPTQuestionAnswer';
 import {
     QGPTQuestionAnswerFromJSON,
@@ -72,8 +72,10 @@ export interface QGPTHintsInput {
  * Check if a given object implements the QGPTHintsInput interface.
  */
 export function instanceOfQGPTHintsInput(value: object): boolean {
-    if (!('relevant' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "relevant" in value;
+
+    return isInstance;
 }
 
 export function QGPTHintsInputFromJSON(json: any): QGPTHintsInput {
@@ -81,30 +83,33 @@ export function QGPTHintsInputFromJSON(json: any): QGPTHintsInput {
 }
 
 export function QGPTHintsInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTHintsInput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'query': json['query'] == null ? undefined : json['query'],
-        'answer': json['answer'] == null ? undefined : QGPTQuestionAnswerFromJSON(json['answer']),
+        'query': !exists(json, 'query') ? undefined : json['query'],
+        'answer': !exists(json, 'answer') ? undefined : QGPTQuestionAnswerFromJSON(json['answer']),
         'relevant': RelevantQGPTSeedsFromJSON(json['relevant']),
-        'application': json['application'] == null ? undefined : json['application'],
-        'model': json['model'] == null ? undefined : json['model'],
+        'application': !exists(json, 'application') ? undefined : json['application'],
+        'model': !exists(json, 'model') ? undefined : json['model'],
     };
 }
 
 export function QGPTHintsInputToJSON(value?: QGPTHintsInput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'query': value['query'],
-        'answer': QGPTQuestionAnswerToJSON(value['answer']),
-        'relevant': RelevantQGPTSeedsToJSON(value['relevant']),
-        'application': value['application'],
-        'model': value['model'],
+        'query': value.query,
+        'answer': QGPTQuestionAnswerToJSON(value.answer),
+        'relevant': RelevantQGPTSeedsToJSON(value.relevant),
+        'application': value.application,
+        'model': value.model,
     };
 }
 

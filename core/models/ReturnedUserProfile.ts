@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface ReturnedUserProfile {
  * Check if a given object implements the ReturnedUserProfile interface.
  */
 export function instanceOfReturnedUserProfile(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ReturnedUserProfileFromJSON(json: any): ReturnedUserProfile {
@@ -58,24 +60,27 @@ export function ReturnedUserProfileFromJSON(json: any): ReturnedUserProfile {
 }
 
 export function ReturnedUserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReturnedUserProfile {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'user': json['user'] == null ? undefined : UserProfileFromJSON(json['user']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'user': !exists(json, 'user') ? undefined : UserProfileFromJSON(json['user']),
     };
 }
 
 export function ReturnedUserProfileToJSON(value?: ReturnedUserProfile | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'user': UserProfileToJSON(value['user']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'user': UserProfileToJSON(value.user),
     };
 }
 

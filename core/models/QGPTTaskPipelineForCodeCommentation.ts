@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -42,7 +42,9 @@ export interface QGPTTaskPipelineForCodeCommentation {
  * Check if a given object implements the QGPTTaskPipelineForCodeCommentation interface.
  */
 export function instanceOfQGPTTaskPipelineForCodeCommentation(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTTaskPipelineForCodeCommentationFromJSON(json: any): QGPTTaskPipelineForCodeCommentation {
@@ -50,22 +52,25 @@ export function QGPTTaskPipelineForCodeCommentationFromJSON(json: any): QGPTTask
 }
 
 export function QGPTTaskPipelineForCodeCommentationFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeCommentation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function QGPTTaskPipelineForCodeCommentationToJSON(value?: QGPTTaskPipelineForCodeCommentation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
 

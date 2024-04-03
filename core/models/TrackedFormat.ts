@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Classification } from './Classification';
 import {
     ClassificationFromJSON,
@@ -86,13 +86,15 @@ export interface TrackedFormat {
  * Check if a given object implements the TrackedFormat interface.
  */
 export function instanceOfTrackedFormat(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('classification' in value)) return false;
-    if (!('role' in value)) return false;
-    if (!('asset' in value)) return false;
-    if (!('fragment' in value)) return false;
-    if (!('file' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "classification" in value;
+    isInstance = isInstance && "role" in value;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "fragment" in value;
+    isInstance = isInstance && "file" in value;
+
+    return isInstance;
 }
 
 export function TrackedFormatFromJSON(json: any): TrackedFormat {
@@ -100,12 +102,12 @@ export function TrackedFormatFromJSON(json: any): TrackedFormat {
 }
 
 export function TrackedFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormat {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'classification': ClassificationFromJSON(json['classification']),
         'role': RoleFromJSON(json['role']),
@@ -116,18 +118,21 @@ export function TrackedFormatFromJSONTyped(json: any, ignoreDiscriminator: boole
 }
 
 export function TrackedFormatToJSON(value?: TrackedFormat | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'classification': ClassificationToJSON(value['classification']),
-        'role': RoleToJSON(value['role']),
-        'asset': value['asset'],
-        'fragment': value['fragment'],
-        'file': value['file'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'classification': ClassificationToJSON(value.classification),
+        'role': RoleToJSON(value.role),
+        'asset': value.asset,
+        'fragment': value.fragment,
+        'file': value.file,
     };
 }
 

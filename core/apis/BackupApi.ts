@@ -74,7 +74,7 @@ export class BackupApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetsToJSON(requestParameters['assets']),
+            body: AssetsToJSON(requestParameters.assets),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -103,7 +103,7 @@ export class BackupApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetToJSON(requestParameters['asset']),
+            body: AssetToJSON(requestParameters.asset),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -121,11 +121,8 @@ export class BackupApi extends runtime.BaseAPI {
      * /backup/{backup}/restore [POST]
      */
     async backupRestoreSpecificBackupRaw(requestParameters: BackupRestoreSpecificBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Backup>> {
-        if (requestParameters['backup'] == null) {
-            throw new runtime.RequiredError(
-                'backup',
-                'Required parameter "backup" was null or undefined when calling backupRestoreSpecificBackup().'
-            );
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupRestoreSpecificBackup.');
         }
 
         const queryParameters: any = {};
@@ -135,11 +132,11 @@ export class BackupApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/backup/{backup}/restore`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters['backup']))),
+            path: `/backup/{backup}/restore`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BackupToJSON(requestParameters['backup2']),
+            body: BackupToJSON(requestParameters.backup2),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BackupFromJSON(jsonValue));
@@ -159,11 +156,8 @@ export class BackupApi extends runtime.BaseAPI {
      * /backup/{backup}/restore/streamed [POST]
      */
     async backupRestoreSpecificBackupStreamedRaw(requestParameters: BackupRestoreSpecificBackupStreamedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupStreamedProgress>> {
-        if (requestParameters['backup'] == null) {
-            throw new runtime.RequiredError(
-                'backup',
-                'Required parameter "backup" was null or undefined when calling backupRestoreSpecificBackupStreamed().'
-            );
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupRestoreSpecificBackupStreamed.');
         }
 
         const queryParameters: any = {};
@@ -173,11 +167,11 @@ export class BackupApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/backup/{backup}/restore/streamed`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters['backup']))),
+            path: `/backup/{backup}/restore/streamed`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BackupToJSON(requestParameters['backup2']),
+            body: BackupToJSON(requestParameters.backup2),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BackupStreamedProgressFromJSON(jsonValue));
@@ -197,11 +191,8 @@ export class BackupApi extends runtime.BaseAPI {
      * /backup/{backup} [GET]
      */
     async backupSpecificBackupSnapshotRaw(requestParameters: BackupSpecificBackupSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Backup>> {
-        if (requestParameters['backup'] == null) {
-            throw new runtime.RequiredError(
-                'backup',
-                'Required parameter "backup" was null or undefined when calling backupSpecificBackupSnapshot().'
-            );
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupSpecificBackupSnapshot.');
         }
 
         const queryParameters: any = {};
@@ -209,7 +200,7 @@ export class BackupApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/backup/{backup}`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters['backup']))),
+            path: `/backup/{backup}`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

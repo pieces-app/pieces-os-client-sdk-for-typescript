@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { FlattenedAssets } from './FlattenedAssets';
 import {
     FlattenedAssetsFromJSON,
@@ -62,7 +62,9 @@ export interface TrackedAssetsEventSearchMetadataResults {
  * Check if a given object implements the TrackedAssetsEventSearchMetadataResults interface.
  */
 export function instanceOfTrackedAssetsEventSearchMetadataResults(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetsEventSearchMetadataResultsFromJSON(json: any): TrackedAssetsEventSearchMetadataResults {
@@ -70,28 +72,31 @@ export function TrackedAssetsEventSearchMetadataResultsFromJSON(json: any): Trac
 }
 
 export function TrackedAssetsEventSearchMetadataResultsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetsEventSearchMetadataResults {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'fuzzy': json['fuzzy'] == null ? undefined : json['fuzzy'],
-        'exact': json['exact'] == null ? undefined : json['exact'],
-        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'space': json['space'] == null ? undefined : SpaceFromJSON(json['space']),
+        'fuzzy': !exists(json, 'fuzzy') ? undefined : json['fuzzy'],
+        'exact': !exists(json, 'exact') ? undefined : json['exact'],
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'space': !exists(json, 'space') ? undefined : SpaceFromJSON(json['space']),
     };
 }
 
 export function TrackedAssetsEventSearchMetadataResultsToJSON(value?: TrackedAssetsEventSearchMetadataResults | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'fuzzy': value['fuzzy'],
-        'exact': value['exact'],
-        'assets': FlattenedAssetsToJSON(value['assets']),
-        'space': SpaceToJSON(value['space']),
+        'fuzzy': value.fuzzy,
+        'exact': value.exact,
+        'assets': FlattenedAssetsToJSON(value.assets),
+        'space': SpaceToJSON(value.space),
     };
 }
 

@@ -57,7 +57,7 @@ export class RangesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededRangeToJSON(requestParameters['seededRange']),
+            body: SeededRangeToJSON(requestParameters.seededRange),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RangeFromJSON(jsonValue));
@@ -77,11 +77,8 @@ export class RangesApi extends runtime.BaseAPI {
      * /ranges/{range}/delete [POST]
      */
     async rangesDeleteSpecificRangeRaw(requestParameters: RangesDeleteSpecificRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['range'] == null) {
-            throw new runtime.RequiredError(
-                'range',
-                'Required parameter "range" was null or undefined when calling rangesDeleteSpecificRange().'
-            );
+        if (requestParameters.range === null || requestParameters.range === undefined) {
+            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangesDeleteSpecificRange.');
         }
 
         const queryParameters: any = {};
@@ -89,7 +86,7 @@ export class RangesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/ranges/{range}/delete`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
+            path: `/ranges/{range}/delete`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

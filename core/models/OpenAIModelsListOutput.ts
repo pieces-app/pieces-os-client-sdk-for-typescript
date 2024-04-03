@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface OpenAIModelsListOutput {
  * Check if a given object implements the OpenAIModelsListOutput interface.
  */
 export function instanceOfOpenAIModelsListOutput(value: object): boolean {
-    if (!('models' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "models" in value;
+
+    return isInstance;
 }
 
 export function OpenAIModelsListOutputFromJSON(json: any): OpenAIModelsListOutput {
@@ -59,24 +61,27 @@ export function OpenAIModelsListOutputFromJSON(json: any): OpenAIModelsListOutpu
 }
 
 export function OpenAIModelsListOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpenAIModelsListOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'models': SeededModelsFromJSON(json['models']),
     };
 }
 
 export function OpenAIModelsListOutputToJSON(value?: OpenAIModelsListOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'models': SeededModelsToJSON(value['models']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'models': SeededModelsToJSON(value.models),
     };
 }
 

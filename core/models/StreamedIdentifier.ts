@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ReferencedAsset } from './ReferencedAsset';
 import {
     ReferencedAssetFromJSON,
@@ -56,7 +56,9 @@ export interface StreamedIdentifier {
  * Check if a given object implements the StreamedIdentifier interface.
  */
 export function instanceOfStreamedIdentifier(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function StreamedIdentifierFromJSON(json: any): StreamedIdentifier {
@@ -64,26 +66,29 @@ export function StreamedIdentifierFromJSON(json: any): StreamedIdentifier {
 }
 
 export function StreamedIdentifierFromJSONTyped(json: any, ignoreDiscriminator: boolean): StreamedIdentifier {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
-        'deleted': json['deleted'] == null ? undefined : json['deleted'],
+        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'deleted': !exists(json, 'deleted') ? undefined : json['deleted'],
     };
 }
 
 export function StreamedIdentifierToJSON(value?: StreamedIdentifier | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'asset': ReferencedAssetToJSON(value['asset']),
-        'conversation': ReferencedConversationToJSON(value['conversation']),
-        'deleted': value['deleted'],
+        'asset': ReferencedAssetToJSON(value.asset),
+        'conversation': ReferencedConversationToJSON(value.conversation),
+        'deleted': value.deleted,
     };
 }
 

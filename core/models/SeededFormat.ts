@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -78,7 +78,9 @@ export interface SeededFormat {
  * Check if a given object implements the SeededFormat interface.
  */
 export function instanceOfSeededFormat(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededFormatFromJSON(json: any): SeededFormat {
@@ -86,28 +88,31 @@ export function SeededFormatFromJSON(json: any): SeededFormat {
 }
 
 export function SeededFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededFormat {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'file': json['file'] == null ? undefined : SeededFileFromJSON(json['file']),
-        'fragment': json['fragment'] == null ? undefined : SeededFragmentFromJSON(json['fragment']),
-        'classification': json['classification'] == null ? undefined : SeededClassificationFromJSON(json['classification']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'file': !exists(json, 'file') ? undefined : SeededFileFromJSON(json['file']),
+        'fragment': !exists(json, 'fragment') ? undefined : SeededFragmentFromJSON(json['fragment']),
+        'classification': !exists(json, 'classification') ? undefined : SeededClassificationFromJSON(json['classification']),
     };
 }
 
 export function SeededFormatToJSON(value?: SeededFormat | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'file': SeededFileToJSON(value['file']),
-        'fragment': SeededFragmentToJSON(value['fragment']),
-        'classification': SeededClassificationToJSON(value['classification']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'file': SeededFileToJSON(value.file),
+        'fragment': SeededFragmentToJSON(value.fragment),
+        'classification': SeededClassificationToJSON(value.classification),
     };
 }
 

@@ -54,8 +54,8 @@ export class ActivitiesApi extends runtime.BaseAPI {
     async activitiesCreateNewActivityRaw(requestParameters: ActivitiesCreateNewActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activity>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -67,7 +67,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededActivityToJSON(requestParameters['seededActivity']),
+            body: SeededActivityToJSON(requestParameters.seededActivity),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivityFromJSON(jsonValue));
@@ -87,11 +87,8 @@ export class ActivitiesApi extends runtime.BaseAPI {
      * /activities/{activity}/delete [POST]
      */
     async activitiesDeleteSpecificActivityRaw(requestParameters: ActivitiesDeleteSpecificActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['activity'] == null) {
-            throw new runtime.RequiredError(
-                'activity',
-                'Required parameter "activity" was null or undefined when calling activitiesDeleteSpecificActivity().'
-            );
+        if (requestParameters.activity === null || requestParameters.activity === undefined) {
+            throw new runtime.RequiredError('activity','Required parameter requestParameters.activity was null or undefined when calling activitiesDeleteSpecificActivity.');
         }
 
         const queryParameters: any = {};
@@ -99,7 +96,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/activities/{activity}/delete`.replace(`{${"activity"}}`, encodeURIComponent(String(requestParameters['activity']))),
+            path: `/activities/{activity}/delete`.replace(`{${"activity"}}`, encodeURIComponent(String(requestParameters.activity))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -123,12 +120,12 @@ export class ActivitiesApi extends runtime.BaseAPI {
     async activitiesSnapshotRaw(requestParameters: ActivitiesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activities>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
-        if (requestParameters['pseudo'] != null) {
-            queryParameters['pseudo'] = requestParameters['pseudo'];
+        if (requestParameters.pseudo !== undefined) {
+            queryParameters['pseudo'] = requestParameters.pseudo;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

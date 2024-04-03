@@ -57,7 +57,7 @@ export class SensitivesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededSensitiveToJSON(requestParameters['seededSensitive']),
+            body: SeededSensitiveToJSON(requestParameters.seededSensitive),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitiveFromJSON(jsonValue));
@@ -77,11 +77,8 @@ export class SensitivesApi extends runtime.BaseAPI {
      * /sensitives/{sensitive}/delete [POST]
      */
     async sensitivesDeleteSensitiveRaw(requestParameters: SensitivesDeleteSensitiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['sensitive'] == null) {
-            throw new runtime.RequiredError(
-                'sensitive',
-                'Required parameter "sensitive" was null or undefined when calling sensitivesDeleteSensitive().'
-            );
+        if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
+            throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitivesDeleteSensitive.');
         }
 
         const queryParameters: any = {};
@@ -89,7 +86,7 @@ export class SensitivesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters['sensitive']))),
+            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters.sensitive))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

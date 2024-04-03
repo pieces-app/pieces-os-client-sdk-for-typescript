@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AnchorTypeEnum } from './AnchorTypeEnum';
 import {
     AnchorTypeEnumFromJSON,
@@ -80,10 +80,12 @@ export interface SeededAnchorPoint {
  * Check if a given object implements the SeededAnchorPoint interface.
  */
 export function instanceOfSeededAnchorPoint(value: object): boolean {
-    if (!('type' in value)) return false;
-    if (!('fullpath' in value)) return false;
-    if (!('anchor' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "fullpath" in value;
+    isInstance = isInstance && "anchor" in value;
+
+    return isInstance;
 }
 
 export function SeededAnchorPointFromJSON(json: any): SeededAnchorPoint {
@@ -91,32 +93,35 @@ export function SeededAnchorPointFromJSON(json: any): SeededAnchorPoint {
 }
 
 export function SeededAnchorPointFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAnchorPoint {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'type': AnchorTypeEnumFromJSON(json['type']),
-        'watch': json['watch'] == null ? undefined : json['watch'],
+        'watch': !exists(json, 'watch') ? undefined : json['watch'],
         'fullpath': json['fullpath'],
         'anchor': json['anchor'],
-        'platform': json['platform'] == null ? undefined : PlatformEnumFromJSON(json['platform']),
+        'platform': !exists(json, 'platform') ? undefined : PlatformEnumFromJSON(json['platform']),
     };
 }
 
 export function SeededAnchorPointToJSON(value?: SeededAnchorPoint | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'type': AnchorTypeEnumToJSON(value['type']),
-        'watch': value['watch'],
-        'fullpath': value['fullpath'],
-        'anchor': value['anchor'],
-        'platform': PlatformEnumToJSON(value['platform']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'type': AnchorTypeEnumToJSON(value.type),
+        'watch': value.watch,
+        'fullpath': value.fullpath,
+        'anchor': value.anchor,
+        'platform': PlatformEnumToJSON(value.platform),
     };
 }
 

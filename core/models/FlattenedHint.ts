@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -134,12 +134,14 @@ export interface FlattenedHint {
  * Check if a given object implements the FlattenedHint interface.
  */
 export function instanceOfFlattenedHint(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('type' in value)) return false;
-    if (!('text' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function FlattenedHintFromJSON(json: any): FlattenedHint {
@@ -147,42 +149,45 @@ export function FlattenedHintFromJSON(json: any): FlattenedHint {
 }
 
 export function FlattenedHintFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedHint {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
         'type': HintTypeEnumFromJSON(json['type']),
         'text': json['text'],
-        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedHintToJSON(value?: FlattenedHint | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'asset': ReferencedAssetToJSON(value['asset']),
-        'type': HintTypeEnumToJSON(value['type']),
-        'text': value['text'],
-        'model': ReferencedModelToJSON(value['model']),
-        'score': ScoreToJSON(value['score']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'asset': ReferencedAssetToJSON(value.asset),
+        'type': HintTypeEnumToJSON(value.type),
+        'text': value.text,
+        'model': ReferencedModelToJSON(value.model),
+        'score': ScoreToJSON(value.score),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Classification } from './Classification';
 import {
     ClassificationFromJSON,
@@ -56,7 +56,9 @@ export interface TLPCodeFragmentClassificationMetadata {
  * Check if a given object implements the TLPCodeFragmentClassificationMetadata interface.
  */
 export function instanceOfTLPCodeFragmentClassificationMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentClassificationMetadataFromJSON(json: any): TLPCodeFragmentClassificationMetadata {
@@ -64,26 +66,29 @@ export function TLPCodeFragmentClassificationMetadataFromJSON(json: any): TLPCod
 }
 
 export function TLPCodeFragmentClassificationMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentClassificationMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'context': json['context'] == null ? undefined : ClassificationFromJSON(json['context']),
-        'prior': json['prior'] == null ? undefined : ClassificationFromJSON(json['prior']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'context': !exists(json, 'context') ? undefined : ClassificationFromJSON(json['context']),
+        'prior': !exists(json, 'prior') ? undefined : ClassificationFromJSON(json['prior']),
     };
 }
 
 export function TLPCodeFragmentClassificationMetadataToJSON(value?: TLPCodeFragmentClassificationMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'context': ClassificationToJSON(value['context']),
-        'prior': ClassificationToJSON(value['prior']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'context': ClassificationToJSON(value.context),
+        'prior': ClassificationToJSON(value.prior),
     };
 }
 

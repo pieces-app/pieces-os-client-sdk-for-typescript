@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface MailgunDistribution {
  * Check if a given object implements the MailgunDistribution interface.
  */
 export function instanceOfMailgunDistribution(value: object): boolean {
-    if (!('recipients' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "recipients" in value;
+
+    return isInstance;
 }
 
 export function MailgunDistributionFromJSON(json: any): MailgunDistribution {
@@ -59,24 +61,27 @@ export function MailgunDistributionFromJSON(json: any): MailgunDistribution {
 }
 
 export function MailgunDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): MailgunDistribution {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'recipients': RecipientsFromJSON(json['recipients']),
     };
 }
 
 export function MailgunDistributionToJSON(value?: MailgunDistribution | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'recipients': RecipientsToJSON(value['recipients']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'recipients': RecipientsToJSON(value.recipients),
     };
 }
 

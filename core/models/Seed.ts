@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -67,8 +67,10 @@ export type SeedTypeEnum = typeof SeedTypeEnum[keyof typeof SeedTypeEnum];
  * Check if a given object implements the Seed interface.
  */
 export function instanceOfSeed(value: object): boolean {
-    if (!('type' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function SeedFromJSON(json: any): Seed {
@@ -76,26 +78,29 @@ export function SeedFromJSON(json: any): Seed {
 }
 
 export function SeedFromJSONTyped(json: any, ignoreDiscriminator: boolean): Seed {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': json['asset'] == null ? undefined : SeededAssetFromJSON(json['asset']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': !exists(json, 'asset') ? undefined : SeededAssetFromJSON(json['asset']),
         'type': json['type'],
     };
 }
 
 export function SeedToJSON(value?: Seed | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset': SeededAssetToJSON(value['asset']),
-        'type': value['type'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset': SeededAssetToJSON(value.asset),
+        'type': value.type,
     };
 }
 

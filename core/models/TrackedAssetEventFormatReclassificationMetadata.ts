@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Classification } from './Classification';
 import {
     ClassificationFromJSON,
@@ -56,7 +56,9 @@ export interface TrackedAssetEventFormatReclassificationMetadata {
  * Check if a given object implements the TrackedAssetEventFormatReclassificationMetadata interface.
  */
 export function instanceOfTrackedAssetEventFormatReclassificationMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventFormatReclassificationMetadataFromJSON(json: any): TrackedAssetEventFormatReclassificationMetadata {
@@ -64,26 +66,29 @@ export function TrackedAssetEventFormatReclassificationMetadataFromJSON(json: an
 }
 
 export function TrackedAssetEventFormatReclassificationMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventFormatReclassificationMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'previous': json['previous'] == null ? undefined : ClassificationFromJSON(json['previous']),
-        'current': json['current'] == null ? undefined : ClassificationFromJSON(json['current']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'previous': !exists(json, 'previous') ? undefined : ClassificationFromJSON(json['previous']),
+        'current': !exists(json, 'current') ? undefined : ClassificationFromJSON(json['current']),
     };
 }
 
 export function TrackedAssetEventFormatReclassificationMetadataToJSON(value?: TrackedAssetEventFormatReclassificationMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'previous': ClassificationToJSON(value['previous']),
-        'current': ClassificationToJSON(value['current']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'previous': ClassificationToJSON(value.previous),
+        'current': ClassificationToJSON(value.current),
     };
 }
 

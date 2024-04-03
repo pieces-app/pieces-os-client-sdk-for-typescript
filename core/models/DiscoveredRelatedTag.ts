@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface DiscoveredRelatedTag {
  * Check if a given object implements the DiscoveredRelatedTag interface.
  */
 export function instanceOfDiscoveredRelatedTag(value: object): boolean {
-    if (!('seed' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "seed" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredRelatedTagFromJSON(json: any): DiscoveredRelatedTag {
@@ -59,24 +61,27 @@ export function DiscoveredRelatedTagFromJSON(json: any): DiscoveredRelatedTag {
 }
 
 export function DiscoveredRelatedTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredRelatedTag {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seed': SeededTagFromJSON(json['seed']),
     };
 }
 
 export function DiscoveredRelatedTagToJSON(value?: DiscoveredRelatedTag | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'seed': SeededTagToJSON(value['seed']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'seed': SeededTagToJSON(value.seed),
     };
 }
 

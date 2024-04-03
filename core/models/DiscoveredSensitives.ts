@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DiscoveredSensitive } from './DiscoveredSensitive';
 import {
     DiscoveredSensitiveFromJSON,
@@ -56,9 +56,11 @@ export interface DiscoveredSensitives {
  * Check if a given object implements the DiscoveredSensitives interface.
  */
 export function instanceOfDiscoveredSensitives(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    if (!('application' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredSensitivesFromJSON(json: any): DiscoveredSensitives {
@@ -66,26 +68,29 @@ export function DiscoveredSensitivesFromJSON(json: any): DiscoveredSensitives {
 }
 
 export function DiscoveredSensitivesFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredSensitives {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(DiscoveredSensitiveFromJSON)),
         'application': json['application'],
     };
 }
 
 export function DiscoveredSensitivesToJSON(value?: DiscoveredSensitives | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(DiscoveredSensitiveToJSON)),
-        'application': value['application'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(DiscoveredSensitiveToJSON)),
+        'application': value.application,
     };
 }
 

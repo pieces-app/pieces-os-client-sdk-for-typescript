@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -59,8 +59,10 @@ export interface TextMatch {
  * Check if a given object implements the TextMatch interface.
  */
 export function instanceOfTextMatch(value: object): boolean {
-    if (!('group' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "group" in value;
+
+    return isInstance;
 }
 
 export function TextMatchFromJSON(json: any): TextMatch {
@@ -68,26 +70,29 @@ export function TextMatchFromJSON(json: any): TextMatch {
 }
 
 export function TextMatchFromJSONTyped(json: any, ignoreDiscriminator: boolean): TextMatch {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'group': TextLocationFromJSON(json['group']),
-        'subgroup': json['subgroup'] == null ? undefined : TextLocationFromJSON(json['subgroup']),
+        'subgroup': !exists(json, 'subgroup') ? undefined : TextLocationFromJSON(json['subgroup']),
     };
 }
 
 export function TextMatchToJSON(value?: TextMatch | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'group': TextLocationToJSON(value['group']),
-        'subgroup': TextLocationToJSON(value['subgroup']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'group': TextLocationToJSON(value.group),
+        'subgroup': TextLocationToJSON(value.subgroup),
     };
 }
 

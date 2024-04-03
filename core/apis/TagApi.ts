@@ -70,18 +70,12 @@ export class TagApi extends runtime.BaseAPI {
      * /tag/{tag}/assets/associate/{asset} [POST]
      */
     async tagAssociateAssetRaw(requestParameters: TagAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling tagAssociateAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling tagAssociateAsset.');
         }
 
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling tagAssociateAsset().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagAssociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -89,7 +83,7 @@ export class TagApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/tag/{tag}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            path: `/tag/{tag}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -111,18 +105,12 @@ export class TagApi extends runtime.BaseAPI {
      * /tag/{tag}/persons/associate/{person} [POST]
      */
     async tagAssociatePersonRaw(requestParameters: TagAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling tagAssociatePerson().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagAssociatePerson.');
         }
 
-        if (requestParameters['person'] == null) {
-            throw new runtime.RequiredError(
-                'person',
-                'Required parameter "person" was null or undefined when calling tagAssociatePerson().'
-            );
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling tagAssociatePerson.');
         }
 
         const queryParameters: any = {};
@@ -130,7 +118,7 @@ export class TagApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/tag/{tag}/persons/associate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            path: `/tag/{tag}/persons/associate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -152,18 +140,12 @@ export class TagApi extends runtime.BaseAPI {
      * /tag/{tag}/assets/disassociate/{asset} [POST]
      */
     async tagDisassociateAssetRaw(requestParameters: TagDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling tagDisassociateAsset().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociateAsset.');
         }
 
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling tagDisassociateAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling tagDisassociateAsset.');
         }
 
         const queryParameters: any = {};
@@ -171,7 +153,7 @@ export class TagApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/tag/{tag}/assets/disassociate/{asset}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/tag/{tag}/assets/disassociate/{asset}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -193,18 +175,12 @@ export class TagApi extends runtime.BaseAPI {
      * /tag/{tag}/persons/disassociate/{person} [POST]
      */
     async tagDisassociatePersonRaw(requestParameters: TagDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling tagDisassociatePerson().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociatePerson.');
         }
 
-        if (requestParameters['person'] == null) {
-            throw new runtime.RequiredError(
-                'person',
-                'Required parameter "person" was null or undefined when calling tagDisassociatePerson().'
-            );
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling tagDisassociatePerson.');
         }
 
         const queryParameters: any = {};
@@ -212,7 +188,7 @@ export class TagApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/tag/{tag}/persons/disassociate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            path: `/tag/{tag}/persons/disassociate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -234,11 +210,8 @@ export class TagApi extends runtime.BaseAPI {
      * \'/tag/{tag}/scores/increment\' [POST]
      */
     async tagScoresIncrementRaw(requestParameters: TagScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling tagScoresIncrement().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagScoresIncrement.');
         }
 
         const queryParameters: any = {};
@@ -248,11 +221,11 @@ export class TagApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/tag/{tag}/scores/increment`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            path: `/tag/{tag}/scores/increment`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -273,8 +246,8 @@ export class TagApi extends runtime.BaseAPI {
     async tagUpdateRaw(requestParameters: TagUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -286,7 +259,7 @@ export class TagApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TagToJSON(requestParameters['tag']),
+            body: TagToJSON(requestParameters.tag),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TagFromJSON(jsonValue));
@@ -306,23 +279,20 @@ export class TagApi extends runtime.BaseAPI {
      * /tag/{tag} [GET]
      */
     async tagsSpecificTagSnapshotRaw(requestParameters: TagsSpecificTagSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
-        if (requestParameters['tag'] == null) {
-            throw new runtime.RequiredError(
-                'tag',
-                'Required parameter "tag" was null or undefined when calling tagsSpecificTagSnapshot().'
-            );
+        if (requestParameters.tag === null || requestParameters.tag === undefined) {
+            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagsSpecificTagSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/tag/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            path: `/tag/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

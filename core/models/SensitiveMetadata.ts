@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,7 +56,9 @@ export interface SensitiveMetadata {
  * Check if a given object implements the SensitiveMetadata interface.
  */
 export function instanceOfSensitiveMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SensitiveMetadataFromJSON(json: any): SensitiveMetadata {
@@ -64,26 +66,29 @@ export function SensitiveMetadataFromJSON(json: any): SensitiveMetadata {
 }
 
 export function SensitiveMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): SensitiveMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'match': json['match'] == null ? undefined : TextMatchFromJSON(json['match']),
-        'entropy': json['entropy'] == null ? undefined : json['entropy'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'match': !exists(json, 'match') ? undefined : TextMatchFromJSON(json['match']),
+        'entropy': !exists(json, 'entropy') ? undefined : json['entropy'],
     };
 }
 
 export function SensitiveMetadataToJSON(value?: SensitiveMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'match': TextMatchToJSON(value['match']),
-        'entropy': value['entropy'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'match': TextMatchToJSON(value.match),
+        'entropy': value.entropy,
     };
 }
 

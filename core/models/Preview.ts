@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,8 +56,10 @@ export interface Preview {
  * Check if a given object implements the Preview interface.
  */
 export function instanceOfPreview(value: object): boolean {
-    if (!('base' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "base" in value;
+
+    return isInstance;
 }
 
 export function PreviewFromJSON(json: any): Preview {
@@ -65,26 +67,29 @@ export function PreviewFromJSON(json: any): Preview {
 }
 
 export function PreviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): Preview {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'base': ReferencedFormatFromJSON(json['base']),
-        'overlay': json['overlay'] == null ? undefined : ReferencedFormatFromJSON(json['overlay']),
+        'overlay': !exists(json, 'overlay') ? undefined : ReferencedFormatFromJSON(json['overlay']),
     };
 }
 
 export function PreviewToJSON(value?: Preview | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'base': ReferencedFormatToJSON(value['base']),
-        'overlay': ReferencedFormatToJSON(value['overlay']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'base': ReferencedFormatToJSON(value.base),
+        'overlay': ReferencedFormatToJSON(value.overlay),
     };
 }
 

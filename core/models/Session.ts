@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
@@ -50,9 +50,11 @@ export interface Session {
  * Check if a given object implements the Session interface.
  */
 export function instanceOfSession(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('opened' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "opened" in value;
+
+    return isInstance;
 }
 
 export function SessionFromJSON(json: any): Session {
@@ -60,26 +62,29 @@ export function SessionFromJSON(json: any): Session {
 }
 
 export function SessionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Session {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'id': json['id'],
         'opened': GroupedTimestampFromJSON(json['opened']),
-        'closed': json['closed'] == null ? undefined : GroupedTimestampFromJSON(json['closed']),
+        'closed': !exists(json, 'closed') ? undefined : GroupedTimestampFromJSON(json['closed']),
     };
 }
 
 export function SessionToJSON(value?: Session | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'opened': GroupedTimestampToJSON(value['opened']),
-        'closed': GroupedTimestampToJSON(value['closed']),
+        'id': value.id,
+        'opened': GroupedTimestampToJSON(value.opened),
+        'closed': GroupedTimestampToJSON(value.closed),
     };
 }
 

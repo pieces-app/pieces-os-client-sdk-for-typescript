@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ApplicationNameEnum } from './ApplicationNameEnum';
 import {
     ApplicationNameEnumFromJSON,
@@ -98,10 +98,12 @@ export interface SeededTrackedApplication {
  * Check if a given object implements the SeededTrackedApplication interface.
  */
 export function instanceOfSeededTrackedApplication(value: object): boolean {
-    if (!('name' in value)) return false;
-    if (!('version' in value)) return false;
-    if (!('platform' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "platform" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedApplicationFromJSON(json: any): SeededTrackedApplication {
@@ -109,34 +111,37 @@ export function SeededTrackedApplicationFromJSON(json: any): SeededTrackedApplic
 }
 
 export function SeededTrackedApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedApplication {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'name': ApplicationNameEnumFromJSON(json['name']),
         'version': json['version'],
         'platform': PlatformEnumFromJSON(json['platform']),
-        'capabilities': json['capabilities'] == null ? undefined : CapabilitiesEnumFromJSON(json['capabilities']),
-        'privacy': json['privacy'] == null ? undefined : PrivacyEnumFromJSON(json['privacy']),
-        'automaticUnload': json['automaticUnload'] == null ? undefined : json['automaticUnload'],
+        'capabilities': !exists(json, 'capabilities') ? undefined : CapabilitiesEnumFromJSON(json['capabilities']),
+        'privacy': !exists(json, 'privacy') ? undefined : PrivacyEnumFromJSON(json['privacy']),
+        'automaticUnload': !exists(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
 
 export function SeededTrackedApplicationToJSON(value?: SeededTrackedApplication | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'name': ApplicationNameEnumToJSON(value['name']),
-        'version': value['version'],
-        'platform': PlatformEnumToJSON(value['platform']),
-        'capabilities': CapabilitiesEnumToJSON(value['capabilities']),
-        'privacy': PrivacyEnumToJSON(value['privacy']),
-        'automaticUnload': value['automaticUnload'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'name': ApplicationNameEnumToJSON(value.name),
+        'version': value.version,
+        'platform': PlatformEnumToJSON(value.platform),
+        'capabilities': CapabilitiesEnumToJSON(value.capabilities),
+        'privacy': PrivacyEnumToJSON(value.privacy),
+        'automaticUnload': value.automaticUnload,
     };
 }
 

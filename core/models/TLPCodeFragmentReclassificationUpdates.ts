@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Classification } from './Classification';
 import {
     ClassificationFromJSON,
@@ -56,9 +56,11 @@ export interface TLPCodeFragmentReclassificationUpdates {
  * Check if a given object implements the TLPCodeFragmentReclassificationUpdates interface.
  */
 export function instanceOfTLPCodeFragmentReclassificationUpdates(value: object): boolean {
-    if (!('previous' in value)) return false;
-    if (!('current' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "previous" in value;
+    isInstance = isInstance && "current" in value;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentReclassificationUpdatesFromJSON(json: any): TLPCodeFragmentReclassificationUpdates {
@@ -66,26 +68,29 @@ export function TLPCodeFragmentReclassificationUpdatesFromJSON(json: any): TLPCo
 }
 
 export function TLPCodeFragmentReclassificationUpdatesFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentReclassificationUpdates {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': ClassificationFromJSON(json['previous']),
         'current': ClassificationFromJSON(json['current']),
     };
 }
 
 export function TLPCodeFragmentReclassificationUpdatesToJSON(value?: TLPCodeFragmentReclassificationUpdates | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'previous': ClassificationToJSON(value['previous']),
-        'current': ClassificationToJSON(value['current']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'previous': ClassificationToJSON(value.previous),
+        'current': ClassificationToJSON(value.current),
     };
 }
 

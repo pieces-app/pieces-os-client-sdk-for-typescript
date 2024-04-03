@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface TrackedConversationEventMetadata {
  * Check if a given object implements the TrackedConversationEventMetadata interface.
  */
 export function instanceOfTrackedConversationEventMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedConversationEventMetadataFromJSON(json: any): TrackedConversationEventMetadata {
@@ -58,24 +60,27 @@ export function TrackedConversationEventMetadataFromJSON(json: any): TrackedConv
 }
 
 export function TrackedConversationEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'rename': json['rename'] == null ? undefined : TrackedConversationEventRenameMetadataFromJSON(json['rename']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'rename': !exists(json, 'rename') ? undefined : TrackedConversationEventRenameMetadataFromJSON(json['rename']),
     };
 }
 
 export function TrackedConversationEventMetadataToJSON(value?: TrackedConversationEventMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'rename': TrackedConversationEventRenameMetadataToJSON(value['rename']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'rename': TrackedConversationEventRenameMetadataToJSON(value.rename),
     };
 }
 

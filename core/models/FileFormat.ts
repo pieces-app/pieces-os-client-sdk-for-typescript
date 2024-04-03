@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,7 +62,9 @@ export interface FileFormat {
  * Check if a given object implements the FileFormat interface.
  */
 export function instanceOfFileFormat(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FileFormatFromJSON(json: any): FileFormat {
@@ -70,26 +72,29 @@ export function FileFormatFromJSON(json: any): FileFormat {
 }
 
 export function FileFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): FileFormat {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'bytes': json['bytes'] == null ? undefined : TransferableBytesFromJSON(json['bytes']),
-        'string': json['string'] == null ? undefined : TransferableStringFromJSON(json['string']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'bytes': !exists(json, 'bytes') ? undefined : TransferableBytesFromJSON(json['bytes']),
+        'string': !exists(json, 'string') ? undefined : TransferableStringFromJSON(json['string']),
     };
 }
 
 export function FileFormatToJSON(value?: FileFormat | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'bytes': TransferableBytesToJSON(value['bytes']),
-        'string': TransferableStringToJSON(value['string']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'bytes': TransferableBytesToJSON(value.bytes),
+        'string': TransferableStringToJSON(value.string),
     };
 }
 

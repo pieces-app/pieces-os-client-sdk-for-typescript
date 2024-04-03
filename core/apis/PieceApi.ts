@@ -29,17 +29,14 @@ export class PieceApi extends runtime.BaseAPI {
      * / [GET]
      */
     async htmlShareRaw(requestParameters: HtmlShareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters['p'] == null) {
-            throw new runtime.RequiredError(
-                'p',
-                'Required parameter "p" was null or undefined when calling htmlShare().'
-            );
+        if (requestParameters.p === null || requestParameters.p === undefined) {
+            throw new runtime.RequiredError('p','Required parameter requestParameters.p was null or undefined when calling htmlShare.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['p'] != null) {
-            queryParameters['p'] = requestParameters['p'];
+        if (requestParameters.p !== undefined) {
+            queryParameters['p'] = requestParameters.p;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

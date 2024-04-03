@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
 import {
     ConversationMessageSentimentEnumFromJSON,
@@ -152,12 +152,14 @@ export interface FlattenedConversationMessage {
  * Check if a given object implements the FlattenedConversationMessage interface.
  */
 export function instanceOfFlattenedConversationMessage(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('conversation' in value)) return false;
-    if (!('role' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "conversation" in value;
+    isInstance = isInstance && "role" in value;
+
+    return isInstance;
 }
 
 export function FlattenedConversationMessageFromJSON(json: any): FlattenedConversationMessage {
@@ -165,44 +167,47 @@ export function FlattenedConversationMessageFromJSON(json: any): FlattenedConver
 }
 
 export function FlattenedConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedConversationMessage {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'model': json['model'] == null ? undefined : ModelFromJSON(json['model']),
-        'fragment': json['fragment'] == null ? undefined : FragmentFormatFromJSON(json['fragment']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'model': !exists(json, 'model') ? undefined : ModelFromJSON(json['model']),
+        'fragment': !exists(json, 'fragment') ? undefined : FragmentFormatFromJSON(json['fragment']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
-        'sentiment': json['sentiment'] == null ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
+        'sentiment': !exists(json, 'sentiment') ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
         'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
-        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
     };
 }
 
 export function FlattenedConversationMessageToJSON(value?: FlattenedConversationMessage | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'model': ModelToJSON(value['model']),
-        'fragment': FragmentFormatToJSON(value['fragment']),
-        'conversation': ReferencedConversationToJSON(value['conversation']),
-        'sentiment': ConversationMessageSentimentEnumToJSON(value['sentiment']),
-        'role': QGPTConversationMessageRoleEnumToJSON(value['role']),
-        'score': ScoreToJSON(value['score']),
-        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'model': ModelToJSON(value.model),
+        'fragment': FragmentFormatToJSON(value.fragment),
+        'conversation': ReferencedConversationToJSON(value.conversation),
+        'sentiment': ConversationMessageSentimentEnumToJSON(value.sentiment),
+        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
+        'score': ScoreToJSON(value.score),
+        'annotations': FlattenedAnnotationsToJSON(value.annotations),
     };
 }
 

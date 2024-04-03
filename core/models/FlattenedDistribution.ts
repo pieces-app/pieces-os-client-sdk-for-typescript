@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -98,11 +98,13 @@ export interface FlattenedDistribution {
  * Check if a given object implements the FlattenedDistribution interface.
  */
 export function instanceOfFlattenedDistribution(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('share' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "share" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
 }
 
 export function FlattenedDistributionFromJSON(json: any): FlattenedDistribution {
@@ -110,36 +112,39 @@ export function FlattenedDistributionFromJSON(json: any): FlattenedDistribution 
 }
 
 export function FlattenedDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedDistribution {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'share': json['share'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mailgun': json['mailgun'] == null ? undefined : MailgunDistributionFromJSON(json['mailgun']),
-        'github': json['github'] == null ? undefined : GitHubDistributionFromJSON(json['github']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mailgun': !exists(json, 'mailgun') ? undefined : MailgunDistributionFromJSON(json['mailgun']),
+        'github': !exists(json, 'github') ? undefined : GitHubDistributionFromJSON(json['github']),
     };
 }
 
 export function FlattenedDistributionToJSON(value?: FlattenedDistribution | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'share': value['share'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'mailgun': MailgunDistributionToJSON(value['mailgun']),
-        'github': GitHubDistributionToJSON(value['github']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'share': value.share,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'mailgun': MailgunDistributionToJSON(value.mailgun),
+        'github': GitHubDistributionToJSON(value.github),
     };
 }
 

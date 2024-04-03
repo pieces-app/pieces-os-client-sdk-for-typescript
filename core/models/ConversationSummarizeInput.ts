@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface ConversationSummarizeInput {
  * Check if a given object implements the ConversationSummarizeInput interface.
  */
 export function instanceOfConversationSummarizeInput(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ConversationSummarizeInputFromJSON(json: any): ConversationSummarizeInput {
@@ -58,24 +60,27 @@ export function ConversationSummarizeInputFromJSON(json: any): ConversationSumma
 }
 
 export function ConversationSummarizeInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationSummarizeInput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
     };
 }
 
 export function ConversationSummarizeInputToJSON(value?: ConversationSummarizeInput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
 

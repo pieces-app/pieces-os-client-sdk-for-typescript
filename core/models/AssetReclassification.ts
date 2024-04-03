@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Asset } from './Asset';
 import {
     AssetFromJSON,
@@ -62,9 +62,11 @@ export interface AssetReclassification {
  * Check if a given object implements the AssetReclassification interface.
  */
 export function instanceOfAssetReclassification(value: object): boolean {
-    if (!('ext' in value)) return false;
-    if (!('asset' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "ext" in value;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
 }
 
 export function AssetReclassificationFromJSON(json: any): AssetReclassification {
@@ -72,26 +74,29 @@ export function AssetReclassificationFromJSON(json: any): AssetReclassification 
 }
 
 export function AssetReclassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetReclassification {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'ext': ClassificationSpecificEnumFromJSON(json['ext']),
         'asset': AssetFromJSON(json['asset']),
     };
 }
 
 export function AssetReclassificationToJSON(value?: AssetReclassification | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'ext': ClassificationSpecificEnumToJSON(value['ext']),
-        'asset': AssetToJSON(value['asset']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'ext': ClassificationSpecificEnumToJSON(value.ext),
+        'asset': AssetToJSON(value.asset),
     };
 }
 

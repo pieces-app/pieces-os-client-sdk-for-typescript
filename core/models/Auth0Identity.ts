@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * Contains info retrieved from the identity provider with which the user originally authenticates. Users may also link their profile to multiple identity providers; those identities will then also appear in this array. The contents of an individual identity provider object varies by provider, but it will typically include the following.
  * Link: [https://auth0.com/docs/rules/user-object-in-rules]
@@ -67,7 +67,9 @@ export interface Auth0Identity {
  * Check if a given object implements the Auth0Identity interface.
  */
 export function instanceOfAuth0Identity(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function Auth0IdentityFromJSON(json: any): Auth0Identity {
@@ -75,32 +77,35 @@ export function Auth0IdentityFromJSON(json: any): Auth0Identity {
 }
 
 export function Auth0IdentityFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0Identity {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'connection': json['connection'] == null ? undefined : json['connection'],
-        'isSocial': json['isSocial'] == null ? undefined : json['isSocial'],
-        'provider': json['provider'] == null ? undefined : json['provider'],
-        'userId': json['user_id'] == null ? undefined : json['user_id'],
-        'accessToken': json['access_token'] == null ? undefined : json['access_token'],
-        'expiresIn': json['expires_in'] == null ? undefined : json['expires_in'],
+        'connection': !exists(json, 'connection') ? undefined : json['connection'],
+        'isSocial': !exists(json, 'isSocial') ? undefined : json['isSocial'],
+        'provider': !exists(json, 'provider') ? undefined : json['provider'],
+        'userId': !exists(json, 'user_id') ? undefined : json['user_id'],
+        'accessToken': !exists(json, 'access_token') ? undefined : json['access_token'],
+        'expiresIn': !exists(json, 'expires_in') ? undefined : json['expires_in'],
     };
 }
 
 export function Auth0IdentityToJSON(value?: Auth0Identity | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'connection': value['connection'],
-        'isSocial': value['isSocial'],
-        'provider': value['provider'],
-        'user_id': value['userId'],
-        'access_token': value['accessToken'],
-        'expires_in': value['expiresIn'],
+        'connection': value.connection,
+        'isSocial': value.isSocial,
+        'provider': value.provider,
+        'user_id': value.userId,
+        'access_token': value.accessToken,
+        'expires_in': value.expiresIn,
     };
 }
 

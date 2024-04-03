@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -47,21 +47,23 @@ export interface ModelMaxTokens {
      * @type {number}
      * @memberof ModelMaxTokens
      */
-    input?: number;
+    input?: number | null;
     /**
      * 
      * @type {number}
      * @memberof ModelMaxTokens
      */
-    output?: number;
+    output?: number | null;
 }
 
 /**
  * Check if a given object implements the ModelMaxTokens interface.
  */
 export function instanceOfModelMaxTokens(value: object): boolean {
-    if (!('total' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
 }
 
 export function ModelMaxTokensFromJSON(json: any): ModelMaxTokens {
@@ -69,28 +71,31 @@ export function ModelMaxTokensFromJSON(json: any): ModelMaxTokens {
 }
 
 export function ModelMaxTokensFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelMaxTokens {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'total': json['total'],
-        'input': json['input'] == null ? undefined : json['input'],
-        'output': json['output'] == null ? undefined : json['output'],
+        'input': !exists(json, 'input') ? undefined : json['input'],
+        'output': !exists(json, 'output') ? undefined : json['output'],
     };
 }
 
 export function ModelMaxTokensToJSON(value?: ModelMaxTokens | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'total': value['total'],
-        'input': value['input'],
-        'output': value['output'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'total': value.total,
+        'input': value.input,
+        'output': value.output,
     };
 }
 

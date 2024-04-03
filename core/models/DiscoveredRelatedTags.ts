@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DiscoveredRelatedTag } from './DiscoveredRelatedTag';
 import {
     DiscoveredRelatedTagFromJSON,
@@ -56,9 +56,11 @@ export interface DiscoveredRelatedTags {
  * Check if a given object implements the DiscoveredRelatedTags interface.
  */
 export function instanceOfDiscoveredRelatedTags(value: object): boolean {
-    if (!('application' in value)) return false;
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredRelatedTagsFromJSON(json: any): DiscoveredRelatedTags {
@@ -66,26 +68,29 @@ export function DiscoveredRelatedTagsFromJSON(json: any): DiscoveredRelatedTags 
 }
 
 export function DiscoveredRelatedTagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredRelatedTags {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
         'iterable': ((json['iterable'] as Array<any>).map(DiscoveredRelatedTagFromJSON)),
     };
 }
 
 export function DiscoveredRelatedTagsToJSON(value?: DiscoveredRelatedTags | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'application': value['application'],
-        'iterable': ((value['iterable'] as Array<any>).map(DiscoveredRelatedTagToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'application': value.application,
+        'iterable': ((value.iterable as Array<any>).map(DiscoveredRelatedTagToJSON)),
     };
 }
 

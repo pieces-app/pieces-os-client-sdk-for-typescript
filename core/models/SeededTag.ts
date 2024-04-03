@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -86,8 +86,10 @@ export interface SeededTag {
  * Check if a given object implements the SeededTag interface.
  */
 export function instanceOfSeededTag(value: object): boolean {
-    if (!('text' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function SeededTagFromJSON(json: any): SeededTag {
@@ -95,32 +97,35 @@ export function SeededTagFromJSON(json: any): SeededTag {
 }
 
 export function SeededTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTag {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
-        'asset': json['asset'] == null ? undefined : json['asset'],
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'category': json['category'] == null ? undefined : TagCategoryEnumFromJSON(json['category']),
-        'person': json['person'] == null ? undefined : json['person'],
+        'asset': !exists(json, 'asset') ? undefined : json['asset'],
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
+        'person': !exists(json, 'person') ? undefined : json['person'],
     };
 }
 
 export function SeededTagToJSON(value?: SeededTag | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'text': value['text'],
-        'asset': value['asset'],
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'category': TagCategoryEnumToJSON(value['category']),
-        'person': value['person'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'text': value.text,
+        'asset': value.asset,
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'category': TagCategoryEnumToJSON(value.category),
+        'person': value.person,
     };
 }
 

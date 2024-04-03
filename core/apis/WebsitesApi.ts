@@ -63,8 +63,8 @@ export class WebsitesApi extends runtime.BaseAPI {
     async websitesCreateNewWebsiteRaw(requestParameters: WebsitesCreateNewWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -76,7 +76,7 @@ export class WebsitesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededWebsiteToJSON(requestParameters['seededWebsite']),
+            body: SeededWebsiteToJSON(requestParameters.seededWebsite),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsiteFromJSON(jsonValue));
@@ -96,11 +96,8 @@ export class WebsitesApi extends runtime.BaseAPI {
      * /websites/{website}/delete [POST]
      */
     async websitesDeleteSpecificWebsiteRaw(requestParameters: WebsitesDeleteSpecificWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['website'] == null) {
-            throw new runtime.RequiredError(
-                'website',
-                'Required parameter "website" was null or undefined when calling websitesDeleteSpecificWebsite().'
-            );
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websitesDeleteSpecificWebsite.');
         }
 
         const queryParameters: any = {};
@@ -108,7 +105,7 @@ export class WebsitesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/websites/{website}/delete`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            path: `/websites/{website}/delete`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -141,7 +138,7 @@ export class WebsitesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ExistentMetadataToJSON(requestParameters['existentMetadata']),
+            body: ExistentMetadataToJSON(requestParameters.existentMetadata),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExistingMetadataFromJSON(jsonValue));
@@ -163,8 +160,8 @@ export class WebsitesApi extends runtime.BaseAPI {
     async websitesSnapshotRaw(requestParameters: WebsitesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Websites>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

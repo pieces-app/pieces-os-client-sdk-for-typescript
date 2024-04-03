@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AssetFilterPhraseOptions } from './AssetFilterPhraseOptions';
 import {
     AssetFilterPhraseOptionsFromJSON,
@@ -74,7 +74,9 @@ export interface AssetFilterPhrase {
  * Check if a given object implements the AssetFilterPhrase interface.
  */
 export function instanceOfAssetFilterPhrase(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function AssetFilterPhraseFromJSON(json: any): AssetFilterPhrase {
@@ -82,32 +84,35 @@ export function AssetFilterPhraseFromJSON(json: any): AssetFilterPhrase {
 }
 
 export function AssetFilterPhraseFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilterPhrase {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'value': json['value'] == null ? undefined : json['value'],
-        'annotation': json['annotation'] == null ? undefined : json['annotation'],
-        'title': json['title'] == null ? undefined : json['title'],
-        'content': json['content'] == null ? undefined : json['content'],
-        'options': json['options'] == null ? undefined : AssetFilterPhraseOptionsFromJSON(json['options']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'value': !exists(json, 'value') ? undefined : json['value'],
+        'annotation': !exists(json, 'annotation') ? undefined : json['annotation'],
+        'title': !exists(json, 'title') ? undefined : json['title'],
+        'content': !exists(json, 'content') ? undefined : json['content'],
+        'options': !exists(json, 'options') ? undefined : AssetFilterPhraseOptionsFromJSON(json['options']),
     };
 }
 
 export function AssetFilterPhraseToJSON(value?: AssetFilterPhrase | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'value': value['value'],
-        'annotation': value['annotation'],
-        'title': value['title'],
-        'content': value['content'],
-        'options': AssetFilterPhraseOptionsToJSON(value['options']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'value': value.value,
+        'annotation': value.annotation,
+        'title': value.title,
+        'content': value.content,
+        'options': AssetFilterPhraseOptionsToJSON(value.options),
     };
 }
 

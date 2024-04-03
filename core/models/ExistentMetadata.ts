@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -46,8 +46,10 @@ export interface ExistentMetadata {
  * Check if a given object implements the ExistentMetadata interface.
  */
 export function instanceOfExistentMetadata(value: object): boolean {
-    if (!('value' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
 }
 
 export function ExistentMetadataFromJSON(json: any): ExistentMetadata {
@@ -55,24 +57,27 @@ export function ExistentMetadataFromJSON(json: any): ExistentMetadata {
 }
 
 export function ExistentMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExistentMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'value': json['value'],
     };
 }
 
 export function ExistentMetadataToJSON(value?: ExistentMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'value': value['value'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'value': value.value,
     };
 }
 

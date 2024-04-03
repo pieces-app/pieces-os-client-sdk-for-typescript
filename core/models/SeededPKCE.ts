@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -200,14 +200,16 @@ export type SeededPKCEResponseModeEnum = typeof SeededPKCEResponseModeEnum[keyof
  * Check if a given object implements the SeededPKCE interface.
  */
 export function instanceOfSeededPKCE(value: object): boolean {
-    if (!('responseType' in value)) return false;
-    if (!('state' in value)) return false;
-    if (!('nonce' in value)) return false;
-    if (!('codeChallenge' in value)) return false;
-    if (!('codeChallengeMethod' in value)) return false;
-    if (!('scope' in value)) return false;
-    if (!('clientId' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "responseType" in value;
+    isInstance = isInstance && "state" in value;
+    isInstance = isInstance && "nonce" in value;
+    isInstance = isInstance && "codeChallenge" in value;
+    isInstance = isInstance && "codeChallengeMethod" in value;
+    isInstance = isInstance && "scope" in value;
+    isInstance = isInstance && "clientId" in value;
+
+    return isInstance;
 }
 
 export function SeededPKCEFromJSON(json: any): SeededPKCE {
@@ -215,54 +217,57 @@ export function SeededPKCEFromJSON(json: any): SeededPKCE {
 }
 
 export function SeededPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCE {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'responseType': json['response_type'],
         'state': json['state'],
         'nonce': json['nonce'],
-        'redirectUri': json['redirect_uri'] == null ? undefined : json['redirect_uri'],
+        'redirectUri': !exists(json, 'redirect_uri') ? undefined : json['redirect_uri'],
         'codeChallenge': json['code_challenge'],
         'codeChallengeMethod': json['code_challenge_method'],
-        'domain': json['domain'] == null ? undefined : json['domain'],
-        'audience': json['audience'] == null ? undefined : json['audience'],
-        'screenHint': json['screen_hint'] == null ? undefined : json['screen_hint'],
-        'prompt': json['prompt'] == null ? undefined : json['prompt'],
-        'organization': json['organization'] == null ? undefined : json['organization'],
-        'invitation': json['invitation'] == null ? undefined : json['invitation'],
+        'domain': !exists(json, 'domain') ? undefined : json['domain'],
+        'audience': !exists(json, 'audience') ? undefined : json['audience'],
+        'screenHint': !exists(json, 'screen_hint') ? undefined : json['screen_hint'],
+        'prompt': !exists(json, 'prompt') ? undefined : json['prompt'],
+        'organization': !exists(json, 'organization') ? undefined : json['organization'],
+        'invitation': !exists(json, 'invitation') ? undefined : json['invitation'],
         'scope': json['scope'],
         'clientId': json['client_id'],
-        'aDDITIONALPARAMETERS': json['ADDITIONAL_PARAMETERS'] == null ? undefined : SeededPKCEADDITIONALPARAMETERSFromJSON(json['ADDITIONAL_PARAMETERS']),
-        'responseMode': json['response_mode'] == null ? undefined : json['response_mode'],
+        'aDDITIONALPARAMETERS': !exists(json, 'ADDITIONAL_PARAMETERS') ? undefined : SeededPKCEADDITIONALPARAMETERSFromJSON(json['ADDITIONAL_PARAMETERS']),
+        'responseMode': !exists(json, 'response_mode') ? undefined : json['response_mode'],
     };
 }
 
 export function SeededPKCEToJSON(value?: SeededPKCE | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'response_type': value['responseType'],
-        'state': value['state'],
-        'nonce': value['nonce'],
-        'redirect_uri': value['redirectUri'],
-        'code_challenge': value['codeChallenge'],
-        'code_challenge_method': value['codeChallengeMethod'],
-        'domain': value['domain'],
-        'audience': value['audience'],
-        'screen_hint': value['screenHint'],
-        'prompt': value['prompt'],
-        'organization': value['organization'],
-        'invitation': value['invitation'],
-        'scope': value['scope'],
-        'client_id': value['clientId'],
-        'ADDITIONAL_PARAMETERS': SeededPKCEADDITIONALPARAMETERSToJSON(value['aDDITIONALPARAMETERS']),
-        'response_mode': value['responseMode'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'response_type': value.responseType,
+        'state': value.state,
+        'nonce': value.nonce,
+        'redirect_uri': value.redirectUri,
+        'code_challenge': value.codeChallenge,
+        'code_challenge_method': value.codeChallengeMethod,
+        'domain': value.domain,
+        'audience': value.audience,
+        'screen_hint': value.screenHint,
+        'prompt': value.prompt,
+        'organization': value.organization,
+        'invitation': value.invitation,
+        'scope': value.scope,
+        'client_id': value.clientId,
+        'ADDITIONAL_PARAMETERS': SeededPKCEADDITIONALPARAMETERSToJSON(value.aDDITIONALPARAMETERS),
+        'response_mode': value.responseMode,
     };
 }
 

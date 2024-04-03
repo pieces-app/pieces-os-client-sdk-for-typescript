@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { AnnotationTypeEnum } from './AnnotationTypeEnum';
 import {
     AnnotationTypeEnumFromJSON,
@@ -50,7 +50,9 @@ export interface AssetFilterPhraseOptions {
  * Check if a given object implements the AssetFilterPhraseOptions interface.
  */
 export function instanceOfAssetFilterPhraseOptions(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function AssetFilterPhraseOptionsFromJSON(json: any): AssetFilterPhraseOptions {
@@ -58,24 +60,27 @@ export function AssetFilterPhraseOptionsFromJSON(json: any): AssetFilterPhraseOp
 }
 
 export function AssetFilterPhraseOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilterPhraseOptions {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'annotation': json['annotation'] == null ? undefined : AnnotationTypeEnumFromJSON(json['annotation']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'annotation': !exists(json, 'annotation') ? undefined : AnnotationTypeEnumFromJSON(json['annotation']),
     };
 }
 
 export function AssetFilterPhraseOptionsToJSON(value?: AssetFilterPhraseOptions | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'annotation': AnnotationTypeEnumToJSON(value['annotation']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'annotation': AnnotationTypeEnumToJSON(value.annotation),
     };
 }
 

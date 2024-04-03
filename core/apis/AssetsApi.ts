@@ -119,8 +119,8 @@ export class AssetsApi extends runtime.BaseAPI {
     async assetsCreateNewAssetRaw(requestParameters: AssetsCreateNewAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -132,7 +132,7 @@ export class AssetsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeedToJSON(requestParameters['seed']),
+            body: SeedToJSON(requestParameters.seed),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
@@ -152,11 +152,8 @@ export class AssetsApi extends runtime.BaseAPI {
      * /assets/delete [POST] Scoped to Asset
      */
     async assetsDeleteAssetRaw(requestParameters: AssetsDeleteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetsDeleteAsset().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetsDeleteAsset.');
         }
 
         const queryParameters: any = {};
@@ -164,7 +161,7 @@ export class AssetsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/assets/{asset}/delete`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/assets/{asset}/delete`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -193,8 +190,8 @@ export class AssetsApi extends runtime.BaseAPI {
     async assetsDraftRaw(requestParameters: AssetsDraftRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Seed>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -206,7 +203,7 @@ export class AssetsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeedToJSON(requestParameters['seed']),
+            body: SeedToJSON(requestParameters.seed),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SeedFromJSON(jsonValue));
@@ -237,7 +234,7 @@ export class AssetsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAssetsRecommendationToJSON(requestParameters['seededAssetsRecommendation']),
+            body: SeededAssetsRecommendationToJSON(requestParameters.seededAssetsRecommendation),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsFromJSON(jsonValue));
@@ -268,7 +265,7 @@ export class AssetsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetsToJSON(requestParameters['assets']),
+            body: AssetsToJSON(requestParameters.assets),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsFromJSON(jsonValue));
@@ -290,8 +287,8 @@ export class AssetsApi extends runtime.BaseAPI {
     async assetsIdentifiersSnapshotRaw(requestParameters: AssetsIdentifiersSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlattenedAssets>> {
         const queryParameters: any = {};
 
-        if (requestParameters['pseudo'] != null) {
-            queryParameters['pseudo'] = requestParameters['pseudo'];
+        if (requestParameters.pseudo !== undefined) {
+            queryParameters['pseudo'] = requestParameters.pseudo;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -350,20 +347,20 @@ export class AssetsApi extends runtime.BaseAPI {
     async assetsSearchAssetsRaw(requestParameters: AssetsSearchAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
         const queryParameters: any = {};
 
-        if (requestParameters['query'] != null) {
-            queryParameters['query'] = requestParameters['query'];
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
         }
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
-        if (requestParameters['searchableTags'] != null) {
-            queryParameters['searchable_tags'] = requestParameters['searchableTags'];
+        if (requestParameters.searchableTags !== undefined) {
+            queryParameters['searchable_tags'] = requestParameters.searchableTags;
         }
 
-        if (requestParameters['pseudo'] != null) {
-            queryParameters['pseudo'] = requestParameters['pseudo'];
+        if (requestParameters.pseudo !== undefined) {
+            queryParameters['pseudo'] = requestParameters.pseudo;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -394,12 +391,12 @@ export class AssetsApi extends runtime.BaseAPI {
     async assetsSearchWithFiltersRaw(requestParameters: AssetsSearchWithFiltersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AssetsSearchWithFiltersOutput>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
-        if (requestParameters['pseudo'] != null) {
-            queryParameters['pseudo'] = requestParameters['pseudo'];
+        if (requestParameters.pseudo !== undefined) {
+            queryParameters['pseudo'] = requestParameters.pseudo;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -411,7 +408,7 @@ export class AssetsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetsSearchWithFiltersInputToJSON(requestParameters['assetsSearchWithFiltersInput']),
+            body: AssetsSearchWithFiltersInputToJSON(requestParameters.assetsSearchWithFiltersInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetsSearchWithFiltersOutputFromJSON(jsonValue));
@@ -433,16 +430,16 @@ export class AssetsApi extends runtime.BaseAPI {
     async assetsSnapshotRaw(requestParameters: AssetsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Assets>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
-        if (requestParameters['suggested'] != null) {
-            queryParameters['suggested'] = requestParameters['suggested'];
+        if (requestParameters.suggested !== undefined) {
+            queryParameters['suggested'] = requestParameters.suggested;
         }
 
-        if (requestParameters['pseudo'] != null) {
-            queryParameters['pseudo'] = requestParameters['pseudo'];
+        if (requestParameters.pseudo !== undefined) {
+            queryParameters['pseudo'] = requestParameters.pseudo;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -471,23 +468,20 @@ export class AssetsApi extends runtime.BaseAPI {
      * /assets/{asset}/formats [GET] Scoped To Assets
      */
     async assetsSpecificAssetFormatsSnapshotRaw(requestParameters: AssetsSpecificAssetFormatsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Formats>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetsSpecificAssetFormatsSnapshot().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetsSpecificAssetFormatsSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/assets/{asset}/formats`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/assets/{asset}/formats`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -510,23 +504,20 @@ export class AssetsApi extends runtime.BaseAPI {
      * /assets/{asset} [GET] Scoped to Assets
      */
     async assetsSpecificAssetSnapshotRaw(requestParameters: AssetsSpecificAssetSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
-        if (requestParameters['asset'] == null) {
-            throw new runtime.RequiredError(
-                'asset',
-                'Required parameter "asset" was null or undefined when calling assetsSpecificAssetSnapshot().'
-            );
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetsSpecificAssetSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/assets/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            path: `/assets/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

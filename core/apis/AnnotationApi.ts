@@ -48,11 +48,8 @@ export class AnnotationApi extends runtime.BaseAPI {
      * \'/annotation/{annotation}/scores/increment\' [POST]
      */
     async annotationScoresIncrementRaw(requestParameters: AnnotationScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['annotation'] == null) {
-            throw new runtime.RequiredError(
-                'annotation',
-                'Required parameter "annotation" was null or undefined when calling annotationScoresIncrement().'
-            );
+        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling annotationScoresIncrement.');
         }
 
         const queryParameters: any = {};
@@ -62,11 +59,11 @@ export class AnnotationApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/annotation/{annotation}/scores/increment`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            path: `/annotation/{annotation}/scores/increment`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -85,11 +82,8 @@ export class AnnotationApi extends runtime.BaseAPI {
      * /annotation/{annotation} [GET]
      */
     async annotationSpecificAnnotationSnapshotRaw(requestParameters: AnnotationSpecificAnnotationSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Annotation>> {
-        if (requestParameters['annotation'] == null) {
-            throw new runtime.RequiredError(
-                'annotation',
-                'Required parameter "annotation" was null or undefined when calling annotationSpecificAnnotationSnapshot().'
-            );
+        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling annotationSpecificAnnotationSnapshot.');
         }
 
         const queryParameters: any = {};
@@ -97,7 +91,7 @@ export class AnnotationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/annotation/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            path: `/annotation/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -131,7 +125,7 @@ export class AnnotationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AnnotationToJSON(requestParameters['annotation']),
+            body: AnnotationToJSON(requestParameters.annotation),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnnotationFromJSON(jsonValue));

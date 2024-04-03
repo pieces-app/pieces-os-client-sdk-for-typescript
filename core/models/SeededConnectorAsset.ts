@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,8 +62,10 @@ export interface SeededConnectorAsset {
  * Check if a given object implements the SeededConnectorAsset interface.
  */
 export function instanceOfSeededConnectorAsset(value: object): boolean {
-    if (!('format' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function SeededConnectorAssetFromJSON(json: any): SeededConnectorAsset {
@@ -71,26 +73,29 @@ export function SeededConnectorAssetFromJSON(json: any): SeededConnectorAsset {
 }
 
 export function SeededConnectorAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConnectorAsset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'metadata': json['metadata'] == null ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'metadata': !exists(json, 'metadata') ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
         'format': SeededFormatFromJSON(json['format']),
     };
 }
 
 export function SeededConnectorAssetToJSON(value?: SeededConnectorAsset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'metadata': SeededAssetMetadataToJSON(value['metadata']),
-        'format': SeededFormatToJSON(value['format']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'metadata': SeededAssetMetadataToJSON(value.metadata),
+        'format': SeededFormatToJSON(value.format),
     };
 }
 

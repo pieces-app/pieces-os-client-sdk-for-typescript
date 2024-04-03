@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -152,12 +152,14 @@ export interface Tag {
  * Check if a given object implements the Tag interface.
  */
 export function instanceOfTag(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('text' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('category' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "category" in value;
+
+    return isInstance;
 }
 
 export function TagFromJSON(json: any): Tag {
@@ -165,46 +167,49 @@ export function TagFromJSON(json: any): Tag {
 }
 
 export function TagFromJSONTyped(json: any, ignoreDiscriminator: boolean): Tag {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'text': json['text'],
-        'mechanisms': json['mechanisms'] == null ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
-        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'category': TagCategoryEnumFromJSON(json['category']),
-        'relationship': json['relationship'] == null ? undefined : RelationshipFromJSON(json['relationship']),
-        'interactions': json['interactions'] == null ? undefined : json['interactions'],
-        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
+        'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
+        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function TagToJSON(value?: Tag | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'text': value['text'],
-        'mechanisms': value['mechanisms'] == null ? undefined : (mapValues(value['mechanisms'], MechanismEnumToJSON)),
-        'assets': FlattenedAssetsToJSON(value['assets']),
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'category': TagCategoryEnumToJSON(value['category']),
-        'relationship': RelationshipToJSON(value['relationship']),
-        'interactions': value['interactions'],
-        'persons': FlattenedPersonsToJSON(value['persons']),
-        'score': ScoreToJSON(value['score']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'text': value.text,
+        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
+        'assets': FlattenedAssetsToJSON(value.assets),
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'category': TagCategoryEnumToJSON(value.category),
+        'relationship': RelationshipToJSON(value.relationship),
+        'interactions': value.interactions,
+        'persons': FlattenedPersonsToJSON(value.persons),
+        'score': ScoreToJSON(value.score),
     };
 }
 

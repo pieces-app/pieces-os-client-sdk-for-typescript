@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -74,8 +74,10 @@ export interface FlattenedRanges {
  * Check if a given object implements the FlattenedRanges interface.
  */
 export function instanceOfFlattenedRanges(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedRangesFromJSON(json: any): FlattenedRanges {
@@ -83,30 +85,33 @@ export function FlattenedRangesFromJSON(json: any): FlattenedRanges {
 }
 
 export function FlattenedRangesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedRanges {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedRangeFromJSON)),
-        'indices': json['indices'] == null ? undefined : json['indices'],
-        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
-        'continuous': json['continuous'] == null ? undefined : json['continuous'],
+        'indices': !exists(json, 'indices') ? undefined : json['indices'],
+        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'continuous': !exists(json, 'continuous') ? undefined : json['continuous'],
     };
 }
 
 export function FlattenedRangesToJSON(value?: FlattenedRanges | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(ReferencedRangeToJSON)),
-        'indices': value['indices'],
-        'score': ScoreToJSON(value['score']),
-        'continuous': value['continuous'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(ReferencedRangeToJSON)),
+        'indices': value.indices,
+        'score': ScoreToJSON(value.score),
+        'continuous': value.continuous,
     };
 }
 

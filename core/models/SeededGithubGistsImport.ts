@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,8 +56,10 @@ export interface SeededGithubGistsImport {
  * Check if a given object implements the SeededGithubGistsImport interface.
  */
 export function instanceOfSeededGithubGistsImport(value: object): boolean {
-    if (!('application' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededGithubGistsImportFromJSON(json: any): SeededGithubGistsImport {
@@ -65,26 +67,29 @@ export function SeededGithubGistsImportFromJSON(json: any): SeededGithubGistsImp
 }
 
 export function SeededGithubGistsImportFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededGithubGistsImport {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
-        '_public': json['public'] == null ? undefined : json['public'],
+        '_public': !exists(json, 'public') ? undefined : json['public'],
     };
 }
 
 export function SeededGithubGistsImportToJSON(value?: SeededGithubGistsImport | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'application': value['application'],
-        'public': value['_public'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'application': value.application,
+        'public': value._public,
     };
 }
 

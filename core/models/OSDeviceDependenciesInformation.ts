@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,8 +44,10 @@ export interface OSDeviceDependenciesInformation {
  * Check if a given object implements the OSDeviceDependenciesInformation interface.
  */
 export function instanceOfOSDeviceDependenciesInformation(value: object): boolean {
-    if (!('vulkan' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "vulkan" in value;
+
+    return isInstance;
 }
 
 export function OSDeviceDependenciesInformationFromJSON(json: any): OSDeviceDependenciesInformation {
@@ -53,24 +55,27 @@ export function OSDeviceDependenciesInformationFromJSON(json: any): OSDeviceDepe
 }
 
 export function OSDeviceDependenciesInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceDependenciesInformation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'vulkan': json['vulkan'],
     };
 }
 
 export function OSDeviceDependenciesInformationToJSON(value?: OSDeviceDependenciesInformation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'vulkan': value['vulkan'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'vulkan': value.vulkan,
     };
 }
 

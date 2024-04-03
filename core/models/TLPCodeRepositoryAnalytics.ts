@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,7 +44,9 @@ export interface TLPCodeRepositoryAnalytics {
  * Check if a given object implements the TLPCodeRepositoryAnalytics interface.
  */
 export function instanceOfTLPCodeRepositoryAnalytics(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeRepositoryAnalyticsFromJSON(json: any): TLPCodeRepositoryAnalytics {
@@ -52,24 +54,27 @@ export function TLPCodeRepositoryAnalyticsFromJSON(json: any): TLPCodeRepository
 }
 
 export function TLPCodeRepositoryAnalyticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeRepositoryAnalytics {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': json['id'] == null ? undefined : json['id'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': !exists(json, 'id') ? undefined : json['id'],
     };
 }
 
 export function TLPCodeRepositoryAnalyticsToJSON(value?: TLPCodeRepositoryAnalytics | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
     };
 }
 

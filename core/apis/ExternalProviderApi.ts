@@ -70,7 +70,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PrecreatedExternalProviderApiKeyToJSON(requestParameters['precreatedExternalProviderApiKey']),
+            body: PrecreatedExternalProviderApiKeyToJSON(requestParameters.precreatedExternalProviderApiKey),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CreatedExternalProviderApiKeyFromJSON(jsonValue));
@@ -101,7 +101,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PredeletedExternalProviderApiKeyToJSON(requestParameters['predeletedExternalProviderApiKey']),
+            body: PredeletedExternalProviderApiKeyToJSON(requestParameters.predeletedExternalProviderApiKey),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeletedExternalProviderApiKeyFromJSON(jsonValue));
@@ -132,7 +132,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PreupdatedExternalProviderApiKeyToJSON(requestParameters['preupdatedExternalProviderApiKey']),
+            body: PreupdatedExternalProviderApiKeyToJSON(requestParameters.preupdatedExternalProviderApiKey),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UpdatedExternalProviderApiKeyFromJSON(jsonValue));

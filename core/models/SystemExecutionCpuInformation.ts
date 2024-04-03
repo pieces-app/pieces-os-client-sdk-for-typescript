@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -43,10 +43,12 @@ export interface SystemExecutionCpuInformation {
  * Check if a given object implements the SystemExecutionCpuInformation interface.
  */
 export function instanceOfSystemExecutionCpuInformation(value: object): boolean {
-    if (!('count' in value)) return false;
-    if (!('brand' in value)) return false;
-    if (!('frequency' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+    isInstance = isInstance && "brand" in value;
+    isInstance = isInstance && "frequency" in value;
+
+    return isInstance;
 }
 
 export function SystemExecutionCpuInformationFromJSON(json: any): SystemExecutionCpuInformation {
@@ -54,7 +56,7 @@ export function SystemExecutionCpuInformationFromJSON(json: any): SystemExecutio
 }
 
 export function SystemExecutionCpuInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SystemExecutionCpuInformation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -66,14 +68,17 @@ export function SystemExecutionCpuInformationFromJSONTyped(json: any, ignoreDisc
 }
 
 export function SystemExecutionCpuInformationToJSON(value?: SystemExecutionCpuInformation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'count': value['count'],
-        'brand': value['brand'],
-        'frequency': value['frequency'],
+        'count': value.count,
+        'brand': value.brand,
+        'frequency': value.frequency,
     };
 }
 

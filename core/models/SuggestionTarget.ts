@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,9 +56,11 @@ export interface SuggestionTarget {
  * Check if a given object implements the SuggestionTarget interface.
  */
 export function instanceOfSuggestionTarget(value: object): boolean {
-    if (!('seed' in value)) return false;
-    if (!('vector' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "seed" in value;
+    isInstance = isInstance && "vector" in value;
+
+    return isInstance;
 }
 
 export function SuggestionTargetFromJSON(json: any): SuggestionTarget {
@@ -66,26 +68,29 @@ export function SuggestionTargetFromJSON(json: any): SuggestionTarget {
 }
 
 export function SuggestionTargetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SuggestionTarget {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seed': SeededConnectorCreationFromJSON(json['seed']),
         'vector': json['vector'],
     };
 }
 
 export function SuggestionTargetToJSON(value?: SuggestionTarget | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'seed': SeededConnectorCreationToJSON(value['seed']),
-        'vector': value['vector'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'seed': SeededConnectorCreationToJSON(value.seed),
+        'vector': value.vector,
     };
 }
 

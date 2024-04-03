@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface SeededConnectorConnection {
  * Check if a given object implements the SeededConnectorConnection interface.
  */
 export function instanceOfSeededConnectorConnection(value: object): boolean {
-    if (!('application' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededConnectorConnectionFromJSON(json: any): SeededConnectorConnection {
@@ -59,24 +61,27 @@ export function SeededConnectorConnectionFromJSON(json: any): SeededConnectorCon
 }
 
 export function SeededConnectorConnectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConnectorConnection {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': SeededTrackedApplicationFromJSON(json['application']),
     };
 }
 
 export function SeededConnectorConnectionToJSON(value?: SeededConnectorConnection | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'application': SeededTrackedApplicationToJSON(value['application']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'application': SeededTrackedApplicationToJSON(value.application),
     };
 }
 

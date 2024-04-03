@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -56,7 +56,9 @@ export interface Auth0OpenAIUserMetadata {
  * Check if a given object implements the Auth0OpenAIUserMetadata interface.
  */
 export function instanceOfAuth0OpenAIUserMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function Auth0OpenAIUserMetadataFromJSON(json: any): Auth0OpenAIUserMetadata {
@@ -64,28 +66,31 @@ export function Auth0OpenAIUserMetadataFromJSON(json: any): Auth0OpenAIUserMetad
 }
 
 export function Auth0OpenAIUserMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0OpenAIUserMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'apiKey': json['api_key'] == null ? undefined : json['api_key'],
-        'apiKeyName': json['api_key_name'] == null ? undefined : json['api_key_name'],
-        'organizationKey': json['organization_key'] == null ? undefined : json['organization_key'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'apiKey': !exists(json, 'api_key') ? undefined : json['api_key'],
+        'apiKeyName': !exists(json, 'api_key_name') ? undefined : json['api_key_name'],
+        'organizationKey': !exists(json, 'organization_key') ? undefined : json['organization_key'],
     };
 }
 
 export function Auth0OpenAIUserMetadataToJSON(value?: Auth0OpenAIUserMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'api_key': value['apiKey'],
-        'api_key_name': value['apiKeyName'],
-        'organization_key': value['organizationKey'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'api_key': value.apiKey,
+        'api_key_name': value.apiKeyName,
+        'organization_key': value.organizationKey,
     };
 }
 

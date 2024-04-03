@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
@@ -66,11 +66,13 @@ export interface Node {
  * Check if a given object implements the Node interface.
  */
 export function instanceOfNode(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('type' in value)) return false;
-    if (!('root' in value)) return false;
-    if (!('created' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "root" in value;
+    isInstance = isInstance && "created" in value;
+
+    return isInstance;
 }
 
 export function NodeFromJSON(json: any): Node {
@@ -78,7 +80,7 @@ export function NodeFromJSON(json: any): Node {
 }
 
 export function NodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Node {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -91,15 +93,18 @@ export function NodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Node
 }
 
 export function NodeToJSON(value?: Node | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'id': value['id'],
-        'type': NodeTypeEnumToJSON(value['type']),
-        'root': value['root'],
-        'created': GroupedTimestampToJSON(value['created']),
+        'id': value.id,
+        'type': NodeTypeEnumToJSON(value.type),
+        'root': value.root,
+        'created': GroupedTimestampToJSON(value.created),
     };
 }
 

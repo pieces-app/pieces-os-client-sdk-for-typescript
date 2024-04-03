@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -53,8 +53,10 @@ export interface FlattenedFormats {
  * Check if a given object implements the FlattenedFormats interface.
  */
 export function instanceOfFlattenedFormats(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedFormatsFromJSON(json: any): FlattenedFormats {
@@ -62,24 +64,27 @@ export function FlattenedFormatsFromJSON(json: any): FlattenedFormats {
 }
 
 export function FlattenedFormatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedFormats {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedFormatFromJSON)),
     };
 }
 
 export function FlattenedFormatsToJSON(value?: FlattenedFormats | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'iterable': ((value['iterable'] as Array<any>).map(ReferencedFormatToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value.iterable as Array<any>).map(ReferencedFormatToJSON)),
     };
 }
 

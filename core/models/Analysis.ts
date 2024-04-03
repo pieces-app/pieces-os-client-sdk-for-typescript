@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { CodeAnalysis } from './CodeAnalysis';
 import {
     CodeAnalysisFromJSON,
@@ -78,9 +78,11 @@ export interface Analysis {
  * Check if a given object implements the Analysis interface.
  */
 export function instanceOfAnalysis(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('format' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function AnalysisFromJSON(json: any): Analysis {
@@ -88,30 +90,33 @@ export function AnalysisFromJSON(json: any): Analysis {
 }
 
 export function AnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): Analysis {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'code': json['code'] == null ? undefined : CodeAnalysisFromJSON(json['code']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'code': !exists(json, 'code') ? undefined : CodeAnalysisFromJSON(json['code']),
         'id': json['id'],
         'format': json['format'],
-        'image': json['image'] == null ? undefined : ImageAnalysisFromJSON(json['image']),
+        'image': !exists(json, 'image') ? undefined : ImageAnalysisFromJSON(json['image']),
     };
 }
 
 export function AnalysisToJSON(value?: Analysis | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'code': CodeAnalysisToJSON(value['code']),
-        'id': value['id'],
-        'format': value['format'],
-        'image': ImageAnalysisToJSON(value['image']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'code': CodeAnalysisToJSON(value.code),
+        'id': value.id,
+        'format': value.format,
+        'image': ImageAnalysisToJSON(value.image),
     };
 }
 

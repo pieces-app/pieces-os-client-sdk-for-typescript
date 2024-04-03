@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -64,7 +64,9 @@ export interface PersonAccess {
  * Check if a given object implements the PersonAccess interface.
  */
 export function instanceOfPersonAccess(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function PersonAccessFromJSON(json: any): PersonAccess {
@@ -72,26 +74,29 @@ export function PersonAccessFromJSON(json: any): PersonAccess {
 }
 
 export function PersonAccessFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonAccess {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'scoped': json['scoped'] == null ? undefined : PersonAccessScopedEnumFromJSON(json['scoped']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'scoped': !exists(json, 'scoped') ? undefined : PersonAccessScopedEnumFromJSON(json['scoped']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
     };
 }
 
 export function PersonAccessToJSON(value?: PersonAccess | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'scoped': PersonAccessScopedEnumToJSON(value['scoped']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'scoped': PersonAccessScopedEnumToJSON(value.scoped),
+        'deleted': GroupedTimestampToJSON(value.deleted),
     };
 }
 

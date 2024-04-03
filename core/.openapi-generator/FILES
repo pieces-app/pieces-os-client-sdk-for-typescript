@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 apis/ActivitiesApi.ts
 apis/ActivityApi.ts
 apis/AllocationApi.ts

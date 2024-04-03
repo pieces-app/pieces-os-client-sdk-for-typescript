@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -74,9 +74,11 @@ export interface TrackedFormatEvent {
  * Check if a given object implements the TrackedFormatEvent interface.
  */
 export function instanceOfTrackedFormatEvent(value: object): boolean {
-    if (!('format' in value)) return false;
-    if (!('identifierDescriptionPair' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "format" in value;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+
+    return isInstance;
 }
 
 export function TrackedFormatEventFromJSON(json: any): TrackedFormatEvent {
@@ -84,28 +86,31 @@ export function TrackedFormatEventFromJSON(json: any): TrackedFormatEvent {
 }
 
 export function TrackedFormatEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'format': TrackedFormatFromJSON(json[' format']),
         'identifierDescriptionPair': TrackedFormatEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
-        'metadata': json['metadata'] == null ? undefined : TrackedFormatEventMetadataFromJSON(json['metadata']),
+        'metadata': !exists(json, 'metadata') ? undefined : TrackedFormatEventMetadataFromJSON(json['metadata']),
     };
 }
 
 export function TrackedFormatEventToJSON(value?: TrackedFormatEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        ' format': TrackedFormatToJSON(value['format']),
-        'identifier_description_pair': TrackedFormatEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
-        'metadata': TrackedFormatEventMetadataToJSON(value['metadata']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        ' format': TrackedFormatToJSON(value.format),
+        'identifier_description_pair': TrackedFormatEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
+        'metadata': TrackedFormatEventMetadataToJSON(value.metadata),
     };
 }
 

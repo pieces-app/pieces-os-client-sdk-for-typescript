@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { TLPDirectedDiscoveryFilter } from './TLPDirectedDiscoveryFilter';
 import {
     TLPDirectedDiscoveryFilterFromJSON,
@@ -38,8 +38,10 @@ export interface TLPDirectedDiscoveryFilters {
  * Check if a given object implements the TLPDirectedDiscoveryFilters interface.
  */
 export function instanceOfTLPDirectedDiscoveryFilters(value: object): boolean {
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function TLPDirectedDiscoveryFiltersFromJSON(json: any): TLPDirectedDiscoveryFilters {
@@ -47,7 +49,7 @@ export function TLPDirectedDiscoveryFiltersFromJSON(json: any): TLPDirectedDisco
 }
 
 export function TLPDirectedDiscoveryFiltersFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPDirectedDiscoveryFilters {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -57,12 +59,15 @@ export function TLPDirectedDiscoveryFiltersFromJSONTyped(json: any, ignoreDiscri
 }
 
 export function TLPDirectedDiscoveryFiltersToJSON(value?: TLPDirectedDiscoveryFilters | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'iterable': ((value['iterable'] as Array<any>).map(TLPDirectedDiscoveryFilterToJSON)),
+        'iterable': ((value.iterable as Array<any>).map(TLPDirectedDiscoveryFilterToJSON)),
     };
 }
 

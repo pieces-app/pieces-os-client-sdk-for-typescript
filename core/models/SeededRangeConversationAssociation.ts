@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,8 +62,10 @@ export interface SeededRangeConversationAssociation {
  * Check if a given object implements the SeededRangeConversationAssociation interface.
  */
 export function instanceOfSeededRangeConversationAssociation(value: object): boolean {
-    if (!('reference' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "reference" in value;
+
+    return isInstance;
 }
 
 export function SeededRangeConversationAssociationFromJSON(json: any): SeededRangeConversationAssociation {
@@ -71,26 +73,29 @@ export function SeededRangeConversationAssociationFromJSON(json: any): SeededRan
 }
 
 export function SeededRangeConversationAssociationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededRangeConversationAssociation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'reference': ReferencedConversationFromJSON(json['reference']),
-        'grounding': json['grounding'] == null ? undefined : SeededRangeConversationGroundingAssociationFromJSON(json['grounding']),
+        'grounding': !exists(json, 'grounding') ? undefined : SeededRangeConversationGroundingAssociationFromJSON(json['grounding']),
     };
 }
 
 export function SeededRangeConversationAssociationToJSON(value?: SeededRangeConversationAssociation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'reference': ReferencedConversationToJSON(value['reference']),
-        'grounding': SeededRangeConversationGroundingAssociationToJSON(value['grounding']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'reference': ReferencedConversationToJSON(value.reference),
+        'grounding': SeededRangeConversationGroundingAssociationToJSON(value.grounding),
     };
 }
 

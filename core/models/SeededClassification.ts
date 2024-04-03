@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
     ClassificationGenericEnumFromJSON,
@@ -74,7 +74,9 @@ export interface SeededClassification {
  * Check if a given object implements the SeededClassification interface.
  */
 export function instanceOfSeededClassification(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededClassificationFromJSON(json: any): SeededClassification {
@@ -82,28 +84,31 @@ export function SeededClassificationFromJSON(json: any): SeededClassification {
 }
 
 export function SeededClassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededClassification {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'generic': json['generic'] == null ? undefined : ClassificationGenericEnumFromJSON(json['generic']),
-        'specific': json['specific'] == null ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
-        'rendering': json['rendering'] == null ? undefined : ClassificationRenderingEnumFromJSON(json['rendering']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'generic': !exists(json, 'generic') ? undefined : ClassificationGenericEnumFromJSON(json['generic']),
+        'specific': !exists(json, 'specific') ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
+        'rendering': !exists(json, 'rendering') ? undefined : ClassificationRenderingEnumFromJSON(json['rendering']),
     };
 }
 
 export function SeededClassificationToJSON(value?: SeededClassification | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'generic': ClassificationGenericEnumToJSON(value['generic']),
-        'specific': ClassificationSpecificEnumToJSON(value['specific']),
-        'rendering': ClassificationRenderingEnumToJSON(value['rendering']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'generic': ClassificationGenericEnumToJSON(value.generic),
+        'specific': ClassificationSpecificEnumToJSON(value.specific),
+        'rendering': ClassificationRenderingEnumToJSON(value.rendering),
     };
 }
 

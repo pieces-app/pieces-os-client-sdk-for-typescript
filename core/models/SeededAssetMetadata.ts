@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -142,7 +142,9 @@ export interface SeededAssetMetadata {
  * Check if a given object implements the SeededAssetMetadata interface.
  */
 export function instanceOfSeededAssetMetadata(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededAssetMetadataFromJSON(json: any): SeededAssetMetadata {
@@ -150,40 +152,43 @@ export function SeededAssetMetadataFromJSON(json: any): SeededAssetMetadata {
 }
 
 export function SeededAssetMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetMetadata {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': json['name'] == null ? undefined : json['name'],
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'tags': json['tags'] == null ? undefined : ((json['tags'] as Array<any>).map(SeededAssetTagFromJSON)),
-        'websites': json['websites'] == null ? undefined : ((json['websites'] as Array<any>).map(SeededAssetWebsiteFromJSON)),
-        'sensitives': json['sensitives'] == null ? undefined : ((json['sensitives'] as Array<any>).map(SeededAssetSensitiveFromJSON)),
-        'persons': json['persons'] == null ? undefined : ((json['persons'] as Array<any>).map(SeededPersonFromJSON)),
-        'annotations': json['annotations'] == null ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
-        'hints': json['hints'] == null ? undefined : ((json['hints'] as Array<any>).map(SeededHintFromJSON)),
-        'anchors': json['anchors'] == null ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'tags': !exists(json, 'tags') ? undefined : ((json['tags'] as Array<any>).map(SeededAssetTagFromJSON)),
+        'websites': !exists(json, 'websites') ? undefined : ((json['websites'] as Array<any>).map(SeededAssetWebsiteFromJSON)),
+        'sensitives': !exists(json, 'sensitives') ? undefined : ((json['sensitives'] as Array<any>).map(SeededAssetSensitiveFromJSON)),
+        'persons': !exists(json, 'persons') ? undefined : ((json['persons'] as Array<any>).map(SeededPersonFromJSON)),
+        'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
+        'hints': !exists(json, 'hints') ? undefined : ((json['hints'] as Array<any>).map(SeededHintFromJSON)),
+        'anchors': !exists(json, 'anchors') ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
     };
 }
 
 export function SeededAssetMetadataToJSON(value?: SeededAssetMetadata | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'name': value['name'],
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'tags': value['tags'] == null ? undefined : ((value['tags'] as Array<any>).map(SeededAssetTagToJSON)),
-        'websites': value['websites'] == null ? undefined : ((value['websites'] as Array<any>).map(SeededAssetWebsiteToJSON)),
-        'sensitives': value['sensitives'] == null ? undefined : ((value['sensitives'] as Array<any>).map(SeededAssetSensitiveToJSON)),
-        'persons': value['persons'] == null ? undefined : ((value['persons'] as Array<any>).map(SeededPersonToJSON)),
-        'annotations': value['annotations'] == null ? undefined : ((value['annotations'] as Array<any>).map(SeededAnnotationToJSON)),
-        'hints': value['hints'] == null ? undefined : ((value['hints'] as Array<any>).map(SeededHintToJSON)),
-        'anchors': value['anchors'] == null ? undefined : ((value['anchors'] as Array<any>).map(SeededAnchorToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'name': value.name,
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'tags': value.tags === undefined ? undefined : ((value.tags as Array<any>).map(SeededAssetTagToJSON)),
+        'websites': value.websites === undefined ? undefined : ((value.websites as Array<any>).map(SeededAssetWebsiteToJSON)),
+        'sensitives': value.sensitives === undefined ? undefined : ((value.sensitives as Array<any>).map(SeededAssetSensitiveToJSON)),
+        'persons': value.persons === undefined ? undefined : ((value.persons as Array<any>).map(SeededPersonToJSON)),
+        'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
+        'hints': value.hints === undefined ? undefined : ((value.hints as Array<any>).map(SeededHintToJSON)),
+        'anchors': value.anchors === undefined ? undefined : ((value.anchors as Array<any>).map(SeededAnchorToJSON)),
     };
 }
 

@@ -50,7 +50,7 @@ export class OpenAIApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OpenAIModelsListInputToJSON(requestParameters['openAIModelsListInput']),
+            body: OpenAIModelsListInputToJSON(requestParameters.openAIModelsListInput),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OpenAIModelsListOutputFromJSON(jsonValue));

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -147,13 +147,15 @@ export interface FlattenedActivity {
  * Check if a given object implements the FlattenedActivity interface.
  */
 export function instanceOfFlattenedActivity(value: object): boolean {
-    if (!('id' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('updated' in value)) return false;
-    if (!('event' in value)) return false;
-    if (!('application' in value)) return false;
-    if (!('mechanism' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "event" in value;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "mechanism" in value;
+
+    return isInstance;
 }
 
 export function FlattenedActivityFromJSON(json: any): FlattenedActivity {
@@ -161,44 +163,47 @@ export function FlattenedActivityFromJSON(json: any): FlattenedActivity {
 }
 
 export function FlattenedActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedActivity {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'event': SeededConnectorTrackingFromJSON(json['event']),
         'application': ApplicationFromJSON(json['application']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'format': json['format'] == null ? undefined : ReferencedFormatFromJSON(json['format']),
-        'user': json['user'] == null ? undefined : FlattenedUserProfileFromJSON(json['user']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
+        'user': !exists(json, 'user') ? undefined : FlattenedUserProfileFromJSON(json['user']),
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
-        'rank': json['rank'] == null ? undefined : json['rank'],
+        'rank': !exists(json, 'rank') ? undefined : json['rank'],
     };
 }
 
 export function FlattenedActivityToJSON(value?: FlattenedActivity | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
-        'created': GroupedTimestampToJSON(value['created']),
-        'updated': GroupedTimestampToJSON(value['updated']),
-        'event': SeededConnectorTrackingToJSON(value['event']),
-        'application': ApplicationToJSON(value['application']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'asset': ReferencedAssetToJSON(value['asset']),
-        'format': ReferencedFormatToJSON(value['format']),
-        'user': FlattenedUserProfileToJSON(value['user']),
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'rank': value['rank'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
+        'created': GroupedTimestampToJSON(value.created),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'event': SeededConnectorTrackingToJSON(value.event),
+        'application': ApplicationToJSON(value.application),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'asset': ReferencedAssetToJSON(value.asset),
+        'format': ReferencedFormatToJSON(value.format),
+        'user': FlattenedUserProfileToJSON(value.user),
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'rank': value.rank,
     };
 }
 

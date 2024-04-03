@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { TLPDirectedDiscoveryFilterEnum } from './TLPDirectedDiscoveryFilterEnum';
 import {
     TLPDirectedDiscoveryFilterEnumFromJSON,
@@ -38,8 +38,10 @@ export interface TLPDirectedDiscoveryFilter {
  * Check if a given object implements the TLPDirectedDiscoveryFilter interface.
  */
 export function instanceOfTLPDirectedDiscoveryFilter(value: object): boolean {
-    if (!('name' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
 }
 
 export function TLPDirectedDiscoveryFilterFromJSON(json: any): TLPDirectedDiscoveryFilter {
@@ -47,7 +49,7 @@ export function TLPDirectedDiscoveryFilterFromJSON(json: any): TLPDirectedDiscov
 }
 
 export function TLPDirectedDiscoveryFilterFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPDirectedDiscoveryFilter {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -57,12 +59,15 @@ export function TLPDirectedDiscoveryFilterFromJSONTyped(json: any, ignoreDiscrim
 }
 
 export function TLPDirectedDiscoveryFilterToJSON(value?: TLPDirectedDiscoveryFilter | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'name': TLPDirectedDiscoveryFilterEnumToJSON(value['name']),
+        'name': TLPDirectedDiscoveryFilterEnumToJSON(value.name),
     };
 }
 

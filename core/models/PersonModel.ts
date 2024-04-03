@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
@@ -76,7 +76,9 @@ export interface PersonModel {
  * Check if a given object implements the PersonModel interface.
  */
 export function instanceOfPersonModel(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function PersonModelFromJSON(json: any): PersonModel {
@@ -84,28 +86,31 @@ export function PersonModelFromJSON(json: any): PersonModel {
 }
 
 export function PersonModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonModel {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
-        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'explanation': json['explanation'] == null ? undefined : ReferencedAnnotationFromJSON(json['explanation']),
+        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
+        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'explanation': !exists(json, 'explanation') ? undefined : ReferencedAnnotationFromJSON(json['explanation']),
     };
 }
 
 export function PersonModelToJSON(value?: PersonModel | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'asset': ReferencedAssetToJSON(value['asset']),
-        'model': ReferencedModelToJSON(value['model']),
-        'deleted': GroupedTimestampToJSON(value['deleted']),
-        'explanation': ReferencedAnnotationToJSON(value['explanation']),
+        'asset': ReferencedAssetToJSON(value.asset),
+        'model': ReferencedModelToJSON(value.model),
+        'deleted': GroupedTimestampToJSON(value.deleted),
+        'explanation': ReferencedAnnotationToJSON(value.explanation),
     };
 }
 

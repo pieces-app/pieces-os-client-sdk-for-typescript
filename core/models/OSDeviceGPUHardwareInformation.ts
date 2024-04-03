@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,7 +62,9 @@ export interface OSDeviceGPUHardwareInformation {
  * Check if a given object implements the OSDeviceGPUHardwareInformation interface.
  */
 export function instanceOfOSDeviceGPUHardwareInformation(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function OSDeviceGPUHardwareInformationFromJSON(json: any): OSDeviceGPUHardwareInformation {
@@ -70,28 +72,31 @@ export function OSDeviceGPUHardwareInformationFromJSON(json: any): OSDeviceGPUHa
 }
 
 export function OSDeviceGPUHardwareInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceGPUHardwareInformation {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': json['name'] == null ? undefined : json['name'],
-        'memory': json['memory'] == null ? undefined : json['memory'],
-        'capabilities': json['capabilities'] == null ? undefined : OSDeviceGPUHardwareCapabilitiesInformationFromJSON(json['capabilities']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': !exists(json, 'name') ? undefined : json['name'],
+        'memory': !exists(json, 'memory') ? undefined : json['memory'],
+        'capabilities': !exists(json, 'capabilities') ? undefined : OSDeviceGPUHardwareCapabilitiesInformationFromJSON(json['capabilities']),
     };
 }
 
 export function OSDeviceGPUHardwareInformationToJSON(value?: OSDeviceGPUHardwareInformation | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'name': value['name'],
-        'memory': value['memory'],
-        'capabilities': OSDeviceGPUHardwareCapabilitiesInformationToJSON(value['capabilities']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'name': value.name,
+        'memory': value.memory,
+        'capabilities': OSDeviceGPUHardwareCapabilitiesInformationToJSON(value.capabilities),
     };
 }
 

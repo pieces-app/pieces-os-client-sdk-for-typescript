@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -56,8 +56,10 @@ export interface SeededMacOSAsset {
  * Check if a given object implements the SeededMacOSAsset interface.
  */
 export function instanceOfSeededMacOSAsset(value: object): boolean {
-    if (!('value' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
 }
 
 export function SeededMacOSAssetFromJSON(json: any): SeededMacOSAsset {
@@ -65,26 +67,29 @@ export function SeededMacOSAssetFromJSON(json: any): SeededMacOSAsset {
 }
 
 export function SeededMacOSAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededMacOSAsset {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'application': json['application'] == null ? undefined : ApplicationFromJSON(json['application']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'application': !exists(json, 'application') ? undefined : ApplicationFromJSON(json['application']),
         'value': json['value'],
     };
 }
 
 export function SeededMacOSAssetToJSON(value?: SeededMacOSAsset | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'application': ApplicationToJSON(value['application']),
-        'value': value['value'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'application': ApplicationToJSON(value.application),
+        'value': value.value,
     };
 }
 

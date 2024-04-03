@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { DiscoveredAsset } from './DiscoveredAsset';
 import {
     DiscoveredAssetFromJSON,
@@ -56,9 +56,11 @@ export interface DiscoveredAssets {
  * Check if a given object implements the DiscoveredAssets interface.
  */
 export function instanceOfDiscoveredAssets(value: object): boolean {
-    if (!('application' in value)) return false;
-    if (!('iterable' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredAssetsFromJSON(json: any): DiscoveredAssets {
@@ -66,26 +68,29 @@ export function DiscoveredAssetsFromJSON(json: any): DiscoveredAssets {
 }
 
 export function DiscoveredAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredAssets {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
         'iterable': ((json['iterable'] as Array<any>).map(DiscoveredAssetFromJSON)),
     };
 }
 
 export function DiscoveredAssetsToJSON(value?: DiscoveredAssets | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'application': value['application'],
-        'iterable': ((value['iterable'] as Array<any>).map(DiscoveredAssetToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'application': value.application,
+        'iterable': ((value.iterable as Array<any>).map(DiscoveredAssetToJSON)),
     };
 }
 

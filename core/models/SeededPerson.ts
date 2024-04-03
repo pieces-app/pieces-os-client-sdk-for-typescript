@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -112,8 +112,10 @@ export interface SeededPerson {
  * Check if a given object implements the SeededPerson interface.
  */
 export function instanceOfSeededPerson(value: object): boolean {
-    if (!('type' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function SeededPersonFromJSON(json: any): SeededPerson {
@@ -121,34 +123,37 @@ export function SeededPersonFromJSON(json: any): SeededPerson {
 }
 
 export function SeededPersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPerson {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': json['asset'] == null ? undefined : json['asset'],
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'access': json['access'] == null ? undefined : PersonAccessFromJSON(json['access']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': !exists(json, 'asset') ? undefined : json['asset'],
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'access': !exists(json, 'access') ? undefined : PersonAccessFromJSON(json['access']),
         'type': PersonTypeFromJSON(json['type']),
-        'model': json['model'] == null ? undefined : PersonModelFromJSON(json['model']),
-        'annotations': json['annotations'] == null ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
+        'model': !exists(json, 'model') ? undefined : PersonModelFromJSON(json['model']),
+        'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
     };
 }
 
 export function SeededPersonToJSON(value?: SeededPerson | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'asset': value['asset'],
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
-        'access': PersonAccessToJSON(value['access']),
-        'type': PersonTypeToJSON(value['type']),
-        'model': PersonModelToJSON(value['model']),
-        'annotations': value['annotations'] == null ? undefined : ((value['annotations'] as Array<any>).map(SeededAnnotationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'asset': value.asset,
+        'mechanism': MechanismEnumToJSON(value.mechanism),
+        'access': PersonAccessToJSON(value.access),
+        'type': PersonTypeToJSON(value.type),
+        'model': PersonModelToJSON(value.model),
+        'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
     };
 }
 

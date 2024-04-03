@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -40,7 +40,9 @@ export interface QGPTConversationPipelineForContextualizedCodeDialog {
  * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeDialog interface.
  */
 export function instanceOfQGPTConversationPipelineForContextualizedCodeDialog(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeDialog {
@@ -48,22 +50,25 @@ export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipelineForContextualizedCodeDialog {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogToJSON(value?: QGPTConversationPipelineForContextualizedCodeDialog | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
 

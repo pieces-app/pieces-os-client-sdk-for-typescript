@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchemaSemanticVersionEnum } from './EmbeddedModelSchemaSemanticVersionEnum';
 import {
     EmbeddedModelSchemaSemanticVersionEnumFromJSON,
@@ -44,9 +44,11 @@ export interface EmbeddedModelSchema {
  * Check if a given object implements the EmbeddedModelSchema interface.
  */
 export function instanceOfEmbeddedModelSchema(value: object): boolean {
-    if (!('migration' in value)) return false;
-    if (!('semantic' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "migration" in value;
+    isInstance = isInstance && "semantic" in value;
+
+    return isInstance;
 }
 
 export function EmbeddedModelSchemaFromJSON(json: any): EmbeddedModelSchema {
@@ -54,7 +56,7 @@ export function EmbeddedModelSchemaFromJSON(json: any): EmbeddedModelSchema {
 }
 
 export function EmbeddedModelSchemaFromJSONTyped(json: any, ignoreDiscriminator: boolean): EmbeddedModelSchema {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
@@ -65,13 +67,16 @@ export function EmbeddedModelSchemaFromJSONTyped(json: any, ignoreDiscriminator:
 }
 
 export function EmbeddedModelSchemaToJSON(value?: EmbeddedModelSchema | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'migration': value['migration'],
-        'semantic': EmbeddedModelSchemaSemanticVersionEnumToJSON(value['semantic']),
+        'migration': value.migration,
+        'semantic': EmbeddedModelSchemaSemanticVersionEnumToJSON(value.semantic),
     };
 }
 

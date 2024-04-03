@@ -65,18 +65,12 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
     async messageAssociateAnnotationRaw(requestParameters: MessageAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['annotation'] == null) {
-            throw new runtime.RequiredError(
-                'annotation',
-                'Required parameter "annotation" was null or undefined when calling messageAssociateAnnotation().'
-            );
+        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling messageAssociateAnnotation.');
         }
 
-        if (requestParameters['message'] == null) {
-            throw new runtime.RequiredError(
-                'message',
-                'Required parameter "message" was null or undefined when calling messageAssociateAnnotation().'
-            );
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageAssociateAnnotation.');
         }
 
         const queryParameters: any = {};
@@ -84,7 +78,7 @@ export class ConversationMessageApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/message/{message}/annotations/associate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            path: `/message/{message}/annotations/associate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -106,18 +100,12 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
     async messageDisassociateAnnotationRaw(requestParameters: MessageDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['annotation'] == null) {
-            throw new runtime.RequiredError(
-                'annotation',
-                'Required parameter "annotation" was null or undefined when calling messageDisassociateAnnotation().'
-            );
+        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
+            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling messageDisassociateAnnotation.');
         }
 
-        if (requestParameters['message'] == null) {
-            throw new runtime.RequiredError(
-                'message',
-                'Required parameter "message" was null or undefined when calling messageDisassociateAnnotation().'
-            );
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageDisassociateAnnotation.');
         }
 
         const queryParameters: any = {};
@@ -125,7 +113,7 @@ export class ConversationMessageApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/message/{message}/annotations/disassociate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            path: `/message/{message}/annotations/disassociate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -147,11 +135,8 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * \'/message/{message}/scores/increment\' [POST]
      */
     async messageScoresIncrementRaw(requestParameters: MessageScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['message'] == null) {
-            throw new runtime.RequiredError(
-                'message',
-                'Required parameter "message" was null or undefined when calling messageScoresIncrement().'
-            );
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageScoresIncrement.');
         }
 
         const queryParameters: any = {};
@@ -161,11 +146,11 @@ export class ConversationMessageApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/message/{message}/scores/increment`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            path: `/message/{message}/scores/increment`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -184,23 +169,20 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message} [GET]
      */
     async messageSpecificMessageSnapshotRaw(requestParameters: MessageSpecificMessageSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
-        if (requestParameters['message'] == null) {
-            throw new runtime.RequiredError(
-                'message',
-                'Required parameter "message" was null or undefined when calling messageSpecificMessageSnapshot().'
-            );
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageSpecificMessageSnapshot.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/message/{message}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            path: `/message/{message}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -225,8 +207,8 @@ export class ConversationMessageApi extends runtime.BaseAPI {
     async messageSpecificMessageUpdateRaw(requestParameters: MessageSpecificMessageUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -238,7 +220,7 @@ export class ConversationMessageApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ConversationMessageToJSON(requestParameters['conversationMessage']),
+            body: ConversationMessageToJSON(requestParameters.conversationMessage),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessageFromJSON(jsonValue));
@@ -260,8 +242,8 @@ export class ConversationMessageApi extends runtime.BaseAPI {
     async messageUpdateValueRaw(requestParameters: MessageUpdateValueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
         const queryParameters: any = {};
 
-        if (requestParameters['transferables'] != null) {
-            queryParameters['transferables'] = requestParameters['transferables'];
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -273,7 +255,7 @@ export class ConversationMessageApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ConversationMessageToJSON(requestParameters['conversationMessage']),
+            body: ConversationMessageToJSON(requestParameters.conversationMessage),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessageFromJSON(jsonValue));

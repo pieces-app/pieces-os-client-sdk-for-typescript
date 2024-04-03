@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,9 +62,11 @@ export interface ConversationSummarizeOutput {
  * Check if a given object implements the ConversationSummarizeOutput interface.
  */
 export function instanceOfConversationSummarizeOutput(value: object): boolean {
-    if (!('conversation' in value)) return false;
-    if (!('annotation' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "conversation" in value;
+    isInstance = isInstance && "annotation" in value;
+
+    return isInstance;
 }
 
 export function ConversationSummarizeOutputFromJSON(json: any): ConversationSummarizeOutput {
@@ -72,26 +74,29 @@ export function ConversationSummarizeOutputFromJSON(json: any): ConversationSumm
 }
 
 export function ConversationSummarizeOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationSummarizeOutput {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
         'annotation': ReferencedAnnotationFromJSON(json['annotation']),
     };
 }
 
 export function ConversationSummarizeOutputToJSON(value?: ConversationSummarizeOutput | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'conversation': ReferencedConversationToJSON(value['conversation']),
-        'annotation': ReferencedAnnotationToJSON(value['annotation']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'conversation': ReferencedConversationToJSON(value.conversation),
+        'annotation': ReferencedAnnotationToJSON(value.annotation),
     };
 }
 

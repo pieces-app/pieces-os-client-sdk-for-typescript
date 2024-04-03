@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,9 +62,11 @@ export interface SeededAssetWebsite {
  * Check if a given object implements the SeededAssetWebsite interface.
  */
 export function instanceOfSeededAssetWebsite(value: object): boolean {
-    if (!('url' in value)) return false;
-    if (!('name' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetWebsiteFromJSON(json: any): SeededAssetWebsite {
@@ -72,28 +74,31 @@ export function SeededAssetWebsiteFromJSON(json: any): SeededAssetWebsite {
 }
 
 export function SeededAssetWebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetWebsite {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'url': json['url'],
         'name': json['name'],
-        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
     };
 }
 
 export function SeededAssetWebsiteToJSON(value?: SeededAssetWebsite | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'url': value['url'],
-        'name': value['name'],
-        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'url': value.url,
+        'name': value.name,
+        'mechanism': MechanismEnumToJSON(value.mechanism),
     };
 }
 

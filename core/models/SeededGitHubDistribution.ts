@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface SeededGitHubDistribution {
  * Check if a given object implements the SeededGitHubDistribution interface.
  */
 export function instanceOfSeededGitHubDistribution(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededGitHubDistributionFromJSON(json: any): SeededGitHubDistribution {
@@ -58,24 +60,27 @@ export function SeededGitHubDistributionFromJSON(json: any): SeededGitHubDistrib
 }
 
 export function SeededGitHubDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededGitHubDistribution {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'gist': json['gist'] == null ? undefined : SeededGitHubGistDistributionFromJSON(json['gist']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'gist': !exists(json, 'gist') ? undefined : SeededGitHubGistDistributionFromJSON(json['gist']),
     };
 }
 
 export function SeededGitHubDistributionToJSON(value?: SeededGitHubDistribution | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'gist': SeededGitHubGistDistributionToJSON(value['gist']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'gist': SeededGitHubGistDistributionToJSON(value.gist),
     };
 }
 

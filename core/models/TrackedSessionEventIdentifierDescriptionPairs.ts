@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -208,7 +208,9 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingComple
  * Check if a given object implements the TrackedSessionEventIdentifierDescriptionPairs interface.
  */
 export function instanceOfTrackedSessionEventIdentifierDescriptionPairs(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedSessionEventIdentifierDescriptionPairsFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairs {
@@ -216,46 +218,49 @@ export function TrackedSessionEventIdentifierDescriptionPairsFromJSON(json: any)
 }
 
 export function TrackedSessionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairs {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'sessionInitialized': json['session_initialized'] == null ? undefined : json['session_initialized'],
-        'sessionLocalConnectionSucceeded': json['session_local_connection_succeeded'] == null ? undefined : json['session_local_connection_succeeded'],
-        'sessionLocalConnectionFailed': json['session_local_connection_failed'] == null ? undefined : json['session_local_connection_failed'],
-        'sessionInactive': json['session_inactive'] == null ? undefined : json['session_inactive'],
-        'sessionActive': json['session_active'] == null ? undefined : json['session_active'],
-        'sessionTerminated': json['session_terminated'] == null ? undefined : json['session_terminated'],
-        'sessionAuthenticatedWithSignIn': json['session_authenticated_with_sign_in'] == null ? undefined : json['session_authenticated_with_sign_in'],
-        'sessionUnauthenticatedWithSignOut': json['session_unauthenticated_with_sign_out'] == null ? undefined : json['session_unauthenticated_with_sign_out'],
-        'sessionUnauthenticatedWithDismiss': json['session_unauthenticated_with_dismiss'] == null ? undefined : json['session_unauthenticated_with_dismiss'],
-        'sessionUnauthenticatedWithRemind': json['session_unauthenticated_with_remind'] == null ? undefined : json['session_unauthenticated_with_remind'],
-        'sessionOnboardingInitialized': json['session_onboarding_initialized'] == null ? undefined : json['session_onboarding_initialized'],
-        'sessionOnboardingCompleted': json['session_onboarding_completed'] == null ? undefined : json['session_onboarding_completed'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'sessionInitialized': !exists(json, 'session_initialized') ? undefined : json['session_initialized'],
+        'sessionLocalConnectionSucceeded': !exists(json, 'session_local_connection_succeeded') ? undefined : json['session_local_connection_succeeded'],
+        'sessionLocalConnectionFailed': !exists(json, 'session_local_connection_failed') ? undefined : json['session_local_connection_failed'],
+        'sessionInactive': !exists(json, 'session_inactive') ? undefined : json['session_inactive'],
+        'sessionActive': !exists(json, 'session_active') ? undefined : json['session_active'],
+        'sessionTerminated': !exists(json, 'session_terminated') ? undefined : json['session_terminated'],
+        'sessionAuthenticatedWithSignIn': !exists(json, 'session_authenticated_with_sign_in') ? undefined : json['session_authenticated_with_sign_in'],
+        'sessionUnauthenticatedWithSignOut': !exists(json, 'session_unauthenticated_with_sign_out') ? undefined : json['session_unauthenticated_with_sign_out'],
+        'sessionUnauthenticatedWithDismiss': !exists(json, 'session_unauthenticated_with_dismiss') ? undefined : json['session_unauthenticated_with_dismiss'],
+        'sessionUnauthenticatedWithRemind': !exists(json, 'session_unauthenticated_with_remind') ? undefined : json['session_unauthenticated_with_remind'],
+        'sessionOnboardingInitialized': !exists(json, 'session_onboarding_initialized') ? undefined : json['session_onboarding_initialized'],
+        'sessionOnboardingCompleted': !exists(json, 'session_onboarding_completed') ? undefined : json['session_onboarding_completed'],
     };
 }
 
 export function TrackedSessionEventIdentifierDescriptionPairsToJSON(value?: TrackedSessionEventIdentifierDescriptionPairs | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'session_initialized': value['sessionInitialized'],
-        'session_local_connection_succeeded': value['sessionLocalConnectionSucceeded'],
-        'session_local_connection_failed': value['sessionLocalConnectionFailed'],
-        'session_inactive': value['sessionInactive'],
-        'session_active': value['sessionActive'],
-        'session_terminated': value['sessionTerminated'],
-        'session_authenticated_with_sign_in': value['sessionAuthenticatedWithSignIn'],
-        'session_unauthenticated_with_sign_out': value['sessionUnauthenticatedWithSignOut'],
-        'session_unauthenticated_with_dismiss': value['sessionUnauthenticatedWithDismiss'],
-        'session_unauthenticated_with_remind': value['sessionUnauthenticatedWithRemind'],
-        'session_onboarding_initialized': value['sessionOnboardingInitialized'],
-        'session_onboarding_completed': value['sessionOnboardingCompleted'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'session_initialized': value.sessionInitialized,
+        'session_local_connection_succeeded': value.sessionLocalConnectionSucceeded,
+        'session_local_connection_failed': value.sessionLocalConnectionFailed,
+        'session_inactive': value.sessionInactive,
+        'session_active': value.sessionActive,
+        'session_terminated': value.sessionTerminated,
+        'session_authenticated_with_sign_in': value.sessionAuthenticatedWithSignIn,
+        'session_unauthenticated_with_sign_out': value.sessionUnauthenticatedWithSignOut,
+        'session_unauthenticated_with_dismiss': value.sessionUnauthenticatedWithDismiss,
+        'session_unauthenticated_with_remind': value.sessionUnauthenticatedWithRemind,
+        'session_onboarding_initialized': value.sessionOnboardingInitialized,
+        'session_onboarding_completed': value.sessionOnboardingCompleted,
     };
 }
 

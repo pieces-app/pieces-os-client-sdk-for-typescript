@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,7 +50,9 @@ export interface TLPCodeFragmentTagify {
  * Check if a given object implements the TLPCodeFragmentTagify interface.
  */
 export function instanceOfTLPCodeFragmentTagify(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentTagifyFromJSON(json: any): TLPCodeFragmentTagify {
@@ -58,24 +60,27 @@ export function TLPCodeFragmentTagifyFromJSON(json: any): TLPCodeFragmentTagify 
 }
 
 export function TLPCodeFragmentTagifyFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentTagify {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'code': json['code'] == null ? undefined : TLPCodeSnippetTagifyCodeFromJSON(json['code']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'code': !exists(json, 'code') ? undefined : TLPCodeSnippetTagifyCodeFromJSON(json['code']),
     };
 }
 
 export function TLPCodeFragmentTagifyToJSON(value?: TLPCodeFragmentTagify | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'code': TLPCodeSnippetTagifyCodeToJSON(value['code']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'code': TLPCodeSnippetTagifyCodeToJSON(value.code),
     };
 }
 

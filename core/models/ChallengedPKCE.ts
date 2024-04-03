@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -78,12 +78,14 @@ export type ChallengedPKCEMethodEnum = typeof ChallengedPKCEMethodEnum[keyof typ
  * Check if a given object implements the ChallengedPKCE interface.
  */
 export function instanceOfChallengedPKCE(value: object): boolean {
-    if (!('state' in value)) return false;
-    if (!('nonce' in value)) return false;
-    if (!('challenge' in value)) return false;
-    if (!('method' in value)) return false;
-    if (!('verifier' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "state" in value;
+    isInstance = isInstance && "nonce" in value;
+    isInstance = isInstance && "challenge" in value;
+    isInstance = isInstance && "method" in value;
+    isInstance = isInstance && "verifier" in value;
+
+    return isInstance;
 }
 
 export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
@@ -91,12 +93,12 @@ export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
 }
 
 export function ChallengedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): ChallengedPKCE {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'state': json['state'],
         'nonce': json['nonce'],
         'challenge': json['challenge'],
@@ -106,17 +108,20 @@ export function ChallengedPKCEFromJSONTyped(json: any, ignoreDiscriminator: bool
 }
 
 export function ChallengedPKCEToJSON(value?: ChallengedPKCE | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'state': value['state'],
-        'nonce': value['nonce'],
-        'challenge': value['challenge'],
-        'method': value['method'],
-        'verifier': value['verifier'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'state': value.state,
+        'nonce': value.nonce,
+        'challenge': value.challenge,
+        'method': value.method,
+        'verifier': value.verifier,
     };
 }
 

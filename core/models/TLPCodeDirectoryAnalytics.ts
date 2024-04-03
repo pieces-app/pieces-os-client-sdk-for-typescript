@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,7 +44,9 @@ export interface TLPCodeDirectoryAnalytics {
  * Check if a given object implements the TLPCodeDirectoryAnalytics interface.
  */
 export function instanceOfTLPCodeDirectoryAnalytics(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeDirectoryAnalyticsFromJSON(json: any): TLPCodeDirectoryAnalytics {
@@ -52,24 +54,27 @@ export function TLPCodeDirectoryAnalyticsFromJSON(json: any): TLPCodeDirectoryAn
 }
 
 export function TLPCodeDirectoryAnalyticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeDirectoryAnalytics {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': json['id'] == null ? undefined : json['id'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': !exists(json, 'id') ? undefined : json['id'],
     };
 }
 
 export function TLPCodeDirectoryAnalyticsToJSON(value?: TLPCodeDirectoryAnalytics | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'id': value['id'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
     };
 }
 

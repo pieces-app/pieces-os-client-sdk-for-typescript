@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -54,7 +54,9 @@ export type SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRef
  * Check if a given object implements the SeededTrackedInteractionEventIdentifierDescriptionPairs interface.
  */
 export function instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairs(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(json: any): SeededTrackedInteractionEventIdentifierDescriptionPairs {
@@ -62,24 +64,27 @@ export function SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(
 }
 
 export function SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedInteractionEventIdentifierDescriptionPairs {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'assetsListRefreshed': json['assets_list_refreshed'] == null ? undefined : json['assets_list_refreshed'],
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'assetsListRefreshed': !exists(json, 'assets_list_refreshed') ? undefined : json['assets_list_refreshed'],
     };
 }
 
 export function SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(value?: SeededTrackedInteractionEventIdentifierDescriptionPairs | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'assets_list_refreshed': value['assetsListRefreshed'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'assets_list_refreshed': value.assetsListRefreshed,
     };
 }
 

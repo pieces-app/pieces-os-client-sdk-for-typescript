@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 /**
  * Model for ML big query Code Description.
  * @export
@@ -73,11 +73,13 @@ export interface TLPCodeFragmentDescription {
  * Check if a given object implements the TLPCodeFragmentDescription interface.
  */
 export function instanceOfTLPCodeFragmentDescription(value: object): boolean {
-    if (!('asset' in value)) return false;
-    if (!('created' in value)) return false;
-    if (!('model' in value)) return false;
-    if (!('user' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentDescriptionFromJSON(json: any): TLPCodeFragmentDescription {
@@ -85,36 +87,39 @@ export function TLPCodeFragmentDescriptionFromJSON(json: any): TLPCodeFragmentDe
 }
 
 export function TLPCodeFragmentDescriptionFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentDescription {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'description': json['description'] == null ? undefined : json['description'],
+        'description': !exists(json, 'description') ? undefined : json['description'],
         'asset': json['asset'],
         'created': json['created'],
         'model': json['model'],
-        'latency': json['latency'] == null ? undefined : json['latency'],
+        'latency': !exists(json, 'latency') ? undefined : json['latency'],
         'user': json['user'],
-        'context': json['context'] == null ? undefined : json['context'],
-        'os': json['os'] == null ? undefined : json['os'],
+        'context': !exists(json, 'context') ? undefined : json['context'],
+        'os': !exists(json, 'os') ? undefined : json['os'],
     };
 }
 
 export function TLPCodeFragmentDescriptionToJSON(value?: TLPCodeFragmentDescription | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'description': value['description'],
-        'asset': value['asset'],
-        'created': value['created'],
-        'model': value['model'],
-        'latency': value['latency'],
-        'user': value['user'],
-        'context': value['context'],
-        'os': value['os'],
+        'description': value.description,
+        'asset': value.asset,
+        'created': value.created,
+        'model': value.model,
+        'latency': value.latency,
+        'user': value.user,
+        'context': value.context,
+        'os': value.os,
     };
 }
 

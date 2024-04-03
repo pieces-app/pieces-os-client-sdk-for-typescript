@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,8 +50,10 @@ export interface SeededTrackedSessionEvent {
  * Check if a given object implements the SeededTrackedSessionEvent interface.
  */
 export function instanceOfSeededTrackedSessionEvent(value: object): boolean {
-    if (!('identifierDescriptionPair' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedSessionEventFromJSON(json: any): SeededTrackedSessionEvent {
@@ -59,24 +61,27 @@ export function SeededTrackedSessionEventFromJSON(json: any): SeededTrackedSessi
 }
 
 export function SeededTrackedSessionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedSessionEvent {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'identifierDescriptionPair': TrackedSessionEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
     };
 }
 
 export function SeededTrackedSessionEventToJSON(value?: SeededTrackedSessionEvent | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'identifier_description_pair': TrackedSessionEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'identifier_description_pair': TrackedSessionEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
     };
 }
 

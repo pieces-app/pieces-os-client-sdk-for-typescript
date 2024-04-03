@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -64,7 +64,9 @@ export interface SeededDistribution {
  * Check if a given object implements the SeededDistribution interface.
  */
 export function instanceOfSeededDistribution(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededDistributionFromJSON(json: any): SeededDistribution {
@@ -72,26 +74,29 @@ export function SeededDistributionFromJSON(json: any): SeededDistribution {
 }
 
 export function SeededDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDistribution {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'mailgun': json['mailgun'] == null ? undefined : MailgunDistributionFromJSON(json['mailgun']),
-        'github': json['github'] == null ? undefined : SeededGitHubDistributionFromJSON(json['github']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'mailgun': !exists(json, 'mailgun') ? undefined : MailgunDistributionFromJSON(json['mailgun']),
+        'github': !exists(json, 'github') ? undefined : SeededGitHubDistributionFromJSON(json['github']),
     };
 }
 
 export function SeededDistributionToJSON(value?: SeededDistribution | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'mailgun': MailgunDistributionToJSON(value['mailgun']),
-        'github': SeededGitHubDistributionToJSON(value['github']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'mailgun': MailgunDistributionToJSON(value.mailgun),
+        'github': SeededGitHubDistributionToJSON(value.github),
     };
 }
 

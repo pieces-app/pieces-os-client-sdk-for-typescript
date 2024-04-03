@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { Application } from './Application';
 import {
     ApplicationFromJSON,
@@ -80,10 +80,12 @@ export interface Context {
  * Check if a given object implements the Context interface.
  */
 export function instanceOfContext(value: object): boolean {
-    if (!('os' in value)) return false;
-    if (!('application' in value)) return false;
-    if (!('health' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "health" in value;
+
+    return isInstance;
 }
 
 export function ContextFromJSON(json: any): Context {
@@ -91,30 +93,33 @@ export function ContextFromJSON(json: any): Context {
 }
 
 export function ContextFromJSONTyped(json: any, ignoreDiscriminator: boolean): Context {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'os': json['os'],
         'application': ApplicationFromJSON(json['application']),
         'health': HealthFromJSON(json['health']),
-        'user': json['user'] == null ? undefined : UserProfileFromJSON(json['user']),
+        'user': !exists(json, 'user') ? undefined : UserProfileFromJSON(json['user']),
     };
 }
 
 export function ContextToJSON(value?: Context | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'os': value['os'],
-        'application': ApplicationToJSON(value['application']),
-        'health': HealthToJSON(value['health']),
-        'user': UserProfileToJSON(value['user']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'os': value.os,
+        'application': ApplicationToJSON(value.application),
+        'health': HealthToJSON(value.health),
+        'user': UserProfileToJSON(value.user),
     };
 }
 

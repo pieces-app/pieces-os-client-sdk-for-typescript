@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
     ClassificationGenericEnumFromJSON,
@@ -70,10 +70,12 @@ export interface FormatMetric {
  * Check if a given object implements the FormatMetric interface.
  */
 export function instanceOfFormatMetric(value: object): boolean {
-    if (!('generic' in value)) return false;
-    if (!('specific' in value)) return false;
-    if (!('identifiers' in value)) return false;
-    return true;
+    let isInstance = true;
+    isInstance = isInstance && "generic" in value;
+    isInstance = isInstance && "specific" in value;
+    isInstance = isInstance && "identifiers" in value;
+
+    return isInstance;
 }
 
 export function FormatMetricFromJSON(json: any): FormatMetric {
@@ -81,12 +83,12 @@ export function FormatMetricFromJSON(json: any): FormatMetric {
 }
 
 export function FormatMetricFromJSONTyped(json: any, ignoreDiscriminator: boolean): FormatMetric {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'generic': ClassificationGenericEnumFromJSON(json['generic']),
         'specific': ClassificationSpecificEnumFromJSON(json['specific']),
         'identifiers': json['identifiers'],
@@ -94,15 +96,18 @@ export function FormatMetricFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function FormatMetricToJSON(value?: FormatMetric | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'generic': ClassificationGenericEnumToJSON(value['generic']),
-        'specific': ClassificationSpecificEnumToJSON(value['specific']),
-        'identifiers': value['identifiers'],
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'generic': ClassificationGenericEnumToJSON(value.generic),
+        'specific': ClassificationSpecificEnumToJSON(value.specific),
+        'identifiers': value.identifiers,
     };
 }
 

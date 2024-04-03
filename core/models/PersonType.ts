@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
+import { exists, mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -64,7 +64,9 @@ export interface PersonType {
  * Check if a given object implements the PersonType interface.
  */
 export function instanceOfPersonType(value: object): boolean {
-    return true;
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function PersonTypeFromJSON(json: any): PersonType {
@@ -72,26 +74,29 @@ export function PersonTypeFromJSON(json: any): PersonType {
 }
 
 export function PersonTypeFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonType {
-    if (json == null) {
+    if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'basic': json['basic'] == null ? undefined : PersonBasicTypeFromJSON(json['basic']),
-        'platform': json['platform'] == null ? undefined : UserProfileFromJSON(json['platform']),
+        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'basic': !exists(json, 'basic') ? undefined : PersonBasicTypeFromJSON(json['basic']),
+        'platform': !exists(json, 'platform') ? undefined : UserProfileFromJSON(json['platform']),
     };
 }
 
 export function PersonTypeToJSON(value?: PersonType | null): any {
-    if (value == null) {
-        return value;
+    if (value === undefined) {
+        return undefined;
+    }
+    if (value === null) {
+        return null;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value['schema']),
-        'basic': PersonBasicTypeToJSON(value['basic']),
-        'platform': UserProfileToJSON(value['platform']),
+        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'basic': PersonBasicTypeToJSON(value.basic),
+        'platform': UserProfileToJSON(value.platform),
     };
 }
 
