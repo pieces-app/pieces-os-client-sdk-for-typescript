@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedFormat,
+} from './EmbeddedModelSchema';
+import type { FlattenedFormat } from './FlattenedFormat';
+import {
     FlattenedFormatFromJSON,
     FlattenedFormatFromJSONTyped,
     FlattenedFormatToJSON,
-} from './';
+} from './FlattenedFormat';
 
 /**
  * A reference to a format which at minimum must have the format's id. But in the case of a hydrated client API it may have a populated reference of type Format.
@@ -50,35 +52,39 @@ export interface ReferencedFormat {
     reference?: FlattenedFormat;
 }
 
+/**
+ * Check if a given object implements the ReferencedFormat interface.
+ */
+export function instanceOfReferencedFormat(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function ReferencedFormatFromJSON(json: any): ReferencedFormat {
     return ReferencedFormatFromJSONTyped(json, false);
 }
 
 export function ReferencedFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedFormat {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedFormatFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedFormatFromJSON(json['reference']),
     };
 }
 
 export function ReferencedFormatToJSON(value?: ReferencedFormat | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedFormatToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedFormatToJSON(value['reference']),
     };
 }
-
 

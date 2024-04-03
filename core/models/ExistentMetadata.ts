@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a shared output model for all the exists endpoints:
@@ -42,33 +42,37 @@ export interface ExistentMetadata {
     value: string;
 }
 
+/**
+ * Check if a given object implements the ExistentMetadata interface.
+ */
+export function instanceOfExistentMetadata(value: object): boolean {
+    if (!('value' in value)) return false;
+    return true;
+}
+
 export function ExistentMetadataFromJSON(json: any): ExistentMetadata {
     return ExistentMetadataFromJSONTyped(json, false);
 }
 
 export function ExistentMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExistentMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'value': json['value'],
     };
 }
 
 export function ExistentMetadataToJSON(value?: ExistentMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'value': value.value,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'value': value['value'],
     };
 }
-
 

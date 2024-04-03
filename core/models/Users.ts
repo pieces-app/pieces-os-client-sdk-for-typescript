@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    UserProfile,
+} from './EmbeddedModelSchema';
+import type { UserProfile } from './UserProfile';
+import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './UserProfile';
 
 /**
  * A base class for a collection of users and some additional meta properties.
@@ -44,33 +46,36 @@ export interface Users {
     iterable?: Array<UserProfile>;
 }
 
+/**
+ * Check if a given object implements the Users interface.
+ */
+export function instanceOfUsers(value: object): boolean {
+    return true;
+}
+
 export function UsersFromJSON(json: any): Users {
     return UsersFromJSONTyped(json, false);
 }
 
 export function UsersFromJSONTyped(json: any, ignoreDiscriminator: boolean): Users {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'iterable': !exists(json, 'iterable') ? undefined : ((json['iterable'] as Array<any>).map(UserProfileFromJSON)),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'iterable': json['iterable'] == null ? undefined : ((json['iterable'] as Array<any>).map(UserProfileFromJSON)),
     };
 }
 
 export function UsersToJSON(value?: Users | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(UserProfileToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': value['iterable'] == null ? undefined : ((value['iterable'] as Array<any>).map(UserProfileToJSON)),
     };
 }
-
 

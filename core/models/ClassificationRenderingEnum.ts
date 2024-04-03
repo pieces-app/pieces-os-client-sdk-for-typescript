@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Specifically supported renderings...usually between generic types
  * @export
- * @enum {string}
  */
-export enum ClassificationRenderingEnum {
-    Html = 'HTML',
-    TwentyFourBitAnsiEscapedSequences = 'TWENTY_FOUR_BIT_ANSI_ESCAPED_SEQUENCES',
-    HighlightJsHtml = 'HIGHLIGHT_JS_HTML'
-}
+export const ClassificationRenderingEnum = {
+    Html: 'HTML',
+    TwentyFourBitAnsiEscapedSequences: 'TWENTY_FOUR_BIT_ANSI_ESCAPED_SEQUENCES',
+    HighlightJsHtml: 'HIGHLIGHT_JS_HTML'
+} as const;
+export type ClassificationRenderingEnum = typeof ClassificationRenderingEnum[keyof typeof ClassificationRenderingEnum];
+
 
 export function ClassificationRenderingEnumFromJSON(json: any): ClassificationRenderingEnum {
     return ClassificationRenderingEnumFromJSONTyped(json, false);

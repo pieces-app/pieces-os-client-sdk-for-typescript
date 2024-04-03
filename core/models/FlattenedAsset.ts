@@ -12,73 +12,109 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedActivities,
+} from './EmbeddedModelSchema';
+import type { FlattenedActivities } from './FlattenedActivities';
+import {
     FlattenedActivitiesFromJSON,
     FlattenedActivitiesFromJSONTyped,
     FlattenedActivitiesToJSON,
-    FlattenedAnchors,
+} from './FlattenedActivities';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
     FlattenedAnchorsFromJSON,
     FlattenedAnchorsFromJSONTyped,
     FlattenedAnchorsToJSON,
-    FlattenedAnnotations,
+} from './FlattenedAnchors';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
-    FlattenedConversations,
+} from './FlattenedAnnotations';
+import type { FlattenedConversations } from './FlattenedConversations';
+import {
     FlattenedConversationsFromJSON,
     FlattenedConversationsFromJSONTyped,
     FlattenedConversationsToJSON,
-    FlattenedFormats,
+} from './FlattenedConversations';
+import type { FlattenedFormats } from './FlattenedFormats';
+import {
     FlattenedFormatsFromJSON,
     FlattenedFormatsFromJSONTyped,
     FlattenedFormatsToJSON,
-    FlattenedHints,
+} from './FlattenedFormats';
+import type { FlattenedHints } from './FlattenedHints';
+import {
     FlattenedHintsFromJSON,
     FlattenedHintsFromJSONTyped,
     FlattenedHintsToJSON,
-    FlattenedPersons,
+} from './FlattenedHints';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
     FlattenedPersonsToJSON,
-    FlattenedPreview,
+} from './FlattenedPersons';
+import type { FlattenedPreview } from './FlattenedPreview';
+import {
     FlattenedPreviewFromJSON,
     FlattenedPreviewFromJSONTyped,
     FlattenedPreviewToJSON,
-    FlattenedSensitives,
+} from './FlattenedPreview';
+import type { FlattenedSensitives } from './FlattenedSensitives';
+import {
     FlattenedSensitivesFromJSON,
     FlattenedSensitivesFromJSONTyped,
     FlattenedSensitivesToJSON,
-    FlattenedShares,
+} from './FlattenedSensitives';
+import type { FlattenedShares } from './FlattenedShares';
+import {
     FlattenedSharesFromJSON,
     FlattenedSharesFromJSONTyped,
     FlattenedSharesToJSON,
-    FlattenedTags,
+} from './FlattenedShares';
+import type { FlattenedTags } from './FlattenedTags';
+import {
     FlattenedTagsFromJSON,
     FlattenedTagsFromJSONTyped,
     FlattenedTagsToJSON,
-    FlattenedWebsites,
+} from './FlattenedTags';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
-    GroupedTimestamp,
+} from './FlattenedWebsites';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+} from './FlattenedWorkstreamSummaries';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    Score,
+} from './MechanismEnum';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats. [DAG Compatible - Directed Acyclic Graph Data Structure]
@@ -265,6 +301,27 @@ export interface FlattenedAsset {
      * @memberof FlattenedAsset
      */
     demo?: boolean;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof FlattenedAsset
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+}
+
+/**
+ * Check if a given object implements the FlattenedAsset interface.
+ */
+export function instanceOfFlattenedAsset(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('creator' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    if (!('formats' in value)) return false;
+    if (!('preview' in value)) return false;
+    if (!('original' in value)) return false;
+    if (!('mechanism' in value)) return false;
+    return true;
 }
 
 export function FlattenedAssetFromJSON(json: any): FlattenedAsset {
@@ -272,82 +329,80 @@ export function FlattenedAssetFromJSON(json: any): FlattenedAsset {
 }
 
 export function FlattenedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'] == null ? undefined : json['name'],
         'creator': json['creator'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'synced': !exists(json, 'synced') ? undefined : GroupedTimestampFromJSON(json['synced']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'synced': json['synced'] == null ? undefined : GroupedTimestampFromJSON(json['synced']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'formats': FlattenedFormatsFromJSON(json['formats']),
         'preview': FlattenedPreviewFromJSON(json['preview']),
         'original': json['original'],
-        'shares': !exists(json, 'shares') ? undefined : FlattenedSharesFromJSON(json['shares']),
+        'shares': json['shares'] == null ? undefined : FlattenedSharesFromJSON(json['shares']),
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'interacted': !exists(json, 'interacted') ? undefined : GroupedTimestampFromJSON(json['interacted']),
-        'tags': !exists(json, 'tags') ? undefined : FlattenedTagsFromJSON(json['tags']),
-        'sensitives': !exists(json, 'sensitives') ? undefined : FlattenedSensitivesFromJSON(json['sensitives']),
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'curated': !exists(json, 'curated') ? undefined : json['curated'],
-        'discovered': !exists(json, 'discovered') ? undefined : json['discovered'],
-        'activities': !exists(json, 'activities') ? undefined : FlattenedActivitiesFromJSON(json['activities']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
-        'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
-        'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
-        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
-        'hints': !exists(json, 'hints') ? undefined : FlattenedHintsFromJSON(json['hints']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
-        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
-        'demo': !exists(json, 'demo') ? undefined : json['demo'],
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'interacted': json['interacted'] == null ? undefined : GroupedTimestampFromJSON(json['interacted']),
+        'tags': json['tags'] == null ? undefined : FlattenedTagsFromJSON(json['tags']),
+        'sensitives': json['sensitives'] == null ? undefined : FlattenedSensitivesFromJSON(json['sensitives']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'curated': json['curated'] == null ? undefined : json['curated'],
+        'discovered': json['discovered'] == null ? undefined : json['discovered'],
+        'activities': json['activities'] == null ? undefined : FlattenedActivitiesFromJSON(json['activities']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'favorited': json['favorited'] == null ? undefined : json['favorited'],
+        'pseudo': json['pseudo'] == null ? undefined : json['pseudo'],
+        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'hints': json['hints'] == null ? undefined : FlattenedHintsFromJSON(json['hints']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'demo': json['demo'] == null ? undefined : json['demo'],
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
 export function FlattenedAssetToJSON(value?: FlattenedAsset | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'name': value.name,
-        'creator': value.creator,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'synced': GroupedTimestampToJSON(value.synced),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'formats': FlattenedFormatsToJSON(value.formats),
-        'preview': FlattenedPreviewToJSON(value.preview),
-        'original': value.original,
-        'shares': FlattenedSharesToJSON(value.shares),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'interacted': GroupedTimestampToJSON(value.interacted),
-        'tags': FlattenedTagsToJSON(value.tags),
-        'sensitives': FlattenedSensitivesToJSON(value.sensitives),
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'curated': value.curated,
-        'discovered': value.discovered,
-        'activities': FlattenedActivitiesToJSON(value.activities),
-        'score': ScoreToJSON(value.score),
-        'favorited': value.favorited,
-        'pseudo': value.pseudo,
-        'annotations': FlattenedAnnotationsToJSON(value.annotations),
-        'hints': FlattenedHintsToJSON(value.hints),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
-        'conversations': FlattenedConversationsToJSON(value.conversations),
-        'demo': value.demo,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'name': value['name'],
+        'creator': value['creator'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'synced': GroupedTimestampToJSON(value['synced']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'formats': FlattenedFormatsToJSON(value['formats']),
+        'preview': FlattenedPreviewToJSON(value['preview']),
+        'original': value['original'],
+        'shares': FlattenedSharesToJSON(value['shares']),
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'interacted': GroupedTimestampToJSON(value['interacted']),
+        'tags': FlattenedTagsToJSON(value['tags']),
+        'sensitives': FlattenedSensitivesToJSON(value['sensitives']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'curated': value['curated'],
+        'discovered': value['discovered'],
+        'activities': FlattenedActivitiesToJSON(value['activities']),
+        'score': ScoreToJSON(value['score']),
+        'favorited': value['favorited'],
+        'pseudo': value['pseudo'],
+        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'hints': FlattenedHintsToJSON(value['hints']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'conversations': FlattenedConversationsToJSON(value['conversations']),
+        'demo': value['demo'],
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
     };
 }
-
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTConversationMessage,
+} from './EmbeddedModelSchema';
+import type { QGPTConversationMessage } from './QGPTConversationMessage';
+import {
     QGPTConversationMessageFromJSON,
     QGPTConversationMessageFromJSONTyped,
     QGPTConversationMessageToJSON,
-} from './';
+} from './QGPTConversationMessage';
 
 /**
  * 
@@ -44,33 +46,36 @@ export interface QGPTConversation {
     iterable?: Array<QGPTConversationMessage>;
 }
 
+/**
+ * Check if a given object implements the QGPTConversation interface.
+ */
+export function instanceOfQGPTConversation(value: object): boolean {
+    return true;
+}
+
 export function QGPTConversationFromJSON(json: any): QGPTConversation {
     return QGPTConversationFromJSONTyped(json, false);
 }
 
 export function QGPTConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'iterable': !exists(json, 'iterable') ? undefined : ((json['iterable'] as Array<any>).map(QGPTConversationMessageFromJSON)),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'iterable': json['iterable'] == null ? undefined : ((json['iterable'] as Array<any>).map(QGPTConversationMessageFromJSON)),
     };
 }
 
 export function QGPTConversationToJSON(value?: QGPTConversation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(QGPTConversationMessageToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': value['iterable'] == null ? undefined : ((value['iterable'] as Array<any>).map(QGPTConversationMessageToJSON)),
     };
 }
-
 

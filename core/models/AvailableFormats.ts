@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a specific model here used within the SeededAsset that enables us to return all the available formats on a specific seed that was passed as an input within the '/assets/draft' endpoint
@@ -44,33 +46,37 @@ export interface AvailableFormats {
     iterable: Array<Classification>;
 }
 
+/**
+ * Check if a given object implements the AvailableFormats interface.
+ */
+export function instanceOfAvailableFormats(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function AvailableFormatsFromJSON(json: any): AvailableFormats {
     return AvailableFormatsFromJSONTyped(json, false);
 }
 
 export function AvailableFormatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AvailableFormats {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ClassificationFromJSON)),
     };
 }
 
 export function AvailableFormatsToJSON(value?: AvailableFormats | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ClassificationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ClassificationToJSON)),
     };
 }
-
 

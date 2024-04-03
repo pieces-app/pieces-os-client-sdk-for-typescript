@@ -14,41 +14,43 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  QGPTHintsInput,
+  QGPTPersonsRelatedInput,
+  QGPTPersonsRelatedOutput,
+  QGPTQuestionInput,
+  QGPTQuestionOutput,
+  QGPTRelevanceInput,
+  QGPTRelevanceOutput,
+  QGPTRepromptInput,
+  QGPTRepromptOutput,
+  QGPTStreamInput,
+  QGPTStreamOutput,
+} from '../models/index';
 import {
-    QGPTHintsInput,
     QGPTHintsInputFromJSON,
     QGPTHintsInputToJSON,
-    QGPTPersonsRelatedInput,
     QGPTPersonsRelatedInputFromJSON,
     QGPTPersonsRelatedInputToJSON,
-    QGPTPersonsRelatedOutput,
     QGPTPersonsRelatedOutputFromJSON,
     QGPTPersonsRelatedOutputToJSON,
-    QGPTQuestionInput,
     QGPTQuestionInputFromJSON,
     QGPTQuestionInputToJSON,
-    QGPTQuestionOutput,
     QGPTQuestionOutputFromJSON,
     QGPTQuestionOutputToJSON,
-    QGPTRelevanceInput,
     QGPTRelevanceInputFromJSON,
     QGPTRelevanceInputToJSON,
-    QGPTRelevanceOutput,
     QGPTRelevanceOutputFromJSON,
     QGPTRelevanceOutputToJSON,
-    QGPTRepromptInput,
     QGPTRepromptInputFromJSON,
     QGPTRepromptInputToJSON,
-    QGPTRepromptOutput,
     QGPTRepromptOutputFromJSON,
     QGPTRepromptOutputToJSON,
-    QGPTStreamInput,
     QGPTStreamInputFromJSON,
     QGPTStreamInputToJSON,
-    QGPTStreamOutput,
     QGPTStreamOutputFromJSON,
     QGPTStreamOutputToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface HintsRequest {
     qGPTHintsInput?: QGPTHintsInput;
@@ -84,7 +86,7 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is only to generate suggested questions that the user can ask. ( we will provide the answer we displayed to the user, the relevant snippets used for the answer, and the previous query.  We will return a list of questions that can be displayed to the user.
      * /qgpt/hints [POST]
      */
-    async hintsRaw(requestParameters: HintsRequest): Promise<runtime.ApiResponse<QGPTQuestionOutput>> {
+    async hintsRaw(requestParameters: HintsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTQuestionOutput>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -96,8 +98,8 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTHintsInputToJSON(requestParameters.qGPTHintsInput),
-        });
+            body: QGPTHintsInputToJSON(requestParameters['qGPTHintsInput']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTQuestionOutputFromJSON(jsonValue));
     }
@@ -106,8 +108,8 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is only to generate suggested questions that the user can ask. ( we will provide the answer we displayed to the user, the relevant snippets used for the answer, and the previous query.  We will return a list of questions that can be displayed to the user.
      * /qgpt/hints [POST]
      */
-    async hints(requestParameters: HintsRequest): Promise<QGPTQuestionOutput> {
-        const response = await this.hintsRaw(requestParameters);
+    async hints(requestParameters: HintsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTQuestionOutput> {
+        const response = await this.hintsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -115,11 +117,11 @@ export class QGPTApi extends runtime.BaseAPI {
      * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
      * /qgpt/persons/related [POST]
      */
-    async personsRelatedRaw(requestParameters: PersonsRelatedRequest): Promise<runtime.ApiResponse<QGPTPersonsRelatedOutput>> {
+    async personsRelatedRaw(requestParameters: PersonsRelatedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTPersonsRelatedOutput>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -131,8 +133,8 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTPersonsRelatedInputToJSON(requestParameters.qGPTPersonsRelatedInput),
-        });
+            body: QGPTPersonsRelatedInputToJSON(requestParameters['qGPTPersonsRelatedInput']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTPersonsRelatedOutputFromJSON(jsonValue));
     }
@@ -141,8 +143,8 @@ export class QGPTApi extends runtime.BaseAPI {
      * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
      * /qgpt/persons/related [POST]
      */
-    async personsRelated(requestParameters: PersonsRelatedRequest): Promise<QGPTPersonsRelatedOutput> {
-        const response = await this.personsRelatedRaw(requestParameters);
+    async personsRelated(requestParameters: PersonsRelatedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTPersonsRelatedOutput> {
+        const response = await this.personsRelatedRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -150,7 +152,7 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is a version of qGPT stream that will stream the inputs.  This will handle relevance.  This will handle question.  This will throw an error if both are passed in. That being said if you want to utalize question && relevant, you can get stream results by passing in relevance with options.question:true.  This will handle multiple conversations.  This is a Websocket.  StatusCodes of the output of this will be on the output of the websocket: 200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
      * /qgpt/stream [GET]
      */
-    async qgptStreamRaw(requestParameters: QgptStreamRequest): Promise<runtime.ApiResponse<QGPTStreamOutput>> {
+    async qgptStreamRaw(requestParameters: QgptStreamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTStreamOutput>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -162,8 +164,8 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTStreamInputToJSON(requestParameters.qGPTStreamInput),
-        });
+            body: QGPTStreamInputToJSON(requestParameters['qGPTStreamInput']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTStreamOutputFromJSON(jsonValue));
     }
@@ -172,8 +174,8 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is a version of qGPT stream that will stream the inputs.  This will handle relevance.  This will handle question.  This will throw an error if both are passed in. That being said if you want to utalize question && relevant, you can get stream results by passing in relevance with options.question:true.  This will handle multiple conversations.  This is a Websocket.  StatusCodes of the output of this will be on the output of the websocket: 200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
      * /qgpt/stream [GET]
      */
-    async qgptStream(requestParameters: QgptStreamRequest): Promise<QGPTStreamOutput> {
-        const response = await this.qgptStreamRaw(requestParameters);
+    async qgptStream(requestParameters: QgptStreamRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTStreamOutput> {
+        const response = await this.qgptStreamRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -181,7 +183,7 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is going to accept, relevant code snippets or uuids returned from the /qgpt/relevance endpoint, as well as a question query and we will return possible results to answer your question.  NOTE: - The relevant seeds, must require either an id, that was used within the /qgpt/relevance endpoint or a seed with afragment/string. or else we will throw and error.  This endpoint will take your query and your relevant snippets and use them to answer your question, returning multiple answers to your question all of which with scores.  200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
      * /qgpt/question [POST]
      */
-    async questionRaw(requestParameters: QuestionRequest): Promise<runtime.ApiResponse<QGPTQuestionOutput>> {
+    async questionRaw(requestParameters: QuestionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTQuestionOutput>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -193,8 +195,8 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTQuestionInputToJSON(requestParameters.qGPTQuestionInput),
-        });
+            body: QGPTQuestionInputToJSON(requestParameters['qGPTQuestionInput']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTQuestionOutputFromJSON(jsonValue));
     }
@@ -203,8 +205,8 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is going to accept, relevant code snippets or uuids returned from the /qgpt/relevance endpoint, as well as a question query and we will return possible results to answer your question.  NOTE: - The relevant seeds, must require either an id, that was used within the /qgpt/relevance endpoint or a seed with afragment/string. or else we will throw and error.  This endpoint will take your query and your relevant snippets and use them to answer your question, returning multiple answers to your question all of which with scores.  200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
      * /qgpt/question [POST]
      */
-    async question(requestParameters: QuestionRequest): Promise<QGPTQuestionOutput> {
-        const response = await this.questionRaw(requestParameters);
+    async question(requestParameters: QuestionRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTQuestionOutput> {
+        const response = await this.questionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -212,7 +214,7 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is the first phase to the QGPT flow.  Please one of the following. 1. provide an absolute path on the users machine that we can use locally. 2. provide Seeds that you want to compare to, which will be ONLY fragment/string values(all other values will be ignored) 3. provide assets, here you can provide an iterable of the asset id, and we will do the rest 4. you can set your database boolean to true which will tell us to use your entire DB as the query space.  required - query: string; This is the question of the user. optional - question: boolean; This will by-pass the second endpoint and just ask the question and return the results(as an ease of use bool)  This endpoint will embed everything. and will return the relevance snippets that we will use in the next phase, to answer your question.  on the UI: we can show this to users (around this is the snippets we used to answer your question.)  Next: feed this information to the /qgpt/question [POST] endpoint to get your question answered.(unless you included the question:true optional boolean, then you will get the results from here.)
      * /qgpt/relevance [POST]
      */
-    async relevanceRaw(requestParameters: RelevanceRequest): Promise<runtime.ApiResponse<QGPTRelevanceOutput>> {
+    async relevanceRaw(requestParameters: RelevanceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTRelevanceOutput>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -224,8 +226,8 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTRelevanceInputToJSON(requestParameters.qGPTRelevanceInput),
-        });
+            body: QGPTRelevanceInputToJSON(requestParameters['qGPTRelevanceInput']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTRelevanceOutputFromJSON(jsonValue));
     }
@@ -234,8 +236,8 @@ export class QGPTApi extends runtime.BaseAPI {
      * This is the first phase to the QGPT flow.  Please one of the following. 1. provide an absolute path on the users machine that we can use locally. 2. provide Seeds that you want to compare to, which will be ONLY fragment/string values(all other values will be ignored) 3. provide assets, here you can provide an iterable of the asset id, and we will do the rest 4. you can set your database boolean to true which will tell us to use your entire DB as the query space.  required - query: string; This is the question of the user. optional - question: boolean; This will by-pass the second endpoint and just ask the question and return the results(as an ease of use bool)  This endpoint will embed everything. and will return the relevance snippets that we will use in the next phase, to answer your question.  on the UI: we can show this to users (around this is the snippets we used to answer your question.)  Next: feed this information to the /qgpt/question [POST] endpoint to get your question answered.(unless you included the question:true optional boolean, then you will get the results from here.)
      * /qgpt/relevance [POST]
      */
-    async relevance(requestParameters: RelevanceRequest): Promise<QGPTRelevanceOutput> {
-        const response = await this.relevanceRaw(requestParameters);
+    async relevance(requestParameters: RelevanceRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTRelevanceOutput> {
+        const response = await this.relevanceRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -243,7 +245,7 @@ export class QGPTApi extends runtime.BaseAPI {
      * This will take in a followup question and the history of the conversation, and emit your a prompt or query that you can pass to the /qgpt/relevance and then the /qgpt/question endpoint to get your next answer.
      * /qgpt/reprompt [POST]
      */
-    async repromptRaw(requestParameters: RepromptRequest): Promise<runtime.ApiResponse<QGPTRepromptOutput>> {
+    async repromptRaw(requestParameters: RepromptRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTRepromptOutput>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -255,8 +257,8 @@ export class QGPTApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: QGPTRepromptInputToJSON(requestParameters.qGPTRepromptInput),
-        });
+            body: QGPTRepromptInputToJSON(requestParameters['qGPTRepromptInput']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => QGPTRepromptOutputFromJSON(jsonValue));
     }
@@ -265,8 +267,8 @@ export class QGPTApi extends runtime.BaseAPI {
      * This will take in a followup question and the history of the conversation, and emit your a prompt or query that you can pass to the /qgpt/relevance and then the /qgpt/question endpoint to get your next answer.
      * /qgpt/reprompt [POST]
      */
-    async reprompt(requestParameters: RepromptRequest): Promise<QGPTRepromptOutput> {
-        const response = await this.repromptRaw(requestParameters);
+    async reprompt(requestParameters: RepromptRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTRepromptOutput> {
+        const response = await this.repromptRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

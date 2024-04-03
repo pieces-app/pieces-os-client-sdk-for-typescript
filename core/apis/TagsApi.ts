@@ -14,23 +14,25 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  ExistentMetadata,
+  ExistingMetadata,
+  SeededTag,
+  Tag,
+  Tags,
+} from '../models/index';
 import {
-    ExistentMetadata,
     ExistentMetadataFromJSON,
     ExistentMetadataToJSON,
-    ExistingMetadata,
     ExistingMetadataFromJSON,
     ExistingMetadataToJSON,
-    SeededTag,
     SeededTagFromJSON,
     SeededTagToJSON,
-    Tag,
     TagFromJSON,
     TagToJSON,
-    Tags,
     TagsFromJSON,
     TagsToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface TagsCreateNewTagRequest {
     transferables?: boolean;
@@ -58,11 +60,11 @@ export class TagsApi extends runtime.BaseAPI {
      * This will create a new tag.
      * /tags/create [POST]
      */
-    async tagsCreateNewTagRaw(requestParameters: TagsCreateNewTagRequest): Promise<runtime.ApiResponse<Tag>> {
+    async tagsCreateNewTagRaw(requestParameters: TagsCreateNewTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -74,8 +76,8 @@ export class TagsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededTagToJSON(requestParameters.seededTag),
-        });
+            body: SeededTagToJSON(requestParameters['seededTag']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TagFromJSON(jsonValue));
     }
@@ -84,8 +86,8 @@ export class TagsApi extends runtime.BaseAPI {
      * This will create a new tag.
      * /tags/create [POST]
      */
-    async tagsCreateNewTag(requestParameters: TagsCreateNewTagRequest): Promise<Tag> {
-        const response = await this.tagsCreateNewTagRaw(requestParameters);
+    async tagsCreateNewTag(requestParameters: TagsCreateNewTagRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Tag> {
+        const response = await this.tagsCreateNewTagRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -93,9 +95,12 @@ export class TagsApi extends runtime.BaseAPI {
      * This will delete a specific tag.
      * /tags/{tag}/delete [POST]
      */
-    async tagsDeleteSpecificTagRaw(requestParameters: TagsDeleteSpecificTagRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagsDeleteSpecificTag.');
+    async tagsDeleteSpecificTagRaw(requestParameters: TagsDeleteSpecificTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagsDeleteSpecificTag().'
+            );
         }
 
         const queryParameters: any = {};
@@ -103,11 +108,11 @@ export class TagsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/tags/{tag}/delete`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/tags/{tag}/delete`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -116,15 +121,15 @@ export class TagsApi extends runtime.BaseAPI {
      * This will delete a specific tag.
      * /tags/{tag}/delete [POST]
      */
-    async tagsDeleteSpecificTag(requestParameters: TagsDeleteSpecificTagRequest): Promise<void> {
-        await this.tagsDeleteSpecificTagRaw(requestParameters);
+    async tagsDeleteSpecificTag(requestParameters: TagsDeleteSpecificTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagsDeleteSpecificTagRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
      * /tags/exists [POST]
      */
-    async tagsExistsRaw(requestParameters: TagsExistsRequest): Promise<runtime.ApiResponse<ExistingMetadata>> {
+    async tagsExistsRaw(requestParameters: TagsExistsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExistingMetadata>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -136,8 +141,8 @@ export class TagsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ExistentMetadataToJSON(requestParameters.existentMetadata),
-        });
+            body: ExistentMetadataToJSON(requestParameters['existentMetadata']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExistingMetadataFromJSON(jsonValue));
     }
@@ -146,8 +151,8 @@ export class TagsApi extends runtime.BaseAPI {
      * This will check all of the tags in our database to see if this specific provided tag actually exists, if not we will just return a null tag in the output.
      * /tags/exists [POST]
      */
-    async tagsExists(requestParameters: TagsExistsRequest): Promise<ExistingMetadata> {
-        const response = await this.tagsExistsRaw(requestParameters);
+    async tagsExists(requestParameters: TagsExistsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExistingMetadata> {
+        const response = await this.tagsExistsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -155,11 +160,11 @@ export class TagsApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your tags.
      * /tags [GET]
      */
-    async tagsSnapshotRaw(requestParameters: TagsSnapshotRequest): Promise<runtime.ApiResponse<Tags>> {
+    async tagsSnapshotRaw(requestParameters: TagsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tags>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -169,7 +174,7 @@ export class TagsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TagsFromJSON(jsonValue));
     }
@@ -178,8 +183,8 @@ export class TagsApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your tags.
      * /tags [GET]
      */
-    async tagsSnapshot(requestParameters: TagsSnapshotRequest): Promise<Tags> {
-        const response = await this.tagsSnapshotRaw(requestParameters);
+    async tagsSnapshot(requestParameters: TagsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Tags> {
+        const response = await this.tagsSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

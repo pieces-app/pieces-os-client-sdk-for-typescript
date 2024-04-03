@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Distribution,
+  Distributions,
+  SeededDistribution,
+} from '../models/index';
 import {
-    Distribution,
     DistributionFromJSON,
     DistributionToJSON,
-    Distributions,
     DistributionsFromJSON,
     DistributionsToJSON,
-    SeededDistribution,
     SeededDistributionFromJSON,
     SeededDistributionToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface DistributionsCreateNewDistributionRequest {
     seededDistribution?: SeededDistribution;
@@ -43,7 +45,7 @@ export class DistributionsApi extends runtime.BaseAPI {
      * This will create a new distribution.
      * /distributions/create [POST]
      */
-    async distributionsCreateNewDistributionRaw(requestParameters: DistributionsCreateNewDistributionRequest): Promise<runtime.ApiResponse<Distribution>> {
+    async distributionsCreateNewDistributionRaw(requestParameters: DistributionsCreateNewDistributionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Distribution>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -55,8 +57,8 @@ export class DistributionsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededDistributionToJSON(requestParameters.seededDistribution),
-        });
+            body: SeededDistributionToJSON(requestParameters['seededDistribution']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DistributionFromJSON(jsonValue));
     }
@@ -65,8 +67,8 @@ export class DistributionsApi extends runtime.BaseAPI {
      * This will create a new distribution.
      * /distributions/create [POST]
      */
-    async distributionsCreateNewDistribution(requestParameters: DistributionsCreateNewDistributionRequest): Promise<Distribution> {
-        const response = await this.distributionsCreateNewDistributionRaw(requestParameters);
+    async distributionsCreateNewDistribution(requestParameters: DistributionsCreateNewDistributionRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Distribution> {
+        const response = await this.distributionsCreateNewDistributionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -74,9 +76,12 @@ export class DistributionsApi extends runtime.BaseAPI {
      * This will delete a specific distribution.
      * /distributions/{distribution}/delete [POST]
      */
-    async distributionsDeleteSpecificDistributionRaw(requestParameters: DistributionsDeleteSpecificDistributionRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.distribution === null || requestParameters.distribution === undefined) {
-            throw new runtime.RequiredError('distribution','Required parameter requestParameters.distribution was null or undefined when calling distributionsDeleteSpecificDistribution.');
+    async distributionsDeleteSpecificDistributionRaw(requestParameters: DistributionsDeleteSpecificDistributionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['distribution'] == null) {
+            throw new runtime.RequiredError(
+                'distribution',
+                'Required parameter "distribution" was null or undefined when calling distributionsDeleteSpecificDistribution().'
+            );
         }
 
         const queryParameters: any = {};
@@ -84,11 +89,11 @@ export class DistributionsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/distributions/{distribution}/delete`.replace(`{${"distribution"}}`, encodeURIComponent(String(requestParameters.distribution))),
+            path: `/distributions/{distribution}/delete`.replace(`{${"distribution"}}`, encodeURIComponent(String(requestParameters['distribution']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -97,15 +102,15 @@ export class DistributionsApi extends runtime.BaseAPI {
      * This will delete a specific distribution.
      * /distributions/{distribution}/delete [POST]
      */
-    async distributionsDeleteSpecificDistribution(requestParameters: DistributionsDeleteSpecificDistributionRequest): Promise<void> {
-        await this.distributionsDeleteSpecificDistributionRaw(requestParameters);
+    async distributionsDeleteSpecificDistribution(requestParameters: DistributionsDeleteSpecificDistributionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.distributionsDeleteSpecificDistributionRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a specific snapshot of all our distributions.
      * /distributions [GET]
      */
-    async distributionsSnapshotRaw(): Promise<runtime.ApiResponse<Distributions>> {
+    async distributionsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Distributions>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -115,7 +120,7 @@ export class DistributionsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DistributionsFromJSON(jsonValue));
     }
@@ -124,8 +129,8 @@ export class DistributionsApi extends runtime.BaseAPI {
      * This will get a specific snapshot of all our distributions.
      * /distributions [GET]
      */
-    async distributionsSnapshot(): Promise<Distributions> {
-        const response = await this.distributionsSnapshotRaw();
+    async distributionsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Distributions> {
+        const response = await this.distributionsSnapshotRaw(initOverrides);
         return await response.value();
     }
 

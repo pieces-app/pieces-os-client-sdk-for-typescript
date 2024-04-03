@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a model that will hold relavent information in relation to a keyboard(including shortcuts) analytics event (usage).
@@ -46,35 +46,40 @@ export interface TrackedKeyboardEvent {
     shortcut: Array<number>;
 }
 
+/**
+ * Check if a given object implements the TrackedKeyboardEvent interface.
+ */
+export function instanceOfTrackedKeyboardEvent(value: object): boolean {
+    if (!('description' in value)) return false;
+    if (!('shortcut' in value)) return false;
+    return true;
+}
+
 export function TrackedKeyboardEventFromJSON(json: any): TrackedKeyboardEvent {
     return TrackedKeyboardEventFromJSONTyped(json, false);
 }
 
 export function TrackedKeyboardEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedKeyboardEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'description': json['description'],
         'shortcut': json['shortcut'],
     };
 }
 
 export function TrackedKeyboardEventToJSON(value?: TrackedKeyboardEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'description': value.description,
-        'shortcut': value.shortcut,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'description': value['description'],
+        'shortcut': value['shortcut'],
     };
 }
-
 

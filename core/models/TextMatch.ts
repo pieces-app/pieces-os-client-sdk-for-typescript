@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TextLocation,
+} from './EmbeddedModelSchema';
+import type { TextLocation } from './TextLocation';
+import {
     TextLocationFromJSON,
     TextLocationFromJSONTyped,
     TextLocationToJSON,
-} from './';
+} from './TextLocation';
 
 /**
  * Thext Match currently used for sensitive for scales for people, and anything related to text matching.
@@ -53,35 +55,39 @@ export interface TextMatch {
     subgroup?: TextLocation;
 }
 
+/**
+ * Check if a given object implements the TextMatch interface.
+ */
+export function instanceOfTextMatch(value: object): boolean {
+    if (!('group' in value)) return false;
+    return true;
+}
+
 export function TextMatchFromJSON(json: any): TextMatch {
     return TextMatchFromJSONTyped(json, false);
 }
 
 export function TextMatchFromJSONTyped(json: any, ignoreDiscriminator: boolean): TextMatch {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'group': TextLocationFromJSON(json['group']),
-        'subgroup': !exists(json, 'subgroup') ? undefined : TextLocationFromJSON(json['subgroup']),
+        'subgroup': json['subgroup'] == null ? undefined : TextLocationFromJSON(json['subgroup']),
     };
 }
 
 export function TextMatchToJSON(value?: TextMatch | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'group': TextLocationToJSON(value.group),
-        'subgroup': TextLocationToJSON(value.subgroup),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'group': TextLocationToJSON(value['group']),
+        'subgroup': TextLocationToJSON(value['subgroup']),
     };
 }
-
 

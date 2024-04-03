@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for the /open_ai/models/list endpoint.
@@ -40,33 +40,37 @@ export interface OpenAIModelsListInput {
     user: string;
 }
 
+/**
+ * Check if a given object implements the OpenAIModelsListInput interface.
+ */
+export function instanceOfOpenAIModelsListInput(value: object): boolean {
+    if (!('user' in value)) return false;
+    return true;
+}
+
 export function OpenAIModelsListInputFromJSON(json: any): OpenAIModelsListInput {
     return OpenAIModelsListInputFromJSONTyped(json, false);
 }
 
 export function OpenAIModelsListInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpenAIModelsListInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
     };
 }
 
 export function OpenAIModelsListInputToJSON(value?: OpenAIModelsListInput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': value.user,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': value['user'],
     };
 }
-
 

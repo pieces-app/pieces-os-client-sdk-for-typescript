@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededAsset,
+} from './EmbeddedModelSchema';
+import type { SeededAsset } from './SeededAsset';
+import {
     SeededAssetFromJSON,
     SeededAssetFromJSONTyped,
     SeededAssetToJSON,
-} from './';
+} from './SeededAsset';
 
 /**
  * A seed Model used to wrap a format or asset
@@ -50,13 +52,23 @@ export interface Seed {
     type: SeedTypeEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeedTypeEnum {
-    Format = 'SEEDED_FORMAT',
-    Asset = 'SEEDED_ASSET'
+ * @export
+ */
+export const SeedTypeEnum = {
+    Format: 'SEEDED_FORMAT',
+    Asset: 'SEEDED_ASSET'
+} as const;
+export type SeedTypeEnum = typeof SeedTypeEnum[keyof typeof SeedTypeEnum];
+
+
+/**
+ * Check if a given object implements the Seed interface.
+ */
+export function instanceOfSeed(value: object): boolean {
+    if (!('type' in value)) return false;
+    return true;
 }
 
 export function SeedFromJSON(json: any): Seed {
@@ -64,30 +76,26 @@ export function SeedFromJSON(json: any): Seed {
 }
 
 export function SeedFromJSONTyped(json: any, ignoreDiscriminator: boolean): Seed {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : SeededAssetFromJSON(json['asset']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : SeededAssetFromJSON(json['asset']),
         'type': json['type'],
     };
 }
 
 export function SeedToJSON(value?: Seed | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': SeededAssetToJSON(value.asset),
-        'type': value.type,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': SeededAssetToJSON(value['asset']),
+        'type': value['type'],
     };
 }
-
 

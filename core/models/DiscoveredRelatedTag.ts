@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTag,
+} from './EmbeddedModelSchema';
+import type { SeededTag } from './SeededTag';
+import {
     SeededTagFromJSON,
     SeededTagFromJSONTyped,
     SeededTagToJSON,
-} from './';
+} from './SeededTag';
 
 /**
  * 
@@ -44,33 +46,37 @@ export interface DiscoveredRelatedTag {
     seed: SeededTag;
 }
 
+/**
+ * Check if a given object implements the DiscoveredRelatedTag interface.
+ */
+export function instanceOfDiscoveredRelatedTag(value: object): boolean {
+    if (!('seed' in value)) return false;
+    return true;
+}
+
 export function DiscoveredRelatedTagFromJSON(json: any): DiscoveredRelatedTag {
     return DiscoveredRelatedTagFromJSONTyped(json, false);
 }
 
 export function DiscoveredRelatedTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredRelatedTag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seed': SeededTagFromJSON(json['seed']),
     };
 }
 
 export function DiscoveredRelatedTagToJSON(value?: DiscoveredRelatedTag | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seed': SeededTagToJSON(value.seed),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seed': SeededTagToJSON(value['seed']),
     };
 }
-
 

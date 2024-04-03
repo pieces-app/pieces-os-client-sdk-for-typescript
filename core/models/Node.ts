@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    NodeTypeEnum,
+} from './GroupedTimestamp';
+import type { NodeTypeEnum } from './NodeTypeEnum';
+import {
     NodeTypeEnumFromJSON,
     NodeTypeEnumFromJSONTyped,
     NodeTypeEnumToJSON,
-} from './';
+} from './NodeTypeEnum';
 
 /**
  * This describes a node within a relationship graph used to related like types. ie asset to asset, tag to tag, ...etc
@@ -60,12 +62,23 @@ export interface Node {
     created: GroupedTimestamp;
 }
 
+/**
+ * Check if a given object implements the Node interface.
+ */
+export function instanceOfNode(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('type' in value)) return false;
+    if (!('root' in value)) return false;
+    if (!('created' in value)) return false;
+    return true;
+}
+
 export function NodeFromJSON(json: any): Node {
     return NodeFromJSONTyped(json, false);
 }
 
 export function NodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Node {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -78,19 +91,15 @@ export function NodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Node
 }
 
 export function NodeToJSON(value?: Node | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'type': NodeTypeEnumToJSON(value.type),
-        'root': value.root,
-        'created': GroupedTimestampToJSON(value.created),
+        'id': value['id'],
+        'type': NodeTypeEnumToJSON(value['type']),
+        'root': value['root'],
+        'created': GroupedTimestampToJSON(value['created']),
     };
 }
-
 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a generic model that is used for text location.
@@ -52,17 +52,27 @@ export interface TextLocation {
     end: number;
 }
 
+/**
+ * Check if a given object implements the TextLocation interface.
+ */
+export function instanceOfTextLocation(value: object): boolean {
+    if (!('text' in value)) return false;
+    if (!('start' in value)) return false;
+    if (!('end' in value)) return false;
+    return true;
+}
+
 export function TextLocationFromJSON(json: any): TextLocation {
     return TextLocationFromJSONTyped(json, false);
 }
 
 export function TextLocationFromJSONTyped(json: any, ignoreDiscriminator: boolean): TextLocation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
         'start': json['start'],
         'end': json['end'],
@@ -70,19 +80,15 @@ export function TextLocationFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function TextLocationToJSON(value?: TextLocation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'text': value.text,
-        'start': value.start,
-        'end': value.end,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'text': value['text'],
+        'start': value['start'],
+        'end': value['end'],
     };
 }
-
 

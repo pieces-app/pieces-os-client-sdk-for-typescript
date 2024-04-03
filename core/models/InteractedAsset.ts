@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { InteractedAssetInteractions } from './InteractedAssetInteractions';
 import {
-    InteractedAssetInteractions,
     InteractedAssetInteractionsFromJSON,
     InteractedAssetInteractionsFromJSONTyped,
     InteractedAssetInteractionsToJSON,
-} from './';
+} from './InteractedAssetInteractions';
 
 /**
  * A model that represents an asset that has been interacted with. 
@@ -40,33 +40,36 @@ export interface InteractedAsset {
     interactions?: InteractedAssetInteractions;
 }
 
+/**
+ * Check if a given object implements the InteractedAsset interface.
+ */
+export function instanceOfInteractedAsset(value: object): boolean {
+    return true;
+}
+
 export function InteractedAssetFromJSON(json: any): InteractedAsset {
     return InteractedAssetFromJSONTyped(json, false);
 }
 
 export function InteractedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): InteractedAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'interactions': !exists(json, 'interactions') ? undefined : InteractedAssetInteractionsFromJSON(json['interactions']),
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'interactions': json['interactions'] == null ? undefined : InteractedAssetInteractionsFromJSON(json['interactions']),
     };
 }
 
 export function InteractedAssetToJSON(value?: InteractedAsset | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'asset': value.asset,
-        'interactions': InteractedAssetInteractionsToJSON(value.interactions),
+        'asset': value['asset'],
+        'interactions': InteractedAssetInteractionsToJSON(value['interactions']),
     };
 }
-
 

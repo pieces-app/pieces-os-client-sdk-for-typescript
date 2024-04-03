@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will give specific metadata need to determine what the rename was to/from.
@@ -46,35 +46,40 @@ export interface TrackedConversationEventRenameMetadata {
     current: string;
 }
 
+/**
+ * Check if a given object implements the TrackedConversationEventRenameMetadata interface.
+ */
+export function instanceOfTrackedConversationEventRenameMetadata(value: object): boolean {
+    if (!('previous' in value)) return false;
+    if (!('current' in value)) return false;
+    return true;
+}
+
 export function TrackedConversationEventRenameMetadataFromJSON(json: any): TrackedConversationEventRenameMetadata {
     return TrackedConversationEventRenameMetadataFromJSONTyped(json, false);
 }
 
 export function TrackedConversationEventRenameMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventRenameMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': json['previous'],
         'current': json['current'],
     };
 }
 
 export function TrackedConversationEventRenameMetadataToJSON(value?: TrackedConversationEventRenameMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'previous': value.previous,
-        'current': value.current,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'previous': value['previous'],
+        'current': value['current'],
     };
 }
-
 

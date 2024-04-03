@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input body for /os/update/check, just a placeholder for now.
@@ -34,31 +34,34 @@ export interface UncheckedOSUpdate {
     schema?: EmbeddedModelSchema;
 }
 
+/**
+ * Check if a given object implements the UncheckedOSUpdate interface.
+ */
+export function instanceOfUncheckedOSUpdate(value: object): boolean {
+    return true;
+}
+
 export function UncheckedOSUpdateFromJSON(json: any): UncheckedOSUpdate {
     return UncheckedOSUpdateFromJSONTyped(json, false);
 }
 
 export function UncheckedOSUpdateFromJSONTyped(json: any, ignoreDiscriminator: boolean): UncheckedOSUpdate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function UncheckedOSUpdateToJSON(value?: UncheckedOSUpdate | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
-
 

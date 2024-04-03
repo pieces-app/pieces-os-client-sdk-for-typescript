@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalOCRStatistics,
+} from './EmbeddedModelSchema';
+import type { GraphicalOCRStatistics } from './GraphicalOCRStatistics';
+import {
     GraphicalOCRStatisticsFromJSON,
     GraphicalOCRStatisticsFromJSONTyped,
     GraphicalOCRStatisticsToJSON,
-} from './';
+} from './GraphicalOCRStatistics';
 
 /**
  * 
@@ -44,33 +46,36 @@ export interface GraphicalOCRProcessing {
     statistics?: GraphicalOCRStatistics;
 }
 
+/**
+ * Check if a given object implements the GraphicalOCRProcessing interface.
+ */
+export function instanceOfGraphicalOCRProcessing(value: object): boolean {
+    return true;
+}
+
 export function GraphicalOCRProcessingFromJSON(json: any): GraphicalOCRProcessing {
     return GraphicalOCRProcessingFromJSONTyped(json, false);
 }
 
 export function GraphicalOCRProcessingFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRProcessing {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'statistics': !exists(json, 'statistics') ? undefined : GraphicalOCRStatisticsFromJSON(json['statistics']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'statistics': json['statistics'] == null ? undefined : GraphicalOCRStatisticsFromJSON(json['statistics']),
     };
 }
 
 export function GraphicalOCRProcessingToJSON(value?: GraphicalOCRProcessing | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'statistics': GraphicalOCRStatisticsToJSON(value.statistics),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'statistics': GraphicalOCRStatisticsToJSON(value['statistics']),
     };
 }
-
 

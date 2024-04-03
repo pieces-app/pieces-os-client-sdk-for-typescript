@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTQuestionAnswers,
+} from './EmbeddedModelSchema';
+import type { QGPTQuestionAnswers } from './QGPTQuestionAnswers';
+import {
     QGPTQuestionAnswersFromJSON,
     QGPTQuestionAnswersFromJSONTyped,
     QGPTQuestionAnswersToJSON,
-} from './';
+} from './QGPTQuestionAnswers';
 
 /**
  * This is the output/returned value from the /qgpt/question endpoint. && /qgpt/followup
@@ -46,33 +48,37 @@ export interface QGPTQuestionOutput {
     answers: QGPTQuestionAnswers;
 }
 
+/**
+ * Check if a given object implements the QGPTQuestionOutput interface.
+ */
+export function instanceOfQGPTQuestionOutput(value: object): boolean {
+    if (!('answers' in value)) return false;
+    return true;
+}
+
 export function QGPTQuestionOutputFromJSON(json: any): QGPTQuestionOutput {
     return QGPTQuestionOutputFromJSONTyped(json, false);
 }
 
 export function QGPTQuestionOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'answers': QGPTQuestionAnswersFromJSON(json['answers']),
     };
 }
 
 export function QGPTQuestionOutputToJSON(value?: QGPTQuestionOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'answers': QGPTQuestionAnswersToJSON(value.answers),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'answers': QGPTQuestionAnswersToJSON(value['answers']),
     };
 }
-
 

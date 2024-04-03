@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededPKCEADDITIONALPARAMETERS,
+} from './EmbeddedModelSchema';
+import type { SeededPKCEADDITIONALPARAMETERS } from './SeededPKCEADDITIONALPARAMETERS';
+import {
     SeededPKCEADDITIONALPARAMETERSFromJSON,
     SeededPKCEADDITIONALPARAMETERSFromJSONTyped,
     SeededPKCEADDITIONALPARAMETERSToJSON,
-} from './';
+} from './SeededPKCEADDITIONALPARAMETERS';
 
 /**
  * A model that initialized a PKCE Authentication Flow.
@@ -135,51 +137,77 @@ export interface SeededPKCE {
     responseMode?: SeededPKCEResponseModeEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEResponseTypeEnum {
-    Code = 'code',
-    Token = 'token',
-    IdToken = 'id_token'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCECodeChallengeMethodEnum {
-    S256 = 'S256'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEScreenHintEnum {
-    Signup = 'signup'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEPromptEnum {
-    Login = 'login',
-    None = 'none'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEScopeEnum {
-    OfflineAccess = 'offline_access',
-    Email = 'email',
-    Profile = 'profile',
-    Openid = 'openid'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEResponseModeEnum {
-    FormPost = 'form_post',
-    WebMessage = 'web_message',
-    Fragment = 'fragment',
-    Query = 'query'
+ * @export
+ */
+export const SeededPKCEResponseTypeEnum = {
+    Code: 'code',
+    Token: 'token',
+    IdToken: 'id_token'
+} as const;
+export type SeededPKCEResponseTypeEnum = typeof SeededPKCEResponseTypeEnum[keyof typeof SeededPKCEResponseTypeEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCECodeChallengeMethodEnum = {
+    S256: 'S256'
+} as const;
+export type SeededPKCECodeChallengeMethodEnum = typeof SeededPKCECodeChallengeMethodEnum[keyof typeof SeededPKCECodeChallengeMethodEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEScreenHintEnum = {
+    Signup: 'signup'
+} as const;
+export type SeededPKCEScreenHintEnum = typeof SeededPKCEScreenHintEnum[keyof typeof SeededPKCEScreenHintEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEPromptEnum = {
+    Login: 'login',
+    None: 'none'
+} as const;
+export type SeededPKCEPromptEnum = typeof SeededPKCEPromptEnum[keyof typeof SeededPKCEPromptEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEScopeEnum = {
+    OfflineAccess: 'offline_access',
+    Email: 'email',
+    Profile: 'profile',
+    Openid: 'openid'
+} as const;
+export type SeededPKCEScopeEnum = typeof SeededPKCEScopeEnum[keyof typeof SeededPKCEScopeEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEResponseModeEnum = {
+    FormPost: 'form_post',
+    WebMessage: 'web_message',
+    Fragment: 'fragment',
+    Query: 'query'
+} as const;
+export type SeededPKCEResponseModeEnum = typeof SeededPKCEResponseModeEnum[keyof typeof SeededPKCEResponseModeEnum];
+
+
+/**
+ * Check if a given object implements the SeededPKCE interface.
+ */
+export function instanceOfSeededPKCE(value: object): boolean {
+    if (!('responseType' in value)) return false;
+    if (!('state' in value)) return false;
+    if (!('nonce' in value)) return false;
+    if (!('codeChallenge' in value)) return false;
+    if (!('codeChallengeMethod' in value)) return false;
+    if (!('scope' in value)) return false;
+    if (!('clientId' in value)) return false;
+    return true;
 }
 
 export function SeededPKCEFromJSON(json: any): SeededPKCE {
@@ -187,58 +215,54 @@ export function SeededPKCEFromJSON(json: any): SeededPKCE {
 }
 
 export function SeededPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'responseType': json['response_type'],
         'state': json['state'],
         'nonce': json['nonce'],
-        'redirectUri': !exists(json, 'redirect_uri') ? undefined : json['redirect_uri'],
+        'redirectUri': json['redirect_uri'] == null ? undefined : json['redirect_uri'],
         'codeChallenge': json['code_challenge'],
         'codeChallengeMethod': json['code_challenge_method'],
-        'domain': !exists(json, 'domain') ? undefined : json['domain'],
-        'audience': !exists(json, 'audience') ? undefined : json['audience'],
-        'screenHint': !exists(json, 'screen_hint') ? undefined : json['screen_hint'],
-        'prompt': !exists(json, 'prompt') ? undefined : json['prompt'],
-        'organization': !exists(json, 'organization') ? undefined : json['organization'],
-        'invitation': !exists(json, 'invitation') ? undefined : json['invitation'],
+        'domain': json['domain'] == null ? undefined : json['domain'],
+        'audience': json['audience'] == null ? undefined : json['audience'],
+        'screenHint': json['screen_hint'] == null ? undefined : json['screen_hint'],
+        'prompt': json['prompt'] == null ? undefined : json['prompt'],
+        'organization': json['organization'] == null ? undefined : json['organization'],
+        'invitation': json['invitation'] == null ? undefined : json['invitation'],
         'scope': json['scope'],
         'clientId': json['client_id'],
-        'aDDITIONALPARAMETERS': !exists(json, 'ADDITIONAL_PARAMETERS') ? undefined : SeededPKCEADDITIONALPARAMETERSFromJSON(json['ADDITIONAL_PARAMETERS']),
-        'responseMode': !exists(json, 'response_mode') ? undefined : json['response_mode'],
+        'aDDITIONALPARAMETERS': json['ADDITIONAL_PARAMETERS'] == null ? undefined : SeededPKCEADDITIONALPARAMETERSFromJSON(json['ADDITIONAL_PARAMETERS']),
+        'responseMode': json['response_mode'] == null ? undefined : json['response_mode'],
     };
 }
 
 export function SeededPKCEToJSON(value?: SeededPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'response_type': value.responseType,
-        'state': value.state,
-        'nonce': value.nonce,
-        'redirect_uri': value.redirectUri,
-        'code_challenge': value.codeChallenge,
-        'code_challenge_method': value.codeChallengeMethod,
-        'domain': value.domain,
-        'audience': value.audience,
-        'screen_hint': value.screenHint,
-        'prompt': value.prompt,
-        'organization': value.organization,
-        'invitation': value.invitation,
-        'scope': value.scope,
-        'client_id': value.clientId,
-        'ADDITIONAL_PARAMETERS': SeededPKCEADDITIONALPARAMETERSToJSON(value.aDDITIONALPARAMETERS),
-        'response_mode': value.responseMode,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'response_type': value['responseType'],
+        'state': value['state'],
+        'nonce': value['nonce'],
+        'redirect_uri': value['redirectUri'],
+        'code_challenge': value['codeChallenge'],
+        'code_challenge_method': value['codeChallengeMethod'],
+        'domain': value['domain'],
+        'audience': value['audience'],
+        'screen_hint': value['screenHint'],
+        'prompt': value['prompt'],
+        'organization': value['organization'],
+        'invitation': value['invitation'],
+        'scope': value['scope'],
+        'client_id': value['clientId'],
+        'ADDITIONAL_PARAMETERS': SeededPKCEADDITIONALPARAMETERSToJSON(value['aDDITIONALPARAMETERS']),
+        'response_mode': value['responseMode'],
     };
 }
-
 

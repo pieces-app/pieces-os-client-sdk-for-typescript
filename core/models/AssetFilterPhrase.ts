@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AssetFilterPhraseOptions } from './AssetFilterPhraseOptions';
 import {
-    AssetFilterPhraseOptions,
     AssetFilterPhraseOptionsFromJSON,
     AssetFilterPhraseOptionsFromJSONTyped,
     AssetFilterPhraseOptionsToJSON,
-    EmbeddedModelSchema,
+} from './AssetFilterPhraseOptions';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -68,41 +70,44 @@ export interface AssetFilterPhrase {
     options?: AssetFilterPhraseOptions;
 }
 
+/**
+ * Check if a given object implements the AssetFilterPhrase interface.
+ */
+export function instanceOfAssetFilterPhrase(value: object): boolean {
+    return true;
+}
+
 export function AssetFilterPhraseFromJSON(json: any): AssetFilterPhrase {
     return AssetFilterPhraseFromJSONTyped(json, false);
 }
 
 export function AssetFilterPhraseFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilterPhrase {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'value': !exists(json, 'value') ? undefined : json['value'],
-        'annotation': !exists(json, 'annotation') ? undefined : json['annotation'],
-        'title': !exists(json, 'title') ? undefined : json['title'],
-        'content': !exists(json, 'content') ? undefined : json['content'],
-        'options': !exists(json, 'options') ? undefined : AssetFilterPhraseOptionsFromJSON(json['options']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'value': json['value'] == null ? undefined : json['value'],
+        'annotation': json['annotation'] == null ? undefined : json['annotation'],
+        'title': json['title'] == null ? undefined : json['title'],
+        'content': json['content'] == null ? undefined : json['content'],
+        'options': json['options'] == null ? undefined : AssetFilterPhraseOptionsFromJSON(json['options']),
     };
 }
 
 export function AssetFilterPhraseToJSON(value?: AssetFilterPhrase | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'value': value.value,
-        'annotation': value.annotation,
-        'title': value.title,
-        'content': value.content,
-        'options': AssetFilterPhraseOptionsToJSON(value.options),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'value': value['value'],
+        'annotation': value['annotation'],
+        'title': value['title'],
+        'content': value['content'],
+        'options': AssetFilterPhraseOptionsToJSON(value['options']),
     };
 }
-
 

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This will let us know how an asset was uploaded.
  * 
@@ -23,15 +24,16 @@
  * 
  * INTERNAL: This is an undelete able enum used for internal use only.
  * @export
- * @enum {string}
  */
-export enum MechanismEnum {
-    Manual = 'MANUAL',
-    Recommended = 'RECOMMENDED',
-    Automatic = 'AUTOMATIC',
-    Internal = 'INTERNAL',
-    Deleted = 'DELETED'
-}
+export const MechanismEnum = {
+    Manual: 'MANUAL',
+    Recommended: 'RECOMMENDED',
+    Automatic: 'AUTOMATIC',
+    Internal: 'INTERNAL',
+    Deleted: 'DELETED'
+} as const;
+export type MechanismEnum = typeof MechanismEnum[keyof typeof MechanismEnum];
+
 
 export function MechanismEnumFromJSON(json: any): MechanismEnum {
     return MechanismEnumFromJSONTyped(json, false);

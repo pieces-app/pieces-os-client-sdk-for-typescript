@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This task is for code_completion ie auto-complete.
@@ -46,33 +46,36 @@ export interface QGPTTaskPipelineForCodeCompletion {
     context?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the QGPTTaskPipelineForCodeCompletion interface.
+ */
+export function instanceOfQGPTTaskPipelineForCodeCompletion(value: object): boolean {
+    return true;
+}
+
 export function QGPTTaskPipelineForCodeCompletionFromJSON(json: any): QGPTTaskPipelineForCodeCompletion {
     return QGPTTaskPipelineForCodeCompletionFromJSONTyped(json, false);
 }
 
 export function QGPTTaskPipelineForCodeCompletionFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeCompletion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'context': !exists(json, 'context') ? undefined : json['context'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'context': json['context'] == null ? undefined : json['context'],
     };
 }
 
 export function QGPTTaskPipelineForCodeCompletionToJSON(value?: QGPTTaskPipelineForCodeCompletion | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'context': value.context,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'context': value['context'],
     };
 }
-
 

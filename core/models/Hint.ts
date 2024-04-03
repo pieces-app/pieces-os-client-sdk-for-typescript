@@ -12,37 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    HintTypeEnum,
+} from './GroupedTimestamp';
+import type { HintTypeEnum } from './HintTypeEnum';
+import {
     HintTypeEnumFromJSON,
     HintTypeEnumFromJSONTyped,
     HintTypeEnumToJSON,
-    MechanismEnum,
+} from './HintTypeEnum';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
+} from './MechanismEnum';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedModel,
+} from './ReferencedAsset';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-    Score,
+} from './ReferencedModel';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a hint that is attached to an asset, used for suggested_queries, and hints given via the qgpt flow.
@@ -118,51 +130,59 @@ export interface Hint {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the Hint interface.
+ */
+export function instanceOfHint(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    if (!('type' in value)) return false;
+    if (!('text' in value)) return false;
+    return true;
+}
+
 export function HintFromJSON(json: any): Hint {
     return HintFromJSONTyped(json, false);
 }
 
 export function HintFromJSONTyped(json: any, ignoreDiscriminator: boolean): Hint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
         'type': HintTypeEnumFromJSON(json['type']),
         'text': json['text'],
-        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function HintToJSON(value?: Hint | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'asset': ReferencedAssetToJSON(value.asset),
-        'type': HintTypeEnumToJSON(value.type),
-        'text': value.text,
-        'model': ReferencedModelToJSON(value.model),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'type': HintTypeEnumToJSON(value['type']),
+        'text': value['text'],
+        'model': ReferencedModelToJSON(value['model']),
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is the specific role of a format.
  * @export
- * @enum {string}
  */
-export enum Role {
-    Original = 'ORIGINAL',
-    Additional = 'ADDITIONAL',
-    Both = 'BOTH',
-    Preview = 'PREVIEW'
-}
+export const Role = {
+    Original: 'ORIGINAL',
+    Additional: 'ADDITIONAL',
+    Both: 'BOTH',
+    Preview: 'PREVIEW'
+} as const;
+export type Role = typeof Role[keyof typeof Role];
+
 
 export function RoleFromJSON(json: any): Role {
     return RoleFromJSONTyped(json, false);

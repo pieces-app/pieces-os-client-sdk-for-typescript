@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * These are the references of the formats **Only UUIDS**
@@ -46,35 +46,39 @@ export interface FlattenedPreview {
     overlay?: string;
 }
 
+/**
+ * Check if a given object implements the FlattenedPreview interface.
+ */
+export function instanceOfFlattenedPreview(value: object): boolean {
+    if (!('base' in value)) return false;
+    return true;
+}
+
 export function FlattenedPreviewFromJSON(json: any): FlattenedPreview {
     return FlattenedPreviewFromJSONTyped(json, false);
 }
 
 export function FlattenedPreviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedPreview {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'base': json['base'],
-        'overlay': !exists(json, 'overlay') ? undefined : json['overlay'],
+        'overlay': json['overlay'] == null ? undefined : json['overlay'],
     };
 }
 
 export function FlattenedPreviewToJSON(value?: FlattenedPreview | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'base': value.base,
-        'overlay': value.overlay,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'base': value['base'],
+        'overlay': value['overlay'],
     };
 }
-
 

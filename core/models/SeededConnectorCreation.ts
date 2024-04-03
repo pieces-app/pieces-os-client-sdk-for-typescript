@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededConnectorAsset,
+} from './EmbeddedModelSchema';
+import type { SeededConnectorAsset } from './SeededConnectorAsset';
+import {
     SeededConnectorAssetFromJSON,
     SeededConnectorAssetFromJSONTyped,
     SeededConnectorAssetToJSON,
-} from './';
+} from './SeededConnectorAsset';
 
 /**
  * A encompasing creation object that can be utilized to create either an asset or a format.
@@ -44,33 +46,36 @@ export interface SeededConnectorCreation {
     asset?: SeededConnectorAsset;
 }
 
+/**
+ * Check if a given object implements the SeededConnectorCreation interface.
+ */
+export function instanceOfSeededConnectorCreation(value: object): boolean {
+    return true;
+}
+
 export function SeededConnectorCreationFromJSON(json: any): SeededConnectorCreation {
     return SeededConnectorCreationFromJSONTyped(json, false);
 }
 
 export function SeededConnectorCreationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConnectorCreation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : SeededConnectorAssetFromJSON(json['asset']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : SeededConnectorAssetFromJSON(json['asset']),
     };
 }
 
 export function SeededConnectorCreationToJSON(value?: SeededConnectorCreation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': SeededConnectorAssetToJSON(value.asset),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': SeededConnectorAssetToJSON(value['asset']),
     };
 }
-
 

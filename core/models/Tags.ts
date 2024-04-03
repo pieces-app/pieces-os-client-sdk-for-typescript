@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    Tag,
+} from './Score';
+import type { Tag } from './Tag';
+import {
     TagFromJSON,
     TagFromJSONTyped,
     TagToJSON,
-} from './';
+} from './Tag';
 
 /**
  * This is a model that represents multiple Tag Models
@@ -60,37 +64,41 @@ export interface Tags {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the Tags interface.
+ */
+export function instanceOfTags(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function TagsFromJSON(json: any): Tags {
     return TagsFromJSONTyped(json, false);
 }
 
 export function TagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Tags {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(TagFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function TagsToJSON(value?: Tags | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(TagToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(TagToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

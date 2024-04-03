@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedConversation,
+} from './EmbeddedModelSchema';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    Score,
+} from './ReferencedConversation';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * Flattened version of conversations.
@@ -60,37 +64,41 @@ export interface FlattenedConversations {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedConversations interface.
+ */
+export function instanceOfFlattenedConversations(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function FlattenedConversationsFromJSON(json: any): FlattenedConversations {
     return FlattenedConversationsFromJSONTyped(json, false);
 }
 
 export function FlattenedConversationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedConversations {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedConversationFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedConversationsToJSON(value?: FlattenedConversations | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedConversationToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedConversationToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

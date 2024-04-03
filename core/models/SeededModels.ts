@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededModel,
+} from './EmbeddedModelSchema';
+import type { SeededModel } from './SeededModel';
+import {
     SeededModelFromJSON,
     SeededModelFromJSONTyped,
     SeededModelToJSON,
-} from './';
+} from './SeededModel';
 
 /**
  * This is a Model that will hold an iterable of SeededModels.
@@ -44,33 +46,37 @@ export interface SeededModels {
     iterable: Array<SeededModel>;
 }
 
+/**
+ * Check if a given object implements the SeededModels interface.
+ */
+export function instanceOfSeededModels(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function SeededModelsFromJSON(json: any): SeededModels {
     return SeededModelsFromJSONTyped(json, false);
 }
 
 export function SeededModelsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededModels {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SeededModelFromJSON)),
     };
 }
 
 export function SeededModelsToJSON(value?: SeededModels | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SeededModelToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededModelToJSON)),
     };
 }
-
 

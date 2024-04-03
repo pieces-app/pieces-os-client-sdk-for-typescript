@@ -14,20 +14,22 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Auth0User,
+  EmbeddedModelSchema,
+  OAuthToken,
+  ResultedPKCE,
+} from '../models/index';
 import {
-    Auth0User,
     Auth0UserFromJSON,
     Auth0UserToJSON,
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaToJSON,
-    OAuthToken,
     OAuthTokenFromJSON,
     OAuthTokenToJSON,
-    ResultedPKCE,
     ResultedPKCEFromJSON,
     ResultedPKCEToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface Auth0LogoutRequest {
     clientId?: string;
@@ -67,15 +69,15 @@ export class Auth0Api extends runtime.BaseAPI {
      * https://auth0.com/docs/api/authentication#logout
      * https://auth.pieces.services/v2/logout [GET]
      */
-    async auth0LogoutRaw(requestParameters: Auth0LogoutRequest): Promise<runtime.ApiResponse<string>> {
+    async auth0LogoutRaw(requestParameters: Auth0LogoutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         const queryParameters: any = {};
 
-        if (requestParameters.clientId !== undefined) {
-            queryParameters['client_id'] = requestParameters.clientId;
+        if (requestParameters['clientId'] != null) {
+            queryParameters['client_id'] = requestParameters['clientId'];
         }
 
-        if (requestParameters.returnTo !== undefined) {
-            queryParameters['returnTo'] = requestParameters.returnTo;
+        if (requestParameters['returnTo'] != null) {
+            queryParameters['returnTo'] = requestParameters['returnTo'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -85,17 +87,21 @@ export class Auth0Api extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
      * https://auth0.com/docs/api/authentication#logout
      * https://auth.pieces.services/v2/logout [GET]
      */
-    async auth0Logout(requestParameters: Auth0LogoutRequest): Promise<string> {
-        const response = await this.auth0LogoutRaw(requestParameters);
+    async auth0Logout(requestParameters: Auth0LogoutRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.auth0LogoutRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -103,79 +109,100 @@ export class Auth0Api extends runtime.BaseAPI {
      * An endpoint that is used locally authenticate via a PKCE Flow.  Example https://auth.pieces.services /authorize?audience=https%3A%2F%2Fpieces.us.auth0.com%2Fapi%2Fv2%2F&scope=email+profile+offline_access+openid&response_type=code&client_id=9sW4Pa1LEjX67l6VO14u0207NLYeXnu1&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fpkce%2Fresponse%2Fcode&code_challenge_method=S256&code_challenge=yxRssZxdfBpMigRmDxAety1QU72Bd5WnDUbtlsCZOnk&response_mode=form_post&state=4bd0b9a389b4b229602346c33913b4c3c199628a90011ab3a901302ab62b3832
      * https://auth.pieces.services/authorize [GET]
      */
-    async authorizeAuth0Raw(requestParameters: AuthorizeAuth0Request): Promise<runtime.ApiResponse<ResultedPKCE>> {
-        if (requestParameters.audience === null || requestParameters.audience === undefined) {
-            throw new runtime.RequiredError('audience','Required parameter requestParameters.audience was null or undefined when calling authorizeAuth0.');
+    async authorizeAuth0Raw(requestParameters: AuthorizeAuth0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResultedPKCE>> {
+        if (requestParameters['audience'] == null) {
+            throw new runtime.RequiredError(
+                'audience',
+                'Required parameter "audience" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.scope === null || requestParameters.scope === undefined) {
-            throw new runtime.RequiredError('scope','Required parameter requestParameters.scope was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['scope'] == null) {
+            throw new runtime.RequiredError(
+                'scope',
+                'Required parameter "scope" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.responseType === null || requestParameters.responseType === undefined) {
-            throw new runtime.RequiredError('responseType','Required parameter requestParameters.responseType was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['responseType'] == null) {
+            throw new runtime.RequiredError(
+                'responseType',
+                'Required parameter "responseType" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.clientId === null || requestParameters.clientId === undefined) {
-            throw new runtime.RequiredError('clientId','Required parameter requestParameters.clientId was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['clientId'] == null) {
+            throw new runtime.RequiredError(
+                'clientId',
+                'Required parameter "clientId" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.codeChallengeMethod === null || requestParameters.codeChallengeMethod === undefined) {
-            throw new runtime.RequiredError('codeChallengeMethod','Required parameter requestParameters.codeChallengeMethod was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['codeChallengeMethod'] == null) {
+            throw new runtime.RequiredError(
+                'codeChallengeMethod',
+                'Required parameter "codeChallengeMethod" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.codeChallenge === null || requestParameters.codeChallenge === undefined) {
-            throw new runtime.RequiredError('codeChallenge','Required parameter requestParameters.codeChallenge was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['codeChallenge'] == null) {
+            throw new runtime.RequiredError(
+                'codeChallenge',
+                'Required parameter "codeChallenge" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.responseMode === null || requestParameters.responseMode === undefined) {
-            throw new runtime.RequiredError('responseMode','Required parameter requestParameters.responseMode was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['responseMode'] == null) {
+            throw new runtime.RequiredError(
+                'responseMode',
+                'Required parameter "responseMode" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.audience !== undefined) {
-            queryParameters['audience'] = requestParameters.audience;
+        if (requestParameters['audience'] != null) {
+            queryParameters['audience'] = requestParameters['audience'];
         }
 
-        if (requestParameters.scope) {
-            queryParameters['scope'] = requestParameters.scope.join(runtime.COLLECTION_FORMATS["ssv"]);
+        if (requestParameters['scope'] != null) {
+            queryParameters['scope'] = requestParameters['scope']!.join(runtime.COLLECTION_FORMATS["ssv"]);
         }
 
-        if (requestParameters.responseType !== undefined) {
-            queryParameters['response_type'] = requestParameters.responseType;
+        if (requestParameters['responseType'] != null) {
+            queryParameters['response_type'] = requestParameters['responseType'];
         }
 
-        if (requestParameters.clientId !== undefined) {
-            queryParameters['client_id'] = requestParameters.clientId;
+        if (requestParameters['clientId'] != null) {
+            queryParameters['client_id'] = requestParameters['clientId'];
         }
 
-        if (requestParameters.state !== undefined) {
-            queryParameters['state'] = requestParameters.state;
+        if (requestParameters['state'] != null) {
+            queryParameters['state'] = requestParameters['state'];
         }
 
-        if (requestParameters.redirectUri !== undefined) {
-            queryParameters['redirect_uri'] = requestParameters.redirectUri;
+        if (requestParameters['redirectUri'] != null) {
+            queryParameters['redirect_uri'] = requestParameters['redirectUri'];
         }
 
-        if (requestParameters.codeChallengeMethod !== undefined) {
-            queryParameters['code_challenge_method'] = requestParameters.codeChallengeMethod;
+        if (requestParameters['codeChallengeMethod'] != null) {
+            queryParameters['code_challenge_method'] = requestParameters['codeChallengeMethod'];
         }
 
-        if (requestParameters.codeChallenge !== undefined) {
-            queryParameters['code_challenge'] = requestParameters.codeChallenge;
+        if (requestParameters['codeChallenge'] != null) {
+            queryParameters['code_challenge'] = requestParameters['codeChallenge'];
         }
 
-        if (requestParameters.connection !== undefined) {
-            queryParameters['connection'] = requestParameters.connection;
+        if (requestParameters['connection'] != null) {
+            queryParameters['connection'] = requestParameters['connection'];
         }
 
-        if (requestParameters.prompt !== undefined) {
-            queryParameters['prompt'] = requestParameters.prompt;
+        if (requestParameters['prompt'] != null) {
+            queryParameters['prompt'] = requestParameters['prompt'];
         }
 
-        if (requestParameters.responseMode !== undefined) {
-            queryParameters['response_mode'] = requestParameters.responseMode;
+        if (requestParameters['responseMode'] != null) {
+            queryParameters['response_mode'] = requestParameters['responseMode'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -185,7 +212,7 @@ export class Auth0Api extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ResultedPKCEFromJSON(jsonValue));
     }
@@ -194,8 +221,8 @@ export class Auth0Api extends runtime.BaseAPI {
      * An endpoint that is used locally authenticate via a PKCE Flow.  Example https://auth.pieces.services /authorize?audience=https%3A%2F%2Fpieces.us.auth0.com%2Fapi%2Fv2%2F&scope=email+profile+offline_access+openid&response_type=code&client_id=9sW4Pa1LEjX67l6VO14u0207NLYeXnu1&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fpkce%2Fresponse%2Fcode&code_challenge_method=S256&code_challenge=yxRssZxdfBpMigRmDxAety1QU72Bd5WnDUbtlsCZOnk&response_mode=form_post&state=4bd0b9a389b4b229602346c33913b4c3c199628a90011ab3a901302ab62b3832
      * https://auth.pieces.services/authorize [GET]
      */
-    async authorizeAuth0(requestParameters: AuthorizeAuth0Request): Promise<ResultedPKCE> {
-        const response = await this.authorizeAuth0Raw(requestParameters);
+    async authorizeAuth0(requestParameters: AuthorizeAuth0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResultedPKCE> {
+        const response = await this.authorizeAuth0Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -203,25 +230,40 @@ export class Auth0Api extends runtime.BaseAPI {
      * An endpoint to generate a OAuth Token for an authentication flow. 
      * https://auth.pieces.services/oauth/token [POST]
      */
-    async exchangeForAuth0TokenRaw(requestParameters: ExchangeForAuth0TokenRequest): Promise<runtime.ApiResponse<OAuthToken>> {
-        if (requestParameters.grantType === null || requestParameters.grantType === undefined) {
-            throw new runtime.RequiredError('grantType','Required parameter requestParameters.grantType was null or undefined when calling exchangeForAuth0Token.');
+    async exchangeForAuth0TokenRaw(requestParameters: ExchangeForAuth0TokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OAuthToken>> {
+        if (requestParameters['grantType'] == null) {
+            throw new runtime.RequiredError(
+                'grantType',
+                'Required parameter "grantType" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.clientId === null || requestParameters.clientId === undefined) {
-            throw new runtime.RequiredError('clientId','Required parameter requestParameters.clientId was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['clientId'] == null) {
+            throw new runtime.RequiredError(
+                'clientId',
+                'Required parameter "clientId" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.code === null || requestParameters.code === undefined) {
-            throw new runtime.RequiredError('code','Required parameter requestParameters.code was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['code'] == null) {
+            throw new runtime.RequiredError(
+                'code',
+                'Required parameter "code" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.redirectUri === null || requestParameters.redirectUri === undefined) {
-            throw new runtime.RequiredError('redirectUri','Required parameter requestParameters.redirectUri was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['redirectUri'] == null) {
+            throw new runtime.RequiredError(
+                'redirectUri',
+                'Required parameter "redirectUri" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.codeVerifier === null || requestParameters.codeVerifier === undefined) {
-            throw new runtime.RequiredError('codeVerifier','Required parameter requestParameters.codeVerifier was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['codeVerifier'] == null) {
+            throw new runtime.RequiredError(
+                'codeVerifier',
+                'Required parameter "codeVerifier" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
         const queryParameters: any = {};
@@ -242,32 +284,32 @@ export class Auth0Api extends runtime.BaseAPI {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters.schema !== undefined) {
-            formParams.append('schema', new Blob([JSON.stringify(EmbeddedModelSchemaToJSON(requestParameters.schema))], { type: "application/json", }));
+        if (requestParameters['schema'] != null) {
+            formParams.append('schema', new Blob([JSON.stringify(EmbeddedModelSchemaToJSON(requestParameters['schema']))], { type: "application/json", }));
                     }
 
-        if (requestParameters.grantType !== undefined) {
-            formParams.append('grant_type', requestParameters.grantType as any);
+        if (requestParameters['grantType'] != null) {
+            formParams.append('grant_type', requestParameters['grantType'] as any);
         }
 
-        if (requestParameters.clientId !== undefined) {
-            formParams.append('client_id', requestParameters.clientId as any);
+        if (requestParameters['clientId'] != null) {
+            formParams.append('client_id', requestParameters['clientId'] as any);
         }
 
-        if (requestParameters.code !== undefined) {
-            formParams.append('code', requestParameters.code as any);
+        if (requestParameters['code'] != null) {
+            formParams.append('code', requestParameters['code'] as any);
         }
 
-        if (requestParameters.redirectUri !== undefined) {
-            formParams.append('redirect_uri', requestParameters.redirectUri as any);
+        if (requestParameters['redirectUri'] != null) {
+            formParams.append('redirect_uri', requestParameters['redirectUri'] as any);
         }
 
-        if (requestParameters.codeVerifier !== undefined) {
-            formParams.append('code_verifier', requestParameters.codeVerifier as any);
+        if (requestParameters['codeVerifier'] != null) {
+            formParams.append('code_verifier', requestParameters['codeVerifier'] as any);
         }
 
-        if (requestParameters.audience !== undefined) {
-            formParams.append('audience', requestParameters.audience as any);
+        if (requestParameters['audience'] != null) {
+            formParams.append('audience', requestParameters['audience'] as any);
         }
 
         const response = await this.request({
@@ -276,7 +318,7 @@ export class Auth0Api extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: formParams,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OAuthTokenFromJSON(jsonValue));
     }
@@ -285,8 +327,8 @@ export class Auth0Api extends runtime.BaseAPI {
      * An endpoint to generate a OAuth Token for an authentication flow. 
      * https://auth.pieces.services/oauth/token [POST]
      */
-    async exchangeForAuth0Token(requestParameters: ExchangeForAuth0TokenRequest): Promise<OAuthToken> {
-        const response = await this.exchangeForAuth0TokenRaw(requestParameters);
+    async exchangeForAuth0Token(requestParameters: ExchangeForAuth0TokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OAuthToken> {
+        const response = await this.exchangeForAuth0TokenRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -294,36 +336,24 @@ export class Auth0Api extends runtime.BaseAPI {
      * Get the users info from the Auth0 API
      * https://auth.pieces.services/userinfo [GET]
      */
-    async getAuth0UserInfoRaw(): Promise<runtime.ApiResponse<Auth0User>> {
+    async getAuth0UserInfoRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Auth0User>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            if (typeof this.configuration.accessToken === 'function') {
-                headerParameters["Authorization"] = this.configuration.accessToken("auth0", []);
-            } else {
-                headerParameters["Authorization"] = this.configuration.accessToken;
-            }
+            headerParameters["Authorization"] = await this.configuration.accessToken("auth0", []);
         }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            if (typeof this.configuration.accessToken === 'function') {
-                headerParameters["Authorization"] = this.configuration.accessToken("auth0", []);
-            } else {
-                headerParameters["Authorization"] = this.configuration.accessToken;
-            }
+            headerParameters["Authorization"] = await this.configuration.accessToken("auth0", []);
         }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            if (typeof this.configuration.accessToken === 'function') {
-                headerParameters["Authorization"] = this.configuration.accessToken("auth0", []);
-            } else {
-                headerParameters["Authorization"] = this.configuration.accessToken;
-            }
+            headerParameters["Authorization"] = await this.configuration.accessToken("auth0", []);
         }
 
         const response = await this.request({
@@ -331,7 +361,7 @@ export class Auth0Api extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => Auth0UserFromJSON(jsonValue));
     }
@@ -340,52 +370,52 @@ export class Auth0Api extends runtime.BaseAPI {
      * Get the users info from the Auth0 API
      * https://auth.pieces.services/userinfo [GET]
      */
-    async getAuth0UserInfo(): Promise<Auth0User> {
-        const response = await this.getAuth0UserInfoRaw();
+    async getAuth0UserInfo(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Auth0User> {
+        const response = await this.getAuth0UserInfoRaw(initOverrides);
         return await response.value();
     }
 
 }
 
 /**
-    * @export
-    * @enum {string}
-    */
-export enum AuthorizeAuth0ScopeEnum {
-    Openid = 'openid',
-    Email = 'email',
-    Profile = 'profile',
-    OfflineAccess = 'offline_access'
-}
+ * @export
+ */
+export const AuthorizeAuth0ScopeEnum = {
+    Openid: 'openid',
+    Email: 'email',
+    Profile: 'profile',
+    OfflineAccess: 'offline_access'
+} as const;
+export type AuthorizeAuth0ScopeEnum = typeof AuthorizeAuth0ScopeEnum[keyof typeof AuthorizeAuth0ScopeEnum];
 /**
-    * @export
-    * @enum {string}
-    */
-export enum AuthorizeAuth0ResponseTypeEnum {
-    Code = 'code'
-}
+ * @export
+ */
+export const AuthorizeAuth0ResponseTypeEnum = {
+    Code: 'code'
+} as const;
+export type AuthorizeAuth0ResponseTypeEnum = typeof AuthorizeAuth0ResponseTypeEnum[keyof typeof AuthorizeAuth0ResponseTypeEnum];
 /**
-    * @export
-    * @enum {string}
-    */
-export enum AuthorizeAuth0CodeChallengeMethodEnum {
-    S256 = 'S256'
-}
+ * @export
+ */
+export const AuthorizeAuth0CodeChallengeMethodEnum = {
+    S256: 'S256'
+} as const;
+export type AuthorizeAuth0CodeChallengeMethodEnum = typeof AuthorizeAuth0CodeChallengeMethodEnum[keyof typeof AuthorizeAuth0CodeChallengeMethodEnum];
 /**
-    * @export
-    * @enum {string}
-    */
-export enum AuthorizeAuth0ResponseModeEnum {
-    FormPost = 'form_post',
-    Fragment = 'fragment',
-    Query = 'query',
-    WebMessage = 'web_message'
-}
+ * @export
+ */
+export const AuthorizeAuth0ResponseModeEnum = {
+    FormPost: 'form_post',
+    Fragment: 'fragment',
+    Query: 'query',
+    WebMessage: 'web_message'
+} as const;
+export type AuthorizeAuth0ResponseModeEnum = typeof AuthorizeAuth0ResponseModeEnum[keyof typeof AuthorizeAuth0ResponseModeEnum];
 /**
-    * @export
-    * @enum {string}
-    */
-export enum ExchangeForAuth0TokenGrantTypeEnum {
-    RefreshToken = 'refresh_token',
-    AuthorizationCode = 'authorization_code'
-}
+ * @export
+ */
+export const ExchangeForAuth0TokenGrantTypeEnum = {
+    RefreshToken: 'refresh_token',
+    AuthorizationCode: 'authorization_code'
+} as const;
+export type ExchangeForAuth0TokenGrantTypeEnum = typeof ExchangeForAuth0TokenGrantTypeEnum[keyof typeof ExchangeForAuth0TokenGrantTypeEnum];

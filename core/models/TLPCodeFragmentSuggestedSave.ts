@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Model for monitoring and evaluating the suggested save feature
@@ -82,47 +82,55 @@ export interface TLPCodeFragmentSuggestedSave {
     candidates?: number;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentSuggestedSave interface.
+ */
+export function instanceOfTLPCodeFragmentSuggestedSave(value: object): boolean {
+    if (!('asset' in value)) return false;
+    if (!('user' in value)) return false;
+    if (!('model' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('os' in value)) return false;
+    return true;
+}
+
 export function TLPCodeFragmentSuggestedSaveFromJSON(json: any): TLPCodeFragmentSuggestedSave {
     return TLPCodeFragmentSuggestedSaveFromJSONTyped(json, false);
 }
 
 export function TLPCodeFragmentSuggestedSaveFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentSuggestedSave {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
         'user': json['user'],
         'model': json['model'],
         'created': json['created'],
         'os': json['os'],
-        'context': !exists(json, 'context') ? undefined : json['context'],
-        'score': !exists(json, 'score') ? undefined : json['score'],
-        'candidates': !exists(json, 'candidates') ? undefined : json['candidates'],
+        'context': json['context'] == null ? undefined : json['context'],
+        'score': json['score'] == null ? undefined : json['score'],
+        'candidates': json['candidates'] == null ? undefined : json['candidates'],
     };
 }
 
 export function TLPCodeFragmentSuggestedSaveToJSON(value?: TLPCodeFragmentSuggestedSave | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': value.asset,
-        'user': value.user,
-        'model': value.model,
-        'created': value.created,
-        'os': value.os,
-        'context': value.context,
-        'score': value.score,
-        'candidates': value.candidates,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': value['asset'],
+        'user': value['user'],
+        'model': value['model'],
+        'created': value['created'],
+        'os': value['os'],
+        'context': value['context'],
+        'score': value['score'],
+        'candidates': value['candidates'],
     };
 }
-
 

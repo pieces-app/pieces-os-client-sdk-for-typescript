@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedWebsite,
+} from './EmbeddedModelSchema';
+import type { ReferencedWebsite } from './ReferencedWebsite';
+import {
     ReferencedWebsiteFromJSON,
     ReferencedWebsiteFromJSONTyped,
     ReferencedWebsiteToJSON,
-    Score,
+} from './ReferencedWebsite';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a specific model for related websites to an asset.[DAG SAFE]
@@ -60,37 +64,41 @@ export interface FlattenedWebsites {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedWebsites interface.
+ */
+export function instanceOfFlattenedWebsites(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function FlattenedWebsitesFromJSON(json: any): FlattenedWebsites {
     return FlattenedWebsitesFromJSONTyped(json, false);
 }
 
 export function FlattenedWebsitesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedWebsites {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedWebsiteFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedWebsitesToJSON(value?: FlattenedWebsites | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedWebsiteToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedWebsiteToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

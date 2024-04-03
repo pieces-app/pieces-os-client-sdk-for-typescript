@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
-    Auth0UserMetadata,
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0UserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the update Auth0UserMetadata object, and the specific update output model for "/external_provider/api_key/update"
@@ -44,33 +46,37 @@ export interface UpdatedExternalProviderApiKey {
     metadata: Auth0UserMetadata;
 }
 
+/**
+ * Check if a given object implements the UpdatedExternalProviderApiKey interface.
+ */
+export function instanceOfUpdatedExternalProviderApiKey(value: object): boolean {
+    if (!('metadata' in value)) return false;
+    return true;
+}
+
 export function UpdatedExternalProviderApiKeyFromJSON(json: any): UpdatedExternalProviderApiKey {
     return UpdatedExternalProviderApiKeyFromJSONTyped(json, false);
 }
 
 export function UpdatedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdatedExternalProviderApiKey {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'metadata': Auth0UserMetadataFromJSON(json['metadata']),
     };
 }
 
 export function UpdatedExternalProviderApiKeyToJSON(value?: UpdatedExternalProviderApiKey | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'metadata': Auth0UserMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'metadata': Auth0UserMetadataToJSON(value['metadata']),
     };
 }
-
 

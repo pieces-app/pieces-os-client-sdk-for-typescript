@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnchor,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnchor } from './FlattenedAnchor';
+import {
     FlattenedAnchorFromJSON,
     FlattenedAnchorFromJSONTyped,
     FlattenedAnchorToJSON,
-} from './';
+} from './FlattenedAnchor';
 
 /**
  * This is the referenced version of a Anchor, main used for the uuid.
@@ -50,35 +52,39 @@ export interface ReferencedAnchor {
     reference?: FlattenedAnchor;
 }
 
+/**
+ * Check if a given object implements the ReferencedAnchor interface.
+ */
+export function instanceOfReferencedAnchor(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function ReferencedAnchorFromJSON(json: any): ReferencedAnchor {
     return ReferencedAnchorFromJSONTyped(json, false);
 }
 
 export function ReferencedAnchorFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedAnchor {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedAnchorFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedAnchorFromJSON(json['reference']),
     };
 }
 
 export function ReferencedAnchorToJSON(value?: ReferencedAnchor | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedAnchorToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedAnchorToJSON(value['reference']),
     };
 }
-
 

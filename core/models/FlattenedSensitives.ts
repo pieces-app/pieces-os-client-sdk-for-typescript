@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedSensitive,
+} from './EmbeddedModelSchema';
+import type { ReferencedSensitive } from './ReferencedSensitive';
+import {
     ReferencedSensitiveFromJSON,
     ReferencedSensitiveFromJSONTyped,
     ReferencedSensitiveToJSON,
-    Score,
+} from './ReferencedSensitive';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a flattened representation of multiple sensitive pieces of data.
@@ -54,35 +58,39 @@ export interface FlattenedSensitives {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedSensitives interface.
+ */
+export function instanceOfFlattenedSensitives(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function FlattenedSensitivesFromJSON(json: any): FlattenedSensitives {
     return FlattenedSensitivesFromJSONTyped(json, false);
 }
 
 export function FlattenedSensitivesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedSensitives {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedSensitiveFromJSON)),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedSensitivesToJSON(value?: FlattenedSensitives | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedSensitiveToJSON)),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedSensitiveToJSON)),
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

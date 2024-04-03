@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchemaSemanticVersionEnum } from './EmbeddedModelSchemaSemanticVersionEnum';
 import {
-    EmbeddedModelSchemaSemanticVersionEnum,
     EmbeddedModelSchemaSemanticVersionEnumFromJSON,
     EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped,
     EmbeddedModelSchemaSemanticVersionEnumToJSON,
-} from './';
+} from './EmbeddedModelSchemaSemanticVersionEnum';
 
 /**
  * This is a model that will keep track of all of our version related to our models. ie (1) the database migration and (2) the global semantic version of the api.
@@ -40,12 +40,21 @@ export interface EmbeddedModelSchema {
     semantic: EmbeddedModelSchemaSemanticVersionEnum;
 }
 
+/**
+ * Check if a given object implements the EmbeddedModelSchema interface.
+ */
+export function instanceOfEmbeddedModelSchema(value: object): boolean {
+    if (!('migration' in value)) return false;
+    if (!('semantic' in value)) return false;
+    return true;
+}
+
 export function EmbeddedModelSchemaFromJSON(json: any): EmbeddedModelSchema {
     return EmbeddedModelSchemaFromJSONTyped(json, false);
 }
 
 export function EmbeddedModelSchemaFromJSONTyped(json: any, ignoreDiscriminator: boolean): EmbeddedModelSchema {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -56,17 +65,13 @@ export function EmbeddedModelSchemaFromJSONTyped(json: any, ignoreDiscriminator:
 }
 
 export function EmbeddedModelSchemaToJSON(value?: EmbeddedModelSchema | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'migration': value.migration,
-        'semantic': EmbeddedModelSchemaSemanticVersionEnumToJSON(value.semantic),
+        'migration': value['migration'],
+        'semantic': EmbeddedModelSchemaSemanticVersionEnumToJSON(value['semantic']),
     };
 }
-
 

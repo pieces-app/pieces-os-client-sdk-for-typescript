@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededAssetMetadata,
+} from './EmbeddedModelSchema';
+import type { SeededAssetMetadata } from './SeededAssetMetadata';
+import {
     SeededAssetMetadataFromJSON,
     SeededAssetMetadataFromJSONTyped,
     SeededAssetMetadataToJSON,
-    SeededFormat,
+} from './SeededAssetMetadata';
+import type { SeededFormat } from './SeededFormat';
+import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './';
+} from './SeededFormat';
 
 /**
  * A generic model to use with the Connector API that requires little to no additional information about the current application.
@@ -54,35 +58,39 @@ export interface SeededConnectorAsset {
     format: SeededFormat;
 }
 
+/**
+ * Check if a given object implements the SeededConnectorAsset interface.
+ */
+export function instanceOfSeededConnectorAsset(value: object): boolean {
+    if (!('format' in value)) return false;
+    return true;
+}
+
 export function SeededConnectorAssetFromJSON(json: any): SeededConnectorAsset {
     return SeededConnectorAssetFromJSONTyped(json, false);
 }
 
 export function SeededConnectorAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConnectorAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'metadata': !exists(json, 'metadata') ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'metadata': json['metadata'] == null ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
         'format': SeededFormatFromJSON(json['format']),
     };
 }
 
 export function SeededConnectorAssetToJSON(value?: SeededConnectorAsset | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'metadata': SeededAssetMetadataToJSON(value.metadata),
-        'format': SeededFormatToJSON(value.format),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'metadata': SeededAssetMetadataToJSON(value['metadata']),
+        'format': SeededFormatToJSON(value['format']),
     };
 }
-
 

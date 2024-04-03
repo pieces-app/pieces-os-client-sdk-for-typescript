@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GitHubGistDistribution,
+} from './EmbeddedModelSchema';
+import type { GitHubGistDistribution } from './GitHubGistDistribution';
+import {
     GitHubGistDistributionFromJSON,
     GitHubGistDistributionFromJSONTyped,
     GitHubGistDistributionToJSON,
-} from './';
+} from './GitHubGistDistribution';
 
 /**
  * 
@@ -44,33 +46,36 @@ export interface GitHubDistribution {
     gist?: GitHubGistDistribution;
 }
 
+/**
+ * Check if a given object implements the GitHubDistribution interface.
+ */
+export function instanceOfGitHubDistribution(value: object): boolean {
+    return true;
+}
+
 export function GitHubDistributionFromJSON(json: any): GitHubDistribution {
     return GitHubDistributionFromJSONTyped(json, false);
 }
 
 export function GitHubDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): GitHubDistribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'gist': !exists(json, 'gist') ? undefined : GitHubGistDistributionFromJSON(json['gist']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'gist': json['gist'] == null ? undefined : GitHubGistDistributionFromJSON(json['gist']),
     };
 }
 
 export function GitHubDistributionToJSON(value?: GitHubDistribution | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'gist': GitHubGistDistributionToJSON(value.gist),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'gist': GitHubGistDistributionToJSON(value['gist']),
     };
 }
-
 

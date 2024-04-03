@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * Append any additional parameter to the end of your request, and it will be sent to the provider. For example, access_type=offline (for Google Refresh Tokens) , display=popup (for Windows Live popup mode).
  * @export
@@ -33,18 +33,29 @@ export interface SeededPKCEADDITIONALPARAMETERS {
     display?: SeededPKCEADDITIONALPARAMETERSDisplayEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEADDITIONALPARAMETERSAccessTypeEnum {
-    Offline = 'offline'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEADDITIONALPARAMETERSDisplayEnum {
-    Popup = 'popup'
+ * @export
+ */
+export const SeededPKCEADDITIONALPARAMETERSAccessTypeEnum = {
+    Offline: 'offline'
+} as const;
+export type SeededPKCEADDITIONALPARAMETERSAccessTypeEnum = typeof SeededPKCEADDITIONALPARAMETERSAccessTypeEnum[keyof typeof SeededPKCEADDITIONALPARAMETERSAccessTypeEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEADDITIONALPARAMETERSDisplayEnum = {
+    Popup: 'popup'
+} as const;
+export type SeededPKCEADDITIONALPARAMETERSDisplayEnum = typeof SeededPKCEADDITIONALPARAMETERSDisplayEnum[keyof typeof SeededPKCEADDITIONALPARAMETERSDisplayEnum];
+
+
+/**
+ * Check if a given object implements the SeededPKCEADDITIONALPARAMETERS interface.
+ */
+export function instanceOfSeededPKCEADDITIONALPARAMETERS(value: object): boolean {
+    return true;
 }
 
 export function SeededPKCEADDITIONALPARAMETERSFromJSON(json: any): SeededPKCEADDITIONALPARAMETERS {
@@ -52,28 +63,24 @@ export function SeededPKCEADDITIONALPARAMETERSFromJSON(json: any): SeededPKCEADD
 }
 
 export function SeededPKCEADDITIONALPARAMETERSFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEADDITIONALPARAMETERS {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'accessType': !exists(json, 'access_type') ? undefined : json['access_type'],
-        'display': !exists(json, 'display') ? undefined : json['display'],
+        'accessType': json['access_type'] == null ? undefined : json['access_type'],
+        'display': json['display'] == null ? undefined : json['display'],
     };
 }
 
 export function SeededPKCEADDITIONALPARAMETERSToJSON(value?: SeededPKCEADDITIONALPARAMETERS | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'access_type': value.accessType,
-        'display': value.display,
+        'access_type': value['accessType'],
+        'display': value['display'],
     };
 }
-
 

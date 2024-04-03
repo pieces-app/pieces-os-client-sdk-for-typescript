@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A user that will be passed along with each analytics event
@@ -58,14 +58,26 @@ export interface TrackedUserProfile {
     granularity: TrackedUserProfileGranularityEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum TrackedUserProfileGranularityEnum {
-    Device = 'DEVICE',
-    Account = 'ACCOUNT',
-    Anonymous = 'ANONYMOUS'
+ * @export
+ */
+export const TrackedUserProfileGranularityEnum = {
+    Device: 'DEVICE',
+    Account: 'ACCOUNT',
+    Anonymous: 'ANONYMOUS'
+} as const;
+export type TrackedUserProfileGranularityEnum = typeof TrackedUserProfileGranularityEnum[keyof typeof TrackedUserProfileGranularityEnum];
+
+
+/**
+ * Check if a given object implements the TrackedUserProfile interface.
+ */
+export function instanceOfTrackedUserProfile(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('username' in value)) return false;
+    if (!('granularity' in value)) return false;
+    return true;
 }
 
 export function TrackedUserProfileFromJSON(json: any): TrackedUserProfile {
@@ -73,34 +85,30 @@ export function TrackedUserProfileFromJSON(json: any): TrackedUserProfile {
 }
 
 export function TrackedUserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedUserProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'username': json['username'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
+        'email': json['email'] == null ? undefined : json['email'],
         'granularity': json['granularity'],
     };
 }
 
 export function TrackedUserProfileToJSON(value?: TrackedUserProfile | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'username': value.username,
-        'email': value.email,
-        'granularity': value.granularity,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'username': value['username'],
+        'email': value['email'],
+        'granularity': value['granularity'],
     };
 }
-
 

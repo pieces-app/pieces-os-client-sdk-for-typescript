@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { SystemExecutionCpuInformation } from './SystemExecutionCpuInformation';
 import {
-    SystemExecutionCpuInformation,
     SystemExecutionCpuInformationFromJSON,
     SystemExecutionCpuInformationFromJSONTyped,
     SystemExecutionCpuInformationToJSON,
-} from './';
+} from './SystemExecutionCpuInformation';
 
 /**
  * This is system information that we are able to get from the users machine(rust package TBD). TODO potentially pull this out of TLP.
@@ -52,12 +52,23 @@ export interface SystemExecutionInformation {
     cpu: SystemExecutionCpuInformation;
 }
 
+/**
+ * Check if a given object implements the SystemExecutionInformation interface.
+ */
+export function instanceOfSystemExecutionInformation(value: object): boolean {
+    if (!('memory' in value)) return false;
+    if (!('os' in value)) return false;
+    if (!('kernel' in value)) return false;
+    if (!('cpu' in value)) return false;
+    return true;
+}
+
 export function SystemExecutionInformationFromJSON(json: any): SystemExecutionInformation {
     return SystemExecutionInformationFromJSONTyped(json, false);
 }
 
 export function SystemExecutionInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SystemExecutionInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -70,19 +81,15 @@ export function SystemExecutionInformationFromJSONTyped(json: any, ignoreDiscrim
 }
 
 export function SystemExecutionInformationToJSON(value?: SystemExecutionInformation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'memory': value.memory,
-        'os': value.os,
-        'kernel': value.kernel,
-        'cpu': SystemExecutionCpuInformationToJSON(value.cpu),
+        'memory': value['memory'],
+        'os': value['os'],
+        'kernel': value['kernel'],
+        'cpu': SystemExecutionCpuInformationToJSON(value['cpu']),
     };
 }
-
 

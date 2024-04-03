@@ -12,29 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeDirectoryAnalytics,
+} from './EmbeddedModelSchema';
+import type { TLPCodeDirectoryAnalytics } from './TLPCodeDirectoryAnalytics';
+import {
     TLPCodeDirectoryAnalyticsFromJSON,
     TLPCodeDirectoryAnalyticsFromJSONTyped,
     TLPCodeDirectoryAnalyticsToJSON,
-    TLPCodeFileAnalytics,
+} from './TLPCodeDirectoryAnalytics';
+import type { TLPCodeFileAnalytics } from './TLPCodeFileAnalytics';
+import {
     TLPCodeFileAnalyticsFromJSON,
     TLPCodeFileAnalyticsFromJSONTyped,
     TLPCodeFileAnalyticsToJSON,
-    TLPCodeRepositoryAnalytics,
+} from './TLPCodeFileAnalytics';
+import type { TLPCodeRepositoryAnalytics } from './TLPCodeRepositoryAnalytics';
+import {
     TLPCodeRepositoryAnalyticsFromJSON,
     TLPCodeRepositoryAnalyticsFromJSONTyped,
     TLPCodeRepositoryAnalyticsToJSON,
-    TLPCodeSnippetAnalytics,
+} from './TLPCodeRepositoryAnalytics';
+import type { TLPCodeSnippetAnalytics } from './TLPCodeSnippetAnalytics';
+import {
     TLPCodeSnippetAnalyticsFromJSON,
     TLPCodeSnippetAnalyticsFromJSONTyped,
     TLPCodeSnippetAnalyticsToJSON,
-} from './';
+} from './TLPCodeSnippetAnalytics';
 
 /**
  * 
@@ -74,39 +82,42 @@ export interface TLPCodeProcessing {
     repository?: TLPCodeRepositoryAnalytics;
 }
 
+/**
+ * Check if a given object implements the TLPCodeProcessing interface.
+ */
+export function instanceOfTLPCodeProcessing(value: object): boolean {
+    return true;
+}
+
 export function TLPCodeProcessingFromJSON(json: any): TLPCodeProcessing {
     return TLPCodeProcessingFromJSONTyped(json, false);
 }
 
 export function TLPCodeProcessingFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeProcessing {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'fragment': !exists(json, 'fragment') ? undefined : TLPCodeSnippetAnalyticsFromJSON(json['fragment']),
-        'file': !exists(json, 'file') ? undefined : TLPCodeFileAnalyticsFromJSON(json['file']),
-        'directory': !exists(json, 'directory') ? undefined : TLPCodeDirectoryAnalyticsFromJSON(json['directory']),
-        'repository': !exists(json, 'repository') ? undefined : TLPCodeRepositoryAnalyticsFromJSON(json['repository']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'fragment': json['fragment'] == null ? undefined : TLPCodeSnippetAnalyticsFromJSON(json['fragment']),
+        'file': json['file'] == null ? undefined : TLPCodeFileAnalyticsFromJSON(json['file']),
+        'directory': json['directory'] == null ? undefined : TLPCodeDirectoryAnalyticsFromJSON(json['directory']),
+        'repository': json['repository'] == null ? undefined : TLPCodeRepositoryAnalyticsFromJSON(json['repository']),
     };
 }
 
 export function TLPCodeProcessingToJSON(value?: TLPCodeProcessing | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'fragment': TLPCodeSnippetAnalyticsToJSON(value.fragment),
-        'file': TLPCodeFileAnalyticsToJSON(value.file),
-        'directory': TLPCodeDirectoryAnalyticsToJSON(value.directory),
-        'repository': TLPCodeRepositoryAnalyticsToJSON(value.repository),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'fragment': TLPCodeSnippetAnalyticsToJSON(value['fragment']),
+        'file': TLPCodeFileAnalyticsToJSON(value['file']),
+        'directory': TLPCodeDirectoryAnalyticsToJSON(value['directory']),
+        'repository': TLPCodeRepositoryAnalyticsToJSON(value['repository']),
     };
 }
-
 

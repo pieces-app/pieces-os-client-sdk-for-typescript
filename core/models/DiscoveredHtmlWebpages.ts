@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { DiscoveredHtmlWebpage } from './DiscoveredHtmlWebpage';
 import {
-    DiscoveredHtmlWebpage,
     DiscoveredHtmlWebpageFromJSON,
     DiscoveredHtmlWebpageFromJSONTyped,
     DiscoveredHtmlWebpageToJSON,
-    EmbeddedModelSchema,
+} from './DiscoveredHtmlWebpage';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Assumption: The iterable will be in the exact same order as it was passed in within the seededDiscoveredHtmlWebpages
@@ -50,35 +52,40 @@ export interface DiscoveredHtmlWebpages {
     application: string;
 }
 
+/**
+ * Check if a given object implements the DiscoveredHtmlWebpages interface.
+ */
+export function instanceOfDiscoveredHtmlWebpages(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    if (!('application' in value)) return false;
+    return true;
+}
+
 export function DiscoveredHtmlWebpagesFromJSON(json: any): DiscoveredHtmlWebpages {
     return DiscoveredHtmlWebpagesFromJSONTyped(json, false);
 }
 
 export function DiscoveredHtmlWebpagesFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredHtmlWebpages {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(DiscoveredHtmlWebpageFromJSON)),
         'application': json['application'],
     };
 }
 
 export function DiscoveredHtmlWebpagesToJSON(value?: DiscoveredHtmlWebpages | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(DiscoveredHtmlWebpageToJSON)),
-        'application': value.application,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(DiscoveredHtmlWebpageToJSON)),
+        'application': value['application'],
     };
 }
-
 

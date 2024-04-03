@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for '/machine_learning/text/technical_language/parsers/segmentation'
@@ -42,33 +42,37 @@ export interface UnsegmentedTechnicalLanguage {
     value: string;
 }
 
+/**
+ * Check if a given object implements the UnsegmentedTechnicalLanguage interface.
+ */
+export function instanceOfUnsegmentedTechnicalLanguage(value: object): boolean {
+    if (!('value' in value)) return false;
+    return true;
+}
+
 export function UnsegmentedTechnicalLanguageFromJSON(json: any): UnsegmentedTechnicalLanguage {
     return UnsegmentedTechnicalLanguageFromJSONTyped(json, false);
 }
 
 export function UnsegmentedTechnicalLanguageFromJSONTyped(json: any, ignoreDiscriminator: boolean): UnsegmentedTechnicalLanguage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'value': json['value'],
     };
 }
 
 export function UnsegmentedTechnicalLanguageToJSON(value?: UnsegmentedTechnicalLanguage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'value': value.value,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'value': value['value'],
     };
 }
-
 

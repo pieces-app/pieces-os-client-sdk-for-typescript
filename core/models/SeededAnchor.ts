@@ -12,25 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AnchorTypeEnum } from './AnchorTypeEnum';
 import {
-    AnchorTypeEnum,
     AnchorTypeEnumFromJSON,
     AnchorTypeEnumFromJSONTyped,
     AnchorTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './AnchorTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PlatformEnum,
+} from './EmbeddedModelSchema';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-    SeededAnnotation,
+} from './PlatformEnum';
+import type { SeededAnnotation } from './SeededAnnotation';
+import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-} from './';
+} from './SeededAnnotation';
 
 /**
  * 
@@ -94,47 +100,52 @@ export interface SeededAnchor {
     conversation?: string;
 }
 
+/**
+ * Check if a given object implements the SeededAnchor interface.
+ */
+export function instanceOfSeededAnchor(value: object): boolean {
+    if (!('type' in value)) return false;
+    if (!('fullpath' in value)) return false;
+    return true;
+}
+
 export function SeededAnchorFromJSON(json: any): SeededAnchor {
     return SeededAnchorFromJSONTyped(json, false);
 }
 
 export function SeededAnchorFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAnchor {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'type': AnchorTypeEnumFromJSON(json['type']),
-        'watch': !exists(json, 'watch') ? undefined : json['watch'],
+        'watch': json['watch'] == null ? undefined : json['watch'],
         'fullpath': json['fullpath'],
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'platform': !exists(json, 'platform') ? undefined : PlatformEnumFromJSON(json['platform']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
-        'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'platform': json['platform'] == null ? undefined : PlatformEnumFromJSON(json['platform']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'annotations': json['annotations'] == null ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
+        'conversation': json['conversation'] == null ? undefined : json['conversation'],
     };
 }
 
 export function SeededAnchorToJSON(value?: SeededAnchor | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'type': AnchorTypeEnumToJSON(value.type),
-        'watch': value.watch,
-        'fullpath': value.fullpath,
-        'asset': value.asset,
-        'platform': PlatformEnumToJSON(value.platform),
-        'name': value.name,
-        'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
-        'conversation': value.conversation,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'type': AnchorTypeEnumToJSON(value['type']),
+        'watch': value['watch'],
+        'fullpath': value['fullpath'],
+        'asset': value['asset'],
+        'platform': PlatformEnumToJSON(value['platform']),
+        'name': value['name'],
+        'annotations': value['annotations'] == null ? undefined : ((value['annotations'] as Array<any>).map(SeededAnnotationToJSON)),
+        'conversation': value['conversation'],
     };
 }
-
 

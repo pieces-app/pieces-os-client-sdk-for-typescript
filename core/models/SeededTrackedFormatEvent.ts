@@ -12,28 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedFormat,
+} from './EmbeddedModelSchema';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-    TrackedFormatEventIdentifierDescriptionPairs,
+} from './ReferencedFormat';
+import type { TrackedFormatEventIdentifierDescriptionPairs } from './TrackedFormatEventIdentifierDescriptionPairs';
+import {
     TrackedFormatEventIdentifierDescriptionPairsFromJSON,
     TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedFormatEventIdentifierDescriptionPairsToJSON,
-    TrackedFormatEventMetadata,
+} from './TrackedFormatEventIdentifierDescriptionPairs';
+import type { TrackedFormatEventMetadata } from './TrackedFormatEventMetadata';
+import {
     TrackedFormatEventMetadataFromJSON,
     TrackedFormatEventMetadataFromJSONTyped,
     TrackedFormatEventMetadataToJSON,
-} from './';
+} from './TrackedFormatEventMetadata';
 
 /**
  * Again this is a model designed to be sent over to a context server to be built and then sent along to segment.
+ * 
  * @export
  * @interface SeededTrackedFormatEvent
  */
@@ -64,37 +71,42 @@ export interface SeededTrackedFormatEvent {
     metadata?: TrackedFormatEventMetadata;
 }
 
+/**
+ * Check if a given object implements the SeededTrackedFormatEvent interface.
+ */
+export function instanceOfSeededTrackedFormatEvent(value: object): boolean {
+    if (!('identifierDescriptionPair' in value)) return false;
+    if (!('format' in value)) return false;
+    return true;
+}
+
 export function SeededTrackedFormatEventFromJSON(json: any): SeededTrackedFormatEvent {
     return SeededTrackedFormatEventFromJSONTyped(json, false);
 }
 
 export function SeededTrackedFormatEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedFormatEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'identifierDescriptionPair': TrackedFormatEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
         'format': ReferencedFormatFromJSON(json['format']),
-        'metadata': !exists(json, 'metadata') ? undefined : TrackedFormatEventMetadataFromJSON(json['metadata']),
+        'metadata': json['metadata'] == null ? undefined : TrackedFormatEventMetadataFromJSON(json['metadata']),
     };
 }
 
 export function SeededTrackedFormatEventToJSON(value?: SeededTrackedFormatEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'identifier_description_pair': TrackedFormatEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
-        'format': ReferencedFormatToJSON(value.format),
-        'metadata': TrackedFormatEventMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'identifier_description_pair': TrackedFormatEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
+        'format': ReferencedFormatToJSON(value['format']),
+        'metadata': TrackedFormatEventMetadataToJSON(value['metadata']),
     };
 }
-
 

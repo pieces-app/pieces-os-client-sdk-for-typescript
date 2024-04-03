@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AssetFilter } from './AssetFilter';
 import {
-    AssetFilter,
     AssetFilterFromJSON,
     AssetFilterFromJSONTyped,
     AssetFilterToJSON,
-    EmbeddedModelSchema,
+} from './AssetFilter';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FilterOperationTypeEnum,
+} from './EmbeddedModelSchema';
+import type { FilterOperationTypeEnum } from './FilterOperationTypeEnum';
+import {
     FilterOperationTypeEnumFromJSON,
     FilterOperationTypeEnumFromJSONTyped,
     FilterOperationTypeEnumToJSON,
-} from './';
+} from './FilterOperationTypeEnum';
 
 /**
  * 
@@ -54,35 +58,39 @@ export interface AssetFilters {
     type?: FilterOperationTypeEnum;
 }
 
+/**
+ * Check if a given object implements the AssetFilters interface.
+ */
+export function instanceOfAssetFilters(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function AssetFiltersFromJSON(json: any): AssetFilters {
     return AssetFiltersFromJSONTyped(json, false);
 }
 
 export function AssetFiltersFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilters {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AssetFilterFromJSON)),
-        'type': !exists(json, 'type') ? undefined : FilterOperationTypeEnumFromJSON(json['type']),
+        'type': json['type'] == null ? undefined : FilterOperationTypeEnumFromJSON(json['type']),
     };
 }
 
 export function AssetFiltersToJSON(value?: AssetFilters | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AssetFilterToJSON)),
-        'type': FilterOperationTypeEnumToJSON(value.type),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AssetFilterToJSON)),
+        'type': FilterOperationTypeEnumToJSON(value['type']),
     };
 }
-
 

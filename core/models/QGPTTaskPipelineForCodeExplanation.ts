@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This task is for explaining a bit of code.
@@ -38,31 +38,34 @@ export interface QGPTTaskPipelineForCodeExplanation {
     schema?: EmbeddedModelSchema;
 }
 
+/**
+ * Check if a given object implements the QGPTTaskPipelineForCodeExplanation interface.
+ */
+export function instanceOfQGPTTaskPipelineForCodeExplanation(value: object): boolean {
+    return true;
+}
+
 export function QGPTTaskPipelineForCodeExplanationFromJSON(json: any): QGPTTaskPipelineForCodeExplanation {
     return QGPTTaskPipelineForCodeExplanationFromJSONTyped(json, false);
 }
 
 export function QGPTTaskPipelineForCodeExplanationFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeExplanation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function QGPTTaskPipelineForCodeExplanationToJSON(value?: QGPTTaskPipelineForCodeExplanation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
-
 

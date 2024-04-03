@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AllocationStatusEnum } from './AllocationStatusEnum';
 import {
-    AllocationStatusEnum,
     AllocationStatusEnumFromJSON,
     AllocationStatusEnumFromJSONTyped,
     AllocationStatusEnumToJSON,
-    EmbeddedModelSchema,
+} from './AllocationStatusEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is one of the 3 possible urls that will route to your cloud :).
@@ -50,35 +52,40 @@ export interface AllocationCloudUrl {
     url: string;
 }
 
+/**
+ * Check if a given object implements the AllocationCloudUrl interface.
+ */
+export function instanceOfAllocationCloudUrl(value: object): boolean {
+    if (!('status' in value)) return false;
+    if (!('url' in value)) return false;
+    return true;
+}
+
 export function AllocationCloudUrlFromJSON(json: any): AllocationCloudUrl {
     return AllocationCloudUrlFromJSONTyped(json, false);
 }
 
 export function AllocationCloudUrlFromJSONTyped(json: any, ignoreDiscriminator: boolean): AllocationCloudUrl {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'status': AllocationStatusEnumFromJSON(json['status']),
         'url': json['url'],
     };
 }
 
 export function AllocationCloudUrlToJSON(value?: AllocationCloudUrl | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'status': AllocationStatusEnumToJSON(value.status),
-        'url': value.url,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'status': AllocationStatusEnumToJSON(value['status']),
+        'url': value['url'],
     };
 }
-
 

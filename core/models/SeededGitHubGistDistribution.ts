@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Recipients,
+} from './EmbeddedModelSchema';
+import type { Recipients } from './Recipients';
+import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
-} from './';
+} from './Recipients';
 
 /**
  * This is the minimum information needed to distribute a Piece to a Gist.
@@ -62,39 +64,43 @@ export interface SeededGitHubGistDistribution {
     name: string;
 }
 
+/**
+ * Check if a given object implements the SeededGitHubGistDistribution interface.
+ */
+export function instanceOfSeededGitHubGistDistribution(value: object): boolean {
+    if (!('name' in value)) return false;
+    return true;
+}
+
 export function SeededGitHubGistDistributionFromJSON(json: any): SeededGitHubGistDistribution {
     return SeededGitHubGistDistributionFromJSONTyped(json, false);
 }
 
 export function SeededGitHubGistDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededGitHubGistDistribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'recipients': !exists(json, 'recipients') ? undefined : RecipientsFromJSON(json['recipients']),
-        '_public': !exists(json, 'public') ? undefined : json['public'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'recipients': json['recipients'] == null ? undefined : RecipientsFromJSON(json['recipients']),
+        '_public': json['public'] == null ? undefined : json['public'],
+        'description': json['description'] == null ? undefined : json['description'],
         'name': json['name'],
     };
 }
 
 export function SeededGitHubGistDistributionToJSON(value?: SeededGitHubGistDistribution | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'recipients': RecipientsToJSON(value.recipients),
-        'public': value._public,
-        'description': value.description,
-        'name': value.name,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'recipients': RecipientsToJSON(value['recipients']),
+        'public': value['_public'],
+        'description': value['description'],
+        'name': value['name'],
     };
 }
-
 

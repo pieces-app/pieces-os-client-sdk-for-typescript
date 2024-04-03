@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for the FilePicker
@@ -40,33 +40,36 @@ export interface FilePickerInput {
     allowedExtensions?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FilePickerInput interface.
+ */
+export function instanceOfFilePickerInput(value: object): boolean {
+    return true;
+}
+
 export function FilePickerInputFromJSON(json: any): FilePickerInput {
     return FilePickerInputFromJSONTyped(json, false);
 }
 
 export function FilePickerInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): FilePickerInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'allowedExtensions': !exists(json, 'allowedExtensions') ? undefined : json['allowedExtensions'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'allowedExtensions': json['allowedExtensions'] == null ? undefined : json['allowedExtensions'],
     };
 }
 
 export function FilePickerInputToJSON(value?: FilePickerInput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'allowedExtensions': value.allowedExtensions,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'allowedExtensions': value['allowedExtensions'],
     };
 }
-
 

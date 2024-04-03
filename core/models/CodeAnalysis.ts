@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
-    ClassificationGenericEnum,
     ClassificationGenericEnumFromJSON,
     ClassificationGenericEnumFromJSONTyped,
     ClassificationGenericEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationGenericEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Model,
+} from './EmbeddedModelSchema';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './Model';
 
 /**
  * This is the ML Analysis object Specific to code.
@@ -104,24 +108,35 @@ export interface CodeAnalysis {
     model: Model;
 }
 
+/**
+ * Check if a given object implements the CodeAnalysis interface.
+ */
+export function instanceOfCodeAnalysis(value: object): boolean {
+    if (!('type' in value)) return false;
+    if (!('id' in value)) return false;
+    if (!('analysis' in value)) return false;
+    if (!('model' in value)) return false;
+    return true;
+}
+
 export function CodeAnalysisFromJSON(json: any): CodeAnalysis {
     return CodeAnalysisFromJSONTyped(json, false);
 }
 
 export function CodeAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): CodeAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'tokenized': !exists(json, 'tokenized') ? undefined : json['tokenized'],
-        'language': !exists(json, 'language') ? undefined : json['language'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'tokenized': json['tokenized'] == null ? undefined : json['tokenized'],
+        'language': json['language'] == null ? undefined : json['language'],
         'type': ClassificationGenericEnumFromJSON(json['type']),
-        'prediction': !exists(json, 'prediction') ? undefined : json['prediction'],
-        'similarity': !exists(json, 'similarity') ? undefined : json['similarity'],
-        'top5Colors': !exists(json, 'top5Colors') ? undefined : json['top5Colors'],
-        'top5Sorted': !exists(json, 'top5Sorted') ? undefined : json['top5Sorted'],
+        'prediction': json['prediction'] == null ? undefined : json['prediction'],
+        'similarity': json['similarity'] == null ? undefined : json['similarity'],
+        'top5Colors': json['top5Colors'] == null ? undefined : json['top5Colors'],
+        'top5Sorted': json['top5Sorted'] == null ? undefined : json['top5Sorted'],
         'id': json['id'],
         'analysis': json['analysis'],
         'model': ModelFromJSON(json['model']),
@@ -129,26 +144,22 @@ export function CodeAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function CodeAnalysisToJSON(value?: CodeAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'tokenized': value.tokenized,
-        'language': value.language,
-        'type': ClassificationGenericEnumToJSON(value.type),
-        'prediction': value.prediction,
-        'similarity': value.similarity,
-        'top5Colors': value.top5Colors,
-        'top5Sorted': value.top5Sorted,
-        'id': value.id,
-        'analysis': value.analysis,
-        'model': ModelToJSON(value.model),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'tokenized': value['tokenized'],
+        'language': value['language'],
+        'type': ClassificationGenericEnumToJSON(value['type']),
+        'prediction': value['prediction'],
+        'similarity': value['similarity'],
+        'top5Colors': value['top5Colors'],
+        'top5Sorted': value['top5Sorted'],
+        'id': value['id'],
+        'analysis': value['analysis'],
+        'model': ModelToJSON(value['model']),
     };
 }
-
 

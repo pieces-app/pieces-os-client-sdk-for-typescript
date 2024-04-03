@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Assets } from './Assets';
 import {
-    Assets,
     AssetsFromJSON,
     AssetsFromJSONTyped,
     AssetsToJSON,
-    EmbeddedModelSchema,
+} from './Assets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the ReuseSuggestion. Mainly creating an additional model here because I imagine that we will want to add some additional data to this in the future (potentially with more numerical data that is emitted from the ML Models)
@@ -54,35 +56,40 @@ export interface ReuseSuggestion {
     assets: Assets;
 }
 
+/**
+ * Check if a given object implements the ReuseSuggestion interface.
+ */
+export function instanceOfReuseSuggestion(value: object): boolean {
+    if (!('suggested' in value)) return false;
+    if (!('assets' in value)) return false;
+    return true;
+}
+
 export function ReuseSuggestionFromJSON(json: any): ReuseSuggestion {
     return ReuseSuggestionFromJSONTyped(json, false);
 }
 
 export function ReuseSuggestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReuseSuggestion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'suggested': json['suggested'],
         'assets': AssetsFromJSON(json['assets']),
     };
 }
 
 export function ReuseSuggestionToJSON(value?: ReuseSuggestion | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'suggested': value.suggested,
-        'assets': AssetsToJSON(value.assets),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'suggested': value['suggested'],
+        'assets': AssetsToJSON(value['assets']),
     };
 }
-
 

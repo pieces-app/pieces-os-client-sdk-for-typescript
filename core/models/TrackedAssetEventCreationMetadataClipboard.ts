@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * If an asset was created from a clipboard event
@@ -46,35 +46,38 @@ export interface TrackedAssetEventCreationMetadataClipboard {
     interaction?: boolean;
 }
 
+/**
+ * Check if a given object implements the TrackedAssetEventCreationMetadataClipboard interface.
+ */
+export function instanceOfTrackedAssetEventCreationMetadataClipboard(value: object): boolean {
+    return true;
+}
+
 export function TrackedAssetEventCreationMetadataClipboardFromJSON(json: any): TrackedAssetEventCreationMetadataClipboard {
     return TrackedAssetEventCreationMetadataClipboardFromJSONTyped(json, false);
 }
 
 export function TrackedAssetEventCreationMetadataClipboardFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventCreationMetadataClipboard {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'keyboard': !exists(json, 'keyboard') ? undefined : json['keyboard'],
-        'interaction': !exists(json, 'interaction') ? undefined : json['interaction'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'keyboard': json['keyboard'] == null ? undefined : json['keyboard'],
+        'interaction': json['interaction'] == null ? undefined : json['interaction'],
     };
 }
 
 export function TrackedAssetEventCreationMetadataClipboardToJSON(value?: TrackedAssetEventCreationMetadataClipboard | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'keyboard': value.keyboard,
-        'interaction': value.interaction,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'keyboard': value['keyboard'],
+        'interaction': value['interaction'],
     };
 }
-
 

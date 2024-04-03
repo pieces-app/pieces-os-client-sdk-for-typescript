@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    InteractedAsset,
+} from './EmbeddedModelSchema';
+import type { InteractedAsset } from './InteractedAsset';
+import {
     InteractedAssetFromJSON,
     InteractedAssetFromJSONTyped,
     InteractedAssetToJSON,
-} from './';
+} from './InteractedAsset';
 
 /**
  * A model which contains a list of InteractedAssets with potentially additional properties.
@@ -44,33 +46,37 @@ export interface InteractedAssets {
     iterable: Array<InteractedAsset>;
 }
 
+/**
+ * Check if a given object implements the InteractedAssets interface.
+ */
+export function instanceOfInteractedAssets(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function InteractedAssetsFromJSON(json: any): InteractedAssets {
     return InteractedAssetsFromJSONTyped(json, false);
 }
 
 export function InteractedAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): InteractedAssets {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(InteractedAssetFromJSON)),
     };
 }
 
 export function InteractedAssetsToJSON(value?: InteractedAssets | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(InteractedAssetToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(InteractedAssetToJSON)),
     };
 }
-
 

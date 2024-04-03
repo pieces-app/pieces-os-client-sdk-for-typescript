@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededScore,
+} from './EmbeddedModelSchema';
+import type { SeededScore } from './SeededScore';
+import {
     SeededScoreFromJSON,
     SeededScoreFromJSONTyped,
     SeededScoreToJSON,
-} from './';
+} from './SeededScore';
 
 /**
  * This is the body for a respective scores increment,
@@ -182,6 +184,49 @@ export interface SeededScoreIncrement {
      * @memberof SeededScoreIncrement
      */
     tags?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamSummary?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamSummaries?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamEvents?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamEvent?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    ranges?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    range?: SeededScore;
+}
+
+/**
+ * Check if a given object implements the SeededScoreIncrement interface.
+ */
+export function instanceOfSeededScoreIncrement(value: object): boolean {
+    return true;
 }
 
 export function SeededScoreIncrementFromJSON(json: any): SeededScoreIncrement {
@@ -189,74 +234,82 @@ export function SeededScoreIncrementFromJSON(json: any): SeededScoreIncrement {
 }
 
 export function SeededScoreIncrementFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededScoreIncrement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : SeededScoreFromJSON(json['asset']),
-        'assets': !exists(json, 'assets') ? undefined : SeededScoreFromJSON(json['assets']),
-        'website': !exists(json, 'website') ? undefined : SeededScoreFromJSON(json['website']),
-        'websites': !exists(json, 'websites') ? undefined : SeededScoreFromJSON(json['websites']),
-        'anchor': !exists(json, 'anchor') ? undefined : SeededScoreFromJSON(json['anchor']),
-        'anchors': !exists(json, 'anchors') ? undefined : SeededScoreFromJSON(json['anchors']),
-        'anchorPoint': !exists(json, 'anchorPoint') ? undefined : SeededScoreFromJSON(json['anchorPoint']),
-        'anchorPoints': !exists(json, 'anchorPoints') ? undefined : SeededScoreFromJSON(json['anchorPoints']),
-        'annotation': !exists(json, 'annotation') ? undefined : SeededScoreFromJSON(json['annotation']),
-        'annotations': !exists(json, 'annotations') ? undefined : SeededScoreFromJSON(json['annotations']),
-        'conversation': !exists(json, 'conversation') ? undefined : SeededScoreFromJSON(json['conversation']),
-        'conversations': !exists(json, 'conversations') ? undefined : SeededScoreFromJSON(json['conversations']),
-        'conversationMessage': !exists(json, 'conversationMessage') ? undefined : SeededScoreFromJSON(json['conversationMessage']),
-        'conversationMessages': !exists(json, 'conversationMessages') ? undefined : SeededScoreFromJSON(json['conversationMessages']),
-        'share': !exists(json, 'share') ? undefined : SeededScoreFromJSON(json['share']),
-        'shares': !exists(json, 'shares') ? undefined : SeededScoreFromJSON(json['shares']),
-        'sensitive': !exists(json, 'sensitive') ? undefined : SeededScoreFromJSON(json['sensitive']),
-        'sensitives': !exists(json, 'sensitives') ? undefined : SeededScoreFromJSON(json['sensitives']),
-        'hint': !exists(json, 'hint') ? undefined : SeededScoreFromJSON(json['hint']),
-        'hints': !exists(json, 'hints') ? undefined : SeededScoreFromJSON(json['hints']),
-        'person': !exists(json, 'person') ? undefined : SeededScoreFromJSON(json['person']),
-        'persons': !exists(json, 'persons') ? undefined : SeededScoreFromJSON(json['persons']),
-        'tag': !exists(json, 'tag') ? undefined : SeededScoreFromJSON(json['tag']),
-        'tags': !exists(json, 'tags') ? undefined : SeededScoreFromJSON(json['tags']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : SeededScoreFromJSON(json['asset']),
+        'assets': json['assets'] == null ? undefined : SeededScoreFromJSON(json['assets']),
+        'website': json['website'] == null ? undefined : SeededScoreFromJSON(json['website']),
+        'websites': json['websites'] == null ? undefined : SeededScoreFromJSON(json['websites']),
+        'anchor': json['anchor'] == null ? undefined : SeededScoreFromJSON(json['anchor']),
+        'anchors': json['anchors'] == null ? undefined : SeededScoreFromJSON(json['anchors']),
+        'anchorPoint': json['anchorPoint'] == null ? undefined : SeededScoreFromJSON(json['anchorPoint']),
+        'anchorPoints': json['anchorPoints'] == null ? undefined : SeededScoreFromJSON(json['anchorPoints']),
+        'annotation': json['annotation'] == null ? undefined : SeededScoreFromJSON(json['annotation']),
+        'annotations': json['annotations'] == null ? undefined : SeededScoreFromJSON(json['annotations']),
+        'conversation': json['conversation'] == null ? undefined : SeededScoreFromJSON(json['conversation']),
+        'conversations': json['conversations'] == null ? undefined : SeededScoreFromJSON(json['conversations']),
+        'conversationMessage': json['conversationMessage'] == null ? undefined : SeededScoreFromJSON(json['conversationMessage']),
+        'conversationMessages': json['conversationMessages'] == null ? undefined : SeededScoreFromJSON(json['conversationMessages']),
+        'share': json['share'] == null ? undefined : SeededScoreFromJSON(json['share']),
+        'shares': json['shares'] == null ? undefined : SeededScoreFromJSON(json['shares']),
+        'sensitive': json['sensitive'] == null ? undefined : SeededScoreFromJSON(json['sensitive']),
+        'sensitives': json['sensitives'] == null ? undefined : SeededScoreFromJSON(json['sensitives']),
+        'hint': json['hint'] == null ? undefined : SeededScoreFromJSON(json['hint']),
+        'hints': json['hints'] == null ? undefined : SeededScoreFromJSON(json['hints']),
+        'person': json['person'] == null ? undefined : SeededScoreFromJSON(json['person']),
+        'persons': json['persons'] == null ? undefined : SeededScoreFromJSON(json['persons']),
+        'tag': json['tag'] == null ? undefined : SeededScoreFromJSON(json['tag']),
+        'tags': json['tags'] == null ? undefined : SeededScoreFromJSON(json['tags']),
+        'workstreamSummary': json['workstream_summary'] == null ? undefined : SeededScoreFromJSON(json['workstream_summary']),
+        'workstreamSummaries': json['workstream_summaries'] == null ? undefined : SeededScoreFromJSON(json['workstream_summaries']),
+        'workstreamEvents': json['workstream_events'] == null ? undefined : SeededScoreFromJSON(json['workstream_events']),
+        'workstreamEvent': json['workstream_event'] == null ? undefined : SeededScoreFromJSON(json['workstream_event']),
+        'ranges': json['ranges'] == null ? undefined : SeededScoreFromJSON(json['ranges']),
+        'range': json['range'] == null ? undefined : SeededScoreFromJSON(json['range']),
     };
 }
 
 export function SeededScoreIncrementToJSON(value?: SeededScoreIncrement | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': SeededScoreToJSON(value.asset),
-        'assets': SeededScoreToJSON(value.assets),
-        'website': SeededScoreToJSON(value.website),
-        'websites': SeededScoreToJSON(value.websites),
-        'anchor': SeededScoreToJSON(value.anchor),
-        'anchors': SeededScoreToJSON(value.anchors),
-        'anchorPoint': SeededScoreToJSON(value.anchorPoint),
-        'anchorPoints': SeededScoreToJSON(value.anchorPoints),
-        'annotation': SeededScoreToJSON(value.annotation),
-        'annotations': SeededScoreToJSON(value.annotations),
-        'conversation': SeededScoreToJSON(value.conversation),
-        'conversations': SeededScoreToJSON(value.conversations),
-        'conversationMessage': SeededScoreToJSON(value.conversationMessage),
-        'conversationMessages': SeededScoreToJSON(value.conversationMessages),
-        'share': SeededScoreToJSON(value.share),
-        'shares': SeededScoreToJSON(value.shares),
-        'sensitive': SeededScoreToJSON(value.sensitive),
-        'sensitives': SeededScoreToJSON(value.sensitives),
-        'hint': SeededScoreToJSON(value.hint),
-        'hints': SeededScoreToJSON(value.hints),
-        'person': SeededScoreToJSON(value.person),
-        'persons': SeededScoreToJSON(value.persons),
-        'tag': SeededScoreToJSON(value.tag),
-        'tags': SeededScoreToJSON(value.tags),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': SeededScoreToJSON(value['asset']),
+        'assets': SeededScoreToJSON(value['assets']),
+        'website': SeededScoreToJSON(value['website']),
+        'websites': SeededScoreToJSON(value['websites']),
+        'anchor': SeededScoreToJSON(value['anchor']),
+        'anchors': SeededScoreToJSON(value['anchors']),
+        'anchorPoint': SeededScoreToJSON(value['anchorPoint']),
+        'anchorPoints': SeededScoreToJSON(value['anchorPoints']),
+        'annotation': SeededScoreToJSON(value['annotation']),
+        'annotations': SeededScoreToJSON(value['annotations']),
+        'conversation': SeededScoreToJSON(value['conversation']),
+        'conversations': SeededScoreToJSON(value['conversations']),
+        'conversationMessage': SeededScoreToJSON(value['conversationMessage']),
+        'conversationMessages': SeededScoreToJSON(value['conversationMessages']),
+        'share': SeededScoreToJSON(value['share']),
+        'shares': SeededScoreToJSON(value['shares']),
+        'sensitive': SeededScoreToJSON(value['sensitive']),
+        'sensitives': SeededScoreToJSON(value['sensitives']),
+        'hint': SeededScoreToJSON(value['hint']),
+        'hints': SeededScoreToJSON(value['hints']),
+        'person': SeededScoreToJSON(value['person']),
+        'persons': SeededScoreToJSON(value['persons']),
+        'tag': SeededScoreToJSON(value['tag']),
+        'tags': SeededScoreToJSON(value['tags']),
+        'workstream_summary': SeededScoreToJSON(value['workstreamSummary']),
+        'workstream_summaries': SeededScoreToJSON(value['workstreamSummaries']),
+        'workstream_events': SeededScoreToJSON(value['workstreamEvents']),
+        'workstream_event': SeededScoreToJSON(value['workstreamEvent']),
+        'ranges': SeededScoreToJSON(value['ranges']),
+        'range': SeededScoreToJSON(value['range']),
     };
 }
-
 

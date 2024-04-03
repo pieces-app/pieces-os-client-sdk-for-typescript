@@ -12,29 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedShare,
+} from './EmbeddedModelSchema';
+import type { FlattenedShare } from './FlattenedShare';
+import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
-    GitHubDistribution,
+} from './FlattenedShare';
+import type { GitHubDistribution } from './GitHubDistribution';
+import {
     GitHubDistributionFromJSON,
     GitHubDistributionFromJSONTyped,
     GitHubDistributionToJSON,
-    GroupedTimestamp,
+} from './GitHubDistribution';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MailgunDistribution,
+} from './GroupedTimestamp';
+import type { MailgunDistribution } from './MailgunDistribution';
+import {
     MailgunDistributionFromJSON,
     MailgunDistributionFromJSONTyped,
     MailgunDistributionToJSON,
-} from './';
+} from './MailgunDistribution';
 
 /**
  * This is a fully referenced version of a Distribution.
@@ -93,45 +101,52 @@ export interface Distribution {
     github?: GitHubDistribution;
 }
 
+/**
+ * Check if a given object implements the Distribution interface.
+ */
+export function instanceOfDistribution(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('share' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    return true;
+}
+
 export function DistributionFromJSON(json: any): Distribution {
     return DistributionFromJSONTyped(json, false);
 }
 
 export function DistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Distribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'share': FlattenedShareFromJSON(json['share']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mailgun': !exists(json, 'mailgun') ? undefined : MailgunDistributionFromJSON(json['mailgun']),
-        'github': !exists(json, 'github') ? undefined : GitHubDistributionFromJSON(json['github']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mailgun': json['mailgun'] == null ? undefined : MailgunDistributionFromJSON(json['mailgun']),
+        'github': json['github'] == null ? undefined : GitHubDistributionFromJSON(json['github']),
     };
 }
 
 export function DistributionToJSON(value?: Distribution | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'share': FlattenedShareToJSON(value.share),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'mailgun': MailgunDistributionToJSON(value.mailgun),
-        'github': GitHubDistributionToJSON(value.github),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'share': FlattenedShareToJSON(value['share']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'mailgun': MailgunDistributionToJSON(value['mailgun']),
+        'github': GitHubDistributionToJSON(value['github']),
     };
 }
-
 

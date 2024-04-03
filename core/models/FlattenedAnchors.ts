@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAnchor,
+} from './EmbeddedModelSchema';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
     ReferencedAnchorFromJSON,
     ReferencedAnchorFromJSONTyped,
     ReferencedAnchorToJSON,
-    Score,
+} from './ReferencedAnchor';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * 
@@ -60,37 +64,41 @@ export interface FlattenedAnchors {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedAnchors interface.
+ */
+export function instanceOfFlattenedAnchors(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function FlattenedAnchorsFromJSON(json: any): FlattenedAnchors {
     return FlattenedAnchorsFromJSONTyped(json, false);
 }
 
 export function FlattenedAnchorsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAnchors {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedAnchorFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedAnchorsToJSON(value?: FlattenedAnchors | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedAnchorToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedAnchorToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

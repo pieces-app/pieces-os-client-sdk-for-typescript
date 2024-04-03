@@ -14,20 +14,22 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  EmbeddedModelSchema,
+  PKCE,
+  SeededPKCE,
+  TokenizedPKCE,
+} from '../models/index';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaToJSON,
-    PKCE,
     PKCEFromJSON,
     PKCEToJSON,
-    SeededPKCE,
     SeededPKCEFromJSON,
     SeededPKCEToJSON,
-    TokenizedPKCE,
     TokenizedPKCEFromJSON,
     TokenizedPKCEToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface GenerateCodeRequest {
     seededPKCE?: SeededPKCE;
@@ -52,7 +54,7 @@ export class PKCEApi extends runtime.BaseAPI {
      * This is a function to Clear a PKCE Authentication Flow
      * /pkce/clear [POST]
      */
-    async clearPKCERaw(): Promise<runtime.ApiResponse<void>> {
+    async clearPKCERaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -62,7 +64,7 @@ export class PKCEApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -71,15 +73,15 @@ export class PKCEApi extends runtime.BaseAPI {
      * This is a function to Clear a PKCE Authentication Flow
      * /pkce/clear [POST]
      */
-    async clearPKCE(): Promise<void> {
-        await this.clearPKCERaw();
+    async clearPKCE(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.clearPKCERaw(initOverrides);
     }
 
     /**
      * An endpoint to get the PKCE Code - this endpoint proxies the call out to Authorize within Auth0
      * /pkce/code [POST]
      */
-    async generateCodeRaw(requestParameters: GenerateCodeRequest): Promise<runtime.ApiResponse<PKCE>> {
+    async generateCodeRaw(requestParameters: GenerateCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PKCE>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -91,8 +93,8 @@ export class PKCEApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededPKCEToJSON(requestParameters.seededPKCE),
-        });
+            body: SeededPKCEToJSON(requestParameters['seededPKCE']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PKCEFromJSON(jsonValue));
     }
@@ -101,8 +103,8 @@ export class PKCEApi extends runtime.BaseAPI {
      * An endpoint to get the PKCE Code - this endpoint proxies the call out to Authorize within Auth0
      * /pkce/code [POST]
      */
-    async generateCode(requestParameters: GenerateCodeRequest): Promise<PKCE> {
-        const response = await this.generateCodeRaw(requestParameters);
+    async generateCode(requestParameters: GenerateCodeRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PKCE> {
+        const response = await this.generateCodeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -110,7 +112,7 @@ export class PKCEApi extends runtime.BaseAPI {
      * A proxy endpoint for PKCE token generation, internally calls Auth0 /oauth/token
      * /pkce/token [POST]
      */
-    async generateTokenRaw(requestParameters: GenerateTokenRequest): Promise<runtime.ApiResponse<PKCE>> {
+    async generateTokenRaw(requestParameters: GenerateTokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PKCE>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -122,8 +124,8 @@ export class PKCEApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TokenizedPKCEToJSON(requestParameters.tokenizedPKCE),
-        });
+            body: TokenizedPKCEToJSON(requestParameters['tokenizedPKCE']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PKCEFromJSON(jsonValue));
     }
@@ -132,8 +134,8 @@ export class PKCEApi extends runtime.BaseAPI {
      * A proxy endpoint for PKCE token generation, internally calls Auth0 /oauth/token
      * /pkce/token [POST]
      */
-    async generateToken(requestParameters: GenerateTokenRequest): Promise<PKCE> {
-        const response = await this.generateTokenRaw(requestParameters);
+    async generateToken(requestParameters: GenerateTokenRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PKCE> {
+        const response = await this.generateTokenRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -141,7 +143,7 @@ export class PKCEApi extends runtime.BaseAPI {
      * An endpoint that returns a PKCE Challenge
      * Your GET endpoint
      */
-    async getChallengeRaw(): Promise<runtime.ApiResponse<PKCE>> {
+    async getChallengeRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PKCE>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -151,7 +153,7 @@ export class PKCEApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PKCEFromJSON(jsonValue));
     }
@@ -160,8 +162,8 @@ export class PKCEApi extends runtime.BaseAPI {
      * An endpoint that returns a PKCE Challenge
      * Your GET endpoint
      */
-    async getChallenge(): Promise<PKCE> {
-        const response = await this.getChallengeRaw();
+    async getChallenge(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PKCE> {
+        const response = await this.getChallengeRaw(initOverrides);
         return await response.value();
     }
 
@@ -169,13 +171,19 @@ export class PKCEApi extends runtime.BaseAPI {
      * This is a callback function hosted to help pass along the ResultedPKCE code from authorize through to the callback.
      * /pkce/response/code [POST]
      */
-    async respondWithCodeRaw(requestParameters: RespondWithCodeRequest): Promise<runtime.ApiResponse<PKCE>> {
-        if (requestParameters.code === null || requestParameters.code === undefined) {
-            throw new runtime.RequiredError('code','Required parameter requestParameters.code was null or undefined when calling respondWithCode.');
+    async respondWithCodeRaw(requestParameters: RespondWithCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PKCE>> {
+        if (requestParameters['code'] == null) {
+            throw new runtime.RequiredError(
+                'code',
+                'Required parameter "code" was null or undefined when calling respondWithCode().'
+            );
         }
 
-        if (requestParameters.state === null || requestParameters.state === undefined) {
-            throw new runtime.RequiredError('state','Required parameter requestParameters.state was null or undefined when calling respondWithCode.');
+        if (requestParameters['state'] == null) {
+            throw new runtime.RequiredError(
+                'state',
+                'Required parameter "state" was null or undefined when calling respondWithCode().'
+            );
         }
 
         const queryParameters: any = {};
@@ -196,16 +204,16 @@ export class PKCEApi extends runtime.BaseAPI {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters.schema !== undefined) {
-            formParams.append('schema', new Blob([JSON.stringify(EmbeddedModelSchemaToJSON(requestParameters.schema))], { type: "application/json", }));
+        if (requestParameters['schema'] != null) {
+            formParams.append('schema', new Blob([JSON.stringify(EmbeddedModelSchemaToJSON(requestParameters['schema']))], { type: "application/json", }));
                     }
 
-        if (requestParameters.code !== undefined) {
-            formParams.append('code', requestParameters.code as any);
+        if (requestParameters['code'] != null) {
+            formParams.append('code', requestParameters['code'] as any);
         }
 
-        if (requestParameters.state !== undefined) {
-            formParams.append('state', requestParameters.state as any);
+        if (requestParameters['state'] != null) {
+            formParams.append('state', requestParameters['state'] as any);
         }
 
         const response = await this.request({
@@ -214,7 +222,7 @@ export class PKCEApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: formParams,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PKCEFromJSON(jsonValue));
     }
@@ -223,8 +231,8 @@ export class PKCEApi extends runtime.BaseAPI {
      * This is a callback function hosted to help pass along the ResultedPKCE code from authorize through to the callback.
      * /pkce/response/code [POST]
      */
-    async respondWithCode(requestParameters: RespondWithCodeRequest): Promise<PKCE> {
-        const response = await this.respondWithCodeRaw(requestParameters);
+    async respondWithCode(requestParameters: RespondWithCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PKCE> {
+        const response = await this.respondWithCodeRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * if you want a range between you can use from && to.
@@ -60,37 +62,40 @@ export interface TimestampRange {
     between?: boolean;
 }
 
+/**
+ * Check if a given object implements the TimestampRange interface.
+ */
+export function instanceOfTimestampRange(value: object): boolean {
+    return true;
+}
+
 export function TimestampRangeFromJSON(json: any): TimestampRange {
     return TimestampRangeFromJSONTyped(json, false);
 }
 
 export function TimestampRangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): TimestampRange {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'from': !exists(json, 'from') ? undefined : GroupedTimestampFromJSON(json['from']),
-        'to': !exists(json, 'to') ? undefined : GroupedTimestampFromJSON(json['to']),
-        'between': !exists(json, 'between') ? undefined : json['between'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'from': json['from'] == null ? undefined : GroupedTimestampFromJSON(json['from']),
+        'to': json['to'] == null ? undefined : GroupedTimestampFromJSON(json['to']),
+        'between': json['between'] == null ? undefined : json['between'],
     };
 }
 
 export function TimestampRangeToJSON(value?: TimestampRange | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'from': GroupedTimestampToJSON(value.from),
-        'to': GroupedTimestampToJSON(value.to),
-        'between': value.between,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'from': GroupedTimestampToJSON(value['from']),
+        'to': GroupedTimestampToJSON(value['to']),
+        'between': value['between'],
     };
 }
-
 

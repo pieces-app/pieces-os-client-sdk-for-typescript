@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTPromptPipeline,
+} from './EmbeddedModelSchema';
+import type { QGPTPromptPipeline } from './QGPTPromptPipeline';
+import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-} from './';
+} from './QGPTPromptPipeline';
 
 /**
  * 
@@ -56,37 +58,40 @@ export interface QGPTRelevanceInputOptions {
     pipeline?: QGPTPromptPipeline;
 }
 
+/**
+ * Check if a given object implements the QGPTRelevanceInputOptions interface.
+ */
+export function instanceOfQGPTRelevanceInputOptions(value: object): boolean {
+    return true;
+}
+
 export function QGPTRelevanceInputOptionsFromJSON(json: any): QGPTRelevanceInputOptions {
     return QGPTRelevanceInputOptionsFromJSONTyped(json, false);
 }
 
 export function QGPTRelevanceInputOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTRelevanceInputOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'database': !exists(json, 'database') ? undefined : json['database'],
-        'question': !exists(json, 'question') ? undefined : json['question'],
-        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'database': json['database'] == null ? undefined : json['database'],
+        'question': json['question'] == null ? undefined : json['question'],
+        'pipeline': json['pipeline'] == null ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
     };
 }
 
 export function QGPTRelevanceInputOptionsToJSON(value?: QGPTRelevanceInputOptions | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'database': value.database,
-        'question': value.question,
-        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'database': value['database'],
+        'question': value['question'],
+        'pipeline': QGPTPromptPipelineToJSON(value['pipeline']),
     };
 }
-
 

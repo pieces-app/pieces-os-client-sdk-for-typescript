@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will let us know specific hardware information related to the CPU.
@@ -46,35 +46,38 @@ export interface OSDeviceCPUHardwareInformation {
     memory?: number;
 }
 
+/**
+ * Check if a given object implements the OSDeviceCPUHardwareInformation interface.
+ */
+export function instanceOfOSDeviceCPUHardwareInformation(value: object): boolean {
+    return true;
+}
+
 export function OSDeviceCPUHardwareInformationFromJSON(json: any): OSDeviceCPUHardwareInformation {
     return OSDeviceCPUHardwareInformationFromJSONTyped(json, false);
 }
 
 export function OSDeviceCPUHardwareInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceCPUHardwareInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'memory': !exists(json, 'memory') ? undefined : json['memory'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'memory': json['memory'] == null ? undefined : json['memory'],
     };
 }
 
 export function OSDeviceCPUHardwareInformationToJSON(value?: OSDeviceCPUHardwareInformation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
-        'memory': value.memory,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'memory': value['memory'],
     };
 }
-
 

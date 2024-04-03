@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Format,
+} from './EmbeddedModelSchema';
+import type { Format } from './Format';
+import {
     FormatFromJSON,
     FormatFromJSONTyped,
     FormatToJSON,
-    Model,
+} from './Format';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './Model';
 
 /**
  * This is the data collected during the ocr analysis of an image.
@@ -72,17 +76,29 @@ export interface OCRAnalysis {
     model: Model;
 }
 
+/**
+ * Check if a given object implements the OCRAnalysis interface.
+ */
+export function instanceOfOCRAnalysis(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('raw' in value)) return false;
+    if (!('hocr' in value)) return false;
+    if (!('image' in value)) return false;
+    if (!('model' in value)) return false;
+    return true;
+}
+
 export function OCRAnalysisFromJSON(json: any): OCRAnalysis {
     return OCRAnalysisFromJSONTyped(json, false);
 }
 
 export function OCRAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): OCRAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'raw': FormatFromJSON(json['raw']),
         'hocr': FormatFromJSON(json['hocr']),
@@ -92,21 +108,17 @@ export function OCRAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean
 }
 
 export function OCRAnalysisToJSON(value?: OCRAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'raw': FormatToJSON(value.raw),
-        'hocr': FormatToJSON(value.hocr),
-        'image': value.image,
-        'model': ModelToJSON(value.model),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'raw': FormatToJSON(value['raw']),
+        'hocr': FormatToJSON(value['hocr']),
+        'image': value['image'],
+        'model': ModelToJSON(value['model']),
     };
 }
-
 

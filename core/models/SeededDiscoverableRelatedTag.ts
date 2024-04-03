@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    TagCategoryEnum,
+} from './MechanismEnum';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * 
@@ -72,41 +76,46 @@ export interface SeededDiscoverableRelatedTag {
     category?: TagCategoryEnum;
 }
 
+/**
+ * Check if a given object implements the SeededDiscoverableRelatedTag interface.
+ */
+export function instanceOfSeededDiscoverableRelatedTag(value: object): boolean {
+    if (!('text' in value)) return false;
+    if (!('asset' in value)) return false;
+    return true;
+}
+
 export function SeededDiscoverableRelatedTagFromJSON(json: any): SeededDiscoverableRelatedTag {
     return SeededDiscoverableRelatedTagFromJSONTyped(json, false);
 }
 
 export function SeededDiscoverableRelatedTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableRelatedTag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
         'asset': json['asset'],
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'format': !exists(json, 'format') ? undefined : json['format'],
-        'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
+        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'format': json['format'] == null ? undefined : json['format'],
+        'category': json['category'] == null ? undefined : TagCategoryEnumFromJSON(json['category']),
     };
 }
 
 export function SeededDiscoverableRelatedTagToJSON(value?: SeededDiscoverableRelatedTag | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'text': value.text,
-        'asset': value.asset,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'format': value.format,
-        'category': TagCategoryEnumToJSON(value.category),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'text': value['text'],
+        'asset': value['asset'],
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'format': value['format'],
+        'category': TagCategoryEnumToJSON(value['category']),
     };
 }
-
 

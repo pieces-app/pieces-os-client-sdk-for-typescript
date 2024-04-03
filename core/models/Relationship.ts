@@ -12,25 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Edges } from './Edges';
 import {
-    Edges,
     EdgesFromJSON,
     EdgesFromJSONTyped,
     EdgesToJSON,
-    EmbeddedModelSchema,
+} from './Edges';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Embeddings,
+} from './EmbeddedModelSchema';
+import type { Embeddings } from './Embeddings';
+import {
     EmbeddingsFromJSON,
     EmbeddingsFromJSONTyped,
     EmbeddingsToJSON,
-    GroupedTimestamp,
+} from './Embeddings';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * A relationship expresses a graph of like types, to build a relationship graph. 
@@ -83,43 +89,51 @@ export interface Relationship {
     deleted?: GroupedTimestamp;
 }
 
+/**
+ * Check if a given object implements the Relationship interface.
+ */
+export function instanceOfRelationship(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('embeddings' in value)) return false;
+    if (!('edges' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    return true;
+}
+
 export function RelationshipFromJSON(json: any): Relationship {
     return RelationshipFromJSONTyped(json, false);
 }
 
 export function RelationshipFromJSONTyped(json: any, ignoreDiscriminator: boolean): Relationship {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'id': json['id'],
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'embeddings': EmbeddingsFromJSON(json['embeddings']),
         'edges': EdgesFromJSON(json['edges']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
     };
 }
 
 export function RelationshipToJSON(value?: Relationship | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'embeddings': EmbeddingsToJSON(value.embeddings),
-        'edges': EdgesToJSON(value.edges),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
+        'id': value['id'],
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'embeddings': EmbeddingsToJSON(value['embeddings']),
+        'edges': EdgesToJSON(value['edges']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
     };
 }
-
 

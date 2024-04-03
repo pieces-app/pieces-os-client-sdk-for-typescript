@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Model,
+} from './EmbeddedModelSchema';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-    ReferencedFormat,
+} from './Model';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-} from './';
+} from './ReferencedFormat';
 
 /**
  * [DAG Safe] Ocr Analysis that will reference FlattenedFormats.
@@ -72,17 +76,29 @@ export interface FlattenedOCRAnalysis {
     image: string;
 }
 
+/**
+ * Check if a given object implements the FlattenedOCRAnalysis interface.
+ */
+export function instanceOfFlattenedOCRAnalysis(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('raw' in value)) return false;
+    if (!('hocr' in value)) return false;
+    if (!('model' in value)) return false;
+    if (!('image' in value)) return false;
+    return true;
+}
+
 export function FlattenedOCRAnalysisFromJSON(json: any): FlattenedOCRAnalysis {
     return FlattenedOCRAnalysisFromJSONTyped(json, false);
 }
 
 export function FlattenedOCRAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedOCRAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'raw': ReferencedFormatFromJSON(json['raw']),
         'hocr': ReferencedFormatFromJSON(json['hocr']),
@@ -92,21 +108,17 @@ export function FlattenedOCRAnalysisFromJSONTyped(json: any, ignoreDiscriminator
 }
 
 export function FlattenedOCRAnalysisToJSON(value?: FlattenedOCRAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'raw': ReferencedFormatToJSON(value.raw),
-        'hocr': ReferencedFormatToJSON(value.hocr),
-        'model': ModelToJSON(value.model),
-        'image': value.image,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'raw': ReferencedFormatToJSON(value['raw']),
+        'hocr': ReferencedFormatToJSON(value['hocr']),
+        'model': ModelToJSON(value['model']),
+        'image': value['image'],
     };
 }
-
 

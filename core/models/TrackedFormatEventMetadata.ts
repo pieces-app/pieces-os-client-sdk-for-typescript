@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { TrackedAssetEventFormatReclassificationMetadata } from './TrackedAssetEventFormatReclassificationMetadata';
 import {
-    TrackedAssetEventFormatReclassificationMetadata,
     TrackedAssetEventFormatReclassificationMetadataFromJSON,
     TrackedAssetEventFormatReclassificationMetadataFromJSONTyped,
     TrackedAssetEventFormatReclassificationMetadataToJSON,
-} from './';
+} from './TrackedAssetEventFormatReclassificationMetadata';
 
 /**
  * 
@@ -34,31 +34,34 @@ export interface TrackedFormatEventMetadata {
     reclassification?: TrackedAssetEventFormatReclassificationMetadata;
 }
 
+/**
+ * Check if a given object implements the TrackedFormatEventMetadata interface.
+ */
+export function instanceOfTrackedFormatEventMetadata(value: object): boolean {
+    return true;
+}
+
 export function TrackedFormatEventMetadataFromJSON(json: any): TrackedFormatEventMetadata {
     return TrackedFormatEventMetadataFromJSONTyped(json, false);
 }
 
 export function TrackedFormatEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'reclassification': !exists(json, 'reclassification') ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
+        'reclassification': json['reclassification'] == null ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
     };
 }
 
 export function TrackedFormatEventMetadataToJSON(value?: TrackedFormatEventMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value.reclassification),
+        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value['reclassification']),
     };
 }
-
 

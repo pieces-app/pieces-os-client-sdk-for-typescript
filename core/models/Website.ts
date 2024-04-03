@@ -12,37 +12,55 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedConversations,
+} from './FlattenedAssets';
+import type { FlattenedConversations } from './FlattenedConversations';
+import {
     FlattenedConversationsFromJSON,
     FlattenedConversationsFromJSONTyped,
     FlattenedConversationsToJSON,
-    FlattenedPersons,
+} from './FlattenedConversations';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
     FlattenedPersonsToJSON,
-    GroupedTimestamp,
+} from './FlattenedPersons';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+} from './FlattenedWorkstreamSummaries';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    Score,
+} from './MechanismEnum';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a specific model for related websites to an asset.
@@ -128,6 +146,24 @@ export interface Website {
      * @memberof Website
      */
     score?: Score;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof Website
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+}
+
+/**
+ * Check if a given object implements the Website interface.
+ */
+export function instanceOfWebsite(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('url' in value)) return false;
+    if (!('name' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    return true;
 }
 
 export function WebsiteFromJSON(json: any): Website {
@@ -135,50 +171,48 @@ export function WebsiteFromJSON(json: any): Website {
 }
 
 export function WebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): Website {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'url': json['url'],
         'name': json['name'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
-        'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mechanisms': json['mechanisms'] == null ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'interactions': json['interactions'] == null ? undefined : json['interactions'],
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
 export function WebsiteToJSON(value?: Website | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'url': value.url,
-        'name': value.name,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
-        'interactions': value.interactions,
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'conversations': FlattenedConversationsToJSON(value.conversations),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'url': value['url'],
+        'name': value['name'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'mechanisms': value['mechanisms'] == null ? undefined : (mapValues(value['mechanisms'], MechanismEnumToJSON)),
+        'interactions': value['interactions'],
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'conversations': FlattenedConversationsToJSON(value['conversations']),
+        'score': ScoreToJSON(value['score']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
     };
 }
-
 

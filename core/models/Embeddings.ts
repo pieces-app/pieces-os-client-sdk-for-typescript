@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Embedding } from './Embedding';
 import {
-    Embedding,
     EmbeddingFromJSON,
     EmbeddingFromJSONTyped,
     EmbeddingToJSON,
-} from './';
+} from './Embedding';
 
 /**
  * 
@@ -34,12 +34,20 @@ export interface Embeddings {
     iterable: Array<Embedding>;
 }
 
+/**
+ * Check if a given object implements the Embeddings interface.
+ */
+export function instanceOfEmbeddings(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function EmbeddingsFromJSON(json: any): Embeddings {
     return EmbeddingsFromJSONTyped(json, false);
 }
 
 export function EmbeddingsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Embeddings {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -49,16 +57,12 @@ export function EmbeddingsFromJSONTyped(json: any, ignoreDiscriminator: boolean)
 }
 
 export function EmbeddingsToJSON(value?: Embeddings | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(EmbeddingToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(EmbeddingToJSON)),
     };
 }
-
 

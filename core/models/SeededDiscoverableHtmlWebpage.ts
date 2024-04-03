@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -34,6 +34,7 @@ export interface SeededDiscoverableHtmlWebpage {
     schema?: EmbeddedModelSchema;
     /**
      * The route of the page
+     * 
      * @type {string}
      * @memberof SeededDiscoverableHtmlWebpage
      */
@@ -46,35 +47,40 @@ export interface SeededDiscoverableHtmlWebpage {
     page: string;
 }
 
+/**
+ * Check if a given object implements the SeededDiscoverableHtmlWebpage interface.
+ */
+export function instanceOfSeededDiscoverableHtmlWebpage(value: object): boolean {
+    if (!('url' in value)) return false;
+    if (!('page' in value)) return false;
+    return true;
+}
+
 export function SeededDiscoverableHtmlWebpageFromJSON(json: any): SeededDiscoverableHtmlWebpage {
     return SeededDiscoverableHtmlWebpageFromJSONTyped(json, false);
 }
 
 export function SeededDiscoverableHtmlWebpageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableHtmlWebpage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'url': json['url'],
         'page': json['page'],
     };
 }
 
 export function SeededDiscoverableHtmlWebpageToJSON(value?: SeededDiscoverableHtmlWebpage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'url': value.url,
-        'page': value.page,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'url': value['url'],
+        'page': value['page'],
     };
 }
-
 

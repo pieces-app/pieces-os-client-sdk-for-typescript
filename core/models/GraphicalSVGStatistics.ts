@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -40,33 +40,36 @@ export interface GraphicalSVGStatistics {
     id?: string;
 }
 
+/**
+ * Check if a given object implements the GraphicalSVGStatistics interface.
+ */
+export function instanceOfGraphicalSVGStatistics(value: object): boolean {
+    return true;
+}
+
 export function GraphicalSVGStatisticsFromJSON(json: any): GraphicalSVGStatistics {
     return GraphicalSVGStatisticsFromJSONTyped(json, false);
 }
 
 export function GraphicalSVGStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalSVGStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': json['id'] == null ? undefined : json['id'],
     };
 }
 
 export function GraphicalSVGStatisticsToJSON(value?: GraphicalSVGStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
     };
 }
-
 

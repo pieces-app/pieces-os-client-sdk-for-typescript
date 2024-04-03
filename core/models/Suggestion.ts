@@ -12,29 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Assets } from './Assets';
 import {
-    Assets,
     AssetsFromJSON,
     AssetsFromJSONTyped,
     AssetsToJSON,
-    EmbeddedModelSchema,
+} from './Assets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReuseSuggestion,
+} from './EmbeddedModelSchema';
+import type { ReuseSuggestion } from './ReuseSuggestion';
+import {
     ReuseSuggestionFromJSON,
     ReuseSuggestionFromJSONTyped,
     ReuseSuggestionToJSON,
-    SaveSuggestion,
+} from './ReuseSuggestion';
+import type { SaveSuggestion } from './SaveSuggestion';
+import {
     SaveSuggestionFromJSON,
     SaveSuggestionFromJSONTyped,
     SaveSuggestionToJSON,
-    SuggestionTarget,
+} from './SaveSuggestion';
+import type { SuggestionTarget } from './SuggestionTarget';
+import {
     SuggestionTargetFromJSON,
     SuggestionTargetFromJSONTyped,
     SuggestionTargetToJSON,
-} from './';
+} from './SuggestionTarget';
 
 /**
  * This is the model return by the connector's suggest endpoint.
@@ -87,41 +95,48 @@ export interface Suggestion {
     distribution?: { [key: string]: number; };
 }
 
+/**
+ * Check if a given object implements the Suggestion interface.
+ */
+export function instanceOfSuggestion(value: object): boolean {
+    if (!('reuse' in value)) return false;
+    if (!('save' in value)) return false;
+    if (!('target' in value)) return false;
+    if (!('assets' in value)) return false;
+    return true;
+}
+
 export function SuggestionFromJSON(json: any): Suggestion {
     return SuggestionFromJSONTyped(json, false);
 }
 
 export function SuggestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Suggestion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'reuse': ReuseSuggestionFromJSON(json['reuse']),
         'save': SaveSuggestionFromJSON(json['save']),
         'target': SuggestionTargetFromJSON(json['target']),
         'assets': AssetsFromJSON(json['assets']),
-        'distribution': !exists(json, 'distribution') ? undefined : json['distribution'],
+        'distribution': json['distribution'] == null ? undefined : json['distribution'],
     };
 }
 
 export function SuggestionToJSON(value?: Suggestion | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'reuse': ReuseSuggestionToJSON(value.reuse),
-        'save': SaveSuggestionToJSON(value.save),
-        'target': SuggestionTargetToJSON(value.target),
-        'assets': AssetsToJSON(value.assets),
-        'distribution': value.distribution,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'reuse': ReuseSuggestionToJSON(value['reuse']),
+        'save': SaveSuggestionToJSON(value['save']),
+        'target': SuggestionTargetToJSON(value['target']),
+        'assets': AssetsToJSON(value['assets']),
+        'distribution': value['distribution'],
     };
 }
-
 

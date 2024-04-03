@@ -12,17 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversationMessages,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-} from './';
+} from './FlattenedConversationMessages';
+import type { TemporalRangeGrounding } from './TemporalRangeGrounding';
+import {
+    TemporalRangeGroundingFromJSON,
+    TemporalRangeGroundingFromJSONTyped,
+    TemporalRangeGroundingToJSON,
+} from './TemporalRangeGrounding';
 
 /**
  * This is the context used for grounding the ml models with reguard to a conversation.
@@ -42,6 +50,19 @@ export interface ConversationGrounding {
      * @memberof ConversationGrounding
      */
     messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {TemporalRangeGrounding}
+     * @memberof ConversationGrounding
+     */
+    temporal?: TemporalRangeGrounding;
+}
+
+/**
+ * Check if a given object implements the ConversationGrounding interface.
+ */
+export function instanceOfConversationGrounding(value: object): boolean {
+    return true;
 }
 
 export function ConversationGroundingFromJSON(json: any): ConversationGrounding {
@@ -49,28 +70,26 @@ export function ConversationGroundingFromJSON(json: any): ConversationGrounding 
 }
 
 export function ConversationGroundingFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationGrounding {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'temporal': json['temporal'] == null ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
     };
 }
 
 export function ConversationGroundingToJSON(value?: ConversationGrounding | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'messages': FlattenedConversationMessagesToJSON(value.messages),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'temporal': TemporalRangeGroundingToJSON(value['temporal']),
     };
 }
-
 

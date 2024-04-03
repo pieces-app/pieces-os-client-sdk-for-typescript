@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is used to describe a specific type of annotation. NOTE** This is linked to the annotation_type_filter in the parameters folder(if you change an enum here, please adjust the enum there.)
  * @export
- * @enum {string}
  */
-export enum AnnotationTypeEnum {
-    Description = 'DESCRIPTION',
-    Comment = 'COMMENT',
-    Documentation = 'DOCUMENTATION',
-    Summary = 'SUMMARY',
-    Explanation = 'EXPLANATION',
-    GitCommit = 'GIT_COMMIT'
-}
+export const AnnotationTypeEnum = {
+    Description: 'DESCRIPTION',
+    Comment: 'COMMENT',
+    Documentation: 'DOCUMENTATION',
+    Summary: 'SUMMARY',
+    Explanation: 'EXPLANATION',
+    GitCommit: 'GIT_COMMIT'
+} as const;
+export type AnnotationTypeEnum = typeof AnnotationTypeEnum[keyof typeof AnnotationTypeEnum];
+
 
 export function AnnotationTypeEnumFromJSON(json: any): AnnotationTypeEnum {
     return AnnotationTypeEnumFromJSONTyped(json, false);

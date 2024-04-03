@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { TLPDirectedDiscoveryFilterEnum } from './TLPDirectedDiscoveryFilterEnum';
 import {
-    TLPDirectedDiscoveryFilterEnum,
     TLPDirectedDiscoveryFilterEnumFromJSON,
     TLPDirectedDiscoveryFilterEnumFromJSONTyped,
     TLPDirectedDiscoveryFilterEnumToJSON,
-} from './';
+} from './TLPDirectedDiscoveryFilterEnum';
 
 /**
  * Contains enum which represents code block type
@@ -34,12 +34,20 @@ export interface TLPDirectedDiscoveryFilter {
     name: TLPDirectedDiscoveryFilterEnum;
 }
 
+/**
+ * Check if a given object implements the TLPDirectedDiscoveryFilter interface.
+ */
+export function instanceOfTLPDirectedDiscoveryFilter(value: object): boolean {
+    if (!('name' in value)) return false;
+    return true;
+}
+
 export function TLPDirectedDiscoveryFilterFromJSON(json: any): TLPDirectedDiscoveryFilter {
     return TLPDirectedDiscoveryFilterFromJSONTyped(json, false);
 }
 
 export function TLPDirectedDiscoveryFilterFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPDirectedDiscoveryFilter {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -49,16 +57,12 @@ export function TLPDirectedDiscoveryFilterFromJSONTyped(json: any, ignoreDiscrim
 }
 
 export function TLPDirectedDiscoveryFilterToJSON(value?: TLPDirectedDiscoveryFilter | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'name': TLPDirectedDiscoveryFilterEnumToJSON(value.name),
+        'name': TLPDirectedDiscoveryFilterEnumToJSON(value['name']),
     };
 }
-
 

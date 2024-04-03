@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SeededSensitive,
+  Sensitive,
+  Sensitives,
+} from '../models/index';
 import {
-    SeededSensitive,
     SeededSensitiveFromJSON,
     SeededSensitiveToJSON,
-    Sensitive,
     SensitiveFromJSON,
     SensitiveToJSON,
-    Sensitives,
     SensitivesFromJSON,
     SensitivesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface SensitivesCreateNewSensitiveRequest {
     seededSensitive?: SeededSensitive;
@@ -43,7 +45,7 @@ export class SensitivesApi extends runtime.BaseAPI {
      * This will create a new sensitive model.
      * /sensitives/create [POST]
      */
-    async sensitivesCreateNewSensitiveRaw(requestParameters: SensitivesCreateNewSensitiveRequest): Promise<runtime.ApiResponse<Sensitive>> {
+    async sensitivesCreateNewSensitiveRaw(requestParameters: SensitivesCreateNewSensitiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Sensitive>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -55,8 +57,8 @@ export class SensitivesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededSensitiveToJSON(requestParameters.seededSensitive),
-        });
+            body: SeededSensitiveToJSON(requestParameters['seededSensitive']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitiveFromJSON(jsonValue));
     }
@@ -65,8 +67,8 @@ export class SensitivesApi extends runtime.BaseAPI {
      * This will create a new sensitive model.
      * /sensitives/create [POST]
      */
-    async sensitivesCreateNewSensitive(requestParameters: SensitivesCreateNewSensitiveRequest): Promise<Sensitive> {
-        const response = await this.sensitivesCreateNewSensitiveRaw(requestParameters);
+    async sensitivesCreateNewSensitive(requestParameters: SensitivesCreateNewSensitiveRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Sensitive> {
+        const response = await this.sensitivesCreateNewSensitiveRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -74,9 +76,12 @@ export class SensitivesApi extends runtime.BaseAPI {
      * This will delete a sensitive based on the sensitive uuid.
      * /sensitives/{sensitive}/delete [POST]
      */
-    async sensitivesDeleteSensitiveRaw(requestParameters: SensitivesDeleteSensitiveRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
-            throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitivesDeleteSensitive.');
+    async sensitivesDeleteSensitiveRaw(requestParameters: SensitivesDeleteSensitiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['sensitive'] == null) {
+            throw new runtime.RequiredError(
+                'sensitive',
+                'Required parameter "sensitive" was null or undefined when calling sensitivesDeleteSensitive().'
+            );
         }
 
         const queryParameters: any = {};
@@ -84,11 +89,11 @@ export class SensitivesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters.sensitive))),
+            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters['sensitive']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -97,15 +102,15 @@ export class SensitivesApi extends runtime.BaseAPI {
      * This will delete a sensitive based on the sensitive uuid.
      * /sensitives/{sensitive}/delete [POST]
      */
-    async sensitivesDeleteSensitive(requestParameters: SensitivesDeleteSensitiveRequest): Promise<void> {
-        await this.sensitivesDeleteSensitiveRaw(requestParameters);
+    async sensitivesDeleteSensitive(requestParameters: SensitivesDeleteSensitiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.sensitivesDeleteSensitiveRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of all of the sensitives.
      * /sensitives [GET]
      */
-    async sensitivesSnapshotRaw(): Promise<runtime.ApiResponse<Sensitives>> {
+    async sensitivesSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Sensitives>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -115,7 +120,7 @@ export class SensitivesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitivesFromJSON(jsonValue));
     }
@@ -124,8 +129,8 @@ export class SensitivesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of the sensitives.
      * /sensitives [GET]
      */
-    async sensitivesSnapshot(): Promise<Sensitives> {
-        const response = await this.sensitivesSnapshotRaw();
+    async sensitivesSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Sensitives> {
+        const response = await this.sensitivesSnapshotRaw(initOverrides);
         return await response.value();
     }
 

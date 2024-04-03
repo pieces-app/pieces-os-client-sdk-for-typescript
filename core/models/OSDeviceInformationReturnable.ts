@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    OSDeviceDependenciesInformation,
+} from './EmbeddedModelSchema';
+import type { OSDeviceDependenciesInformation } from './OSDeviceDependenciesInformation';
+import {
     OSDeviceDependenciesInformationFromJSON,
     OSDeviceDependenciesInformationFromJSONTyped,
     OSDeviceDependenciesInformationToJSON,
-    OSDeviceHardwareInformation,
+} from './OSDeviceDependenciesInformation';
+import type { OSDeviceHardwareInformation } from './OSDeviceHardwareInformation';
+import {
     OSDeviceHardwareInformationFromJSON,
     OSDeviceHardwareInformationFromJSONTyped,
     OSDeviceHardwareInformationToJSON,
-} from './';
+} from './OSDeviceHardwareInformation';
 
 /**
  * This is the returnable model for the /os/device/information.
@@ -66,39 +70,42 @@ export interface OSDeviceInformationReturnable {
     hardware?: OSDeviceHardwareInformation;
 }
 
+/**
+ * Check if a given object implements the OSDeviceInformationReturnable interface.
+ */
+export function instanceOfOSDeviceInformationReturnable(value: object): boolean {
+    return true;
+}
+
 export function OSDeviceInformationReturnableFromJSON(json: any): OSDeviceInformationReturnable {
     return OSDeviceInformationReturnableFromJSONTyped(json, false);
 }
 
 export function OSDeviceInformationReturnableFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceInformationReturnable {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'dependencies': !exists(json, 'dependencies') ? undefined : OSDeviceDependenciesInformationFromJSON(json['dependencies']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
-        'hardware': !exists(json, 'hardware') ? undefined : OSDeviceHardwareInformationFromJSON(json['hardware']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'dependencies': json['dependencies'] == null ? undefined : OSDeviceDependenciesInformationFromJSON(json['dependencies']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'version': json['version'] == null ? undefined : json['version'],
+        'hardware': json['hardware'] == null ? undefined : OSDeviceHardwareInformationFromJSON(json['hardware']),
     };
 }
 
 export function OSDeviceInformationReturnableToJSON(value?: OSDeviceInformationReturnable | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'dependencies': OSDeviceDependenciesInformationToJSON(value.dependencies),
-        'name': value.name,
-        'version': value.version,
-        'hardware': OSDeviceHardwareInformationToJSON(value.hardware),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'dependencies': OSDeviceDependenciesInformationToJSON(value['dependencies']),
+        'name': value['name'],
+        'version': value['version'],
+        'hardware': OSDeviceHardwareInformationToJSON(value['hardware']),
     };
 }
-
 

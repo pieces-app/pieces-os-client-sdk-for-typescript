@@ -12,25 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededClassification,
+} from './EmbeddedModelSchema';
+import type { SeededClassification } from './SeededClassification';
+import {
     SeededClassificationFromJSON,
     SeededClassificationFromJSONTyped,
     SeededClassificationToJSON,
-    SeededFile,
+} from './SeededClassification';
+import type { SeededFile } from './SeededFile';
+import {
     SeededFileFromJSON,
     SeededFileFromJSONTyped,
     SeededFileToJSON,
-    SeededFragment,
+} from './SeededFile';
+import type { SeededFragment } from './SeededFragment';
+import {
     SeededFragmentFromJSON,
     SeededFragmentFromJSONTyped,
     SeededFragmentToJSON,
-} from './';
+} from './SeededFragment';
 
 /**
  * This is seeded data that will be come a format.
@@ -68,37 +74,40 @@ export interface SeededFormat {
     classification?: SeededClassification;
 }
 
+/**
+ * Check if a given object implements the SeededFormat interface.
+ */
+export function instanceOfSeededFormat(value: object): boolean {
+    return true;
+}
+
 export function SeededFormatFromJSON(json: any): SeededFormat {
     return SeededFormatFromJSONTyped(json, false);
 }
 
 export function SeededFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededFormat {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'file': !exists(json, 'file') ? undefined : SeededFileFromJSON(json['file']),
-        'fragment': !exists(json, 'fragment') ? undefined : SeededFragmentFromJSON(json['fragment']),
-        'classification': !exists(json, 'classification') ? undefined : SeededClassificationFromJSON(json['classification']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'file': json['file'] == null ? undefined : SeededFileFromJSON(json['file']),
+        'fragment': json['fragment'] == null ? undefined : SeededFragmentFromJSON(json['fragment']),
+        'classification': json['classification'] == null ? undefined : SeededClassificationFromJSON(json['classification']),
     };
 }
 
 export function SeededFormatToJSON(value?: SeededFormat | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'file': SeededFileToJSON(value.file),
-        'fragment': SeededFragmentToJSON(value.fragment),
-        'classification': SeededClassificationToJSON(value.classification),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'file': SeededFileToJSON(value['file']),
+        'fragment': SeededFragmentToJSON(value['fragment']),
+        'classification': SeededClassificationToJSON(value['classification']),
     };
 }
-
 

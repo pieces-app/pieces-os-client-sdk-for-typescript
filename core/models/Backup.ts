@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    PlatformEnum,
+} from './GroupedTimestamp';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-} from './';
+} from './PlatformEnum';
 
 /**
  * This is a cloud Backup. This is specific metadata needed inorder to retrieve a Backup.
@@ -84,17 +88,31 @@ export interface Backup {
     platform: PlatformEnum;
 }
 
+/**
+ * Check if a given object implements the Backup interface.
+ */
+export function instanceOfBackup(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('version' in value)) return false;
+    if (!('timestamp' in value)) return false;
+    if (!('bytes' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('deviceName' in value)) return false;
+    if (!('platform' in value)) return false;
+    return true;
+}
+
 export function BackupFromJSON(json: any): Backup {
     return BackupFromJSONTyped(json, false);
 }
 
 export function BackupFromJSONTyped(json: any, ignoreDiscriminator: boolean): Backup {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'version': json['version'],
         'timestamp': json['timestamp'],
@@ -106,23 +124,19 @@ export function BackupFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ba
 }
 
 export function BackupToJSON(value?: Backup | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'version': value.version,
-        'timestamp': value.timestamp,
-        'bytes': value.bytes,
-        'created': GroupedTimestampToJSON(value.created),
-        'device_name': value.deviceName,
-        'platform': PlatformEnumToJSON(value.platform),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'version': value['version'],
+        'timestamp': value['timestamp'],
+        'bytes': value['bytes'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'device_name': value['deviceName'],
+        'platform': PlatformEnumToJSON(value['platform']),
     };
 }
-
 

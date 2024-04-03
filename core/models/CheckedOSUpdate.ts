@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    UpdatingStatusEnum,
+} from './EmbeddedModelSchema';
+import type { UpdatingStatusEnum } from './UpdatingStatusEnum';
+import {
     UpdatingStatusEnumFromJSON,
     UpdatingStatusEnumFromJSONTyped,
     UpdatingStatusEnumToJSON,
-} from './';
+} from './UpdatingStatusEnum';
 
 /**
  * This is the returnable for /os/update/check
@@ -44,33 +46,37 @@ export interface CheckedOSUpdate {
     status: UpdatingStatusEnum;
 }
 
+/**
+ * Check if a given object implements the CheckedOSUpdate interface.
+ */
+export function instanceOfCheckedOSUpdate(value: object): boolean {
+    if (!('status' in value)) return false;
+    return true;
+}
+
 export function CheckedOSUpdateFromJSON(json: any): CheckedOSUpdate {
     return CheckedOSUpdateFromJSONTyped(json, false);
 }
 
 export function CheckedOSUpdateFromJSONTyped(json: any, ignoreDiscriminator: boolean): CheckedOSUpdate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'status': UpdatingStatusEnumFromJSON(json['status']),
     };
 }
 
 export function CheckedOSUpdateToJSON(value?: CheckedOSUpdate | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'status': UpdatingStatusEnumToJSON(value.status),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'status': UpdatingStatusEnumToJSON(value['status']),
     };
 }
-
 

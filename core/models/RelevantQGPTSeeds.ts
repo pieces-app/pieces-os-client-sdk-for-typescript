@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    RelevantQGPTSeed,
+} from './EmbeddedModelSchema';
+import type { RelevantQGPTSeed } from './RelevantQGPTSeed';
+import {
     RelevantQGPTSeedFromJSON,
     RelevantQGPTSeedFromJSONTyped,
     RelevantQGPTSeedToJSON,
-} from './';
+} from './RelevantQGPTSeed';
 
 /**
  * This is a plural of RelevantQGPTSeed.
@@ -44,33 +46,37 @@ export interface RelevantQGPTSeeds {
     iterable: Array<RelevantQGPTSeed>;
 }
 
+/**
+ * Check if a given object implements the RelevantQGPTSeeds interface.
+ */
+export function instanceOfRelevantQGPTSeeds(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function RelevantQGPTSeedsFromJSON(json: any): RelevantQGPTSeeds {
     return RelevantQGPTSeedsFromJSONTyped(json, false);
 }
 
 export function RelevantQGPTSeedsFromJSONTyped(json: any, ignoreDiscriminator: boolean): RelevantQGPTSeeds {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(RelevantQGPTSeedFromJSON)),
     };
 }
 
 export function RelevantQGPTSeedsToJSON(value?: RelevantQGPTSeeds | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(RelevantQGPTSeedToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(RelevantQGPTSeedToJSON)),
     };
 }
-
 

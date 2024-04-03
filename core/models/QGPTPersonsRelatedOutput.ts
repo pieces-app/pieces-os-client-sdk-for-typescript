@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Persons,
+} from './EmbeddedModelSchema';
+import type { Persons } from './Persons';
+import {
     PersonsFromJSON,
     PersonsFromJSONTyped,
     PersonsToJSON,
-} from './';
+} from './Persons';
 
 /**
  * This model is used for the output of the /qgpt/related/persons endpoint.
@@ -53,35 +55,39 @@ export interface QGPTPersonsRelatedOutput {
     explanations?: { [key: string]: string; };
 }
 
+/**
+ * Check if a given object implements the QGPTPersonsRelatedOutput interface.
+ */
+export function instanceOfQGPTPersonsRelatedOutput(value: object): boolean {
+    if (!('persons' in value)) return false;
+    return true;
+}
+
 export function QGPTPersonsRelatedOutputFromJSON(json: any): QGPTPersonsRelatedOutput {
     return QGPTPersonsRelatedOutputFromJSONTyped(json, false);
 }
 
 export function QGPTPersonsRelatedOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTPersonsRelatedOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'persons': PersonsFromJSON(json['persons']),
-        'explanations': !exists(json, 'explanations') ? undefined : json['explanations'],
+        'explanations': json['explanations'] == null ? undefined : json['explanations'],
     };
 }
 
 export function QGPTPersonsRelatedOutputToJSON(value?: QGPTPersonsRelatedOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'persons': PersonsToJSON(value.persons),
-        'explanations': value.explanations,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'persons': PersonsToJSON(value['persons']),
+        'explanations': value['explanations'],
     };
 }
-
 

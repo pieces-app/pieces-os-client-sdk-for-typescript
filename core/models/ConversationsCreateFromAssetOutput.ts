@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedConversation,
+} from './EmbeddedModelSchema';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './';
+} from './ReferencedConversation';
 
 /**
  * This is the model for the output for the "/conversations/create/from_asset/{asset}" endpoints.
@@ -44,33 +46,37 @@ export interface ConversationsCreateFromAssetOutput {
     conversation: ReferencedConversation;
 }
 
+/**
+ * Check if a given object implements the ConversationsCreateFromAssetOutput interface.
+ */
+export function instanceOfConversationsCreateFromAssetOutput(value: object): boolean {
+    if (!('conversation' in value)) return false;
+    return true;
+}
+
 export function ConversationsCreateFromAssetOutputFromJSON(json: any): ConversationsCreateFromAssetOutput {
     return ConversationsCreateFromAssetOutputFromJSONTyped(json, false);
 }
 
 export function ConversationsCreateFromAssetOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationsCreateFromAssetOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
     };
 }
 
 export function ConversationsCreateFromAssetOutputToJSON(value?: ConversationsCreateFromAssetOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'conversation': ReferencedConversationToJSON(value.conversation),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
     };
 }
-
 

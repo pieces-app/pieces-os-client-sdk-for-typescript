@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will give specific metadata need to determine what the rename was to/from.
@@ -46,35 +46,40 @@ export interface TrackedAssetEventRenameMetadata {
     current: string;
 }
 
+/**
+ * Check if a given object implements the TrackedAssetEventRenameMetadata interface.
+ */
+export function instanceOfTrackedAssetEventRenameMetadata(value: object): boolean {
+    if (!('previous' in value)) return false;
+    if (!('current' in value)) return false;
+    return true;
+}
+
 export function TrackedAssetEventRenameMetadataFromJSON(json: any): TrackedAssetEventRenameMetadata {
     return TrackedAssetEventRenameMetadataFromJSONTyped(json, false);
 }
 
 export function TrackedAssetEventRenameMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventRenameMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': json['previous'],
         'current': json['current'],
     };
 }
 
 export function TrackedAssetEventRenameMetadataToJSON(value?: TrackedAssetEventRenameMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'previous': value.previous,
-        'current': value.current,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'previous': value['previous'],
+        'current': value['current'],
     };
 }
-
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    UserProfile,
+} from './EmbeddedModelSchema';
+import type { UserProfile } from './UserProfile';
+import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './UserProfile';
 
 /**
  * This is a modle strictly for the purpose that when calling '/user' and other user related endpoints the UserProfile could potentially be null, so we needed a model to do that.
@@ -44,33 +46,36 @@ export interface ReturnedUserProfile {
     user?: UserProfile;
 }
 
+/**
+ * Check if a given object implements the ReturnedUserProfile interface.
+ */
+export function instanceOfReturnedUserProfile(value: object): boolean {
+    return true;
+}
+
 export function ReturnedUserProfileFromJSON(json: any): ReturnedUserProfile {
     return ReturnedUserProfileFromJSONTyped(json, false);
 }
 
 export function ReturnedUserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReturnedUserProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'user': !exists(json, 'user') ? undefined : UserProfileFromJSON(json['user']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'user': json['user'] == null ? undefined : UserProfileFromJSON(json['user']),
     };
 }
 
 export function ReturnedUserProfileToJSON(value?: ReturnedUserProfile | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': UserProfileToJSON(value.user),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': UserProfileToJSON(value['user']),
     };
 }
-
 

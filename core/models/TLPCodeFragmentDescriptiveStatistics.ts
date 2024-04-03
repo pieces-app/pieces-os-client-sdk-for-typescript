@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Model for ML big query Data collection.
@@ -88,17 +88,33 @@ export interface TLPCodeFragmentDescriptiveStatistics {
     snippet: string;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentDescriptiveStatistics interface.
+ */
+export function instanceOfTLPCodeFragmentDescriptiveStatistics(value: object): boolean {
+    if (!('user' in value)) return false;
+    if (!('os' in value)) return false;
+    if (!('language' in value)) return false;
+    if (!('length' in value)) return false;
+    if (!('ast' in value)) return false;
+    if (!('timestamp' in value)) return false;
+    if (!('asset' in value)) return false;
+    if (!('context' in value)) return false;
+    if (!('snippet' in value)) return false;
+    return true;
+}
+
 export function TLPCodeFragmentDescriptiveStatisticsFromJSON(json: any): TLPCodeFragmentDescriptiveStatistics {
     return TLPCodeFragmentDescriptiveStatisticsFromJSONTyped(json, false);
 }
 
 export function TLPCodeFragmentDescriptiveStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentDescriptiveStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
         'os': json['os'],
         'language': json['language'],
@@ -112,25 +128,21 @@ export function TLPCodeFragmentDescriptiveStatisticsFromJSONTyped(json: any, ign
 }
 
 export function TLPCodeFragmentDescriptiveStatisticsToJSON(value?: TLPCodeFragmentDescriptiveStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': value.user,
-        'os': value.os,
-        'language': value.language,
-        'length': value.length,
-        'ast': value.ast,
-        'timestamp': value.timestamp,
-        'asset': value.asset,
-        'context': value.context,
-        'snippet': value.snippet,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': value['user'],
+        'os': value['os'],
+        'language': value['language'],
+        'length': value['length'],
+        'ast': value['ast'],
+        'timestamp': value['timestamp'],
+        'asset': value['asset'],
+        'context': value['context'],
+        'snippet': value['snippet'],
     };
 }
-
 

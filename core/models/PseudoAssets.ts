@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-} from './';
+} from './FlattenedAssets';
 
 /**
  * This is a model of all optional properties, that will get returned from /assets/pseudo.
@@ -44,33 +46,36 @@ export interface PseudoAssets {
     identifiers?: FlattenedAssets;
 }
 
+/**
+ * Check if a given object implements the PseudoAssets interface.
+ */
+export function instanceOfPseudoAssets(value: object): boolean {
+    return true;
+}
+
 export function PseudoAssetsFromJSON(json: any): PseudoAssets {
     return PseudoAssetsFromJSONTyped(json, false);
 }
 
 export function PseudoAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): PseudoAssets {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'identifiers': !exists(json, 'identifiers') ? undefined : FlattenedAssetsFromJSON(json['identifiers']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'identifiers': json['identifiers'] == null ? undefined : FlattenedAssetsFromJSON(json['identifiers']),
     };
 }
 
 export function PseudoAssetsToJSON(value?: PseudoAssets | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'identifiers': FlattenedAssetsToJSON(value.identifiers),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'identifiers': FlattenedAssetsToJSON(value['identifiers']),
     };
 }
-
 

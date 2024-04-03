@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    EmbeddedModelSchema,
+} from './Application';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A list of all the applications
@@ -44,33 +46,37 @@ export interface Applications {
     iterable: Array<Application>;
 }
 
+/**
+ * Check if a given object implements the Applications interface.
+ */
+export function instanceOfApplications(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function ApplicationsFromJSON(json: any): Applications {
     return ApplicationsFromJSONTyped(json, false);
 }
 
 export function ApplicationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Applications {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ApplicationFromJSON)),
     };
 }
 
 export function ApplicationsToJSON(value?: Applications | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ApplicationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ApplicationToJSON)),
     };
 }
-
 

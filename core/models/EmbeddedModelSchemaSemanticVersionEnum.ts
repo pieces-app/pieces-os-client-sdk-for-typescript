@@ -12,14 +12,16 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is a Semantic Version Enum that will reflect the Semantic version of the api.
  * @export
- * @enum {string}
  */
-export enum EmbeddedModelSchemaSemanticVersionEnum {
-    Major0Minor0Patch1 = 'MAJOR_0_MINOR_0_PATCH_1'
-}
+export const EmbeddedModelSchemaSemanticVersionEnum = {
+    Major0Minor0Patch1: 'MAJOR_0_MINOR_0_PATCH_1'
+} as const;
+export type EmbeddedModelSchemaSemanticVersionEnum = typeof EmbeddedModelSchemaSemanticVersionEnum[keyof typeof EmbeddedModelSchemaSemanticVersionEnum];
+
 
 export function EmbeddedModelSchemaSemanticVersionEnumFromJSON(json: any): EmbeddedModelSchemaSemanticVersionEnum {
     return EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped(json, false);

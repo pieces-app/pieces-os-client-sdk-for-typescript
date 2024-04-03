@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a nice microclass to help with managing the size of a File or Fragment in a readable way for UI's
@@ -46,35 +46,40 @@ export interface ByteDescriptor {
     readable: string;
 }
 
+/**
+ * Check if a given object implements the ByteDescriptor interface.
+ */
+export function instanceOfByteDescriptor(value: object): boolean {
+    if (!('value' in value)) return false;
+    if (!('readable' in value)) return false;
+    return true;
+}
+
 export function ByteDescriptorFromJSON(json: any): ByteDescriptor {
     return ByteDescriptorFromJSONTyped(json, false);
 }
 
 export function ByteDescriptorFromJSONTyped(json: any, ignoreDiscriminator: boolean): ByteDescriptor {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'value': json['value'],
         'readable': json['readable'],
     };
 }
 
 export function ByteDescriptorToJSON(value?: ByteDescriptor | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'value': value.value,
-        'readable': value.readable,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'value': value['value'],
+        'readable': value['readable'],
     };
 }
-
 

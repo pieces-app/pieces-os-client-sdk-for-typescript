@@ -12,25 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
-    ClassificationGenericEnum,
     ClassificationGenericEnumFromJSON,
     ClassificationGenericEnumFromJSONTyped,
     ClassificationGenericEnumToJSON,
-    ClassificationSpecificEnum,
+} from './ClassificationGenericEnum';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FragmentFormat,
+} from './EmbeddedModelSchema';
+import type { FragmentFormat } from './FragmentFormat';
+import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
-} from './';
+} from './FragmentFormat';
 
 /**
  * This is the output iterable model for '/machine_learning/text/technical_language/parsers/segmentation'
@@ -66,37 +72,42 @@ export interface SegmentedTechnicalLanguageFragment {
     fragment: FragmentFormat;
 }
 
+/**
+ * Check if a given object implements the SegmentedTechnicalLanguageFragment interface.
+ */
+export function instanceOfSegmentedTechnicalLanguageFragment(value: object): boolean {
+    if (!('generic' in value)) return false;
+    if (!('fragment' in value)) return false;
+    return true;
+}
+
 export function SegmentedTechnicalLanguageFragmentFromJSON(json: any): SegmentedTechnicalLanguageFragment {
     return SegmentedTechnicalLanguageFragmentFromJSONTyped(json, false);
 }
 
 export function SegmentedTechnicalLanguageFragmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): SegmentedTechnicalLanguageFragment {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'generic': ClassificationGenericEnumFromJSON(json['generic']),
-        'specific': !exists(json, 'specific') ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
+        'specific': json['specific'] == null ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
         'fragment': FragmentFormatFromJSON(json['fragment']),
     };
 }
 
 export function SegmentedTechnicalLanguageFragmentToJSON(value?: SegmentedTechnicalLanguageFragment | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'generic': ClassificationGenericEnumToJSON(value.generic),
-        'specific': ClassificationSpecificEnumToJSON(value.specific),
-        'fragment': FragmentFormatToJSON(value.fragment),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'generic': ClassificationGenericEnumToJSON(value['generic']),
+        'specific': ClassificationSpecificEnumToJSON(value['specific']),
+        'fragment': FragmentFormatToJSON(value['fragment']),
     };
 }
-
 

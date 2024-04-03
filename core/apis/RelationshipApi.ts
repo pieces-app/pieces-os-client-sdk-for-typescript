@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Relationship,
+} from '../models/index';
 import {
-    Relationship,
     RelationshipFromJSON,
     RelationshipToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface RelationshipsSpecificRelationshipSnapshotRequest {
     relationship: string;
@@ -33,9 +35,12 @@ export class RelationshipApi extends runtime.BaseAPI {
      * This will return a single relationship object.
      * /relationship/{relationship} [GET]
      */
-    async relationshipsSpecificRelationshipSnapshotRaw(requestParameters: RelationshipsSpecificRelationshipSnapshotRequest): Promise<runtime.ApiResponse<Relationship>> {
-        if (requestParameters.relationship === null || requestParameters.relationship === undefined) {
-            throw new runtime.RequiredError('relationship','Required parameter requestParameters.relationship was null or undefined when calling relationshipsSpecificRelationshipSnapshot.');
+    async relationshipsSpecificRelationshipSnapshotRaw(requestParameters: RelationshipsSpecificRelationshipSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Relationship>> {
+        if (requestParameters['relationship'] == null) {
+            throw new runtime.RequiredError(
+                'relationship',
+                'Required parameter "relationship" was null or undefined when calling relationshipsSpecificRelationshipSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
@@ -43,11 +48,11 @@ export class RelationshipApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/relationship/{relationship}`.replace(`{${"relationship"}}`, encodeURIComponent(String(requestParameters.relationship))),
+            path: `/relationship/{relationship}`.replace(`{${"relationship"}}`, encodeURIComponent(String(requestParameters['relationship']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RelationshipFromJSON(jsonValue));
     }
@@ -56,8 +61,8 @@ export class RelationshipApi extends runtime.BaseAPI {
      * This will return a single relationship object.
      * /relationship/{relationship} [GET]
      */
-    async relationshipsSpecificRelationshipSnapshot(requestParameters: RelationshipsSpecificRelationshipSnapshotRequest): Promise<Relationship> {
-        const response = await this.relationshipsSpecificRelationshipSnapshotRaw(requestParameters);
+    async relationshipsSpecificRelationshipSnapshot(requestParameters: RelationshipsSpecificRelationshipSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Relationship> {
+        const response = await this.relationshipsSpecificRelationshipSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 apis/ActivitiesApi.ts
 apis/ActivityApi.ts
 apis/AllocationApi.ts
@@ -49,6 +50,8 @@ apis/PersonApi.ts
 apis/PersonsApi.ts
 apis/PieceApi.ts
 apis/QGPTApi.ts
+apis/RangeApi.ts
+apis/RangesApi.ts
 apis/RelationshipApi.ts
 apis/RelationshipsApi.ts
 apis/SearchApi.ts
@@ -64,6 +67,10 @@ apis/UsersApi.ts
 apis/WebsiteApi.ts
 apis/WebsitesApi.ts
 apis/WellKnownApi.ts
+apis/WorkstreamEventApi.ts
+apis/WorkstreamEventsApi.ts
+apis/WorkstreamSummariesApi.ts
+apis/WorkstreamSummaryApi.ts
 apis/index.ts
 index.ts
 models/AccessEnum.ts
@@ -196,6 +203,8 @@ models/FlattenedOCRAnalysis.ts
 models/FlattenedPerson.ts
 models/FlattenedPersons.ts
 models/FlattenedPreview.ts
+models/FlattenedRange.ts
+models/FlattenedRanges.ts
 models/FlattenedSensitive.ts
 models/FlattenedSensitives.ts
 models/FlattenedShare.ts
@@ -205,6 +214,10 @@ models/FlattenedTags.ts
 models/FlattenedUserProfile.ts
 models/FlattenedWebsite.ts
 models/FlattenedWebsites.ts
+models/FlattenedWorkstreamEvent.ts
+models/FlattenedWorkstreamEvents.ts
+models/FlattenedWorkstreamSummaries.ts
+models/FlattenedWorkstreamSummary.ts
 models/Font.ts
 models/Format.ts
 models/FormatMetric.ts
@@ -315,6 +328,8 @@ models/QGPTTaskPipelineForCodeCompletion.ts
 models/QGPTTaskPipelineForCodeExplanation.ts
 models/QGPTTaskPipelineForCodeFix.ts
 models/QGPTTaskPipelineForCodeModification.ts
+models/Range.ts
+models/Ranges.ts
 models/Reaction.ts
 models/Recipients.ts
 models/ReferencedActivity.ts
@@ -329,11 +344,14 @@ models/ReferencedFormat.ts
 models/ReferencedHint.ts
 models/ReferencedModel.ts
 models/ReferencedPerson.ts
+models/ReferencedRange.ts
 models/ReferencedSensitive.ts
 models/ReferencedShare.ts
 models/ReferencedTag.ts
 models/ReferencedUser.ts
 models/ReferencedWebsite.ts
+models/ReferencedWorkstreamEvent.ts
+models/ReferencedWorkstreamSummary.ts
 models/Relationship.ts
 models/Relationships.ts
 models/RelevantQGPTSeed.ts
@@ -395,6 +413,10 @@ models/SeededModels.ts
 models/SeededPKCE.ts
 models/SeededPKCEADDITIONALPARAMETERS.ts
 models/SeededPerson.ts
+models/SeededRange.ts
+models/SeededRangeConversationAssociation.ts
+models/SeededRangeConversationGroundingAssociation.ts
+models/SeededRangeConversationGroundingTemporalAssociation.ts
 models/SeededScore.ts
 models/SeededScoreIncrement.ts
 models/SeededSensitive.ts
@@ -416,6 +438,8 @@ models/SeededTrackedSessionEvent.ts
 models/SeededUltraSuiteAsset.ts
 models/SeededUser.ts
 models/SeededWebsite.ts
+models/SeededWorkstreamEvent.ts
+models/SeededWorkstreamSummary.ts
 models/Seeds.ts
 models/SegmentedTechnicalLanguage.ts
 models/SegmentedTechnicalLanguageFragment.ts
@@ -458,6 +482,7 @@ models/TLPMachineLearningProcessingEvent.ts
 models/Tag.ts
 models/TagCategoryEnum.ts
 models/Tags.ts
+models/TemporalRangeGrounding.ts
 models/TextLocation.ts
 models/TextMatch.ts
 models/Theme.ts
@@ -497,4 +522,11 @@ models/UserProfile.ts
 models/Users.ts
 models/Website.ts
 models/Websites.ts
+models/WorkstreamEvent.ts
+models/WorkstreamEventTrigger.ts
+models/WorkstreamEventTriggerMetadata.ts
+models/WorkstreamEvents.ts
+models/WorkstreamSummaries.ts
+models/WorkstreamSummary.ts
 models/index.ts
+runtime.ts

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A model representing a returnable response for a OAuthGroup Token
@@ -70,12 +70,25 @@ export interface OAuthToken {
     idToken?: string;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum OAuthTokenTokenTypeEnum {
-    Bearer = 'Bearer'
+ * @export
+ */
+export const OAuthTokenTokenTypeEnum = {
+    Bearer: 'Bearer'
+} as const;
+export type OAuthTokenTokenTypeEnum = typeof OAuthTokenTokenTypeEnum[keyof typeof OAuthTokenTokenTypeEnum];
+
+
+/**
+ * Check if a given object implements the OAuthToken interface.
+ */
+export function instanceOfOAuthToken(value: object): boolean {
+    if (!('accessToken' in value)) return false;
+    if (!('tokenType' in value)) return false;
+    if (!('expiresIn' in value)) return false;
+    if (!('scope' in value)) return false;
+    return true;
 }
 
 export function OAuthTokenFromJSON(json: any): OAuthToken {
@@ -83,38 +96,34 @@ export function OAuthTokenFromJSON(json: any): OAuthToken {
 }
 
 export function OAuthTokenFromJSONTyped(json: any, ignoreDiscriminator: boolean): OAuthToken {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'accessToken': json['access_token'],
         'tokenType': json['token_type'],
         'expiresIn': json['expires_in'],
         'scope': json['scope'],
-        'refreshToken': !exists(json, 'refresh_token') ? undefined : json['refresh_token'],
-        'idToken': !exists(json, 'id_token') ? undefined : json['id_token'],
+        'refreshToken': json['refresh_token'] == null ? undefined : json['refresh_token'],
+        'idToken': json['id_token'] == null ? undefined : json['id_token'],
     };
 }
 
 export function OAuthTokenToJSON(value?: OAuthToken | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'access_token': value.accessToken,
-        'token_type': value.tokenType,
-        'expires_in': value.expiresIn,
-        'scope': value.scope,
-        'refresh_token': value.refreshToken,
-        'id_token': value.idToken,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'access_token': value['accessToken'],
+        'token_type': value['tokenType'],
+        'expires_in': value['expiresIn'],
+        'scope': value['scope'],
+        'refresh_token': value['refreshToken'],
+        'id_token': value['idToken'],
     };
 }
-
 

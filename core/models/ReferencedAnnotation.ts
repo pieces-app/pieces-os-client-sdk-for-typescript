@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnnotation,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnnotation } from './FlattenedAnnotation';
+import {
     FlattenedAnnotationFromJSON,
     FlattenedAnnotationFromJSONTyped,
     FlattenedAnnotationToJSON,
-} from './';
+} from './FlattenedAnnotation';
 
 /**
  * This is the referenced version of a annotation, main used for the uuid.
@@ -50,35 +52,39 @@ export interface ReferencedAnnotation {
     reference?: FlattenedAnnotation;
 }
 
+/**
+ * Check if a given object implements the ReferencedAnnotation interface.
+ */
+export function instanceOfReferencedAnnotation(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function ReferencedAnnotationFromJSON(json: any): ReferencedAnnotation {
     return ReferencedAnnotationFromJSONTyped(json, false);
 }
 
 export function ReferencedAnnotationFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedAnnotation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedAnnotationFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedAnnotationFromJSON(json['reference']),
     };
 }
 
 export function ReferencedAnnotationToJSON(value?: ReferencedAnnotation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedAnnotationToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedAnnotationToJSON(value['reference']),
     };
 }
-
 

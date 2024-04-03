@@ -12,15 +12,17 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * 
  * @export
- * @enum {string}
  */
-export enum FilterOperationTypeEnum {
-    And = 'AND',
-    Or = 'OR'
-}
+export const FilterOperationTypeEnum = {
+    And: 'AND',
+    Or: 'OR'
+} as const;
+export type FilterOperationTypeEnum = typeof FilterOperationTypeEnum[keyof typeof FilterOperationTypeEnum];
+
 
 export function FilterOperationTypeEnumFromJSON(json: any): FilterOperationTypeEnum {
     return FilterOperationTypeEnumFromJSONTyped(json, false);

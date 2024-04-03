@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Accessor } from './Accessor';
 import {
-    Accessor,
     AccessorFromJSON,
     AccessorFromJSONTyped,
     AccessorToJSON,
-    EmbeddedModelSchema,
+} from './Accessor';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -44,33 +46,37 @@ export interface Accessors {
     iterable: Array<Accessor>;
 }
 
+/**
+ * Check if a given object implements the Accessors interface.
+ */
+export function instanceOfAccessors(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function AccessorsFromJSON(json: any): Accessors {
     return AccessorsFromJSONTyped(json, false);
 }
 
 export function AccessorsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Accessors {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AccessorFromJSON)),
     };
 }
 
 export function AccessorsToJSON(value?: Accessors | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AccessorToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AccessorToJSON)),
     };
 }
-
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedPerson,
+} from './EmbeddedModelSchema';
+import type { FlattenedPerson } from './FlattenedPerson';
+import {
     FlattenedPersonFromJSON,
     FlattenedPersonFromJSONTyped,
     FlattenedPersonToJSON,
-} from './';
+} from './FlattenedPerson';
 
 /**
  * [DAG Safe] version of a Person Model. 
@@ -50,35 +52,39 @@ export interface ReferencedPerson {
     reference?: FlattenedPerson;
 }
 
+/**
+ * Check if a given object implements the ReferencedPerson interface.
+ */
+export function instanceOfReferencedPerson(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function ReferencedPersonFromJSON(json: any): ReferencedPerson {
     return ReferencedPersonFromJSONTyped(json, false);
 }
 
 export function ReferencedPersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedPerson {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedPersonFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedPersonFromJSON(json['reference']),
     };
 }
 
 export function ReferencedPersonToJSON(value?: ReferencedPerson | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedPersonToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedPersonToJSON(value['reference']),
     };
 }
-
 

@@ -14,23 +14,25 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Analysis,
+  Format,
+  FormatReclassification,
+  SeededTrackedFormatEvent,
+  TrackedFormatEvent,
+} from '../models/index';
 import {
-    Analysis,
     AnalysisFromJSON,
     AnalysisToJSON,
-    Format,
     FormatFromJSON,
     FormatToJSON,
-    FormatReclassification,
     FormatReclassificationFromJSON,
     FormatReclassificationToJSON,
-    SeededTrackedFormatEvent,
     SeededTrackedFormatEventFromJSON,
     SeededTrackedFormatEventToJSON,
-    TrackedFormatEvent,
     TrackedFormatEventFromJSON,
     TrackedFormatEventToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface FormatAnalysisRequest {
     format: string;
@@ -64,9 +66,12 @@ export class FormatApi extends runtime.BaseAPI {
      * This will get an analysis from a format\'s id.
      * /format/{format}/analysis [GET]
      */
-    async formatAnalysisRaw(requestParameters: FormatAnalysisRequest): Promise<runtime.ApiResponse<Analysis>> {
-        if (requestParameters.format === null || requestParameters.format === undefined) {
-            throw new runtime.RequiredError('format','Required parameter requestParameters.format was null or undefined when calling formatAnalysis.');
+    async formatAnalysisRaw(requestParameters: FormatAnalysisRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Analysis>> {
+        if (requestParameters['format'] == null) {
+            throw new runtime.RequiredError(
+                'format',
+                'Required parameter "format" was null or undefined when calling formatAnalysis().'
+            );
         }
 
         const queryParameters: any = {};
@@ -74,11 +79,11 @@ export class FormatApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/format/{format}/analysis`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters.format))),
+            path: `/format/{format}/analysis`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters['format']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnalysisFromJSON(jsonValue));
     }
@@ -87,8 +92,8 @@ export class FormatApi extends runtime.BaseAPI {
      * This will get an analysis from a format\'s id.
      * /format/{format}/analysis [GET]
      */
-    async formatAnalysis(requestParameters: FormatAnalysisRequest): Promise<Analysis> {
-        const response = await this.formatAnalysisRaw(requestParameters);
+    async formatAnalysis(requestParameters: FormatAnalysisRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Analysis> {
+        const response = await this.formatAnalysisRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -96,11 +101,11 @@ export class FormatApi extends runtime.BaseAPI {
      * This endpoint will be used to reclassify a single Format.
      * /format/reclassify [POST]
      */
-    async formatReclassifyRaw(requestParameters: FormatReclassifyRequest): Promise<runtime.ApiResponse<Format>> {
+    async formatReclassifyRaw(requestParameters: FormatReclassifyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferable !== undefined) {
-            queryParameters['transferable'] = requestParameters.transferable;
+        if (requestParameters['transferable'] != null) {
+            queryParameters['transferable'] = requestParameters['transferable'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -112,8 +117,8 @@ export class FormatApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: FormatReclassificationToJSON(requestParameters.formatReclassification),
-        });
+            body: FormatReclassificationToJSON(requestParameters['formatReclassification']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FormatFromJSON(jsonValue));
     }
@@ -122,8 +127,8 @@ export class FormatApi extends runtime.BaseAPI {
      * This endpoint will be used to reclassify a single Format.
      * /format/reclassify [POST]
      */
-    async formatReclassify(requestParameters: FormatReclassifyRequest): Promise<Format> {
-        const response = await this.formatReclassifyRaw(requestParameters);
+    async formatReclassify(requestParameters: FormatReclassifyRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Format> {
+        const response = await this.formatReclassifyRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -131,25 +136,28 @@ export class FormatApi extends runtime.BaseAPI {
      * Get a snapshot of a specific format.
      * /format/{format} [GET] Scoped to Format
      */
-    async formatSnapshotRaw(requestParameters: FormatSnapshotRequest): Promise<runtime.ApiResponse<Format>> {
-        if (requestParameters.format === null || requestParameters.format === undefined) {
-            throw new runtime.RequiredError('format','Required parameter requestParameters.format was null or undefined when calling formatSnapshot.');
+    async formatSnapshotRaw(requestParameters: FormatSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
+        if (requestParameters['format'] == null) {
+            throw new runtime.RequiredError(
+                'format',
+                'Required parameter "format" was null or undefined when calling formatSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferable !== undefined) {
-            queryParameters['transferable'] = requestParameters.transferable;
+        if (requestParameters['transferable'] != null) {
+            queryParameters['transferable'] = requestParameters['transferable'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/format/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters.format))),
+            path: `/format/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters['format']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FormatFromJSON(jsonValue));
     }
@@ -158,8 +166,8 @@ export class FormatApi extends runtime.BaseAPI {
      * Get a snapshot of a specific format.
      * /format/{format} [GET] Scoped to Format
      */
-    async formatSnapshot(requestParameters: FormatSnapshotRequest): Promise<Format> {
-        const response = await this.formatSnapshotRaw(requestParameters);
+    async formatSnapshot(requestParameters: FormatSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Format> {
+        const response = await this.formatSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -167,11 +175,11 @@ export class FormatApi extends runtime.BaseAPI {
      * This will update a format\'s value, ie, a formats fragment or file depending on what is provided.  code/text fragment behavior: If this format is an asset.preview.base we will update the asset.original\'s value. if this format is an asset.preview.original we will update the asset.preview.base\'s value.  code/text file behavior: If the the format that is update is the asset.preview.base is a fragment and the asset.original is file then we will update the asset.original\'s value to be bytes or string respectively. This goes the same for orignal to preview but will be go the reverse order so if the original is a file we will update the preview base\'s fragment string.  image fragment/file: We will not modify preview -> orignal or original -> preview here. so there are zero side effects in this case, and will update as normal. (this will be the case for all other value updates.)
      * [POST] /format/update/value
      */
-    async formatUpdateValueRaw(requestParameters: FormatUpdateValueRequest): Promise<runtime.ApiResponse<Format>> {
+    async formatUpdateValueRaw(requestParameters: FormatUpdateValueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferable !== undefined) {
-            queryParameters['transferable'] = requestParameters.transferable;
+        if (requestParameters['transferable'] != null) {
+            queryParameters['transferable'] = requestParameters['transferable'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -183,8 +191,8 @@ export class FormatApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: FormatToJSON(requestParameters.format),
-        });
+            body: FormatToJSON(requestParameters['format']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FormatFromJSON(jsonValue));
     }
@@ -193,8 +201,8 @@ export class FormatApi extends runtime.BaseAPI {
      * This will update a format\'s value, ie, a formats fragment or file depending on what is provided.  code/text fragment behavior: If this format is an asset.preview.base we will update the asset.original\'s value. if this format is an asset.preview.original we will update the asset.preview.base\'s value.  code/text file behavior: If the the format that is update is the asset.preview.base is a fragment and the asset.original is file then we will update the asset.original\'s value to be bytes or string respectively. This goes the same for orignal to preview but will be go the reverse order so if the original is a file we will update the preview base\'s fragment string.  image fragment/file: We will not modify preview -> orignal or original -> preview here. so there are zero side effects in this case, and will update as normal. (this will be the case for all other value updates.)
      * [POST] /format/update/value
      */
-    async formatUpdateValue(requestParameters: FormatUpdateValueRequest): Promise<Format> {
-        const response = await this.formatUpdateValueRaw(requestParameters);
+    async formatUpdateValue(requestParameters: FormatUpdateValueRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Format> {
+        const response = await this.formatUpdateValueRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -202,7 +210,7 @@ export class FormatApi extends runtime.BaseAPI {
      * This is an analytics endpoint that will enable us to know when a user has copied/downloaded/beamed/viewed a format.
      * /format/usage/event [POST] Scoped to Format
      */
-    async formatUsageEventRaw(requestParameters: FormatUsageEventRequest): Promise<runtime.ApiResponse<TrackedFormatEvent>> {
+    async formatUsageEventRaw(requestParameters: FormatUsageEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TrackedFormatEvent>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -214,8 +222,8 @@ export class FormatApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededTrackedFormatEventToJSON(requestParameters.seededTrackedFormatEvent),
-        });
+            body: SeededTrackedFormatEventToJSON(requestParameters['seededTrackedFormatEvent']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TrackedFormatEventFromJSON(jsonValue));
     }
@@ -224,8 +232,8 @@ export class FormatApi extends runtime.BaseAPI {
      * This is an analytics endpoint that will enable us to know when a user has copied/downloaded/beamed/viewed a format.
      * /format/usage/event [POST] Scoped to Format
      */
-    async formatUsageEvent(requestParameters: FormatUsageEventRequest): Promise<TrackedFormatEvent> {
-        const response = await this.formatUsageEventRaw(requestParameters);
+    async formatUsageEvent(requestParameters: FormatUsageEventRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TrackedFormatEvent> {
+        const response = await this.formatUsageEventRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
 import {
-    ClassificationSpecificEnum,
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededFormat,
+} from './EmbeddedModelSchema';
+import type { SeededFormat } from './SeededFormat';
+import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './';
+} from './SeededFormat';
 
 /**
  * A SeededUEAsset is the minimum data sent from UE required to create an asset within Pieces.
@@ -68,39 +72,43 @@ export interface SeededUltraSuiteAsset {
     description?: string;
 }
 
+/**
+ * Check if a given object implements the SeededUltraSuiteAsset interface.
+ */
+export function instanceOfSeededUltraSuiteAsset(value: object): boolean {
+    if (!('format' in value)) return false;
+    return true;
+}
+
 export function SeededUltraSuiteAssetFromJSON(json: any): SeededUltraSuiteAsset {
     return SeededUltraSuiteAssetFromJSONTyped(json, false);
 }
 
 export function SeededUltraSuiteAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededUltraSuiteAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'ext': !exists(json, 'ext') ? undefined : ClassificationSpecificEnumFromJSON(json['ext']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'ext': json['ext'] == null ? undefined : ClassificationSpecificEnumFromJSON(json['ext']),
         'format': SeededFormatFromJSON(json['format']),
-        'description': !exists(json, 'description') ? undefined : json['description'],
+        'description': json['description'] == null ? undefined : json['description'],
     };
 }
 
 export function SeededUltraSuiteAssetToJSON(value?: SeededUltraSuiteAsset | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
-        'ext': ClassificationSpecificEnumToJSON(value.ext),
-        'format': SeededFormatToJSON(value.format),
-        'description': value.description,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'ext': ClassificationSpecificEnumToJSON(value['ext']),
+        'format': SeededFormatToJSON(value['format']),
+        'description': value['description'],
     };
 }
-
 

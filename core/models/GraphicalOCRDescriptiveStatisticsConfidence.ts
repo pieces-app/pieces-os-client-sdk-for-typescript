@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -27,12 +27,20 @@ export interface GraphicalOCRDescriptiveStatisticsConfidence {
     mean: string;
 }
 
+/**
+ * Check if a given object implements the GraphicalOCRDescriptiveStatisticsConfidence interface.
+ */
+export function instanceOfGraphicalOCRDescriptiveStatisticsConfidence(value: object): boolean {
+    if (!('mean' in value)) return false;
+    return true;
+}
+
 export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSON(json: any): GraphicalOCRDescriptiveStatisticsConfidence {
     return GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json, false);
 }
 
 export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRDescriptiveStatisticsConfidence {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -42,16 +50,12 @@ export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json: a
 }
 
 export function GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value?: GraphicalOCRDescriptiveStatisticsConfidence | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'mean': value.mean,
+        'mean': value['mean'],
     };
 }
-
 

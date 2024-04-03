@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTAgentRelatedRoutes,
+} from './EmbeddedModelSchema';
+import type { QGPTAgentRelatedRoutes } from './QGPTAgentRelatedRoutes';
+import {
     QGPTAgentRelatedRoutesFromJSON,
     QGPTAgentRelatedRoutesFromJSONTyped,
     QGPTAgentRelatedRoutesToJSON,
-} from './';
+} from './QGPTAgentRelatedRoutes';
 
 /**
  * This is apart of the Output and will let the plugin developer know if we reccomend to run specific agent functionality/routes.
@@ -45,33 +47,36 @@ export interface QGPTAgentRoutes {
     related?: QGPTAgentRelatedRoutes;
 }
 
+/**
+ * Check if a given object implements the QGPTAgentRoutes interface.
+ */
+export function instanceOfQGPTAgentRoutes(value: object): boolean {
+    return true;
+}
+
 export function QGPTAgentRoutesFromJSON(json: any): QGPTAgentRoutes {
     return QGPTAgentRoutesFromJSONTyped(json, false);
 }
 
 export function QGPTAgentRoutesFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTAgentRoutes {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'related': !exists(json, 'related') ? undefined : QGPTAgentRelatedRoutesFromJSON(json['related']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'related': json['related'] == null ? undefined : QGPTAgentRelatedRoutesFromJSON(json['related']),
     };
 }
 
 export function QGPTAgentRoutesToJSON(value?: QGPTAgentRoutes | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'related': QGPTAgentRelatedRoutesToJSON(value.related),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'related': QGPTAgentRelatedRoutesToJSON(value['related']),
     };
 }
-
 

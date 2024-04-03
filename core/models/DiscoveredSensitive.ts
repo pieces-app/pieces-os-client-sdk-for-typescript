@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededSensitive,
+} from './EmbeddedModelSchema';
+import type { SeededSensitive } from './SeededSensitive';
+import {
     SeededSensitiveFromJSON,
     SeededSensitiveFromJSONTyped,
     SeededSensitiveToJSON,
-} from './';
+} from './SeededSensitive';
 
 /**
  * This will return a discoveredSensitive, with a seed that can be used to create if automatic is set to false. and will provide the original text provided.
@@ -50,35 +52,40 @@ export interface DiscoveredSensitive {
     text: string;
 }
 
+/**
+ * Check if a given object implements the DiscoveredSensitive interface.
+ */
+export function instanceOfDiscoveredSensitive(value: object): boolean {
+    if (!('seed' in value)) return false;
+    if (!('text' in value)) return false;
+    return true;
+}
+
 export function DiscoveredSensitiveFromJSON(json: any): DiscoveredSensitive {
     return DiscoveredSensitiveFromJSONTyped(json, false);
 }
 
 export function DiscoveredSensitiveFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredSensitive {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seed': SeededSensitiveFromJSON(json['seed']),
         'text': json['text'],
     };
 }
 
 export function DiscoveredSensitiveToJSON(value?: DiscoveredSensitive | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seed': SeededSensitiveToJSON(value.seed),
-        'text': value.text,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seed': SeededSensitiveToJSON(value['seed']),
+        'text': value['text'],
     };
 }
-
 

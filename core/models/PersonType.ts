@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PersonBasicType,
+} from './EmbeddedModelSchema';
+import type { PersonBasicType } from './PersonBasicType';
+import {
     PersonBasicTypeFromJSON,
     PersonBasicTypeFromJSONTyped,
     PersonBasicTypeToJSON,
-    UserProfile,
+} from './PersonBasicType';
+import type { UserProfile } from './UserProfile';
+import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './UserProfile';
 
 /**
  * basic or platform is absolutely required here.
@@ -56,35 +60,38 @@ export interface PersonType {
     platform?: UserProfile;
 }
 
+/**
+ * Check if a given object implements the PersonType interface.
+ */
+export function instanceOfPersonType(value: object): boolean {
+    return true;
+}
+
 export function PersonTypeFromJSON(json: any): PersonType {
     return PersonTypeFromJSONTyped(json, false);
 }
 
 export function PersonTypeFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonType {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'basic': !exists(json, 'basic') ? undefined : PersonBasicTypeFromJSON(json['basic']),
-        'platform': !exists(json, 'platform') ? undefined : UserProfileFromJSON(json['platform']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'basic': json['basic'] == null ? undefined : PersonBasicTypeFromJSON(json['basic']),
+        'platform': json['platform'] == null ? undefined : UserProfileFromJSON(json['platform']),
     };
 }
 
 export function PersonTypeToJSON(value?: PersonType | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'basic': PersonBasicTypeToJSON(value.basic),
-        'platform': UserProfileToJSON(value.platform),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'basic': PersonBasicTypeToJSON(value['basic']),
+        'platform': UserProfileToJSON(value['platform']),
     };
 }
-
 

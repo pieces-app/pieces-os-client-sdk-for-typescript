@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalMachineLearningProcessingEvent,
+} from './EmbeddedModelSchema';
+import type { GraphicalMachineLearningProcessingEvent } from './GraphicalMachineLearningProcessingEvent';
+import {
     GraphicalMachineLearningProcessingEventFromJSON,
     GraphicalMachineLearningProcessingEventFromJSONTyped,
     GraphicalMachineLearningProcessingEventToJSON,
-    TLPMachineLearningProcessingEvent,
+} from './GraphicalMachineLearningProcessingEvent';
+import type { TLPMachineLearningProcessingEvent } from './TLPMachineLearningProcessingEvent';
+import {
     TLPMachineLearningProcessingEventFromJSON,
     TLPMachineLearningProcessingEventFromJSONTyped,
     TLPMachineLearningProcessingEventToJSON,
-} from './';
+} from './TLPMachineLearningProcessingEvent';
 
 /**
  * 
@@ -54,35 +58,38 @@ export interface SeededTrackedMachineLearningEvent {
     graphical?: GraphicalMachineLearningProcessingEvent;
 }
 
+/**
+ * Check if a given object implements the SeededTrackedMachineLearningEvent interface.
+ */
+export function instanceOfSeededTrackedMachineLearningEvent(value: object): boolean {
+    return true;
+}
+
 export function SeededTrackedMachineLearningEventFromJSON(json: any): SeededTrackedMachineLearningEvent {
     return SeededTrackedMachineLearningEventFromJSONTyped(json, false);
 }
 
 export function SeededTrackedMachineLearningEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedMachineLearningEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'tlp': !exists(json, 'tlp') ? undefined : TLPMachineLearningProcessingEventFromJSON(json['tlp']),
-        'graphical': !exists(json, 'graphical') ? undefined : GraphicalMachineLearningProcessingEventFromJSON(json['graphical']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'tlp': json['tlp'] == null ? undefined : TLPMachineLearningProcessingEventFromJSON(json['tlp']),
+        'graphical': json['graphical'] == null ? undefined : GraphicalMachineLearningProcessingEventFromJSON(json['graphical']),
     };
 }
 
 export function SeededTrackedMachineLearningEventToJSON(value?: SeededTrackedMachineLearningEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'tlp': TLPMachineLearningProcessingEventToJSON(value.tlp),
-        'graphical': GraphicalMachineLearningProcessingEventToJSON(value.graphical),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'tlp': TLPMachineLearningProcessingEventToJSON(value['tlp']),
+        'graphical': GraphicalMachineLearningProcessingEventToJSON(value['graphical']),
     };
 }
-
 

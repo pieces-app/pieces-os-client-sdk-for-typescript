@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { TLPDirectedDiscoveryFilter } from './TLPDirectedDiscoveryFilter';
 import {
-    TLPDirectedDiscoveryFilter,
     TLPDirectedDiscoveryFilterFromJSON,
     TLPDirectedDiscoveryFilterFromJSONTyped,
     TLPDirectedDiscoveryFilterToJSON,
-} from './';
+} from './TLPDirectedDiscoveryFilter';
 
 /**
  * Contains array of TLPDirectedDiscoveryFilter
@@ -34,12 +34,20 @@ export interface TLPDirectedDiscoveryFilters {
     iterable: Array<TLPDirectedDiscoveryFilter>;
 }
 
+/**
+ * Check if a given object implements the TLPDirectedDiscoveryFilters interface.
+ */
+export function instanceOfTLPDirectedDiscoveryFilters(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function TLPDirectedDiscoveryFiltersFromJSON(json: any): TLPDirectedDiscoveryFilters {
     return TLPDirectedDiscoveryFiltersFromJSONTyped(json, false);
 }
 
 export function TLPDirectedDiscoveryFiltersFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPDirectedDiscoveryFilters {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -49,16 +57,12 @@ export function TLPDirectedDiscoveryFiltersFromJSONTyped(json: any, ignoreDiscri
 }
 
 export function TLPDirectedDiscoveryFiltersToJSON(value?: TLPDirectedDiscoveryFilters | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(TLPDirectedDiscoveryFilterToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(TLPDirectedDiscoveryFilterToJSON)),
     };
 }
-
 

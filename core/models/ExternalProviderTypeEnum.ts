@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is an enum to describe the provider used to authenticate a user.
  * 
@@ -19,18 +20,19 @@
  * 
  * 'waad': (windows azure active directory)
  * @export
- * @enum {string}
  */
-export enum ExternalProviderTypeEnum {
-    Github = 'github',
-    Auth0 = 'auth0',
-    GoogleOauth2 = 'google-oauth2',
-    Bitbucket = 'bitbucket',
-    Linkedin = 'linkedin',
-    Twitter = 'twitter',
-    Facebook = 'facebook',
-    Waad = 'waad'
-}
+export const ExternalProviderTypeEnum = {
+    Github: 'github',
+    Auth0: 'auth0',
+    GoogleOauth2: 'google-oauth2',
+    Bitbucket: 'bitbucket',
+    Linkedin: 'linkedin',
+    Twitter: 'twitter',
+    Facebook: 'facebook',
+    Waad: 'waad'
+} as const;
+export type ExternalProviderTypeEnum = typeof ExternalProviderTypeEnum[keyof typeof ExternalProviderTypeEnum];
+
 
 export function ExternalProviderTypeEnumFromJSON(json: any): ExternalProviderTypeEnum {
     return ExternalProviderTypeEnumFromJSONTyped(json, false);

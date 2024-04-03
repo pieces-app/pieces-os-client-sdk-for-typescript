@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  AnchorPoint,
+  AnchorPoints,
+  SeededAnchorPoint,
+} from '../models/index';
 import {
-    AnchorPoint,
     AnchorPointFromJSON,
     AnchorPointToJSON,
-    AnchorPoints,
     AnchorPointsFromJSON,
     AnchorPointsToJSON,
-    SeededAnchorPoint,
     SeededAnchorPointFromJSON,
     SeededAnchorPointToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AnchorPointsCreateNewAnchorPointRequest {
     transferables?: boolean;
@@ -48,11 +50,11 @@ export class AnchorPointsApi extends runtime.BaseAPI {
      * This will create a anchorPoint.
      * /anchor_points/create [POST]
      */
-    async anchorPointsCreateNewAnchorPointRaw(requestParameters: AnchorPointsCreateNewAnchorPointRequest): Promise<runtime.ApiResponse<AnchorPoint>> {
+    async anchorPointsCreateNewAnchorPointRaw(requestParameters: AnchorPointsCreateNewAnchorPointRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnchorPoint>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -64,8 +66,8 @@ export class AnchorPointsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAnchorPointToJSON(requestParameters.seededAnchorPoint),
-        });
+            body: SeededAnchorPointToJSON(requestParameters['seededAnchorPoint']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnchorPointFromJSON(jsonValue));
     }
@@ -74,8 +76,8 @@ export class AnchorPointsApi extends runtime.BaseAPI {
      * This will create a anchorPoint.
      * /anchor_points/create [POST]
      */
-    async anchorPointsCreateNewAnchorPoint(requestParameters: AnchorPointsCreateNewAnchorPointRequest): Promise<AnchorPoint> {
-        const response = await this.anchorPointsCreateNewAnchorPointRaw(requestParameters);
+    async anchorPointsCreateNewAnchorPoint(requestParameters: AnchorPointsCreateNewAnchorPointRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnchorPoint> {
+        const response = await this.anchorPointsCreateNewAnchorPointRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -83,9 +85,12 @@ export class AnchorPointsApi extends runtime.BaseAPI {
      * This will delete a specific anchorPoint!
      * /anchor_points/{anchor_point}/delete [POST]
      */
-    async anchorPointsDeleteSpecificAnchorPointRaw(requestParameters: AnchorPointsDeleteSpecificAnchorPointRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchorPoint === null || requestParameters.anchorPoint === undefined) {
-            throw new runtime.RequiredError('anchorPoint','Required parameter requestParameters.anchorPoint was null or undefined when calling anchorPointsDeleteSpecificAnchorPoint.');
+    async anchorPointsDeleteSpecificAnchorPointRaw(requestParameters: AnchorPointsDeleteSpecificAnchorPointRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchorPoint'] == null) {
+            throw new runtime.RequiredError(
+                'anchorPoint',
+                'Required parameter "anchorPoint" was null or undefined when calling anchorPointsDeleteSpecificAnchorPoint().'
+            );
         }
 
         const queryParameters: any = {};
@@ -93,11 +98,11 @@ export class AnchorPointsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/anchor_points/{anchor_point}/delete`.replace(`{${"anchor_point"}}`, encodeURIComponent(String(requestParameters.anchorPoint))),
+            path: `/anchor_points/{anchor_point}/delete`.replace(`{${"anchor_point"}}`, encodeURIComponent(String(requestParameters['anchorPoint']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -106,19 +111,19 @@ export class AnchorPointsApi extends runtime.BaseAPI {
      * This will delete a specific anchorPoint!
      * /anchor_points/{anchor_point}/delete [POST]
      */
-    async anchorPointsDeleteSpecificAnchorPoint(requestParameters: AnchorPointsDeleteSpecificAnchorPointRequest): Promise<void> {
-        await this.anchorPointsDeleteSpecificAnchorPointRaw(requestParameters);
+    async anchorPointsDeleteSpecificAnchorPoint(requestParameters: AnchorPointsDeleteSpecificAnchorPointRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorPointsDeleteSpecificAnchorPointRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of all your anchorPoints.
      * /anchor_points [GET]
      */
-    async anchorPointsSnapshotRaw(requestParameters: AnchorPointsSnapshotRequest): Promise<runtime.ApiResponse<AnchorPoints>> {
+    async anchorPointsSnapshotRaw(requestParameters: AnchorPointsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnchorPoints>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -128,7 +133,7 @@ export class AnchorPointsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnchorPointsFromJSON(jsonValue));
     }
@@ -137,8 +142,8 @@ export class AnchorPointsApi extends runtime.BaseAPI {
      * This will get a snapshot of all your anchorPoints.
      * /anchor_points [GET]
      */
-    async anchorPointsSnapshot(requestParameters: AnchorPointsSnapshotRequest): Promise<AnchorPoints> {
-        const response = await this.anchorPointsSnapshotRaw(requestParameters);
+    async anchorPointsSnapshot(requestParameters: AnchorPointsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnchorPoints> {
+        const response = await this.anchorPointsSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

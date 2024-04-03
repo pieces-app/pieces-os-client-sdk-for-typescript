@@ -14,23 +14,25 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  ExistentMetadata,
+  ExistingMetadata,
+  SeededWebsite,
+  Website,
+  Websites,
+} from '../models/index';
 import {
-    ExistentMetadata,
     ExistentMetadataFromJSON,
     ExistentMetadataToJSON,
-    ExistingMetadata,
     ExistingMetadataFromJSON,
     ExistingMetadataToJSON,
-    SeededWebsite,
     SeededWebsiteFromJSON,
     SeededWebsiteToJSON,
-    Website,
     WebsiteFromJSON,
     WebsiteToJSON,
-    Websites,
     WebsitesFromJSON,
     WebsitesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface WebsitesCreateNewWebsiteRequest {
     transferables?: boolean;
@@ -58,11 +60,11 @@ export class WebsitesApi extends runtime.BaseAPI {
      * This will create a website and attach it to a specific asset.
      * /websites/create [POST]
      */
-    async websitesCreateNewWebsiteRaw(requestParameters: WebsitesCreateNewWebsiteRequest): Promise<runtime.ApiResponse<Website>> {
+    async websitesCreateNewWebsiteRaw(requestParameters: WebsitesCreateNewWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -74,8 +76,8 @@ export class WebsitesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededWebsiteToJSON(requestParameters.seededWebsite),
-        });
+            body: SeededWebsiteToJSON(requestParameters['seededWebsite']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsiteFromJSON(jsonValue));
     }
@@ -84,8 +86,8 @@ export class WebsitesApi extends runtime.BaseAPI {
      * This will create a website and attach it to a specific asset.
      * /websites/create [POST]
      */
-    async websitesCreateNewWebsite(requestParameters: WebsitesCreateNewWebsiteRequest): Promise<Website> {
-        const response = await this.websitesCreateNewWebsiteRaw(requestParameters);
+    async websitesCreateNewWebsite(requestParameters: WebsitesCreateNewWebsiteRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Website> {
+        const response = await this.websitesCreateNewWebsiteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -93,9 +95,12 @@ export class WebsitesApi extends runtime.BaseAPI {
      * This will delete a specific website!
      * /websites/{website}/delete [POST]
      */
-    async websitesDeleteSpecificWebsiteRaw(requestParameters: WebsitesDeleteSpecificWebsiteRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websitesDeleteSpecificWebsite.');
+    async websitesDeleteSpecificWebsiteRaw(requestParameters: WebsitesDeleteSpecificWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websitesDeleteSpecificWebsite().'
+            );
         }
 
         const queryParameters: any = {};
@@ -103,11 +108,11 @@ export class WebsitesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/websites/{website}/delete`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/websites/{website}/delete`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -116,15 +121,15 @@ export class WebsitesApi extends runtime.BaseAPI {
      * This will delete a specific website!
      * /websites/{website}/delete [POST]
      */
-    async websitesDeleteSpecificWebsite(requestParameters: WebsitesDeleteSpecificWebsiteRequest): Promise<void> {
-        await this.websitesDeleteSpecificWebsiteRaw(requestParameters);
+    async websitesDeleteSpecificWebsite(requestParameters: WebsitesDeleteSpecificWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websitesDeleteSpecificWebsiteRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
      * /websites/exists [POST]
      */
-    async websitesExistsRaw(requestParameters: WebsitesExistsRequest): Promise<runtime.ApiResponse<ExistingMetadata>> {
+    async websitesExistsRaw(requestParameters: WebsitesExistsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExistingMetadata>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -136,8 +141,8 @@ export class WebsitesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ExistentMetadataToJSON(requestParameters.existentMetadata),
-        });
+            body: ExistentMetadataToJSON(requestParameters['existentMetadata']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExistingMetadataFromJSON(jsonValue));
     }
@@ -146,8 +151,8 @@ export class WebsitesApi extends runtime.BaseAPI {
      * This will check all of the websites in our database to see if this specific provided website actually exists, if not we will just return a null website in the output.
      * /websites/exists [POST]
      */
-    async websitesExists(requestParameters: WebsitesExistsRequest): Promise<ExistingMetadata> {
-        const response = await this.websitesExistsRaw(requestParameters);
+    async websitesExists(requestParameters: WebsitesExistsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExistingMetadata> {
+        const response = await this.websitesExistsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -155,11 +160,11 @@ export class WebsitesApi extends runtime.BaseAPI {
      * This will get a snapshot of all your websites.
      * /websites [GET]
      */
-    async websitesSnapshotRaw(requestParameters: WebsitesSnapshotRequest): Promise<runtime.ApiResponse<Websites>> {
+    async websitesSnapshotRaw(requestParameters: WebsitesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Websites>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -169,7 +174,7 @@ export class WebsitesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsitesFromJSON(jsonValue));
     }
@@ -178,8 +183,8 @@ export class WebsitesApi extends runtime.BaseAPI {
      * This will get a snapshot of all your websites.
      * /websites [GET]
      */
-    async websitesSnapshot(requestParameters: WebsitesSnapshotRequest): Promise<Websites> {
-        const response = await this.websitesSnapshotRaw(requestParameters);
+    async websitesSnapshot(requestParameters: WebsitesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Websites> {
+        const response = await this.websitesSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    OSHealth,
+} from './EmbeddedModelSchema';
+import type { OSHealth } from './OSHealth';
+import {
     OSHealthFromJSON,
     OSHealthFromJSONTyped,
     OSHealthToJSON,
-} from './';
+} from './OSHealth';
 
 /**
  * This is a health model used to determine the "health" of the os server and cloud server(Coming Soon). READONLY Model.
@@ -44,33 +46,37 @@ export interface Health {
     os: OSHealth;
 }
 
+/**
+ * Check if a given object implements the Health interface.
+ */
+export function instanceOfHealth(value: object): boolean {
+    if (!('os' in value)) return false;
+    return true;
+}
+
 export function HealthFromJSON(json: any): Health {
     return HealthFromJSONTyped(json, false);
 }
 
 export function HealthFromJSONTyped(json: any, ignoreDiscriminator: boolean): Health {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'os': OSHealthFromJSON(json['os']),
     };
 }
 
 export function HealthToJSON(value?: Health | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'os': OSHealthToJSON(value.os),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'os': OSHealthToJSON(value['os']),
     };
 }
-
 

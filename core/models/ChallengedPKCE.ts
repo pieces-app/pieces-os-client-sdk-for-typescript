@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A model that Generates A PKCE Challenge Object with the needed requirements.
@@ -64,12 +64,26 @@ export interface ChallengedPKCE {
     verifier: string;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum ChallengedPKCEMethodEnum {
-    S256 = 'S256'
+ * @export
+ */
+export const ChallengedPKCEMethodEnum = {
+    S256: 'S256'
+} as const;
+export type ChallengedPKCEMethodEnum = typeof ChallengedPKCEMethodEnum[keyof typeof ChallengedPKCEMethodEnum];
+
+
+/**
+ * Check if a given object implements the ChallengedPKCE interface.
+ */
+export function instanceOfChallengedPKCE(value: object): boolean {
+    if (!('state' in value)) return false;
+    if (!('nonce' in value)) return false;
+    if (!('challenge' in value)) return false;
+    if (!('method' in value)) return false;
+    if (!('verifier' in value)) return false;
+    return true;
 }
 
 export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
@@ -77,12 +91,12 @@ export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
 }
 
 export function ChallengedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): ChallengedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'state': json['state'],
         'nonce': json['nonce'],
         'challenge': json['challenge'],
@@ -92,21 +106,17 @@ export function ChallengedPKCEFromJSONTyped(json: any, ignoreDiscriminator: bool
 }
 
 export function ChallengedPKCEToJSON(value?: ChallengedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'state': value.state,
-        'nonce': value.nonce,
-        'challenge': value.challenge,
-        'method': value.method,
-        'verifier': value.verifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'state': value['state'],
+        'nonce': value['nonce'],
+        'challenge': value['challenge'],
+        'method': value['method'],
+        'verifier': value['verifier'],
     };
 }
-
 

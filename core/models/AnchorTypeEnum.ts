@@ -12,15 +12,17 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is an enum used to differentiate the different between different anchors. Used in the Anchor data model.
  * @export
- * @enum {string}
  */
-export enum AnchorTypeEnum {
-    File = 'FILE',
-    Directory = 'DIRECTORY'
-}
+export const AnchorTypeEnum = {
+    File: 'FILE',
+    Directory: 'DIRECTORY'
+} as const;
+export type AnchorTypeEnum = typeof AnchorTypeEnum[keyof typeof AnchorTypeEnum];
+
 
 export function AnchorTypeEnumFromJSON(json: any): AnchorTypeEnum {
     return AnchorTypeEnumFromJSONTyped(json, false);

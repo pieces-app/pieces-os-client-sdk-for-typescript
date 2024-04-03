@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Font,
+} from './EmbeddedModelSchema';
+import type { Font } from './Font';
+import {
     FontFromJSON,
     FontFromJSONTyped,
     FontToJSON,
-    Theme,
+} from './Font';
+import type { Theme } from './Theme';
+import {
     ThemeFromJSON,
     ThemeFromJSONTyped,
     ThemeToJSON,
-} from './';
+} from './Theme';
 
 /**
  * These are aesthetics properties that will ensure the darkmode + font size and other aesthetics properties persist:)
@@ -54,35 +58,40 @@ export interface Aesthetics {
     font: Font;
 }
 
+/**
+ * Check if a given object implements the Aesthetics interface.
+ */
+export function instanceOfAesthetics(value: object): boolean {
+    if (!('theme' in value)) return false;
+    if (!('font' in value)) return false;
+    return true;
+}
+
 export function AestheticsFromJSON(json: any): Aesthetics {
     return AestheticsFromJSONTyped(json, false);
 }
 
 export function AestheticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Aesthetics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'theme': ThemeFromJSON(json['theme']),
         'font': FontFromJSON(json['font']),
     };
 }
 
 export function AestheticsToJSON(value?: Aesthetics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'theme': ThemeToJSON(value.theme),
-        'font': FontToJSON(value.font),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'theme': ThemeToJSON(value['theme']),
+        'font': FontToJSON(value['font']),
     };
 }
-
 

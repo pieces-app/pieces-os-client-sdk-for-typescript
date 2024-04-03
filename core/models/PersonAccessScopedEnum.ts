@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is an enum that will help provide information around what permission this person has in relate to their scope.
  * @export
- * @enum {string}
  */
-export enum PersonAccessScopedEnum {
-    Owner = 'OWNER',
-    Editor = 'EDITOR',
-    Commenter = 'COMMENTER',
-    Viewer = 'VIEWER'
-}
+export const PersonAccessScopedEnum = {
+    Owner: 'OWNER',
+    Editor: 'EDITOR',
+    Commenter: 'COMMENTER',
+    Viewer: 'VIEWER'
+} as const;
+export type PersonAccessScopedEnum = typeof PersonAccessScopedEnum[keyof typeof PersonAccessScopedEnum];
+
 
 export function PersonAccessScopedEnumFromJSON(json: any): PersonAccessScopedEnum {
     return PersonAccessScopedEnumFromJSONTyped(json, false);

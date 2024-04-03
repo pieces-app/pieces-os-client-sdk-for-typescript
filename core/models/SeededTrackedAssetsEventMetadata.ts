@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { TrackedAssetsEventSearchMetadata } from './TrackedAssetsEventSearchMetadata';
 import {
-    TrackedAssetsEventSearchMetadata,
     TrackedAssetsEventSearchMetadataFromJSON,
     TrackedAssetsEventSearchMetadataFromJSONTyped,
     TrackedAssetsEventSearchMetadataToJSON,
-} from './';
+} from './TrackedAssetsEventSearchMetadata';
 
 /**
  * Additional Metadata as Neeeded i.e. Search + Query, etc
@@ -34,31 +34,34 @@ export interface SeededTrackedAssetsEventMetadata {
     search?: TrackedAssetsEventSearchMetadata;
 }
 
+/**
+ * Check if a given object implements the SeededTrackedAssetsEventMetadata interface.
+ */
+export function instanceOfSeededTrackedAssetsEventMetadata(value: object): boolean {
+    return true;
+}
+
 export function SeededTrackedAssetsEventMetadataFromJSON(json: any): SeededTrackedAssetsEventMetadata {
     return SeededTrackedAssetsEventMetadataFromJSONTyped(json, false);
 }
 
 export function SeededTrackedAssetsEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedAssetsEventMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'search': !exists(json, 'search') ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
+        'search': json['search'] == null ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
     };
 }
 
 export function SeededTrackedAssetsEventMetadataToJSON(value?: SeededTrackedAssetsEventMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'search': TrackedAssetsEventSearchMetadataToJSON(value.search),
+        'search': TrackedAssetsEventSearchMetadataToJSON(value['search']),
     };
 }
-
 

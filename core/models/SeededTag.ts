@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    TagCategoryEnum,
+} from './MechanismEnum';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * This is the minimum information needed when creating a Tag.
@@ -78,41 +82,45 @@ export interface SeededTag {
     person?: string;
 }
 
+/**
+ * Check if a given object implements the SeededTag interface.
+ */
+export function instanceOfSeededTag(value: object): boolean {
+    if (!('text' in value)) return false;
+    return true;
+}
+
 export function SeededTagFromJSON(json: any): SeededTag {
     return SeededTagFromJSONTyped(json, false);
 }
 
 export function SeededTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
-        'person': !exists(json, 'person') ? undefined : json['person'],
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'category': json['category'] == null ? undefined : TagCategoryEnumFromJSON(json['category']),
+        'person': json['person'] == null ? undefined : json['person'],
     };
 }
 
 export function SeededTagToJSON(value?: SeededTag | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'text': value.text,
-        'asset': value.asset,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'category': TagCategoryEnumToJSON(value.category),
-        'person': value.person,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'text': value['text'],
+        'asset': value['asset'],
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'category': TagCategoryEnumToJSON(value['category']),
+        'person': value['person'],
     };
 }
-
 

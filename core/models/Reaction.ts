@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReuseReaction,
+} from './EmbeddedModelSchema';
+import type { ReuseReaction } from './ReuseReaction';
+import {
     ReuseReactionFromJSON,
     ReuseReactionFromJSONTyped,
     ReuseReactionToJSON,
-    SeededConnectorCreation,
+} from './ReuseReaction';
+import type { SeededConnectorCreation } from './SeededConnectorCreation';
+import {
     SeededConnectorCreationFromJSON,
     SeededConnectorCreationFromJSONTyped,
     SeededConnectorCreationToJSON,
-} from './';
+} from './SeededConnectorCreation';
 
 /**
  * This will the the Request body of the Request Endpoint.
@@ -66,37 +70,42 @@ export interface Reaction {
     seed: SeededConnectorCreation;
 }
 
+/**
+ * Check if a given object implements the Reaction interface.
+ */
+export function instanceOfReaction(value: object): boolean {
+    if (!('save' in value)) return false;
+    if (!('seed' in value)) return false;
+    return true;
+}
+
 export function ReactionFromJSON(json: any): Reaction {
     return ReactionFromJSONTyped(json, false);
 }
 
 export function ReactionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Reaction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'save': json['save'],
-        'reuse': !exists(json, 'reuse') ? undefined : ReuseReactionFromJSON(json['reuse']),
+        'reuse': json['reuse'] == null ? undefined : ReuseReactionFromJSON(json['reuse']),
         'seed': SeededConnectorCreationFromJSON(json['seed']),
     };
 }
 
 export function ReactionToJSON(value?: Reaction | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'save': value.save,
-        'reuse': ReuseReactionToJSON(value.reuse),
-        'seed': SeededConnectorCreationToJSON(value.seed),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'save': value['save'],
+        'reuse': ReuseReactionToJSON(value['reuse']),
+        'seed': SeededConnectorCreationToJSON(value['seed']),
     };
 }
-
 

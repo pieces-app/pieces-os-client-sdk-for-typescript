@@ -12,34 +12,36 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * These are all the possible uses for a model, i.e. code classification, OCR, text vs code,  tagify code, tag-based code search, neural code search, tagify color and code description.
  * @export
- * @enum {string}
  */
-export enum ModelUsageEnum {
-    Ocr = 'OCR',
-    CodeClassification = 'CODE_CLASSIFICATION',
-    TextVsCode = 'TEXT_VS_CODE',
-    TagifyCode = 'TAGIFY_CODE',
-    TlpTagSearch = 'TLP_TAG_SEARCH',
-    TlpNeuralCodeSearch = 'TLP_NEURAL_CODE_SEARCH',
-    TagifyColorFromCode = 'TAGIFY_COLOR_FROM_CODE',
-    CodeDescription = 'CODE_DESCRIPTION',
-    CodeTitle = 'CODE_TITLE',
-    CodeSearchQueries = 'CODE_SEARCH_QUERIES',
-    CodeExtractiveTags = 'CODE_EXTRACTIVE_TAGS',
-    CodeExtractiveLinks = 'CODE_EXTRACTIVE_LINKS',
-    CodeConversation = 'CODE_CONVERSATION',
-    CodeGeneration = 'CODE_GENERATION',
-    CodeSearch = 'CODE_SEARCH',
-    CodeDiscovery = 'CODE_DISCOVERY',
-    CodeRelatedPeople = 'CODE_RELATED_PEOPLE',
-    CodeFramework = 'CODE_FRAMEWORK',
-    VideoOcr = 'VIDEO_OCR',
-    TextVsCodeSegmentation = 'TEXT_VS_CODE_SEGMENTATION',
-    TextEmbedding = 'TEXT_EMBEDDING'
-}
+export const ModelUsageEnum = {
+    Ocr: 'OCR',
+    CodeClassification: 'CODE_CLASSIFICATION',
+    TextVsCode: 'TEXT_VS_CODE',
+    TagifyCode: 'TAGIFY_CODE',
+    TlpTagSearch: 'TLP_TAG_SEARCH',
+    TlpNeuralCodeSearch: 'TLP_NEURAL_CODE_SEARCH',
+    TagifyColorFromCode: 'TAGIFY_COLOR_FROM_CODE',
+    CodeDescription: 'CODE_DESCRIPTION',
+    CodeTitle: 'CODE_TITLE',
+    CodeSearchQueries: 'CODE_SEARCH_QUERIES',
+    CodeExtractiveTags: 'CODE_EXTRACTIVE_TAGS',
+    CodeExtractiveLinks: 'CODE_EXTRACTIVE_LINKS',
+    CodeConversation: 'CODE_CONVERSATION',
+    CodeGeneration: 'CODE_GENERATION',
+    CodeSearch: 'CODE_SEARCH',
+    CodeDiscovery: 'CODE_DISCOVERY',
+    CodeRelatedPeople: 'CODE_RELATED_PEOPLE',
+    CodeFramework: 'CODE_FRAMEWORK',
+    VideoOcr: 'VIDEO_OCR',
+    TextVsCodeSegmentation: 'TEXT_VS_CODE_SEGMENTATION',
+    TextEmbedding: 'TEXT_EMBEDDING'
+} as const;
+export type ModelUsageEnum = typeof ModelUsageEnum[keyof typeof ModelUsageEnum];
+
 
 export function ModelUsageEnumFromJSON(json: any): ModelUsageEnum {
     return ModelUsageEnumFromJSONTyped(json, false);

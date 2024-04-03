@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is an enum that describes the category that that this tag is apart of.
  * @export
- * @enum {string}
  */
-export enum TagCategoryEnum {
-    Handle = 'HANDLE',
-    Email = 'EMAIL',
-    Unknown = 'UNKNOWN'
-}
+export const TagCategoryEnum = {
+    Handle: 'HANDLE',
+    Email: 'EMAIL',
+    Unknown: 'UNKNOWN'
+} as const;
+export type TagCategoryEnum = typeof TagCategoryEnum[keyof typeof TagCategoryEnum];
+
 
 export function TagCategoryEnumFromJSON(json: any): TagCategoryEnum {
     return TagCategoryEnumFromJSONTyped(json, false);

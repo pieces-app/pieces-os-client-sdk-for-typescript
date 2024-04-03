@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the body of the /github/gists/import,
@@ -52,35 +52,39 @@ export interface SeededGithubGistsImport {
     _public?: boolean;
 }
 
+/**
+ * Check if a given object implements the SeededGithubGistsImport interface.
+ */
+export function instanceOfSeededGithubGistsImport(value: object): boolean {
+    if (!('application' in value)) return false;
+    return true;
+}
+
 export function SeededGithubGistsImportFromJSON(json: any): SeededGithubGistsImport {
     return SeededGithubGistsImportFromJSONTyped(json, false);
 }
 
 export function SeededGithubGistsImportFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededGithubGistsImport {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
-        '_public': !exists(json, 'public') ? undefined : json['public'],
+        '_public': json['public'] == null ? undefined : json['public'],
     };
 }
 
 export function SeededGithubGistsImportToJSON(value?: SeededGithubGistsImport | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': value.application,
-        'public': value._public,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'application': value['application'],
+        'public': value['_public'],
     };
 }
-
 

@@ -12,20 +12,23 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTrackedInteractionEventIdentifierDescriptionPairs,
+} from './EmbeddedModelSchema';
+import type { SeededTrackedInteractionEventIdentifierDescriptionPairs } from './SeededTrackedInteractionEventIdentifierDescriptionPairs';
+import {
     SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON,
     SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSONTyped,
     SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON,
-} from './';
+} from './SeededTrackedInteractionEventIdentifierDescriptionPairs';
 
 /**
  * This is a model that will hold relavent information in relation to an interaction(ONLY CLICK/TAP) analytics event(usage). If you want to register an event that relates to an interaction with the key then register a Keyboard Event.
+ * 
  * @export
  * @interface SeededTrackedInteractionEvent
  */
@@ -56,37 +59,41 @@ export interface SeededTrackedInteractionEvent {
     identifierDescriptionPair?: SeededTrackedInteractionEventIdentifierDescriptionPairs;
 }
 
+/**
+ * Check if a given object implements the SeededTrackedInteractionEvent interface.
+ */
+export function instanceOfSeededTrackedInteractionEvent(value: object): boolean {
+    if (!('description' in value)) return false;
+    return true;
+}
+
 export function SeededTrackedInteractionEventFromJSON(json: any): SeededTrackedInteractionEvent {
     return SeededTrackedInteractionEventFromJSONTyped(json, false);
 }
 
 export function SeededTrackedInteractionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedInteractionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'description': json['description'],
-        'element': !exists(json, 'element') ? undefined : json['element'],
-        'identifierDescriptionPair': !exists(json, 'identifier_description_pair') ? undefined : SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
+        'element': json['element'] == null ? undefined : json['element'],
+        'identifierDescriptionPair': json['identifier_description_pair'] == null ? undefined : SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
     };
 }
 
 export function SeededTrackedInteractionEventToJSON(value?: SeededTrackedInteractionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'description': value.description,
-        'element': value.element,
-        'identifier_description_pair': SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'description': value['description'],
+        'element': value['element'],
+        'identifier_description_pair': SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
     };
 }
-
 

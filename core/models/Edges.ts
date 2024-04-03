@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Node } from './Node';
 import {
-    Node,
     NodeFromJSON,
     NodeFromJSONTyped,
     NodeToJSON,
-} from './';
+} from './Node';
 
 /**
  * 
@@ -34,12 +34,20 @@ export interface Edges {
     iterable: Array<Node>;
 }
 
+/**
+ * Check if a given object implements the Edges interface.
+ */
+export function instanceOfEdges(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function EdgesFromJSON(json: any): Edges {
     return EdgesFromJSONTyped(json, false);
 }
 
 export function EdgesFromJSONTyped(json: any, ignoreDiscriminator: boolean): Edges {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -49,16 +57,12 @@ export function EdgesFromJSONTyped(json: any, ignoreDiscriminator: boolean): Edg
 }
 
 export function EdgesToJSON(value?: Edges | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(NodeToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(NodeToJSON)),
     };
 }
-
 

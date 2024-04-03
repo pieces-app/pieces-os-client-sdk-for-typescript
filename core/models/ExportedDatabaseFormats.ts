@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExportedDatabaseFormat,
+} from './EmbeddedModelSchema';
+import type { ExportedDatabaseFormat } from './ExportedDatabaseFormat';
+import {
     ExportedDatabaseFormatFromJSON,
     ExportedDatabaseFormatFromJSONTyped,
     ExportedDatabaseFormatToJSON,
-} from './';
+} from './ExportedDatabaseFormat';
 
 /**
  * 
@@ -44,33 +46,37 @@ export interface ExportedDatabaseFormats {
     iterable: Array<ExportedDatabaseFormat>;
 }
 
+/**
+ * Check if a given object implements the ExportedDatabaseFormats interface.
+ */
+export function instanceOfExportedDatabaseFormats(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function ExportedDatabaseFormatsFromJSON(json: any): ExportedDatabaseFormats {
     return ExportedDatabaseFormatsFromJSONTyped(json, false);
 }
 
 export function ExportedDatabaseFormatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportedDatabaseFormats {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ExportedDatabaseFormatFromJSON)),
     };
 }
 
 export function ExportedDatabaseFormatsToJSON(value?: ExportedDatabaseFormats | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ExportedDatabaseFormatToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ExportedDatabaseFormatToJSON)),
     };
 }
-
 

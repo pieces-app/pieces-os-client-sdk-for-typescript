@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  ConversationMessage,
+  ConversationMessages,
+  SeededConversationMessage,
+} from '../models/index';
 import {
-    ConversationMessage,
     ConversationMessageFromJSON,
     ConversationMessageToJSON,
-    ConversationMessages,
     ConversationMessagesFromJSON,
     ConversationMessagesToJSON,
-    SeededConversationMessage,
     SeededConversationMessageFromJSON,
     SeededConversationMessageToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface MessagesCreateSpecificMessageRequest {
     transferables?: boolean;
@@ -48,11 +50,11 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      * This will create a Message on a specific conversation.
      * /messages/create [POST]
      */
-    async messagesCreateSpecificMessageRaw(requestParameters: MessagesCreateSpecificMessageRequest): Promise<runtime.ApiResponse<ConversationMessage>> {
+    async messagesCreateSpecificMessageRaw(requestParameters: MessagesCreateSpecificMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -64,8 +66,8 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededConversationMessageToJSON(requestParameters.seededConversationMessage),
-        });
+            body: SeededConversationMessageToJSON(requestParameters['seededConversationMessage']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessageFromJSON(jsonValue));
     }
@@ -74,8 +76,8 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      * This will create a Message on a specific conversation.
      * /messages/create [POST]
      */
-    async messagesCreateSpecificMessage(requestParameters: MessagesCreateSpecificMessageRequest): Promise<ConversationMessage> {
-        const response = await this.messagesCreateSpecificMessageRaw(requestParameters);
+    async messagesCreateSpecificMessage(requestParameters: MessagesCreateSpecificMessageRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConversationMessage> {
+        const response = await this.messagesCreateSpecificMessageRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -83,9 +85,12 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      * This will delete a specific message.
      * /messages/{message}/delete [POST]
      */
-    async messagesDeleteSpecificMessageRaw(requestParameters: MessagesDeleteSpecificMessageRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messagesDeleteSpecificMessage.');
+    async messagesDeleteSpecificMessageRaw(requestParameters: MessagesDeleteSpecificMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messagesDeleteSpecificMessage().'
+            );
         }
 
         const queryParameters: any = {};
@@ -93,11 +98,11 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/messages/{message}/delete`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/messages/{message}/delete`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -106,19 +111,19 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      * This will delete a specific message.
      * /messages/{message}/delete [POST]
      */
-    async messagesDeleteSpecificMessage(requestParameters: MessagesDeleteSpecificMessageRequest): Promise<void> {
-        await this.messagesDeleteSpecificMessageRaw(requestParameters);
+    async messagesDeleteSpecificMessage(requestParameters: MessagesDeleteSpecificMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.messagesDeleteSpecificMessageRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get all the messages.
      * /messages [GET]
      */
-    async messagesSnapshotRaw(requestParameters: MessagesSnapshotRequest): Promise<runtime.ApiResponse<ConversationMessages>> {
+    async messagesSnapshotRaw(requestParameters: MessagesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessages>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -128,7 +133,7 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessagesFromJSON(jsonValue));
     }
@@ -137,8 +142,8 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      * This will get all the messages.
      * /messages [GET]
      */
-    async messagesSnapshot(requestParameters: MessagesSnapshotRequest): Promise<ConversationMessages> {
-        const response = await this.messagesSnapshotRaw(requestParameters);
+    async messagesSnapshot(requestParameters: MessagesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConversationMessages> {
+        const response = await this.messagesSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

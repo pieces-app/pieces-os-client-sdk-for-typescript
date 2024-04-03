@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * This is a specific model that will let us know at what time this user was using the application.
@@ -46,35 +46,40 @@ export interface Session {
     closed?: GroupedTimestamp;
 }
 
+/**
+ * Check if a given object implements the Session interface.
+ */
+export function instanceOfSession(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('opened' in value)) return false;
+    return true;
+}
+
 export function SessionFromJSON(json: any): Session {
     return SessionFromJSONTyped(json, false);
 }
 
 export function SessionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Session {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'id': json['id'],
         'opened': GroupedTimestampFromJSON(json['opened']),
-        'closed': !exists(json, 'closed') ? undefined : GroupedTimestampFromJSON(json['closed']),
+        'closed': json['closed'] == null ? undefined : GroupedTimestampFromJSON(json['closed']),
     };
 }
 
 export function SessionToJSON(value?: Session | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'opened': GroupedTimestampToJSON(value.opened),
-        'closed': GroupedTimestampToJSON(value.closed),
+        'id': value['id'],
+        'opened': GroupedTimestampToJSON(value['opened']),
+        'closed': GroupedTimestampToJSON(value['closed']),
     };
 }
-
 

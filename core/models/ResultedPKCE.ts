@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A Model To Represent the Code Returned from a PKCE Response
@@ -46,35 +46,40 @@ export interface ResultedPKCE {
     state: string;
 }
 
+/**
+ * Check if a given object implements the ResultedPKCE interface.
+ */
+export function instanceOfResultedPKCE(value: object): boolean {
+    if (!('code' in value)) return false;
+    if (!('state' in value)) return false;
+    return true;
+}
+
 export function ResultedPKCEFromJSON(json: any): ResultedPKCE {
     return ResultedPKCEFromJSONTyped(json, false);
 }
 
 export function ResultedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): ResultedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'code': json['code'],
         'state': json['state'],
     };
 }
 
 export function ResultedPKCEToJSON(value?: ResultedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code': value.code,
-        'state': value.state,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code': value['code'],
+        'state': value['state'],
     };
 }
-
 

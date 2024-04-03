@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { QGPTQuestionAnswer } from './QGPTQuestionAnswer';
 import {
-    QGPTQuestionAnswer,
     QGPTQuestionAnswerFromJSON,
     QGPTQuestionAnswerFromJSONTyped,
     QGPTQuestionAnswerToJSON,
-    RelevantQGPTSeeds,
+} from './QGPTQuestionAnswer';
+import type { RelevantQGPTSeeds } from './RelevantQGPTSeeds';
+import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './';
+} from './RelevantQGPTSeeds';
 
 /**
  * Query is your hints question.
@@ -66,39 +68,43 @@ export interface QGPTHintsInput {
     model?: string;
 }
 
+/**
+ * Check if a given object implements the QGPTHintsInput interface.
+ */
+export function instanceOfQGPTHintsInput(value: object): boolean {
+    if (!('relevant' in value)) return false;
+    return true;
+}
+
 export function QGPTHintsInputFromJSON(json: any): QGPTHintsInput {
     return QGPTHintsInputFromJSONTyped(json, false);
 }
 
 export function QGPTHintsInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTHintsInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'query': !exists(json, 'query') ? undefined : json['query'],
-        'answer': !exists(json, 'answer') ? undefined : QGPTQuestionAnswerFromJSON(json['answer']),
+        'query': json['query'] == null ? undefined : json['query'],
+        'answer': json['answer'] == null ? undefined : QGPTQuestionAnswerFromJSON(json['answer']),
         'relevant': RelevantQGPTSeedsFromJSON(json['relevant']),
-        'application': !exists(json, 'application') ? undefined : json['application'],
-        'model': !exists(json, 'model') ? undefined : json['model'],
+        'application': json['application'] == null ? undefined : json['application'],
+        'model': json['model'] == null ? undefined : json['model'],
     };
 }
 
 export function QGPTHintsInputToJSON(value?: QGPTHintsInput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'query': value.query,
-        'answer': QGPTQuestionAnswerToJSON(value.answer),
-        'relevant': RelevantQGPTSeedsToJSON(value.relevant),
-        'application': value.application,
-        'model': value.model,
+        'query': value['query'],
+        'answer': QGPTQuestionAnswerToJSON(value['answer']),
+        'relevant': RelevantQGPTSeedsToJSON(value['relevant']),
+        'application': value['application'],
+        'model': value['model'],
     };
 }
-
 

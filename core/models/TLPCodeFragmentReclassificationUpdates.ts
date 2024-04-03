@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -50,35 +52,40 @@ export interface TLPCodeFragmentReclassificationUpdates {
     current: Classification;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentReclassificationUpdates interface.
+ */
+export function instanceOfTLPCodeFragmentReclassificationUpdates(value: object): boolean {
+    if (!('previous' in value)) return false;
+    if (!('current' in value)) return false;
+    return true;
+}
+
 export function TLPCodeFragmentReclassificationUpdatesFromJSON(json: any): TLPCodeFragmentReclassificationUpdates {
     return TLPCodeFragmentReclassificationUpdatesFromJSONTyped(json, false);
 }
 
 export function TLPCodeFragmentReclassificationUpdatesFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentReclassificationUpdates {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': ClassificationFromJSON(json['previous']),
         'current': ClassificationFromJSON(json['current']),
     };
 }
 
 export function TLPCodeFragmentReclassificationUpdatesToJSON(value?: TLPCodeFragmentReclassificationUpdates | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'previous': ClassificationToJSON(value.previous),
-        'current': ClassificationToJSON(value.current),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'previous': ClassificationToJSON(value['previous']),
+        'current': ClassificationToJSON(value['current']),
     };
 }
-
 

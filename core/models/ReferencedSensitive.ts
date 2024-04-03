@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedSensitive,
+} from './EmbeddedModelSchema';
+import type { FlattenedSensitive } from './FlattenedSensitive';
+import {
     FlattenedSensitiveFromJSON,
     FlattenedSensitiveFromJSONTyped,
     FlattenedSensitiveToJSON,
-} from './';
+} from './FlattenedSensitive';
 
 /**
  * A reference to a sensitive which at minimum must have the Sensitive id. But in the case of a hydrated client API it may have a populated reference of type Sensitive.
@@ -50,35 +52,39 @@ export interface ReferencedSensitive {
     reference?: FlattenedSensitive;
 }
 
+/**
+ * Check if a given object implements the ReferencedSensitive interface.
+ */
+export function instanceOfReferencedSensitive(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function ReferencedSensitiveFromJSON(json: any): ReferencedSensitive {
     return ReferencedSensitiveFromJSONTyped(json, false);
 }
 
 export function ReferencedSensitiveFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedSensitive {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedSensitiveFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedSensitiveFromJSON(json['reference']),
     };
 }
 
 export function ReferencedSensitiveToJSON(value?: ReferencedSensitive | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedSensitiveToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedSensitiveToJSON(value['reference']),
     };
 }
-
 

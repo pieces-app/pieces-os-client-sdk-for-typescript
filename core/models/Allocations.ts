@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AllocationCloud } from './AllocationCloud';
 import {
-    AllocationCloud,
     AllocationCloudFromJSON,
     AllocationCloudFromJSONTyped,
     AllocationCloudToJSON,
-    EmbeddedModelSchema,
+} from './AllocationCloud';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -44,33 +46,37 @@ export interface Allocations {
     iterable: Array<AllocationCloud>;
 }
 
+/**
+ * Check if a given object implements the Allocations interface.
+ */
+export function instanceOfAllocations(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function AllocationsFromJSON(json: any): Allocations {
     return AllocationsFromJSONTyped(json, false);
 }
 
 export function AllocationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Allocations {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AllocationCloudFromJSON)),
     };
 }
 
 export function AllocationsToJSON(value?: Allocations | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AllocationCloudToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AllocationCloudToJSON)),
     };
 }
-
 

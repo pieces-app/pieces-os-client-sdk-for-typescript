@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExternalProvider,
+} from './EmbeddedModelSchema';
+import type { ExternalProvider } from './ExternalProvider';
+import {
     ExternalProviderFromJSON,
     ExternalProviderFromJSONTyped,
     ExternalProviderToJSON,
-} from './';
+} from './ExternalProvider';
 
 /**
  * 
@@ -44,33 +46,37 @@ export interface ExternalProviders {
     iterable: Array<ExternalProvider>;
 }
 
+/**
+ * Check if a given object implements the ExternalProviders interface.
+ */
+export function instanceOfExternalProviders(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function ExternalProvidersFromJSON(json: any): ExternalProviders {
     return ExternalProvidersFromJSONTyped(json, false);
 }
 
 export function ExternalProvidersFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExternalProviders {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ExternalProviderFromJSON)),
     };
 }
 
 export function ExternalProvidersToJSON(value?: ExternalProviders | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ExternalProviderToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ExternalProviderToJSON)),
     };
 }
-
 

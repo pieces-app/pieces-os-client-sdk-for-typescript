@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * if reuse was used in the reaction then we can provide the uuid of the asset that was reused.
@@ -40,33 +40,37 @@ export interface ReuseReaction {
     asset: string;
 }
 
+/**
+ * Check if a given object implements the ReuseReaction interface.
+ */
+export function instanceOfReuseReaction(value: object): boolean {
+    if (!('asset' in value)) return false;
+    return true;
+}
+
 export function ReuseReactionFromJSON(json: any): ReuseReaction {
     return ReuseReactionFromJSONTyped(json, false);
 }
 
 export function ReuseReactionFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReuseReaction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
     };
 }
 
 export function ReuseReactionToJSON(value?: ReuseReaction | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': value.asset,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': value['asset'],
     };
 }
-
 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will be a simple model with a score and a text value that will represent the value returned for this answer.
@@ -46,35 +46,40 @@ export interface QGPTQuestionAnswer {
     text: string;
 }
 
+/**
+ * Check if a given object implements the QGPTQuestionAnswer interface.
+ */
+export function instanceOfQGPTQuestionAnswer(value: object): boolean {
+    if (!('score' in value)) return false;
+    if (!('text' in value)) return false;
+    return true;
+}
+
 export function QGPTQuestionAnswerFromJSON(json: any): QGPTQuestionAnswer {
     return QGPTQuestionAnswerFromJSONTyped(json, false);
 }
 
 export function QGPTQuestionAnswerFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionAnswer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'score': json['score'],
         'text': json['text'],
     };
 }
 
 export function QGPTQuestionAnswerToJSON(value?: QGPTQuestionAnswer | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'score': value.score,
-        'text': value.text,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'score': value['score'],
+        'text': value['text'],
     };
 }
-
 

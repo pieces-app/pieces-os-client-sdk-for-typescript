@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Role,
+} from './EmbeddedModelSchema';
+import type { Role } from './Role';
+import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-} from './';
+} from './Role';
 
 /**
  * A minimal format to send to Mixpanel
@@ -78,17 +82,30 @@ export interface TrackedFormat {
     file: boolean;
 }
 
+/**
+ * Check if a given object implements the TrackedFormat interface.
+ */
+export function instanceOfTrackedFormat(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('classification' in value)) return false;
+    if (!('role' in value)) return false;
+    if (!('asset' in value)) return false;
+    if (!('fragment' in value)) return false;
+    if (!('file' in value)) return false;
+    return true;
+}
+
 export function TrackedFormatFromJSON(json: any): TrackedFormat {
     return TrackedFormatFromJSONTyped(json, false);
 }
 
 export function TrackedFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormat {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'classification': ClassificationFromJSON(json['classification']),
         'role': RoleFromJSON(json['role']),
@@ -99,22 +116,18 @@ export function TrackedFormatFromJSONTyped(json: any, ignoreDiscriminator: boole
 }
 
 export function TrackedFormatToJSON(value?: TrackedFormat | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'classification': ClassificationToJSON(value.classification),
-        'role': RoleToJSON(value.role),
-        'asset': value.asset,
-        'fragment': value.fragment,
-        'file': value.file,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'classification': ClassificationToJSON(value['classification']),
+        'role': RoleToJSON(value['role']),
+        'asset': value['asset'],
+        'fragment': value['fragment'],
+        'file': value['file'],
     };
 }
-
 

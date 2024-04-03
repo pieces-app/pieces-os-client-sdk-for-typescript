@@ -12,53 +12,79 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AnnotationTypeEnum } from './AnnotationTypeEnum';
 import {
-    AnnotationTypeEnum,
     AnnotationTypeEnumFromJSON,
     AnnotationTypeEnumFromJSONTyped,
     AnnotationTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './AnnotationTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversationMessages,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-    GroupedTimestamp,
+} from './FlattenedConversationMessages';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAnchor,
+} from './MechanismEnum';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
     ReferencedAnchorFromJSON,
     ReferencedAnchorFromJSONTyped,
     ReferencedAnchorToJSON,
-    ReferencedAsset,
+} from './ReferencedAnchor';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedConversation,
+} from './ReferencedAsset';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    ReferencedModel,
+} from './ReferencedConversation';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-    ReferencedPerson,
+} from './ReferencedModel';
+import type { ReferencedPerson } from './ReferencedPerson';
+import {
     ReferencedPersonFromJSON,
     ReferencedPersonFromJSONTyped,
     ReferencedPersonToJSON,
-    Score,
+} from './ReferencedPerson';
+import type { ReferencedWorkstreamSummary } from './ReferencedWorkstreamSummary';
+import {
+    ReferencedWorkstreamSummaryFromJSON,
+    ReferencedWorkstreamSummaryFromJSONTyped,
+    ReferencedWorkstreamSummaryToJSON,
+} from './ReferencedWorkstreamSummary';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the flattened Version of the annotation, IMPORTANT: when referencing these, ONLY Take the UUID, do NOT polinate(ie w/ asset/person/model) the FlattenedAnnotation as it can create an infinite loop.
@@ -168,6 +194,24 @@ export interface FlattenedAnnotation {
      * @memberof FlattenedAnnotation
      */
     messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {ReferencedWorkstreamSummary}
+     * @memberof FlattenedAnnotation
+     */
+    summary?: ReferencedWorkstreamSummary;
+}
+
+/**
+ * Check if a given object implements the FlattenedAnnotation interface.
+ */
+export function instanceOfFlattenedAnnotation(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    if (!('type' in value)) return false;
+    if (!('text' in value)) return false;
+    return true;
 }
 
 export function FlattenedAnnotationFromJSON(json: any): FlattenedAnnotation {
@@ -175,58 +219,56 @@ export function FlattenedAnnotationFromJSON(json: any): FlattenedAnnotation {
 }
 
 export function FlattenedAnnotationFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAnnotation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'person': !exists(json, 'person') ? undefined : ReferencedPersonFromJSON(json['person']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'person': json['person'] == null ? undefined : ReferencedPersonFromJSON(json['person']),
         'type': AnnotationTypeEnumFromJSON(json['type']),
         'text': json['text'],
-        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
-        'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
-        'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
-        'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
-        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
-        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
+        'pseudo': json['pseudo'] == null ? undefined : json['pseudo'],
+        'favorited': json['favorited'] == null ? undefined : json['favorited'],
+        'anchor': json['anchor'] == null ? undefined : ReferencedAnchorFromJSON(json['anchor']),
+        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'summary': json['summary'] == null ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
     };
 }
 
 export function FlattenedAnnotationToJSON(value?: FlattenedAnnotation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'asset': ReferencedAssetToJSON(value.asset),
-        'person': ReferencedPersonToJSON(value.person),
-        'type': AnnotationTypeEnumToJSON(value.type),
-        'text': value.text,
-        'model': ReferencedModelToJSON(value.model),
-        'pseudo': value.pseudo,
-        'favorited': value.favorited,
-        'anchor': ReferencedAnchorToJSON(value.anchor),
-        'conversation': ReferencedConversationToJSON(value.conversation),
-        'score': ScoreToJSON(value.score),
-        'messages': FlattenedConversationMessagesToJSON(value.messages),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'person': ReferencedPersonToJSON(value['person']),
+        'type': AnnotationTypeEnumToJSON(value['type']),
+        'text': value['text'],
+        'model': ReferencedModelToJSON(value['model']),
+        'pseudo': value['pseudo'],
+        'favorited': value['favorited'],
+        'anchor': ReferencedAnchorToJSON(value['anchor']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'score': ScoreToJSON(value['score']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'summary': ReferencedWorkstreamSummaryToJSON(value['summary']),
     };
 }
-
 

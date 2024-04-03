@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { ExternalProviderTypeEnum } from './ExternalProviderTypeEnum';
 import {
-    ExternalProviderTypeEnum,
     ExternalProviderTypeEnumFromJSON,
     ExternalProviderTypeEnumFromJSONTyped,
     ExternalProviderTypeEnumToJSON,
-} from './';
+} from './ExternalProviderTypeEnum';
 
 /**
  * This is the minimum information needed to connect an additional provider.
@@ -34,12 +34,20 @@ export interface SeededExternalProvider {
     type: ExternalProviderTypeEnum;
 }
 
+/**
+ * Check if a given object implements the SeededExternalProvider interface.
+ */
+export function instanceOfSeededExternalProvider(value: object): boolean {
+    if (!('type' in value)) return false;
+    return true;
+}
+
 export function SeededExternalProviderFromJSON(json: any): SeededExternalProvider {
     return SeededExternalProviderFromJSONTyped(json, false);
 }
 
 export function SeededExternalProviderFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededExternalProvider {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -49,16 +57,12 @@ export function SeededExternalProviderFromJSONTyped(json: any, ignoreDiscriminat
 }
 
 export function SeededExternalProviderToJSON(value?: SeededExternalProvider | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'type': ExternalProviderTypeEnumToJSON(value.type),
+        'type': ExternalProviderTypeEnumToJSON(value['type']),
     };
 }
-
 

@@ -12,25 +12,27 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is an enum that will highlight something that is externally sourced.
  * @export
- * @enum {string}
  */
-export enum ExternallySourcedEnum {
-    Twitter = 'TWITTER',
-    Medium = 'MEDIUM',
-    LinkedIn = 'LINKED_IN',
-    Instagram = 'INSTAGRAM',
-    Facebook = 'FACEBOOK',
-    Reddit = 'REDDIT',
-    Discord = 'DISCORD',
-    BitBucket = 'BIT_BUCKET',
-    GitLab = 'GIT_LAB',
-    GitHub = 'GIT_HUB',
-    Slack = 'SLACK',
-    Mailgun = 'MAILGUN'
-}
+export const ExternallySourcedEnum = {
+    Twitter: 'TWITTER',
+    Medium: 'MEDIUM',
+    LinkedIn: 'LINKED_IN',
+    Instagram: 'INSTAGRAM',
+    Facebook: 'FACEBOOK',
+    Reddit: 'REDDIT',
+    Discord: 'DISCORD',
+    BitBucket: 'BIT_BUCKET',
+    GitLab: 'GIT_LAB',
+    GitHub: 'GIT_HUB',
+    Slack: 'SLACK',
+    Mailgun: 'MAILGUN'
+} as const;
+export type ExternallySourcedEnum = typeof ExternallySourcedEnum[keyof typeof ExternallySourcedEnum];
+
 
 export function ExternallySourcedEnumFromJSON(json: any): ExternallySourcedEnum {
     return ExternallySourcedEnumFromJSONTyped(json, false);

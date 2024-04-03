@@ -12,25 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExternalProviderProfileData,
+} from './EmbeddedModelSchema';
+import type { ExternalProviderProfileData } from './ExternalProviderProfileData';
+import {
     ExternalProviderProfileDataFromJSON,
     ExternalProviderProfileDataFromJSONTyped,
     ExternalProviderProfileDataToJSON,
-    ExternalProviderTypeEnum,
+} from './ExternalProviderProfileData';
+import type { ExternalProviderTypeEnum } from './ExternalProviderTypeEnum';
+import {
     ExternalProviderTypeEnumFromJSON,
     ExternalProviderTypeEnumFromJSONTyped,
     ExternalProviderTypeEnumToJSON,
-    GroupedTimestamp,
+} from './ExternalProviderTypeEnum';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * I know that profileData and user_id have differeing casing but they are done because they map to Auth0's projeecties.
@@ -100,49 +106,56 @@ export interface ExternalProvider {
     isSocial?: boolean;
 }
 
+/**
+ * Check if a given object implements the ExternalProvider interface.
+ */
+export function instanceOfExternalProvider(value: object): boolean {
+    if (!('type' in value)) return false;
+    if (!('userId' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    return true;
+}
+
 export function ExternalProviderFromJSON(json: any): ExternalProvider {
     return ExternalProviderFromJSONTyped(json, false);
 }
 
 export function ExternalProviderFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExternalProvider {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'type': ExternalProviderTypeEnumFromJSON(json['type']),
         'userId': json['user_id'],
-        'accessToken': !exists(json, 'access_token') ? undefined : json['access_token'],
-        'expiresIn': !exists(json, 'expires_in') ? undefined : json['expires_in'],
+        'accessToken': json['access_token'] == null ? undefined : json['access_token'],
+        'expiresIn': json['expires_in'] == null ? undefined : json['expires_in'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'profileData': !exists(json, 'profileData') ? undefined : ExternalProviderProfileDataFromJSON(json['profileData']),
-        'connection': !exists(json, 'connection') ? undefined : json['connection'],
-        'isSocial': !exists(json, 'isSocial') ? undefined : json['isSocial'],
+        'profileData': json['profileData'] == null ? undefined : ExternalProviderProfileDataFromJSON(json['profileData']),
+        'connection': json['connection'] == null ? undefined : json['connection'],
+        'isSocial': json['isSocial'] == null ? undefined : json['isSocial'],
     };
 }
 
 export function ExternalProviderToJSON(value?: ExternalProvider | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'type': ExternalProviderTypeEnumToJSON(value.type),
-        'user_id': value.userId,
-        'access_token': value.accessToken,
-        'expires_in': value.expiresIn,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'profileData': ExternalProviderProfileDataToJSON(value.profileData),
-        'connection': value.connection,
-        'isSocial': value.isSocial,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'type': ExternalProviderTypeEnumToJSON(value['type']),
+        'user_id': value['userId'],
+        'access_token': value['accessToken'],
+        'expires_in': value['expiresIn'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'profileData': ExternalProviderProfileDataToJSON(value['profileData']),
+        'connection': value['connection'],
+        'isSocial': value['isSocial'],
     };
 }
-
 

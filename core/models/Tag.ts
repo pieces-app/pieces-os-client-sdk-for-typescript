@@ -12,41 +12,55 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedPersons,
+} from './FlattenedAssets';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
     FlattenedPersonsToJSON,
-    GroupedTimestamp,
+} from './FlattenedPersons';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    Relationship,
+} from './MechanismEnum';
+import type { Relationship } from './Relationship';
+import {
     RelationshipFromJSON,
     RelationshipFromJSONTyped,
     RelationshipToJSON,
-    Score,
+} from './Relationship';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    TagCategoryEnum,
+} from './Score';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * This represents a fully polinated Tag, that is either attached to an asset or a format that adds additional information "tags" to describe itself.Helps improve Search and other contextual information that is useful for the user.
@@ -134,55 +148,63 @@ export interface Tag {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the Tag interface.
+ */
+export function instanceOfTag(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('text' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    if (!('category' in value)) return false;
+    return true;
+}
+
 export function TagFromJSON(json: any): Tag {
     return TagFromJSONTyped(json, false);
 }
 
 export function TagFromJSONTyped(json: any, ignoreDiscriminator: boolean): Tag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'text': json['text'],
-        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'mechanisms': json['mechanisms'] == null ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'category': TagCategoryEnumFromJSON(json['category']),
-        'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
-        'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'relationship': json['relationship'] == null ? undefined : RelationshipFromJSON(json['relationship']),
+        'interactions': json['interactions'] == null ? undefined : json['interactions'],
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function TagToJSON(value?: Tag | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'text': value.text,
-        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'category': TagCategoryEnumToJSON(value.category),
-        'relationship': RelationshipToJSON(value.relationship),
-        'interactions': value.interactions,
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'text': value['text'],
+        'mechanisms': value['mechanisms'] == null ? undefined : (mapValues(value['mechanisms'], MechanismEnumToJSON)),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'category': TagCategoryEnumToJSON(value['category']),
+        'relationship': RelationshipToJSON(value['relationship']),
+        'interactions': value['interactions'],
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

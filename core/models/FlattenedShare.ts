@@ -12,37 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AccessEnum } from './AccessEnum';
 import {
-    AccessEnum,
     AccessEnumFromJSON,
     AccessEnumFromJSONTyped,
     AccessEnumToJSON,
-    Accessors,
+} from './AccessEnum';
+import type { Accessors } from './Accessors';
+import {
     AccessorsFromJSON,
     AccessorsFromJSONTyped,
     AccessorsToJSON,
-    EmbeddedModelSchema,
+} from './Accessors';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedDistributions,
+} from './FlattenedAssets';
+import type { FlattenedDistributions } from './FlattenedDistributions';
+import {
     FlattenedDistributionsFromJSON,
     FlattenedDistributionsFromJSONTyped,
     FlattenedDistributionsToJSON,
-    GroupedTimestamp,
+} from './FlattenedDistributions';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Score,
+} from './GroupedTimestamp';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a dag safe version of the Share.
@@ -132,55 +144,64 @@ export interface FlattenedShare {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedShare interface.
+ */
+export function instanceOfFlattenedShare(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('link' in value)) return false;
+    if (!('access' in value)) return false;
+    if (!('accessors' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('_short' in value)) return false;
+    return true;
+}
+
 export function FlattenedShareFromJSON(json: any): FlattenedShare {
     return FlattenedShareFromJSONTyped(json, false);
 }
 
 export function FlattenedShareFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedShare {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'user': json['user'] == null ? undefined : json['user'],
         'link': json['link'],
         'access': AccessEnumFromJSON(json['access']),
         'accessors': AccessorsFromJSON(json['accessors']),
         'created': GroupedTimestampFromJSON(json['created']),
         '_short': json['short'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'distributions': !exists(json, 'distributions') ? undefined : FlattenedDistributionsFromJSON(json['distributions']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'distributions': json['distributions'] == null ? undefined : FlattenedDistributionsFromJSON(json['distributions']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedShareToJSON(value?: FlattenedShare | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'asset': value.asset,
-        'user': value.user,
-        'link': value.link,
-        'access': AccessEnumToJSON(value.access),
-        'accessors': AccessorsToJSON(value.accessors),
-        'created': GroupedTimestampToJSON(value.created),
-        'short': value._short,
-        'name': value.name,
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'distributions': FlattenedDistributionsToJSON(value.distributions),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'asset': value['asset'],
+        'user': value['user'],
+        'link': value['link'],
+        'access': AccessEnumToJSON(value['access']),
+        'accessors': AccessorsToJSON(value['accessors']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'short': value['_short'],
+        'name': value['name'],
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'distributions': FlattenedDistributionsToJSON(value['distributions']),
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

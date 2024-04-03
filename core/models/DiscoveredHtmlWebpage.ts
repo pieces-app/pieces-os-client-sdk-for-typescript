@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { DiscoveredAssets } from './DiscoveredAssets';
 import {
-    DiscoveredAssets,
     DiscoveredAssetsFromJSON,
     DiscoveredAssetsFromJSONTyped,
     DiscoveredAssetsToJSON,
-    EmbeddedModelSchema,
+} from './DiscoveredAssets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will return assets that were extracted from the html webpage. This will contain the original url so you can double check the results wtih the results you passed in, but it will remain in the same order that it was passed in if used within the /discover/discover/html/webpage endpoint.
@@ -50,35 +52,40 @@ export interface DiscoveredHtmlWebpage {
     url: string;
 }
 
+/**
+ * Check if a given object implements the DiscoveredHtmlWebpage interface.
+ */
+export function instanceOfDiscoveredHtmlWebpage(value: object): boolean {
+    if (!('assets' in value)) return false;
+    if (!('url' in value)) return false;
+    return true;
+}
+
 export function DiscoveredHtmlWebpageFromJSON(json: any): DiscoveredHtmlWebpage {
     return DiscoveredHtmlWebpageFromJSONTyped(json, false);
 }
 
 export function DiscoveredHtmlWebpageFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredHtmlWebpage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'assets': DiscoveredAssetsFromJSON(json['assets']),
         'url': json['url'],
     };
 }
 
 export function DiscoveredHtmlWebpageToJSON(value?: DiscoveredHtmlWebpage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'assets': DiscoveredAssetsToJSON(value.assets),
-        'url': value.url,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assets': DiscoveredAssetsToJSON(value['assets']),
+        'url': value['url'],
     };
 }
-
 

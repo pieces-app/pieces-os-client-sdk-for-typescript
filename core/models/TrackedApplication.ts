@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { ApplicationNameEnum } from './ApplicationNameEnum';
 import {
-    ApplicationNameEnum,
     ApplicationNameEnumFromJSON,
     ApplicationNameEnumFromJSONTyped,
     ApplicationNameEnumToJSON,
-    EmbeddedModelSchema,
+} from './ApplicationNameEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PlatformEnum,
+} from './EmbeddedModelSchema';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-} from './';
+} from './PlatformEnum';
 
 /**
  * A Model to describe what application a format/analytics event originated.
@@ -72,41 +76,48 @@ export interface TrackedApplication {
     automaticUnload?: boolean;
 }
 
+/**
+ * Check if a given object implements the TrackedApplication interface.
+ */
+export function instanceOfTrackedApplication(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('name' in value)) return false;
+    if (!('version' in value)) return false;
+    if (!('platform' in value)) return false;
+    return true;
+}
+
 export function TrackedApplicationFromJSON(json: any): TrackedApplication {
     return TrackedApplicationFromJSONTyped(json, false);
 }
 
 export function TrackedApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedApplication {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'name': ApplicationNameEnumFromJSON(json['name']),
         'version': json['version'],
         'platform': PlatformEnumFromJSON(json['platform']),
-        'automaticUnload': !exists(json, 'automaticUnload') ? undefined : json['automaticUnload'],
+        'automaticUnload': json['automaticUnload'] == null ? undefined : json['automaticUnload'],
     };
 }
 
 export function TrackedApplicationToJSON(value?: TrackedApplication | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'name': ApplicationNameEnumToJSON(value.name),
-        'version': value.version,
-        'platform': PlatformEnumToJSON(value.platform),
-        'automaticUnload': value.automaticUnload,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'name': ApplicationNameEnumToJSON(value['name']),
+        'version': value['version'],
+        'platform': PlatformEnumToJSON(value['platform']),
+        'automaticUnload': value['automaticUnload'],
     };
 }
-
 

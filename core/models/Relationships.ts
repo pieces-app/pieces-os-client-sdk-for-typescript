@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Relationship } from './Relationship';
 import {
-    Relationship,
     RelationshipFromJSON,
     RelationshipFromJSONTyped,
     RelationshipToJSON,
-} from './';
+} from './Relationship';
 
 /**
  * 
@@ -34,12 +34,20 @@ export interface Relationships {
     iterable: Array<Relationship>;
 }
 
+/**
+ * Check if a given object implements the Relationships interface.
+ */
+export function instanceOfRelationships(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function RelationshipsFromJSON(json: any): Relationships {
     return RelationshipsFromJSONTyped(json, false);
 }
 
 export function RelationshipsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Relationships {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -49,16 +57,12 @@ export function RelationshipsFromJSONTyped(json: any, ignoreDiscriminator: boole
 }
 
 export function RelationshipsToJSON(value?: Relationships | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(RelationshipToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(RelationshipToJSON)),
     };
 }
-
 

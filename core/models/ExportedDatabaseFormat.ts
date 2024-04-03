@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -46,35 +46,40 @@ export interface ExportedDatabaseFormat {
     raw: Array<number>;
 }
 
+/**
+ * Check if a given object implements the ExportedDatabaseFormat interface.
+ */
+export function instanceOfExportedDatabaseFormat(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('raw' in value)) return false;
+    return true;
+}
+
 export function ExportedDatabaseFormatFromJSON(json: any): ExportedDatabaseFormat {
     return ExportedDatabaseFormatFromJSONTyped(json, false);
 }
 
 export function ExportedDatabaseFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportedDatabaseFormat {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'raw': json['raw'],
     };
 }
 
 export function ExportedDatabaseFormatToJSON(value?: ExportedDatabaseFormat | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'raw': value.raw,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'raw': value['raw'],
     };
 }
-
 

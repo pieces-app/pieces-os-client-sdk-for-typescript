@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedConversationEventRenameMetadata,
+} from './EmbeddedModelSchema';
+import type { TrackedConversationEventRenameMetadata } from './TrackedConversationEventRenameMetadata';
+import {
     TrackedConversationEventRenameMetadataFromJSON,
     TrackedConversationEventRenameMetadataFromJSONTyped,
     TrackedConversationEventRenameMetadataToJSON,
-} from './';
+} from './TrackedConversationEventRenameMetadata';
 
 /**
  * This is the metadata for the the ConversationEvent
@@ -44,33 +46,36 @@ export interface TrackedConversationEventMetadata {
     rename?: TrackedConversationEventRenameMetadata;
 }
 
+/**
+ * Check if a given object implements the TrackedConversationEventMetadata interface.
+ */
+export function instanceOfTrackedConversationEventMetadata(value: object): boolean {
+    return true;
+}
+
 export function TrackedConversationEventMetadataFromJSON(json: any): TrackedConversationEventMetadata {
     return TrackedConversationEventMetadataFromJSONTyped(json, false);
 }
 
 export function TrackedConversationEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'rename': !exists(json, 'rename') ? undefined : TrackedConversationEventRenameMetadataFromJSON(json['rename']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'rename': json['rename'] == null ? undefined : TrackedConversationEventRenameMetadataFromJSON(json['rename']),
     };
 }
 
 export function TrackedConversationEventMetadataToJSON(value?: TrackedConversationEventMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'rename': TrackedConversationEventRenameMetadataToJSON(value.rename),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'rename': TrackedConversationEventRenameMetadataToJSON(value['rename']),
     };
 }
-
 

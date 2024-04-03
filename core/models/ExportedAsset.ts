@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { FileFormat } from './FileFormat';
 import {
-    FileFormat,
     FileFormatFromJSON,
     FileFormatFromJSONTyped,
     FileFormatToJSON,
-    GroupedTimestamp,
+} from './FileFormat';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * This is a model for a minimum exported version of an asset.
@@ -32,6 +34,7 @@ import {
 export interface ExportedAsset {
     /**
      * this is the title of the asset
+     * 
      * @type {string}
      * @memberof ExportedAsset
      */
@@ -56,12 +59,23 @@ export interface ExportedAsset {
     raw: FileFormat;
 }
 
+/**
+ * Check if a given object implements the ExportedAsset interface.
+ */
+export function instanceOfExportedAsset(value: object): boolean {
+    if (!('name' in value)) return false;
+    if (!('description' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('raw' in value)) return false;
+    return true;
+}
+
 export function ExportedAssetFromJSON(json: any): ExportedAsset {
     return ExportedAssetFromJSONTyped(json, false);
 }
 
 export function ExportedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportedAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -74,19 +88,15 @@ export function ExportedAssetFromJSONTyped(json: any, ignoreDiscriminator: boole
 }
 
 export function ExportedAssetToJSON(value?: ExportedAsset | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'name': value.name,
-        'description': value.description,
-        'created': GroupedTimestampToJSON(value.created),
-        'raw': FileFormatToJSON(value.raw),
+        'name': value['name'],
+        'description': value['description'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'raw': FileFormatToJSON(value['raw']),
     };
 }
-
 

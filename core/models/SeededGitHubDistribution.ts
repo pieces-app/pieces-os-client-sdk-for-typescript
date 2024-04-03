@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededGitHubGistDistribution,
+} from './EmbeddedModelSchema';
+import type { SeededGitHubGistDistribution } from './SeededGitHubGistDistribution';
+import {
     SeededGitHubGistDistributionFromJSON,
     SeededGitHubGistDistributionFromJSONTyped,
     SeededGitHubGistDistributionToJSON,
-} from './';
+} from './SeededGitHubGistDistribution';
 
 /**
  * 
@@ -44,33 +46,36 @@ export interface SeededGitHubDistribution {
     gist?: SeededGitHubGistDistribution;
 }
 
+/**
+ * Check if a given object implements the SeededGitHubDistribution interface.
+ */
+export function instanceOfSeededGitHubDistribution(value: object): boolean {
+    return true;
+}
+
 export function SeededGitHubDistributionFromJSON(json: any): SeededGitHubDistribution {
     return SeededGitHubDistributionFromJSONTyped(json, false);
 }
 
 export function SeededGitHubDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededGitHubDistribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'gist': !exists(json, 'gist') ? undefined : SeededGitHubGistDistributionFromJSON(json['gist']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'gist': json['gist'] == null ? undefined : SeededGitHubGistDistributionFromJSON(json['gist']),
     };
 }
 
 export function SeededGitHubDistributionToJSON(value?: SeededGitHubDistribution | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'gist': SeededGitHubGistDistributionToJSON(value.gist),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'gist': SeededGitHubGistDistributionToJSON(value['gist']),
     };
 }
-
 

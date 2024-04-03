@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { CodeAnalysis } from './CodeAnalysis';
 import {
-    CodeAnalysis,
     CodeAnalysisFromJSON,
     CodeAnalysisFromJSONTyped,
     CodeAnalysisToJSON,
-    EmbeddedModelSchema,
+} from './CodeAnalysis';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedImageAnalysis,
+} from './EmbeddedModelSchema';
+import type { FlattenedImageAnalysis } from './FlattenedImageAnalysis';
+import {
     FlattenedImageAnalysisFromJSON,
     FlattenedImageAnalysisFromJSONTyped,
     FlattenedImageAnalysisToJSON,
-} from './';
+} from './FlattenedImageAnalysis';
 
 /**
  * 
@@ -66,39 +70,44 @@ export interface FlattenedAnalysis {
     image?: FlattenedImageAnalysis;
 }
 
+/**
+ * Check if a given object implements the FlattenedAnalysis interface.
+ */
+export function instanceOfFlattenedAnalysis(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('format' in value)) return false;
+    return true;
+}
+
 export function FlattenedAnalysisFromJSON(json: any): FlattenedAnalysis {
     return FlattenedAnalysisFromJSONTyped(json, false);
 }
 
 export function FlattenedAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'code': !exists(json, 'code') ? undefined : CodeAnalysisFromJSON(json['code']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'code': json['code'] == null ? undefined : CodeAnalysisFromJSON(json['code']),
         'id': json['id'],
         'format': json['format'],
-        'image': !exists(json, 'image') ? undefined : FlattenedImageAnalysisFromJSON(json['image']),
+        'image': json['image'] == null ? undefined : FlattenedImageAnalysisFromJSON(json['image']),
     };
 }
 
 export function FlattenedAnalysisToJSON(value?: FlattenedAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code': CodeAnalysisToJSON(value.code),
-        'id': value.id,
-        'format': value.format,
-        'image': FlattenedImageAnalysisToJSON(value.image),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code': CodeAnalysisToJSON(value['code']),
+        'id': value['id'],
+        'format': value['format'],
+        'image': FlattenedImageAnalysisToJSON(value['image']),
     };
 }
-
 

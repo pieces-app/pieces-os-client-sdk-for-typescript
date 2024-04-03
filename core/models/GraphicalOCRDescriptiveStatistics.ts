@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalOCRDescriptiveStatisticsConfidence,
+} from './EmbeddedModelSchema';
+import type { GraphicalOCRDescriptiveStatisticsConfidence } from './GraphicalOCRDescriptiveStatisticsConfidence';
+import {
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSON,
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped,
     GraphicalOCRDescriptiveStatisticsConfidenceToJSON,
-} from './';
+} from './GraphicalOCRDescriptiveStatisticsConfidence';
 
 /**
  * Model for monitoring and evaluating the OCR feature
@@ -80,17 +82,31 @@ export interface GraphicalOCRDescriptiveStatistics {
     duration: string;
 }
 
+/**
+ * Check if a given object implements the GraphicalOCRDescriptiveStatistics interface.
+ */
+export function instanceOfGraphicalOCRDescriptiveStatistics(value: object): boolean {
+    if (!('asset' in value)) return false;
+    if (!('user' in value)) return false;
+    if (!('model' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('os' in value)) return false;
+    if (!('confidence' in value)) return false;
+    if (!('duration' in value)) return false;
+    return true;
+}
+
 export function GraphicalOCRDescriptiveStatisticsFromJSON(json: any): GraphicalOCRDescriptiveStatistics {
     return GraphicalOCRDescriptiveStatisticsFromJSONTyped(json, false);
 }
 
 export function GraphicalOCRDescriptiveStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRDescriptiveStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
         'user': json['user'],
         'model': json['model'],
@@ -102,23 +118,19 @@ export function GraphicalOCRDescriptiveStatisticsFromJSONTyped(json: any, ignore
 }
 
 export function GraphicalOCRDescriptiveStatisticsToJSON(value?: GraphicalOCRDescriptiveStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': value.asset,
-        'user': value.user,
-        'model': value.model,
-        'created': value.created,
-        'os': value.os,
-        'confidence': GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value.confidence),
-        'duration': value.duration,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': value['asset'],
+        'user': value['user'],
+        'model': value['model'],
+        'created': value['created'],
+        'os': value['os'],
+        'confidence': GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value['confidence']),
+        'duration': value['duration'],
     };
 }
-
 

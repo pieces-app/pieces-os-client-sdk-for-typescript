@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Seeds,
+} from './EmbeddedModelSchema';
+import type { Seeds } from './Seeds';
+import {
     SeedsFromJSON,
     SeedsFromJSONTyped,
     SeedsToJSON,
-} from './';
+} from './Seeds';
 
 /**
  * This is an out body for the /machine_learning/text/technical_processing/generators/personification endpoint.
@@ -46,33 +48,37 @@ export interface OnboardedPersonaDetails {
     seeds: Seeds;
 }
 
+/**
+ * Check if a given object implements the OnboardedPersonaDetails interface.
+ */
+export function instanceOfOnboardedPersonaDetails(value: object): boolean {
+    if (!('seeds' in value)) return false;
+    return true;
+}
+
 export function OnboardedPersonaDetailsFromJSON(json: any): OnboardedPersonaDetails {
     return OnboardedPersonaDetailsFromJSONTyped(json, false);
 }
 
 export function OnboardedPersonaDetailsFromJSONTyped(json: any, ignoreDiscriminator: boolean): OnboardedPersonaDetails {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seeds': SeedsFromJSON(json['seeds']),
     };
 }
 
 export function OnboardedPersonaDetailsToJSON(value?: OnboardedPersonaDetails | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seeds': SeedsToJSON(value.seeds),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seeds': SeedsToJSON(value['seeds']),
     };
 }
-
 

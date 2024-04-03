@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedOCRAnalysis,
+} from './EmbeddedModelSchema';
+import type { FlattenedOCRAnalysis } from './FlattenedOCRAnalysis';
+import {
     FlattenedOCRAnalysisFromJSON,
     FlattenedOCRAnalysisFromJSONTyped,
     FlattenedOCRAnalysisToJSON,
-} from './';
+} from './FlattenedOCRAnalysis';
 
 /**
  * 
@@ -56,37 +58,42 @@ export interface FlattenedImageAnalysis {
     analysis: string;
 }
 
+/**
+ * Check if a given object implements the FlattenedImageAnalysis interface.
+ */
+export function instanceOfFlattenedImageAnalysis(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('analysis' in value)) return false;
+    return true;
+}
+
 export function FlattenedImageAnalysisFromJSON(json: any): FlattenedImageAnalysis {
     return FlattenedImageAnalysisFromJSONTyped(json, false);
 }
 
 export function FlattenedImageAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedImageAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'ocr': !exists(json, 'ocr') ? undefined : FlattenedOCRAnalysisFromJSON(json['ocr']),
+        'ocr': json['ocr'] == null ? undefined : FlattenedOCRAnalysisFromJSON(json['ocr']),
         'analysis': json['analysis'],
     };
 }
 
 export function FlattenedImageAnalysisToJSON(value?: FlattenedImageAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'ocr': FlattenedOCRAnalysisToJSON(value.ocr),
-        'analysis': value.analysis,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'ocr': FlattenedOCRAnalysisToJSON(value['ocr']),
+        'analysis': value['analysis'],
     };
 }
-
 

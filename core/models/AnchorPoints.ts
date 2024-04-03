@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AnchorPoint } from './AnchorPoint';
 import {
-    AnchorPoint,
     AnchorPointFromJSON,
     AnchorPointFromJSONTyped,
     AnchorPointToJSON,
-    EmbeddedModelSchema,
+} from './AnchorPoint';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the plural of AnchorPoint.
@@ -60,37 +64,41 @@ export interface AnchorPoints {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the AnchorPoints interface.
+ */
+export function instanceOfAnchorPoints(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function AnchorPointsFromJSON(json: any): AnchorPoints {
     return AnchorPointsFromJSONTyped(json, false);
 }
 
 export function AnchorPointsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnchorPoints {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AnchorPointFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function AnchorPointsToJSON(value?: AnchorPoints | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AnchorPointToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AnchorPointToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

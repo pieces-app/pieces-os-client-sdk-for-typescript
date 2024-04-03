@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { OAuthAccount } from './OAuthAccount';
 import {
-    OAuthAccount,
     OAuthAccountFromJSON,
     OAuthAccountFromJSONTyped,
     OAuthAccountToJSON,
-    OAuthToken,
+} from './OAuthAccount';
+import type { OAuthToken } from './OAuthToken';
+import {
     OAuthTokenFromJSON,
     OAuthTokenFromJSONTyped,
     OAuthTokenToJSON,
-} from './';
+} from './OAuthToken';
 
 /**
  * A model to group all of the properties associated with OAuthGroup
@@ -44,33 +46,36 @@ export interface OAuthGroup {
     account?: OAuthAccount;
 }
 
+/**
+ * Check if a given object implements the OAuthGroup interface.
+ */
+export function instanceOfOAuthGroup(value: object): boolean {
+    return true;
+}
+
 export function OAuthGroupFromJSON(json: any): OAuthGroup {
     return OAuthGroupFromJSONTyped(json, false);
 }
 
 export function OAuthGroupFromJSONTyped(json: any, ignoreDiscriminator: boolean): OAuthGroup {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'token': !exists(json, 'token') ? undefined : OAuthTokenFromJSON(json['token']),
-        'account': !exists(json, 'account') ? undefined : OAuthAccountFromJSON(json['account']),
+        'token': json['token'] == null ? undefined : OAuthTokenFromJSON(json['token']),
+        'account': json['account'] == null ? undefined : OAuthAccountFromJSON(json['account']),
     };
 }
 
 export function OAuthGroupToJSON(value?: OAuthGroup | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'token': OAuthTokenToJSON(value.token),
-        'account': OAuthAccountToJSON(value.account),
+        'token': OAuthTokenToJSON(value['token']),
+        'account': OAuthAccountToJSON(value['account']),
     };
 }
-
 

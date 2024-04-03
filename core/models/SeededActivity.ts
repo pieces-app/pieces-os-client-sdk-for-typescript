@@ -12,37 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    MechanismEnum,
+} from './Application';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
+} from './MechanismEnum';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedConversation,
+} from './ReferencedAsset';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    ReferencedFormat,
+} from './ReferencedConversation';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-    ReferencedUser,
+} from './ReferencedFormat';
+import type { ReferencedUser } from './ReferencedUser';
+import {
     ReferencedUserFromJSON,
     ReferencedUserFromJSONTyped,
     ReferencedUserToJSON,
-    SeededConnectorTracking,
+} from './ReferencedUser';
+import type { SeededConnectorTracking } from './SeededConnectorTracking';
+import {
     SeededConnectorTrackingFromJSON,
     SeededConnectorTrackingFromJSONTyped,
     SeededConnectorTrackingToJSON,
-} from './';
+} from './SeededConnectorTracking';
 
 /**
  * This is the preseed to a full blown Activity.
@@ -100,43 +112,48 @@ export interface SeededActivity {
     conversation?: ReferencedConversation;
 }
 
+/**
+ * Check if a given object implements the SeededActivity interface.
+ */
+export function instanceOfSeededActivity(value: object): boolean {
+    if (!('event' in value)) return false;
+    if (!('application' in value)) return false;
+    return true;
+}
+
 export function SeededActivityFromJSON(json: any): SeededActivity {
     return SeededActivityFromJSONTyped(json, false);
 }
 
 export function SeededActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededActivity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'event': SeededConnectorTrackingFromJSON(json['event']),
         'application': ApplicationFromJSON(json['application']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'user': !exists(json, 'user') ? undefined : ReferencedUserFromJSON(json['user']),
-        'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'user': json['user'] == null ? undefined : ReferencedUserFromJSON(json['user']),
+        'format': json['format'] == null ? undefined : ReferencedFormatFromJSON(json['format']),
+        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
     };
 }
 
 export function SeededActivityToJSON(value?: SeededActivity | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'event': SeededConnectorTrackingToJSON(value.event),
-        'application': ApplicationToJSON(value.application),
-        'asset': ReferencedAssetToJSON(value.asset),
-        'user': ReferencedUserToJSON(value.user),
-        'format': ReferencedFormatToJSON(value.format),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'conversation': ReferencedConversationToJSON(value.conversation),
+        'event': SeededConnectorTrackingToJSON(value['event']),
+        'application': ApplicationToJSON(value['application']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'user': ReferencedUserToJSON(value['user']),
+        'format': ReferencedFormatToJSON(value['format']),
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
     };
 }
-
 

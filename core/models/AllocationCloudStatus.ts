@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AllocationStatusEnum } from './AllocationStatusEnum';
 import {
-    AllocationStatusEnum,
     AllocationStatusEnumFromJSON,
     AllocationStatusEnumFromJSONTyped,
     AllocationStatusEnumToJSON,
-    EmbeddedModelSchema,
+} from './AllocationStatusEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -44,33 +46,37 @@ export interface AllocationCloudStatus {
     cloud: AllocationStatusEnum;
 }
 
+/**
+ * Check if a given object implements the AllocationCloudStatus interface.
+ */
+export function instanceOfAllocationCloudStatus(value: object): boolean {
+    if (!('cloud' in value)) return false;
+    return true;
+}
+
 export function AllocationCloudStatusFromJSON(json: any): AllocationCloudStatus {
     return AllocationCloudStatusFromJSONTyped(json, false);
 }
 
 export function AllocationCloudStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): AllocationCloudStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'cloud': AllocationStatusEnumFromJSON(json['cloud']),
     };
 }
 
 export function AllocationCloudStatusToJSON(value?: AllocationCloudStatus | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'cloud': AllocationStatusEnumToJSON(value.cloud),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'cloud': AllocationStatusEnumToJSON(value['cloud']),
     };
 }
-
 

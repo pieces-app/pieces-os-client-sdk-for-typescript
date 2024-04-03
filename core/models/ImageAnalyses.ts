@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ImageAnalysis,
+} from './EmbeddedModelSchema';
+import type { ImageAnalysis } from './ImageAnalysis';
+import {
     ImageAnalysisFromJSON,
     ImageAnalysisFromJSONTyped,
     ImageAnalysisToJSON,
-} from './';
+} from './ImageAnalysis';
 
 /**
  * 
@@ -44,33 +46,37 @@ export interface ImageAnalyses {
     iterable: Array<ImageAnalysis>;
 }
 
+/**
+ * Check if a given object implements the ImageAnalyses interface.
+ */
+export function instanceOfImageAnalyses(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function ImageAnalysesFromJSON(json: any): ImageAnalyses {
     return ImageAnalysesFromJSONTyped(json, false);
 }
 
 export function ImageAnalysesFromJSONTyped(json: any, ignoreDiscriminator: boolean): ImageAnalyses {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ImageAnalysisFromJSON)),
     };
 }
 
 export function ImageAnalysesToJSON(value?: ImageAnalyses | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ImageAnalysisToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ImageAnalysisToJSON)),
     };
 }
-
 

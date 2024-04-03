@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Format,
+} from './EmbeddedModelSchema';
+import type { Format } from './Format';
+import {
     FormatFromJSON,
     FormatFromJSONTyped,
     FormatToJSON,
-} from './';
+} from './Format';
 
 /**
  * A base class for a collection of formats and some additional meta properties.
@@ -44,33 +46,37 @@ export interface Formats {
     iterable: Array<Format>;
 }
 
+/**
+ * Check if a given object implements the Formats interface.
+ */
+export function instanceOfFormats(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function FormatsFromJSON(json: any): Formats {
     return FormatsFromJSONTyped(json, false);
 }
 
 export function FormatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Formats {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(FormatFromJSON)),
     };
 }
 
 export function FormatsToJSON(value?: Formats | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(FormatToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(FormatToJSON)),
     };
 }
-
 

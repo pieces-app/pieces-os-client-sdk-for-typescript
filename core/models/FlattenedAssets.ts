@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAsset,
+} from './EmbeddedModelSchema';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    Score,
+} from './ReferencedAsset';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * A collection of Assets specific to the authenticated user. [DAG Compatible - Directed Acyclic Graph Data Structure]
@@ -64,37 +68,40 @@ export interface FlattenedAssets {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedAssets interface.
+ */
+export function instanceOfFlattenedAssets(value: object): boolean {
+    return true;
+}
+
 export function FlattenedAssetsFromJSON(json: any): FlattenedAssets {
     return FlattenedAssetsFromJSONTyped(json, false);
 }
 
 export function FlattenedAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAssets {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'iterable': !exists(json, 'iterable') ? undefined : ((json['iterable'] as Array<any>).map(ReferencedAssetFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'iterable': json['iterable'] == null ? undefined : ((json['iterable'] as Array<any>).map(ReferencedAssetFromJSON)),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedAssetsToJSON(value?: FlattenedAssets | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(ReferencedAssetToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': value['iterable'] == null ? undefined : ((value['iterable'] as Array<any>).map(ReferencedAssetToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

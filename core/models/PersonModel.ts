@@ -12,25 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    ReferencedAnnotation,
+} from './GroupedTimestamp';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
     ReferencedAnnotationFromJSON,
     ReferencedAnnotationFromJSONTyped,
     ReferencedAnnotationToJSON,
-    ReferencedAsset,
+} from './ReferencedAnnotation';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedModel,
+} from './ReferencedAsset';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-} from './';
+} from './ReferencedModel';
 
 /**
  * This is a PersonSpecific Model. and will let us know for all the assets that get attached to the person if, this person was attached via a model or just attached automatically.
@@ -66,37 +72,40 @@ export interface PersonModel {
     explanation?: ReferencedAnnotation;
 }
 
+/**
+ * Check if a given object implements the PersonModel interface.
+ */
+export function instanceOfPersonModel(value: object): boolean {
+    return true;
+}
+
 export function PersonModelFromJSON(json: any): PersonModel {
     return PersonModelFromJSONTyped(json, false);
 }
 
 export function PersonModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonModel {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'explanation': !exists(json, 'explanation') ? undefined : ReferencedAnnotationFromJSON(json['explanation']),
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'explanation': json['explanation'] == null ? undefined : ReferencedAnnotationFromJSON(json['explanation']),
     };
 }
 
 export function PersonModelToJSON(value?: PersonModel | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'asset': ReferencedAssetToJSON(value.asset),
-        'model': ReferencedModelToJSON(value.model),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'explanation': ReferencedAnnotationToJSON(value.explanation),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'model': ReferencedModelToJSON(value['model']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'explanation': ReferencedAnnotationToJSON(value['explanation']),
     };
 }
-
 

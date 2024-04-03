@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { SeededAssetTag } from './SeededAssetTag';
 import {
-    SeededAssetTag,
     SeededAssetTagFromJSON,
     SeededAssetTagFromJSONTyped,
     SeededAssetTagToJSON,
-} from './';
+} from './SeededAssetTag';
 
 /**
  * 
@@ -34,12 +34,20 @@ export interface SeededAssetTags {
     iterable: Array<SeededAssetTag>;
 }
 
+/**
+ * Check if a given object implements the SeededAssetTags interface.
+ */
+export function instanceOfSeededAssetTags(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function SeededAssetTagsFromJSON(json: any): SeededAssetTags {
     return SeededAssetTagsFromJSONTyped(json, false);
 }
 
 export function SeededAssetTagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetTags {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -49,16 +57,12 @@ export function SeededAssetTagsFromJSONTyped(json: any, ignoreDiscriminator: boo
 }
 
 export function SeededAssetTagsToJSON(value?: SeededAssetTags | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(SeededAssetTagToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededAssetTagToJSON)),
     };
 }
-
 

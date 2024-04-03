@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversation,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversation } from './FlattenedConversation';
+import {
     FlattenedConversationFromJSON,
     FlattenedConversationFromJSONTyped,
     FlattenedConversationToJSON,
-} from './';
+} from './FlattenedConversation';
 
 /**
  * This is a DAG-Safe Minimal version of a Conversation.
@@ -50,35 +52,39 @@ export interface ReferencedConversation {
     reference?: FlattenedConversation;
 }
 
+/**
+ * Check if a given object implements the ReferencedConversation interface.
+ */
+export function instanceOfReferencedConversation(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function ReferencedConversationFromJSON(json: any): ReferencedConversation {
     return ReferencedConversationFromJSONTyped(json, false);
 }
 
 export function ReferencedConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedConversation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedConversationFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedConversationFromJSON(json['reference']),
     };
 }
 
 export function ReferencedConversationToJSON(value?: ReferencedConversation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedConversationToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedConversationToJSON(value['reference']),
     };
 }
-
 

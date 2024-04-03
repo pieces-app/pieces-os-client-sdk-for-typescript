@@ -12,37 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeFragmentClassification,
+} from './EmbeddedModelSchema';
+import type { TLPCodeFragmentClassification } from './TLPCodeFragmentClassification';
+import {
     TLPCodeFragmentClassificationFromJSON,
     TLPCodeFragmentClassificationFromJSONTyped,
     TLPCodeFragmentClassificationToJSON,
-    TLPCodeFragmentDescription,
+} from './TLPCodeFragmentClassification';
+import type { TLPCodeFragmentDescription } from './TLPCodeFragmentDescription';
+import {
     TLPCodeFragmentDescriptionFromJSON,
     TLPCodeFragmentDescriptionFromJSONTyped,
     TLPCodeFragmentDescriptionToJSON,
-    TLPCodeFragmentReclassification,
+} from './TLPCodeFragmentDescription';
+import type { TLPCodeFragmentReclassification } from './TLPCodeFragmentReclassification';
+import {
     TLPCodeFragmentReclassificationFromJSON,
     TLPCodeFragmentReclassificationFromJSONTyped,
     TLPCodeFragmentReclassificationToJSON,
-    TLPCodeFragmentStatistics,
+} from './TLPCodeFragmentReclassification';
+import type { TLPCodeFragmentStatistics } from './TLPCodeFragmentStatistics';
+import {
     TLPCodeFragmentStatisticsFromJSON,
     TLPCodeFragmentStatisticsFromJSONTyped,
     TLPCodeFragmentStatisticsToJSON,
-    TLPCodeFragmentTagify,
+} from './TLPCodeFragmentStatistics';
+import type { TLPCodeFragmentTagify } from './TLPCodeFragmentTagify';
+import {
     TLPCodeFragmentTagifyFromJSON,
     TLPCodeFragmentTagifyFromJSONTyped,
     TLPCodeFragmentTagifyToJSON,
-    TLPCodeSnippetSuggestedInteractions,
+} from './TLPCodeFragmentTagify';
+import type { TLPCodeSnippetSuggestedInteractions } from './TLPCodeSnippetSuggestedInteractions';
+import {
     TLPCodeSnippetSuggestedInteractionsFromJSON,
     TLPCodeSnippetSuggestedInteractionsFromJSONTyped,
     TLPCodeSnippetSuggestedInteractionsToJSON,
-} from './';
+} from './TLPCodeSnippetSuggestedInteractions';
 
 /**
  * 
@@ -94,43 +106,46 @@ export interface TLPCodeSnippetAnalytics {
     description?: TLPCodeFragmentDescription;
 }
 
+/**
+ * Check if a given object implements the TLPCodeSnippetAnalytics interface.
+ */
+export function instanceOfTLPCodeSnippetAnalytics(value: object): boolean {
+    return true;
+}
+
 export function TLPCodeSnippetAnalyticsFromJSON(json: any): TLPCodeSnippetAnalytics {
     return TLPCodeSnippetAnalyticsFromJSONTyped(json, false);
 }
 
 export function TLPCodeSnippetAnalyticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeSnippetAnalytics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'statistics': !exists(json, 'statistics') ? undefined : TLPCodeFragmentStatisticsFromJSON(json['statistics']),
-        'classification': !exists(json, 'classification') ? undefined : TLPCodeFragmentClassificationFromJSON(json['classification']),
-        'reclassification': !exists(json, 'reclassification') ? undefined : TLPCodeFragmentReclassificationFromJSON(json['reclassification']),
-        'suggested': !exists(json, 'suggested') ? undefined : TLPCodeSnippetSuggestedInteractionsFromJSON(json['suggested']),
-        'tagify': !exists(json, 'tagify') ? undefined : TLPCodeFragmentTagifyFromJSON(json['tagify']),
-        'description': !exists(json, 'description') ? undefined : TLPCodeFragmentDescriptionFromJSON(json['description']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'statistics': json['statistics'] == null ? undefined : TLPCodeFragmentStatisticsFromJSON(json['statistics']),
+        'classification': json['classification'] == null ? undefined : TLPCodeFragmentClassificationFromJSON(json['classification']),
+        'reclassification': json['reclassification'] == null ? undefined : TLPCodeFragmentReclassificationFromJSON(json['reclassification']),
+        'suggested': json['suggested'] == null ? undefined : TLPCodeSnippetSuggestedInteractionsFromJSON(json['suggested']),
+        'tagify': json['tagify'] == null ? undefined : TLPCodeFragmentTagifyFromJSON(json['tagify']),
+        'description': json['description'] == null ? undefined : TLPCodeFragmentDescriptionFromJSON(json['description']),
     };
 }
 
 export function TLPCodeSnippetAnalyticsToJSON(value?: TLPCodeSnippetAnalytics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'statistics': TLPCodeFragmentStatisticsToJSON(value.statistics),
-        'classification': TLPCodeFragmentClassificationToJSON(value.classification),
-        'reclassification': TLPCodeFragmentReclassificationToJSON(value.reclassification),
-        'suggested': TLPCodeSnippetSuggestedInteractionsToJSON(value.suggested),
-        'tagify': TLPCodeFragmentTagifyToJSON(value.tagify),
-        'description': TLPCodeFragmentDescriptionToJSON(value.description),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'statistics': TLPCodeFragmentStatisticsToJSON(value['statistics']),
+        'classification': TLPCodeFragmentClassificationToJSON(value['classification']),
+        'reclassification': TLPCodeFragmentReclassificationToJSON(value['reclassification']),
+        'suggested': TLPCodeSnippetSuggestedInteractionsToJSON(value['suggested']),
+        'tagify': TLPCodeFragmentTagifyToJSON(value['tagify']),
+        'description': TLPCodeFragmentDescriptionToJSON(value['description']),
     };
 }
-
 

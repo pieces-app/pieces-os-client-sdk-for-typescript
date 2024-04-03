@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { FlattenedAssets } from './FlattenedAssets';
 import {
-    FlattenedAssets,
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    Space,
+} from './FlattenedAssets';
+import type { Space } from './Space';
+import {
     SpaceFromJSON,
     SpaceFromJSONTyped,
     SpaceToJSON,
-} from './';
+} from './Space';
 
 /**
  * Numbers related to search results
@@ -56,37 +58,40 @@ export interface TrackedAssetsEventSearchMetadataResults {
     space?: Space;
 }
 
+/**
+ * Check if a given object implements the TrackedAssetsEventSearchMetadataResults interface.
+ */
+export function instanceOfTrackedAssetsEventSearchMetadataResults(value: object): boolean {
+    return true;
+}
+
 export function TrackedAssetsEventSearchMetadataResultsFromJSON(json: any): TrackedAssetsEventSearchMetadataResults {
     return TrackedAssetsEventSearchMetadataResultsFromJSONTyped(json, false);
 }
 
 export function TrackedAssetsEventSearchMetadataResultsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetsEventSearchMetadataResults {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fuzzy': !exists(json, 'fuzzy') ? undefined : json['fuzzy'],
-        'exact': !exists(json, 'exact') ? undefined : json['exact'],
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'space': !exists(json, 'space') ? undefined : SpaceFromJSON(json['space']),
+        'fuzzy': json['fuzzy'] == null ? undefined : json['fuzzy'],
+        'exact': json['exact'] == null ? undefined : json['exact'],
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'space': json['space'] == null ? undefined : SpaceFromJSON(json['space']),
     };
 }
 
 export function TrackedAssetsEventSearchMetadataResultsToJSON(value?: TrackedAssetsEventSearchMetadataResults | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'fuzzy': value.fuzzy,
-        'exact': value.exact,
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'space': SpaceToJSON(value.space),
+        'fuzzy': value['fuzzy'],
+        'exact': value['exact'],
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'space': SpaceToJSON(value['space']),
     };
 }
-
 

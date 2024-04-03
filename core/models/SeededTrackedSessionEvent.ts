@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedSessionEventIdentifierDescriptionPairs,
+} from './EmbeddedModelSchema';
+import type { TrackedSessionEventIdentifierDescriptionPairs } from './TrackedSessionEventIdentifierDescriptionPairs';
+import {
     TrackedSessionEventIdentifierDescriptionPairsFromJSON,
     TrackedSessionEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedSessionEventIdentifierDescriptionPairsToJSON,
-} from './';
+} from './TrackedSessionEventIdentifierDescriptionPairs';
 
 /**
  * A simple model to capture a Tracked Session to be send to the Connection API
@@ -44,33 +46,37 @@ export interface SeededTrackedSessionEvent {
     identifierDescriptionPair: TrackedSessionEventIdentifierDescriptionPairs;
 }
 
+/**
+ * Check if a given object implements the SeededTrackedSessionEvent interface.
+ */
+export function instanceOfSeededTrackedSessionEvent(value: object): boolean {
+    if (!('identifierDescriptionPair' in value)) return false;
+    return true;
+}
+
 export function SeededTrackedSessionEventFromJSON(json: any): SeededTrackedSessionEvent {
     return SeededTrackedSessionEventFromJSONTyped(json, false);
 }
 
 export function SeededTrackedSessionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedSessionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'identifierDescriptionPair': TrackedSessionEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
     };
 }
 
 export function SeededTrackedSessionEventToJSON(value?: SeededTrackedSessionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'identifier_description_pair': TrackedSessionEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'identifier_description_pair': TrackedSessionEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
     };
 }
-
 

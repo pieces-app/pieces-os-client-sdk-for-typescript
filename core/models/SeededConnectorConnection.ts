@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTrackedApplication,
+} from './EmbeddedModelSchema';
+import type { SeededTrackedApplication } from './SeededTrackedApplication';
+import {
     SeededTrackedApplicationFromJSON,
     SeededTrackedApplicationFromJSONTyped,
     SeededTrackedApplicationToJSON,
-} from './';
+} from './SeededTrackedApplication';
 
 /**
  * A model that is passed to the context API at bootup
@@ -44,33 +46,37 @@ export interface SeededConnectorConnection {
     application: SeededTrackedApplication;
 }
 
+/**
+ * Check if a given object implements the SeededConnectorConnection interface.
+ */
+export function instanceOfSeededConnectorConnection(value: object): boolean {
+    if (!('application' in value)) return false;
+    return true;
+}
+
 export function SeededConnectorConnectionFromJSON(json: any): SeededConnectorConnection {
     return SeededConnectorConnectionFromJSONTyped(json, false);
 }
 
 export function SeededConnectorConnectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConnectorConnection {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': SeededTrackedApplicationFromJSON(json['application']),
     };
 }
 
 export function SeededConnectorConnectionToJSON(value?: SeededConnectorConnection | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': SeededTrackedApplicationToJSON(value.application),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'application': SeededTrackedApplicationToJSON(value['application']),
     };
 }
-
 

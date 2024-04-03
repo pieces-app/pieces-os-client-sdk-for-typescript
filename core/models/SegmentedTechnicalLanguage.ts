@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SegmentedTechnicalLanguageFragment,
+} from './EmbeddedModelSchema';
+import type { SegmentedTechnicalLanguageFragment } from './SegmentedTechnicalLanguageFragment';
+import {
     SegmentedTechnicalLanguageFragmentFromJSON,
     SegmentedTechnicalLanguageFragmentFromJSONTyped,
     SegmentedTechnicalLanguageFragmentToJSON,
-} from './';
+} from './SegmentedTechnicalLanguageFragment';
 
 /**
  * This is the output model for '/machine_learning/text/technical_language/parsers/segmentation'
@@ -46,33 +48,37 @@ export interface SegmentedTechnicalLanguage {
     iterable: Array<SegmentedTechnicalLanguageFragment>;
 }
 
+/**
+ * Check if a given object implements the SegmentedTechnicalLanguage interface.
+ */
+export function instanceOfSegmentedTechnicalLanguage(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function SegmentedTechnicalLanguageFromJSON(json: any): SegmentedTechnicalLanguage {
     return SegmentedTechnicalLanguageFromJSONTyped(json, false);
 }
 
 export function SegmentedTechnicalLanguageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SegmentedTechnicalLanguage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SegmentedTechnicalLanguageFragmentFromJSON)),
     };
 }
 
 export function SegmentedTechnicalLanguageToJSON(value?: SegmentedTechnicalLanguage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SegmentedTechnicalLanguageFragmentToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SegmentedTechnicalLanguageFragmentToJSON)),
     };
 }
-
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    OCRAnalysis,
+} from './EmbeddedModelSchema';
+import type { OCRAnalysis } from './OCRAnalysis';
+import {
     OCRAnalysisFromJSON,
     OCRAnalysisFromJSONTyped,
     OCRAnalysisToJSON,
-} from './';
+} from './OCRAnalysis';
 
 /**
  * This is a model that represents all the information collected during the processing of an image.
@@ -56,37 +58,42 @@ export interface ImageAnalysis {
     ocr?: OCRAnalysis;
 }
 
+/**
+ * Check if a given object implements the ImageAnalysis interface.
+ */
+export function instanceOfImageAnalysis(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('analysis' in value)) return false;
+    return true;
+}
+
 export function ImageAnalysisFromJSON(json: any): ImageAnalysis {
     return ImageAnalysisFromJSONTyped(json, false);
 }
 
 export function ImageAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): ImageAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'analysis': json['analysis'],
-        'ocr': !exists(json, 'ocr') ? undefined : OCRAnalysisFromJSON(json['ocr']),
+        'ocr': json['ocr'] == null ? undefined : OCRAnalysisFromJSON(json['ocr']),
     };
 }
 
 export function ImageAnalysisToJSON(value?: ImageAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'analysis': value.analysis,
-        'ocr': OCRAnalysisToJSON(value.ocr),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'analysis': value['analysis'],
+        'ocr': OCRAnalysisToJSON(value['ocr']),
     };
 }
-
 

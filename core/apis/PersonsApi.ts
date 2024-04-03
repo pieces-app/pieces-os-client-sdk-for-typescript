@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Person,
+  Persons,
+  SeededPerson,
+} from '../models/index';
 import {
-    Person,
     PersonFromJSON,
     PersonToJSON,
-    Persons,
     PersonsFromJSON,
     PersonsToJSON,
-    SeededPerson,
     SeededPersonFromJSON,
     SeededPersonToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface PersonDisassociateAssetRequest {
     person: string;
@@ -53,13 +55,19 @@ export class PersonsApi extends runtime.BaseAPI {
      * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
      * /persons/{person}/assets/delete/{asset} [POST]
      */
-    async personDisassociateAssetRaw(requestParameters: PersonDisassociateAssetRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateAsset.');
+    async personDisassociateAssetRaw(requestParameters: PersonDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateAsset().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling personDisassociateAsset.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling personDisassociateAsset().'
+            );
         }
 
         const queryParameters: any = {};
@@ -67,11 +75,11 @@ export class PersonsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/persons/{person}/assets/delete/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/persons/{person}/assets/delete/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -80,19 +88,19 @@ export class PersonsApi extends runtime.BaseAPI {
      * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
      * /persons/{person}/assets/delete/{asset} [POST]
      */
-    async personDisassociateAsset(requestParameters: PersonDisassociateAssetRequest): Promise<void> {
-        await this.personDisassociateAssetRaw(requestParameters);
+    async personDisassociateAsset(requestParameters: PersonDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personDisassociateAssetRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will create a new person.
      * /persons/create [POST]
      */
-    async personsCreateNewPersonRaw(requestParameters: PersonsCreateNewPersonRequest): Promise<runtime.ApiResponse<Person>> {
+    async personsCreateNewPersonRaw(requestParameters: PersonsCreateNewPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Person>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -104,8 +112,8 @@ export class PersonsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededPersonToJSON(requestParameters.seededPerson),
-        });
+            body: SeededPersonToJSON(requestParameters['seededPerson']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PersonFromJSON(jsonValue));
     }
@@ -114,8 +122,8 @@ export class PersonsApi extends runtime.BaseAPI {
      * This will create a new person.
      * /persons/create [POST]
      */
-    async personsCreateNewPerson(requestParameters: PersonsCreateNewPersonRequest): Promise<Person> {
-        const response = await this.personsCreateNewPersonRaw(requestParameters);
+    async personsCreateNewPerson(requestParameters: PersonsCreateNewPersonRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Person> {
+        const response = await this.personsCreateNewPersonRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -123,9 +131,12 @@ export class PersonsApi extends runtime.BaseAPI {
      * This will delete a specific person.
      * /persons/{person}/delete [POST]
      */
-    async personsDeletePersonRaw(requestParameters: PersonsDeletePersonRequest): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personsDeletePerson.');
+    async personsDeletePersonRaw(requestParameters: PersonsDeletePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personsDeletePerson().'
+            );
         }
 
         const queryParameters: any = {};
@@ -133,11 +144,11 @@ export class PersonsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/persons/{person}/delete`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/persons/{person}/delete`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -146,19 +157,19 @@ export class PersonsApi extends runtime.BaseAPI {
      * This will delete a specific person.
      * /persons/{person}/delete [POST]
      */
-    async personsDeletePerson(requestParameters: PersonsDeletePersonRequest): Promise<void> {
-        await this.personsDeletePersonRaw(requestParameters);
+    async personsDeletePerson(requestParameters: PersonsDeletePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personsDeletePersonRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of all of your people
      * /persons [GET]
      */
-    async personsSnapshotRaw(requestParameters: PersonsSnapshotRequest): Promise<runtime.ApiResponse<Persons>> {
+    async personsSnapshotRaw(requestParameters: PersonsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Persons>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -168,7 +179,7 @@ export class PersonsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PersonsFromJSON(jsonValue));
     }
@@ -177,8 +188,8 @@ export class PersonsApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your people
      * /persons [GET]
      */
-    async personsSnapshot(requestParameters: PersonsSnapshotRequest): Promise<Persons> {
-        const response = await this.personsSnapshotRaw(requestParameters);
+    async personsSnapshot(requestParameters: PersonsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Persons> {
+        const response = await this.personsSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A model to support revoking a Token Generated Through PKCE
@@ -52,35 +52,40 @@ export interface RevokedPKCE {
     token: string;
 }
 
+/**
+ * Check if a given object implements the RevokedPKCE interface.
+ */
+export function instanceOfRevokedPKCE(value: object): boolean {
+    if (!('clientId' in value)) return false;
+    if (!('token' in value)) return false;
+    return true;
+}
+
 export function RevokedPKCEFromJSON(json: any): RevokedPKCE {
     return RevokedPKCEFromJSONTyped(json, false);
 }
 
 export function RevokedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): RevokedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'clientId': json['client_id'],
         'token': json['token'],
     };
 }
 
 export function RevokedPKCEToJSON(value?: RevokedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'client_id': value.clientId,
-        'token': value.token,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'client_id': value['clientId'],
+        'token': value['token'],
     };
 }
-
 

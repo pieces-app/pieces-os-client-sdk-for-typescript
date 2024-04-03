@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededDistribution,
+} from './EmbeddedModelSchema';
+import type { SeededDistribution } from './SeededDistribution';
+import {
     SeededDistributionFromJSON,
     SeededDistributionFromJSONTyped,
     SeededDistributionToJSON,
-} from './';
+} from './SeededDistribution';
 
 /**
  * This is the plural version of a SeededDistribution that is not referenced just yet.
@@ -44,33 +46,37 @@ export interface SeededDistributions {
     iterable: Array<SeededDistribution>;
 }
 
+/**
+ * Check if a given object implements the SeededDistributions interface.
+ */
+export function instanceOfSeededDistributions(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function SeededDistributionsFromJSON(json: any): SeededDistributions {
     return SeededDistributionsFromJSONTyped(json, false);
 }
 
 export function SeededDistributionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDistributions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SeededDistributionFromJSON)),
     };
 }
 
 export function SeededDistributionsToJSON(value?: SeededDistributions | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SeededDistributionToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededDistributionToJSON)),
     };
 }
-
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -39,12 +39,22 @@ export interface SystemExecutionCpuInformation {
     frequency: number;
 }
 
+/**
+ * Check if a given object implements the SystemExecutionCpuInformation interface.
+ */
+export function instanceOfSystemExecutionCpuInformation(value: object): boolean {
+    if (!('count' in value)) return false;
+    if (!('brand' in value)) return false;
+    if (!('frequency' in value)) return false;
+    return true;
+}
+
 export function SystemExecutionCpuInformationFromJSON(json: any): SystemExecutionCpuInformation {
     return SystemExecutionCpuInformationFromJSONTyped(json, false);
 }
 
 export function SystemExecutionCpuInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SystemExecutionCpuInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -56,18 +66,14 @@ export function SystemExecutionCpuInformationFromJSONTyped(json: any, ignoreDisc
 }
 
 export function SystemExecutionCpuInformationToJSON(value?: SystemExecutionCpuInformation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'count': value.count,
-        'brand': value.brand,
-        'frequency': value.frequency,
+        'count': value['count'],
+        'brand': value['brand'],
+        'frequency': value['frequency'],
     };
 }
-
 

@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAnnotation,
+} from './EmbeddedModelSchema';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
     ReferencedAnnotationFromJSON,
     ReferencedAnnotationFromJSONTyped,
     ReferencedAnnotationToJSON,
-    ReferencedConversation,
+} from './ReferencedAnnotation';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './';
+} from './ReferencedConversation';
 
 /**
  * This is the output model for "/conversation/{conversation}/summarize
@@ -54,35 +58,40 @@ export interface ConversationSummarizeOutput {
     annotation: ReferencedAnnotation;
 }
 
+/**
+ * Check if a given object implements the ConversationSummarizeOutput interface.
+ */
+export function instanceOfConversationSummarizeOutput(value: object): boolean {
+    if (!('conversation' in value)) return false;
+    if (!('annotation' in value)) return false;
+    return true;
+}
+
 export function ConversationSummarizeOutputFromJSON(json: any): ConversationSummarizeOutput {
     return ConversationSummarizeOutputFromJSONTyped(json, false);
 }
 
 export function ConversationSummarizeOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationSummarizeOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
         'annotation': ReferencedAnnotationFromJSON(json['annotation']),
     };
 }
 
 export function ConversationSummarizeOutputToJSON(value?: ConversationSummarizeOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'conversation': ReferencedConversationToJSON(value.conversation),
-        'annotation': ReferencedAnnotationToJSON(value.annotation),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'annotation': ReferencedAnnotationToJSON(value['annotation']),
     };
 }
-
 

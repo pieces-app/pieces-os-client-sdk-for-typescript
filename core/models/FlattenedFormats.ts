@@ -12,22 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedFormat,
+} from './EmbeddedModelSchema';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-} from './';
+} from './ReferencedFormat';
 
 /**
  * A collection of Formats specific to the authenticated user. [DAG Compatible - Directed Acyclic Graph Data Structure]
  * 
  * FlattenedFormats prevent Cycles in Reference because all outbound references are strings as opposed to crosspollinated objects.
+ * 
  * @export
  * @interface FlattenedFormats
  */
@@ -46,33 +49,37 @@ export interface FlattenedFormats {
     iterable: Array<ReferencedFormat>;
 }
 
+/**
+ * Check if a given object implements the FlattenedFormats interface.
+ */
+export function instanceOfFlattenedFormats(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function FlattenedFormatsFromJSON(json: any): FlattenedFormats {
     return FlattenedFormatsFromJSONTyped(json, false);
 }
 
 export function FlattenedFormatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedFormats {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedFormatFromJSON)),
     };
 }
 
 export function FlattenedFormatsToJSON(value?: FlattenedFormats | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedFormatToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedFormatToJSON)),
     };
 }
-
 

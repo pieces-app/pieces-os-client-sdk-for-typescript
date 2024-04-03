@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Format,
+  Formats,
+} from '../models/index';
 import {
-    Format,
     FormatFromJSON,
     FormatToJSON,
-    Formats,
     FormatsFromJSON,
     FormatsToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface FormatsSnapshotRequest {
     transferables?: boolean;
@@ -41,11 +43,11 @@ export class FormatsApi extends runtime.BaseAPI {
      * Get all of your formats for a given user.
      * /formats [GET] Scoped to Formats
      */
-    async formatsSnapshotRaw(requestParameters: FormatsSnapshotRequest): Promise<runtime.ApiResponse<Formats>> {
+    async formatsSnapshotRaw(requestParameters: FormatsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Formats>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -55,7 +57,7 @@ export class FormatsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FormatsFromJSON(jsonValue));
     }
@@ -64,8 +66,8 @@ export class FormatsApi extends runtime.BaseAPI {
      * Get all of your formats for a given user.
      * /formats [GET] Scoped to Formats
      */
-    async formatsSnapshot(requestParameters: FormatsSnapshotRequest): Promise<Formats> {
-        const response = await this.formatsSnapshotRaw(requestParameters);
+    async formatsSnapshot(requestParameters: FormatsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Formats> {
+        const response = await this.formatsSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -73,25 +75,28 @@ export class FormatsApi extends runtime.BaseAPI {
      * Request a specific format when given a id (uuid in path params)
      * /formats/{format} [GET] Scoped to Formats
      */
-    async formatsSpecificFormatSnapshotRaw(requestParameters: FormatsSpecificFormatSnapshotRequest): Promise<runtime.ApiResponse<Format>> {
-        if (requestParameters.format === null || requestParameters.format === undefined) {
-            throw new runtime.RequiredError('format','Required parameter requestParameters.format was null or undefined when calling formatsSpecificFormatSnapshot.');
+    async formatsSpecificFormatSnapshotRaw(requestParameters: FormatsSpecificFormatSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
+        if (requestParameters['format'] == null) {
+            throw new runtime.RequiredError(
+                'format',
+                'Required parameter "format" was null or undefined when calling formatsSpecificFormatSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferable !== undefined) {
-            queryParameters['transferable'] = requestParameters.transferable;
+        if (requestParameters['transferable'] != null) {
+            queryParameters['transferable'] = requestParameters['transferable'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/formats/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters.format))),
+            path: `/formats/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters['format']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FormatFromJSON(jsonValue));
     }
@@ -100,8 +105,8 @@ export class FormatsApi extends runtime.BaseAPI {
      * Request a specific format when given a id (uuid in path params)
      * /formats/{format} [GET] Scoped to Formats
      */
-    async formatsSpecificFormatSnapshot(requestParameters: FormatsSpecificFormatSnapshotRequest): Promise<Format> {
-        const response = await this.formatsSpecificFormatSnapshotRaw(requestParameters);
+    async formatsSpecificFormatSnapshot(requestParameters: FormatsSpecificFormatSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Format> {
+        const response = await this.formatsSpecificFormatSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

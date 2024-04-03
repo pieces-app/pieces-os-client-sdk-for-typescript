@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Model,
+} from './GroupedTimestamp';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './Model';
 
 /**
  * 
@@ -62,12 +64,23 @@ export interface Embedding {
     deleted?: GroupedTimestamp;
 }
 
+/**
+ * Check if a given object implements the Embedding interface.
+ */
+export function instanceOfEmbedding(value: object): boolean {
+    if (!('raw' in value)) return false;
+    if (!('model' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('updated' in value)) return false;
+    return true;
+}
+
 export function EmbeddingFromJSON(json: any): Embedding {
     return EmbeddingFromJSONTyped(json, false);
 }
 
 export function EmbeddingFromJSONTyped(json: any, ignoreDiscriminator: boolean): Embedding {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -76,25 +89,21 @@ export function EmbeddingFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'model': ModelFromJSON(json['model']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
     };
 }
 
 export function EmbeddingToJSON(value?: Embedding | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'raw': value.raw,
-        'model': ModelToJSON(value.model),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
+        'raw': value['raw'],
+        'model': ModelToJSON(value['model']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
     };
 }
-
 

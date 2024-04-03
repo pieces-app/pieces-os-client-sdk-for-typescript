@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedApplication,
+} from './EmbeddedModelSchema';
+import type { TrackedApplication } from './TrackedApplication';
+import {
     TrackedApplicationFromJSON,
     TrackedApplicationFromJSONTyped,
     TrackedApplicationToJSON,
-    TrackedUserProfile,
+} from './TrackedApplication';
+import type { TrackedUserProfile } from './TrackedUserProfile';
+import {
     TrackedUserProfileFromJSON,
     TrackedUserProfileFromJSONTyped,
     TrackedUserProfileToJSON,
-} from './';
+} from './TrackedUserProfile';
 
 /**
  * This is a model used to track when an Application is Updated
@@ -60,37 +64,41 @@ export interface TrackedApplicationUpdate {
     user?: TrackedUserProfile;
 }
 
+/**
+ * Check if a given object implements the TrackedApplicationUpdate interface.
+ */
+export function instanceOfTrackedApplicationUpdate(value: object): boolean {
+    if (!('current' in value)) return false;
+    return true;
+}
+
 export function TrackedApplicationUpdateFromJSON(json: any): TrackedApplicationUpdate {
     return TrackedApplicationUpdateFromJSONTyped(json, false);
 }
 
 export function TrackedApplicationUpdateFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedApplicationUpdate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'current': TrackedApplicationFromJSON(json['current']),
-        'previous': !exists(json, 'previous') ? undefined : TrackedApplicationFromJSON(json['previous']),
-        'user': !exists(json, 'user') ? undefined : TrackedUserProfileFromJSON(json['user']),
+        'previous': json['previous'] == null ? undefined : TrackedApplicationFromJSON(json['previous']),
+        'user': json['user'] == null ? undefined : TrackedUserProfileFromJSON(json['user']),
     };
 }
 
 export function TrackedApplicationUpdateToJSON(value?: TrackedApplicationUpdate | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'current': TrackedApplicationToJSON(value.current),
-        'previous': TrackedApplicationToJSON(value.previous),
-        'user': TrackedUserProfileToJSON(value.user),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'current': TrackedApplicationToJSON(value['current']),
+        'previous': TrackedApplicationToJSON(value['previous']),
+        'user': TrackedUserProfileToJSON(value['user']),
     };
 }
-
 

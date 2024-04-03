@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PersonBasicType,
+} from './EmbeddedModelSchema';
+import type { PersonBasicType } from './PersonBasicType';
+import {
     PersonBasicTypeFromJSON,
     PersonBasicTypeFromJSONTyped,
     PersonBasicTypeToJSON,
-} from './';
+} from './PersonBasicType';
 
 /**
  * This an iterable of People that are attached to a specific distribution ie, slack, maigun, ...etc
@@ -44,33 +46,37 @@ export interface Recipients {
     schema?: EmbeddedModelSchema;
 }
 
+/**
+ * Check if a given object implements the Recipients interface.
+ */
+export function instanceOfRecipients(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function RecipientsFromJSON(json: any): Recipients {
     return RecipientsFromJSONTyped(json, false);
 }
 
 export function RecipientsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Recipients {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'iterable': ((json['iterable'] as Array<any>).map(PersonBasicTypeFromJSON)),
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function RecipientsToJSON(value?: Recipients | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(PersonBasicTypeToJSON)),
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value['iterable'] as Array<any>).map(PersonBasicTypeToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
-
 

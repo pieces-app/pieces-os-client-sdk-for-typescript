@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Model for collecting descriptive statistics of images uploaded to Pieces
@@ -76,45 +76,54 @@ export interface GraphicalImageDescriptiveStatistics {
     os: string;
 }
 
+/**
+ * Check if a given object implements the GraphicalImageDescriptiveStatistics interface.
+ */
+export function instanceOfGraphicalImageDescriptiveStatistics(value: object): boolean {
+    if (!('width' in value)) return false;
+    if (!('height' in value)) return false;
+    if (!('channels' in value)) return false;
+    if (!('asset' in value)) return false;
+    if (!('created' in value)) return false;
+    if (!('os' in value)) return false;
+    return true;
+}
+
 export function GraphicalImageDescriptiveStatisticsFromJSON(json: any): GraphicalImageDescriptiveStatistics {
     return GraphicalImageDescriptiveStatisticsFromJSONTyped(json, false);
 }
 
 export function GraphicalImageDescriptiveStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalImageDescriptiveStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'width': json['width'],
         'height': json['height'],
         'channels': json['channels'],
         'asset': json['asset'],
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'user': json['user'] == null ? undefined : json['user'],
         'created': json['created'],
         'os': json['os'],
     };
 }
 
 export function GraphicalImageDescriptiveStatisticsToJSON(value?: GraphicalImageDescriptiveStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'width': value.width,
-        'height': value.height,
-        'channels': value.channels,
-        'asset': value.asset,
-        'user': value.user,
-        'created': value.created,
-        'os': value.os,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'width': value['width'],
+        'height': value['height'],
+        'channels': value['channels'],
+        'asset': value['asset'],
+        'user': value['user'],
+        'created': value['created'],
+        'os': value['os'],
     };
 }
-
 

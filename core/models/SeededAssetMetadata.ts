@@ -12,45 +12,61 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    SeededAnchor,
+} from './MechanismEnum';
+import type { SeededAnchor } from './SeededAnchor';
+import {
     SeededAnchorFromJSON,
     SeededAnchorFromJSONTyped,
     SeededAnchorToJSON,
-    SeededAnnotation,
+} from './SeededAnchor';
+import type { SeededAnnotation } from './SeededAnnotation';
+import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-    SeededAssetSensitive,
+} from './SeededAnnotation';
+import type { SeededAssetSensitive } from './SeededAssetSensitive';
+import {
     SeededAssetSensitiveFromJSON,
     SeededAssetSensitiveFromJSONTyped,
     SeededAssetSensitiveToJSON,
-    SeededAssetTag,
+} from './SeededAssetSensitive';
+import type { SeededAssetTag } from './SeededAssetTag';
+import {
     SeededAssetTagFromJSON,
     SeededAssetTagFromJSONTyped,
     SeededAssetTagToJSON,
-    SeededAssetWebsite,
+} from './SeededAssetTag';
+import type { SeededAssetWebsite } from './SeededAssetWebsite';
+import {
     SeededAssetWebsiteFromJSON,
     SeededAssetWebsiteFromJSONTyped,
     SeededAssetWebsiteToJSON,
-    SeededHint,
+} from './SeededAssetWebsite';
+import type { SeededHint } from './SeededHint';
+import {
     SeededHintFromJSON,
     SeededHintFromJSONTyped,
     SeededHintToJSON,
-    SeededPerson,
+} from './SeededHint';
+import type { SeededPerson } from './SeededPerson';
+import {
     SeededPersonFromJSON,
     SeededPersonFromJSONTyped,
     SeededPersonToJSON,
-} from './';
+} from './SeededPerson';
 
 /**
  * This is optional metadata sent with the SeededAsset and other SeededAssets ie (UE, Jetbrains...)
@@ -122,49 +138,52 @@ export interface SeededAssetMetadata {
     anchors?: Array<SeededAnchor>;
 }
 
+/**
+ * Check if a given object implements the SeededAssetMetadata interface.
+ */
+export function instanceOfSeededAssetMetadata(value: object): boolean {
+    return true;
+}
+
 export function SeededAssetMetadataFromJSON(json: any): SeededAssetMetadata {
     return SeededAssetMetadataFromJSONTyped(json, false);
 }
 
 export function SeededAssetMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'tags': !exists(json, 'tags') ? undefined : ((json['tags'] as Array<any>).map(SeededAssetTagFromJSON)),
-        'websites': !exists(json, 'websites') ? undefined : ((json['websites'] as Array<any>).map(SeededAssetWebsiteFromJSON)),
-        'sensitives': !exists(json, 'sensitives') ? undefined : ((json['sensitives'] as Array<any>).map(SeededAssetSensitiveFromJSON)),
-        'persons': !exists(json, 'persons') ? undefined : ((json['persons'] as Array<any>).map(SeededPersonFromJSON)),
-        'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
-        'hints': !exists(json, 'hints') ? undefined : ((json['hints'] as Array<any>).map(SeededHintFromJSON)),
-        'anchors': !exists(json, 'anchors') ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'tags': json['tags'] == null ? undefined : ((json['tags'] as Array<any>).map(SeededAssetTagFromJSON)),
+        'websites': json['websites'] == null ? undefined : ((json['websites'] as Array<any>).map(SeededAssetWebsiteFromJSON)),
+        'sensitives': json['sensitives'] == null ? undefined : ((json['sensitives'] as Array<any>).map(SeededAssetSensitiveFromJSON)),
+        'persons': json['persons'] == null ? undefined : ((json['persons'] as Array<any>).map(SeededPersonFromJSON)),
+        'annotations': json['annotations'] == null ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
+        'hints': json['hints'] == null ? undefined : ((json['hints'] as Array<any>).map(SeededHintFromJSON)),
+        'anchors': json['anchors'] == null ? undefined : ((json['anchors'] as Array<any>).map(SeededAnchorFromJSON)),
     };
 }
 
 export function SeededAssetMetadataToJSON(value?: SeededAssetMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'tags': value.tags === undefined ? undefined : ((value.tags as Array<any>).map(SeededAssetTagToJSON)),
-        'websites': value.websites === undefined ? undefined : ((value.websites as Array<any>).map(SeededAssetWebsiteToJSON)),
-        'sensitives': value.sensitives === undefined ? undefined : ((value.sensitives as Array<any>).map(SeededAssetSensitiveToJSON)),
-        'persons': value.persons === undefined ? undefined : ((value.persons as Array<any>).map(SeededPersonToJSON)),
-        'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
-        'hints': value.hints === undefined ? undefined : ((value.hints as Array<any>).map(SeededHintToJSON)),
-        'anchors': value.anchors === undefined ? undefined : ((value.anchors as Array<any>).map(SeededAnchorToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'tags': value['tags'] == null ? undefined : ((value['tags'] as Array<any>).map(SeededAssetTagToJSON)),
+        'websites': value['websites'] == null ? undefined : ((value['websites'] as Array<any>).map(SeededAssetWebsiteToJSON)),
+        'sensitives': value['sensitives'] == null ? undefined : ((value['sensitives'] as Array<any>).map(SeededAssetSensitiveToJSON)),
+        'persons': value['persons'] == null ? undefined : ((value['persons'] as Array<any>).map(SeededPersonToJSON)),
+        'annotations': value['annotations'] == null ? undefined : ((value['annotations'] as Array<any>).map(SeededAnnotationToJSON)),
+        'hints': value['hints'] == null ? undefined : ((value['hints'] as Array<any>).map(SeededHintToJSON)),
+        'anchors': value['anchors'] == null ? undefined : ((value['anchors'] as Array<any>).map(SeededAnchorToJSON)),
     };
 }
-
 

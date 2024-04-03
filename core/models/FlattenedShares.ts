@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedShare,
+} from './EmbeddedModelSchema';
+import type { FlattenedShare } from './FlattenedShare';
+import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
-    Score,
+} from './FlattenedShare';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is just an iterable of our individual share models.
@@ -54,35 +58,39 @@ export interface FlattenedShares {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedShares interface.
+ */
+export function instanceOfFlattenedShares(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    return true;
+}
+
 export function FlattenedSharesFromJSON(json: any): FlattenedShares {
     return FlattenedSharesFromJSONTyped(json, false);
 }
 
 export function FlattenedSharesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedShares {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(FlattenedShareFromJSON)),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
 export function FlattenedSharesToJSON(value?: FlattenedShares | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(FlattenedShareToJSON)),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(FlattenedShareToJSON)),
+        'score': ScoreToJSON(value['score']),
     };
 }
-
 

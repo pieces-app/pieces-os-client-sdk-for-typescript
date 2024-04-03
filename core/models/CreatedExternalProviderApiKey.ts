@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
-    Auth0UserMetadata,
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0UserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the outputmodel for /external_provider/api_key/create
@@ -44,33 +46,37 @@ export interface CreatedExternalProviderApiKey {
     metadata: Auth0UserMetadata;
 }
 
+/**
+ * Check if a given object implements the CreatedExternalProviderApiKey interface.
+ */
+export function instanceOfCreatedExternalProviderApiKey(value: object): boolean {
+    if (!('metadata' in value)) return false;
+    return true;
+}
+
 export function CreatedExternalProviderApiKeyFromJSON(json: any): CreatedExternalProviderApiKey {
     return CreatedExternalProviderApiKeyFromJSONTyped(json, false);
 }
 
 export function CreatedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): CreatedExternalProviderApiKey {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'metadata': Auth0UserMetadataFromJSON(json['metadata']),
     };
 }
 
 export function CreatedExternalProviderApiKeyToJSON(value?: CreatedExternalProviderApiKey | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'metadata': Auth0UserMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'metadata': Auth0UserMetadataToJSON(value['metadata']),
     };
 }
-
 

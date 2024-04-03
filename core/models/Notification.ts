@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * config model for notification invoking
@@ -58,39 +58,43 @@ export interface Notification {
     payload?: string;
 }
 
+/**
+ * Check if a given object implements the Notification interface.
+ */
+export function instanceOfNotification(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function NotificationFromJSON(json: any): Notification {
     return NotificationFromJSONTyped(json, false);
 }
 
 export function NotificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): Notification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'title': !exists(json, 'title') ? undefined : json['title'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'payload': !exists(json, 'payload') ? undefined : json['payload'],
+        'title': json['title'] == null ? undefined : json['title'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'payload': json['payload'] == null ? undefined : json['payload'],
     };
 }
 
 export function NotificationToJSON(value?: Notification | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'title': value.title,
-        'message': value.message,
-        'payload': value.payload,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'title': value['title'],
+        'message': value['message'],
+        'payload': value['payload'],
     };
 }
-
 

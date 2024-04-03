@@ -12,25 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AllocationCloudStatus } from './AllocationCloudStatus';
 import {
-    AllocationCloudStatus,
     AllocationCloudStatusFromJSON,
     AllocationCloudStatusFromJSONTyped,
     AllocationCloudStatusToJSON,
-    AllocationCloudUrls,
+} from './AllocationCloudStatus';
+import type { AllocationCloudUrls } from './AllocationCloudUrls';
+import {
     AllocationCloudUrlsFromJSON,
     AllocationCloudUrlsFromJSONTyped,
     AllocationCloudUrlsToJSON,
-    EmbeddedModelSchema,
+} from './AllocationCloudUrls';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * update && version: will be present only if your cloud was successfully spun up && running.
@@ -96,47 +102,55 @@ export interface AllocationCloud {
     region?: string;
 }
 
+/**
+ * Check if a given object implements the AllocationCloud interface.
+ */
+export function instanceOfAllocationCloud(value: object): boolean {
+    if (!('id' in value)) return false;
+    if (!('user' in value)) return false;
+    if (!('urls' in value)) return false;
+    if (!('status' in value)) return false;
+    if (!('project' in value)) return false;
+    return true;
+}
+
 export function AllocationCloudFromJSON(json: any): AllocationCloud {
     return AllocationCloudFromJSONTyped(json, false);
 }
 
 export function AllocationCloudFromJSONTyped(json: any, ignoreDiscriminator: boolean): AllocationCloud {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'user': json['user'],
         'urls': AllocationCloudUrlsFromJSON(json['urls']),
         'status': AllocationCloudStatusFromJSON(json['status']),
         'project': json['project'],
-        'updated': !exists(json, 'updated') ? undefined : GroupedTimestampFromJSON(json['updated']),
-        'version': !exists(json, 'version') ? undefined : json['version'],
-        'region': !exists(json, 'region') ? undefined : json['region'],
+        'updated': json['updated'] == null ? undefined : GroupedTimestampFromJSON(json['updated']),
+        'version': json['version'] == null ? undefined : json['version'],
+        'region': json['region'] == null ? undefined : json['region'],
     };
 }
 
 export function AllocationCloudToJSON(value?: AllocationCloud | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'user': value.user,
-        'urls': AllocationCloudUrlsToJSON(value.urls),
-        'status': AllocationCloudStatusToJSON(value.status),
-        'project': value.project,
-        'updated': GroupedTimestampToJSON(value.updated),
-        'version': value.version,
-        'region': value.region,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'user': value['user'],
+        'urls': AllocationCloudUrlsToJSON(value['urls']),
+        'status': AllocationCloudStatusToJSON(value['status']),
+        'project': value['project'],
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'version': value['version'],
+        'region': value['region'],
     };
 }
-
 

@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededDiscoverableSensitive,
+} from './EmbeddedModelSchema';
+import type { SeededDiscoverableSensitive } from './SeededDiscoverableSensitive';
+import {
     SeededDiscoverableSensitiveFromJSON,
     SeededDiscoverableSensitiveFromJSONTyped,
     SeededDiscoverableSensitiveToJSON,
-} from './';
+} from './SeededDiscoverableSensitive';
 
 /**
  * 
@@ -50,35 +52,40 @@ export interface SeededDiscoverableSensitives {
     application: string;
 }
 
+/**
+ * Check if a given object implements the SeededDiscoverableSensitives interface.
+ */
+export function instanceOfSeededDiscoverableSensitives(value: object): boolean {
+    if (!('iterable' in value)) return false;
+    if (!('application' in value)) return false;
+    return true;
+}
+
 export function SeededDiscoverableSensitivesFromJSON(json: any): SeededDiscoverableSensitives {
     return SeededDiscoverableSensitivesFromJSONTyped(json, false);
 }
 
 export function SeededDiscoverableSensitivesFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableSensitives {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SeededDiscoverableSensitiveFromJSON)),
         'application': json['application'],
     };
 }
 
 export function SeededDiscoverableSensitivesToJSON(value?: SeededDiscoverableSensitives | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SeededDiscoverableSensitiveToJSON)),
-        'application': value.application,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededDiscoverableSensitiveToJSON)),
+        'application': value['application'],
     };
 }
-
 

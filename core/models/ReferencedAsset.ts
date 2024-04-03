@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAsset,
+} from './EmbeddedModelSchema';
+import type { FlattenedAsset } from './FlattenedAsset';
+import {
     FlattenedAssetFromJSON,
     FlattenedAssetFromJSONTyped,
     FlattenedAssetToJSON,
-} from './';
+} from './FlattenedAsset';
 
 /**
  * A reference to a asset, which at minimum must have the asset's id. But in the case of a hydrated client API it may have a populated reference of type Asset.
@@ -50,35 +52,39 @@ export interface ReferencedAsset {
     reference?: FlattenedAsset;
 }
 
+/**
+ * Check if a given object implements the ReferencedAsset interface.
+ */
+export function instanceOfReferencedAsset(value: object): boolean {
+    if (!('id' in value)) return false;
+    return true;
+}
+
 export function ReferencedAssetFromJSON(json: any): ReferencedAsset {
     return ReferencedAssetFromJSONTyped(json, false);
 }
 
 export function ReferencedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedAssetFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedAssetFromJSON(json['reference']),
     };
 }
 
 export function ReferencedAssetToJSON(value?: ReferencedAsset | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedAssetToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedAssetToJSON(value['reference']),
     };
 }
-
 

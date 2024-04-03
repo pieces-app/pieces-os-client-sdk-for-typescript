@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SearchedAssets,
+} from './EmbeddedModelSchema';
+import type { SearchedAssets } from './SearchedAssets';
+import {
     SearchedAssetsFromJSON,
     SearchedAssetsFromJSONTyped,
     SearchedAssetsToJSON,
-} from './';
+} from './SearchedAssets';
 
 /**
  * output for the /assets/search [POST] 
@@ -44,33 +46,37 @@ export interface AssetsSearchWithFiltersOutput {
     results: SearchedAssets;
 }
 
+/**
+ * Check if a given object implements the AssetsSearchWithFiltersOutput interface.
+ */
+export function instanceOfAssetsSearchWithFiltersOutput(value: object): boolean {
+    if (!('results' in value)) return false;
+    return true;
+}
+
 export function AssetsSearchWithFiltersOutputFromJSON(json: any): AssetsSearchWithFiltersOutput {
     return AssetsSearchWithFiltersOutputFromJSONTyped(json, false);
 }
 
 export function AssetsSearchWithFiltersOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetsSearchWithFiltersOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'results': SearchedAssetsFromJSON(json['results']),
     };
 }
 
 export function AssetsSearchWithFiltersOutputToJSON(value?: AssetsSearchWithFiltersOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'results': SearchedAssetsToJSON(value.results),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'results': SearchedAssetsToJSON(value['results']),
     };
 }
-
 

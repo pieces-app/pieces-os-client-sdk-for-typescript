@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will give specific information on task specific capibilites for GPU.
@@ -40,33 +40,36 @@ export interface OSDeviceGPUHardwareCapabilitiesInformation {
     llm?: boolean;
 }
 
+/**
+ * Check if a given object implements the OSDeviceGPUHardwareCapabilitiesInformation interface.
+ */
+export function instanceOfOSDeviceGPUHardwareCapabilitiesInformation(value: object): boolean {
+    return true;
+}
+
 export function OSDeviceGPUHardwareCapabilitiesInformationFromJSON(json: any): OSDeviceGPUHardwareCapabilitiesInformation {
     return OSDeviceGPUHardwareCapabilitiesInformationFromJSONTyped(json, false);
 }
 
 export function OSDeviceGPUHardwareCapabilitiesInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceGPUHardwareCapabilitiesInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'llm': !exists(json, 'llm') ? undefined : json['llm'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'llm': json['llm'] == null ? undefined : json['llm'],
     };
 }
 
 export function OSDeviceGPUHardwareCapabilitiesInformationToJSON(value?: OSDeviceGPUHardwareCapabilitiesInformation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'llm': value.llm,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'llm': value['llm'],
     };
 }
-
 

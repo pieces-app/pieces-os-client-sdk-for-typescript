@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedTag,
+} from './EmbeddedModelSchema';
+import type { ReferencedTag } from './ReferencedTag';
+import {
     ReferencedTagFromJSON,
     ReferencedTagFromJSONTyped,
     ReferencedTagToJSON,
-    ReferencedWebsite,
+} from './ReferencedTag';
+import type { ReferencedWebsite } from './ReferencedWebsite';
+import {
     ReferencedWebsiteFromJSON,
     ReferencedWebsiteFromJSONTyped,
     ReferencedWebsiteToJSON,
-} from './';
+} from './ReferencedWebsite';
 
 /**
  * This is a shared input model for all the exists endpoints:
@@ -56,35 +60,38 @@ export interface ExistingMetadata {
     tag?: ReferencedTag;
 }
 
+/**
+ * Check if a given object implements the ExistingMetadata interface.
+ */
+export function instanceOfExistingMetadata(value: object): boolean {
+    return true;
+}
+
 export function ExistingMetadataFromJSON(json: any): ExistingMetadata {
     return ExistingMetadataFromJSONTyped(json, false);
 }
 
 export function ExistingMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExistingMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'website': !exists(json, 'website') ? undefined : ReferencedWebsiteFromJSON(json['website']),
-        'tag': !exists(json, 'tag') ? undefined : ReferencedTagFromJSON(json['tag']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'website': json['website'] == null ? undefined : ReferencedWebsiteFromJSON(json['website']),
+        'tag': json['tag'] == null ? undefined : ReferencedTagFromJSON(json['tag']),
     };
 }
 
 export function ExistingMetadataToJSON(value?: ExistingMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'website': ReferencedWebsiteToJSON(value.website),
-        'tag': ReferencedTagToJSON(value.tag),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'website': ReferencedWebsiteToJSON(value['website']),
+        'tag': ReferencedTagToJSON(value['tag']),
     };
 }
-
 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a predeleted version relating to the /external_provider/api_key/delete endpoint.
@@ -48,35 +48,39 @@ export interface PredeletedExternalProviderApiKey {
     openAI?: boolean;
 }
 
+/**
+ * Check if a given object implements the PredeletedExternalProviderApiKey interface.
+ */
+export function instanceOfPredeletedExternalProviderApiKey(value: object): boolean {
+    if (!('user' in value)) return false;
+    return true;
+}
+
 export function PredeletedExternalProviderApiKeyFromJSON(json: any): PredeletedExternalProviderApiKey {
     return PredeletedExternalProviderApiKeyFromJSONTyped(json, false);
 }
 
 export function PredeletedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): PredeletedExternalProviderApiKey {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
-        'openAI': !exists(json, 'open_AI') ? undefined : json['open_AI'],
+        'openAI': json['open_AI'] == null ? undefined : json['open_AI'],
     };
 }
 
 export function PredeletedExternalProviderApiKeyToJSON(value?: PredeletedExternalProviderApiKey | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': value.user,
-        'open_AI': value.openAI,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': value['user'],
+        'open_AI': value['openAI'],
     };
 }
-
 

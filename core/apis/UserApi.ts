@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Auth0User,
+  ReturnedUserProfile,
+  UserProfile,
+} from '../models/index';
 import {
-    Auth0User,
     Auth0UserFromJSON,
     Auth0UserToJSON,
-    ReturnedUserProfile,
     ReturnedUserProfileFromJSON,
     ReturnedUserProfileToJSON,
-    UserProfile,
     UserProfileFromJSON,
     UserProfileToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface SelectUserRequest {
     auth0User?: Auth0User;
@@ -47,7 +49,7 @@ export class UserApi extends runtime.BaseAPI {
      * An endpoint to clear the current user. 
      * /user/clear
      */
-    async clearUserRaw(): Promise<runtime.ApiResponse<void>> {
+    async clearUserRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -57,7 +59,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -66,15 +68,15 @@ export class UserApi extends runtime.BaseAPI {
      * An endpoint to clear the current user. 
      * /user/clear
      */
-    async clearUser(): Promise<void> {
-        await this.clearUserRaw();
+    async clearUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.clearUserRaw(initOverrides);
     }
 
     /**
      * This will refresh a user.
      * /user/refresh [GET]
      */
-    async refreshUserRaw(): Promise<runtime.ApiResponse<UserProfile>> {
+    async refreshUserRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -84,7 +86,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
     }
@@ -93,8 +95,8 @@ export class UserApi extends runtime.BaseAPI {
      * This will refresh a user.
      * /user/refresh [GET]
      */
-    async refreshUser(): Promise<UserProfile> {
-        const response = await this.refreshUserRaw();
+    async refreshUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
+        const response = await this.refreshUserRaw(initOverrides);
         return await response.value();
     }
 
@@ -102,7 +104,7 @@ export class UserApi extends runtime.BaseAPI {
      * This will select the current user.
      * /user/select [POST]
      */
-    async selectUserRaw(requestParameters: SelectUserRequest): Promise<runtime.ApiResponse<UserProfile>> {
+    async selectUserRaw(requestParameters: SelectUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -111,29 +113,17 @@ export class UserApi extends runtime.BaseAPI {
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            if (typeof this.configuration.accessToken === 'function') {
-                headerParameters["Authorization"] = this.configuration.accessToken("auth0", []);
-            } else {
-                headerParameters["Authorization"] = this.configuration.accessToken;
-            }
+            headerParameters["Authorization"] = await this.configuration.accessToken("auth0", []);
         }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            if (typeof this.configuration.accessToken === 'function') {
-                headerParameters["Authorization"] = this.configuration.accessToken("auth0", []);
-            } else {
-                headerParameters["Authorization"] = this.configuration.accessToken;
-            }
+            headerParameters["Authorization"] = await this.configuration.accessToken("auth0", []);
         }
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            if (typeof this.configuration.accessToken === 'function') {
-                headerParameters["Authorization"] = this.configuration.accessToken("auth0", []);
-            } else {
-                headerParameters["Authorization"] = this.configuration.accessToken;
-            }
+            headerParameters["Authorization"] = await this.configuration.accessToken("auth0", []);
         }
 
         const response = await this.request({
@@ -141,8 +131,8 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: Auth0UserToJSON(requestParameters.auth0User),
-        });
+            body: Auth0UserToJSON(requestParameters['auth0User']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
     }
@@ -151,8 +141,8 @@ export class UserApi extends runtime.BaseAPI {
      * This will select the current user.
      * /user/select [POST]
      */
-    async selectUser(requestParameters: SelectUserRequest): Promise<UserProfile> {
-        const response = await this.selectUserRaw(requestParameters);
+    async selectUser(requestParameters: SelectUserRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
+        const response = await this.selectUserRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -160,7 +150,7 @@ export class UserApi extends runtime.BaseAPI {
      * This will stream in the current user, not quiet sure yet how we want to do this.
      * /user/stream [GET]
      */
-    async streamUserRaw(): Promise<runtime.ApiResponse<UserProfile>> {
+    async streamUserRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -170,7 +160,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
     }
@@ -179,8 +169,8 @@ export class UserApi extends runtime.BaseAPI {
      * This will stream in the current user, not quiet sure yet how we want to do this.
      * /user/stream [GET]
      */
-    async streamUser(): Promise<UserProfile> {
-        const response = await this.streamUserRaw();
+    async streamUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
+        const response = await this.streamUserRaw(initOverrides);
         return await response.value();
     }
 
@@ -188,7 +178,7 @@ export class UserApi extends runtime.BaseAPI {
      * This will update a specific user in the database.
      * /user/update [POST]
      */
-    async updateUserRaw(requestParameters: UpdateUserRequest): Promise<runtime.ApiResponse<UserProfile>> {
+    async updateUserRaw(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -200,8 +190,8 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
-        });
+            body: UserProfileToJSON(requestParameters['userProfile']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
     }
@@ -210,8 +200,8 @@ export class UserApi extends runtime.BaseAPI {
      * This will update a specific user in the database.
      * /user/update [POST]
      */
-    async updateUser(requestParameters: UpdateUserRequest): Promise<UserProfile> {
-        const response = await this.updateUserRaw(requestParameters);
+    async updateUser(requestParameters: UpdateUserRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
+        const response = await this.updateUserRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -219,7 +209,7 @@ export class UserApi extends runtime.BaseAPI {
      * This will retrieve all the users Providers that are connected to this account.  If called locally. we will 501 - because it is not implemented locally yet.  If called in the cloud, we will refresh && get your access tokens to access these providers.
      * Your GET endpoint
      */
-    async userProvidersRaw(): Promise<runtime.ApiResponse<ReturnedUserProfile>> {
+    async userProvidersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReturnedUserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -229,7 +219,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReturnedUserProfileFromJSON(jsonValue));
     }
@@ -238,8 +228,8 @@ export class UserApi extends runtime.BaseAPI {
      * This will retrieve all the users Providers that are connected to this account.  If called locally. we will 501 - because it is not implemented locally yet.  If called in the cloud, we will refresh && get your access tokens to access these providers.
      * Your GET endpoint
      */
-    async userProviders(): Promise<ReturnedUserProfile> {
-        const response = await this.userProvidersRaw();
+    async userProviders(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReturnedUserProfile> {
+        const response = await this.userProvidersRaw(initOverrides);
         return await response.value();
     }
 
@@ -247,7 +237,7 @@ export class UserApi extends runtime.BaseAPI {
      * This will return a snapshot of the current user. This will return our ReturnUserProfile and the user on that object is just a UserProfile and can potentially be null.
      * /user [GET]
      */
-    async userSnapshotRaw(): Promise<runtime.ApiResponse<ReturnedUserProfile>> {
+    async userSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReturnedUserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -257,7 +247,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReturnedUserProfileFromJSON(jsonValue));
     }
@@ -266,8 +256,8 @@ export class UserApi extends runtime.BaseAPI {
      * This will return a snapshot of the current user. This will return our ReturnUserProfile and the user on that object is just a UserProfile and can potentially be null.
      * /user [GET]
      */
-    async userSnapshot(): Promise<ReturnedUserProfile> {
-        const response = await this.userSnapshotRaw();
+    async userSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReturnedUserProfile> {
+        const response = await this.userSnapshotRaw(initOverrides);
         return await response.value();
     }
 
@@ -275,7 +265,7 @@ export class UserApi extends runtime.BaseAPI {
      * This is a local route to update your vanityname. ie mark.pieces.cloud, where \"mark\" is the vanityname.
      * /user/update/vanity [POST]
      */
-    async userUpdateVanityRaw(requestParameters: UserUpdateVanityRequest): Promise<runtime.ApiResponse<UserProfile>> {
+    async userUpdateVanityRaw(requestParameters: UserUpdateVanityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -287,8 +277,8 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
-        });
+            body: UserProfileToJSON(requestParameters['userProfile']),
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
     }
@@ -297,8 +287,8 @@ export class UserApi extends runtime.BaseAPI {
      * This is a local route to update your vanityname. ie mark.pieces.cloud, where \"mark\" is the vanityname.
      * /user/update/vanity [POST]
      */
-    async userUpdateVanity(requestParameters: UserUpdateVanityRequest): Promise<UserProfile> {
-        const response = await this.userUpdateVanityRaw(requestParameters);
+    async userUpdateVanity(requestParameters: UserUpdateVanityRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
+        const response = await this.userUpdateVanityRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

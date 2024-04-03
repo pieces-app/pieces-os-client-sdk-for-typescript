@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is for the users that wants to have contextualized code conversations, meaning conversations around code with Context provided.
@@ -36,31 +36,34 @@ export interface QGPTConversationPipelineForContextualizedCodeDialog {
     schema?: EmbeddedModelSchema;
 }
 
+/**
+ * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeDialog interface.
+ */
+export function instanceOfQGPTConversationPipelineForContextualizedCodeDialog(value: object): boolean {
+    return true;
+}
+
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeDialog {
     return QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped(json, false);
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipelineForContextualizedCodeDialog {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogToJSON(value?: QGPTConversationPipelineForContextualizedCodeDialog | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
-
 

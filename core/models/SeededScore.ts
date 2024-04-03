@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the low level seeded score and will let us know what exactly we want to increment on our material.
@@ -60,39 +60,42 @@ export interface SeededScore {
     priority?: boolean;
 }
 
+/**
+ * Check if a given object implements the SeededScore interface.
+ */
+export function instanceOfSeededScore(value: object): boolean {
+    return true;
+}
+
 export function SeededScoreFromJSON(json: any): SeededScore {
     return SeededScoreFromJSONTyped(json, false);
 }
 
 export function SeededScoreFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededScore {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'reuse': !exists(json, 'reuse') ? undefined : json['reuse'],
-        'update': !exists(json, 'update') ? undefined : json['update'],
-        'reference': !exists(json, 'reference') ? undefined : json['reference'],
-        'priority': !exists(json, 'priority') ? undefined : json['priority'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'reuse': json['reuse'] == null ? undefined : json['reuse'],
+        'update': json['update'] == null ? undefined : json['update'],
+        'reference': json['reference'] == null ? undefined : json['reference'],
+        'priority': json['priority'] == null ? undefined : json['priority'],
     };
 }
 
 export function SeededScoreToJSON(value?: SeededScore | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'reuse': value.reuse,
-        'update': value.update,
-        'reference': value.reference,
-        'priority': value.priority,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'reuse': value['reuse'],
+        'update': value['update'],
+        'reference': value['reference'],
+        'priority': value['priority'],
     };
 }
-
 

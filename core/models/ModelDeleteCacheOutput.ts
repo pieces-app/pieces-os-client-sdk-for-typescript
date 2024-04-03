@@ -12,17 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedModel,
+} from './EmbeddedModelSchema';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-} from './';
+} from './ReferencedModel';
 
 /**
  * This is the output model for '/model/{model}/delete/cache'
@@ -44,33 +46,37 @@ export interface ModelDeleteCacheOutput {
     model: ReferencedModel;
 }
 
+/**
+ * Check if a given object implements the ModelDeleteCacheOutput interface.
+ */
+export function instanceOfModelDeleteCacheOutput(value: object): boolean {
+    if (!('model' in value)) return false;
+    return true;
+}
+
 export function ModelDeleteCacheOutputFromJSON(json: any): ModelDeleteCacheOutput {
     return ModelDeleteCacheOutputFromJSONTyped(json, false);
 }
 
 export function ModelDeleteCacheOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDeleteCacheOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'model': ReferencedModelFromJSON(json['model']),
     };
 }
 
 export function ModelDeleteCacheOutputToJSON(value?: ModelDeleteCacheOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'model': ReferencedModelToJSON(value.model),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'model': ReferencedModelToJSON(value['model']),
     };
 }
-
 

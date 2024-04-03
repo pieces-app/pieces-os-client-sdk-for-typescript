@@ -12,21 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    TagCategoryEnum,
+} from './MechanismEnum';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * This is similar to an SeededTag, where this is the minimum information of a tag, but this can get added to a seededAsset,  where you may not yet have an asset id.
@@ -60,37 +64,41 @@ export interface SeededAssetTag {
     category?: TagCategoryEnum;
 }
 
+/**
+ * Check if a given object implements the SeededAssetTag interface.
+ */
+export function instanceOfSeededAssetTag(value: object): boolean {
+    if (!('text' in value)) return false;
+    return true;
+}
+
 export function SeededAssetTagFromJSON(json: any): SeededAssetTag {
     return SeededAssetTagFromJSONTyped(json, false);
 }
 
 export function SeededAssetTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetTag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
+        'mechanism': json['mechanism'] == null ? undefined : MechanismEnumFromJSON(json['mechanism']),
+        'category': json['category'] == null ? undefined : TagCategoryEnumFromJSON(json['category']),
     };
 }
 
 export function SeededAssetTagToJSON(value?: SeededAssetTag | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'text': value.text,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'category': TagCategoryEnumToJSON(value.category),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'text': value['text'],
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'category': TagCategoryEnumToJSON(value['category']),
     };
 }
-
 
