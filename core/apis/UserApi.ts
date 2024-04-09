@@ -17,6 +17,7 @@ import * as runtime from '../runtime';
 import type {
   Auth0User,
   ReturnedUserProfile,
+  UserBetaStatus,
   UserProfile,
 } from '../models/index';
 import {
@@ -24,6 +25,8 @@ import {
     Auth0UserToJSON,
     ReturnedUserProfileFromJSON,
     ReturnedUserProfileToJSON,
+    UserBetaStatusFromJSON,
+    UserBetaStatusToJSON,
     UserProfileFromJSON,
     UserProfileToJSON,
 } from '../models/index';
@@ -34,6 +37,10 @@ export interface SelectUserRequest {
 
 export interface UpdateUserRequest {
     userProfile?: UserProfile;
+}
+
+export interface UserBetaStatusRequest {
+    userBetaStatus?: UserBetaStatus;
 }
 
 export interface UserUpdateVanityRequest {
@@ -202,6 +209,37 @@ export class UserApi extends runtime.BaseAPI {
      */
     async updateUser(requestParameters: UpdateUserRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
         const response = await this.updateUserRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will be an endpoint to give access or remove access immediately from a given user.(isomorphic from the given provider)
+     * /user/beta/status [POST]
+     */
+    async userBetaStatusRaw(requestParameters: UserBetaStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserBetaStatus>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/user/beta/status`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserBetaStatusToJSON(requestParameters.userBetaStatus),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserBetaStatusFromJSON(jsonValue));
+    }
+
+    /**
+     * This will be an endpoint to give access or remove access immediately from a given user.(isomorphic from the given provider)
+     * /user/beta/status [POST]
+     */
+    async userBetaStatus(requestParameters: UserBetaStatusRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserBetaStatus> {
+        const response = await this.userBetaStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

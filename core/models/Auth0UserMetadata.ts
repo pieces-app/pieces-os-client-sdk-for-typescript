@@ -13,6 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import {
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+} from './AnonymousTemporalRange';
 import type { Auth0OpenAIUserMetadata } from './Auth0OpenAIUserMetadata';
 import {
     Auth0OpenAIUserMetadataFromJSON,
@@ -31,12 +37,6 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
-import type { TimestampRange } from './TimestampRange';
-import {
-    TimestampRangeFromJSON,
-    TimestampRangeFromJSONTyped,
-    TimestampRangeToJSON,
-} from './TimestampRange';
 
 /**
  * User Metadata from Auth0
@@ -88,10 +88,10 @@ export interface Auth0UserMetadata {
     openAI?: Auth0OpenAIUserMetadata;
     /**
      * 
-     * @type {TimestampRange}
+     * @type {AnonymousTemporalRange}
      * @memberof Auth0UserMetadata
      */
-    beta?: TimestampRange;
+    beta?: AnonymousTemporalRange;
 }
 
 /**
@@ -121,7 +121,7 @@ export function Auth0UserMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
         'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
         'allocation': !exists(json, 'allocation') ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
         'openAI': !exists(json, 'open_AI') ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
-        'beta': !exists(json, 'beta') ? undefined : TimestampRangeFromJSON(json['beta']),
+        'beta': !exists(json, 'beta') ? undefined : AnonymousTemporalRangeFromJSON(json['beta']),
     };
 }
 
@@ -141,7 +141,7 @@ export function Auth0UserMetadataToJSON(value?: Auth0UserMetadata | null): any {
         'vanityname': value.vanityname,
         'allocation': Auth0UserAllocationMetadataToJSON(value.allocation),
         'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
-        'beta': TimestampRangeToJSON(value.beta),
+        'beta': AnonymousTemporalRangeToJSON(value.beta),
     };
 }
 

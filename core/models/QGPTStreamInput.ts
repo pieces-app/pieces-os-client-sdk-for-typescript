@@ -57,11 +57,17 @@ export interface QGPTStreamInput {
      */
     conversation?: string;
     /**
-     * 
+     * This will stop the output of the current LLM
      * @type {boolean}
      * @memberof QGPTStreamInput
      */
     stop?: boolean;
+    /**
+     * This will fully reset all current Activity within the QGPT stream Flows.
+     * @type {boolean}
+     * @memberof QGPTStreamInput
+     */
+    reset?: boolean;
     /**
      * This will let us know if we want to run the agent routing as well, this is default to true. However if set to false you will save on processing and you will recieve null for the agentRoutes class on the QGPTStreamOutput.
      * @type {boolean}
@@ -94,6 +100,7 @@ export function QGPTStreamInputFromJSONTyped(json: any, ignoreDiscriminator: boo
         'request': !exists(json, 'request') ? undefined : json['request'],
         'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
         'stop': !exists(json, 'stop') ? undefined : json['stop'],
+        'reset': !exists(json, 'reset') ? undefined : json['reset'],
         'agent': !exists(json, 'agent') ? undefined : json['agent'],
     };
 }
@@ -112,6 +119,7 @@ export function QGPTStreamInputToJSON(value?: QGPTStreamInput | null): any {
         'request': value.request,
         'conversation': value.conversation,
         'stop': value.stop,
+        'reset': value.reset,
         'agent': value.agent,
     };
 }

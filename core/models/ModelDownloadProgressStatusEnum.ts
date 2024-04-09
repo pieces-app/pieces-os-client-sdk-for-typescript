@@ -22,7 +22,9 @@ export const ModelDownloadProgressStatusEnum = {
     InProgress: 'IN-PROGRESS',
     Completed: 'COMPLETED',
     Failed: 'FAILED',
-    Unknown: 'UNKNOWN'
+    Unknown: 'UNKNOWN',
+    Canceled: 'CANCELED',
+    Reset: 'RESET'
 } as const;
 export type ModelDownloadProgressStatusEnum = typeof ModelDownloadProgressStatusEnum[keyof typeof ModelDownloadProgressStatusEnum];
 

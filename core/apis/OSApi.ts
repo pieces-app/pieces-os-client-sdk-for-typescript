@@ -18,6 +18,7 @@ import type {
   CheckedOSUpdate,
   FilePickerInput,
   OSDeviceInformationReturnable,
+  OSPermissions,
   ReturnedUserProfile,
   SeededExternalProvider,
   UncheckedOSUpdate,
@@ -31,6 +32,8 @@ import {
     FilePickerInputToJSON,
     OSDeviceInformationReturnableFromJSON,
     OSDeviceInformationReturnableToJSON,
+    OSPermissionsFromJSON,
+    OSPermissionsToJSON,
     ReturnedUserProfileFromJSON,
     ReturnedUserProfileToJSON,
     SeededExternalProviderFromJSON,
@@ -116,6 +119,34 @@ export class OSApi extends runtime.BaseAPI {
      */
     async osDeviceInformation(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSDeviceInformationReturnable> {
         const response = await this.osDeviceInformationRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will only work on Macos and Windows.  And will get the permissions of the user\'s local machine w/ regard to anything needed to effectively run PiecesOS.  Note: this will let us know if we need to tell them to take action to enable any given permissions
+     * /os/permissions [GET]
+     */
+    async osPermissionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSPermissions>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/permissions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSPermissionsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will only work on Macos and Windows.  And will get the permissions of the user\'s local machine w/ regard to anything needed to effectively run PiecesOS.  Note: this will let us know if we need to tell them to take action to enable any given permissions
+     * /os/permissions [GET]
+     */
+    async osPermissions(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSPermissions> {
+        const response = await this.osPermissionsRaw(initOverrides);
         return await response.value();
     }
 

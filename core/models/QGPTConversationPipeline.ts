@@ -31,6 +31,12 @@ import {
     QGPTConversationPipelineForContextualizedCodeGenerationFromJSONTyped,
     QGPTConversationPipelineForContextualizedCodeGenerationToJSON,
 } from './QGPTConversationPipelineForContextualizedCodeGeneration';
+import type { QGPTConversationPipelineForContextualizedCodeWorkstreamDialog } from './QGPTConversationPipelineForContextualizedCodeWorkstreamDialog';
+import {
+    QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSON,
+    QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSONTyped,
+    QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSON,
+} from './QGPTConversationPipelineForContextualizedCodeWorkstreamDialog';
 import type { QGPTConversationPipelineForGeneralizedCodeDialog } from './QGPTConversationPipelineForGeneralizedCodeDialog';
 import {
     QGPTConversationPipelineForGeneralizedCodeDialogFromJSON,
@@ -45,6 +51,7 @@ import {
  * 1. contextualized_code_generation- This is for users that want to have conversations around generating code, when there is provided context.
  * 2. generalized_code- This is for users that want to have conversations without context around code.
  * 3. contextualized_code- This is for users that want to have conversation around code with Context.
+ * 4. contextualized_code_workstream: this is for the users that want to use context as well as WPE information in their chat (we wiil prioritize WPE infomration, but also support other info as well)
  * @export
  * @interface QGPTConversationPipeline
  */
@@ -73,6 +80,12 @@ export interface QGPTConversationPipeline {
      * @memberof QGPTConversationPipeline
      */
     contextualizedCodeDialog?: QGPTConversationPipelineForContextualizedCodeDialog;
+    /**
+     * 
+     * @type {QGPTConversationPipelineForContextualizedCodeWorkstreamDialog}
+     * @memberof QGPTConversationPipeline
+     */
+    contextualizedCodeWorkstreamDialog?: QGPTConversationPipelineForContextualizedCodeWorkstreamDialog;
 }
 
 /**
@@ -98,6 +111,7 @@ export function QGPTConversationPipelineFromJSONTyped(json: any, ignoreDiscrimin
         'contextualizedCodeGeneration': !exists(json, 'contextualized_code_generation') ? undefined : QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(json['contextualized_code_generation']),
         'generalizedCodeDialog': !exists(json, 'generalized_code_dialog') ? undefined : QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json['generalized_code_dialog']),
         'contextualizedCodeDialog': !exists(json, 'contextualized_code_dialog') ? undefined : QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json['contextualized_code_dialog']),
+        'contextualizedCodeWorkstreamDialog': !exists(json, 'contextualized_code_workstream_dialog') ? undefined : QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSON(json['contextualized_code_workstream_dialog']),
     };
 }
 
@@ -114,6 +128,7 @@ export function QGPTConversationPipelineToJSON(value?: QGPTConversationPipeline 
         'contextualized_code_generation': QGPTConversationPipelineForContextualizedCodeGenerationToJSON(value.contextualizedCodeGeneration),
         'generalized_code_dialog': QGPTConversationPipelineForGeneralizedCodeDialogToJSON(value.generalizedCodeDialog),
         'contextualized_code_dialog': QGPTConversationPipelineForContextualizedCodeDialogToJSON(value.contextualizedCodeDialog),
+        'contextualized_code_workstream_dialog': QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSON(value.contextualizedCodeWorkstreamDialog),
     };
 }
 

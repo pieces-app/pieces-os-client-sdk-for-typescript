@@ -68,6 +68,7 @@ apis/WebsitesApi.ts
 apis/WellKnownApi.ts
 apis/WorkstreamEventApi.ts
 apis/WorkstreamEventsApi.ts
+apis/WorkstreamPatternEngineApi.ts
 apis/WorkstreamSummariesApi.ts
 apis/WorkstreamSummaryApi.ts
 apis/index.ts
@@ -95,6 +96,7 @@ models/Anchors.ts
 models/Annotation.ts
 models/AnnotationTypeEnum.ts
 models/Annotations.ts
+models/AnonymousTemporalRange.ts
 models/Application.ts
 models/ApplicationNameEnum.ts
 models/Applications.ts
@@ -115,6 +117,7 @@ models/Auth0OpenAIUserMetadata.ts
 models/Auth0Redirects.ts
 models/Auth0User.ts
 models/Auth0UserAllocationMetadata.ts
+models/Auth0UserBetaStatus.ts
 models/Auth0UserMetadata.ts
 models/AvailableFormats.ts
 models/Backup.ts
@@ -276,6 +279,8 @@ models/OSDeviceGPUHardwareInformation.ts
 models/OSDeviceHardwareInformation.ts
 models/OSDeviceInformationReturnable.ts
 models/OSHealth.ts
+models/OSPermissions.ts
+models/OSProcessingPermissions.ts
 models/OnboardedPersonaDetails.ts
 models/OpenAIModelsListInput.ts
 models/OpenAIModelsListOutput.ts
@@ -304,6 +309,7 @@ models/QGPTConversationMessageRoleEnum.ts
 models/QGPTConversationPipeline.ts
 models/QGPTConversationPipelineForContextualizedCodeDialog.ts
 models/QGPTConversationPipelineForContextualizedCodeGeneration.ts
+models/QGPTConversationPipelineForContextualizedCodeWorkstreamDialog.ts
 models/QGPTConversationPipelineForGeneralizedCodeDialog.ts
 models/QGPTHintsInput.ts
 models/QGPTPersonsRelatedInput.ts
@@ -485,7 +491,6 @@ models/TemporalRangeGrounding.ts
 models/TextLocation.ts
 models/TextMatch.ts
 models/Theme.ts
-models/TimestampRange.ts
 models/TokenizedPKCE.ts
 models/TrackedApplication.ts
 models/TrackedApplicationInstall.ts
@@ -517,6 +522,7 @@ models/UncheckedOSUpdate.ts
 models/UnsegmentedTechnicalLanguage.ts
 models/UpdatedExternalProviderApiKey.ts
 models/UpdatingStatusEnum.ts
+models/UserBetaStatus.ts
 models/UserProfile.ts
 models/Users.ts
 models/Website.ts
@@ -525,6 +531,9 @@ models/WorkstreamEvent.ts
 models/WorkstreamEventTrigger.ts
 models/WorkstreamEventTriggerMetadata.ts
 models/WorkstreamEvents.ts
+models/WorkstreamPatternEngineDataCleanupRequest.ts
+models/WorkstreamPatternEngineStatus.ts
+models/WorkstreamPatternEngineVisionStatus.ts
 models/WorkstreamSummaries.ts
 models/WorkstreamSummary.ts
 models/index.ts

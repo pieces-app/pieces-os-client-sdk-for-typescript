@@ -511,7 +511,10 @@ export const ClassificationSpecificEnum = {
     Fsi: 'fsi',
     Fsx: 'fsx',
     Tf: 'tf',
-    Vba: 'vba'
+    Vba: 'vba',
+    Svelte: 'svelte',
+    Vue: 'vue',
+    Scss: 'scss'
 } as const;
 export type ClassificationSpecificEnum = typeof ClassificationSpecificEnum[keyof typeof ClassificationSpecificEnum];
 

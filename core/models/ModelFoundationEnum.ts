@@ -97,7 +97,15 @@ export const ModelFoundationEnum = {
     Unixcoder: 'UNIXCODER',
     Phi15: 'PHI_1.5',
     Phi2: 'PHI_2',
-    Mixtral8X7B: 'MIXTRAL_8_x_7B'
+    Mixtral8X7B: 'MIXTRAL_8_x_7B',
+    Gemma7B: 'GEMMA_7B',
+    Gemma2B: 'GEMMA_2B',
+    Grok1: 'GROK_1',
+    Grok15: 'GROK_1.5',
+    Claude2: 'CLAUDE_2',
+    Claude3: 'CLAUDE_3',
+    Starling7B: 'STARLING_7B',
+    Dbrx: 'DBRX'
 } as const;
 export type ModelFoundationEnum = typeof ModelFoundationEnum[keyof typeof ModelFoundationEnum];
 
