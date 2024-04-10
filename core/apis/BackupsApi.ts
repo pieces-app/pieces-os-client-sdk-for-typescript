@@ -50,33 +50,6 @@ export interface BackupsDeleteSpecificBackupRequest {
 export class BackupsApi extends runtime.BaseAPI {
 
     /**
-     * This is Going to cancel a create backup (streamed) or not streamed that is currently in progress.  This will throw a 500 if there is not a backup in progress.
-     * /backups/cancel/creation [POST]
-     */
-    async backupsCancelCreationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/backups/cancel/creation`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * This is Going to cancel a create backup (streamed) or not streamed that is currently in progress.  This will throw a 500 if there is not a backup in progress.
-     * /backups/cancel/creation [POST]
-     */
-    async backupsCancelCreation(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.backupsCancelCreationRaw(initOverrides);
-    }
-
-    /**
      * This take a local database and ensure that it is backed up to the cloud.
      * /backups/create [POST]
      */

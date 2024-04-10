@@ -44,12 +44,6 @@ export interface OSProcessingPermissions {
      * @memberof OSProcessingPermissions
      */
     accessibility?: boolean;
-    /**
-     * if true it is granted, if not then it is not granted.
-     * @type {boolean}
-     * @memberof OSProcessingPermissions
-     */
-    screenRecording?: boolean;
 }
 
 /**
@@ -74,7 +68,6 @@ export function OSProcessingPermissionsFromJSONTyped(json: any, ignoreDiscrimina
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'vision': !exists(json, 'vision') ? undefined : json['vision'],
         'accessibility': !exists(json, 'accessibility') ? undefined : json['accessibility'],
-        'screenRecording': !exists(json, 'screen_recording') ? undefined : json['screen_recording'],
     };
 }
 
@@ -90,7 +83,6 @@ export function OSProcessingPermissionsToJSON(value?: OSProcessingPermissions | 
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'vision': value.vision,
         'accessibility': value.accessibility,
-        'screen_recording': value.screenRecording,
     };
 }
 

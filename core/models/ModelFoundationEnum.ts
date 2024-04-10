@@ -24,6 +24,10 @@ export const ModelFoundationEnum = {
     Llama27B: 'LLAMA_2_7B',
     Llama213B: 'LLAMA_2_13B',
     Llama270B: 'LLAMA_2_70B',
+    Llama32B: 'LLAMA_3_2B',
+    Llama37B: 'LLAMA_3_7B',
+    Llama313B: 'LLAMA_3_13B',
+    Llama370B: 'LLAMA_3_70B',
     CodeLlama27B: 'CODE_LLAMA_2_7B',
     CodeLlama213B: 'CODE_LLAMA_2_13B',
     CodeLlama270B: 'CODE_LLAMA_2_70B',
@@ -98,14 +102,21 @@ export const ModelFoundationEnum = {
     Phi15: 'PHI_1.5',
     Phi2: 'PHI_2',
     Mixtral8X7B: 'MIXTRAL_8_x_7B',
+    Mixtral8X22B: 'MIXTRAL_8_x_22B',
     Gemma7B: 'GEMMA_7B',
     Gemma2B: 'GEMMA_2B',
+    CodeGemma7B: 'CODE_GEMMA_7B',
+    CodeGemma2B: 'CODE_GEMMA_2B',
+    RecurrentGemma2B: 'RECURRENT_GEMMA_2B',
     Grok1: 'GROK_1',
     Grok15: 'GROK_1.5',
     Claude2: 'CLAUDE_2',
     Claude3: 'CLAUDE_3',
     Starling7B: 'STARLING_7B',
-    Dbrx: 'DBRX'
+    Dbrx: 'DBRX',
+    CommandR: 'COMMAND_R+',
+    Gemma112B: 'GEMMA_1.1_2B',
+    Gemma117B: 'GEMMA_1.1_7B'
 } as const;
 export type ModelFoundationEnum = typeof ModelFoundationEnum[keyof typeof ModelFoundationEnum];
 

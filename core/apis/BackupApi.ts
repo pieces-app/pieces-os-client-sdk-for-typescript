@@ -18,6 +18,7 @@ import type {
   Asset,
   Assets,
   Backup,
+  BackupStatus,
   BackupStreamedProgress,
 } from '../models/index';
 import {
@@ -27,6 +28,8 @@ import {
     AssetsToJSON,
     BackupFromJSON,
     BackupToJSON,
+    BackupStatusFromJSON,
+    BackupStatusToJSON,
     BackupStreamedProgressFromJSON,
     BackupStreamedProgressToJSON,
 } from '../models/index';
@@ -50,6 +53,23 @@ export interface BackupRestoreSpecificBackupStreamedRequest {
 }
 
 export interface BackupSpecificBackupSnapshotRequest {
+    backup: string;
+}
+
+export interface BackupSpecificCreationCancelRequest {
+    backup: string;
+}
+
+export interface BackupSpecificCreationStatusRequest {
+    backup: string;
+}
+
+export interface BackupSpecificRestorationCancelRequest {
+    backup: string;
+    backup2?: Backup;
+}
+
+export interface BackupSpecificRestorationStatusRequest {
     backup: string;
 }
 
@@ -215,6 +235,135 @@ export class BackupApi extends runtime.BaseAPI {
      */
     async backupSpecificBackupSnapshot(requestParameters: BackupSpecificBackupSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Backup> {
         const response = await this.backupSpecificBackupSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This is Going to cancel a create backup (streamed) or not streamed that is currently in progress.  This will throw a 500 if there is not a backup in progress.  TODO: ADD mofe DESCRIPITON To this.
+     * /backup/{backup}/creation/cancel [POST]
+     */
+    async backupSpecificCreationCancelRaw(requestParameters: BackupSpecificCreationCancelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupSpecificCreationCancel.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/backup/{backup}/creation/cancel`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This is Going to cancel a create backup (streamed) or not streamed that is currently in progress.  This will throw a 500 if there is not a backup in progress.  TODO: ADD mofe DESCRIPITON To this.
+     * /backup/{backup}/creation/cancel [POST]
+     */
+    async backupSpecificCreationCancel(requestParameters: BackupSpecificCreationCancelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.backupSpecificCreationCancelRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * TODO add a description:
+     * /backup/{backup}/creation/status [GET]
+     */
+    async backupSpecificCreationStatusRaw(requestParameters: BackupSpecificCreationStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupStatus>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupSpecificCreationStatus.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/backup/{backup}/creation/status`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupStatusFromJSON(jsonValue));
+    }
+
+    /**
+     * TODO add a description:
+     * /backup/{backup}/creation/status [GET]
+     */
+    async backupSpecificCreationStatus(requestParameters: BackupSpecificCreationStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupStatus> {
+        const response = await this.backupSpecificCreationStatusRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will cancel a Restoration that is in progress and restore to the original database.  Note: if there is not a restore in progress we will return a 500.  TODO add
+     * /backup/{backup}/restoration/cancel [POST]
+     */
+    async backupSpecificRestorationCancelRaw(requestParameters: BackupSpecificRestorationCancelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupSpecificRestorationCancel.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/backup/{backup}/restoration/cancel`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BackupToJSON(requestParameters.backup2),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will cancel a Restoration that is in progress and restore to the original database.  Note: if there is not a restore in progress we will return a 500.  TODO add
+     * /backup/{backup}/restoration/cancel [POST]
+     */
+    async backupSpecificRestorationCancel(requestParameters: BackupSpecificRestorationCancelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.backupSpecificRestorationCancelRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * TODO add a description:
+     * /backup/{backup}/restoration/status [GET]
+     */
+    async backupSpecificRestorationStatusRaw(requestParameters: BackupSpecificRestorationStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupStatus>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupSpecificRestorationStatus.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/backup/{backup}/restoration/status`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupStatusFromJSON(jsonValue));
+    }
+
+    /**
+     * TODO add a description:
+     * /backup/{backup}/restoration/status [GET]
+     */
+    async backupSpecificRestorationStatus(requestParameters: BackupSpecificRestorationStatusRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupStatus> {
+        const response = await this.backupSpecificRestorationStatusRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

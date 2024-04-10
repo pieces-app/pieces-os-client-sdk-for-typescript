@@ -121,6 +121,8 @@ models/Auth0UserBetaStatus.ts
 models/Auth0UserMetadata.ts
 models/AvailableFormats.ts
 models/Backup.ts
+models/BackupStatus.ts
+models/BackupStatusEnum.ts
 models/BackupStreamedProgress.ts
 models/Backups.ts
 models/ByteDescriptor.ts

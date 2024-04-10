@@ -48,6 +48,8 @@ export * from './Auth0UserBetaStatus';
 export * from './Auth0UserMetadata';
 export * from './AvailableFormats';
 export * from './Backup';
+export * from './BackupStatus';
+export * from './BackupStatusEnum';
 export * from './BackupStreamedProgress';
 export * from './Backups';
 export * from './ByteDescriptor';
