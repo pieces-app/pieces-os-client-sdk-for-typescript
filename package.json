@@ -23,8 +23,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "clean": "rm -r node_modules && rm package-lock.json && rm -r dist",
-    "export": "npm pack --pack-destination ~",
-    "publish": "npm publish --access public"
+    "export": "npm pack --pack-destination ~"
   },
   "author": "Pieces for Developers",
   "license": "MIT",
