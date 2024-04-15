@@ -13,52 +13,72 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    ByteDescriptor,
+} from './Application';
+import type { ByteDescriptor } from './ByteDescriptor';
+import {
     ByteDescriptorFromJSON,
     ByteDescriptorFromJSONTyped,
     ByteDescriptorToJSON,
-    Classification,
+} from './ByteDescriptor';
+import type { Classification } from './Classification';
+import {
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FileFormat,
+} from './EmbeddedModelSchema';
+import type { FileFormat } from './FileFormat';
+import {
     FileFormatFromJSON,
     FileFormatFromJSONTyped,
     FileFormatToJSON,
-    FlattenedActivities,
+} from './FileFormat';
+import type { FlattenedActivities } from './FlattenedActivities';
+import {
     FlattenedActivitiesFromJSON,
     FlattenedActivitiesFromJSONTyped,
     FlattenedActivitiesToJSON,
-    FlattenedAnalysis,
+} from './FlattenedActivities';
+import type { FlattenedAnalysis } from './FlattenedAnalysis';
+import {
     FlattenedAnalysisFromJSON,
     FlattenedAnalysisFromJSONTyped,
     FlattenedAnalysisToJSON,
-    FragmentFormat,
+} from './FlattenedAnalysis';
+import type { FragmentFormat } from './FragmentFormat';
+import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
-    GroupedTimestamp,
+} from './FragmentFormat';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Relationship,
+} from './GroupedTimestamp';
+import type { Relationship } from './Relationship';
+import {
     RelationshipFromJSON,
     RelationshipFromJSONTyped,
     RelationshipToJSON,
-    Role,
+} from './Relationship';
+import type { Role } from './Role';
+import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-} from './';
+} from './Role';
 
 /**
  * A representation of Data for a particular Form Factor of an Asset.[DAG Compatible - Directed Acyclic Graph Data Structure]
@@ -188,6 +208,24 @@ export interface FlattenedFormat {
     activities?: FlattenedActivities;
 }
 
+/**
+ * Check if a given object implements the FlattenedFormat interface.
+ */
+export function instanceOfFlattenedFormat(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "creator" in value;
+    isInstance = isInstance && "classification" in value;
+    isInstance = isInstance && "role" in value;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "bytes" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
+}
+
 export function FlattenedFormatFromJSON(json: any): FlattenedFormat {
     return FlattenedFormatFromJSONTyped(json, false);
 }
@@ -250,5 +288,4 @@ export function FlattenedFormatToJSON(value?: FlattenedFormat | null): any {
         'activities': FlattenedActivitiesToJSON(value.activities),
     };
 }
-
 

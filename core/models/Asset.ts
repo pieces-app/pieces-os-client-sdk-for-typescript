@@ -13,76 +13,114 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Activities } from './Activities';
 import {
-    Activities,
     ActivitiesFromJSON,
     ActivitiesFromJSONTyped,
     ActivitiesToJSON,
-    Anchors,
+} from './Activities';
+import type { Anchors } from './Anchors';
+import {
     AnchorsFromJSON,
     AnchorsFromJSONTyped,
     AnchorsToJSON,
-    Annotations,
+} from './Anchors';
+import type { Annotations } from './Annotations';
+import {
     AnnotationsFromJSON,
     AnnotationsFromJSONTyped,
     AnnotationsToJSON,
-    Conversations,
+} from './Annotations';
+import type { Conversations } from './Conversations';
+import {
     ConversationsFromJSON,
     ConversationsFromJSONTyped,
     ConversationsToJSON,
-    EmbeddedModelSchema,
+} from './Conversations';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Formats,
+} from './EmbeddedModelSchema';
+import type { Formats } from './Formats';
+import {
     FormatsFromJSON,
     FormatsFromJSONTyped,
     FormatsToJSON,
-    GroupedTimestamp,
+} from './Formats';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Hints,
+} from './GroupedTimestamp';
+import type { Hints } from './Hints';
+import {
     HintsFromJSON,
     HintsFromJSONTyped,
     HintsToJSON,
-    MechanismEnum,
+} from './Hints';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    Persons,
+} from './MechanismEnum';
+import type { Persons } from './Persons';
+import {
     PersonsFromJSON,
     PersonsFromJSONTyped,
     PersonsToJSON,
-    Preview,
+} from './Persons';
+import type { Preview } from './Preview';
+import {
     PreviewFromJSON,
     PreviewFromJSONTyped,
     PreviewToJSON,
-    ReferencedFormat,
+} from './Preview';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-    Score,
+} from './ReferencedFormat';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    Sensitives,
+} from './Score';
+import type { Sensitives } from './Sensitives';
+import {
     SensitivesFromJSON,
     SensitivesFromJSONTyped,
     SensitivesToJSON,
-    Shares,
+} from './Sensitives';
+import type { Shares } from './Shares';
+import {
     SharesFromJSON,
     SharesFromJSONTyped,
     SharesToJSON,
-    Tags,
+} from './Shares';
+import type { Tags } from './Tags';
+import {
     TagsFromJSON,
     TagsFromJSONTyped,
     TagsToJSON,
-    Websites,
+} from './Tags';
+import type { Websites } from './Websites';
+import {
     WebsitesFromJSON,
     WebsitesFromJSONTyped,
     WebsitesToJSON,
-} from './';
+} from './Websites';
+import type { WorkstreamSummaries } from './WorkstreamSummaries';
+import {
+    WorkstreamSummariesFromJSON,
+    WorkstreamSummariesFromJSONTyped,
+    WorkstreamSummariesToJSON,
+} from './WorkstreamSummaries';
 
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats.
@@ -261,11 +299,34 @@ export interface Asset {
      */
     conversations?: Conversations;
     /**
+     * 
+     * @type {WorkstreamSummaries}
+     * @memberof Asset
+     */
+    summaries?: WorkstreamSummaries;
+    /**
      * This will let us know if this asset was generated as a 'demo' snippet
      * @type {boolean}
      * @memberof Asset
      */
     demo?: boolean;
+}
+
+/**
+ * Check if a given object implements the Asset interface.
+ */
+export function instanceOfAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "creator" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "formats" in value;
+    isInstance = isInstance && "preview" in value;
+    isInstance = isInstance && "original" in value;
+    isInstance = isInstance && "mechanism" in value;
+
+    return isInstance;
 }
 
 export function AssetFromJSON(json: any): Asset {
@@ -306,6 +367,7 @@ export function AssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ass
         'hints': !exists(json, 'hints') ? undefined : HintsFromJSON(json['hints']),
         'anchors': !exists(json, 'anchors') ? undefined : AnchorsFromJSON(json['anchors']),
         'conversations': !exists(json, 'conversations') ? undefined : ConversationsFromJSON(json['conversations']),
+        'summaries': !exists(json, 'summaries') ? undefined : WorkstreamSummariesFromJSON(json['summaries']),
         'demo': !exists(json, 'demo') ? undefined : json['demo'],
     };
 }
@@ -347,8 +409,8 @@ export function AssetToJSON(value?: Asset | null): any {
         'hints': HintsToJSON(value.hints),
         'anchors': AnchorsToJSON(value.anchors),
         'conversations': ConversationsToJSON(value.conversations),
+        'summaries': WorkstreamSummariesToJSON(value.summaries),
         'demo': value.demo,
     };
 }
-
 

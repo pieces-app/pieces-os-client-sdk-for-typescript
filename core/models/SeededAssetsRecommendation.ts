@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Assets } from './Assets';
 import {
-    Assets,
     AssetsFromJSON,
     AssetsFromJSONTyped,
     AssetsToJSON,
-    EmbeddedModelSchema,
+} from './Assets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    InteractedAssets,
+} from './EmbeddedModelSchema';
+import type { InteractedAssets } from './InteractedAssets';
+import {
     InteractedAssetsFromJSON,
     InteractedAssetsFromJSONTyped,
     InteractedAssetsToJSON,
-} from './';
+} from './InteractedAssets';
 
 /**
  * This is the input data model for the /assets/recommend [GET] endpoint. It includes both a list of assets but also 
@@ -52,6 +56,17 @@ export interface SeededAssetsRecommendation {
      * @memberof SeededAssetsRecommendation
      */
     interactions: InteractedAssets;
+}
+
+/**
+ * Check if a given object implements the SeededAssetsRecommendation interface.
+ */
+export function instanceOfSeededAssetsRecommendation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "interactions" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetsRecommendationFromJSON(json: any): SeededAssetsRecommendation {
@@ -84,5 +99,4 @@ export function SeededAssetsRecommendationToJSON(value?: SeededAssetsRecommendat
         'interactions': InteractedAssetsToJSON(value.interactions),
     };
 }
-
 

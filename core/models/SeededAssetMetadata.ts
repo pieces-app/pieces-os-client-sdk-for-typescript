@@ -13,44 +13,60 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    SeededAnchor,
+} from './MechanismEnum';
+import type { SeededAnchor } from './SeededAnchor';
+import {
     SeededAnchorFromJSON,
     SeededAnchorFromJSONTyped,
     SeededAnchorToJSON,
-    SeededAnnotation,
+} from './SeededAnchor';
+import type { SeededAnnotation } from './SeededAnnotation';
+import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-    SeededAssetSensitive,
+} from './SeededAnnotation';
+import type { SeededAssetSensitive } from './SeededAssetSensitive';
+import {
     SeededAssetSensitiveFromJSON,
     SeededAssetSensitiveFromJSONTyped,
     SeededAssetSensitiveToJSON,
-    SeededAssetTag,
+} from './SeededAssetSensitive';
+import type { SeededAssetTag } from './SeededAssetTag';
+import {
     SeededAssetTagFromJSON,
     SeededAssetTagFromJSONTyped,
     SeededAssetTagToJSON,
-    SeededAssetWebsite,
+} from './SeededAssetTag';
+import type { SeededAssetWebsite } from './SeededAssetWebsite';
+import {
     SeededAssetWebsiteFromJSON,
     SeededAssetWebsiteFromJSONTyped,
     SeededAssetWebsiteToJSON,
-    SeededHint,
+} from './SeededAssetWebsite';
+import type { SeededHint } from './SeededHint';
+import {
     SeededHintFromJSON,
     SeededHintFromJSONTyped,
     SeededHintToJSON,
-    SeededPerson,
+} from './SeededHint';
+import type { SeededPerson } from './SeededPerson';
+import {
     SeededPersonFromJSON,
     SeededPersonFromJSONTyped,
     SeededPersonToJSON,
-} from './';
+} from './SeededPerson';
 
 /**
  * This is optional metadata sent with the SeededAsset and other SeededAssets ie (UE, Jetbrains...)
@@ -122,6 +138,15 @@ export interface SeededAssetMetadata {
     anchors?: Array<SeededAnchor>;
 }
 
+/**
+ * Check if a given object implements the SeededAssetMetadata interface.
+ */
+export function instanceOfSeededAssetMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function SeededAssetMetadataFromJSON(json: any): SeededAssetMetadata {
     return SeededAssetMetadataFromJSONTyped(json, false);
 }
@@ -166,5 +191,4 @@ export function SeededAssetMetadataToJSON(value?: SeededAssetMetadata | null): a
         'anchors': value.anchors === undefined ? undefined : ((value.anchors as Array<any>).map(SeededAnchorToJSON)),
     };
 }
-
 

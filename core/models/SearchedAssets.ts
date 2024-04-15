@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SearchedAsset,
+} from './EmbeddedModelSchema';
+import type { SearchedAsset } from './SearchedAsset';
+import {
     SearchedAssetFromJSON,
     SearchedAssetFromJSONTyped,
     SearchedAssetToJSON,
-} from './';
+} from './SearchedAsset';
 
 /**
  * This is a modle that will return fro mthe search endpoint that will just contain an array of assets!
@@ -54,6 +56,18 @@ export interface SearchedAssets {
      * @memberof SearchedAssets
      */
     exact: number;
+}
+
+/**
+ * Check if a given object implements the SearchedAssets interface.
+ */
+export function instanceOfSearchedAssets(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "suggested" in value;
+    isInstance = isInstance && "exact" in value;
+
+    return isInstance;
 }
 
 export function SearchedAssetsFromJSON(json: any): SearchedAssets {
@@ -88,5 +102,4 @@ export function SearchedAssetsToJSON(value?: SearchedAssets | null): any {
         'exact': value.exact,
     };
 }
-
 

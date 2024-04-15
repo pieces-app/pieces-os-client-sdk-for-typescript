@@ -13,48 +13,66 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTrackedAdoptionEvent,
+} from './EmbeddedModelSchema';
+import type { SeededTrackedAdoptionEvent } from './SeededTrackedAdoptionEvent';
+import {
     SeededTrackedAdoptionEventFromJSON,
     SeededTrackedAdoptionEventFromJSONTyped,
     SeededTrackedAdoptionEventToJSON,
-    SeededTrackedAssetEvent,
+} from './SeededTrackedAdoptionEvent';
+import type { SeededTrackedAssetEvent } from './SeededTrackedAssetEvent';
+import {
     SeededTrackedAssetEventFromJSON,
     SeededTrackedAssetEventFromJSONTyped,
     SeededTrackedAssetEventToJSON,
-    SeededTrackedAssetsEvent,
+} from './SeededTrackedAssetEvent';
+import type { SeededTrackedAssetsEvent } from './SeededTrackedAssetsEvent';
+import {
     SeededTrackedAssetsEventFromJSON,
     SeededTrackedAssetsEventFromJSONTyped,
     SeededTrackedAssetsEventToJSON,
-    SeededTrackedConversationEvent,
+} from './SeededTrackedAssetsEvent';
+import type { SeededTrackedConversationEvent } from './SeededTrackedConversationEvent';
+import {
     SeededTrackedConversationEventFromJSON,
     SeededTrackedConversationEventFromJSONTyped,
     SeededTrackedConversationEventToJSON,
-    SeededTrackedFormatEvent,
+} from './SeededTrackedConversationEvent';
+import type { SeededTrackedFormatEvent } from './SeededTrackedFormatEvent';
+import {
     SeededTrackedFormatEventFromJSON,
     SeededTrackedFormatEventFromJSONTyped,
     SeededTrackedFormatEventToJSON,
-    SeededTrackedInteractionEvent,
+} from './SeededTrackedFormatEvent';
+import type { SeededTrackedInteractionEvent } from './SeededTrackedInteractionEvent';
+import {
     SeededTrackedInteractionEventFromJSON,
     SeededTrackedInteractionEventFromJSONTyped,
     SeededTrackedInteractionEventToJSON,
-    SeededTrackedKeyboardEvent,
+} from './SeededTrackedInteractionEvent';
+import type { SeededTrackedKeyboardEvent } from './SeededTrackedKeyboardEvent';
+import {
     SeededTrackedKeyboardEventFromJSON,
     SeededTrackedKeyboardEventFromJSONTyped,
     SeededTrackedKeyboardEventToJSON,
-    SeededTrackedMachineLearningEvent,
+} from './SeededTrackedKeyboardEvent';
+import type { SeededTrackedMachineLearningEvent } from './SeededTrackedMachineLearningEvent';
+import {
     SeededTrackedMachineLearningEventFromJSON,
     SeededTrackedMachineLearningEventFromJSONTyped,
     SeededTrackedMachineLearningEventToJSON,
-    SeededTrackedSessionEvent,
+} from './SeededTrackedMachineLearningEvent';
+import type { SeededTrackedSessionEvent } from './SeededTrackedSessionEvent';
+import {
     SeededTrackedSessionEventFromJSON,
     SeededTrackedSessionEventFromJSONTyped,
     SeededTrackedSessionEventToJSON,
-} from './';
+} from './SeededTrackedSessionEvent';
 
 /**
  * This model is designed to be light weight and low friction while most of the heavy lifting will be happening inside of the context servers.
@@ -126,6 +144,15 @@ export interface SeededConnectorTracking {
     conversation?: SeededTrackedConversationEvent;
 }
 
+/**
+ * Check if a given object implements the SeededConnectorTracking interface.
+ */
+export function instanceOfSeededConnectorTracking(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function SeededConnectorTrackingFromJSON(json: any): SeededConnectorTracking {
     return SeededConnectorTrackingFromJSONTyped(json, false);
 }
@@ -170,5 +197,4 @@ export function SeededConnectorTrackingToJSON(value?: SeededConnectorTracking | 
         'conversation': SeededTrackedConversationEventToJSON(value.conversation),
     };
 }
-
 

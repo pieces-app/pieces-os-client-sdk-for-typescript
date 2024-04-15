@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will describe the theme that belongs to a user.
@@ -38,6 +38,16 @@ export interface Theme {
      * @memberof Theme
      */
     dark: boolean;
+}
+
+/**
+ * Check if a given object implements the Theme interface.
+ */
+export function instanceOfTheme(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "dark" in value;
+
+    return isInstance;
 }
 
 export function ThemeFromJSON(json: any): Theme {
@@ -68,5 +78,4 @@ export function ThemeToJSON(value?: Theme | null): any {
         'dark': value.dark,
     };
 }
-
 

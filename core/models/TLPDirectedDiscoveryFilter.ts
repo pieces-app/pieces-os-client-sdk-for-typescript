@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { TLPDirectedDiscoveryFilterEnum } from './TLPDirectedDiscoveryFilterEnum';
 import {
-    TLPDirectedDiscoveryFilterEnum,
     TLPDirectedDiscoveryFilterEnumFromJSON,
     TLPDirectedDiscoveryFilterEnumFromJSONTyped,
     TLPDirectedDiscoveryFilterEnumToJSON,
-} from './';
+} from './TLPDirectedDiscoveryFilterEnum';
 
 /**
  * Contains enum which represents code block type
@@ -32,6 +32,16 @@ export interface TLPDirectedDiscoveryFilter {
      * @memberof TLPDirectedDiscoveryFilter
      */
     name: TLPDirectedDiscoveryFilterEnum;
+}
+
+/**
+ * Check if a given object implements the TLPDirectedDiscoveryFilter interface.
+ */
+export function instanceOfTLPDirectedDiscoveryFilter(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
 }
 
 export function TLPDirectedDiscoveryFilterFromJSON(json: any): TLPDirectedDiscoveryFilter {
@@ -60,5 +70,4 @@ export function TLPDirectedDiscoveryFilterToJSON(value?: TLPDirectedDiscoveryFil
         'name': TLPDirectedDiscoveryFilterEnumToJSON(value.name),
     };
 }
-
 

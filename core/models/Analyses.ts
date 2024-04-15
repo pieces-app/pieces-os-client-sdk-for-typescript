@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Analysis } from './Analysis';
 import {
-    Analysis,
     AnalysisFromJSON,
     AnalysisFromJSONTyped,
     AnalysisToJSON,
-    EmbeddedModelSchema,
+} from './Analysis';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface Analyses {
      * @memberof Analyses
      */
     iterable: Array<Analysis>;
+}
+
+/**
+ * Check if a given object implements the Analyses interface.
+ */
+export function instanceOfAnalyses(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AnalysesFromJSON(json: any): Analyses {
@@ -72,5 +84,4 @@ export function AnalysesToJSON(value?: Analyses | null): any {
         'iterable': ((value.iterable as Array<any>).map(AnalysisToJSON)),
     };
 }
-
 

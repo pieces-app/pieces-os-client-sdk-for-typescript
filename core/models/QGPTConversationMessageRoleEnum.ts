@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is the role enum used for a QGPT conversation
  * @export
- * @enum {string}
  */
-export enum QGPTConversationMessageRoleEnum {
-    User = 'USER',
-    System = 'SYSTEM',
-    Assistant = 'ASSISTANT'
-}
+export const QGPTConversationMessageRoleEnum = {
+    User: 'USER',
+    System: 'SYSTEM',
+    Assistant: 'ASSISTANT'
+} as const;
+export type QGPTConversationMessageRoleEnum = typeof QGPTConversationMessageRoleEnum[keyof typeof QGPTConversationMessageRoleEnum];
+
 
 export function QGPTConversationMessageRoleEnumFromJSON(json: any): QGPTConversationMessageRoleEnum {
     return QGPTConversationMessageRoleEnumFromJSONTyped(json, false);

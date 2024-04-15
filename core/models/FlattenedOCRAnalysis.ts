@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Model,
+} from './EmbeddedModelSchema';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-    ReferencedFormat,
+} from './Model';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-} from './';
+} from './ReferencedFormat';
 
 /**
  * [DAG Safe] Ocr Analysis that will reference FlattenedFormats.
@@ -72,6 +76,20 @@ export interface FlattenedOCRAnalysis {
     image: string;
 }
 
+/**
+ * Check if a given object implements the FlattenedOCRAnalysis interface.
+ */
+export function instanceOfFlattenedOCRAnalysis(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "raw" in value;
+    isInstance = isInstance && "hocr" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "image" in value;
+
+    return isInstance;
+}
+
 export function FlattenedOCRAnalysisFromJSON(json: any): FlattenedOCRAnalysis {
     return FlattenedOCRAnalysisFromJSONTyped(json, false);
 }
@@ -108,5 +126,4 @@ export function FlattenedOCRAnalysisToJSON(value?: FlattenedOCRAnalysis | null):
         'image': value.image,
     };
 }
-
 

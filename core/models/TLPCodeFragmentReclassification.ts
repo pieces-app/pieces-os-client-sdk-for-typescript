@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeFragmentReclassificationUpdates,
+} from './EmbeddedModelSchema';
+import type { TLPCodeFragmentReclassificationUpdates } from './TLPCodeFragmentReclassificationUpdates';
+import {
     TLPCodeFragmentReclassificationUpdatesFromJSON,
     TLPCodeFragmentReclassificationUpdatesFromJSONTyped,
     TLPCodeFragmentReclassificationUpdatesToJSON,
-} from './';
+} from './TLPCodeFragmentReclassificationUpdates';
 
 /**
  * Model for ML big query Reclassification.
@@ -74,6 +76,21 @@ export interface TLPCodeFragmentReclassification {
     context: string;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentReclassification interface.
+ */
+export function instanceOfTLPCodeFragmentReclassification(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updates" in value;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "context" in value;
+
+    return isInstance;
+}
+
 export function TLPCodeFragmentReclassificationFromJSON(json: any): TLPCodeFragmentReclassification {
     return TLPCodeFragmentReclassificationFromJSONTyped(json, false);
 }
@@ -112,5 +129,4 @@ export function TLPCodeFragmentReclassificationToJSON(value?: TLPCodeFragmentRec
         'context': value.context,
     };
 }
-
 

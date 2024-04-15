@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededAssetMetadata,
+} from './EmbeddedModelSchema';
+import type { SeededAssetMetadata } from './SeededAssetMetadata';
+import {
     SeededAssetMetadataFromJSON,
     SeededAssetMetadataFromJSONTyped,
     SeededAssetMetadataToJSON,
-    SeededFormat,
+} from './SeededAssetMetadata';
+import type { SeededFormat } from './SeededFormat';
+import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './';
+} from './SeededFormat';
 
 /**
  * A generic model to use with the Connector API that requires little to no additional information about the current application.
@@ -52,6 +56,16 @@ export interface SeededConnectorAsset {
      * @memberof SeededConnectorAsset
      */
     format: SeededFormat;
+}
+
+/**
+ * Check if a given object implements the SeededConnectorAsset interface.
+ */
+export function instanceOfSeededConnectorAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function SeededConnectorAssetFromJSON(json: any): SeededConnectorAsset {
@@ -84,5 +98,4 @@ export function SeededConnectorAssetToJSON(value?: SeededConnectorAsset | null):
         'format': SeededFormatToJSON(value.format),
     };
 }
-
 

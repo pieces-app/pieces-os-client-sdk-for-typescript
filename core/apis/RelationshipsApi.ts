@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Relationships,
+} from '../models/index';
 import {
-    Relationships,
     RelationshipsFromJSON,
     RelationshipsToJSON,
-} from '../models';
+} from '../models/index';
 
 /**
  * 
@@ -26,10 +28,10 @@ import {
 export class RelationshipsApi extends runtime.BaseAPI {
 
     /**
-     * This will reurn all of the relationships that exists within your pieces db.
+     * This will return all of the relationships that exists within your pieces db.
      * /relationships [GET]
      */
-    async relationshipsSnapshotRaw(): Promise<runtime.ApiResponse<Relationships>> {
+    async relationshipsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Relationships>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -39,17 +41,17 @@ export class RelationshipsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RelationshipsFromJSON(jsonValue));
     }
 
     /**
-     * This will reurn all of the relationships that exists within your pieces db.
+     * This will return all of the relationships that exists within your pieces db.
      * /relationships [GET]
      */
-    async relationshipsSnapshot(): Promise<Relationships> {
-        const response = await this.relationshipsSnapshotRaw();
+    async relationshipsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Relationships> {
+        const response = await this.relationshipsSnapshotRaw(initOverrides);
         return await response.value();
     }
 

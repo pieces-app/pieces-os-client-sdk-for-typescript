@@ -13,36 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeFragmentClassification,
+} from './EmbeddedModelSchema';
+import type { TLPCodeFragmentClassification } from './TLPCodeFragmentClassification';
+import {
     TLPCodeFragmentClassificationFromJSON,
     TLPCodeFragmentClassificationFromJSONTyped,
     TLPCodeFragmentClassificationToJSON,
-    TLPCodeFragmentDescription,
+} from './TLPCodeFragmentClassification';
+import type { TLPCodeFragmentDescription } from './TLPCodeFragmentDescription';
+import {
     TLPCodeFragmentDescriptionFromJSON,
     TLPCodeFragmentDescriptionFromJSONTyped,
     TLPCodeFragmentDescriptionToJSON,
-    TLPCodeFragmentReclassification,
+} from './TLPCodeFragmentDescription';
+import type { TLPCodeFragmentReclassification } from './TLPCodeFragmentReclassification';
+import {
     TLPCodeFragmentReclassificationFromJSON,
     TLPCodeFragmentReclassificationFromJSONTyped,
     TLPCodeFragmentReclassificationToJSON,
-    TLPCodeFragmentStatistics,
+} from './TLPCodeFragmentReclassification';
+import type { TLPCodeFragmentStatistics } from './TLPCodeFragmentStatistics';
+import {
     TLPCodeFragmentStatisticsFromJSON,
     TLPCodeFragmentStatisticsFromJSONTyped,
     TLPCodeFragmentStatisticsToJSON,
-    TLPCodeFragmentTagify,
+} from './TLPCodeFragmentStatistics';
+import type { TLPCodeFragmentTagify } from './TLPCodeFragmentTagify';
+import {
     TLPCodeFragmentTagifyFromJSON,
     TLPCodeFragmentTagifyFromJSONTyped,
     TLPCodeFragmentTagifyToJSON,
-    TLPCodeSnippetSuggestedInteractions,
+} from './TLPCodeFragmentTagify';
+import type { TLPCodeSnippetSuggestedInteractions } from './TLPCodeSnippetSuggestedInteractions';
+import {
     TLPCodeSnippetSuggestedInteractionsFromJSON,
     TLPCodeSnippetSuggestedInteractionsFromJSONTyped,
     TLPCodeSnippetSuggestedInteractionsToJSON,
-} from './';
+} from './TLPCodeSnippetSuggestedInteractions';
 
 /**
  * 
@@ -94,6 +106,15 @@ export interface TLPCodeSnippetAnalytics {
     description?: TLPCodeFragmentDescription;
 }
 
+/**
+ * Check if a given object implements the TLPCodeSnippetAnalytics interface.
+ */
+export function instanceOfTLPCodeSnippetAnalytics(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function TLPCodeSnippetAnalyticsFromJSON(json: any): TLPCodeSnippetAnalytics {
     return TLPCodeSnippetAnalyticsFromJSONTyped(json, false);
 }
@@ -132,5 +153,4 @@ export function TLPCodeSnippetAnalyticsToJSON(value?: TLPCodeSnippetAnalytics | 
         'description': TLPCodeFragmentDescriptionToJSON(value.description),
     };
 }
-
 

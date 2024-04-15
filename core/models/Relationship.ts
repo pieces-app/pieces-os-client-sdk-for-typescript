@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Edges } from './Edges';
 import {
-    Edges,
     EdgesFromJSON,
     EdgesFromJSONTyped,
     EdgesToJSON,
-    EmbeddedModelSchema,
+} from './Edges';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Embeddings,
+} from './EmbeddedModelSchema';
+import type { Embeddings } from './Embeddings';
+import {
     EmbeddingsFromJSON,
     EmbeddingsFromJSONTyped,
     EmbeddingsToJSON,
-    GroupedTimestamp,
+} from './Embeddings';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * A relationship expresses a graph of like types, to build a relationship graph. 
@@ -83,6 +89,20 @@ export interface Relationship {
     deleted?: GroupedTimestamp;
 }
 
+/**
+ * Check if a given object implements the Relationship interface.
+ */
+export function instanceOfRelationship(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "embeddings" in value;
+    isInstance = isInstance && "edges" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
+}
+
 export function RelationshipFromJSON(json: any): Relationship {
     return RelationshipFromJSONTyped(json, false);
 }
@@ -121,5 +141,4 @@ export function RelationshipToJSON(value?: Relationship | null): any {
         'deleted': GroupedTimestampToJSON(value.deleted),
     };
 }
-
 

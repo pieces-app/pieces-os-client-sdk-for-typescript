@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a model that will hold relavent information in relation to a keyboard(including shortcuts) analytics event (usage).
@@ -44,6 +44,17 @@ export interface TrackedKeyboardEvent {
      * @memberof TrackedKeyboardEvent
      */
     shortcut: Array<number>;
+}
+
+/**
+ * Check if a given object implements the TrackedKeyboardEvent interface.
+ */
+export function instanceOfTrackedKeyboardEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "shortcut" in value;
+
+    return isInstance;
 }
 
 export function TrackedKeyboardEventFromJSON(json: any): TrackedKeyboardEvent {
@@ -76,5 +87,4 @@ export function TrackedKeyboardEventToJSON(value?: TrackedKeyboardEvent | null):
         'shortcut': value.shortcut,
     };
 }
-
 

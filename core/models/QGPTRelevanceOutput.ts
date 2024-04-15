@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTQuestionOutput,
+} from './EmbeddedModelSchema';
+import type { QGPTQuestionOutput } from './QGPTQuestionOutput';
+import {
     QGPTQuestionOutputFromJSON,
     QGPTQuestionOutputFromJSONTyped,
     QGPTQuestionOutputToJSON,
-    RelevantQGPTSeeds,
+} from './QGPTQuestionOutput';
+import type { RelevantQGPTSeeds } from './RelevantQGPTSeeds';
+import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './';
+} from './RelevantQGPTSeeds';
 
 /**
  * This is the returned value from /code_gpt/relevance.
@@ -61,6 +65,16 @@ export interface QGPTRelevanceOutput {
     relevant: RelevantQGPTSeeds;
 }
 
+/**
+ * Check if a given object implements the QGPTRelevanceOutput interface.
+ */
+export function instanceOfQGPTRelevanceOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "relevant" in value;
+
+    return isInstance;
+}
+
 export function QGPTRelevanceOutputFromJSON(json: any): QGPTRelevanceOutput {
     return QGPTRelevanceOutputFromJSONTyped(json, false);
 }
@@ -91,5 +105,4 @@ export function QGPTRelevanceOutputToJSON(value?: QGPTRelevanceOutput | null): a
         'relevant': RelevantQGPTSeedsToJSON(value.relevant),
     };
 }
-
 

@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Format,
+} from './EmbeddedModelSchema';
+import type { Format } from './Format';
+import {
     FormatFromJSON,
     FormatFromJSONTyped,
     FormatToJSON,
-    Model,
+} from './Format';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './Model';
 
 /**
  * This is the data collected during the ocr analysis of an image.
@@ -72,6 +76,20 @@ export interface OCRAnalysis {
     model: Model;
 }
 
+/**
+ * Check if a given object implements the OCRAnalysis interface.
+ */
+export function instanceOfOCRAnalysis(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "raw" in value;
+    isInstance = isInstance && "hocr" in value;
+    isInstance = isInstance && "image" in value;
+    isInstance = isInstance && "model" in value;
+
+    return isInstance;
+}
+
 export function OCRAnalysisFromJSON(json: any): OCRAnalysis {
     return OCRAnalysisFromJSONTyped(json, false);
 }
@@ -108,5 +126,4 @@ export function OCRAnalysisToJSON(value?: OCRAnalysis | null): any {
         'model': ModelToJSON(value.model),
     };
 }
-
 

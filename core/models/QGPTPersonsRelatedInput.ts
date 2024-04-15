@@ -13,25 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTConversation,
+} from './EmbeddedModelSchema';
+import type { QGPTConversation } from './QGPTConversation';
+import {
     QGPTConversationFromJSON,
     QGPTConversationFromJSONTyped,
     QGPTConversationToJSON,
-    Seed,
+} from './QGPTConversation';
+import type { Seed } from './Seed';
+import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
-} from './';
+} from './Seed';
 
 /**
  * This is used for /qgpt/persons/related.
  * 
  * will accept a seed, or conversation all optionally.
+ * 
  * @export
  * @interface QGPTPersonsRelatedInput
  */
@@ -68,6 +73,15 @@ export interface QGPTPersonsRelatedInput {
     model?: string;
 }
 
+/**
+ * Check if a given object implements the QGPTPersonsRelatedInput interface.
+ */
+export function instanceOfQGPTPersonsRelatedInput(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function QGPTPersonsRelatedInputFromJSON(json: any): QGPTPersonsRelatedInput {
     return QGPTPersonsRelatedInputFromJSONTyped(json, false);
 }
@@ -102,5 +116,4 @@ export function QGPTPersonsRelatedInputToJSON(value?: QGPTPersonsRelatedInput | 
         'model': value.model,
     };
 }
-
 

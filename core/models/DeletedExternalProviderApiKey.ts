@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
-    Auth0UserMetadata,
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0UserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the returnable for the ""/external_provider/api_key/delete" endpoint
@@ -42,6 +44,16 @@ export interface DeletedExternalProviderApiKey {
      * @memberof DeletedExternalProviderApiKey
      */
     metadata: Auth0UserMetadata;
+}
+
+/**
+ * Check if a given object implements the DeletedExternalProviderApiKey interface.
+ */
+export function instanceOfDeletedExternalProviderApiKey(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "metadata" in value;
+
+    return isInstance;
 }
 
 export function DeletedExternalProviderApiKeyFromJSON(json: any): DeletedExternalProviderApiKey {
@@ -72,5 +84,4 @@ export function DeletedExternalProviderApiKeyToJSON(value?: DeletedExternalProvi
         'metadata': Auth0UserMetadataToJSON(value.metadata),
     };
 }
-
 

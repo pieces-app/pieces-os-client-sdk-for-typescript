@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnchorPoint,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnchorPoint } from './FlattenedAnchorPoint';
+import {
     FlattenedAnchorPointFromJSON,
     FlattenedAnchorPointFromJSONTyped,
     FlattenedAnchorPointToJSON,
-} from './';
+} from './FlattenedAnchorPoint';
 
 /**
  * 
@@ -48,6 +50,16 @@ export interface ReferencedAnchorPoint {
      * @memberof ReferencedAnchorPoint
      */
     reference?: FlattenedAnchorPoint;
+}
+
+/**
+ * Check if a given object implements the ReferencedAnchorPoint interface.
+ */
+export function instanceOfReferencedAnchorPoint(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedAnchorPointFromJSON(json: any): ReferencedAnchorPoint {
@@ -80,5 +92,4 @@ export function ReferencedAnchorPointToJSON(value?: ReferencedAnchorPoint | null
         'reference': FlattenedAnchorPointToJSON(value.reference),
     };
 }
-
 

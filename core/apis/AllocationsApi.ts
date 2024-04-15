@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  AllocationCloud,
+  Allocations,
+  UserProfile,
+} from '../models/index';
 import {
-    AllocationCloud,
     AllocationCloudFromJSON,
     AllocationCloudToJSON,
-    Allocations,
     AllocationsFromJSON,
     AllocationsToJSON,
-    UserProfile,
     UserProfileFromJSON,
     UserProfileToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AllocationsConnectNewCloudRequest {
     userProfile?: UserProfile;
@@ -55,7 +57,7 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This will attempt to connect to a specific users cloud.(Required that the current user is logged in.)
      * /allocations/connect [POST]
      */
-    async allocationsConnectNewCloudRaw(requestParameters: AllocationsConnectNewCloudRequest): Promise<runtime.ApiResponse<AllocationCloud>> {
+    async allocationsConnectNewCloudRaw(requestParameters: AllocationsConnectNewCloudRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AllocationCloud>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -68,7 +70,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: UserProfileToJSON(requestParameters.userProfile),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
     }
@@ -77,8 +79,8 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This will attempt to connect to a specific users cloud.(Required that the current user is logged in.)
      * /allocations/connect [POST]
      */
-    async allocationsConnectNewCloud(requestParameters: AllocationsConnectNewCloudRequest): Promise<AllocationCloud> {
-        const response = await this.allocationsConnectNewCloudRaw(requestParameters);
+    async allocationsConnectNewCloud(requestParameters: AllocationsConnectNewCloudRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AllocationCloud> {
+        const response = await this.allocationsConnectNewCloudRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -86,7 +88,7 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This is unimplemented locally. This will create an allocation. ONLY used within the cloud.
      * /allocations/create [POST]
      */
-    async allocationsCreateNewAllocationRaw(requestParameters: AllocationsCreateNewAllocationRequest): Promise<runtime.ApiResponse<AllocationCloud>> {
+    async allocationsCreateNewAllocationRaw(requestParameters: AllocationsCreateNewAllocationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AllocationCloud>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -99,7 +101,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: AllocationCloudToJSON(requestParameters.allocationCloud),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
     }
@@ -108,8 +110,8 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This is unimplemented locally. This will create an allocation. ONLY used within the cloud.
      * /allocations/create [POST]
      */
-    async allocationsCreateNewAllocation(requestParameters: AllocationsCreateNewAllocationRequest): Promise<AllocationCloud> {
-        const response = await this.allocationsCreateNewAllocationRaw(requestParameters);
+    async allocationsCreateNewAllocation(requestParameters: AllocationsCreateNewAllocationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AllocationCloud> {
+        const response = await this.allocationsCreateNewAllocationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -117,7 +119,7 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This is unimplemented locally. This will delete an allocation. ONLY used within the cloud.
      * /allocations/delete [POST]
      */
-    async allocationsDeleteAllocationRaw(requestParameters: AllocationsDeleteAllocationRequest): Promise<runtime.ApiResponse<string>> {
+    async allocationsDeleteAllocationRaw(requestParameters: AllocationsDeleteAllocationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -130,17 +132,21 @@ export class AllocationsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: AllocationCloudToJSON(requestParameters.allocationCloud),
-        });
+        }, initOverrides);
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
      * This is unimplemented locally. This will delete an allocation. ONLY used within the cloud.
      * /allocations/delete [POST]
      */
-    async allocationsDeleteAllocation(requestParameters: AllocationsDeleteAllocationRequest): Promise<string> {
-        const response = await this.allocationsDeleteAllocationRaw(requestParameters);
+    async allocationsDeleteAllocation(requestParameters: AllocationsDeleteAllocationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.allocationsDeleteAllocationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -148,7 +154,7 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This will attempt to disconnect to a specific users cloud.
      * /allocations/disconnect [POST]
      */
-    async allocationsDisconnectCloudRaw(requestParameters: AllocationsDisconnectCloudRequest): Promise<runtime.ApiResponse<string>> {
+    async allocationsDisconnectCloudRaw(requestParameters: AllocationsDisconnectCloudRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -161,17 +167,21 @@ export class AllocationsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: AllocationCloudToJSON(requestParameters.allocationCloud),
-        });
+        }, initOverrides);
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
      * This will attempt to disconnect to a specific users cloud.
      * /allocations/disconnect [POST]
      */
-    async allocationsDisconnectCloud(requestParameters: AllocationsDisconnectCloudRequest): Promise<string> {
-        const response = await this.allocationsDisconnectCloudRaw(requestParameters);
+    async allocationsDisconnectCloud(requestParameters: AllocationsDisconnectCloudRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.allocationsDisconnectCloudRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -179,7 +189,7 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This will attempt to reconnect to a users cloud. This will ensure that we are connected to a users cloud and will ensure that all the data associated with a user\'s cloud is up-to-date.
      * /allocations/reconnect [POST]
      */
-    async allocationsReconnectCloudRaw(requestParameters: AllocationsReconnectCloudRequest): Promise<runtime.ApiResponse<AllocationCloud>> {
+    async allocationsReconnectCloudRaw(requestParameters: AllocationsReconnectCloudRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AllocationCloud>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -192,7 +202,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: AllocationCloudToJSON(requestParameters.allocationCloud),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
     }
@@ -201,8 +211,8 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This will attempt to reconnect to a users cloud. This will ensure that we are connected to a users cloud and will ensure that all the data associated with a user\'s cloud is up-to-date.
      * /allocations/reconnect [POST]
      */
-    async allocationsReconnectCloud(requestParameters: AllocationsReconnectCloudRequest): Promise<AllocationCloud> {
-        const response = await this.allocationsReconnectCloudRaw(requestParameters);
+    async allocationsReconnectCloud(requestParameters: AllocationsReconnectCloudRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AllocationCloud> {
+        const response = await this.allocationsReconnectCloudRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -210,7 +220,7 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This is going to get a snapshot of all of the connected allocations.
      * /allocations [GET]
      */
-    async allocationsSnapshotRaw(): Promise<runtime.ApiResponse<Allocations>> {
+    async allocationsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Allocations>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -220,7 +230,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationsFromJSON(jsonValue));
     }
@@ -229,8 +239,8 @@ export class AllocationsApi extends runtime.BaseAPI {
      * This is going to get a snapshot of all of the connected allocations.
      * /allocations [GET]
      */
-    async allocationsSnapshot(): Promise<Allocations> {
-        const response = await this.allocationsSnapshotRaw();
+    async allocationsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Allocations> {
+        const response = await this.allocationsSnapshotRaw(initOverrides);
         return await response.value();
     }
 

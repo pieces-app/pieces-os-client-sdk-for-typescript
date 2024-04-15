@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    PersonAccessScopedEnum,
+} from './GroupedTimestamp';
+import type { PersonAccessScopedEnum } from './PersonAccessScopedEnum';
+import {
     PersonAccessScopedEnumFromJSON,
     PersonAccessScopedEnumFromJSONTyped,
     PersonAccessScopedEnumToJSON,
-} from './';
+} from './PersonAccessScopedEnum';
 
 /**
  * if scoped is provided will let us know what level of permission(access) this specific person has in relation to what scope.(collection, asset,...etc)
@@ -54,6 +58,15 @@ export interface PersonAccess {
      * @memberof PersonAccess
      */
     deleted?: GroupedTimestamp;
+}
+
+/**
+ * Check if a given object implements the PersonAccess interface.
+ */
+export function instanceOfPersonAccess(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function PersonAccessFromJSON(json: any): PersonAccess {
@@ -86,5 +99,4 @@ export function PersonAccessToJSON(value?: PersonAccess | null): any {
         'deleted': GroupedTimestampToJSON(value.deleted),
     };
 }
-
 

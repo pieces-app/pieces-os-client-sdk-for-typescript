@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SeededShare,
+  Share,
+  Shares,
+} from '../models/index';
 import {
-    SeededShare,
     SeededShareFromJSON,
     SeededShareToJSON,
-    Share,
     ShareFromJSON,
     ShareToJSON,
-    Shares,
     SharesFromJSON,
     SharesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface SharesCreateNewShareRequest {
     transferables?: boolean;
@@ -53,7 +55,7 @@ export class SharesApi extends runtime.BaseAPI {
      * This endpoint will accept an asset. Response here will be a Share that was created.
      * /shares/create [POST]
      */
-    async sharesCreateNewShareRaw(requestParameters: SharesCreateNewShareRequest): Promise<runtime.ApiResponse<Shares>> {
+    async sharesCreateNewShareRaw(requestParameters: SharesCreateNewShareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Shares>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -70,7 +72,7 @@ export class SharesApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededShareToJSON(requestParameters.seededShare),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SharesFromJSON(jsonValue));
     }
@@ -79,8 +81,8 @@ export class SharesApi extends runtime.BaseAPI {
      * This endpoint will accept an asset. Response here will be a Share that was created.
      * /shares/create [POST]
      */
-    async sharesCreateNewShare(requestParameters: SharesCreateNewShareRequest): Promise<Shares> {
-        const response = await this.sharesCreateNewShareRaw(requestParameters);
+    async sharesCreateNewShare(requestParameters: SharesCreateNewShareRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Shares> {
+        const response = await this.sharesCreateNewShareRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -88,7 +90,7 @@ export class SharesApi extends runtime.BaseAPI {
      * This endpoint will just take a share id(as a url param) to delete out of the shares table, will return the share id that was deleted.
      * /shares/{share}/delete [POST]
      */
-    async sharesDeleteShareRaw(requestParameters: SharesDeleteShareRequest): Promise<runtime.ApiResponse<string>> {
+    async sharesDeleteShareRaw(requestParameters: SharesDeleteShareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         if (requestParameters.share === null || requestParameters.share === undefined) {
             throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling sharesDeleteShare.');
         }
@@ -102,17 +104,21 @@ export class SharesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
      * This endpoint will just take a share id(as a url param) to delete out of the shares table, will return the share id that was deleted.
      * /shares/{share}/delete [POST]
      */
-    async sharesDeleteShare(requestParameters: SharesDeleteShareRequest): Promise<string> {
-        const response = await this.sharesDeleteShareRaw(requestParameters);
+    async sharesDeleteShare(requestParameters: SharesDeleteShareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.sharesDeleteShareRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -120,7 +126,7 @@ export class SharesApi extends runtime.BaseAPI {
      * This will return all of your shares. A Share is an asset that you as a user decided to share with another user via link.
      * /shares [GET]
      */
-    async sharesSnapshotRaw(requestParameters: SharesSnapshotRequest): Promise<runtime.ApiResponse<Shares>> {
+    async sharesSnapshotRaw(requestParameters: SharesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Shares>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -134,7 +140,7 @@ export class SharesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SharesFromJSON(jsonValue));
     }
@@ -143,8 +149,8 @@ export class SharesApi extends runtime.BaseAPI {
      * This will return all of your shares. A Share is an asset that you as a user decided to share with another user via link.
      * /shares [GET]
      */
-    async sharesSnapshot(requestParameters: SharesSnapshotRequest): Promise<Shares> {
-        const response = await this.sharesSnapshotRaw(requestParameters);
+    async sharesSnapshot(requestParameters: SharesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Shares> {
+        const response = await this.sharesSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -152,7 +158,7 @@ export class SharesApi extends runtime.BaseAPI {
      * This is an endpoint to enable a client to access a specific share through a provided share id.
      * /shares/{share} [GET]
      */
-    async sharesSpecificShareSnapshotRaw(requestParameters: SharesSpecificShareSnapshotRequest): Promise<runtime.ApiResponse<Share>> {
+    async sharesSpecificShareSnapshotRaw(requestParameters: SharesSpecificShareSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Share>> {
         if (requestParameters.share === null || requestParameters.share === undefined) {
             throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling sharesSpecificShareSnapshot.');
         }
@@ -170,7 +176,7 @@ export class SharesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ShareFromJSON(jsonValue));
     }
@@ -179,8 +185,8 @@ export class SharesApi extends runtime.BaseAPI {
      * This is an endpoint to enable a client to access a specific share through a provided share id.
      * /shares/{share} [GET]
      */
-    async sharesSpecificShareSnapshot(requestParameters: SharesSpecificShareSnapshotRequest): Promise<Share> {
-        const response = await this.sharesSpecificShareSnapshotRaw(requestParameters);
+    async sharesSpecificShareSnapshot(requestParameters: SharesSpecificShareSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Share> {
+        const response = await this.sharesSpecificShareSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

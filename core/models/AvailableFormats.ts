@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a specific model here used within the SeededAsset that enables us to return all the available formats on a specific seed that was passed as an input within the '/assets/draft' endpoint
@@ -42,6 +44,16 @@ export interface AvailableFormats {
      * @memberof AvailableFormats
      */
     iterable: Array<Classification>;
+}
+
+/**
+ * Check if a given object implements the AvailableFormats interface.
+ */
+export function instanceOfAvailableFormats(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AvailableFormatsFromJSON(json: any): AvailableFormats {
@@ -72,5 +84,4 @@ export function AvailableFormatsToJSON(value?: AvailableFormats | null): any {
         'iterable': ((value.iterable as Array<any>).map(ClassificationToJSON)),
     };
 }
-
 

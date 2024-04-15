@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ExternalProviderTypeEnum } from './ExternalProviderTypeEnum';
 import {
-    ExternalProviderTypeEnum,
     ExternalProviderTypeEnumFromJSON,
     ExternalProviderTypeEnumFromJSONTyped,
     ExternalProviderTypeEnumToJSON,
-} from './';
+} from './ExternalProviderTypeEnum';
 
 /**
  * This is the minimum information needed to connect an additional provider.
@@ -32,6 +32,16 @@ export interface SeededExternalProvider {
      * @memberof SeededExternalProvider
      */
     type: ExternalProviderTypeEnum;
+}
+
+/**
+ * Check if a given object implements the SeededExternalProvider interface.
+ */
+export function instanceOfSeededExternalProvider(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function SeededExternalProviderFromJSON(json: any): SeededExternalProvider {
@@ -60,5 +70,4 @@ export function SeededExternalProviderToJSON(value?: SeededExternalProvider | nu
         'type': ExternalProviderTypeEnumToJSON(value.type),
     };
 }
-
 

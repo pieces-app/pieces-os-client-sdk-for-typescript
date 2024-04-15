@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SeededScoreIncrement,
+  Share,
+} from '../models/index';
 import {
-    SeededScoreIncrement,
     SeededScoreIncrementFromJSON,
     SeededScoreIncrementToJSON,
-    Share,
     ShareFromJSON,
     ShareToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ShareScoresIncrementRequest {
     share: string;
@@ -47,7 +49,7 @@ export class ShareApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/share/{share}/scores/increment\' [POST]
      */
-    async shareScoresIncrementRaw(requestParameters: ShareScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+    async shareScoresIncrementRaw(requestParameters: ShareScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.share === null || requestParameters.share === undefined) {
             throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling shareScoresIncrement.');
         }
@@ -64,7 +66,7 @@ export class ShareApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -73,15 +75,15 @@ export class ShareApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/share/{share}/scores/increment\' [POST]
      */
-    async shareScoresIncrement(requestParameters: ShareScoresIncrementRequest): Promise<void> {
-        await this.shareScoresIncrementRaw(requestParameters);
+    async shareScoresIncrement(requestParameters: ShareScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.shareScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
      * Get the snapshot of a specific share.
      * /share/{share}
      */
-    async shareSnapshotRaw(requestParameters: ShareSnapshotRequest): Promise<runtime.ApiResponse<Share>> {
+    async shareSnapshotRaw(requestParameters: ShareSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Share>> {
         if (requestParameters.share === null || requestParameters.share === undefined) {
             throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling shareSnapshot.');
         }
@@ -99,7 +101,7 @@ export class ShareApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ShareFromJSON(jsonValue));
     }
@@ -108,8 +110,8 @@ export class ShareApi extends runtime.BaseAPI {
      * Get the snapshot of a specific share.
      * /share/{share}
      */
-    async shareSnapshot(requestParameters: ShareSnapshotRequest): Promise<Share> {
-        const response = await this.shareSnapshotRaw(requestParameters);
+    async shareSnapshot(requestParameters: ShareSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Share> {
+        const response = await this.shareSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -117,7 +119,7 @@ export class ShareApi extends runtime.BaseAPI {
      * This endpoint will accept a Share that the user wants to update, and will return a full Share that was updated!
      * /share/update [POST]
      */
-    async shareUpdateRaw(requestParameters: ShareUpdateRequest): Promise<runtime.ApiResponse<Share>> {
+    async shareUpdateRaw(requestParameters: ShareUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Share>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -134,7 +136,7 @@ export class ShareApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: ShareToJSON(requestParameters.share),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ShareFromJSON(jsonValue));
     }
@@ -143,8 +145,8 @@ export class ShareApi extends runtime.BaseAPI {
      * This endpoint will accept a Share that the user wants to update, and will return a full Share that was updated!
      * /share/update [POST]
      */
-    async shareUpdate(requestParameters: ShareUpdateRequest): Promise<Share> {
-        const response = await this.shareUpdateRaw(requestParameters);
+    async shareUpdate(requestParameters: ShareUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Share> {
+        const response = await this.shareUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

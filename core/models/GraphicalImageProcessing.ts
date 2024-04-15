@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalImageStatistics,
+} from './EmbeddedModelSchema';
+import type { GraphicalImageStatistics } from './GraphicalImageStatistics';
+import {
     GraphicalImageStatisticsFromJSON,
     GraphicalImageStatisticsFromJSONTyped,
     GraphicalImageStatisticsToJSON,
-} from './';
+} from './GraphicalImageStatistics';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface GraphicalImageProcessing {
      * @memberof GraphicalImageProcessing
      */
     statistics?: GraphicalImageStatistics;
+}
+
+/**
+ * Check if a given object implements the GraphicalImageProcessing interface.
+ */
+export function instanceOfGraphicalImageProcessing(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalImageProcessingFromJSON(json: any): GraphicalImageProcessing {
@@ -72,5 +83,4 @@ export function GraphicalImageProcessingToJSON(value?: GraphicalImageProcessing 
         'statistics': GraphicalImageStatisticsToJSON(value.statistics),
     };
 }
-
 

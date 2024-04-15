@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversation,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversation } from './FlattenedConversation';
+import {
     FlattenedConversationFromJSON,
     FlattenedConversationFromJSONTyped,
     FlattenedConversationToJSON,
-} from './';
+} from './FlattenedConversation';
 
 /**
  * This is a DAG-Safe Minimal version of a Conversation.
@@ -48,6 +50,16 @@ export interface ReferencedConversation {
      * @memberof ReferencedConversation
      */
     reference?: FlattenedConversation;
+}
+
+/**
+ * Check if a given object implements the ReferencedConversation interface.
+ */
+export function instanceOfReferencedConversation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedConversationFromJSON(json: any): ReferencedConversation {
@@ -80,5 +92,4 @@ export function ReferencedConversationToJSON(value?: ReferencedConversation | nu
         'reference': FlattenedConversationToJSON(value.reference),
     };
 }
-
 

@@ -13,36 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
 import {
-    ConversationMessageSentimentEnum,
     ConversationMessageSentimentEnumFromJSON,
     ConversationMessageSentimentEnumFromJSONTyped,
     ConversationMessageSentimentEnumToJSON,
-    EmbeddedModelSchema,
+} from './ConversationMessageSentimentEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FragmentFormat,
+} from './EmbeddedModelSchema';
+import type { FragmentFormat } from './FragmentFormat';
+import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
-    GroupedTimestamp,
+} from './FragmentFormat';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Model,
+} from './GroupedTimestamp';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-    QGPTConversationMessageRoleEnum,
+} from './Model';
+import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
+import {
     QGPTConversationMessageRoleEnumFromJSON,
     QGPTConversationMessageRoleEnumFromJSONTyped,
     QGPTConversationMessageRoleEnumToJSON,
-    ReferencedConversation,
+} from './QGPTConversationMessageRoleEnum';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './';
+} from './ReferencedConversation';
 
 /**
  * This is a seeded version of a ConversationMessage.
@@ -96,6 +108,17 @@ export interface SeededConversationMessage {
     role: QGPTConversationMessageRoleEnum;
 }
 
+/**
+ * Check if a given object implements the SeededConversationMessage interface.
+ */
+export function instanceOfSeededConversationMessage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "fragment" in value;
+    isInstance = isInstance && "role" in value;
+
+    return isInstance;
+}
+
 export function SeededConversationMessageFromJSON(json: any): SeededConversationMessage {
     return SeededConversationMessageFromJSONTyped(json, false);
 }
@@ -134,5 +157,4 @@ export function SeededConversationMessageToJSON(value?: SeededConversationMessag
         'role': QGPTConversationMessageRoleEnumToJSON(value.role),
     };
 }
-
 

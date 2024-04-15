@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
-    Auth0UserMetadata,
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0UserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the update Auth0UserMetadata object, and the specific update output model for "/external_provider/api_key/update"
@@ -42,6 +44,16 @@ export interface UpdatedExternalProviderApiKey {
      * @memberof UpdatedExternalProviderApiKey
      */
     metadata: Auth0UserMetadata;
+}
+
+/**
+ * Check if a given object implements the UpdatedExternalProviderApiKey interface.
+ */
+export function instanceOfUpdatedExternalProviderApiKey(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "metadata" in value;
+
+    return isInstance;
 }
 
 export function UpdatedExternalProviderApiKeyFromJSON(json: any): UpdatedExternalProviderApiKey {
@@ -72,5 +84,4 @@ export function UpdatedExternalProviderApiKeyToJSON(value?: UpdatedExternalProvi
         'metadata': Auth0UserMetadataToJSON(value.metadata),
     };
 }
-
 

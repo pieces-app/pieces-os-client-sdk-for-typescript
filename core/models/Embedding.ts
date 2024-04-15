@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Model,
+} from './GroupedTimestamp';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './Model';
 
 /**
  * 
@@ -62,6 +64,19 @@ export interface Embedding {
     deleted?: GroupedTimestamp;
 }
 
+/**
+ * Check if a given object implements the Embedding interface.
+ */
+export function instanceOfEmbedding(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "raw" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
+}
+
 export function EmbeddingFromJSON(json: any): Embedding {
     return EmbeddingFromJSONTyped(json, false);
 }
@@ -96,5 +111,4 @@ export function EmbeddingToJSON(value?: Embedding | null): any {
         'deleted': GroupedTimestampToJSON(value.deleted),
     };
 }
-
 

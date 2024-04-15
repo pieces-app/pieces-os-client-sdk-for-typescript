@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a detected External Application that comes from our endpoint that will get a snapshot of the installed applications on your machine.
@@ -44,6 +44,16 @@ export interface DetectedExternalApplication {
      * @memberof DetectedExternalApplication
      */
     version?: string;
+}
+
+/**
+ * Check if a given object implements the DetectedExternalApplication interface.
+ */
+export function instanceOfDetectedExternalApplication(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
 }
 
 export function DetectedExternalApplicationFromJSON(json: any): DetectedExternalApplication {
@@ -76,5 +86,4 @@ export function DetectedExternalApplicationToJSON(value?: DetectedExternalApplic
         'version': value.version,
     };
 }
-
 

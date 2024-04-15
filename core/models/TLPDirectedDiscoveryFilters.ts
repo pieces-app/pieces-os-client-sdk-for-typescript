@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { TLPDirectedDiscoveryFilter } from './TLPDirectedDiscoveryFilter';
 import {
-    TLPDirectedDiscoveryFilter,
     TLPDirectedDiscoveryFilterFromJSON,
     TLPDirectedDiscoveryFilterFromJSONTyped,
     TLPDirectedDiscoveryFilterToJSON,
-} from './';
+} from './TLPDirectedDiscoveryFilter';
 
 /**
  * Contains array of TLPDirectedDiscoveryFilter
@@ -32,6 +32,16 @@ export interface TLPDirectedDiscoveryFilters {
      * @memberof TLPDirectedDiscoveryFilters
      */
     iterable: Array<TLPDirectedDiscoveryFilter>;
+}
+
+/**
+ * Check if a given object implements the TLPDirectedDiscoveryFilters interface.
+ */
+export function instanceOfTLPDirectedDiscoveryFilters(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function TLPDirectedDiscoveryFiltersFromJSON(json: any): TLPDirectedDiscoveryFilters {
@@ -60,5 +70,4 @@ export function TLPDirectedDiscoveryFiltersToJSON(value?: TLPDirectedDiscoveryFi
         'iterable': ((value.iterable as Array<any>).map(TLPDirectedDiscoveryFilterToJSON)),
     };
 }
-
 

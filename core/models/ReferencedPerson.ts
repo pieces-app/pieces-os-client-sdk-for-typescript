@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedPerson,
+} from './EmbeddedModelSchema';
+import type { FlattenedPerson } from './FlattenedPerson';
+import {
     FlattenedPersonFromJSON,
     FlattenedPersonFromJSONTyped,
     FlattenedPersonToJSON,
-} from './';
+} from './FlattenedPerson';
 
 /**
  * [DAG Safe] version of a Person Model. 
@@ -48,6 +50,16 @@ export interface ReferencedPerson {
      * @memberof ReferencedPerson
      */
     reference?: FlattenedPerson;
+}
+
+/**
+ * Check if a given object implements the ReferencedPerson interface.
+ */
+export function instanceOfReferencedPerson(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedPersonFromJSON(json: any): ReferencedPerson {
@@ -80,5 +92,4 @@ export function ReferencedPersonToJSON(value?: ReferencedPerson | null): any {
         'reference': FlattenedPersonToJSON(value.reference),
     };
 }
-
 

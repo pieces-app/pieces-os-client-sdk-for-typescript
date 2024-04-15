@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAsset,
+} from './EmbeddedModelSchema';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    Seed,
+} from './ReferencedAsset';
+import type { Seed } from './Seed';
+import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
-} from './';
+} from './Seed';
 
 /**
  * This is a generic model used, to wrap a seed, as well as give an identifier used to further identifiy this snippet.
@@ -70,6 +74,15 @@ export interface RelevantQGPTSeed {
     asset?: ReferencedAsset;
 }
 
+/**
+ * Check if a given object implements the RelevantQGPTSeed interface.
+ */
+export function instanceOfRelevantQGPTSeed(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function RelevantQGPTSeedFromJSON(json: any): RelevantQGPTSeed {
     return RelevantQGPTSeedFromJSONTyped(json, false);
 }
@@ -104,5 +117,4 @@ export function RelevantQGPTSeedToJSON(value?: RelevantQGPTSeed | null): any {
         'asset': ReferencedAssetToJSON(value.asset),
     };
 }
-
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This task is for commenting a bit of code.
@@ -36,6 +36,15 @@ export interface QGPTTaskPipelineForCodeCommentation {
      * @memberof QGPTTaskPipelineForCodeCommentation
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the QGPTTaskPipelineForCodeCommentation interface.
+ */
+export function instanceOfQGPTTaskPipelineForCodeCommentation(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTTaskPipelineForCodeCommentationFromJSON(json: any): QGPTTaskPipelineForCodeCommentation {
@@ -64,5 +73,4 @@ export function QGPTTaskPipelineForCodeCommentationToJSON(value?: QGPTTaskPipeli
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

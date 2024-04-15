@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -38,6 +38,15 @@ export interface TLPCodeFragmentSuggestedReuse {
      * @memberof TLPCodeFragmentSuggestedReuse
      */
     id?: string;
+}
+
+/**
+ * Check if a given object implements the TLPCodeFragmentSuggestedReuse interface.
+ */
+export function instanceOfTLPCodeFragmentSuggestedReuse(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentSuggestedReuseFromJSON(json: any): TLPCodeFragmentSuggestedReuse {
@@ -68,5 +77,4 @@ export function TLPCodeFragmentSuggestedReuseToJSON(value?: TLPCodeFragmentSugge
         'id': value.id,
     };
 }
-
 

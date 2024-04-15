@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  OCRAnalyses,
+} from '../models/index';
 import {
-    OCRAnalyses,
     OCRAnalysesFromJSON,
     OCRAnalysesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface OcrAnalysesSnapshotRequest {
     transferables?: boolean;
@@ -33,7 +35,7 @@ export class OCRAnalysesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your ocr analyses, an ocr analysis is attached to an image analysis.
      * Your GET endpoint
      */
-    async ocrAnalysesSnapshotRaw(requestParameters: OcrAnalysesSnapshotRequest): Promise<runtime.ApiResponse<OCRAnalyses>> {
+    async ocrAnalysesSnapshotRaw(requestParameters: OcrAnalysesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OCRAnalyses>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -47,7 +49,7 @@ export class OCRAnalysesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OCRAnalysesFromJSON(jsonValue));
     }
@@ -56,8 +58,8 @@ export class OCRAnalysesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your ocr analyses, an ocr analysis is attached to an image analysis.
      * Your GET endpoint
      */
-    async ocrAnalysesSnapshot(requestParameters: OcrAnalysesSnapshotRequest): Promise<OCRAnalyses> {
-        const response = await this.ocrAnalysesSnapshotRaw(requestParameters);
+    async ocrAnalysesSnapshot(requestParameters: OcrAnalysesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OCRAnalyses> {
+        const response = await this.ocrAnalysesSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

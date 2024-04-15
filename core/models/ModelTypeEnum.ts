@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This will describe the type of Model balanced, speed, accuracy...
  * @export
- * @enum {string}
  */
-export enum ModelTypeEnum {
-    Balanced = 'BALANCED',
-    Speed = 'SPEED',
-    Accuracy = 'ACCURACY'
-}
+export const ModelTypeEnum = {
+    Balanced: 'BALANCED',
+    Speed: 'SPEED',
+    Accuracy: 'ACCURACY'
+} as const;
+export type ModelTypeEnum = typeof ModelTypeEnum[keyof typeof ModelTypeEnum];
+
 
 export function ModelTypeEnumFromJSON(json: any): ModelTypeEnum {
     return ModelTypeEnumFromJSONTyped(json, false);

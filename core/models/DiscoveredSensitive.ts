@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededSensitive,
+} from './EmbeddedModelSchema';
+import type { SeededSensitive } from './SeededSensitive';
+import {
     SeededSensitiveFromJSON,
     SeededSensitiveFromJSONTyped,
     SeededSensitiveToJSON,
-} from './';
+} from './SeededSensitive';
 
 /**
  * This will return a discoveredSensitive, with a seed that can be used to create if automatic is set to false. and will provide the original text provided.
@@ -48,6 +50,17 @@ export interface DiscoveredSensitive {
      * @memberof DiscoveredSensitive
      */
     text: string;
+}
+
+/**
+ * Check if a given object implements the DiscoveredSensitive interface.
+ */
+export function instanceOfDiscoveredSensitive(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "seed" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredSensitiveFromJSON(json: any): DiscoveredSensitive {
@@ -80,5 +93,4 @@ export function DiscoveredSensitiveToJSON(value?: DiscoveredSensitive | null): a
         'text': value.text,
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-} from './';
+} from './FlattenedAssets';
 
 /**
  * This is a model of all optional properties, that will get returned from /assets/pseudo.
@@ -42,6 +44,15 @@ export interface PseudoAssets {
      * @memberof PseudoAssets
      */
     identifiers?: FlattenedAssets;
+}
+
+/**
+ * Check if a given object implements the PseudoAssets interface.
+ */
+export function instanceOfPseudoAssets(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function PseudoAssetsFromJSON(json: any): PseudoAssets {
@@ -72,5 +83,4 @@ export function PseudoAssetsToJSON(value?: PseudoAssets | null): any {
         'identifiers': FlattenedAssetsToJSON(value.identifiers),
     };
 }
-
 

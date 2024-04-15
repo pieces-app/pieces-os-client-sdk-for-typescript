@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SeededFormat,
+} from '../models/index';
 import {
-    SeededFormat,
     SeededFormatFromJSON,
     SeededFormatToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ConvertGenericClassificationRequest {
     seededFormat?: SeededFormat;
@@ -33,7 +35,7 @@ export class ClassificationApi extends runtime.BaseAPI {
      * This endpoint converts on a best effort basis from one generic format to another, i.e. from Code to HLJS 
      * Convert Generic Classification
      */
-    async convertGenericClassificationRaw(requestParameters: ConvertGenericClassificationRequest): Promise<runtime.ApiResponse<SeededFormat>> {
+    async convertGenericClassificationRaw(requestParameters: ConvertGenericClassificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SeededFormat>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -46,7 +48,7 @@ export class ClassificationApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededFormatToJSON(requestParameters.seededFormat),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SeededFormatFromJSON(jsonValue));
     }
@@ -55,8 +57,8 @@ export class ClassificationApi extends runtime.BaseAPI {
      * This endpoint converts on a best effort basis from one generic format to another, i.e. from Code to HLJS 
      * Convert Generic Classification
      */
-    async convertGenericClassification(requestParameters: ConvertGenericClassificationRequest): Promise<SeededFormat> {
-        const response = await this.convertGenericClassificationRaw(requestParameters);
+    async convertGenericClassification(requestParameters: ConvertGenericClassificationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SeededFormat> {
+        const response = await this.convertGenericClassificationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A model to support revoking a Token Generated Through PKCE
@@ -52,6 +52,17 @@ export interface RevokedPKCE {
     token: string;
 }
 
+/**
+ * Check if a given object implements the RevokedPKCE interface.
+ */
+export function instanceOfRevokedPKCE(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "clientId" in value;
+    isInstance = isInstance && "token" in value;
+
+    return isInstance;
+}
+
 export function RevokedPKCEFromJSON(json: any): RevokedPKCE {
     return RevokedPKCEFromJSONTyped(json, false);
 }
@@ -82,5 +93,4 @@ export function RevokedPKCEToJSON(value?: RevokedPKCE | null): any {
         'token': value.token,
     };
 }
-
 

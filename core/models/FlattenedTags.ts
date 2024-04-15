@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedTag,
+} from './EmbeddedModelSchema';
+import type { ReferencedTag } from './ReferencedTag';
+import {
     ReferencedTagFromJSON,
     ReferencedTagFromJSONTyped,
     ReferencedTagToJSON,
-    Score,
+} from './ReferencedTag';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is multiple ReferencedTags(which includes an optional FlattenedTag Model within the reference model).
@@ -58,6 +62,16 @@ export interface FlattenedTags {
      * @memberof FlattenedTags
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedTags interface.
+ */
+export function instanceOfFlattenedTags(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedTagsFromJSON(json: any): FlattenedTags {
@@ -92,5 +106,4 @@ export function FlattenedTagsToJSON(value?: FlattenedTags | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

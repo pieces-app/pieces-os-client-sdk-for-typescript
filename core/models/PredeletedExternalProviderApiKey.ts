@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a predeleted version relating to the /external_provider/api_key/delete endpoint.
@@ -46,6 +46,16 @@ export interface PredeletedExternalProviderApiKey {
      * @memberof PredeletedExternalProviderApiKey
      */
     openAI?: boolean;
+}
+
+/**
+ * Check if a given object implements the PredeletedExternalProviderApiKey interface.
+ */
+export function instanceOfPredeletedExternalProviderApiKey(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
 }
 
 export function PredeletedExternalProviderApiKeyFromJSON(json: any): PredeletedExternalProviderApiKey {
@@ -78,5 +88,4 @@ export function PredeletedExternalProviderApiKeyToJSON(value?: PredeletedExterna
         'open_AI': value.openAI,
     };
 }
-
 

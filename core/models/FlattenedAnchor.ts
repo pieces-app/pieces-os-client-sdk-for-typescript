@@ -13,40 +13,60 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnchorTypeEnum } from './AnchorTypeEnum';
 import {
-    AnchorTypeEnum,
     AnchorTypeEnumFromJSON,
     AnchorTypeEnumFromJSONTyped,
     AnchorTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './AnchorTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnchorPoints,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnchorPoints } from './FlattenedAnchorPoints';
+import {
     FlattenedAnchorPointsFromJSON,
     FlattenedAnchorPointsFromJSONTyped,
     FlattenedAnchorPointsToJSON,
-    FlattenedAnnotations,
+} from './FlattenedAnchorPoints';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
-    FlattenedAssets,
+} from './FlattenedAnnotations';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedConversations,
+} from './FlattenedAssets';
+import type { FlattenedConversations } from './FlattenedConversations';
+import {
     FlattenedConversationsFromJSON,
     FlattenedConversationsFromJSONTyped,
     FlattenedConversationsToJSON,
-    GroupedTimestamp,
+} from './FlattenedConversations';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+} from './FlattenedWorkstreamSummaries';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Score,
+} from './GroupedTimestamp';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * 
@@ -132,6 +152,26 @@ export interface FlattenedAnchor {
      * @memberof FlattenedAnchor
      */
     score?: Score;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof FlattenedAnchor
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+}
+
+/**
+ * Check if a given object implements the FlattenedAnchor interface.
+ */
+export function instanceOfFlattenedAnchor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "points" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
 }
 
 export function FlattenedAnchorFromJSON(json: any): FlattenedAnchor {
@@ -157,6 +197,7 @@ export function FlattenedAnchorFromJSONTyped(json: any, ignoreDiscriminator: boo
         'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
         'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
@@ -182,7 +223,7 @@ export function FlattenedAnchorToJSON(value?: FlattenedAnchor | null): any {
         'annotations': FlattenedAnnotationsToJSON(value.annotations),
         'conversations': FlattenedConversationsToJSON(value.conversations),
         'score': ScoreToJSON(value.score),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }
-
 

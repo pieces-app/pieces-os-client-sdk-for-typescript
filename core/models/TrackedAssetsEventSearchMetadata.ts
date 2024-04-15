@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedAssetsEventSearchMetadataResults,
+} from './EmbeddedModelSchema';
+import type { TrackedAssetsEventSearchMetadataResults } from './TrackedAssetsEventSearchMetadataResults';
+import {
     TrackedAssetsEventSearchMetadataResultsFromJSON,
     TrackedAssetsEventSearchMetadataResultsFromJSONTyped,
     TrackedAssetsEventSearchMetadataResultsToJSON,
-} from './';
+} from './TrackedAssetsEventSearchMetadataResults';
 
 /**
  * Metadata attached to a search event on an Asset
@@ -48,6 +50,15 @@ export interface TrackedAssetsEventSearchMetadata {
      * @memberof TrackedAssetsEventSearchMetadata
      */
     results?: TrackedAssetsEventSearchMetadataResults;
+}
+
+/**
+ * Check if a given object implements the TrackedAssetsEventSearchMetadata interface.
+ */
+export function instanceOfTrackedAssetsEventSearchMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetsEventSearchMetadataFromJSON(json: any): TrackedAssetsEventSearchMetadata {
@@ -80,5 +91,4 @@ export function TrackedAssetsEventSearchMetadataToJSON(value?: TrackedAssetsEven
         'results': TrackedAssetsEventSearchMetadataResultsToJSON(value.results),
     };
 }
-
 

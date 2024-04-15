@@ -13,36 +13,54 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedConversations,
+} from './FlattenedAssets';
+import type { FlattenedConversations } from './FlattenedConversations';
+import {
     FlattenedConversationsFromJSON,
     FlattenedConversationsFromJSONTyped,
     FlattenedConversationsToJSON,
-    FlattenedPersons,
+} from './FlattenedConversations';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
     FlattenedPersonsToJSON,
-    GroupedTimestamp,
+} from './FlattenedPersons';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+} from './FlattenedWorkstreamSummaries';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    Score,
+} from './MechanismEnum';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a specific model for related websites to an asset.[DAG SAFE]
@@ -128,6 +146,26 @@ export interface FlattenedWebsite {
      * @memberof FlattenedWebsite
      */
     score?: Score;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof FlattenedWebsite
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+}
+
+/**
+ * Check if a given object implements the FlattenedWebsite interface.
+ */
+export function instanceOfFlattenedWebsite(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
 }
 
 export function FlattenedWebsiteFromJSON(json: any): FlattenedWebsite {
@@ -153,6 +191,7 @@ export function FlattenedWebsiteFromJSONTyped(json: any, ignoreDiscriminator: bo
         'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
         'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
@@ -178,7 +217,7 @@ export function FlattenedWebsiteToJSON(value?: FlattenedWebsite | null): any {
         'persons': FlattenedPersonsToJSON(value.persons),
         'conversations': FlattenedConversationsToJSON(value.conversations),
         'score': ScoreToJSON(value.score),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }
-
 

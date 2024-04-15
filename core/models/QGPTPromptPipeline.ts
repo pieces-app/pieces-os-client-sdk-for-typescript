@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTConversationPipeline,
+} from './EmbeddedModelSchema';
+import type { QGPTConversationPipeline } from './QGPTConversationPipeline';
+import {
     QGPTConversationPipelineFromJSON,
     QGPTConversationPipelineFromJSONTyped,
     QGPTConversationPipelineToJSON,
-    QGPTTaskPipeline,
+} from './QGPTConversationPipeline';
+import type { QGPTTaskPipeline } from './QGPTTaskPipeline';
+import {
     QGPTTaskPipelineFromJSON,
     QGPTTaskPipelineFromJSONTyped,
     QGPTTaskPipelineToJSON,
-} from './';
+} from './QGPTTaskPipeline';
 
 /**
  * This is a model related to switching between different prompts based on if we are dealing with 
@@ -61,6 +65,15 @@ export interface QGPTPromptPipeline {
     conversation?: QGPTConversationPipeline;
 }
 
+/**
+ * Check if a given object implements the QGPTPromptPipeline interface.
+ */
+export function instanceOfQGPTPromptPipeline(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function QGPTPromptPipelineFromJSON(json: any): QGPTPromptPipeline {
     return QGPTPromptPipelineFromJSONTyped(json, false);
 }
@@ -91,5 +104,4 @@ export function QGPTPromptPipelineToJSON(value?: QGPTPromptPipeline | null): any
         'conversation': QGPTConversationPipelineToJSON(value.conversation),
     };
 }
-
 

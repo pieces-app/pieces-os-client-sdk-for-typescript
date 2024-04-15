@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -40,12 +40,23 @@ export interface SeededTrackedKeyboardEventIdentifierDescriptionPairs {
     assetsListRefreshed?: SeededTrackedKeyboardEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeededTrackedKeyboardEventIdentifierDescriptionPairsAssetsListRefreshedEnum {
-    TheAssetsListWasRefreshedThroughAKeyboardShortcut = 'the_assets_list_was_refreshed_through_a_keyboard_shortcut'
+ * @export
+ */
+export const SeededTrackedKeyboardEventIdentifierDescriptionPairsAssetsListRefreshedEnum = {
+    TheAssetsListWasRefreshedThroughAKeyboardShortcut: 'the_assets_list_was_refreshed_through_a_keyboard_shortcut'
+} as const;
+export type SeededTrackedKeyboardEventIdentifierDescriptionPairsAssetsListRefreshedEnum = typeof SeededTrackedKeyboardEventIdentifierDescriptionPairsAssetsListRefreshedEnum[keyof typeof SeededTrackedKeyboardEventIdentifierDescriptionPairsAssetsListRefreshedEnum];
+
+
+/**
+ * Check if a given object implements the SeededTrackedKeyboardEventIdentifierDescriptionPairs interface.
+ */
+export function instanceOfSeededTrackedKeyboardEventIdentifierDescriptionPairs(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedKeyboardEventIdentifierDescriptionPairsFromJSON(json: any): SeededTrackedKeyboardEventIdentifierDescriptionPairs {
@@ -76,5 +87,4 @@ export function SeededTrackedKeyboardEventIdentifierDescriptionPairsToJSON(value
         'assets_list_refreshed': value.assetsListRefreshed,
     };
 }
-
 

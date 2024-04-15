@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FileMetadata,
+} from './EmbeddedModelSchema';
+import type { FileMetadata } from './FileMetadata';
+import {
     FileMetadataFromJSON,
     FileMetadataFromJSONTyped,
     FileMetadataToJSON,
-    TransferableBytes,
+} from './FileMetadata';
+import type { TransferableBytes } from './TransferableBytes';
+import {
     TransferableBytesFromJSON,
     TransferableBytesFromJSONTyped,
     TransferableBytesToJSON,
-    TransferableString,
+} from './TransferableBytes';
+import type { TransferableString } from './TransferableString';
+import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
-} from './';
+} from './TransferableString';
 
 /**
  * This is a base model for a File(Seeded).
@@ -68,6 +74,15 @@ export interface SeededFile {
     metadata?: FileMetadata;
 }
 
+/**
+ * Check if a given object implements the SeededFile interface.
+ */
+export function instanceOfSeededFile(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function SeededFileFromJSON(json: any): SeededFile {
     return SeededFileFromJSONTyped(json, false);
 }
@@ -100,5 +115,4 @@ export function SeededFileToJSON(value?: SeededFile | null): any {
         'metadata': FileMetadataToJSON(value.metadata),
     };
 }
-
 

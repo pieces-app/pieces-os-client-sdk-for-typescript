@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Asset } from './Asset';
 import {
-    Asset,
     AssetFromJSON,
     AssetFromJSONTyped,
     AssetToJSON,
-    EmbeddedModelSchema,
+} from './Asset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * A base class for a collection of assets and some additional meta properties. Fully Populated with Formats internally (not just uuid's).
@@ -58,6 +62,16 @@ export interface Assets {
      * @memberof Assets
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Assets interface.
+ */
+export function instanceOfAssets(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AssetsFromJSON(json: any): Assets {
@@ -92,5 +106,4 @@ export function AssetsToJSON(value?: Assets | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

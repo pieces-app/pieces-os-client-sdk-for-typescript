@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Person,
+} from './EmbeddedModelSchema';
+import type { Person } from './Person';
+import {
     PersonFromJSON,
     PersonFromJSONTyped,
     PersonToJSON,
-    Score,
+} from './Person';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the plural of Person. will have top level meta about the person including an iterable of all the person.
@@ -58,6 +62,16 @@ export interface Persons {
      * @memberof Persons
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Persons interface.
+ */
+export function instanceOfPersons(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function PersonsFromJSON(json: any): Persons {
@@ -92,5 +106,4 @@ export function PersonsToJSON(value?: Persons | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AllocationCloud } from './AllocationCloud';
 import {
-    AllocationCloud,
     AllocationCloudFromJSON,
     AllocationCloudFromJSONTyped,
     AllocationCloudToJSON,
-    EmbeddedModelSchema,
+} from './AllocationCloud';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface Allocations {
      * @memberof Allocations
      */
     iterable: Array<AllocationCloud>;
+}
+
+/**
+ * Check if a given object implements the Allocations interface.
+ */
+export function instanceOfAllocations(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AllocationsFromJSON(json: any): Allocations {
@@ -72,5 +84,4 @@ export function AllocationsToJSON(value?: Allocations | null): any {
         'iterable': ((value.iterable as Array<any>).map(AllocationCloudToJSON)),
     };
 }
-
 

@@ -12,23 +12,25 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Code block type like function, class, abstract
  * @export
- * @enum {string}
  */
-export enum TLPDirectedDiscoveryFilterEnum {
-    Function = 'FUNCTION',
-    Method = 'METHOD',
-    Class = 'CLASS',
-    Struct = 'STRUCT',
-    Abstract = 'ABSTRACT',
-    Comment = 'COMMENT',
-    Import = 'IMPORT',
-    If = 'IF',
-    Loop = 'LOOP',
-    Return = 'RETURN'
-}
+export const TLPDirectedDiscoveryFilterEnum = {
+    Function: 'FUNCTION',
+    Method: 'METHOD',
+    Class: 'CLASS',
+    Struct: 'STRUCT',
+    Abstract: 'ABSTRACT',
+    Comment: 'COMMENT',
+    Import: 'IMPORT',
+    If: 'IF',
+    Loop: 'LOOP',
+    Return: 'RETURN'
+} as const;
+export type TLPDirectedDiscoveryFilterEnum = typeof TLPDirectedDiscoveryFilterEnum[keyof typeof TLPDirectedDiscoveryFilterEnum];
+
 
 export function TLPDirectedDiscoveryFilterEnumFromJSON(json: any): TLPDirectedDiscoveryFilterEnum {
     return TLPDirectedDiscoveryFilterEnumFromJSONTyped(json, false);

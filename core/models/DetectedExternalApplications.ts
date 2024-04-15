@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { DetectedExternalApplication } from './DetectedExternalApplication';
 import {
-    DetectedExternalApplication,
     DetectedExternalApplicationFromJSON,
     DetectedExternalApplicationFromJSONTyped,
     DetectedExternalApplicationToJSON,
-    EmbeddedModelSchema,
+} from './DetectedExternalApplication';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is used as the returnable for the /applications/external && /applications/external/related endpoints.
@@ -46,6 +48,16 @@ export interface DetectedExternalApplications {
      * @memberof DetectedExternalApplications
      */
     iterable: Array<DetectedExternalApplication>;
+}
+
+/**
+ * Check if a given object implements the DetectedExternalApplications interface.
+ */
+export function instanceOfDetectedExternalApplications(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function DetectedExternalApplicationsFromJSON(json: any): DetectedExternalApplications {
@@ -76,5 +88,4 @@ export function DetectedExternalApplicationsToJSON(value?: DetectedExternalAppli
         'iterable': ((value.iterable as Array<any>).map(DetectedExternalApplicationToJSON)),
     };
 }
-
 

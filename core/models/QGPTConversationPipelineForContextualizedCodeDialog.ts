@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is for the users that wants to have contextualized code conversations, meaning conversations around code with Context provided.
@@ -34,6 +34,15 @@ export interface QGPTConversationPipelineForContextualizedCodeDialog {
      * @memberof QGPTConversationPipelineForContextualizedCodeDialog
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeDialog interface.
+ */
+export function instanceOfQGPTConversationPipelineForContextualizedCodeDialog(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeDialog {
@@ -62,5 +71,4 @@ export function QGPTConversationPipelineForContextualizedCodeDialogToJSON(value?
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

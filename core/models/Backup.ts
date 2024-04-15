@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    PlatformEnum,
+} from './GroupedTimestamp';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-} from './';
+} from './PlatformEnum';
 
 /**
  * This is a cloud Backup. This is specific metadata needed inorder to retrieve a Backup.
@@ -84,6 +88,22 @@ export interface Backup {
     platform: PlatformEnum;
 }
 
+/**
+ * Check if a given object implements the Backup interface.
+ */
+export function instanceOfBackup(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "timestamp" in value;
+    isInstance = isInstance && "bytes" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "deviceName" in value;
+    isInstance = isInstance && "platform" in value;
+
+    return isInstance;
+}
+
 export function BackupFromJSON(json: any): Backup {
     return BackupFromJSONTyped(json, false);
 }
@@ -124,5 +144,4 @@ export function BackupToJSON(value?: Backup | null): any {
         'platform': PlatformEnumToJSON(value.platform),
     };
 }
-
 

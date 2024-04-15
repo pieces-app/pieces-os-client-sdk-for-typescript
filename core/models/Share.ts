@@ -13,40 +13,54 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AccessEnum } from './AccessEnum';
 import {
-    AccessEnum,
     AccessEnumFromJSON,
     AccessEnumFromJSONTyped,
     AccessEnumToJSON,
-    Accessors,
+} from './AccessEnum';
+import type { Accessors } from './Accessors';
+import {
     AccessorsFromJSON,
     AccessorsFromJSONTyped,
     AccessorsToJSON,
-    Distributions,
+} from './Accessors';
+import type { Distributions } from './Distributions';
+import {
     DistributionsFromJSON,
     DistributionsFromJSONTyped,
     DistributionsToJSON,
-    EmbeddedModelSchema,
+} from './Distributions';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAsset,
+} from './EmbeddedModelSchema';
+import type { FlattenedAsset } from './FlattenedAsset';
+import {
     FlattenedAssetFromJSON,
     FlattenedAssetFromJSONTyped,
     FlattenedAssetToJSON,
-    FlattenedAssets,
+} from './FlattenedAsset';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    GroupedTimestamp,
+} from './FlattenedAssets';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Score,
+} from './GroupedTimestamp';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This represents what information that is relavent to anything and every sharing related. v1 will look very bare and will add more and more data as we go!
@@ -136,6 +150,21 @@ export interface Share {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the Share interface.
+ */
+export function instanceOfShare(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "link" in value;
+    isInstance = isInstance && "access" in value;
+    isInstance = isInstance && "accessors" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "_short" in value;
+
+    return isInstance;
+}
+
 export function ShareFromJSON(json: any): Share {
     return ShareFromJSONTyped(json, false);
 }
@@ -186,5 +215,4 @@ export function ShareToJSON(value?: Share | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

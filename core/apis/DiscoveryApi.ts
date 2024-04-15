@@ -14,32 +14,34 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  DiscoveredAssets,
+  DiscoveredHtmlWebpages,
+  DiscoveredRelatedTags,
+  DiscoveredSensitives,
+  SeededDiscoverableAssets,
+  SeededDiscoverableHtmlWebpages,
+  SeededDiscoverableRelatedTags,
+  SeededDiscoverableSensitives,
+} from '../models/index';
 import {
-    DiscoveredAssets,
     DiscoveredAssetsFromJSON,
     DiscoveredAssetsToJSON,
-    DiscoveredHtmlWebpages,
     DiscoveredHtmlWebpagesFromJSON,
     DiscoveredHtmlWebpagesToJSON,
-    DiscoveredRelatedTags,
     DiscoveredRelatedTagsFromJSON,
     DiscoveredRelatedTagsToJSON,
-    DiscoveredSensitives,
     DiscoveredSensitivesFromJSON,
     DiscoveredSensitivesToJSON,
-    SeededDiscoverableAssets,
     SeededDiscoverableAssetsFromJSON,
     SeededDiscoverableAssetsToJSON,
-    SeededDiscoverableHtmlWebpages,
     SeededDiscoverableHtmlWebpagesFromJSON,
     SeededDiscoverableHtmlWebpagesToJSON,
-    SeededDiscoverableRelatedTags,
     SeededDiscoverableRelatedTagsFromJSON,
     SeededDiscoverableRelatedTagsToJSON,
-    SeededDiscoverableSensitives,
     SeededDiscoverableSensitivesFromJSON,
     SeededDiscoverableSensitivesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface DiscoveryDiscoverAssetsRequest {
     automatic?: boolean;
@@ -70,7 +72,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This is the endpoint used for bulk import. In both cases of the bulk import flow, fragments or files. When we already have \"snippets\" or fragments to discover and now our job is to check if they are actually valid snippets(clustering). Otherwise, we should have a file to parse && snippitize and then run through the clustering.
      * /discovery/discover/assets [POST]
      */
-    async discoveryDiscoverAssetsRaw(requestParameters: DiscoveryDiscoverAssetsRequest): Promise<runtime.ApiResponse<DiscoveredAssets>> {
+    async discoveryDiscoverAssetsRaw(requestParameters: DiscoveryDiscoverAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredAssets>> {
         const queryParameters: any = {};
 
         if (requestParameters.automatic !== undefined) {
@@ -87,7 +89,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededDiscoverableAssetsToJSON(requestParameters.seededDiscoverableAssets),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredAssetsFromJSON(jsonValue));
     }
@@ -96,8 +98,8 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This is the endpoint used for bulk import. In both cases of the bulk import flow, fragments or files. When we already have \"snippets\" or fragments to discover and now our job is to check if they are actually valid snippets(clustering). Otherwise, we should have a file to parse && snippitize and then run through the clustering.
      * /discovery/discover/assets [POST]
      */
-    async discoveryDiscoverAssets(requestParameters: DiscoveryDiscoverAssetsRequest): Promise<DiscoveredAssets> {
-        const response = await this.discoveryDiscoverAssetsRaw(requestParameters);
+    async discoveryDiscoverAssets(requestParameters: DiscoveryDiscoverAssetsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DiscoveredAssets> {
+        const response = await this.discoveryDiscoverAssetsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -105,7 +107,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This is the discover discover assets html endpoint. The goal of this endpoint is to either take an iterable of urls and pages(an html string) and extract all the assets from the iterable.
      * /discovery/discover/assets/html[POST]
      */
-    async discoveryDiscoverAssetsHtmlRaw(requestParameters: DiscoveryDiscoverAssetsHtmlRequest): Promise<runtime.ApiResponse<DiscoveredHtmlWebpages>> {
+    async discoveryDiscoverAssetsHtmlRaw(requestParameters: DiscoveryDiscoverAssetsHtmlRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredHtmlWebpages>> {
         const queryParameters: any = {};
 
         if (requestParameters.automatic !== undefined) {
@@ -122,7 +124,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededDiscoverableHtmlWebpagesToJSON(requestParameters.seededDiscoverableHtmlWebpages),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredHtmlWebpagesFromJSON(jsonValue));
     }
@@ -131,8 +133,8 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This is the discover discover assets html endpoint. The goal of this endpoint is to either take an iterable of urls and pages(an html string) and extract all the assets from the iterable.
      * /discovery/discover/assets/html[POST]
      */
-    async discoveryDiscoverAssetsHtml(requestParameters: DiscoveryDiscoverAssetsHtmlRequest): Promise<DiscoveredHtmlWebpages> {
-        const response = await this.discoveryDiscoverAssetsHtmlRaw(requestParameters);
+    async discoveryDiscoverAssetsHtml(requestParameters: DiscoveryDiscoverAssetsHtmlRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DiscoveredHtmlWebpages> {
+        const response = await this.discoveryDiscoverAssetsHtmlRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -140,7 +142,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This endpoint will accept an array of text values, and attampt to extract sensitive data out of it.
      * /discovery/discover/sensitives [POST]
      */
-    async discoveryDiscoverSensitivesRaw(requestParameters: DiscoveryDiscoverSensitivesRequest): Promise<runtime.ApiResponse<DiscoveredSensitives>> {
+    async discoveryDiscoverSensitivesRaw(requestParameters: DiscoveryDiscoverSensitivesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredSensitives>> {
         const queryParameters: any = {};
 
         if (requestParameters.automatic !== undefined) {
@@ -157,7 +159,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededDiscoverableSensitivesToJSON(requestParameters.seededDiscoverableSensitives),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredSensitivesFromJSON(jsonValue));
     }
@@ -166,8 +168,8 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This endpoint will accept an array of text values, and attampt to extract sensitive data out of it.
      * /discovery/discover/sensitives [POST]
      */
-    async discoveryDiscoverSensitives(requestParameters: DiscoveryDiscoverSensitivesRequest): Promise<DiscoveredSensitives> {
-        const response = await this.discoveryDiscoverSensitivesRaw(requestParameters);
+    async discoveryDiscoverSensitives(requestParameters: DiscoveryDiscoverSensitivesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DiscoveredSensitives> {
+        const response = await this.discoveryDiscoverSensitivesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -175,7 +177,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This will take in a tag or multiple tags and return all the tags that are related to the tag or tag provide in the body.
      * /discovery/discover/tags/related [POST]
      */
-    async discoveryDiscoverTagsRelatedRaw(requestParameters: DiscoveryDiscoverTagsRelatedRequest): Promise<runtime.ApiResponse<DiscoveredRelatedTags>> {
+    async discoveryDiscoverTagsRelatedRaw(requestParameters: DiscoveryDiscoverTagsRelatedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredRelatedTags>> {
         const queryParameters: any = {};
 
         if (requestParameters.automatic !== undefined) {
@@ -192,7 +194,7 @@ export class DiscoveryApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededDiscoverableRelatedTagsToJSON(requestParameters.seededDiscoverableRelatedTags),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredRelatedTagsFromJSON(jsonValue));
     }
@@ -201,8 +203,8 @@ export class DiscoveryApi extends runtime.BaseAPI {
      * This will take in a tag or multiple tags and return all the tags that are related to the tag or tag provide in the body.
      * /discovery/discover/tags/related [POST]
      */
-    async discoveryDiscoverTagsRelated(requestParameters: DiscoveryDiscoverTagsRelatedRequest): Promise<DiscoveredRelatedTags> {
-        const response = await this.discoveryDiscoverTagsRelatedRaw(requestParameters);
+    async discoveryDiscoverTagsRelated(requestParameters: DiscoveryDiscoverTagsRelatedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DiscoveredRelatedTags> {
+        const response = await this.discoveryDiscoverTagsRelatedRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

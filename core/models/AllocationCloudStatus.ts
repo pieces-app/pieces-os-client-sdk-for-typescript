@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AllocationStatusEnum } from './AllocationStatusEnum';
 import {
-    AllocationStatusEnum,
     AllocationStatusEnumFromJSON,
     AllocationStatusEnumFromJSONTyped,
     AllocationStatusEnumToJSON,
-    EmbeddedModelSchema,
+} from './AllocationStatusEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface AllocationCloudStatus {
      * @memberof AllocationCloudStatus
      */
     cloud: AllocationStatusEnum;
+}
+
+/**
+ * Check if a given object implements the AllocationCloudStatus interface.
+ */
+export function instanceOfAllocationCloudStatus(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "cloud" in value;
+
+    return isInstance;
 }
 
 export function AllocationCloudStatusFromJSON(json: any): AllocationCloudStatus {
@@ -72,5 +84,4 @@ export function AllocationCloudStatusToJSON(value?: AllocationCloudStatus | null
         'cloud': AllocationStatusEnumToJSON(value.cloud),
     };
 }
-
 

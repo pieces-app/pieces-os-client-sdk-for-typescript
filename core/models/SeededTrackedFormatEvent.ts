@@ -13,27 +13,34 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedFormat,
+} from './EmbeddedModelSchema';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-    TrackedFormatEventIdentifierDescriptionPairs,
+} from './ReferencedFormat';
+import type { TrackedFormatEventIdentifierDescriptionPairs } from './TrackedFormatEventIdentifierDescriptionPairs';
+import {
     TrackedFormatEventIdentifierDescriptionPairsFromJSON,
     TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedFormatEventIdentifierDescriptionPairsToJSON,
-    TrackedFormatEventMetadata,
+} from './TrackedFormatEventIdentifierDescriptionPairs';
+import type { TrackedFormatEventMetadata } from './TrackedFormatEventMetadata';
+import {
     TrackedFormatEventMetadataFromJSON,
     TrackedFormatEventMetadataFromJSONTyped,
     TrackedFormatEventMetadataToJSON,
-} from './';
+} from './TrackedFormatEventMetadata';
 
 /**
  * Again this is a model designed to be sent over to a context server to be built and then sent along to segment.
+ * 
  * @export
  * @interface SeededTrackedFormatEvent
  */
@@ -62,6 +69,17 @@ export interface SeededTrackedFormatEvent {
      * @memberof SeededTrackedFormatEvent
      */
     metadata?: TrackedFormatEventMetadata;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedFormatEvent interface.
+ */
+export function instanceOfSeededTrackedFormatEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedFormatEventFromJSON(json: any): SeededTrackedFormatEvent {
@@ -96,5 +114,4 @@ export function SeededTrackedFormatEventToJSON(value?: SeededTrackedFormatEvent 
         'metadata': TrackedFormatEventMetadataToJSON(value.metadata),
     };
 }
-
 

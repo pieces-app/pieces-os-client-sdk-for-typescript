@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededGitHubGistDistribution,
+} from './EmbeddedModelSchema';
+import type { SeededGitHubGistDistribution } from './SeededGitHubGistDistribution';
+import {
     SeededGitHubGistDistributionFromJSON,
     SeededGitHubGistDistributionFromJSONTyped,
     SeededGitHubGistDistributionToJSON,
-} from './';
+} from './SeededGitHubGistDistribution';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface SeededGitHubDistribution {
      * @memberof SeededGitHubDistribution
      */
     gist?: SeededGitHubGistDistribution;
+}
+
+/**
+ * Check if a given object implements the SeededGitHubDistribution interface.
+ */
+export function instanceOfSeededGitHubDistribution(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededGitHubDistributionFromJSON(json: any): SeededGitHubDistribution {
@@ -72,5 +83,4 @@ export function SeededGitHubDistributionToJSON(value?: SeededGitHubDistribution 
         'gist': SeededGitHubGistDistributionToJSON(value.gist),
     };
 }
-
 

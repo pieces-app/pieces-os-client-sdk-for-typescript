@@ -13,24 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversationMessages,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-    QGPTPromptPipeline,
+} from './FlattenedConversationMessages';
+import type { QGPTPromptPipeline } from './QGPTPromptPipeline';
+import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-    RelevantQGPTSeeds,
+} from './QGPTPromptPipeline';
+import type { RelevantQGPTSeeds } from './RelevantQGPTSeeds';
+import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './';
+} from './RelevantQGPTSeeds';
+import type { TemporalRangeGrounding } from './TemporalRangeGrounding';
+import {
+    TemporalRangeGroundingFromJSON,
+    TemporalRangeGroundingFromJSONTyped,
+    TemporalRangeGroundingToJSON,
+} from './TemporalRangeGrounding';
 
 /**
  * This is the body input for the /code_gpt/question.
@@ -83,6 +95,23 @@ export interface QGPTQuestionInput {
      * @memberof QGPTQuestionInput
      */
     pipeline?: QGPTPromptPipeline;
+    /**
+     * 
+     * @type {TemporalRangeGrounding}
+     * @memberof QGPTQuestionInput
+     */
+    temporal?: TemporalRangeGrounding;
+}
+
+/**
+ * Check if a given object implements the QGPTQuestionInput interface.
+ */
+export function instanceOfQGPTQuestionInput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "relevant" in value;
+    isInstance = isInstance && "query" in value;
+
+    return isInstance;
 }
 
 export function QGPTQuestionInputFromJSON(json: any): QGPTQuestionInput {
@@ -102,6 +131,7 @@ export function QGPTQuestionInputFromJSONTyped(json: any, ignoreDiscriminator: b
         'model': !exists(json, 'model') ? undefined : json['model'],
         'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
         'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
+        'temporal': !exists(json, 'temporal') ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
     };
 }
 
@@ -121,7 +151,7 @@ export function QGPTQuestionInputToJSON(value?: QGPTQuestionInput | null): any {
         'model': value.model,
         'messages': FlattenedConversationMessagesToJSON(value.messages),
         'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
+        'temporal': TemporalRangeGroundingToJSON(value.temporal),
     };
 }
-
 

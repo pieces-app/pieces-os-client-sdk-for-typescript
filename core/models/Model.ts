@@ -13,40 +13,54 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ByteDescriptor } from './ByteDescriptor';
 import {
-    ByteDescriptor,
     ByteDescriptorFromJSON,
     ByteDescriptorFromJSONTyped,
     ByteDescriptorToJSON,
-    EmbeddedModelSchema,
+} from './ByteDescriptor';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExternalMLProviderEnum,
+} from './EmbeddedModelSchema';
+import type { ExternalMLProviderEnum } from './ExternalMLProviderEnum';
+import {
     ExternalMLProviderEnumFromJSON,
     ExternalMLProviderEnumFromJSONTyped,
     ExternalMLProviderEnumToJSON,
-    GroupedTimestamp,
+} from './ExternalMLProviderEnum';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    ModelFoundationEnum,
+} from './GroupedTimestamp';
+import type { ModelFoundationEnum } from './ModelFoundationEnum';
+import {
     ModelFoundationEnumFromJSON,
     ModelFoundationEnumFromJSONTyped,
     ModelFoundationEnumToJSON,
-    ModelMaxTokens,
+} from './ModelFoundationEnum';
+import type { ModelMaxTokens } from './ModelMaxTokens';
+import {
     ModelMaxTokensFromJSON,
     ModelMaxTokensFromJSONTyped,
     ModelMaxTokensToJSON,
-    ModelTypeEnum,
+} from './ModelMaxTokens';
+import type { ModelTypeEnum } from './ModelTypeEnum';
+import {
     ModelTypeEnumFromJSON,
     ModelTypeEnumFromJSONTyped,
     ModelTypeEnumToJSON,
-    ModelUsageEnum,
+} from './ModelTypeEnum';
+import type { ModelUsageEnum } from './ModelUsageEnum';
+import {
     ModelUsageEnumFromJSON,
     ModelUsageEnumFromJSONTyped,
     ModelUsageEnumToJSON,
-} from './';
+} from './ModelUsageEnum';
 
 /**
  * This is a Machine Learning Model, that will give readable information about the Machine Learning Model Used.
@@ -62,6 +76,7 @@ export interface Model {
     schema?: EmbeddedModelSchema;
     /**
      * uuid
+     * 
      * @type {string}
      * @memberof Model
      */
@@ -188,6 +203,22 @@ export interface Model {
     custom?: boolean;
 }
 
+/**
+ * Check if a given object implements the Model interface.
+ */
+export function instanceOfModel(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "cloud" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "usage" in value;
+
+    return isInstance;
+}
+
 export function ModelFromJSON(json: any): Model {
     return ModelFromJSONTyped(json, false);
 }
@@ -256,5 +287,4 @@ export function ModelToJSON(value?: Model | null): any {
         'custom': value.custom,
     };
 }
-
 

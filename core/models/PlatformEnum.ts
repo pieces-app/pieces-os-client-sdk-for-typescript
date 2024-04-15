@@ -12,21 +12,23 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is an Enumeration for a Platform ie, WEB, MACOS, LINUX, WINDOWS
  * @export
- * @enum {string}
  */
-export enum PlatformEnum {
-    Web = 'WEB',
-    Macos = 'MACOS',
-    Linux = 'LINUX',
-    Windows = 'WINDOWS',
-    Fuchsia = 'FUCHSIA',
-    Ios = 'IOS',
-    Android = 'ANDROID',
-    Unknown = 'UNKNOWN'
-}
+export const PlatformEnum = {
+    Web: 'WEB',
+    Macos: 'MACOS',
+    Linux: 'LINUX',
+    Windows: 'WINDOWS',
+    Fuchsia: 'FUCHSIA',
+    Ios: 'IOS',
+    Android: 'ANDROID',
+    Unknown: 'UNKNOWN'
+} as const;
+export type PlatformEnum = typeof PlatformEnum[keyof typeof PlatformEnum];
+
 
 export function PlatformEnumFromJSON(json: any): PlatformEnum {
     return PlatformEnumFromJSONTyped(json, false);

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * These are all of the available event types that are permitted in an object pair notation.
@@ -76,48 +76,71 @@ export interface TrackedConversationEventIdentifierDescriptionPairs {
     conversationSummaryAnnotationGeneratedByTheSystem?: TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum {
-    AConversationWasCreated = 'a_conversation_was_created'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum {
-    AConversationWasReferencedByTheUser = 'a_conversation_was_referenced_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum {
-    AConversationWasDeleted = 'a_conversation_was_deleted'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum {
-    AConversationSummaryAnnotationWasGeneratedByTheUser = 'a_conversation_summary_annotation_was_generated_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum {
-    AConversationWasRenamedByTheSystem = 'a_conversation_was_renamed_by_the_system'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum {
-    AConversationWasRenamedByTheUser = 'a_conversation_was_renamed_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum {
-    AConversationSummaryAnnotationWasGeneratedByTheSystem = 'a_conversation_summary_annotation_was_generated_by_the_system'
+ * @export
+ */
+export const TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum = {
+    AConversationWasCreated: 'a_conversation_was_created'
+} as const;
+export type TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum = {
+    AConversationWasReferencedByTheUser: 'a_conversation_was_referenced_by_the_user'
+} as const;
+export type TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum];
+
+/**
+ * @export
+ */
+export const TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum = {
+    AConversationWasDeleted: 'a_conversation_was_deleted'
+} as const;
+export type TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum = {
+    AConversationSummaryAnnotationWasGeneratedByTheUser: 'a_conversation_summary_annotation_was_generated_by_the_user'
+} as const;
+export type TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum];
+
+/**
+ * @export
+ */
+export const TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum = {
+    AConversationWasRenamedByTheSystem: 'a_conversation_was_renamed_by_the_system'
+} as const;
+export type TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum];
+
+/**
+ * @export
+ */
+export const TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum = {
+    AConversationWasRenamedByTheUser: 'a_conversation_was_renamed_by_the_user'
+} as const;
+export type TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum];
+
+/**
+ * @export
+ */
+export const TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum = {
+    AConversationSummaryAnnotationWasGeneratedByTheSystem: 'a_conversation_summary_annotation_was_generated_by_the_system'
+} as const;
+export type TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum];
+
+
+/**
+ * Check if a given object implements the TrackedConversationEventIdentifierDescriptionPairs interface.
+ */
+export function instanceOfTrackedConversationEventIdentifierDescriptionPairs(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedConversationEventIdentifierDescriptionPairsFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairs {
@@ -160,5 +183,4 @@ export function TrackedConversationEventIdentifierDescriptionPairsToJSON(value?:
         'conversation_summary_annotation_generated_by_the_system': value.conversationSummaryAnnotationGeneratedByTheSystem,
     };
 }
-
 

@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    SensitiveCategoryEnum,
+} from './MechanismEnum';
+import type { SensitiveCategoryEnum } from './SensitiveCategoryEnum';
+import {
     SensitiveCategoryEnumFromJSON,
     SensitiveCategoryEnumFromJSONTyped,
     SensitiveCategoryEnumToJSON,
-    SensitiveMetadata,
+} from './SensitiveCategoryEnum';
+import type { SensitiveMetadata } from './SensitiveMetadata';
+import {
     SensitiveMetadataFromJSON,
     SensitiveMetadataFromJSONTyped,
     SensitiveMetadataToJSON,
-    SensitiveSeverityEnum,
+} from './SensitiveMetadata';
+import type { SensitiveSeverityEnum } from './SensitiveSeverityEnum';
+import {
     SensitiveSeverityEnumFromJSON,
     SensitiveSeverityEnumFromJSONTyped,
     SensitiveSeverityEnumToJSON,
-} from './';
+} from './SensitiveSeverityEnum';
 
 /**
  * This is the SeededDiscoverableSensitive, this has every property that the seededSensitive has except this one is all optionally passed in. and will override our classification if provided.
@@ -98,6 +106,17 @@ export interface SeededDiscoverableSensitive {
     metadata?: SensitiveMetadata;
 }
 
+/**
+ * Check if a given object implements the SeededDiscoverableSensitive interface.
+ */
+export function instanceOfSeededDiscoverableSensitive(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
+}
+
 export function SeededDiscoverableSensitiveFromJSON(json: any): SeededDiscoverableSensitive {
     return SeededDiscoverableSensitiveFromJSONTyped(json, false);
 }
@@ -140,5 +159,4 @@ export function SeededDiscoverableSensitiveToJSON(value?: SeededDiscoverableSens
         'metadata': SensitiveMetadataToJSON(value.metadata),
     };
 }
-
 

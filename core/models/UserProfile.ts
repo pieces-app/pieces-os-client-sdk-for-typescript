@@ -13,32 +13,42 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Aesthetics } from './Aesthetics';
 import {
-    Aesthetics,
     AestheticsFromJSON,
     AestheticsFromJSONTyped,
     AestheticsToJSON,
-    AllocationCloud,
+} from './Aesthetics';
+import type { AllocationCloud } from './AllocationCloud';
+import {
     AllocationCloudFromJSON,
     AllocationCloudFromJSONTyped,
     AllocationCloudToJSON,
-    Auth0UserMetadata,
+} from './AllocationCloud';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
+import {
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0UserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExternalProviders,
+} from './EmbeddedModelSchema';
+import type { ExternalProviders } from './ExternalProviders';
+import {
     ExternalProvidersFromJSON,
     ExternalProvidersFromJSONTyped,
     ExternalProvidersToJSON,
-    GroupedTimestamp,
+} from './ExternalProviders';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * This is the model for a user logged into Pieces.
@@ -127,6 +137,17 @@ export interface UserProfile {
     auth0?: Auth0UserMetadata;
 }
 
+/**
+ * Check if a given object implements the UserProfile interface.
+ */
+export function instanceOfUserProfile(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "aesthetics" in value;
+
+    return isInstance;
+}
+
 export function UserProfileFromJSON(json: any): UserProfile {
     return UserProfileFromJSONTyped(json, false);
 }
@@ -177,5 +198,4 @@ export function UserProfileToJSON(value?: UserProfile | null): any {
         'auth0': Auth0UserMetadataToJSON(value.auth0),
     };
 }
-
 

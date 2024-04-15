@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will describe the font that the user sees.
@@ -38,6 +38,16 @@ export interface Font {
      * @memberof Font
      */
     size: number;
+}
+
+/**
+ * Check if a given object implements the Font interface.
+ */
+export function instanceOfFont(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "size" in value;
+
+    return isInstance;
 }
 
 export function FontFromJSON(json: any): Font {
@@ -68,5 +78,4 @@ export function FontToJSON(value?: Font | null): any {
         'size': value.size,
     };
 }
-
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A model representing a returnable response for a OAuthGroup Token
@@ -70,12 +70,27 @@ export interface OAuthToken {
     idToken?: string;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum OAuthTokenTokenTypeEnum {
-    Bearer = 'Bearer'
+ * @export
+ */
+export const OAuthTokenTokenTypeEnum = {
+    Bearer: 'Bearer'
+} as const;
+export type OAuthTokenTokenTypeEnum = typeof OAuthTokenTokenTypeEnum[keyof typeof OAuthTokenTokenTypeEnum];
+
+
+/**
+ * Check if a given object implements the OAuthToken interface.
+ */
+export function instanceOfOAuthToken(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "accessToken" in value;
+    isInstance = isInstance && "tokenType" in value;
+    isInstance = isInstance && "expiresIn" in value;
+    isInstance = isInstance && "scope" in value;
+
+    return isInstance;
 }
 
 export function OAuthTokenFromJSON(json: any): OAuthToken {
@@ -116,5 +131,4 @@ export function OAuthTokenToJSON(value?: OAuthToken | null): any {
         'id_token': value.idToken,
     };
 }
-
 

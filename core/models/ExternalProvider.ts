@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExternalProviderProfileData,
+} from './EmbeddedModelSchema';
+import type { ExternalProviderProfileData } from './ExternalProviderProfileData';
+import {
     ExternalProviderProfileDataFromJSON,
     ExternalProviderProfileDataFromJSONTyped,
     ExternalProviderProfileDataToJSON,
-    ExternalProviderTypeEnum,
+} from './ExternalProviderProfileData';
+import type { ExternalProviderTypeEnum } from './ExternalProviderTypeEnum';
+import {
     ExternalProviderTypeEnumFromJSON,
     ExternalProviderTypeEnumFromJSONTyped,
     ExternalProviderTypeEnumToJSON,
-    GroupedTimestamp,
+} from './ExternalProviderTypeEnum';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * I know that profileData and user_id have differeing casing but they are done because they map to Auth0's projeecties.
@@ -100,6 +106,19 @@ export interface ExternalProvider {
     isSocial?: boolean;
 }
 
+/**
+ * Check if a given object implements the ExternalProvider interface.
+ */
+export function instanceOfExternalProvider(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "userId" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
+}
+
 export function ExternalProviderFromJSON(json: any): ExternalProvider {
     return ExternalProviderFromJSONTyped(json, false);
 }
@@ -144,5 +163,4 @@ export function ExternalProviderToJSON(value?: ExternalProvider | null): any {
         'isSocial': value.isSocial,
     };
 }
-
 

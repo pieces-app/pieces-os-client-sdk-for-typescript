@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTPromptPipeline,
+} from './EmbeddedModelSchema';
+import type { QGPTPromptPipeline } from './QGPTPromptPipeline';
+import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-} from './';
+} from './QGPTPromptPipeline';
 
 /**
  * 
@@ -54,6 +56,15 @@ export interface QGPTRelevanceInputOptions {
      * @memberof QGPTRelevanceInputOptions
      */
     pipeline?: QGPTPromptPipeline;
+}
+
+/**
+ * Check if a given object implements the QGPTRelevanceInputOptions interface.
+ */
+export function instanceOfQGPTRelevanceInputOptions(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTRelevanceInputOptionsFromJSON(json: any): QGPTRelevanceInputOptions {
@@ -88,5 +99,4 @@ export function QGPTRelevanceInputOptionsToJSON(value?: QGPTRelevanceInputOption
         'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
-
 

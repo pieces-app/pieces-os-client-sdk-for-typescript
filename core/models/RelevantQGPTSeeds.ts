@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    RelevantQGPTSeed,
+} from './EmbeddedModelSchema';
+import type { RelevantQGPTSeed } from './RelevantQGPTSeed';
+import {
     RelevantQGPTSeedFromJSON,
     RelevantQGPTSeedFromJSONTyped,
     RelevantQGPTSeedToJSON,
-} from './';
+} from './RelevantQGPTSeed';
 
 /**
  * This is a plural of RelevantQGPTSeed.
@@ -42,6 +44,16 @@ export interface RelevantQGPTSeeds {
      * @memberof RelevantQGPTSeeds
      */
     iterable: Array<RelevantQGPTSeed>;
+}
+
+/**
+ * Check if a given object implements the RelevantQGPTSeeds interface.
+ */
+export function instanceOfRelevantQGPTSeeds(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function RelevantQGPTSeedsFromJSON(json: any): RelevantQGPTSeeds {
@@ -72,5 +84,4 @@ export function RelevantQGPTSeedsToJSON(value?: RelevantQGPTSeeds | null): any {
         'iterable': ((value.iterable as Array<any>).map(RelevantQGPTSeedToJSON)),
     };
 }
-
 

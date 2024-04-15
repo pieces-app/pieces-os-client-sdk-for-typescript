@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnnotation,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnnotation } from './FlattenedAnnotation';
+import {
     FlattenedAnnotationFromJSON,
     FlattenedAnnotationFromJSONTyped,
     FlattenedAnnotationToJSON,
-} from './';
+} from './FlattenedAnnotation';
 
 /**
  * This is the referenced version of a annotation, main used for the uuid.
@@ -48,6 +50,16 @@ export interface ReferencedAnnotation {
      * @memberof ReferencedAnnotation
      */
     reference?: FlattenedAnnotation;
+}
+
+/**
+ * Check if a given object implements the ReferencedAnnotation interface.
+ */
+export function instanceOfReferencedAnnotation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedAnnotationFromJSON(json: any): ReferencedAnnotation {
@@ -80,5 +92,4 @@ export function ReferencedAnnotationToJSON(value?: ReferencedAnnotation | null):
         'reference': FlattenedAnnotationToJSON(value.reference),
     };
 }
-
 

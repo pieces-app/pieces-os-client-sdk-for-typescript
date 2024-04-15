@@ -13,37 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AccessEnum } from './AccessEnum';
 import {
-    AccessEnum,
     AccessEnumFromJSON,
     AccessEnumFromJSONTyped,
     AccessEnumToJSON,
-    Asset,
+} from './AccessEnum';
+import type { Asset } from './Asset';
+import {
     AssetFromJSON,
     AssetFromJSONTyped,
     AssetToJSON,
-    EmbeddedModelSchema,
+} from './Asset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Seed,
+} from './EmbeddedModelSchema';
+import type { Seed } from './Seed';
+import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
-    SeededDistributions,
+} from './Seed';
+import type { SeededDistributions } from './SeededDistributions';
+import {
     SeededDistributionsFromJSON,
     SeededDistributionsFromJSONTyped,
     SeededDistributionsToJSON,
-    SeededUser,
+} from './SeededDistributions';
+import type { SeededUser } from './SeededUser';
+import {
     SeededUserFromJSON,
     SeededUserFromJSONTyped,
     SeededUserToJSON,
-} from './';
+} from './SeededUser';
 
 /**
  * This is the incoming linkify model.
  * 
  * if access is PRIVATE then please provide and array of users to enable the link for.
+ * 
  * @export
  * @interface Linkify
  */
@@ -86,6 +97,16 @@ export interface Linkify {
     distributions?: SeededDistributions;
 }
 
+/**
+ * Check if a given object implements the Linkify interface.
+ */
+export function instanceOfLinkify(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "access" in value;
+
+    return isInstance;
+}
+
 export function LinkifyFromJSON(json: any): Linkify {
     return LinkifyFromJSONTyped(json, false);
 }
@@ -122,5 +143,4 @@ export function LinkifyToJSON(value?: Linkify | null): any {
         'distributions': SeededDistributionsToJSON(value.distributions),
     };
 }
-
 

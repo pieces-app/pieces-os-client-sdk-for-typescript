@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnnotationTypeEnum } from './AnnotationTypeEnum';
 import {
-    AnnotationTypeEnum,
     AnnotationTypeEnumFromJSON,
     AnnotationTypeEnumFromJSONTyped,
     AnnotationTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './AnnotationTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface AssetFilterPhraseOptions {
      * @memberof AssetFilterPhraseOptions
      */
     annotation?: AnnotationTypeEnum;
+}
+
+/**
+ * Check if a given object implements the AssetFilterPhraseOptions interface.
+ */
+export function instanceOfAssetFilterPhraseOptions(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function AssetFilterPhraseOptionsFromJSON(json: any): AssetFilterPhraseOptions {
@@ -72,5 +83,4 @@ export function AssetFilterPhraseOptionsToJSON(value?: AssetFilterPhraseOptions 
         'annotation': AnnotationTypeEnumToJSON(value.annotation),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedShare,
+} from './EmbeddedModelSchema';
+import type { FlattenedShare } from './FlattenedShare';
+import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
-} from './';
+} from './FlattenedShare';
 
 /**
  * This is a [DAG SAFE] version of a share. with just a required share ID.
@@ -48,6 +50,16 @@ export interface ReferencedShare {
      * @memberof ReferencedShare
      */
     reference?: FlattenedShare;
+}
+
+/**
+ * Check if a given object implements the ReferencedShare interface.
+ */
+export function instanceOfReferencedShare(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedShareFromJSON(json: any): ReferencedShare {
@@ -80,5 +92,4 @@ export function ReferencedShareToJSON(value?: ReferencedShare | null): any {
         'reference': FlattenedShareToJSON(value.reference),
     };
 }
-
 

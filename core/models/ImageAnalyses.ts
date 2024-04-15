@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ImageAnalysis,
+} from './EmbeddedModelSchema';
+import type { ImageAnalysis } from './ImageAnalysis';
+import {
     ImageAnalysisFromJSON,
     ImageAnalysisFromJSONTyped,
     ImageAnalysisToJSON,
-} from './';
+} from './ImageAnalysis';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface ImageAnalyses {
      * @memberof ImageAnalyses
      */
     iterable: Array<ImageAnalysis>;
+}
+
+/**
+ * Check if a given object implements the ImageAnalyses interface.
+ */
+export function instanceOfImageAnalyses(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ImageAnalysesFromJSON(json: any): ImageAnalyses {
@@ -72,5 +84,4 @@ export function ImageAnalysesToJSON(value?: ImageAnalyses | null): any {
         'iterable': ((value.iterable as Array<any>).map(ImageAnalysisToJSON)),
     };
 }
-
 

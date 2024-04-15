@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    HintTypeEnum,
+} from './EmbeddedModelSchema';
+import type { HintTypeEnum } from './HintTypeEnum';
+import {
     HintTypeEnumFromJSON,
     HintTypeEnumFromJSONTyped,
     HintTypeEnumToJSON,
-    MechanismEnum,
+} from './HintTypeEnum';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './';
+} from './MechanismEnum';
 
 /**
  * 
@@ -72,6 +76,17 @@ export interface SeededHint {
     model?: string;
 }
 
+/**
+ * Check if a given object implements the SeededHint interface.
+ */
+export function instanceOfSeededHint(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
+}
+
 export function SeededHintFromJSON(json: any): SeededHint {
     return SeededHintFromJSONTyped(json, false);
 }
@@ -108,5 +123,4 @@ export function SeededHintToJSON(value?: SeededHint | null): any {
         'model': value.model,
     };
 }
-
 

@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is a simple enum used to determine the status of the Updating process.(of PiecesOS)
  * 
@@ -21,17 +22,18 @@
  * 
  * These are some enums that are currently not implemented but are for future support( REINSTALL_REQUIRED, CONTACT_SUPPORT)
  * @export
- * @enum {string}
  */
-export enum UpdatingStatusEnum {
-    ReadyToRestart = 'READY_TO_RESTART',
-    Available = 'AVAILABLE',
-    Downloading = 'DOWNLOADING',
-    Unknown = 'UNKNOWN',
-    UpToDate = 'UP_TO_DATE',
-    ReinstallRequired = 'REINSTALL_REQUIRED',
-    ContactSupport = 'CONTACT_SUPPORT'
-}
+export const UpdatingStatusEnum = {
+    ReadyToRestart: 'READY_TO_RESTART',
+    Available: 'AVAILABLE',
+    Downloading: 'DOWNLOADING',
+    Unknown: 'UNKNOWN',
+    UpToDate: 'UP_TO_DATE',
+    ReinstallRequired: 'REINSTALL_REQUIRED',
+    ContactSupport: 'CONTACT_SUPPORT'
+} as const;
+export type UpdatingStatusEnum = typeof UpdatingStatusEnum[keyof typeof UpdatingStatusEnum];
+
 
 export function UpdatingStatusEnumFromJSON(json: any): UpdatingStatusEnum {
     return UpdatingStatusEnumFromJSONTyped(json, false);

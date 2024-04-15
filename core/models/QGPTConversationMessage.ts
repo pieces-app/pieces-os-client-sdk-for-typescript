@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    QGPTConversationMessageRoleEnum,
+} from './GroupedTimestamp';
+import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
+import {
     QGPTConversationMessageRoleEnumFromJSON,
     QGPTConversationMessageRoleEnumFromJSONTyped,
     QGPTConversationMessageRoleEnumToJSON,
-} from './';
+} from './QGPTConversationMessageRoleEnum';
 
 /**
  * This will take a single message, and a role.
@@ -58,6 +62,18 @@ export interface QGPTConversationMessage {
      * @memberof QGPTConversationMessage
      */
     timestamp: GroupedTimestamp;
+}
+
+/**
+ * Check if a given object implements the QGPTConversationMessage interface.
+ */
+export function instanceOfQGPTConversationMessage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "role" in value;
+    isInstance = isInstance && "timestamp" in value;
+
+    return isInstance;
 }
 
 export function QGPTConversationMessageFromJSON(json: any): QGPTConversationMessage {
@@ -92,5 +108,4 @@ export function QGPTConversationMessageToJSON(value?: QGPTConversationMessage | 
         'timestamp': GroupedTimestampToJSON(value.timestamp),
     };
 }
-
 

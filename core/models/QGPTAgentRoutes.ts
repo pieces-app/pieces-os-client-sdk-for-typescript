@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTAgentRelatedRoutes,
+} from './EmbeddedModelSchema';
+import type { QGPTAgentRelatedRoutes } from './QGPTAgentRelatedRoutes';
+import {
     QGPTAgentRelatedRoutesFromJSON,
     QGPTAgentRelatedRoutesFromJSONTyped,
     QGPTAgentRelatedRoutesToJSON,
-} from './';
+} from './QGPTAgentRelatedRoutes';
 
 /**
  * This is apart of the Output and will let the plugin developer know if we reccomend to run specific agent functionality/routes.
@@ -43,6 +45,15 @@ export interface QGPTAgentRoutes {
      * @memberof QGPTAgentRoutes
      */
     related?: QGPTAgentRelatedRoutes;
+}
+
+/**
+ * Check if a given object implements the QGPTAgentRoutes interface.
+ */
+export function instanceOfQGPTAgentRoutes(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTAgentRoutesFromJSON(json: any): QGPTAgentRoutes {
@@ -73,5 +84,4 @@ export function QGPTAgentRoutesToJSON(value?: QGPTAgentRoutes | null): any {
         'related': QGPTAgentRelatedRoutesToJSON(value.related),
     };
 }
-
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Only supporting a single api key per user.
@@ -50,6 +50,15 @@ export interface Auth0OpenAIUserMetadata {
      * @memberof Auth0OpenAIUserMetadata
      */
     organizationKey?: string;
+}
+
+/**
+ * Check if a given object implements the Auth0OpenAIUserMetadata interface.
+ */
+export function instanceOfAuth0OpenAIUserMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function Auth0OpenAIUserMetadataFromJSON(json: any): Auth0OpenAIUserMetadata {
@@ -84,5 +93,4 @@ export function Auth0OpenAIUserMetadataToJSON(value?: Auth0OpenAIUserMetadata | 
         'organization_key': value.organizationKey,
     };
 }
-
 

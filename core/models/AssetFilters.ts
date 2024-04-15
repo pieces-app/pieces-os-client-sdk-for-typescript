@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AssetFilter } from './AssetFilter';
 import {
-    AssetFilter,
     AssetFilterFromJSON,
     AssetFilterFromJSONTyped,
     AssetFilterToJSON,
-    EmbeddedModelSchema,
+} from './AssetFilter';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FilterOperationTypeEnum,
+} from './EmbeddedModelSchema';
+import type { FilterOperationTypeEnum } from './FilterOperationTypeEnum';
+import {
     FilterOperationTypeEnumFromJSON,
     FilterOperationTypeEnumFromJSONTyped,
     FilterOperationTypeEnumToJSON,
-} from './';
+} from './FilterOperationTypeEnum';
 
 /**
  * 
@@ -52,6 +56,16 @@ export interface AssetFilters {
      * @memberof AssetFilters
      */
     type?: FilterOperationTypeEnum;
+}
+
+/**
+ * Check if a given object implements the AssetFilters interface.
+ */
+export function instanceOfAssetFilters(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AssetFiltersFromJSON(json: any): AssetFilters {
@@ -84,5 +98,4 @@ export function AssetFiltersToJSON(value?: AssetFilters | null): any {
         'type': FilterOperationTypeEnumToJSON(value.type),
     };
 }
-
 

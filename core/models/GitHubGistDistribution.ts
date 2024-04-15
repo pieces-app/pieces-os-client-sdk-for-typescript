@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Recipients,
+} from './GroupedTimestamp';
+import type { Recipients } from './Recipients';
+import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
-} from './';
+} from './Recipients';
 
 /**
  * This is a published Github Gist.
@@ -96,6 +100,22 @@ export interface GitHubGistDistribution {
     url: string;
 }
 
+/**
+ * Check if a given object implements the GitHubGistDistribution interface.
+ */
+export function instanceOfGitHubGistDistribution(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "recipients" in value;
+    isInstance = isInstance && "_public" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "githubId" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
+}
+
 export function GitHubGistDistributionFromJSON(json: any): GitHubGistDistribution {
     return GitHubGistDistributionFromJSONTyped(json, false);
 }
@@ -140,5 +160,4 @@ export function GitHubGistDistributionToJSON(value?: GitHubGistDistribution | nu
         'url': value.url,
     };
 }
-
 

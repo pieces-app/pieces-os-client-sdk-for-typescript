@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Hint,
+} from './EmbeddedModelSchema';
+import type { Hint } from './Hint';
+import {
     HintFromJSON,
     HintFromJSONTyped,
     HintToJSON,
-    Score,
+} from './Hint';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the plural of a Hint.
@@ -58,6 +62,16 @@ export interface Hints {
      * @memberof Hints
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Hints interface.
+ */
+export function instanceOfHints(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function HintsFromJSON(json: any): Hints {
@@ -92,5 +106,4 @@ export function HintsToJSON(value?: Hints | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

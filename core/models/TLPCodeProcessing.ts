@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeDirectoryAnalytics,
+} from './EmbeddedModelSchema';
+import type { TLPCodeDirectoryAnalytics } from './TLPCodeDirectoryAnalytics';
+import {
     TLPCodeDirectoryAnalyticsFromJSON,
     TLPCodeDirectoryAnalyticsFromJSONTyped,
     TLPCodeDirectoryAnalyticsToJSON,
-    TLPCodeFileAnalytics,
+} from './TLPCodeDirectoryAnalytics';
+import type { TLPCodeFileAnalytics } from './TLPCodeFileAnalytics';
+import {
     TLPCodeFileAnalyticsFromJSON,
     TLPCodeFileAnalyticsFromJSONTyped,
     TLPCodeFileAnalyticsToJSON,
-    TLPCodeRepositoryAnalytics,
+} from './TLPCodeFileAnalytics';
+import type { TLPCodeRepositoryAnalytics } from './TLPCodeRepositoryAnalytics';
+import {
     TLPCodeRepositoryAnalyticsFromJSON,
     TLPCodeRepositoryAnalyticsFromJSONTyped,
     TLPCodeRepositoryAnalyticsToJSON,
-    TLPCodeSnippetAnalytics,
+} from './TLPCodeRepositoryAnalytics';
+import type { TLPCodeSnippetAnalytics } from './TLPCodeSnippetAnalytics';
+import {
     TLPCodeSnippetAnalyticsFromJSON,
     TLPCodeSnippetAnalyticsFromJSONTyped,
     TLPCodeSnippetAnalyticsToJSON,
-} from './';
+} from './TLPCodeSnippetAnalytics';
 
 /**
  * 
@@ -74,6 +82,15 @@ export interface TLPCodeProcessing {
     repository?: TLPCodeRepositoryAnalytics;
 }
 
+/**
+ * Check if a given object implements the TLPCodeProcessing interface.
+ */
+export function instanceOfTLPCodeProcessing(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function TLPCodeProcessingFromJSON(json: any): TLPCodeProcessing {
     return TLPCodeProcessingFromJSONTyped(json, false);
 }
@@ -108,5 +125,4 @@ export function TLPCodeProcessingToJSON(value?: TLPCodeProcessing | null): any {
         'repository': TLPCodeRepositoryAnalyticsToJSON(value.repository),
     };
 }
-
 

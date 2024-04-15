@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Conversation } from './Conversation';
 import {
-    Conversation,
     ConversationFromJSON,
     ConversationFromJSONTyped,
     ConversationToJSON,
-    EmbeddedModelSchema,
+} from './Conversation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a plural version of a Conversation.
@@ -58,6 +62,16 @@ export interface Conversations {
      * @memberof Conversations
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Conversations interface.
+ */
+export function instanceOfConversations(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ConversationsFromJSON(json: any): Conversations {
@@ -92,5 +106,4 @@ export function ConversationsToJSON(value?: Conversations | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

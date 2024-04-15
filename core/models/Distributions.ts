@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Distribution } from './Distribution';
 import {
-    Distribution,
     DistributionFromJSON,
     DistributionFromJSONTyped,
     DistributionToJSON,
-    EmbeddedModelSchema,
+} from './Distribution';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the plural Model of a Distribution.
@@ -42,6 +44,16 @@ export interface Distributions {
      * @memberof Distributions
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the Distributions interface.
+ */
+export function instanceOfDistributions(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function DistributionsFromJSON(json: any): Distributions {
@@ -72,5 +84,4 @@ export function DistributionsToJSON(value?: Distributions | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

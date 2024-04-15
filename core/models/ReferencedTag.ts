@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedTag,
+} from './EmbeddedModelSchema';
+import type { FlattenedTag } from './FlattenedTag';
+import {
     FlattenedTagFromJSON,
     FlattenedTagFromJSONTyped,
     FlattenedTagToJSON,
-} from './';
+} from './FlattenedTag';
 
 /**
  * [DAG Safe] version of a Tag Model. 
@@ -48,6 +50,16 @@ export interface ReferencedTag {
      * @memberof ReferencedTag
      */
     reference?: FlattenedTag;
+}
+
+/**
+ * Check if a given object implements the ReferencedTag interface.
+ */
+export function instanceOfReferencedTag(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedTagFromJSON(json: any): ReferencedTag {
@@ -80,5 +92,4 @@ export function ReferencedTagToJSON(value?: ReferencedTag | null): any {
         'reference': FlattenedTagToJSON(value.reference),
     };
 }
-
 

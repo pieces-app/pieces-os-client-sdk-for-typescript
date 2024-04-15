@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A helper classs to wrap Date-Time Values with Useful Helper Properties
@@ -44,6 +44,16 @@ export interface GroupedTimestamp {
      * @memberof GroupedTimestamp
      */
     readable?: string;
+}
+
+/**
+ * Check if a given object implements the GroupedTimestamp interface.
+ */
+export function instanceOfGroupedTimestamp(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
 }
 
 export function GroupedTimestampFromJSON(json: any): GroupedTimestamp {
@@ -76,5 +86,4 @@ export function GroupedTimestampToJSON(value?: GroupedTimestamp | null): any {
         'readable': value.readable,
     };
 }
-
 

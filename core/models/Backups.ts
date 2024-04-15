@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Backup } from './Backup';
 import {
-    Backup,
     BackupFromJSON,
     BackupFromJSONTyped,
     BackupToJSON,
-    EmbeddedModelSchema,
+} from './Backup';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a plural model of many Cloud Backups.
@@ -58,6 +62,16 @@ export interface Backups {
      * @memberof Backups
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Backups interface.
+ */
+export function instanceOfBackups(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function BackupsFromJSON(json: any): Backups {
@@ -92,5 +106,4 @@ export function BackupsToJSON(value?: Backups | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

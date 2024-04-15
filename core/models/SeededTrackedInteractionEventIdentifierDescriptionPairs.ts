@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -40,12 +40,23 @@ export interface SeededTrackedInteractionEventIdentifierDescriptionPairs {
     assetsListRefreshed?: SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum {
-    TheAssetsListWasRefreshedThroughUiElement = 'the_assets_list_was_refreshed_through_ui_element'
+ * @export
+ */
+export const SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum = {
+    TheAssetsListWasRefreshedThroughUiElement: 'the_assets_list_was_refreshed_through_ui_element'
+} as const;
+export type SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum = typeof SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum[keyof typeof SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum];
+
+
+/**
+ * Check if a given object implements the SeededTrackedInteractionEventIdentifierDescriptionPairs interface.
+ */
+export function instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairs(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(json: any): SeededTrackedInteractionEventIdentifierDescriptionPairs {
@@ -76,5 +87,4 @@ export function SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(va
         'assets_list_refreshed': value.assetsListRefreshed,
     };
 }
-
 

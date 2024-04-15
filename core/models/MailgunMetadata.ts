@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * TODO add additional properties.
@@ -39,6 +39,16 @@ export interface MailgunMetadata {
      * @memberof MailgunMetadata
      */
     messageId: string;
+}
+
+/**
+ * Check if a given object implements the MailgunMetadata interface.
+ */
+export function instanceOfMailgunMetadata(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "messageId" in value;
+
+    return isInstance;
 }
 
 export function MailgunMetadataFromJSON(json: any): MailgunMetadata {
@@ -69,5 +79,4 @@ export function MailgunMetadataToJSON(value?: MailgunMetadata | null): any {
         'messageId': value.messageId,
     };
 }
-
 

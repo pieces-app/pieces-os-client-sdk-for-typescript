@@ -13,40 +13,54 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedPersons,
+} from './FlattenedAssets';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
     FlattenedPersonsToJSON,
-    GroupedTimestamp,
+} from './FlattenedPersons';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    Relationship,
+} from './MechanismEnum';
+import type { Relationship } from './Relationship';
+import {
     RelationshipFromJSON,
     RelationshipFromJSONTyped,
     RelationshipToJSON,
-    Score,
+} from './Relationship';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    TagCategoryEnum,
+} from './Score';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * This is a Flattened Version of a Tag.
@@ -134,6 +148,20 @@ export interface FlattenedTag {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedTag interface.
+ */
+export function instanceOfFlattenedTag(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "category" in value;
+
+    return isInstance;
+}
+
 export function FlattenedTagFromJSON(json: any): FlattenedTag {
     return FlattenedTagFromJSONTyped(json, false);
 }
@@ -184,5 +212,4 @@ export function FlattenedTagToJSON(value?: FlattenedTag | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    UserProfile,
+} from './EmbeddedModelSchema';
+import type { UserProfile } from './UserProfile';
+import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './UserProfile';
 
 /**
  * This is a modle strictly for the purpose that when calling '/user' and other user related endpoints the UserProfile could potentially be null, so we needed a model to do that.
@@ -42,6 +44,15 @@ export interface ReturnedUserProfile {
      * @memberof ReturnedUserProfile
      */
     user?: UserProfile;
+}
+
+/**
+ * Check if a given object implements the ReturnedUserProfile interface.
+ */
+export function instanceOfReturnedUserProfile(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ReturnedUserProfileFromJSON(json: any): ReturnedUserProfile {
@@ -72,5 +83,4 @@ export function ReturnedUserProfileToJSON(value?: ReturnedUserProfile | null): a
         'user': UserProfileToJSON(value.user),
     };
 }
-
 

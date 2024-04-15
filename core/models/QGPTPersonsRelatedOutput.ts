@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Persons,
+} from './EmbeddedModelSchema';
+import type { Persons } from './Persons';
+import {
     PersonsFromJSON,
     PersonsFromJSONTyped,
     PersonsToJSON,
-} from './';
+} from './Persons';
 
 /**
  * This model is used for the output of the /qgpt/related/persons endpoint.
@@ -51,6 +53,16 @@ export interface QGPTPersonsRelatedOutput {
      * @memberof QGPTPersonsRelatedOutput
      */
     explanations?: { [key: string]: string; };
+}
+
+/**
+ * Check if a given object implements the QGPTPersonsRelatedOutput interface.
+ */
+export function instanceOfQGPTPersonsRelatedOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "persons" in value;
+
+    return isInstance;
 }
 
 export function QGPTPersonsRelatedOutputFromJSON(json: any): QGPTPersonsRelatedOutput {
@@ -83,5 +95,4 @@ export function QGPTPersonsRelatedOutputToJSON(value?: QGPTPersonsRelatedOutput 
         'explanations': value.explanations,
     };
 }
-
 

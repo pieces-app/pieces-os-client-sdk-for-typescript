@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the SaveSuggestion. Mainly creating an additional model here because I imagine that we will want to add some additional data to this in the future (potentially with more numerical data that is emitted from the ML Models)
@@ -40,6 +40,16 @@ export interface SaveSuggestion {
      * @memberof SaveSuggestion
      */
     suggested: boolean;
+}
+
+/**
+ * Check if a given object implements the SaveSuggestion interface.
+ */
+export function instanceOfSaveSuggestion(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "suggested" in value;
+
+    return isInstance;
 }
 
 export function SaveSuggestionFromJSON(json: any): SaveSuggestion {
@@ -70,5 +80,4 @@ export function SaveSuggestionToJSON(value?: SaveSuggestion | null): any {
         'suggested': value.suggested,
     };
 }
-
 

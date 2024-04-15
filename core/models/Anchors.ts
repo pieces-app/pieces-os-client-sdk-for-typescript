@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Anchor } from './Anchor';
 import {
-    Anchor,
     AnchorFromJSON,
     AnchorFromJSONTyped,
     AnchorToJSON,
-    EmbeddedModelSchema,
+} from './Anchor';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the plural of Anchor.
@@ -58,6 +62,16 @@ export interface Anchors {
      * @memberof Anchors
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Anchors interface.
+ */
+export function instanceOfAnchors(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AnchorsFromJSON(json: any): Anchors {
@@ -92,5 +106,4 @@ export function AnchorsToJSON(value?: Anchors | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

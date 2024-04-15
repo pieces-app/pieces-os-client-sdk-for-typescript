@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Assets } from './Assets';
 import {
-    Assets,
     AssetsFromJSON,
     AssetsFromJSONTyped,
     AssetsToJSON,
-    EmbeddedModelSchema,
+} from './Assets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the ReuseSuggestion. Mainly creating an additional model here because I imagine that we will want to add some additional data to this in the future (potentially with more numerical data that is emitted from the ML Models)
@@ -52,6 +54,17 @@ export interface ReuseSuggestion {
      * @memberof ReuseSuggestion
      */
     assets: Assets;
+}
+
+/**
+ * Check if a given object implements the ReuseSuggestion interface.
+ */
+export function instanceOfReuseSuggestion(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "suggested" in value;
+    isInstance = isInstance && "assets" in value;
+
+    return isInstance;
 }
 
 export function ReuseSuggestionFromJSON(json: any): ReuseSuggestion {
@@ -84,5 +97,4 @@ export function ReuseSuggestionToJSON(value?: ReuseSuggestion | null): any {
         'assets': AssetsToJSON(value.assets),
     };
 }
-
 

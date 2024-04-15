@@ -13,52 +13,78 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnnotations,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
-    FlattenedAssets,
+} from './FlattenedAnnotations';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedTags,
+} from './FlattenedAssets';
+import type { FlattenedTags } from './FlattenedTags';
+import {
     FlattenedTagsFromJSON,
     FlattenedTagsFromJSONTyped,
     FlattenedTagsToJSON,
-    FlattenedWebsites,
+} from './FlattenedTags';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
-    GroupedTimestamp,
+} from './FlattenedWebsites';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+} from './FlattenedWorkstreamSummaries';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    PersonAccess,
+} from './MechanismEnum';
+import type { PersonAccess } from './PersonAccess';
+import {
     PersonAccessFromJSON,
     PersonAccessFromJSONTyped,
     PersonAccessToJSON,
-    PersonModel,
+} from './PersonAccess';
+import type { PersonModel } from './PersonModel';
+import {
     PersonModelFromJSON,
     PersonModelFromJSONTyped,
     PersonModelToJSON,
-    PersonType,
+} from './PersonModel';
+import type { PersonType } from './PersonType';
+import {
     PersonTypeFromJSON,
     PersonTypeFromJSONTyped,
     PersonTypeToJSON,
-    Score,
+} from './PersonType';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * if expiration is add then, after the alloted expiration date the user will only have view && comment only permissions. Only present in the case there is a scope such as a defined collection/asset...
@@ -158,6 +184,25 @@ export interface FlattenedPerson {
      * @memberof FlattenedPerson
      */
     score?: Score;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof FlattenedPerson
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+}
+
+/**
+ * Check if a given object implements the FlattenedPerson interface.
+ */
+export function instanceOfFlattenedPerson(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function FlattenedPersonFromJSON(json: any): FlattenedPerson {
@@ -185,6 +230,7 @@ export function FlattenedPersonFromJSONTyped(json: any, ignoreDiscriminator: boo
         'models': !exists(json, 'models') ? undefined : (mapValues(json['models'], PersonModelFromJSON)),
         'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
@@ -212,7 +258,7 @@ export function FlattenedPersonToJSON(value?: FlattenedPerson | null): any {
         'models': value.models === undefined ? undefined : (mapValues(value.models, PersonModelToJSON)),
         'annotations': FlattenedAnnotationsToJSON(value.annotations),
         'score': ScoreToJSON(value.score),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }
-
 

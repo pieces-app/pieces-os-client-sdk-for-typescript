@@ -14,20 +14,22 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Backup,
+  BackupStreamedProgress,
+  Backups,
+  SeededBackup,
+} from '../models/index';
 import {
-    Backup,
     BackupFromJSON,
     BackupToJSON,
-    BackupStreamedProgress,
     BackupStreamedProgressFromJSON,
     BackupStreamedProgressToJSON,
-    Backups,
     BackupsFromJSON,
     BackupsToJSON,
-    SeededBackup,
     SeededBackupFromJSON,
     SeededBackupToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface BackupsCreateNewBackupRequest {
     seededBackup?: SeededBackup;
@@ -51,7 +53,7 @@ export class BackupsApi extends runtime.BaseAPI {
      * This take a local database and ensure that it is backed up to the cloud.
      * /backups/create [POST]
      */
-    async backupsCreateNewBackupRaw(requestParameters: BackupsCreateNewBackupRequest): Promise<runtime.ApiResponse<Backup>> {
+    async backupsCreateNewBackupRaw(requestParameters: BackupsCreateNewBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Backup>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -64,7 +66,7 @@ export class BackupsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededBackupToJSON(requestParameters.seededBackup),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BackupFromJSON(jsonValue));
     }
@@ -73,8 +75,8 @@ export class BackupsApi extends runtime.BaseAPI {
      * This take a local database and ensure that it is backed up to the cloud.
      * /backups/create [POST]
      */
-    async backupsCreateNewBackup(requestParameters: BackupsCreateNewBackupRequest): Promise<Backup> {
-        const response = await this.backupsCreateNewBackupRaw(requestParameters);
+    async backupsCreateNewBackup(requestParameters: BackupsCreateNewBackupRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Backup> {
+        const response = await this.backupsCreateNewBackupRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -82,7 +84,7 @@ export class BackupsApi extends runtime.BaseAPI {
      * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
      * /backups/create/streamed [POST]
      */
-    async backupsCreateNewBackupStreamedRaw(requestParameters: BackupsCreateNewBackupStreamedRequest): Promise<runtime.ApiResponse<BackupStreamedProgress>> {
+    async backupsCreateNewBackupStreamedRaw(requestParameters: BackupsCreateNewBackupStreamedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupStreamedProgress>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -95,7 +97,7 @@ export class BackupsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededBackupToJSON(requestParameters.seededBackup),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BackupStreamedProgressFromJSON(jsonValue));
     }
@@ -104,8 +106,8 @@ export class BackupsApi extends runtime.BaseAPI {
      * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
      * /backups/create/streamed [POST]
      */
-    async backupsCreateNewBackupStreamed(requestParameters: BackupsCreateNewBackupStreamedRequest): Promise<BackupStreamedProgress> {
-        const response = await this.backupsCreateNewBackupStreamedRaw(requestParameters);
+    async backupsCreateNewBackupStreamed(requestParameters: BackupsCreateNewBackupStreamedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupStreamedProgress> {
+        const response = await this.backupsCreateNewBackupStreamedRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -113,7 +115,7 @@ export class BackupsApi extends runtime.BaseAPI {
      * This will delete a specific backup from the cloud.
      * /backups/{backup}/delete [POST]
      */
-    async backupsDeleteSpecificBackupRaw(requestParameters: BackupsDeleteSpecificBackupRequest): Promise<runtime.ApiResponse<void>> {
+    async backupsDeleteSpecificBackupRaw(requestParameters: BackupsDeleteSpecificBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.backup === null || requestParameters.backup === undefined) {
             throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupsDeleteSpecificBackup.');
         }
@@ -130,7 +132,7 @@ export class BackupsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: BackupToJSON(requestParameters.backup2),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -139,15 +141,15 @@ export class BackupsApi extends runtime.BaseAPI {
      * This will delete a specific backup from the cloud.
      * /backups/{backup}/delete [POST]
      */
-    async backupsDeleteSpecificBackup(requestParameters: BackupsDeleteSpecificBackupRequest): Promise<void> {
-        await this.backupsDeleteSpecificBackupRaw(requestParameters);
+    async backupsDeleteSpecificBackup(requestParameters: BackupsDeleteSpecificBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.backupsDeleteSpecificBackupRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of Backsup within the cloud.  This endpoint requires our user to be authenticated and connected to the cloud.
      * /backups [GET]
      */
-    async backupsSnapshotRaw(): Promise<runtime.ApiResponse<Backups>> {
+    async backupsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Backups>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -157,7 +159,7 @@ export class BackupsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BackupsFromJSON(jsonValue));
     }
@@ -166,8 +168,8 @@ export class BackupsApi extends runtime.BaseAPI {
      * This will get a snapshot of Backsup within the cloud.  This endpoint requires our user to be authenticated and connected to the cloud.
      * /backups [GET]
      */
-    async backupsSnapshot(): Promise<Backups> {
-        const response = await this.backupsSnapshotRaw();
+    async backupsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Backups> {
+        const response = await this.backupsSnapshotRaw(initOverrides);
         return await response.value();
     }
 

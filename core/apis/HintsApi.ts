@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Hint,
+  Hints,
+  SeededHint,
+} from '../models/index';
 import {
-    Hint,
     HintFromJSON,
     HintToJSON,
-    Hints,
     HintsFromJSON,
     HintsToJSON,
-    SeededHint,
     SeededHintFromJSON,
     SeededHintToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface HintsCreateNewHintRequest {
     seededHint?: SeededHint;
@@ -43,7 +45,7 @@ export class HintsApi extends runtime.BaseAPI {
      * This will create a hint.
      * /hints/create [POST]
      */
-    async hintsCreateNewHintRaw(requestParameters: HintsCreateNewHintRequest): Promise<runtime.ApiResponse<Hint>> {
+    async hintsCreateNewHintRaw(requestParameters: HintsCreateNewHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Hint>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -56,7 +58,7 @@ export class HintsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededHintToJSON(requestParameters.seededHint),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintFromJSON(jsonValue));
     }
@@ -65,8 +67,8 @@ export class HintsApi extends runtime.BaseAPI {
      * This will create a hint.
      * /hints/create [POST]
      */
-    async hintsCreateNewHint(requestParameters: HintsCreateNewHintRequest): Promise<Hint> {
-        const response = await this.hintsCreateNewHintRaw(requestParameters);
+    async hintsCreateNewHint(requestParameters: HintsCreateNewHintRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Hint> {
+        const response = await this.hintsCreateNewHintRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -74,7 +76,7 @@ export class HintsApi extends runtime.BaseAPI {
      * This will delete a specific hint.
      * /hints/{hint}/delete [POST]
      */
-    async hintsDeleteSpecificHintRaw(requestParameters: HintsDeleteSpecificHintRequest): Promise<runtime.ApiResponse<void>> {
+    async hintsDeleteSpecificHintRaw(requestParameters: HintsDeleteSpecificHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.hint === null || requestParameters.hint === undefined) {
             throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintsDeleteSpecificHint.');
         }
@@ -88,7 +90,7 @@ export class HintsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -97,15 +99,15 @@ export class HintsApi extends runtime.BaseAPI {
      * This will delete a specific hint.
      * /hints/{hint}/delete [POST]
      */
-    async hintsDeleteSpecificHint(requestParameters: HintsDeleteSpecificHintRequest): Promise<void> {
-        await this.hintsDeleteSpecificHintRaw(requestParameters);
+    async hintsDeleteSpecificHint(requestParameters: HintsDeleteSpecificHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.hintsDeleteSpecificHintRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of all of the hints.
      * /hints [GET]
      */
-    async hintsSnapshotRaw(): Promise<runtime.ApiResponse<Hints>> {
+    async hintsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Hints>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -115,7 +117,7 @@ export class HintsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintsFromJSON(jsonValue));
     }
@@ -124,8 +126,8 @@ export class HintsApi extends runtime.BaseAPI {
      * This will get a snapshot of all of the hints.
      * /hints [GET]
      */
-    async hintsSnapshot(): Promise<Hints> {
-        const response = await this.hintsSnapshotRaw();
+    async hintsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Hints> {
+        const response = await this.hintsSnapshotRaw(initOverrides);
         return await response.value();
     }
 

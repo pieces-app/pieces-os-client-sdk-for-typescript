@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Model for ML big query Data collection.
@@ -88,6 +88,24 @@ export interface TLPCodeFragmentDescriptiveStatistics {
     snippet: string;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentDescriptiveStatistics interface.
+ */
+export function instanceOfTLPCodeFragmentDescriptiveStatistics(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "language" in value;
+    isInstance = isInstance && "length" in value;
+    isInstance = isInstance && "ast" in value;
+    isInstance = isInstance && "timestamp" in value;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "context" in value;
+    isInstance = isInstance && "snippet" in value;
+
+    return isInstance;
+}
+
 export function TLPCodeFragmentDescriptiveStatisticsFromJSON(json: any): TLPCodeFragmentDescriptiveStatistics {
     return TLPCodeFragmentDescriptiveStatisticsFromJSONTyped(json, false);
 }
@@ -132,5 +150,4 @@ export function TLPCodeFragmentDescriptiveStatisticsToJSON(value?: TLPCodeFragme
         'snippet': value.snippet,
     };
 }
-
 

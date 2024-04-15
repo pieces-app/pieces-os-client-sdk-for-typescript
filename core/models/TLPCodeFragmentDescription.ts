@@ -69,6 +69,19 @@ export interface TLPCodeFragmentDescription {
     os?: string;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentDescription interface.
+ */
+export function instanceOfTLPCodeFragmentDescription(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
+}
+
 export function TLPCodeFragmentDescriptionFromJSON(json: any): TLPCodeFragmentDescription {
     return TLPCodeFragmentDescriptionFromJSONTyped(json, false);
 }
@@ -109,5 +122,4 @@ export function TLPCodeFragmentDescriptionToJSON(value?: TLPCodeFragmentDescript
         'os': value.os,
     };
 }
-
 

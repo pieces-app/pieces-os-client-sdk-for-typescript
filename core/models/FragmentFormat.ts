@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FragmentMetadata,
+} from './EmbeddedModelSchema';
+import type { FragmentMetadata } from './FragmentMetadata';
+import {
     FragmentMetadataFromJSON,
     FragmentMetadataFromJSONTyped,
     FragmentMetadataToJSON,
-    TransferableBytes,
+} from './FragmentMetadata';
+import type { TransferableBytes } from './TransferableBytes';
+import {
     TransferableBytesFromJSON,
     TransferableBytesFromJSONTyped,
     TransferableBytesToJSON,
-    TransferableString,
+} from './TransferableBytes';
+import type { TransferableString } from './TransferableString';
+import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
-} from './';
+} from './TransferableString';
 
 /**
  * This will be either a TransferableString or TransferableBytes that represent your fragment. ONLY Pass one or the other DONT pass both or neither.
@@ -62,6 +68,15 @@ export interface FragmentFormat {
      * @memberof FragmentFormat
      */
     metadata?: FragmentMetadata;
+}
+
+/**
+ * Check if a given object implements the FragmentFormat interface.
+ */
+export function instanceOfFragmentFormat(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FragmentFormatFromJSON(json: any): FragmentFormat {
@@ -96,5 +111,4 @@ export function FragmentFormatToJSON(value?: FragmentFormat | null): any {
         'metadata': FragmentMetadataToJSON(value.metadata),
     };
 }
-
 

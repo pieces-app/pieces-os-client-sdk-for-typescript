@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a precursor to a Backup, for now this will not need to take any properties.
@@ -32,6 +32,15 @@ export interface SeededBackup {
      * @memberof SeededBackup
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the SeededBackup interface.
+ */
+export function instanceOfSeededBackup(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededBackupFromJSON(json: any): SeededBackup {
@@ -60,5 +69,4 @@ export function SeededBackupToJSON(value?: SeededBackup | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

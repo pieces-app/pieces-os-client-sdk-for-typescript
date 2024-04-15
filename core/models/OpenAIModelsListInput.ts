@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for the /open_ai/models/list endpoint.
@@ -38,6 +38,16 @@ export interface OpenAIModelsListInput {
      * @memberof OpenAIModelsListInput
      */
     user: string;
+}
+
+/**
+ * Check if a given object implements the OpenAIModelsListInput interface.
+ */
+export function instanceOfOpenAIModelsListInput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
 }
 
 export function OpenAIModelsListInputFromJSON(json: any): OpenAIModelsListInput {
@@ -68,5 +78,4 @@ export function OpenAIModelsListInputToJSON(value?: OpenAIModelsListInput | null
         'user': value.user,
     };
 }
-
 

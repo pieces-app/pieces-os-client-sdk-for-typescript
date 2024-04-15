@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -58,6 +58,7 @@ export interface TLPCodeSnippetTagifyCode {
     inferredTags: string;
     /**
      * this is the model version
+     * 
      * @type {string}
      * @memberof TLPCodeSnippetTagifyCode
      */
@@ -92,6 +93,25 @@ export interface TLPCodeSnippetTagifyCode {
      * @memberof TLPCodeSnippetTagifyCode
      */
     asset: string;
+}
+
+/**
+ * Check if a given object implements the TLPCodeSnippetTagifyCode interface.
+ */
+export function instanceOfTLPCodeSnippetTagifyCode(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "distribution" in value;
+    isInstance = isInstance && "inferredDistribution" in value;
+    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "inferredTags" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "labelVersion" in value;
+    isInstance = isInstance && "threshold" in value;
+    isInstance = isInstance && "inferredThreshold" in value;
+    isInstance = isInstance && "context" in value;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
 }
 
 export function TLPCodeSnippetTagifyCodeFromJSON(json: any): TLPCodeSnippetTagifyCode {
@@ -140,5 +160,4 @@ export function TLPCodeSnippetTagifyCodeToJSON(value?: TLPCodeSnippetTagifyCode 
         'asset': value.asset,
     };
 }
-
 

@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedApplication,
+} from './EmbeddedModelSchema';
+import type { TrackedApplication } from './TrackedApplication';
+import {
     TrackedApplicationFromJSON,
     TrackedApplicationFromJSONTyped,
     TrackedApplicationToJSON,
-    TrackedUserProfile,
+} from './TrackedApplication';
+import type { TrackedUserProfile } from './TrackedUserProfile';
+import {
     TrackedUserProfileFromJSON,
     TrackedUserProfileFromJSONTyped,
     TrackedUserProfileToJSON,
-} from './';
+} from './TrackedUserProfile';
 
 /**
  * A model that allows for us to specifically track Application Installs & Related Data
@@ -52,6 +56,16 @@ export interface TrackedApplicationInstall {
      * @memberof TrackedApplicationInstall
      */
     user?: TrackedUserProfile;
+}
+
+/**
+ * Check if a given object implements the TrackedApplicationInstall interface.
+ */
+export function instanceOfTrackedApplicationInstall(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function TrackedApplicationInstallFromJSON(json: any): TrackedApplicationInstall {
@@ -84,5 +98,4 @@ export function TrackedApplicationInstallToJSON(value?: TrackedApplicationInstal
         'user': TrackedUserProfileToJSON(value.user),
     };
 }
-
 

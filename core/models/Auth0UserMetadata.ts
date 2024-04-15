@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
 import {
-    Auth0OpenAIUserMetadata,
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+} from './AnonymousTemporalRange';
+import type { Auth0OpenAIUserMetadata } from './Auth0OpenAIUserMetadata';
+import {
     Auth0OpenAIUserMetadataFromJSON,
     Auth0OpenAIUserMetadataFromJSONTyped,
     Auth0OpenAIUserMetadataToJSON,
-    Auth0UserAllocationMetadata,
+} from './Auth0OpenAIUserMetadata';
+import type { Auth0UserAllocationMetadata } from './Auth0UserAllocationMetadata';
+import {
     Auth0UserAllocationMetadataFromJSON,
     Auth0UserAllocationMetadataFromJSONTyped,
     Auth0UserAllocationMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0UserAllocationMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TimestampRange,
-    TimestampRangeFromJSON,
-    TimestampRangeFromJSONTyped,
-    TimestampRangeToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * User Metadata from Auth0
@@ -82,10 +88,20 @@ export interface Auth0UserMetadata {
     openAI?: Auth0OpenAIUserMetadata;
     /**
      * 
-     * @type {TimestampRange}
+     * @type {AnonymousTemporalRange}
      * @memberof Auth0UserMetadata
      */
-    beta?: TimestampRange;
+    beta?: AnonymousTemporalRange;
+}
+
+/**
+ * Check if a given object implements the Auth0UserMetadata interface.
+ */
+export function instanceOfAuth0UserMetadata(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "globalId" in value;
+
+    return isInstance;
 }
 
 export function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata {
@@ -105,7 +121,7 @@ export function Auth0UserMetadataFromJSONTyped(json: any, ignoreDiscriminator: b
         'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
         'allocation': !exists(json, 'allocation') ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
         'openAI': !exists(json, 'open_AI') ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
-        'beta': !exists(json, 'beta') ? undefined : TimestampRangeFromJSON(json['beta']),
+        'beta': !exists(json, 'beta') ? undefined : AnonymousTemporalRangeFromJSON(json['beta']),
     };
 }
 
@@ -125,8 +141,7 @@ export function Auth0UserMetadataToJSON(value?: Auth0UserMetadata | null): any {
         'vanityname': value.vanityname,
         'allocation': Auth0UserAllocationMetadataToJSON(value.allocation),
         'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
-        'beta': TimestampRangeToJSON(value.beta),
+        'beta': AnonymousTemporalRangeToJSON(value.beta),
     };
 }
-
 

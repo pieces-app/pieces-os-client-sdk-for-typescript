@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This task is for explaining a bit of code.
@@ -36,6 +36,15 @@ export interface QGPTTaskPipelineForCodeExplanation {
      * @memberof QGPTTaskPipelineForCodeExplanation
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the QGPTTaskPipelineForCodeExplanation interface.
+ */
+export function instanceOfQGPTTaskPipelineForCodeExplanation(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTTaskPipelineForCodeExplanationFromJSON(json: any): QGPTTaskPipelineForCodeExplanation {
@@ -64,5 +73,4 @@ export function QGPTTaskPipelineForCodeExplanationToJSON(value?: QGPTTaskPipelin
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

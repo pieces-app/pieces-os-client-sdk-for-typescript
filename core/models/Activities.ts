@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Activity } from './Activity';
 import {
-    Activity,
     ActivityFromJSON,
     ActivityFromJSONTyped,
     ActivityToJSON,
-    EmbeddedModelSchema,
+} from './Activity';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the plural of activity
@@ -42,6 +44,16 @@ export interface Activities {
      * @memberof Activities
      */
     iterable: Array<Activity>;
+}
+
+/**
+ * Check if a given object implements the Activities interface.
+ */
+export function instanceOfActivities(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ActivitiesFromJSON(json: any): Activities {
@@ -72,5 +84,4 @@ export function ActivitiesToJSON(value?: Activities | null): any {
         'iterable': ((value.iterable as Array<any>).map(ActivityToJSON)),
     };
 }
-
 

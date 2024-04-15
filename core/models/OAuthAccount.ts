@@ -75,6 +75,24 @@ export interface OAuthAccount {
     nickname: string;
 }
 
+/**
+ * Check if a given object implements the OAuthAccount interface.
+ */
+export function instanceOfOAuthAccount(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "clientId" in value;
+    isInstance = isInstance && "email" in value;
+    isInstance = isInstance && "connection" in value;
+    isInstance = isInstance && "username" in value;
+    isInstance = isInstance && "givenName" in value;
+    isInstance = isInstance && "familyName" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "picture" in value;
+    isInstance = isInstance && "nickname" in value;
+
+    return isInstance;
+}
+
 export function OAuthAccountFromJSON(json: any): OAuthAccount {
     return OAuthAccountFromJSONTyped(json, false);
 }
@@ -117,5 +135,4 @@ export function OAuthAccountToJSON(value?: OAuthAccount | null): any {
         'nickname': value.nickname,
     };
 }
-
 

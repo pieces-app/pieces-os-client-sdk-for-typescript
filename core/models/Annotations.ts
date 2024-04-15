@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Annotation } from './Annotation';
 import {
-    Annotation,
     AnnotationFromJSON,
     AnnotationFromJSONTyped,
     AnnotationToJSON,
-    EmbeddedModelSchema,
+} from './Annotation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the plural of Annotation
@@ -58,6 +62,16 @@ export interface Annotations {
      * @memberof Annotations
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Annotations interface.
+ */
+export function instanceOfAnnotations(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AnnotationsFromJSON(json: any): Annotations {
@@ -92,5 +106,4 @@ export function AnnotationsToJSON(value?: Annotations | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

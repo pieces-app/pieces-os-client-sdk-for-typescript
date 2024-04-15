@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Model for monitoring and evaluating the suggested save feature
@@ -82,6 +82,20 @@ export interface TLPCodeFragmentSuggestedSave {
     candidates?: number;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentSuggestedSave interface.
+ */
+export function instanceOfTLPCodeFragmentSuggestedSave(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "os" in value;
+
+    return isInstance;
+}
+
 export function TLPCodeFragmentSuggestedSaveFromJSON(json: any): TLPCodeFragmentSuggestedSave {
     return TLPCodeFragmentSuggestedSaveFromJSONTyped(json, false);
 }
@@ -124,5 +138,4 @@ export function TLPCodeFragmentSuggestedSaveToJSON(value?: TLPCodeFragmentSugges
         'candidates': value.candidates,
     };
 }
-
 

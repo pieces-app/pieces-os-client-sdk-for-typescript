@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTag,
+} from './EmbeddedModelSchema';
+import type { SeededTag } from './SeededTag';
+import {
     SeededTagFromJSON,
     SeededTagFromJSONTyped,
     SeededTagToJSON,
-} from './';
+} from './SeededTag';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface DiscoveredRelatedTag {
      * @memberof DiscoveredRelatedTag
      */
     seed: SeededTag;
+}
+
+/**
+ * Check if a given object implements the DiscoveredRelatedTag interface.
+ */
+export function instanceOfDiscoveredRelatedTag(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "seed" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredRelatedTagFromJSON(json: any): DiscoveredRelatedTag {
@@ -72,5 +84,4 @@ export function DiscoveredRelatedTagToJSON(value?: DiscoveredRelatedTag | null):
         'seed': SeededTagToJSON(value.seed),
     };
 }
-
 

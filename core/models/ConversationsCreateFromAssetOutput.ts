@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedConversation,
+} from './EmbeddedModelSchema';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './';
+} from './ReferencedConversation';
 
 /**
  * This is the model for the output for the "/conversations/create/from_asset/{asset}" endpoints.
@@ -42,6 +44,16 @@ export interface ConversationsCreateFromAssetOutput {
      * @memberof ConversationsCreateFromAssetOutput
      */
     conversation: ReferencedConversation;
+}
+
+/**
+ * Check if a given object implements the ConversationsCreateFromAssetOutput interface.
+ */
+export function instanceOfConversationsCreateFromAssetOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "conversation" in value;
+
+    return isInstance;
 }
 
 export function ConversationsCreateFromAssetOutputFromJSON(json: any): ConversationsCreateFromAssetOutput {
@@ -72,5 +84,4 @@ export function ConversationsCreateFromAssetOutputToJSON(value?: ConversationsCr
         'conversation': ReferencedConversationToJSON(value.conversation),
     };
 }
-
 

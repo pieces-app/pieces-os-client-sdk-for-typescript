@@ -13,40 +13,54 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    EmbeddedModelSchema,
+} from './Application';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAsset,
+} from './EmbeddedModelSchema';
+import type { FlattenedAsset } from './FlattenedAsset';
+import {
     FlattenedAssetFromJSON,
     FlattenedAssetFromJSONTyped,
     FlattenedAssetToJSON,
-    FlattenedFormat,
+} from './FlattenedAsset';
+import type { FlattenedFormat } from './FlattenedFormat';
+import {
     FlattenedFormatFromJSON,
     FlattenedFormatFromJSONTyped,
     FlattenedFormatToJSON,
-    FlattenedUserProfile,
+} from './FlattenedFormat';
+import type { FlattenedUserProfile } from './FlattenedUserProfile';
+import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-    GroupedTimestamp,
+} from './FlattenedUserProfile';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    SeededConnectorTracking,
+} from './MechanismEnum';
+import type { SeededConnectorTracking } from './SeededConnectorTracking';
+import {
     SeededConnectorTrackingFromJSON,
     SeededConnectorTrackingFromJSONTyped,
     SeededConnectorTrackingToJSON,
-} from './';
+} from './SeededConnectorTracking';
 
 /**
  * consider a rename to Event? That being said if we go with event we need to think about a word to pre/post fix event because it is likely to be a reserved word.
@@ -61,6 +75,7 @@ import {
  * Thoughts around additional properties.
  * - hmm dismissed array here, that is an array of strings, where the string is the userId that dismissed this notification? or we could potentially do it based on the os_ID.
  * -
+ * 
  * @export
  * @interface Activity
  */
@@ -139,6 +154,21 @@ export interface Activity {
     rank?: number;
 }
 
+/**
+ * Check if a given object implements the Activity interface.
+ */
+export function instanceOfActivity(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "event" in value;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "mechanism" in value;
+
+    return isInstance;
+}
+
 export function ActivityFromJSON(json: any): Activity {
     return ActivityFromJSONTyped(json, false);
 }
@@ -187,5 +217,4 @@ export function ActivityToJSON(value?: Activity | null): any {
         'rank': value.rank,
     };
 }
-
 

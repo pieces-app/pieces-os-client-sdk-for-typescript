@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Hint,
+  SeededScoreIncrement,
+} from '../models/index';
 import {
-    Hint,
     HintFromJSON,
     HintToJSON,
-    SeededScoreIncrement,
     SeededScoreIncrementFromJSON,
     SeededScoreIncrementToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface HintScoresIncrementRequest {
     hint: string;
@@ -45,7 +47,7 @@ export class HintApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/hint/{hint}/scores/increment\' [POST]
      */
-    async hintScoresIncrementRaw(requestParameters: HintScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+    async hintScoresIncrementRaw(requestParameters: HintScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.hint === null || requestParameters.hint === undefined) {
             throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintScoresIncrement.');
         }
@@ -62,7 +64,7 @@ export class HintApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -71,15 +73,15 @@ export class HintApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/hint/{hint}/scores/increment\' [POST]
      */
-    async hintScoresIncrement(requestParameters: HintScoresIncrementRequest): Promise<void> {
-        await this.hintScoresIncrementRaw(requestParameters);
+    async hintScoresIncrement(requestParameters: HintScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.hintScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of a specific hint.
      * /hint/{hint} [POST]
      */
-    async hintSpecificHintSnapshotRaw(requestParameters: HintSpecificHintSnapshotRequest): Promise<runtime.ApiResponse<Hint>> {
+    async hintSpecificHintSnapshotRaw(requestParameters: HintSpecificHintSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Hint>> {
         if (requestParameters.hint === null || requestParameters.hint === undefined) {
             throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintSpecificHintSnapshot.');
         }
@@ -93,7 +95,7 @@ export class HintApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintFromJSON(jsonValue));
     }
@@ -102,8 +104,8 @@ export class HintApi extends runtime.BaseAPI {
      * This will get a snapshot of a specific hint.
      * /hint/{hint} [POST]
      */
-    async hintSpecificHintSnapshot(requestParameters: HintSpecificHintSnapshotRequest): Promise<Hint> {
-        const response = await this.hintSpecificHintSnapshotRaw(requestParameters);
+    async hintSpecificHintSnapshot(requestParameters: HintSpecificHintSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Hint> {
+        const response = await this.hintSpecificHintSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -111,7 +113,7 @@ export class HintApi extends runtime.BaseAPI {
      * This will update a specific hint.
      * /hint/update [POST]
      */
-    async hintUpdateRaw(requestParameters: HintUpdateRequest): Promise<runtime.ApiResponse<Hint>> {
+    async hintUpdateRaw(requestParameters: HintUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Hint>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -124,7 +126,7 @@ export class HintApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: HintToJSON(requestParameters.hint),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintFromJSON(jsonValue));
     }
@@ -133,8 +135,8 @@ export class HintApi extends runtime.BaseAPI {
      * This will update a specific hint.
      * /hint/update [POST]
      */
-    async hintUpdate(requestParameters: HintUpdateRequest): Promise<Hint> {
-        const response = await this.hintUpdateRaw(requestParameters);
+    async hintUpdate(requestParameters: HintUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Hint> {
+        const response = await this.hintUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

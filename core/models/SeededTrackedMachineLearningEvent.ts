@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalMachineLearningProcessingEvent,
+} from './EmbeddedModelSchema';
+import type { GraphicalMachineLearningProcessingEvent } from './GraphicalMachineLearningProcessingEvent';
+import {
     GraphicalMachineLearningProcessingEventFromJSON,
     GraphicalMachineLearningProcessingEventFromJSONTyped,
     GraphicalMachineLearningProcessingEventToJSON,
-    TLPMachineLearningProcessingEvent,
+} from './GraphicalMachineLearningProcessingEvent';
+import type { TLPMachineLearningProcessingEvent } from './TLPMachineLearningProcessingEvent';
+import {
     TLPMachineLearningProcessingEventFromJSON,
     TLPMachineLearningProcessingEventFromJSONTyped,
     TLPMachineLearningProcessingEventToJSON,
-} from './';
+} from './TLPMachineLearningProcessingEvent';
 
 /**
  * 
@@ -52,6 +56,15 @@ export interface SeededTrackedMachineLearningEvent {
      * @memberof SeededTrackedMachineLearningEvent
      */
     graphical?: GraphicalMachineLearningProcessingEvent;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedMachineLearningEvent interface.
+ */
+export function instanceOfSeededTrackedMachineLearningEvent(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedMachineLearningEventFromJSON(json: any): SeededTrackedMachineLearningEvent {
@@ -84,5 +97,4 @@ export function SeededTrackedMachineLearningEventToJSON(value?: SeededTrackedMac
         'graphical': GraphicalMachineLearningProcessingEventToJSON(value.graphical),
     };
 }
-
 

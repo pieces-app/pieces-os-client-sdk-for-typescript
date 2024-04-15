@@ -13,36 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    HintTypeEnum,
+} from './GroupedTimestamp';
+import type { HintTypeEnum } from './HintTypeEnum';
+import {
     HintTypeEnumFromJSON,
     HintTypeEnumFromJSONTyped,
     HintTypeEnumToJSON,
-    MechanismEnum,
+} from './HintTypeEnum';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
+} from './MechanismEnum';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedModel,
+} from './ReferencedAsset';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-    Score,
+} from './ReferencedModel';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a hint that is attached to an asset, used for suggested_queries, and hints given via the qgpt flow.
@@ -118,6 +130,20 @@ export interface Hint {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the Hint interface.
+ */
+export function instanceOfHint(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
+}
+
 export function HintFromJSON(json: any): Hint {
     return HintFromJSONTyped(json, false);
 }
@@ -164,5 +190,4 @@ export function HintToJSON(value?: Hint | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

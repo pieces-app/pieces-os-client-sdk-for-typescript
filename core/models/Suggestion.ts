@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Assets } from './Assets';
 import {
-    Assets,
     AssetsFromJSON,
     AssetsFromJSONTyped,
     AssetsToJSON,
-    EmbeddedModelSchema,
+} from './Assets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReuseSuggestion,
+} from './EmbeddedModelSchema';
+import type { ReuseSuggestion } from './ReuseSuggestion';
+import {
     ReuseSuggestionFromJSON,
     ReuseSuggestionFromJSONTyped,
     ReuseSuggestionToJSON,
-    SaveSuggestion,
+} from './ReuseSuggestion';
+import type { SaveSuggestion } from './SaveSuggestion';
+import {
     SaveSuggestionFromJSON,
     SaveSuggestionFromJSONTyped,
     SaveSuggestionToJSON,
-    SuggestionTarget,
+} from './SaveSuggestion';
+import type { SuggestionTarget } from './SuggestionTarget';
+import {
     SuggestionTargetFromJSON,
     SuggestionTargetFromJSONTyped,
     SuggestionTargetToJSON,
-} from './';
+} from './SuggestionTarget';
 
 /**
  * This is the model return by the connector's suggest endpoint.
@@ -87,6 +95,19 @@ export interface Suggestion {
     distribution?: { [key: string]: number; };
 }
 
+/**
+ * Check if a given object implements the Suggestion interface.
+ */
+export function instanceOfSuggestion(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "reuse" in value;
+    isInstance = isInstance && "save" in value;
+    isInstance = isInstance && "target" in value;
+    isInstance = isInstance && "assets" in value;
+
+    return isInstance;
+}
+
 export function SuggestionFromJSON(json: any): Suggestion {
     return SuggestionFromJSONTyped(json, false);
 }
@@ -123,5 +144,4 @@ export function SuggestionToJSON(value?: Suggestion | null): any {
         'distribution': value.distribution,
     };
 }
-
 

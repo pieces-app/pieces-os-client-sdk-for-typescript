@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedConversation,
+} from './EmbeddedModelSchema';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    Score,
+} from './ReferencedConversation';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * Flattened version of conversations.
@@ -58,6 +62,16 @@ export interface FlattenedConversations {
      * @memberof FlattenedConversations
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedConversations interface.
+ */
+export function instanceOfFlattenedConversations(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedConversationsFromJSON(json: any): FlattenedConversations {
@@ -92,5 +106,4 @@ export function FlattenedConversationsToJSON(value?: FlattenedConversations | nu
         'score': ScoreToJSON(value.score),
     };
 }
-
 

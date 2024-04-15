@@ -12,20 +12,22 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * EXTERNAL_RESOURCE_REFERENCE can be thought of as anything such as URL, URI, UNIX PATH, etc
  * @export
- * @enum {string}
  */
-export enum ClassificationGenericEnum {
-    Code = 'CODE',
-    Text = 'TEXT',
-    Image = 'IMAGE',
-    Video = 'VIDEO',
-    ExternalResourceReference = 'EXTERNAL_RESOURCE_REFERENCE',
-    Unknown = 'UNKNOWN',
-    File = 'FILE'
-}
+export const ClassificationGenericEnum = {
+    Code: 'CODE',
+    Text: 'TEXT',
+    Image: 'IMAGE',
+    Video: 'VIDEO',
+    ExternalResourceReference: 'EXTERNAL_RESOURCE_REFERENCE',
+    Unknown: 'UNKNOWN',
+    File: 'FILE'
+} as const;
+export type ClassificationGenericEnum = typeof ClassificationGenericEnum[keyof typeof ClassificationGenericEnum];
+
 
 export function ClassificationGenericEnumFromJSON(json: any): ClassificationGenericEnum {
     return ClassificationGenericEnumFromJSONTyped(json, false);

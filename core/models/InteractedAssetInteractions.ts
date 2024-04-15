@@ -39,6 +39,16 @@ export interface InteractedAssetInteractions {
     scrolled?: boolean;
 }
 
+/**
+ * Check if a given object implements the InteractedAssetInteractions interface.
+ */
+export function instanceOfInteractedAssetInteractions(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "viewed" in value;
+
+    return isInstance;
+}
+
 export function InteractedAssetInteractionsFromJSON(json: any): InteractedAssetInteractions {
     return InteractedAssetInteractionsFromJSONTyped(json, false);
 }
@@ -69,5 +79,4 @@ export function InteractedAssetInteractionsToJSON(value?: InteractedAssetInterac
         'scrolled': value.scrolled,
     };
 }
-
 

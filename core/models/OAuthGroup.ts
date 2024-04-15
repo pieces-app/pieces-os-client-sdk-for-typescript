@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { OAuthAccount } from './OAuthAccount';
 import {
-    OAuthAccount,
     OAuthAccountFromJSON,
     OAuthAccountFromJSONTyped,
     OAuthAccountToJSON,
-    OAuthToken,
+} from './OAuthAccount';
+import type { OAuthToken } from './OAuthToken';
+import {
     OAuthTokenFromJSON,
     OAuthTokenFromJSONTyped,
     OAuthTokenToJSON,
-} from './';
+} from './OAuthToken';
 
 /**
  * A model to group all of the properties associated with OAuthGroup
@@ -42,6 +44,15 @@ export interface OAuthGroup {
      * @memberof OAuthGroup
      */
     account?: OAuthAccount;
+}
+
+/**
+ * Check if a given object implements the OAuthGroup interface.
+ */
+export function instanceOfOAuthGroup(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function OAuthGroupFromJSON(json: any): OAuthGroup {
@@ -72,5 +83,4 @@ export function OAuthGroupToJSON(value?: OAuthGroup | null): any {
         'account': OAuthAccountToJSON(value.account),
     };
 }
-
 

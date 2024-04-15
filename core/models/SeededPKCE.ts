@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededPKCEADDITIONALPARAMETERS,
+} from './EmbeddedModelSchema';
+import type { SeededPKCEADDITIONALPARAMETERS } from './SeededPKCEADDITIONALPARAMETERS';
+import {
     SeededPKCEADDITIONALPARAMETERSFromJSON,
     SeededPKCEADDITIONALPARAMETERSFromJSONTyped,
     SeededPKCEADDITIONALPARAMETERSToJSON,
-} from './';
+} from './SeededPKCEADDITIONALPARAMETERS';
 
 /**
  * A model that initialized a PKCE Authentication Flow.
@@ -135,51 +137,79 @@ export interface SeededPKCE {
     responseMode?: SeededPKCEResponseModeEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEResponseTypeEnum {
-    Code = 'code',
-    Token = 'token',
-    IdToken = 'id_token'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCECodeChallengeMethodEnum {
-    S256 = 'S256'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEScreenHintEnum {
-    Signup = 'signup'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEPromptEnum {
-    Login = 'login',
-    None = 'none'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEScopeEnum {
-    OfflineAccess = 'offline_access',
-    Email = 'email',
-    Profile = 'profile',
-    Openid = 'openid'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEResponseModeEnum {
-    FormPost = 'form_post',
-    WebMessage = 'web_message',
-    Fragment = 'fragment',
-    Query = 'query'
+ * @export
+ */
+export const SeededPKCEResponseTypeEnum = {
+    Code: 'code',
+    Token: 'token',
+    IdToken: 'id_token'
+} as const;
+export type SeededPKCEResponseTypeEnum = typeof SeededPKCEResponseTypeEnum[keyof typeof SeededPKCEResponseTypeEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCECodeChallengeMethodEnum = {
+    S256: 'S256'
+} as const;
+export type SeededPKCECodeChallengeMethodEnum = typeof SeededPKCECodeChallengeMethodEnum[keyof typeof SeededPKCECodeChallengeMethodEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEScreenHintEnum = {
+    Signup: 'signup'
+} as const;
+export type SeededPKCEScreenHintEnum = typeof SeededPKCEScreenHintEnum[keyof typeof SeededPKCEScreenHintEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEPromptEnum = {
+    Login: 'login',
+    None: 'none'
+} as const;
+export type SeededPKCEPromptEnum = typeof SeededPKCEPromptEnum[keyof typeof SeededPKCEPromptEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEScopeEnum = {
+    OfflineAccess: 'offline_access',
+    Email: 'email',
+    Profile: 'profile',
+    Openid: 'openid'
+} as const;
+export type SeededPKCEScopeEnum = typeof SeededPKCEScopeEnum[keyof typeof SeededPKCEScopeEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEResponseModeEnum = {
+    FormPost: 'form_post',
+    WebMessage: 'web_message',
+    Fragment: 'fragment',
+    Query: 'query'
+} as const;
+export type SeededPKCEResponseModeEnum = typeof SeededPKCEResponseModeEnum[keyof typeof SeededPKCEResponseModeEnum];
+
+
+/**
+ * Check if a given object implements the SeededPKCE interface.
+ */
+export function instanceOfSeededPKCE(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "responseType" in value;
+    isInstance = isInstance && "state" in value;
+    isInstance = isInstance && "nonce" in value;
+    isInstance = isInstance && "codeChallenge" in value;
+    isInstance = isInstance && "codeChallengeMethod" in value;
+    isInstance = isInstance && "scope" in value;
+    isInstance = isInstance && "clientId" in value;
+
+    return isInstance;
 }
 
 export function SeededPKCEFromJSON(json: any): SeededPKCE {
@@ -240,5 +270,4 @@ export function SeededPKCEToJSON(value?: SeededPKCE | null): any {
         'response_mode': value.responseMode,
     };
 }
-
 

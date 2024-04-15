@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedFormat,
+} from './EmbeddedModelSchema';
+import type { TrackedFormat } from './TrackedFormat';
+import {
     TrackedFormatFromJSON,
     TrackedFormatFromJSONTyped,
     TrackedFormatToJSON,
-    TrackedFormatEventIdentifierDescriptionPairs,
+} from './TrackedFormat';
+import type { TrackedFormatEventIdentifierDescriptionPairs } from './TrackedFormatEventIdentifierDescriptionPairs';
+import {
     TrackedFormatEventIdentifierDescriptionPairsFromJSON,
     TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedFormatEventIdentifierDescriptionPairsToJSON,
-    TrackedFormatEventMetadata,
+} from './TrackedFormatEventIdentifierDescriptionPairs';
+import type { TrackedFormatEventMetadata } from './TrackedFormatEventMetadata';
+import {
     TrackedFormatEventMetadataFromJSON,
     TrackedFormatEventMetadataFromJSONTyped,
     TrackedFormatEventMetadataToJSON,
-} from './';
+} from './TrackedFormatEventMetadata';
 
 /**
  * This is a model that represents a generic event that we may want to track in relation to a format, for example beamed, copied, downloaded, and view. ** Note: This is the model that will get returned by our api, and is. Representative of a full TrackedFormat event. **
@@ -62,6 +68,17 @@ export interface TrackedFormatEvent {
      * @memberof TrackedFormatEvent
      */
     metadata?: TrackedFormatEventMetadata;
+}
+
+/**
+ * Check if a given object implements the TrackedFormatEvent interface.
+ */
+export function instanceOfTrackedFormatEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "format" in value;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+
+    return isInstance;
 }
 
 export function TrackedFormatEventFromJSON(json: any): TrackedFormatEvent {
@@ -96,5 +113,4 @@ export function TrackedFormatEventToJSON(value?: TrackedFormatEvent | null): any
         'metadata': TrackedFormatEventMetadataToJSON(value.metadata),
     };
 }
-
 

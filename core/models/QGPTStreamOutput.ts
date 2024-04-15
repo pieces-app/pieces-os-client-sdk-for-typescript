@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { QGPTAgentRoutes } from './QGPTAgentRoutes';
 import {
-    QGPTAgentRoutes,
     QGPTAgentRoutesFromJSON,
     QGPTAgentRoutesFromJSONTyped,
     QGPTAgentRoutesToJSON,
-    QGPTQuestionOutput,
+} from './QGPTAgentRoutes';
+import type { QGPTQuestionOutput } from './QGPTQuestionOutput';
+import {
     QGPTQuestionOutputFromJSON,
     QGPTQuestionOutputFromJSONTyped,
     QGPTQuestionOutputToJSON,
-    QGPTRelevanceOutput,
+} from './QGPTQuestionOutput';
+import type { QGPTRelevanceOutput } from './QGPTRelevanceOutput';
+import {
     QGPTRelevanceOutputFromJSON,
     QGPTRelevanceOutputFromJSONTyped,
     QGPTRelevanceOutputToJSON,
-    QGPTStreamEnum,
+} from './QGPTRelevanceOutput';
+import type { QGPTStreamEnum } from './QGPTStreamEnum';
+import {
     QGPTStreamEnumFromJSON,
     QGPTStreamEnumFromJSONTyped,
     QGPTStreamEnumToJSON,
-} from './';
+} from './QGPTStreamEnum';
 
 /**
  * This is the out for the /qgpt/stream endpoint.
@@ -94,6 +100,16 @@ export interface QGPTStreamOutput {
     agentRoutes?: QGPTAgentRoutes;
 }
 
+/**
+ * Check if a given object implements the QGPTStreamOutput interface.
+ */
+export function instanceOfQGPTStreamOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "conversation" in value;
+
+    return isInstance;
+}
+
 export function QGPTStreamOutputFromJSON(json: any): QGPTStreamOutput {
     return QGPTStreamOutputFromJSONTyped(json, false);
 }
@@ -134,5 +150,4 @@ export function QGPTStreamOutputToJSON(value?: QGPTStreamOutput | null): any {
         'agentRoutes': QGPTAgentRoutesToJSON(value.agentRoutes),
     };
 }
-
 

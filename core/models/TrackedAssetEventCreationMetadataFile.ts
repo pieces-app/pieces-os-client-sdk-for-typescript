@@ -39,6 +39,15 @@ export interface TrackedAssetEventCreationMetadataFile {
     interaction?: boolean;
 }
 
+/**
+ * Check if a given object implements the TrackedAssetEventCreationMetadataFile interface.
+ */
+export function instanceOfTrackedAssetEventCreationMetadataFile(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function TrackedAssetEventCreationMetadataFileFromJSON(json: any): TrackedAssetEventCreationMetadataFile {
     return TrackedAssetEventCreationMetadataFileFromJSONTyped(json, false);
 }
@@ -69,5 +78,4 @@ export function TrackedAssetEventCreationMetadataFileToJSON(value?: TrackedAsset
         'interaction': value.interaction,
     };
 }
-
 

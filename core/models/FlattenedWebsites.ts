@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedWebsite,
+} from './EmbeddedModelSchema';
+import type { ReferencedWebsite } from './ReferencedWebsite';
+import {
     ReferencedWebsiteFromJSON,
     ReferencedWebsiteFromJSONTyped,
     ReferencedWebsiteToJSON,
-    Score,
+} from './ReferencedWebsite';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a specific model for related websites to an asset.[DAG SAFE]
@@ -58,6 +62,16 @@ export interface FlattenedWebsites {
      * @memberof FlattenedWebsites
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedWebsites interface.
+ */
+export function instanceOfFlattenedWebsites(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedWebsitesFromJSON(json: any): FlattenedWebsites {
@@ -92,5 +106,4 @@ export function FlattenedWebsitesToJSON(value?: FlattenedWebsites | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

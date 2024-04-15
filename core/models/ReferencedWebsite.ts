@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedWebsite,
+} from './EmbeddedModelSchema';
+import type { FlattenedWebsite } from './FlattenedWebsite';
+import {
     FlattenedWebsiteFromJSON,
     FlattenedWebsiteFromJSONTyped,
     FlattenedWebsiteToJSON,
-} from './';
+} from './FlattenedWebsite';
 
 /**
  * 
@@ -48,6 +50,16 @@ export interface ReferencedWebsite {
      * @memberof ReferencedWebsite
      */
     reference?: FlattenedWebsite;
+}
+
+/**
+ * Check if a given object implements the ReferencedWebsite interface.
+ */
+export function instanceOfReferencedWebsite(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedWebsiteFromJSON(json: any): ReferencedWebsite {
@@ -80,5 +92,4 @@ export function ReferencedWebsiteToJSON(value?: ReferencedWebsite | null): any {
         'reference': FlattenedWebsiteToJSON(value.reference),
     };
 }
-
 

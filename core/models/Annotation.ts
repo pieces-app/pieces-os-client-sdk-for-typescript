@@ -13,52 +13,78 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnnotationTypeEnum } from './AnnotationTypeEnum';
 import {
-    AnnotationTypeEnum,
     AnnotationTypeEnumFromJSON,
     AnnotationTypeEnumFromJSONTyped,
     AnnotationTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './AnnotationTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversationMessages,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-    GroupedTimestamp,
+} from './FlattenedConversationMessages';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAnchor,
+} from './MechanismEnum';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
     ReferencedAnchorFromJSON,
     ReferencedAnchorFromJSONTyped,
     ReferencedAnchorToJSON,
-    ReferencedAsset,
+} from './ReferencedAnchor';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedConversation,
+} from './ReferencedAsset';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    ReferencedModel,
+} from './ReferencedConversation';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-    ReferencedPerson,
+} from './ReferencedModel';
+import type { ReferencedPerson } from './ReferencedPerson';
+import {
     ReferencedPersonFromJSON,
     ReferencedPersonFromJSONTyped,
     ReferencedPersonToJSON,
-    Score,
+} from './ReferencedPerson';
+import type { ReferencedWorkstreamSummary } from './ReferencedWorkstreamSummary';
+import {
+    ReferencedWorkstreamSummaryFromJSON,
+    ReferencedWorkstreamSummaryFromJSONTyped,
+    ReferencedWorkstreamSummaryToJSON,
+} from './ReferencedWorkstreamSummary';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * An Annotation is the replacement for descriptions, this will enable comments, description, summaries and many more.
@@ -173,6 +199,26 @@ export interface Annotation {
      * @memberof Annotation
      */
     messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {ReferencedWorkstreamSummary}
+     * @memberof Annotation
+     */
+    summary?: ReferencedWorkstreamSummary;
+}
+
+/**
+ * Check if a given object implements the Annotation interface.
+ */
+export function instanceOfAnnotation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function AnnotationFromJSON(json: any): Annotation {
@@ -202,6 +248,7 @@ export function AnnotationFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'summary': !exists(json, 'summary') ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
     };
 }
 
@@ -231,7 +278,7 @@ export function AnnotationToJSON(value?: Annotation | null): any {
         'conversation': ReferencedConversationToJSON(value.conversation),
         'score': ScoreToJSON(value.score),
         'messages': FlattenedConversationMessagesToJSON(value.messages),
+        'summary': ReferencedWorkstreamSummaryToJSON(value.summary),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { DiscoveredHtmlWebpage } from './DiscoveredHtmlWebpage';
 import {
-    DiscoveredHtmlWebpage,
     DiscoveredHtmlWebpageFromJSON,
     DiscoveredHtmlWebpageFromJSONTyped,
     DiscoveredHtmlWebpageToJSON,
-    EmbeddedModelSchema,
+} from './DiscoveredHtmlWebpage';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Assumption: The iterable will be in the exact same order as it was passed in within the seededDiscoveredHtmlWebpages
@@ -48,6 +50,17 @@ export interface DiscoveredHtmlWebpages {
      * @memberof DiscoveredHtmlWebpages
      */
     application: string;
+}
+
+/**
+ * Check if a given object implements the DiscoveredHtmlWebpages interface.
+ */
+export function instanceOfDiscoveredHtmlWebpages(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredHtmlWebpagesFromJSON(json: any): DiscoveredHtmlWebpages {
@@ -80,5 +93,4 @@ export function DiscoveredHtmlWebpagesToJSON(value?: DiscoveredHtmlWebpages | nu
         'application': value.application,
     };
 }
-
 

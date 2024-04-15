@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * If an asset was created from a clipboard event
@@ -44,6 +44,15 @@ export interface TrackedAssetEventCreationMetadataClipboard {
      * @memberof TrackedAssetEventCreationMetadataClipboard
      */
     interaction?: boolean;
+}
+
+/**
+ * Check if a given object implements the TrackedAssetEventCreationMetadataClipboard interface.
+ */
+export function instanceOfTrackedAssetEventCreationMetadataClipboard(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventCreationMetadataClipboardFromJSON(json: any): TrackedAssetEventCreationMetadataClipboard {
@@ -76,5 +85,4 @@ export function TrackedAssetEventCreationMetadataClipboardToJSON(value?: Tracked
         'interaction': value.interaction,
     };
 }
-
 

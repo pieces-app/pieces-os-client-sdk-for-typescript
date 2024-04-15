@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeFragmentDescriptiveStatistics,
+} from './EmbeddedModelSchema';
+import type { TLPCodeFragmentDescriptiveStatistics } from './TLPCodeFragmentDescriptiveStatistics';
+import {
     TLPCodeFragmentDescriptiveStatisticsFromJSON,
     TLPCodeFragmentDescriptiveStatisticsFromJSONTyped,
     TLPCodeFragmentDescriptiveStatisticsToJSON,
-} from './';
+} from './TLPCodeFragmentDescriptiveStatistics';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface TLPCodeFragmentStatistics {
      * @memberof TLPCodeFragmentStatistics
      */
     descriptive?: TLPCodeFragmentDescriptiveStatistics;
+}
+
+/**
+ * Check if a given object implements the TLPCodeFragmentStatistics interface.
+ */
+export function instanceOfTLPCodeFragmentStatistics(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentStatisticsFromJSON(json: any): TLPCodeFragmentStatistics {
@@ -72,5 +83,4 @@ export function TLPCodeFragmentStatisticsToJSON(value?: TLPCodeFragmentStatistic
         'descriptive': TLPCodeFragmentDescriptiveStatisticsToJSON(value.descriptive),
     };
 }
-
 

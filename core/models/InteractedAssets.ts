@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    InteractedAsset,
+} from './EmbeddedModelSchema';
+import type { InteractedAsset } from './InteractedAsset';
+import {
     InteractedAssetFromJSON,
     InteractedAssetFromJSONTyped,
     InteractedAssetToJSON,
-} from './';
+} from './InteractedAsset';
 
 /**
  * A model which contains a list of InteractedAssets with potentially additional properties.
@@ -42,6 +44,16 @@ export interface InteractedAssets {
      * @memberof InteractedAssets
      */
     iterable: Array<InteractedAsset>;
+}
+
+/**
+ * Check if a given object implements the InteractedAssets interface.
+ */
+export function instanceOfInteractedAssets(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function InteractedAssetsFromJSON(json: any): InteractedAssets {
@@ -72,5 +84,4 @@ export function InteractedAssetsToJSON(value?: InteractedAssets | null): any {
         'iterable': ((value.iterable as Array<any>).map(InteractedAssetToJSON)),
     };
 }
-
 

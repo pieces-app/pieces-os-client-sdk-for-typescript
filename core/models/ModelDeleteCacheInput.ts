@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for '/model/{model}/delete/cache'
@@ -32,6 +32,15 @@ export interface ModelDeleteCacheInput {
      * @memberof ModelDeleteCacheInput
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the ModelDeleteCacheInput interface.
+ */
+export function instanceOfModelDeleteCacheInput(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ModelDeleteCacheInputFromJSON(json: any): ModelDeleteCacheInput {
@@ -60,5 +69,4 @@ export function ModelDeleteCacheInputToJSON(value?: ModelDeleteCacheInput | null
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAnnotation,
+} from './EmbeddedModelSchema';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
     ReferencedAnnotationFromJSON,
     ReferencedAnnotationFromJSONTyped,
     ReferencedAnnotationToJSON,
-    Score,
+} from './ReferencedAnnotation';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a flattened plural of Annotation, typically this will just be a list of uuids.
@@ -58,6 +62,16 @@ export interface FlattenedAnnotations {
      * @memberof FlattenedAnnotations
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedAnnotations interface.
+ */
+export function instanceOfFlattenedAnnotations(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedAnnotationsFromJSON(json: any): FlattenedAnnotations {
@@ -92,5 +106,4 @@ export function FlattenedAnnotationsToJSON(value?: FlattenedAnnotations | null):
         'score': ScoreToJSON(value.score),
     };
 }
-
 

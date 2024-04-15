@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AllocationCloudStatus } from './AllocationCloudStatus';
 import {
-    AllocationCloudStatus,
     AllocationCloudStatusFromJSON,
     AllocationCloudStatusFromJSONTyped,
     AllocationCloudStatusToJSON,
-    AllocationCloudUrls,
+} from './AllocationCloudStatus';
+import type { AllocationCloudUrls } from './AllocationCloudUrls';
+import {
     AllocationCloudUrlsFromJSON,
     AllocationCloudUrlsFromJSONTyped,
     AllocationCloudUrlsToJSON,
-    EmbeddedModelSchema,
+} from './AllocationCloudUrls';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * update && version: will be present only if your cloud was successfully spun up && running.
@@ -96,6 +102,20 @@ export interface AllocationCloud {
     region?: string;
 }
 
+/**
+ * Check if a given object implements the AllocationCloud interface.
+ */
+export function instanceOfAllocationCloud(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "urls" in value;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "project" in value;
+
+    return isInstance;
+}
+
 export function AllocationCloudFromJSON(json: any): AllocationCloud {
     return AllocationCloudFromJSONTyped(json, false);
 }
@@ -138,5 +158,4 @@ export function AllocationCloudToJSON(value?: AllocationCloud | null): any {
         'region': value.region,
     };
 }
-
 

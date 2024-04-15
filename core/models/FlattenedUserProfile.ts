@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a FlattenedUserProfile that includes information that is not sensative in relation to a user.
@@ -70,6 +70,16 @@ export interface FlattenedUserProfile {
     vanityname?: string;
 }
 
+/**
+ * Check if a given object implements the FlattenedUserProfile interface.
+ */
+export function instanceOfFlattenedUserProfile(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function FlattenedUserProfileFromJSON(json: any): FlattenedUserProfile {
     return FlattenedUserProfileFromJSONTyped(json, false);
 }
@@ -108,5 +118,4 @@ export function FlattenedUserProfileToJSON(value?: FlattenedUserProfile | null):
         'vanityname': value.vanityname,
     };
 }
-
 

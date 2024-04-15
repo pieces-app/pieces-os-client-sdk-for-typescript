@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExternalProvider,
+} from './EmbeddedModelSchema';
+import type { ExternalProvider } from './ExternalProvider';
+import {
     ExternalProviderFromJSON,
     ExternalProviderFromJSONTyped,
     ExternalProviderToJSON,
-} from './';
+} from './ExternalProvider';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface ExternalProviders {
      * @memberof ExternalProviders
      */
     iterable: Array<ExternalProvider>;
+}
+
+/**
+ * Check if a given object implements the ExternalProviders interface.
+ */
+export function instanceOfExternalProviders(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ExternalProvidersFromJSON(json: any): ExternalProviders {
@@ -72,5 +84,4 @@ export function ExternalProvidersToJSON(value?: ExternalProviders | null): any {
         'iterable': ((value.iterable as Array<any>).map(ExternalProviderToJSON)),
     };
 }
-
 

@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReuseReaction,
+} from './EmbeddedModelSchema';
+import type { ReuseReaction } from './ReuseReaction';
+import {
     ReuseReactionFromJSON,
     ReuseReactionFromJSONTyped,
     ReuseReactionToJSON,
-    SeededConnectorCreation,
+} from './ReuseReaction';
+import type { SeededConnectorCreation } from './SeededConnectorCreation';
+import {
     SeededConnectorCreationFromJSON,
     SeededConnectorCreationFromJSONTyped,
     SeededConnectorCreationToJSON,
-} from './';
+} from './SeededConnectorCreation';
 
 /**
  * This will the the Request body of the Request Endpoint.
@@ -66,6 +70,17 @@ export interface Reaction {
     seed: SeededConnectorCreation;
 }
 
+/**
+ * Check if a given object implements the Reaction interface.
+ */
+export function instanceOfReaction(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "save" in value;
+    isInstance = isInstance && "seed" in value;
+
+    return isInstance;
+}
+
 export function ReactionFromJSON(json: any): Reaction {
     return ReactionFromJSONTyped(json, false);
 }
@@ -98,5 +113,4 @@ export function ReactionToJSON(value?: Reaction | null): any {
         'seed': SeededConnectorCreationToJSON(value.seed),
     };
 }
-
 

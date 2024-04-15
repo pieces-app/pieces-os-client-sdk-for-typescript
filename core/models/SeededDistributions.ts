@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededDistribution,
+} from './EmbeddedModelSchema';
+import type { SeededDistribution } from './SeededDistribution';
+import {
     SeededDistributionFromJSON,
     SeededDistributionFromJSONTyped,
     SeededDistributionToJSON,
-} from './';
+} from './SeededDistribution';
 
 /**
  * This is the plural version of a SeededDistribution that is not referenced just yet.
@@ -42,6 +44,16 @@ export interface SeededDistributions {
      * @memberof SeededDistributions
      */
     iterable: Array<SeededDistribution>;
+}
+
+/**
+ * Check if a given object implements the SeededDistributions interface.
+ */
+export function instanceOfSeededDistributions(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SeededDistributionsFromJSON(json: any): SeededDistributions {
@@ -72,5 +84,4 @@ export function SeededDistributionsToJSON(value?: SeededDistributions | null): a
         'iterable': ((value.iterable as Array<any>).map(SeededDistributionToJSON)),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './';
+} from './MechanismEnum';
 
 /**
  * This is similar to an SeededWebsite, where this is the minimum information of a website, but this can get added to a seededAsset,  where you may not yet have an asset id.
@@ -54,6 +56,17 @@ export interface SeededAssetWebsite {
      * @memberof SeededAssetWebsite
      */
     mechanism?: MechanismEnum;
+}
+
+/**
+ * Check if a given object implements the SeededAssetWebsite interface.
+ */
+export function instanceOfSeededAssetWebsite(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetWebsiteFromJSON(json: any): SeededAssetWebsite {
@@ -88,5 +101,4 @@ export function SeededAssetWebsiteToJSON(value?: SeededAssetWebsite | null): any
         'mechanism': MechanismEnumToJSON(value.mechanism),
     };
 }
-
 

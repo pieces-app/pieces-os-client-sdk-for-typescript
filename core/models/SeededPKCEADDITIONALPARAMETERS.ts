@@ -33,18 +33,31 @@ export interface SeededPKCEADDITIONALPARAMETERS {
     display?: SeededPKCEADDITIONALPARAMETERSDisplayEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEADDITIONALPARAMETERSAccessTypeEnum {
-    Offline = 'offline'
-}/**
-* @export
-* @enum {string}
-*/
-export enum SeededPKCEADDITIONALPARAMETERSDisplayEnum {
-    Popup = 'popup'
+ * @export
+ */
+export const SeededPKCEADDITIONALPARAMETERSAccessTypeEnum = {
+    Offline: 'offline'
+} as const;
+export type SeededPKCEADDITIONALPARAMETERSAccessTypeEnum = typeof SeededPKCEADDITIONALPARAMETERSAccessTypeEnum[keyof typeof SeededPKCEADDITIONALPARAMETERSAccessTypeEnum];
+
+/**
+ * @export
+ */
+export const SeededPKCEADDITIONALPARAMETERSDisplayEnum = {
+    Popup: 'popup'
+} as const;
+export type SeededPKCEADDITIONALPARAMETERSDisplayEnum = typeof SeededPKCEADDITIONALPARAMETERSDisplayEnum[keyof typeof SeededPKCEADDITIONALPARAMETERSDisplayEnum];
+
+
+/**
+ * Check if a given object implements the SeededPKCEADDITIONALPARAMETERS interface.
+ */
+export function instanceOfSeededPKCEADDITIONALPARAMETERS(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededPKCEADDITIONALPARAMETERSFromJSON(json: any): SeededPKCEADDITIONALPARAMETERS {
@@ -75,5 +88,4 @@ export function SeededPKCEADDITIONALPARAMETERSToJSON(value?: SeededPKCEADDITIONA
         'display': value.display,
     };
 }
-
 

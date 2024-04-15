@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Backup } from './Backup';
 import {
-    Backup,
     BackupFromJSON,
     BackupFromJSONTyped,
     BackupToJSON,
-    EmbeddedModelSchema,
+} from './Backup';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ModelDownloadProgressStatusEnum,
+} from './EmbeddedModelSchema';
+import type { ModelDownloadProgressStatusEnum } from './ModelDownloadProgressStatusEnum';
+import {
     ModelDownloadProgressStatusEnumFromJSON,
     ModelDownloadProgressStatusEnumFromJSONTyped,
     ModelDownloadProgressStatusEnumToJSON,
-} from './';
+} from './ModelDownloadProgressStatusEnum';
 
 /**
  * This is a specific model to the /backups/create/streamed.
@@ -58,6 +62,15 @@ export interface BackupStreamedProgress {
      * @memberof BackupStreamedProgress
      */
     backup?: Backup;
+}
+
+/**
+ * Check if a given object implements the BackupStreamedProgress interface.
+ */
+export function instanceOfBackupStreamedProgress(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function BackupStreamedProgressFromJSON(json: any): BackupStreamedProgress {
@@ -92,5 +105,4 @@ export function BackupStreamedProgressToJSON(value?: BackupStreamedProgress | nu
         'backup': BackupToJSON(value.backup),
     };
 }
-
 

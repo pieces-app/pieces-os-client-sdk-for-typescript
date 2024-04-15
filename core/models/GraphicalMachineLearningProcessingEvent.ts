@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalImageProcessing,
+} from './EmbeddedModelSchema';
+import type { GraphicalImageProcessing } from './GraphicalImageProcessing';
+import {
     GraphicalImageProcessingFromJSON,
     GraphicalImageProcessingFromJSONTyped,
     GraphicalImageProcessingToJSON,
-    GraphicalOCRProcessing,
+} from './GraphicalImageProcessing';
+import type { GraphicalOCRProcessing } from './GraphicalOCRProcessing';
+import {
     GraphicalOCRProcessingFromJSON,
     GraphicalOCRProcessingFromJSONTyped,
     GraphicalOCRProcessingToJSON,
-    GraphicalSVGStatistics,
+} from './GraphicalOCRProcessing';
+import type { GraphicalSVGStatistics } from './GraphicalSVGStatistics';
+import {
     GraphicalSVGStatisticsFromJSON,
     GraphicalSVGStatisticsFromJSONTyped,
     GraphicalSVGStatisticsToJSON,
-} from './';
+} from './GraphicalSVGStatistics';
 
 /**
  * 
@@ -62,6 +68,15 @@ export interface GraphicalMachineLearningProcessingEvent {
      * @memberof GraphicalMachineLearningProcessingEvent
      */
     svg?: GraphicalSVGStatistics;
+}
+
+/**
+ * Check if a given object implements the GraphicalMachineLearningProcessingEvent interface.
+ */
+export function instanceOfGraphicalMachineLearningProcessingEvent(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalMachineLearningProcessingEventFromJSON(json: any): GraphicalMachineLearningProcessingEvent {
@@ -96,5 +111,4 @@ export function GraphicalMachineLearningProcessingEventToJSON(value?: GraphicalM
         'svg': GraphicalSVGStatisticsToJSON(value.svg),
     };
 }
-
 

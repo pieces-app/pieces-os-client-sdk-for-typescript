@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for '/machine_learning/text/technical_language/parsers/segmentation'
@@ -40,6 +40,16 @@ export interface UnsegmentedTechnicalLanguage {
      * @memberof UnsegmentedTechnicalLanguage
      */
     value: string;
+}
+
+/**
+ * Check if a given object implements the UnsegmentedTechnicalLanguage interface.
+ */
+export function instanceOfUnsegmentedTechnicalLanguage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
 }
 
 export function UnsegmentedTechnicalLanguageFromJSON(json: any): UnsegmentedTechnicalLanguage {
@@ -70,5 +80,4 @@ export function UnsegmentedTechnicalLanguageToJSON(value?: UnsegmentedTechnicalL
         'value': value.value,
     };
 }
-
 

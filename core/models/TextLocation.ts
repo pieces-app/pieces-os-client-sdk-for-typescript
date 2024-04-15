@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a generic model that is used for text location.
@@ -50,6 +50,18 @@ export interface TextLocation {
      * @memberof TextLocation
      */
     end: number;
+}
+
+/**
+ * Check if a given object implements the TextLocation interface.
+ */
+export function instanceOfTextLocation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "start" in value;
+    isInstance = isInstance && "end" in value;
+
+    return isInstance;
 }
 
 export function TextLocationFromJSON(json: any): TextLocation {
@@ -84,5 +96,4 @@ export function TextLocationToJSON(value?: TextLocation | null): any {
         'end': value.end,
     };
 }
-
 

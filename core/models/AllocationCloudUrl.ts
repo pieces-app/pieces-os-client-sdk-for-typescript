@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AllocationStatusEnum } from './AllocationStatusEnum';
 import {
-    AllocationStatusEnum,
     AllocationStatusEnumFromJSON,
     AllocationStatusEnumFromJSONTyped,
     AllocationStatusEnumToJSON,
-    EmbeddedModelSchema,
+} from './AllocationStatusEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is one of the 3 possible urls that will route to your cloud :).
@@ -48,6 +50,17 @@ export interface AllocationCloudUrl {
      * @memberof AllocationCloudUrl
      */
     url: string;
+}
+
+/**
+ * Check if a given object implements the AllocationCloudUrl interface.
+ */
+export function instanceOfAllocationCloudUrl(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "status" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
 }
 
 export function AllocationCloudUrlFromJSON(json: any): AllocationCloudUrl {
@@ -80,5 +93,4 @@ export function AllocationCloudUrlToJSON(value?: AllocationCloudUrl | null): any
         'url': value.url,
     };
 }
-
 

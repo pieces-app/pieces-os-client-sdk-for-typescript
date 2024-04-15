@@ -39,6 +39,18 @@ export interface SystemExecutionCpuInformation {
     frequency: number;
 }
 
+/**
+ * Check if a given object implements the SystemExecutionCpuInformation interface.
+ */
+export function instanceOfSystemExecutionCpuInformation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "count" in value;
+    isInstance = isInstance && "brand" in value;
+    isInstance = isInstance && "frequency" in value;
+
+    return isInstance;
+}
+
 export function SystemExecutionCpuInformationFromJSON(json: any): SystemExecutionCpuInformation {
     return SystemExecutionCpuInformationFromJSONTyped(json, false);
 }
@@ -69,5 +81,4 @@ export function SystemExecutionCpuInformationToJSON(value?: SystemExecutionCpuIn
         'frequency': value.frequency,
     };
 }
-
 

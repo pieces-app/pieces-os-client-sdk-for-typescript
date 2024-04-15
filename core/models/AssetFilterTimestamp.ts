@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * if you want a range between you can use from && to.
@@ -60,6 +62,15 @@ export interface AssetFilterTimestamp {
     between?: boolean;
 }
 
+/**
+ * Check if a given object implements the AssetFilterTimestamp interface.
+ */
+export function instanceOfAssetFilterTimestamp(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function AssetFilterTimestampFromJSON(json: any): AssetFilterTimestamp {
     return AssetFilterTimestampFromJSONTyped(json, false);
 }
@@ -92,5 +103,4 @@ export function AssetFilterTimestampToJSON(value?: AssetFilterTimestamp | null):
         'between': value.between,
     };
 }
-
 

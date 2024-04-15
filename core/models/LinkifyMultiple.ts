@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AccessEnum } from './AccessEnum';
 import {
-    AccessEnum,
     AccessEnumFromJSON,
     AccessEnumFromJSONTyped,
     AccessEnumToJSON,
-    EmbeddedModelSchema,
+} from './AccessEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededUser,
+} from './EmbeddedModelSchema';
+import type { SeededUser } from './SeededUser';
+import {
     SeededUserFromJSON,
     SeededUserFromJSONTyped,
     SeededUserToJSON,
-} from './';
+} from './SeededUser';
 
 /**
  * This is the incoming linkify model.
@@ -34,6 +38,7 @@ import {
  * if access is PRIVATE then please provide and array of users to enable the link for.
  * 
  * Assumption, all assets are already backed up to the cloud.
+ * 
  * @export
  * @interface LinkifyMultiple
  */
@@ -70,6 +75,17 @@ export interface LinkifyMultiple {
     name?: string;
 }
 
+/**
+ * Check if a given object implements the LinkifyMultiple interface.
+ */
+export function instanceOfLinkifyMultiple(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "access" in value;
+
+    return isInstance;
+}
+
 export function LinkifyMultipleFromJSON(json: any): LinkifyMultiple {
     return LinkifyMultipleFromJSONTyped(json, false);
 }
@@ -104,5 +120,4 @@ export function LinkifyMultipleToJSON(value?: LinkifyMultiple | null): any {
         'name': value.name,
     };
 }
-
 

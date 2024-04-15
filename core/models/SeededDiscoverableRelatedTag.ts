@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    TagCategoryEnum,
+} from './MechanismEnum';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * 
@@ -72,6 +76,17 @@ export interface SeededDiscoverableRelatedTag {
     category?: TagCategoryEnum;
 }
 
+/**
+ * Check if a given object implements the SeededDiscoverableRelatedTag interface.
+ */
+export function instanceOfSeededDiscoverableRelatedTag(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
+}
+
 export function SeededDiscoverableRelatedTagFromJSON(json: any): SeededDiscoverableRelatedTag {
     return SeededDiscoverableRelatedTagFromJSONTyped(json, false);
 }
@@ -108,5 +123,4 @@ export function SeededDiscoverableRelatedTagToJSON(value?: SeededDiscoverableRel
         'category': TagCategoryEnumToJSON(value.category),
     };
 }
-
 

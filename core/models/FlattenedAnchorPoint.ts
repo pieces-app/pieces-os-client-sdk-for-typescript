@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    PlatformEnum,
+} from './GroupedTimestamp';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-    ReferencedAnchor,
+} from './PlatformEnum';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
     ReferencedAnchorFromJSON,
     ReferencedAnchorFromJSONTyped,
     ReferencedAnchorToJSON,
-    Score,
+} from './ReferencedAnchor';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * 
@@ -104,6 +112,20 @@ export interface FlattenedAnchorPoint {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedAnchorPoint interface.
+ */
+export function instanceOfFlattenedAnchorPoint(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "fullpath" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "anchor" in value;
+
+    return isInstance;
+}
+
 export function FlattenedAnchorPointFromJSON(json: any): FlattenedAnchorPoint {
     return FlattenedAnchorPointFromJSONTyped(json, false);
 }
@@ -148,5 +170,4 @@ export function FlattenedAnchorPointToJSON(value?: FlattenedAnchorPoint | null):
         'score': ScoreToJSON(value.score),
     };
 }
-
 

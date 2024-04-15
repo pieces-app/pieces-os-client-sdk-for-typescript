@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MailgunDistribution,
+} from './EmbeddedModelSchema';
+import type { MailgunDistribution } from './MailgunDistribution';
+import {
     MailgunDistributionFromJSON,
     MailgunDistributionFromJSONTyped,
     MailgunDistributionToJSON,
-    SeededGitHubDistribution,
+} from './MailgunDistribution';
+import type { SeededGitHubDistribution } from './SeededGitHubDistribution';
+import {
     SeededGitHubDistributionFromJSON,
     SeededGitHubDistributionFromJSONTyped,
     SeededGitHubDistributionToJSON,
-} from './';
+} from './SeededGitHubDistribution';
 
 /**
  * TODO if we add another distribution add to this, Distribution, and flattenedDistribution.
@@ -54,6 +58,15 @@ export interface SeededDistribution {
      * @memberof SeededDistribution
      */
     github?: SeededGitHubDistribution;
+}
+
+/**
+ * Check if a given object implements the SeededDistribution interface.
+ */
+export function instanceOfSeededDistribution(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededDistributionFromJSON(json: any): SeededDistribution {
@@ -86,5 +99,4 @@ export function SeededDistributionToJSON(value?: SeededDistribution | null): any
         'github': SeededGitHubDistributionToJSON(value.github),
     };
 }
-
 

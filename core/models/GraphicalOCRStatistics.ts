@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalOCRDescriptiveStatistics,
+} from './EmbeddedModelSchema';
+import type { GraphicalOCRDescriptiveStatistics } from './GraphicalOCRDescriptiveStatistics';
+import {
     GraphicalOCRDescriptiveStatisticsFromJSON,
     GraphicalOCRDescriptiveStatisticsFromJSONTyped,
     GraphicalOCRDescriptiveStatisticsToJSON,
-} from './';
+} from './GraphicalOCRDescriptiveStatistics';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface GraphicalOCRStatistics {
      * @memberof GraphicalOCRStatistics
      */
     descriptive?: GraphicalOCRDescriptiveStatistics;
+}
+
+/**
+ * Check if a given object implements the GraphicalOCRStatistics interface.
+ */
+export function instanceOfGraphicalOCRStatistics(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalOCRStatisticsFromJSON(json: any): GraphicalOCRStatistics {
@@ -72,5 +83,4 @@ export function GraphicalOCRStatisticsToJSON(value?: GraphicalOCRStatistics | nu
         'descriptive': GraphicalOCRDescriptiveStatisticsToJSON(value.descriptive),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedSensitive,
+} from './EmbeddedModelSchema';
+import type { FlattenedSensitive } from './FlattenedSensitive';
+import {
     FlattenedSensitiveFromJSON,
     FlattenedSensitiveFromJSONTyped,
     FlattenedSensitiveToJSON,
-} from './';
+} from './FlattenedSensitive';
 
 /**
  * A reference to a sensitive which at minimum must have the Sensitive id. But in the case of a hydrated client API it may have a populated reference of type Sensitive.
@@ -48,6 +50,16 @@ export interface ReferencedSensitive {
      * @memberof ReferencedSensitive
      */
     reference?: FlattenedSensitive;
+}
+
+/**
+ * Check if a given object implements the ReferencedSensitive interface.
+ */
+export function instanceOfReferencedSensitive(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedSensitiveFromJSON(json: any): ReferencedSensitive {
@@ -80,5 +92,4 @@ export function ReferencedSensitiveToJSON(value?: ReferencedSensitive | null): a
         'reference': FlattenedSensitiveToJSON(value.reference),
     };
 }
-
 

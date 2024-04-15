@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  ExportedDatabase,
+} from '../models/index';
 import {
-    ExportedDatabase,
     ExportedDatabaseFromJSON,
     ExportedDatabaseToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface DatabaseImportRequest {
     exportedDatabase?: ExportedDatabase;
@@ -33,7 +35,7 @@ export class DatabaseApi extends runtime.BaseAPI {
      * This is going to export your current database.
      * Your GET endpoint
      */
-    async databaseExportRaw(): Promise<runtime.ApiResponse<ExportedDatabase>> {
+    async databaseExportRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportedDatabase>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -43,7 +45,7 @@ export class DatabaseApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExportedDatabaseFromJSON(jsonValue));
     }
@@ -52,8 +54,8 @@ export class DatabaseApi extends runtime.BaseAPI {
      * This is going to export your current database.
      * Your GET endpoint
      */
-    async databaseExport(): Promise<ExportedDatabase> {
-        const response = await this.databaseExportRaw();
+    async databaseExport(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportedDatabase> {
+        const response = await this.databaseExportRaw(initOverrides);
         return await response.value();
     }
 
@@ -61,7 +63,7 @@ export class DatabaseApi extends runtime.BaseAPI {
      * This is going to take in a database, and merge it with the current database. This will revert your database back to it original form if this request fails.
      * /database/import [POST]
      */
-    async databaseImportRaw(requestParameters: DatabaseImportRequest): Promise<runtime.ApiResponse<void>> {
+    async databaseImportRaw(requestParameters: DatabaseImportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -74,7 +76,7 @@ export class DatabaseApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: ExportedDatabaseToJSON(requestParameters.exportedDatabase),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -83,8 +85,8 @@ export class DatabaseApi extends runtime.BaseAPI {
      * This is going to take in a database, and merge it with the current database. This will revert your database back to it original form if this request fails.
      * /database/import [POST]
      */
-    async databaseImport(requestParameters: DatabaseImportRequest): Promise<void> {
-        await this.databaseImportRaw(requestParameters);
+    async databaseImport(requestParameters: DatabaseImportRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.databaseImportRaw(requestParameters, initOverrides);
     }
 
 }

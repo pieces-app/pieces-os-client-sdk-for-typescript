@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { DiscoveredSensitive } from './DiscoveredSensitive';
 import {
-    DiscoveredSensitive,
     DiscoveredSensitiveFromJSON,
     DiscoveredSensitiveFromJSONTyped,
     DiscoveredSensitiveToJSON,
-    EmbeddedModelSchema,
+} from './DiscoveredSensitive';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -48,6 +50,17 @@ export interface DiscoveredSensitives {
      * @memberof DiscoveredSensitives
      */
     application: string;
+}
+
+/**
+ * Check if a given object implements the DiscoveredSensitives interface.
+ */
+export function instanceOfDiscoveredSensitives(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredSensitivesFromJSON(json: any): DiscoveredSensitives {
@@ -80,5 +93,4 @@ export function DiscoveredSensitivesToJSON(value?: DiscoveredSensitives | null):
         'application': value.application,
     };
 }
-
 

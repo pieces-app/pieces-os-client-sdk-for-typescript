@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -44,6 +44,17 @@ export interface ExportedDatabaseFormat {
      * @memberof ExportedDatabaseFormat
      */
     raw: Array<number>;
+}
+
+/**
+ * Check if a given object implements the ExportedDatabaseFormat interface.
+ */
+export function instanceOfExportedDatabaseFormat(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "raw" in value;
+
+    return isInstance;
 }
 
 export function ExportedDatabaseFormatFromJSON(json: any): ExportedDatabaseFormat {
@@ -76,5 +87,4 @@ export function ExportedDatabaseFormatToJSON(value?: ExportedDatabaseFormat | nu
         'raw': value.raw,
     };
 }
-
 

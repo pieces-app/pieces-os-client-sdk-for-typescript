@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GitHubGistDistribution,
+} from './EmbeddedModelSchema';
+import type { GitHubGistDistribution } from './GitHubGistDistribution';
+import {
     GitHubGistDistributionFromJSON,
     GitHubGistDistributionFromJSONTyped,
     GitHubGistDistributionToJSON,
-} from './';
+} from './GitHubGistDistribution';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface GitHubDistribution {
      * @memberof GitHubDistribution
      */
     gist?: GitHubGistDistribution;
+}
+
+/**
+ * Check if a given object implements the GitHubDistribution interface.
+ */
+export function instanceOfGitHubDistribution(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GitHubDistributionFromJSON(json: any): GitHubDistribution {
@@ -72,5 +83,4 @@ export function GitHubDistributionToJSON(value?: GitHubDistribution | null): any
         'gist': GitHubGistDistributionToJSON(value.gist),
     };
 }
-
 

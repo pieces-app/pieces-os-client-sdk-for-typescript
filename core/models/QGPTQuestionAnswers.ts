@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTQuestionAnswer,
+} from './EmbeddedModelSchema';
+import type { QGPTQuestionAnswer } from './QGPTQuestionAnswer';
+import {
     QGPTQuestionAnswerFromJSON,
     QGPTQuestionAnswerFromJSONTyped,
     QGPTQuestionAnswerToJSON,
-} from './';
+} from './QGPTQuestionAnswer';
 
 /**
  * This is the plural of QGPTQuestionAnswer
@@ -42,6 +44,16 @@ export interface QGPTQuestionAnswers {
      * @memberof QGPTQuestionAnswers
      */
     iterable: Array<QGPTQuestionAnswer>;
+}
+
+/**
+ * Check if a given object implements the QGPTQuestionAnswers interface.
+ */
+export function instanceOfQGPTQuestionAnswers(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function QGPTQuestionAnswersFromJSON(json: any): QGPTQuestionAnswers {
@@ -72,5 +84,4 @@ export function QGPTQuestionAnswersToJSON(value?: QGPTQuestionAnswers | null): a
         'iterable': ((value.iterable as Array<any>).map(QGPTQuestionAnswerToJSON)),
     };
 }
-
 

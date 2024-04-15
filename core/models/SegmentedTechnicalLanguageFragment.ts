@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
-    ClassificationGenericEnum,
     ClassificationGenericEnumFromJSON,
     ClassificationGenericEnumFromJSONTyped,
     ClassificationGenericEnumToJSON,
-    ClassificationSpecificEnum,
+} from './ClassificationGenericEnum';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FragmentFormat,
+} from './EmbeddedModelSchema';
+import type { FragmentFormat } from './FragmentFormat';
+import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
-} from './';
+} from './FragmentFormat';
 
 /**
  * This is the output iterable model for '/machine_learning/text/technical_language/parsers/segmentation'
@@ -66,6 +72,17 @@ export interface SegmentedTechnicalLanguageFragment {
     fragment: FragmentFormat;
 }
 
+/**
+ * Check if a given object implements the SegmentedTechnicalLanguageFragment interface.
+ */
+export function instanceOfSegmentedTechnicalLanguageFragment(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "generic" in value;
+    isInstance = isInstance && "fragment" in value;
+
+    return isInstance;
+}
+
 export function SegmentedTechnicalLanguageFragmentFromJSON(json: any): SegmentedTechnicalLanguageFragment {
     return SegmentedTechnicalLanguageFragmentFromJSONTyped(json, false);
 }
@@ -98,5 +115,4 @@ export function SegmentedTechnicalLanguageFragmentToJSON(value?: SegmentedTechni
         'fragment': FragmentFormatToJSON(value.fragment),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    UpdatingStatusEnum,
+} from './EmbeddedModelSchema';
+import type { UpdatingStatusEnum } from './UpdatingStatusEnum';
+import {
     UpdatingStatusEnumFromJSON,
     UpdatingStatusEnumFromJSONTyped,
     UpdatingStatusEnumToJSON,
-} from './';
+} from './UpdatingStatusEnum';
 
 /**
  * This is the returnable for /os/update/check
@@ -42,6 +44,16 @@ export interface CheckedOSUpdate {
      * @memberof CheckedOSUpdate
      */
     status: UpdatingStatusEnum;
+}
+
+/**
+ * Check if a given object implements the CheckedOSUpdate interface.
+ */
+export function instanceOfCheckedOSUpdate(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "status" in value;
+
+    return isInstance;
 }
 
 export function CheckedOSUpdateFromJSON(json: any): CheckedOSUpdate {
@@ -72,5 +84,4 @@ export function CheckedOSUpdateToJSON(value?: CheckedOSUpdate | null): any {
         'status': UpdatingStatusEnumToJSON(value.status),
     };
 }
-
 

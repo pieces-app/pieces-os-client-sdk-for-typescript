@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Bytes is a Model for A FileFormat. Raw and file are the only 2 that are currently supported. Raw and file are an array of integers that represent the file.Typical conversion UTF8 -> array[int] or UTF8 -> array[bytes(in hexidecimal)] -> array[int]. Either way you convert is up to you but the type we need here is an array of integers.
@@ -61,6 +61,15 @@ export interface TransferableBytes {
     dataUrl?: Array<number>;
 }
 
+/**
+ * Check if a given object implements the TransferableBytes interface.
+ */
+export function instanceOfTransferableBytes(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function TransferableBytesFromJSON(json: any): TransferableBytes {
     return TransferableBytesFromJSONTyped(json, false);
 }
@@ -95,5 +104,4 @@ export function TransferableBytesToJSON(value?: TransferableBytes | null): any {
         'data_url': value.dataUrl,
     };
 }
-
 

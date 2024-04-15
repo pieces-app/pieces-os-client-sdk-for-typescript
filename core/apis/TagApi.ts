@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SeededScoreIncrement,
+  Tag,
+} from '../models/index';
 import {
-    SeededScoreIncrement,
     SeededScoreIncrementFromJSON,
     SeededScoreIncrementToJSON,
-    Tag,
     TagFromJSON,
     TagToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface TagAssociateAssetRequest {
     asset: string;
@@ -67,7 +69,7 @@ export class TagApi extends runtime.BaseAPI {
      * This will associate a tag with a asset.
      * /tag/{tag}/assets/associate/{asset} [POST]
      */
-    async tagAssociateAssetRaw(requestParameters: TagAssociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+    async tagAssociateAssetRaw(requestParameters: TagAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
             throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling tagAssociateAsset.');
         }
@@ -85,7 +87,7 @@ export class TagApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -94,15 +96,15 @@ export class TagApi extends runtime.BaseAPI {
      * This will associate a tag with a asset.
      * /tag/{tag}/assets/associate/{asset} [POST]
      */
-    async tagAssociateAsset(requestParameters: TagAssociateAssetRequest): Promise<void> {
-        await this.tagAssociateAssetRaw(requestParameters);
+    async tagAssociateAsset(requestParameters: TagAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateAssetRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will associate a tag with a person.
      * /tag/{tag}/persons/associate/{person} [POST]
      */
-    async tagAssociatePersonRaw(requestParameters: TagAssociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+    async tagAssociatePersonRaw(requestParameters: TagAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.tag === null || requestParameters.tag === undefined) {
             throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagAssociatePerson.');
         }
@@ -120,7 +122,7 @@ export class TagApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -129,15 +131,15 @@ export class TagApi extends runtime.BaseAPI {
      * This will associate a tag with a person.
      * /tag/{tag}/persons/associate/{person} [POST]
      */
-    async tagAssociatePerson(requestParameters: TagAssociatePersonRequest): Promise<void> {
-        await this.tagAssociatePersonRaw(requestParameters);
+    async tagAssociatePerson(requestParameters: TagAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociatePersonRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will enable us to dissassociate a tag from a asset.
      * /tag/{tag}/assets/disassociate/{asset} [POST]
      */
-    async tagDisassociateAssetRaw(requestParameters: TagDisassociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+    async tagDisassociateAssetRaw(requestParameters: TagDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.tag === null || requestParameters.tag === undefined) {
             throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociateAsset.');
         }
@@ -155,7 +157,7 @@ export class TagApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -164,15 +166,15 @@ export class TagApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a tag from a asset.
      * /tag/{tag}/assets/disassociate/{asset} [POST]
      */
-    async tagDisassociateAsset(requestParameters: TagDisassociateAssetRequest): Promise<void> {
-        await this.tagDisassociateAssetRaw(requestParameters);
+    async tagDisassociateAsset(requestParameters: TagDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateAssetRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will enable us to dissassociate a tag from a person.
      * /tag/{tag}/persons/disassociate/{person} [POST]
      */
-    async tagDisassociatePersonRaw(requestParameters: TagDisassociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+    async tagDisassociatePersonRaw(requestParameters: TagDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.tag === null || requestParameters.tag === undefined) {
             throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociatePerson.');
         }
@@ -190,7 +192,7 @@ export class TagApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -199,15 +201,15 @@ export class TagApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a tag from a person.
      * /tag/{tag}/persons/disassociate/{person} [POST]
      */
-    async tagDisassociatePerson(requestParameters: TagDisassociatePersonRequest): Promise<void> {
-        await this.tagDisassociatePersonRaw(requestParameters);
+    async tagDisassociatePerson(requestParameters: TagDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociatePersonRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/tag/{tag}/scores/increment\' [POST]
      */
-    async tagScoresIncrementRaw(requestParameters: TagScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+    async tagScoresIncrementRaw(requestParameters: TagScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.tag === null || requestParameters.tag === undefined) {
             throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagScoresIncrement.');
         }
@@ -224,7 +226,7 @@ export class TagApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -233,15 +235,15 @@ export class TagApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/tag/{tag}/scores/increment\' [POST]
      */
-    async tagScoresIncrement(requestParameters: TagScoresIncrementRequest): Promise<void> {
-        await this.tagScoresIncrementRaw(requestParameters);
+    async tagScoresIncrement(requestParameters: TagScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will update a specific tag.
      * /tag/update [POST]
      */
-    async tagUpdateRaw(requestParameters: TagUpdateRequest): Promise<runtime.ApiResponse<Tag>> {
+    async tagUpdateRaw(requestParameters: TagUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -258,7 +260,7 @@ export class TagApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: TagToJSON(requestParameters.tag),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TagFromJSON(jsonValue));
     }
@@ -267,8 +269,8 @@ export class TagApi extends runtime.BaseAPI {
      * This will update a specific tag.
      * /tag/update [POST]
      */
-    async tagUpdate(requestParameters: TagUpdateRequest): Promise<Tag> {
-        const response = await this.tagUpdateRaw(requestParameters);
+    async tagUpdate(requestParameters: TagUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Tag> {
+        const response = await this.tagUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -276,7 +278,7 @@ export class TagApi extends runtime.BaseAPI {
      * This will get a specific tag.
      * /tag/{tag} [GET]
      */
-    async tagsSpecificTagSnapshotRaw(requestParameters: TagsSpecificTagSnapshotRequest): Promise<runtime.ApiResponse<Tag>> {
+    async tagsSpecificTagSnapshotRaw(requestParameters: TagsSpecificTagSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
         if (requestParameters.tag === null || requestParameters.tag === undefined) {
             throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagsSpecificTagSnapshot.');
         }
@@ -294,7 +296,7 @@ export class TagApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TagFromJSON(jsonValue));
     }
@@ -303,8 +305,8 @@ export class TagApi extends runtime.BaseAPI {
      * This will get a specific tag.
      * /tag/{tag} [GET]
      */
-    async tagsSpecificTagSnapshot(requestParameters: TagsSpecificTagSnapshotRequest): Promise<Tag> {
-        const response = await this.tagsSpecificTagSnapshotRaw(requestParameters);
+    async tagsSpecificTagSnapshot(requestParameters: TagsSpecificTagSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Tag> {
+        const response = await this.tagsSpecificTagSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

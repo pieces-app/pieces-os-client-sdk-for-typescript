@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnchorPoint } from './AnchorPoint';
 import {
-    AnchorPoint,
     AnchorPointFromJSON,
     AnchorPointFromJSONTyped,
     AnchorPointToJSON,
-    EmbeddedModelSchema,
+} from './AnchorPoint';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the plural of AnchorPoint.
@@ -58,6 +62,16 @@ export interface AnchorPoints {
      * @memberof AnchorPoints
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the AnchorPoints interface.
+ */
+export function instanceOfAnchorPoints(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AnchorPointsFromJSON(json: any): AnchorPoints {
@@ -92,5 +106,4 @@ export function AnchorPointsToJSON(value?: AnchorPoints | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { QGPTQuestionAnswer } from './QGPTQuestionAnswer';
 import {
-    QGPTQuestionAnswer,
     QGPTQuestionAnswerFromJSON,
     QGPTQuestionAnswerFromJSONTyped,
     QGPTQuestionAnswerToJSON,
-    RelevantQGPTSeeds,
+} from './QGPTQuestionAnswer';
+import type { RelevantQGPTSeeds } from './RelevantQGPTSeeds';
+import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
-} from './';
+} from './RelevantQGPTSeeds';
 
 /**
  * Query is your hints question.
@@ -66,6 +68,16 @@ export interface QGPTHintsInput {
     model?: string;
 }
 
+/**
+ * Check if a given object implements the QGPTHintsInput interface.
+ */
+export function instanceOfQGPTHintsInput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "relevant" in value;
+
+    return isInstance;
+}
+
 export function QGPTHintsInputFromJSON(json: any): QGPTHintsInput {
     return QGPTHintsInputFromJSONTyped(json, false);
 }
@@ -100,5 +112,4 @@ export function QGPTHintsInputToJSON(value?: QGPTHintsInput | null): any {
         'model': value.model,
     };
 }
-
 

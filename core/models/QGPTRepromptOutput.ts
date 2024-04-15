@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -38,6 +38,16 @@ export interface QGPTRepromptOutput {
      * @memberof QGPTRepromptOutput
      */
     query: string;
+}
+
+/**
+ * Check if a given object implements the QGPTRepromptOutput interface.
+ */
+export function instanceOfQGPTRepromptOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "query" in value;
+
+    return isInstance;
 }
 
 export function QGPTRepromptOutputFromJSON(json: any): QGPTRepromptOutput {
@@ -68,5 +78,4 @@ export function QGPTRepromptOutputToJSON(value?: QGPTRepromptOutput | null): any
         'query': value.query,
     };
 }
-
 

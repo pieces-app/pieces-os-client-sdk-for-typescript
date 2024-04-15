@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0Identity } from './Auth0Identity';
 import {
-    Auth0Identity,
     Auth0IdentityFromJSON,
     Auth0IdentityFromJSONTyped,
     Auth0IdentityToJSON,
-    Auth0UserMetadata,
+} from './Auth0Identity';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
+import {
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-} from './';
+} from './Auth0UserMetadata';
 
 /**
  * 
@@ -68,6 +70,7 @@ export interface Auth0User {
     familyName?: string;
     /**
      * User's given name.
+     * 
      * @type {string}
      * @memberof Auth0User
      */
@@ -80,6 +83,7 @@ export interface Auth0User {
     identities?: Array<Auth0Identity>;
     /**
      * User's nickname.
+     * 
      * @type {string}
      * @memberof Auth0User
      */
@@ -147,6 +151,15 @@ export interface Auth0User {
     guardianAuthenticators?: Array<string>;
 }
 
+/**
+ * Check if a given object implements the Auth0User interface.
+ */
+export function instanceOfAuth0User(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function Auth0UserFromJSON(json: any): Auth0User {
     return Auth0UserFromJSONTyped(json, false);
 }
@@ -209,5 +222,4 @@ export function Auth0UserToJSON(value?: Auth0User | null): any {
         'guardian_authenticators': value.guardianAuthenticators,
     };
 }
-
 

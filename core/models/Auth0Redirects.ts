@@ -33,6 +33,15 @@ export interface Auth0Redirects {
     unauthenticated?: string;
 }
 
+/**
+ * Check if a given object implements the Auth0Redirects interface.
+ */
+export function instanceOfAuth0Redirects(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function Auth0RedirectsFromJSON(json: any): Auth0Redirects {
     return Auth0RedirectsFromJSONTyped(json, false);
 }
@@ -61,5 +70,4 @@ export function Auth0RedirectsToJSON(value?: Auth0Redirects | null): any {
         'unauthenticated': value.unauthenticated,
     };
 }
-
 

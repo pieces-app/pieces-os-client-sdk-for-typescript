@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will give specific metadata need to determine what the rename was to/from.
@@ -44,6 +44,17 @@ export interface TrackedAssetEventRenameMetadata {
      * @memberof TrackedAssetEventRenameMetadata
      */
     current: string;
+}
+
+/**
+ * Check if a given object implements the TrackedAssetEventRenameMetadata interface.
+ */
+export function instanceOfTrackedAssetEventRenameMetadata(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "previous" in value;
+    isInstance = isInstance && "current" in value;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventRenameMetadataFromJSON(json: any): TrackedAssetEventRenameMetadata {
@@ -76,5 +87,4 @@ export function TrackedAssetEventRenameMetadataToJSON(value?: TrackedAssetEventR
         'current': value.current,
     };
 }
-
 

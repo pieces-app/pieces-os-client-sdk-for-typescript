@@ -25,12 +25,14 @@ import { exists, mapValues } from '../runtime';
 export interface Auth0Identity {
     /**
      * Name of the Auth0 connection used to authenticate the user.
+     * 
      * @type {string}
      * @memberof Auth0Identity
      */
     connection?: string;
     /**
      * Indicates whether the connection is a social one.
+     * 
      * @type {boolean}
      * @memberof Auth0Identity
      */
@@ -59,6 +61,15 @@ export interface Auth0Identity {
      * @memberof Auth0Identity
      */
     expiresIn?: number;
+}
+
+/**
+ * Check if a given object implements the Auth0Identity interface.
+ */
+export function instanceOfAuth0Identity(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function Auth0IdentityFromJSON(json: any): Auth0Identity {
@@ -97,5 +108,4 @@ export function Auth0IdentityToJSON(value?: Auth0Identity | null): any {
         'expires_in': value.expiresIn,
     };
 }
-
 

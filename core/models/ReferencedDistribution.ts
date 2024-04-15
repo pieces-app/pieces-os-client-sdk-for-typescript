@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedDistribution,
+} from './EmbeddedModelSchema';
+import type { FlattenedDistribution } from './FlattenedDistribution';
+import {
     FlattenedDistributionFromJSON,
     FlattenedDistributionFromJSONTyped,
     FlattenedDistributionToJSON,
-} from './';
+} from './FlattenedDistribution';
 
 /**
  * 
@@ -48,6 +50,16 @@ export interface ReferencedDistribution {
      * @memberof ReferencedDistribution
      */
     reference?: FlattenedDistribution;
+}
+
+/**
+ * Check if a given object implements the ReferencedDistribution interface.
+ */
+export function instanceOfReferencedDistribution(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedDistributionFromJSON(json: any): ReferencedDistribution {
@@ -80,5 +92,4 @@ export function ReferencedDistributionToJSON(value?: ReferencedDistribution | nu
         'reference': FlattenedDistributionToJSON(value.reference),
     };
 }
-
 

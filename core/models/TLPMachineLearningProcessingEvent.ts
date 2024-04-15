@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeProcessing,
+} from './EmbeddedModelSchema';
+import type { TLPCodeProcessing } from './TLPCodeProcessing';
+import {
     TLPCodeProcessingFromJSON,
     TLPCodeProcessingFromJSONTyped,
     TLPCodeProcessingToJSON,
-} from './';
+} from './TLPCodeProcessing';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface TLPMachineLearningProcessingEvent {
      * @memberof TLPMachineLearningProcessingEvent
      */
     code?: TLPCodeProcessing;
+}
+
+/**
+ * Check if a given object implements the TLPMachineLearningProcessingEvent interface.
+ */
+export function instanceOfTLPMachineLearningProcessingEvent(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPMachineLearningProcessingEventFromJSON(json: any): TLPMachineLearningProcessingEvent {
@@ -72,5 +83,4 @@ export function TLPMachineLearningProcessingEventToJSON(value?: TLPMachineLearni
         'code': TLPCodeProcessingToJSON(value.code),
     };
 }
-
 

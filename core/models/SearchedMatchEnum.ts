@@ -12,22 +12,24 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * 
  * @export
- * @enum {string}
  */
-export enum SearchedMatchEnum {
-    Title = 'TITLE',
-    Annotation = 'ANNOTATION',
-    Hint = 'HINT',
-    Content = 'CONTENT',
-    Fuzzy = 'FUZZY',
-    Multiple = 'MULTIPLE',
-    Tags = 'TAGS',
-    Websites = 'WEBSITES',
-    Persons = 'PERSONS'
-}
+export const SearchedMatchEnum = {
+    Title: 'TITLE',
+    Annotation: 'ANNOTATION',
+    Hint: 'HINT',
+    Content: 'CONTENT',
+    Fuzzy: 'FUZZY',
+    Multiple: 'MULTIPLE',
+    Tags: 'TAGS',
+    Websites: 'WEBSITES',
+    Persons: 'PERSONS'
+} as const;
+export type SearchedMatchEnum = typeof SearchedMatchEnum[keyof typeof SearchedMatchEnum];
+
 
 export function SearchedMatchEnumFromJSON(json: any): SearchedMatchEnum {
     return SearchedMatchEnumFromJSONTyped(json, false);

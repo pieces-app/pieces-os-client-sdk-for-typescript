@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedUserProfile,
+} from './EmbeddedModelSchema';
+import type { FlattenedUserProfile } from './FlattenedUserProfile';
+import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-} from './';
+} from './FlattenedUserProfile';
 
 /**
  * This is a pre-created accessor that simply takes an os id and an optional user(flattened)
@@ -54,6 +56,17 @@ export interface SeededAccessor {
      * @memberof SeededAccessor
      */
     share: string;
+}
+
+/**
+ * Check if a given object implements the SeededAccessor interface.
+ */
+export function instanceOfSeededAccessor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "share" in value;
+
+    return isInstance;
 }
 
 export function SeededAccessorFromJSON(json: any): SeededAccessor {
@@ -88,5 +101,4 @@ export function SeededAccessorToJSON(value?: SeededAccessor | null): any {
         'share': value.share,
     };
 }
-
 

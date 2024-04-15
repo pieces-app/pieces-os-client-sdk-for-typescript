@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { CodeAnalysis } from './CodeAnalysis';
 import {
-    CodeAnalysis,
     CodeAnalysisFromJSON,
     CodeAnalysisFromJSONTyped,
     CodeAnalysisToJSON,
-    EmbeddedModelSchema,
+} from './CodeAnalysis';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ImageAnalysis,
+} from './EmbeddedModelSchema';
+import type { ImageAnalysis } from './ImageAnalysis';
+import {
     ImageAnalysisFromJSON,
     ImageAnalysisFromJSONTyped,
     ImageAnalysisToJSON,
-} from './';
+} from './ImageAnalysis';
 
 /**
  * This the the MlAnalysis Object, that will go on a format.
@@ -70,6 +74,17 @@ export interface Analysis {
     image?: ImageAnalysis;
 }
 
+/**
+ * Check if a given object implements the Analysis interface.
+ */
+export function instanceOfAnalysis(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
+}
+
 export function AnalysisFromJSON(json: any): Analysis {
     return AnalysisFromJSONTyped(json, false);
 }
@@ -104,5 +119,4 @@ export function AnalysisToJSON(value?: Analysis | null): any {
         'image': ImageAnalysisToJSON(value.image),
     };
 }
-
 

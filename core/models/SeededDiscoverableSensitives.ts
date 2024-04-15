@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededDiscoverableSensitive,
+} from './EmbeddedModelSchema';
+import type { SeededDiscoverableSensitive } from './SeededDiscoverableSensitive';
+import {
     SeededDiscoverableSensitiveFromJSON,
     SeededDiscoverableSensitiveFromJSONTyped,
     SeededDiscoverableSensitiveToJSON,
-} from './';
+} from './SeededDiscoverableSensitive';
 
 /**
  * 
@@ -48,6 +50,17 @@ export interface SeededDiscoverableSensitives {
      * @memberof SeededDiscoverableSensitives
      */
     application: string;
+}
+
+/**
+ * Check if a given object implements the SeededDiscoverableSensitives interface.
+ */
+export function instanceOfSeededDiscoverableSensitives(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableSensitivesFromJSON(json: any): SeededDiscoverableSensitives {
@@ -80,5 +93,4 @@ export function SeededDiscoverableSensitivesToJSON(value?: SeededDiscoverableSen
         'application': value.application,
     };
 }
-
 

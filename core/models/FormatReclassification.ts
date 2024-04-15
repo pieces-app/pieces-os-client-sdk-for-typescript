@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
 import {
-    ClassificationSpecificEnum,
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Format,
+} from './EmbeddedModelSchema';
+import type { Format } from './Format';
+import {
     FormatFromJSON,
     FormatFromJSONTyped,
     FormatToJSON,
-} from './';
+} from './Format';
 
 /**
  * This is a model that will represent the miminum properties required to update the classification of this format.
@@ -52,6 +56,17 @@ export interface FormatReclassification {
      * @memberof FormatReclassification
      */
     format: Format;
+}
+
+/**
+ * Check if a given object implements the FormatReclassification interface.
+ */
+export function instanceOfFormatReclassification(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "ext" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
 }
 
 export function FormatReclassificationFromJSON(json: any): FormatReclassification {
@@ -84,5 +99,4 @@ export function FormatReclassificationToJSON(value?: FormatReclassification | nu
         'format': FormatToJSON(value.format),
     };
 }
-
 

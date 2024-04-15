@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is a Generic status enumeration that will be used for the status of dns and pod or cloud.
  * @export
- * @enum {string}
  */
-export enum AllocationStatusEnum {
-    Pending = 'PENDING',
-    Running = 'RUNNING',
-    Failed = 'FAILED',
-    Succeeded = 'SUCCEEDED',
-    Unknown = 'UNKNOWN'
-}
+export const AllocationStatusEnum = {
+    Pending: 'PENDING',
+    Running: 'RUNNING',
+    Failed: 'FAILED',
+    Succeeded: 'SUCCEEDED',
+    Unknown: 'UNKNOWN'
+} as const;
+export type AllocationStatusEnum = typeof AllocationStatusEnum[keyof typeof AllocationStatusEnum];
+
 
 export function AllocationStatusEnumFromJSON(json: any): AllocationStatusEnum {
     return AllocationStatusEnumFromJSONTyped(json, false);

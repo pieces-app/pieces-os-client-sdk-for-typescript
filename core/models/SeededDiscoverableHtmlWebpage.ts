@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -34,6 +34,7 @@ export interface SeededDiscoverableHtmlWebpage {
     schema?: EmbeddedModelSchema;
     /**
      * The route of the page
+     * 
      * @type {string}
      * @memberof SeededDiscoverableHtmlWebpage
      */
@@ -44,6 +45,17 @@ export interface SeededDiscoverableHtmlWebpage {
      * @memberof SeededDiscoverableHtmlWebpage
      */
     page: string;
+}
+
+/**
+ * Check if a given object implements the SeededDiscoverableHtmlWebpage interface.
+ */
+export function instanceOfSeededDiscoverableHtmlWebpage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "page" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableHtmlWebpageFromJSON(json: any): SeededDiscoverableHtmlWebpage {
@@ -76,5 +88,4 @@ export function SeededDiscoverableHtmlWebpageToJSON(value?: SeededDiscoverableHt
         'page': value.page,
     };
 }
-
 

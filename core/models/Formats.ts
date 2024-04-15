@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Format,
+} from './EmbeddedModelSchema';
+import type { Format } from './Format';
+import {
     FormatFromJSON,
     FormatFromJSONTyped,
     FormatToJSON,
-} from './';
+} from './Format';
 
 /**
  * A base class for a collection of formats and some additional meta properties.
@@ -42,6 +44,16 @@ export interface Formats {
      * @memberof Formats
      */
     iterable: Array<Format>;
+}
+
+/**
+ * Check if a given object implements the Formats interface.
+ */
+export function instanceOfFormats(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FormatsFromJSON(json: any): Formats {
@@ -72,5 +84,4 @@ export function FormatsToJSON(value?: Formats | null): any {
         'iterable': ((value.iterable as Array<any>).map(FormatToJSON)),
     };
 }
-
 

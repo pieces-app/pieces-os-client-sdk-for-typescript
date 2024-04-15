@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Activities,
+  Activity,
+  SeededActivity,
+} from '../models/index';
 import {
-    Activities,
     ActivitiesFromJSON,
     ActivitiesToJSON,
-    Activity,
     ActivityFromJSON,
     ActivityToJSON,
-    SeededActivity,
     SeededActivityFromJSON,
     SeededActivityToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ActivitiesCreateNewActivityRequest {
     transferables?: boolean;
@@ -49,7 +51,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
      * This will create a new Activity.
      * /activities/create [POST]
      */
-    async activitiesCreateNewActivityRaw(requestParameters: ActivitiesCreateNewActivityRequest): Promise<runtime.ApiResponse<Activity>> {
+    async activitiesCreateNewActivityRaw(requestParameters: ActivitiesCreateNewActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activity>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -66,7 +68,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededActivityToJSON(requestParameters.seededActivity),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivityFromJSON(jsonValue));
     }
@@ -75,8 +77,8 @@ export class ActivitiesApi extends runtime.BaseAPI {
      * This will create a new Activity.
      * /activities/create [POST]
      */
-    async activitiesCreateNewActivity(requestParameters: ActivitiesCreateNewActivityRequest): Promise<Activity> {
-        const response = await this.activitiesCreateNewActivityRaw(requestParameters);
+    async activitiesCreateNewActivity(requestParameters: ActivitiesCreateNewActivityRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Activity> {
+        const response = await this.activitiesCreateNewActivityRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -84,7 +86,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
      * This will delete a specific activity.  important note: if we delete an activity: that is going to be a generic or a specific/ we will also delete its counter part i.e the specific. and vise versa, this ensures that the references are always cleaned.
      * /activities/{activity}/delete [POST]
      */
-    async activitiesDeleteSpecificActivityRaw(requestParameters: ActivitiesDeleteSpecificActivityRequest): Promise<runtime.ApiResponse<void>> {
+    async activitiesDeleteSpecificActivityRaw(requestParameters: ActivitiesDeleteSpecificActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.activity === null || requestParameters.activity === undefined) {
             throw new runtime.RequiredError('activity','Required parameter requestParameters.activity was null or undefined when calling activitiesDeleteSpecificActivity.');
         }
@@ -98,7 +100,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -107,15 +109,15 @@ export class ActivitiesApi extends runtime.BaseAPI {
      * This will delete a specific activity.  important note: if we delete an activity: that is going to be a generic or a specific/ we will also delete its counter part i.e the specific. and vise versa, this ensures that the references are always cleaned.
      * /activities/{activity}/delete [POST]
      */
-    async activitiesDeleteSpecificActivity(requestParameters: ActivitiesDeleteSpecificActivityRequest): Promise<void> {
-        await this.activitiesDeleteSpecificActivityRaw(requestParameters);
+    async activitiesDeleteSpecificActivity(requestParameters: ActivitiesDeleteSpecificActivityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.activitiesDeleteSpecificActivityRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of all of the activities
      * /activities [GET]
      */
-    async activitiesSnapshotRaw(requestParameters: ActivitiesSnapshotRequest): Promise<runtime.ApiResponse<Activities>> {
+    async activitiesSnapshotRaw(requestParameters: ActivitiesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activities>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -133,7 +135,7 @@ export class ActivitiesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivitiesFromJSON(jsonValue));
     }
@@ -142,8 +144,8 @@ export class ActivitiesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of the activities
      * /activities [GET]
      */
-    async activitiesSnapshot(requestParameters: ActivitiesSnapshotRequest): Promise<Activities> {
-        const response = await this.activitiesSnapshotRaw(requestParameters);
+    async activitiesSnapshot(requestParameters: ActivitiesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Activities> {
+        const response = await this.activitiesSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

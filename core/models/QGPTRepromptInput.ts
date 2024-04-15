@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTConversation,
+} from './EmbeddedModelSchema';
+import type { QGPTConversation } from './QGPTConversation';
+import {
     QGPTConversationFromJSON,
     QGPTConversationFromJSONTyped,
     QGPTConversationToJSON,
-    QGPTPromptPipeline,
+} from './QGPTConversation';
+import type { QGPTPromptPipeline } from './QGPTPromptPipeline';
+import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-} from './';
+} from './QGPTPromptPipeline';
 
 /**
  * Query is your followup question.
@@ -75,6 +79,17 @@ export interface QGPTRepromptInput {
     pipeline?: QGPTPromptPipeline;
 }
 
+/**
+ * Check if a given object implements the QGPTRepromptInput interface.
+ */
+export function instanceOfQGPTRepromptInput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "query" in value;
+    isInstance = isInstance && "conversation" in value;
+
+    return isInstance;
+}
+
 export function QGPTRepromptInputFromJSON(json: any): QGPTRepromptInput {
     return QGPTRepromptInputFromJSONTyped(json, false);
 }
@@ -111,5 +126,4 @@ export function QGPTRepromptInputToJSON(value?: QGPTRepromptInput | null): any {
         'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
     };
 }
-
 

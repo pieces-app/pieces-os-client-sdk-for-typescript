@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is use as the score for an asset.
@@ -73,6 +73,17 @@ export interface Score {
     reference?: number;
 }
 
+/**
+ * Check if a given object implements the Score interface.
+ */
+export function instanceOfScore(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "manual" in value;
+    isInstance = isInstance && "automatic" in value;
+
+    return isInstance;
+}
+
 export function ScoreFromJSON(json: any): Score {
     return ScoreFromJSONTyped(json, false);
 }
@@ -111,5 +122,4 @@ export function ScoreToJSON(value?: Score | null): any {
         'reference': value.reference,
     };
 }
-
 

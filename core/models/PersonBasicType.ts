@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExternallySourcedEnum,
+} from './EmbeddedModelSchema';
+import type { ExternallySourcedEnum } from './ExternallySourcedEnum';
+import {
     ExternallySourcedEnumFromJSON,
     ExternallySourcedEnumFromJSONTyped,
     ExternallySourcedEnumToJSON,
-    MailgunMetadata,
+} from './ExternallySourcedEnum';
+import type { MailgunMetadata } from './MailgunMetadata';
+import {
     MailgunMetadataFromJSON,
     MailgunMetadataFromJSONTyped,
     MailgunMetadataToJSON,
-} from './';
+} from './MailgunMetadata';
 
 /**
  * This is all optional properties around the most basic information around a non-pieces user.
@@ -86,6 +90,15 @@ export interface PersonBasicType {
     mailgun?: MailgunMetadata;
 }
 
+/**
+ * Check if a given object implements the PersonBasicType interface.
+ */
+export function instanceOfPersonBasicType(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function PersonBasicTypeFromJSON(json: any): PersonBasicType {
     return PersonBasicTypeFromJSONTyped(json, false);
 }
@@ -126,5 +139,4 @@ export function PersonBasicTypeToJSON(value?: PersonBasicType | null): any {
         'mailgun': MailgunMetadataToJSON(value.mailgun),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { DiscoveredAssets } from './DiscoveredAssets';
 import {
-    DiscoveredAssets,
     DiscoveredAssetsFromJSON,
     DiscoveredAssetsFromJSONTyped,
     DiscoveredAssetsToJSON,
-    EmbeddedModelSchema,
+} from './DiscoveredAssets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will return assets that were extracted from the html webpage. This will contain the original url so you can double check the results wtih the results you passed in, but it will remain in the same order that it was passed in if used within the /discover/discover/html/webpage endpoint.
@@ -48,6 +50,17 @@ export interface DiscoveredHtmlWebpage {
      * @memberof DiscoveredHtmlWebpage
      */
     url: string;
+}
+
+/**
+ * Check if a given object implements the DiscoveredHtmlWebpage interface.
+ */
+export function instanceOfDiscoveredHtmlWebpage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "url" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredHtmlWebpageFromJSON(json: any): DiscoveredHtmlWebpage {
@@ -80,5 +93,4 @@ export function DiscoveredHtmlWebpageToJSON(value?: DiscoveredHtmlWebpage | null
         'url': value.url,
     };
 }
-
 

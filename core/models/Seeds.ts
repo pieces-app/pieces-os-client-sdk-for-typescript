@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Seed,
+} from './EmbeddedModelSchema';
+import type { Seed } from './Seed';
+import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
-} from './';
+} from './Seed';
 
 /**
  * This is a plural model for multiple Seed.
@@ -42,6 +44,16 @@ export interface Seeds {
      * @memberof Seeds
      */
     iterable: Array<Seed>;
+}
+
+/**
+ * Check if a given object implements the Seeds interface.
+ */
+export function instanceOfSeeds(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SeedsFromJSON(json: any): Seeds {
@@ -72,5 +84,4 @@ export function SeedsToJSON(value?: Seeds | null): any {
         'iterable': ((value.iterable as Array<any>).map(SeedToJSON)),
     };
 }
-
 

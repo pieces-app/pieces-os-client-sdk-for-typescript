@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * These are the references of the formats **Only UUIDS**
@@ -44,6 +44,16 @@ export interface FlattenedPreview {
      * @memberof FlattenedPreview
      */
     overlay?: string;
+}
+
+/**
+ * Check if a given object implements the FlattenedPreview interface.
+ */
+export function instanceOfFlattenedPreview(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "base" in value;
+
+    return isInstance;
 }
 
 export function FlattenedPreviewFromJSON(json: any): FlattenedPreview {
@@ -76,5 +86,4 @@ export function FlattenedPreviewToJSON(value?: FlattenedPreview | null): any {
         'overlay': value.overlay,
     };
 }
-
 

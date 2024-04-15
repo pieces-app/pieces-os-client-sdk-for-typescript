@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0OpenAIUserMetadata } from './Auth0OpenAIUserMetadata';
 import {
-    Auth0OpenAIUserMetadata,
     Auth0OpenAIUserMetadataFromJSON,
     Auth0OpenAIUserMetadataFromJSONTyped,
     Auth0OpenAIUserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0OpenAIUserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for /external_provider/api_key/create
@@ -48,6 +50,16 @@ export interface PrecreatedExternalProviderApiKey {
      * @memberof PrecreatedExternalProviderApiKey
      */
     openAI?: Auth0OpenAIUserMetadata;
+}
+
+/**
+ * Check if a given object implements the PrecreatedExternalProviderApiKey interface.
+ */
+export function instanceOfPrecreatedExternalProviderApiKey(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
 }
 
 export function PrecreatedExternalProviderApiKeyFromJSON(json: any): PrecreatedExternalProviderApiKey {
@@ -80,5 +92,4 @@ export function PrecreatedExternalProviderApiKeyToJSON(value?: PrecreatedExterna
         'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
     };
 }
-
 

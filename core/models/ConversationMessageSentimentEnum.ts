@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This will describe the sentiment of a specific message ie if the message was liked/disliked/reported
  * @export
- * @enum {string}
  */
-export enum ConversationMessageSentimentEnum {
-    Like = 'LIKE',
-    Dislike = 'DISLIKE',
-    Report = 'REPORT'
-}
+export const ConversationMessageSentimentEnum = {
+    Like: 'LIKE',
+    Dislike: 'DISLIKE',
+    Report: 'REPORT'
+} as const;
+export type ConversationMessageSentimentEnum = typeof ConversationMessageSentimentEnum[keyof typeof ConversationMessageSentimentEnum];
+
 
 export function ConversationMessageSentimentEnumFromJSON(json: any): ConversationMessageSentimentEnum {
     return ConversationMessageSentimentEnumFromJSONTyped(json, false);

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is an input body for the /machine_learning/text/technical_processing/generators/personification endpoint.
@@ -46,6 +46,15 @@ export interface PreonboardedPersonaDetails {
      * @memberof PreonboardedPersonaDetails
      */
     personas?: Array<string>;
+}
+
+/**
+ * Check if a given object implements the PreonboardedPersonaDetails interface.
+ */
+export function instanceOfPreonboardedPersonaDetails(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function PreonboardedPersonaDetailsFromJSON(json: any): PreonboardedPersonaDetails {
@@ -78,5 +87,4 @@ export function PreonboardedPersonaDetailsToJSON(value?: PreonboardedPersonaDeta
         'personas': value.personas,
     };
 }
-
 

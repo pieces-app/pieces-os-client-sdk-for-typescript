@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the flow that mobile apps use to access an API. Use this endpoint to exchange an Authorization Code for a Token.
@@ -70,13 +70,29 @@ export interface TokenizedPKCE {
     audience?: string;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum TokenizedPKCEGrantTypeEnum {
-    RefreshToken = 'refresh_token',
-    AuthorizationCode = 'authorization_code'
+ * @export
+ */
+export const TokenizedPKCEGrantTypeEnum = {
+    RefreshToken: 'refresh_token',
+    AuthorizationCode: 'authorization_code'
+} as const;
+export type TokenizedPKCEGrantTypeEnum = typeof TokenizedPKCEGrantTypeEnum[keyof typeof TokenizedPKCEGrantTypeEnum];
+
+
+/**
+ * Check if a given object implements the TokenizedPKCE interface.
+ */
+export function instanceOfTokenizedPKCE(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "grantType" in value;
+    isInstance = isInstance && "clientId" in value;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "redirectUri" in value;
+    isInstance = isInstance && "codeVerifier" in value;
+
+    return isInstance;
 }
 
 export function TokenizedPKCEFromJSON(json: any): TokenizedPKCE {
@@ -117,5 +133,4 @@ export function TokenizedPKCEToJSON(value?: TokenizedPKCE | null): any {
         'audience': value.audience,
     };
 }
-
 

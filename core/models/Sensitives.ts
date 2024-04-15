@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    Sensitive,
+} from './Score';
+import type { Sensitive } from './Sensitive';
+import {
     SensitiveFromJSON,
     SensitiveFromJSONTyped,
     SensitiveToJSON,
-} from './';
+} from './Sensitive';
 
 /**
  * This is a model that represents many individual sensitive pieces of data.
@@ -52,6 +56,16 @@ export interface Sensitives {
      * @memberof Sensitives
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Sensitives interface.
+ */
+export function instanceOfSensitives(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SensitivesFromJSON(json: any): Sensitives {
@@ -84,5 +98,4 @@ export function SensitivesToJSON(value?: Sensitives | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

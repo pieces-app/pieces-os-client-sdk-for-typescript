@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A user that will be passed along with each analytics event
@@ -58,14 +58,28 @@ export interface TrackedUserProfile {
     granularity: TrackedUserProfileGranularityEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum TrackedUserProfileGranularityEnum {
-    Device = 'DEVICE',
-    Account = 'ACCOUNT',
-    Anonymous = 'ANONYMOUS'
+ * @export
+ */
+export const TrackedUserProfileGranularityEnum = {
+    Device: 'DEVICE',
+    Account: 'ACCOUNT',
+    Anonymous: 'ANONYMOUS'
+} as const;
+export type TrackedUserProfileGranularityEnum = typeof TrackedUserProfileGranularityEnum[keyof typeof TrackedUserProfileGranularityEnum];
+
+
+/**
+ * Check if a given object implements the TrackedUserProfile interface.
+ */
+export function instanceOfTrackedUserProfile(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "username" in value;
+    isInstance = isInstance && "granularity" in value;
+
+    return isInstance;
 }
 
 export function TrackedUserProfileFromJSON(json: any): TrackedUserProfile {
@@ -102,5 +116,4 @@ export function TrackedUserProfileToJSON(value?: TrackedUserProfile | null): any
         'granularity': value.granularity,
     };
 }
-
 

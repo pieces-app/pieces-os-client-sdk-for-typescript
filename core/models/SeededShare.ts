@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AccessEnum } from './AccessEnum';
 import {
-    AccessEnum,
     AccessEnumFromJSON,
     AccessEnumFromJSONTyped,
     AccessEnumToJSON,
-    Asset,
+} from './AccessEnum';
+import type { Asset } from './Asset';
+import {
     AssetFromJSON,
     AssetFromJSONTyped,
     AssetToJSON,
-    Assets,
+} from './Asset';
+import type { Assets } from './Assets';
+import {
     AssetsFromJSON,
     AssetsFromJSONTyped,
     AssetsToJSON,
-    EmbeddedModelSchema,
+} from './Assets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededUser,
+} from './EmbeddedModelSchema';
+import type { SeededUser } from './SeededUser';
+import {
     SeededUserFromJSON,
     SeededUserFromJSONTyped,
     SeededUserToJSON,
-} from './';
+} from './SeededUser';
 
 /**
  *  required to pass in an asset or assets.
@@ -80,6 +88,16 @@ export interface SeededShare {
     name?: string;
 }
 
+/**
+ * Check if a given object implements the SeededShare interface.
+ */
+export function instanceOfSeededShare(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "access" in value;
+
+    return isInstance;
+}
+
 export function SeededShareFromJSON(json: any): SeededShare {
     return SeededShareFromJSONTyped(json, false);
 }
@@ -116,5 +134,4 @@ export function SeededShareToJSON(value?: SeededShare | null): any {
         'name': value.name,
     };
 }
-
 

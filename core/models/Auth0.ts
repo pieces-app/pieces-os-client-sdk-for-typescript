@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0Identity } from './Auth0Identity';
 import {
-    Auth0Identity,
     Auth0IdentityFromJSON,
     Auth0IdentityFromJSONTyped,
     Auth0IdentityToJSON,
-    Auth0Redirects,
+} from './Auth0Identity';
+import type { Auth0Redirects } from './Auth0Redirects';
+import {
     Auth0RedirectsFromJSON,
     Auth0RedirectsFromJSONTyped,
     Auth0RedirectsToJSON,
-    Auth0User,
+} from './Auth0Redirects';
+import type { Auth0User } from './Auth0User';
+import {
     Auth0UserFromJSON,
     Auth0UserFromJSONTyped,
     Auth0UserToJSON,
-    Auth0UserMetadata,
+} from './Auth0User';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
+import {
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-    OAuthGroup,
+} from './Auth0UserMetadata';
+import type { OAuthGroup } from './OAuthGroup';
+import {
     OAuthGroupFromJSON,
     OAuthGroupFromJSONTyped,
     OAuthGroupToJSON,
-} from './';
+} from './OAuthGroup';
 
 /**
  * An object representing all of the properties that are available within a Auth0 PKCE Flow
@@ -98,6 +106,20 @@ export interface Auth0 {
     namespace?: string;
 }
 
+/**
+ * Check if a given object implements the Auth0 interface.
+ */
+export function instanceOfAuth0(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "domain" in value;
+    isInstance = isInstance && "client" in value;
+    isInstance = isInstance && "audience" in value;
+    isInstance = isInstance && "redirects" in value;
+    isInstance = isInstance && "oAuth" in value;
+
+    return isInstance;
+}
+
 export function Auth0FromJSON(json: any): Auth0 {
     return Auth0FromJSONTyped(json, false);
 }
@@ -140,5 +162,4 @@ export function Auth0ToJSON(value?: Auth0 | null): any {
         'namespace': value.namespace,
     };
 }
-
 

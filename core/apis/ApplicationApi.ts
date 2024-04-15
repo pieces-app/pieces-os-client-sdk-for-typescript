@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Application,
+} from '../models/index';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ApplicationUpdateRequest {
     application?: Application;
@@ -33,7 +35,7 @@ export class ApplicationApi extends runtime.BaseAPI {
      * This is an endpoint for updating an application.
      * /application/update [GET]
      */
-    async applicationUpdateRaw(requestParameters: ApplicationUpdateRequest): Promise<runtime.ApiResponse<Application>> {
+    async applicationUpdateRaw(requestParameters: ApplicationUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Application>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -46,7 +48,7 @@ export class ApplicationApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: ApplicationToJSON(requestParameters.application),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationFromJSON(jsonValue));
     }
@@ -55,8 +57,8 @@ export class ApplicationApi extends runtime.BaseAPI {
      * This is an endpoint for updating an application.
      * /application/update [GET]
      */
-    async applicationUpdate(requestParameters: ApplicationUpdateRequest): Promise<Application> {
-        const response = await this.applicationUpdateRaw(requestParameters);
+    async applicationUpdate(requestParameters: ApplicationUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Application> {
+        const response = await this.applicationUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

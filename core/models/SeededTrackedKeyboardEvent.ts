@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTrackedKeyboardEventIdentifierDescriptionPairs,
+} from './EmbeddedModelSchema';
+import type { SeededTrackedKeyboardEventIdentifierDescriptionPairs } from './SeededTrackedKeyboardEventIdentifierDescriptionPairs';
+import {
     SeededTrackedKeyboardEventIdentifierDescriptionPairsFromJSON,
     SeededTrackedKeyboardEventIdentifierDescriptionPairsFromJSONTyped,
     SeededTrackedKeyboardEventIdentifierDescriptionPairsToJSON,
-} from './';
+} from './SeededTrackedKeyboardEventIdentifierDescriptionPairs';
 
 /**
  * This is a model that will hold relavent information in relation to a keyboard(including shortcuts) analytics event (usage).
@@ -54,6 +56,17 @@ export interface SeededTrackedKeyboardEvent {
      * @memberof SeededTrackedKeyboardEvent
      */
     identifierDescriptionPair?: SeededTrackedKeyboardEventIdentifierDescriptionPairs;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedKeyboardEvent interface.
+ */
+export function instanceOfSeededTrackedKeyboardEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "shortcut" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedKeyboardEventFromJSON(json: any): SeededTrackedKeyboardEvent {
@@ -88,5 +101,4 @@ export function SeededTrackedKeyboardEventToJSON(value?: SeededTrackedKeyboardEv
         'identifier_description_pair': SeededTrackedKeyboardEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
     };
 }
-
 

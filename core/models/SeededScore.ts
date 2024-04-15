@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the low level seeded score and will let us know what exactly we want to increment on our material.
@@ -60,6 +60,15 @@ export interface SeededScore {
     priority?: boolean;
 }
 
+/**
+ * Check if a given object implements the SeededScore interface.
+ */
+export function instanceOfSeededScore(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function SeededScoreFromJSON(json: any): SeededScore {
     return SeededScoreFromJSONTyped(json, false);
 }
@@ -94,5 +103,4 @@ export function SeededScoreToJSON(value?: SeededScore | null): any {
         'priority': value.priority,
     };
 }
-
 

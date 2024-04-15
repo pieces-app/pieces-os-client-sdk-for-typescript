@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    TagCategoryEnum,
+} from './MechanismEnum';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * This is the minimum information needed when creating a Tag.
@@ -78,6 +82,16 @@ export interface SeededTag {
     person?: string;
 }
 
+/**
+ * Check if a given object implements the SeededTag interface.
+ */
+export function instanceOfSeededTag(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
+}
+
 export function SeededTagFromJSON(json: any): SeededTag {
     return SeededTagFromJSONTyped(json, false);
 }
@@ -114,5 +128,4 @@ export function SeededTagToJSON(value?: SeededTag | null): any {
         'person': value.person,
     };
 }
-
 

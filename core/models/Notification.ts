@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * config model for notification invoking
@@ -58,6 +58,16 @@ export interface Notification {
     payload?: string;
 }
 
+/**
+ * Check if a given object implements the Notification interface.
+ */
+export function instanceOfNotification(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function NotificationFromJSON(json: any): Notification {
     return NotificationFromJSONTyped(json, false);
 }
@@ -92,5 +102,4 @@ export function NotificationToJSON(value?: Notification | null): any {
         'payload': value.payload,
     };
 }
-
 

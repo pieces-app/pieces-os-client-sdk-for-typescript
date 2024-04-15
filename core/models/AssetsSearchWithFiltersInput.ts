@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AssetFilters } from './AssetFilters';
 import {
-    AssetFilters,
     AssetFiltersFromJSON,
     AssetFiltersFromJSONTyped,
     AssetFiltersToJSON,
-    AssetSearchSpace,
+} from './AssetFilters';
+import type { AssetSearchSpace } from './AssetSearchSpace';
+import {
     AssetSearchSpaceFromJSON,
     AssetSearchSpaceFromJSONTyped,
     AssetSearchSpaceToJSON,
-    EmbeddedModelSchema,
+} from './AssetSearchSpace';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -66,6 +70,15 @@ export interface AssetsSearchWithFiltersInput {
     casing?: boolean;
 }
 
+/**
+ * Check if a given object implements the AssetsSearchWithFiltersInput interface.
+ */
+export function instanceOfAssetsSearchWithFiltersInput(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function AssetsSearchWithFiltersInputFromJSON(json: any): AssetsSearchWithFiltersInput {
     return AssetsSearchWithFiltersInputFromJSONTyped(json, false);
 }
@@ -100,5 +113,4 @@ export function AssetsSearchWithFiltersInputToJSON(value?: AssetsSearchWithFilte
         'casing': value.casing,
     };
 }
-
 

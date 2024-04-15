@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TextMatch,
+} from './EmbeddedModelSchema';
+import type { TextMatch } from './TextMatch';
+import {
     TextMatchFromJSON,
     TextMatchFromJSONTyped,
     TextMatchToJSON,
-} from './';
+} from './TextMatch';
 
 /**
  * This is optional metatdata attached to a sensitive piece of data.
@@ -48,6 +50,15 @@ export interface SensitiveMetadata {
      * @memberof SensitiveMetadata
      */
     entropy?: number;
+}
+
+/**
+ * Check if a given object implements the SensitiveMetadata interface.
+ */
+export function instanceOfSensitiveMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SensitiveMetadataFromJSON(json: any): SensitiveMetadata {
@@ -80,5 +91,4 @@ export function SensitiveMetadataToJSON(value?: SensitiveMetadata | null): any {
         'entropy': value.entropy,
     };
 }
-
 

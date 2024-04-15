@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededConnectorAsset,
+} from './EmbeddedModelSchema';
+import type { SeededConnectorAsset } from './SeededConnectorAsset';
+import {
     SeededConnectorAssetFromJSON,
     SeededConnectorAssetFromJSONTyped,
     SeededConnectorAssetToJSON,
-} from './';
+} from './SeededConnectorAsset';
 
 /**
  * A encompasing creation object that can be utilized to create either an asset or a format.
@@ -42,6 +44,15 @@ export interface SeededConnectorCreation {
      * @memberof SeededConnectorCreation
      */
     asset?: SeededConnectorAsset;
+}
+
+/**
+ * Check if a given object implements the SeededConnectorCreation interface.
+ */
+export function instanceOfSeededConnectorCreation(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededConnectorCreationFromJSON(json: any): SeededConnectorCreation {
@@ -72,5 +83,4 @@ export function SeededConnectorCreationToJSON(value?: SeededConnectorCreation | 
         'asset': SeededConnectorAssetToJSON(value.asset),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedUserProfile,
+} from './EmbeddedModelSchema';
+import type { FlattenedUserProfile } from './FlattenedUserProfile';
+import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-} from './';
+} from './FlattenedUserProfile';
 
 /**
  * This is used to determine who has accessed a share. and how many times.
@@ -70,6 +72,19 @@ export interface Accessor {
     user?: FlattenedUserProfile;
 }
 
+/**
+ * Check if a given object implements the Accessor interface.
+ */
+export function instanceOfAccessor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "share" in value;
+    isInstance = isInstance && "count" in value;
+
+    return isInstance;
+}
+
 export function AccessorFromJSON(json: any): Accessor {
     return AccessorFromJSONTyped(json, false);
 }
@@ -106,5 +121,4 @@ export function AccessorToJSON(value?: Accessor | null): any {
         'user': FlattenedUserProfileToJSON(value.user),
     };
 }
-
 

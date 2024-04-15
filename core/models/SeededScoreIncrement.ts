@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededScore,
+} from './EmbeddedModelSchema';
+import type { SeededScore } from './SeededScore';
+import {
     SeededScoreFromJSON,
     SeededScoreFromJSONTyped,
     SeededScoreToJSON,
-} from './';
+} from './SeededScore';
 
 /**
  * This is the body for a respective scores increment,
@@ -182,6 +184,51 @@ export interface SeededScoreIncrement {
      * @memberof SeededScoreIncrement
      */
     tags?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamSummary?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamSummaries?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamEvents?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    workstreamEvent?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    ranges?: SeededScore;
+    /**
+     * 
+     * @type {SeededScore}
+     * @memberof SeededScoreIncrement
+     */
+    range?: SeededScore;
+}
+
+/**
+ * Check if a given object implements the SeededScoreIncrement interface.
+ */
+export function instanceOfSeededScoreIncrement(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededScoreIncrementFromJSON(json: any): SeededScoreIncrement {
@@ -219,6 +266,12 @@ export function SeededScoreIncrementFromJSONTyped(json: any, ignoreDiscriminator
         'persons': !exists(json, 'persons') ? undefined : SeededScoreFromJSON(json['persons']),
         'tag': !exists(json, 'tag') ? undefined : SeededScoreFromJSON(json['tag']),
         'tags': !exists(json, 'tags') ? undefined : SeededScoreFromJSON(json['tags']),
+        'workstreamSummary': !exists(json, 'workstream_summary') ? undefined : SeededScoreFromJSON(json['workstream_summary']),
+        'workstreamSummaries': !exists(json, 'workstream_summaries') ? undefined : SeededScoreFromJSON(json['workstream_summaries']),
+        'workstreamEvents': !exists(json, 'workstream_events') ? undefined : SeededScoreFromJSON(json['workstream_events']),
+        'workstreamEvent': !exists(json, 'workstream_event') ? undefined : SeededScoreFromJSON(json['workstream_event']),
+        'ranges': !exists(json, 'ranges') ? undefined : SeededScoreFromJSON(json['ranges']),
+        'range': !exists(json, 'range') ? undefined : SeededScoreFromJSON(json['range']),
     };
 }
 
@@ -256,7 +309,12 @@ export function SeededScoreIncrementToJSON(value?: SeededScoreIncrement | null):
         'persons': SeededScoreToJSON(value.persons),
         'tag': SeededScoreToJSON(value.tag),
         'tags': SeededScoreToJSON(value.tags),
+        'workstream_summary': SeededScoreToJSON(value.workstreamSummary),
+        'workstream_summaries': SeededScoreToJSON(value.workstreamSummaries),
+        'workstream_events': SeededScoreToJSON(value.workstreamEvents),
+        'workstream_event': SeededScoreToJSON(value.workstreamEvent),
+        'ranges': SeededScoreToJSON(value.ranges),
+        'range': SeededScoreToJSON(value.range),
     };
 }
-
 

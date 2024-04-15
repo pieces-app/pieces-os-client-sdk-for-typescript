@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * These are all of the available event types that are permitted in an object pair notation.
@@ -40,12 +40,23 @@ export interface TrackedAssetsEventIdentifierDescriptionPairs {
     assetsSearched?: TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum {
-    AssetsWereSearched = 'assets_were_searched'
+ * @export
+ */
+export const TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = {
+    AssetsWereSearched: 'assets_were_searched'
+} as const;
+export type TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = typeof TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum[keyof typeof TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum];
+
+
+/**
+ * Check if a given object implements the TrackedAssetsEventIdentifierDescriptionPairs interface.
+ */
+export function instanceOfTrackedAssetsEventIdentifierDescriptionPairs(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetsEventIdentifierDescriptionPairsFromJSON(json: any): TrackedAssetsEventIdentifierDescriptionPairs {
@@ -76,5 +87,4 @@ export function TrackedAssetsEventIdentifierDescriptionPairsToJSON(value?: Track
         'assets_searched': value.assetsSearched,
     };
 }
-
 

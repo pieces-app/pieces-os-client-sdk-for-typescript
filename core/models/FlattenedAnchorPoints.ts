@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAnchorPoint,
+} from './EmbeddedModelSchema';
+import type { ReferencedAnchorPoint } from './ReferencedAnchorPoint';
+import {
     ReferencedAnchorPointFromJSON,
     ReferencedAnchorPointFromJSONTyped,
     ReferencedAnchorPointToJSON,
-    Score,
+} from './ReferencedAnchorPoint';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * 
@@ -58,6 +62,16 @@ export interface FlattenedAnchorPoints {
      * @memberof FlattenedAnchorPoints
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedAnchorPoints interface.
+ */
+export function instanceOfFlattenedAnchorPoints(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedAnchorPointsFromJSON(json: any): FlattenedAnchorPoints {
@@ -92,5 +106,4 @@ export function FlattenedAnchorPointsToJSON(value?: FlattenedAnchorPoints | null
         'score': ScoreToJSON(value.score),
     };
 }
-
 

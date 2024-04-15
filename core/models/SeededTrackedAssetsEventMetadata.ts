@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { TrackedAssetsEventSearchMetadata } from './TrackedAssetsEventSearchMetadata';
 import {
-    TrackedAssetsEventSearchMetadata,
     TrackedAssetsEventSearchMetadataFromJSON,
     TrackedAssetsEventSearchMetadataFromJSONTyped,
     TrackedAssetsEventSearchMetadataToJSON,
-} from './';
+} from './TrackedAssetsEventSearchMetadata';
 
 /**
  * Additional Metadata as Neeeded i.e. Search + Query, etc
@@ -32,6 +32,15 @@ export interface SeededTrackedAssetsEventMetadata {
      * @memberof SeededTrackedAssetsEventMetadata
      */
     search?: TrackedAssetsEventSearchMetadata;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedAssetsEventMetadata interface.
+ */
+export function instanceOfSeededTrackedAssetsEventMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedAssetsEventMetadataFromJSON(json: any): SeededTrackedAssetsEventMetadata {
@@ -60,5 +69,4 @@ export function SeededTrackedAssetsEventMetadataToJSON(value?: SeededTrackedAsse
         'search': TrackedAssetsEventSearchMetadataToJSON(value.search),
     };
 }
-
 

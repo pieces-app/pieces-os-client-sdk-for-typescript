@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    OCRAnalysis,
+} from './EmbeddedModelSchema';
+import type { OCRAnalysis } from './OCRAnalysis';
+import {
     OCRAnalysisFromJSON,
     OCRAnalysisFromJSONTyped,
     OCRAnalysisToJSON,
-} from './';
+} from './OCRAnalysis';
 
 /**
  * This is a model that represents all the information collected during the processing of an image.
@@ -54,6 +56,17 @@ export interface ImageAnalysis {
      * @memberof ImageAnalysis
      */
     ocr?: OCRAnalysis;
+}
+
+/**
+ * Check if a given object implements the ImageAnalysis interface.
+ */
+export function instanceOfImageAnalysis(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "analysis" in value;
+
+    return isInstance;
 }
 
 export function ImageAnalysisFromJSON(json: any): ImageAnalysis {
@@ -88,5 +101,4 @@ export function ImageAnalysisToJSON(value?: ImageAnalysis | null): any {
         'ocr': OCRAnalysisToJSON(value.ocr),
     };
 }
-
 

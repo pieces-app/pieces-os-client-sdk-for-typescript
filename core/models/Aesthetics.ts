@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Font,
+} from './EmbeddedModelSchema';
+import type { Font } from './Font';
+import {
     FontFromJSON,
     FontFromJSONTyped,
     FontToJSON,
-    Theme,
+} from './Font';
+import type { Theme } from './Theme';
+import {
     ThemeFromJSON,
     ThemeFromJSONTyped,
     ThemeToJSON,
-} from './';
+} from './Theme';
 
 /**
  * These are aesthetics properties that will ensure the darkmode + font size and other aesthetics properties persist:)
@@ -52,6 +56,17 @@ export interface Aesthetics {
      * @memberof Aesthetics
      */
     font: Font;
+}
+
+/**
+ * Check if a given object implements the Aesthetics interface.
+ */
+export function instanceOfAesthetics(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "theme" in value;
+    isInstance = isInstance && "font" in value;
+
+    return isInstance;
 }
 
 export function AestheticsFromJSON(json: any): Aesthetics {
@@ -84,5 +99,4 @@ export function AestheticsToJSON(value?: Aesthetics | null): any {
         'font': FontToJSON(value.font),
     };
 }
-
 

@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
-    ClassificationGenericEnum,
     ClassificationGenericEnumFromJSON,
     ClassificationGenericEnumFromJSONTyped,
     ClassificationGenericEnumToJSON,
-    ClassificationSpecificEnum,
+} from './ClassificationGenericEnum';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * FormatMetric
@@ -62,6 +66,18 @@ export interface FormatMetric {
     identifiers: Array<string>;
 }
 
+/**
+ * Check if a given object implements the FormatMetric interface.
+ */
+export function instanceOfFormatMetric(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "generic" in value;
+    isInstance = isInstance && "specific" in value;
+    isInstance = isInstance && "identifiers" in value;
+
+    return isInstance;
+}
+
 export function FormatMetricFromJSON(json: any): FormatMetric {
     return FormatMetricFromJSONTyped(json, false);
 }
@@ -94,5 +110,4 @@ export function FormatMetricToJSON(value?: FormatMetric | null): any {
         'identifiers': value.identifiers,
     };
 }
-
 

@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
-    ClassificationGenericEnum,
     ClassificationGenericEnumFromJSON,
     ClassificationGenericEnumFromJSONTyped,
     ClassificationGenericEnumToJSON,
-    ClassificationRenderingEnum,
+} from './ClassificationGenericEnum';
+import type { ClassificationRenderingEnum } from './ClassificationRenderingEnum';
+import {
     ClassificationRenderingEnumFromJSON,
     ClassificationRenderingEnumFromJSONTyped,
     ClassificationRenderingEnumToJSON,
-    ClassificationSpecificEnum,
+} from './ClassificationRenderingEnum';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the specific classification of an Asset's Format.(This is on a per format basis b/c an asset could have different formats that are different format representations of the Asset.)
@@ -62,6 +68,15 @@ export interface SeededClassification {
      * @memberof SeededClassification
      */
     rendering?: ClassificationRenderingEnum;
+}
+
+/**
+ * Check if a given object implements the SeededClassification interface.
+ */
+export function instanceOfSeededClassification(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededClassificationFromJSON(json: any): SeededClassification {
@@ -96,5 +111,4 @@ export function SeededClassificationToJSON(value?: SeededClassification | null):
         'rendering': ClassificationRenderingEnumToJSON(value.rendering),
     };
 }
-
 

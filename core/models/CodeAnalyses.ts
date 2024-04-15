@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { CodeAnalysis } from './CodeAnalysis';
 import {
-    CodeAnalysis,
     CodeAnalysisFromJSON,
     CodeAnalysisFromJSONTyped,
     CodeAnalysisToJSON,
-    EmbeddedModelSchema,
+} from './CodeAnalysis';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface CodeAnalyses {
      * @memberof CodeAnalyses
      */
     iterable: Array<CodeAnalysis>;
+}
+
+/**
+ * Check if a given object implements the CodeAnalyses interface.
+ */
+export function instanceOfCodeAnalyses(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function CodeAnalysesFromJSON(json: any): CodeAnalyses {
@@ -72,5 +84,4 @@ export function CodeAnalysesToJSON(value?: CodeAnalyses | null): any {
         'iterable': ((value.iterable as Array<any>).map(CodeAnalysisToJSON)),
     };
 }
-
 

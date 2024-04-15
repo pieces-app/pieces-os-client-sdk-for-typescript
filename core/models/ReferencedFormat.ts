@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedFormat,
+} from './EmbeddedModelSchema';
+import type { FlattenedFormat } from './FlattenedFormat';
+import {
     FlattenedFormatFromJSON,
     FlattenedFormatFromJSONTyped,
     FlattenedFormatToJSON,
-} from './';
+} from './FlattenedFormat';
 
 /**
  * A reference to a format which at minimum must have the format's id. But in the case of a hydrated client API it may have a populated reference of type Format.
@@ -48,6 +50,16 @@ export interface ReferencedFormat {
      * @memberof ReferencedFormat
      */
     reference?: FlattenedFormat;
+}
+
+/**
+ * Check if a given object implements the ReferencedFormat interface.
+ */
+export function instanceOfReferencedFormat(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedFormatFromJSON(json: any): ReferencedFormat {
@@ -80,5 +92,4 @@ export function ReferencedFormatToJSON(value?: ReferencedFormat | null): any {
         'reference': FlattenedFormatToJSON(value.reference),
     };
 }
-
 

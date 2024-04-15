@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { CodeAnalysis } from './CodeAnalysis';
 import {
-    CodeAnalysis,
     CodeAnalysisFromJSON,
     CodeAnalysisFromJSONTyped,
     CodeAnalysisToJSON,
-    EmbeddedModelSchema,
+} from './CodeAnalysis';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedImageAnalysis,
+} from './EmbeddedModelSchema';
+import type { FlattenedImageAnalysis } from './FlattenedImageAnalysis';
+import {
     FlattenedImageAnalysisFromJSON,
     FlattenedImageAnalysisFromJSONTyped,
     FlattenedImageAnalysisToJSON,
-} from './';
+} from './FlattenedImageAnalysis';
 
 /**
  * 
@@ -66,6 +70,17 @@ export interface FlattenedAnalysis {
     image?: FlattenedImageAnalysis;
 }
 
+/**
+ * Check if a given object implements the FlattenedAnalysis interface.
+ */
+export function instanceOfFlattenedAnalysis(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
+}
+
 export function FlattenedAnalysisFromJSON(json: any): FlattenedAnalysis {
     return FlattenedAnalysisFromJSONTyped(json, false);
 }
@@ -100,5 +115,4 @@ export function FlattenedAnalysisToJSON(value?: FlattenedAnalysis | null): any {
         'image': FlattenedImageAnalysisToJSON(value.image),
     };
 }
-
 

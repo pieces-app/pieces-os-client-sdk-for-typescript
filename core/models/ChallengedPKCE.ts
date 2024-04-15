@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A model that Generates A PKCE Challenge Object with the needed requirements.
@@ -64,12 +64,28 @@ export interface ChallengedPKCE {
     verifier: string;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum ChallengedPKCEMethodEnum {
-    S256 = 'S256'
+ * @export
+ */
+export const ChallengedPKCEMethodEnum = {
+    S256: 'S256'
+} as const;
+export type ChallengedPKCEMethodEnum = typeof ChallengedPKCEMethodEnum[keyof typeof ChallengedPKCEMethodEnum];
+
+
+/**
+ * Check if a given object implements the ChallengedPKCE interface.
+ */
+export function instanceOfChallengedPKCE(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "state" in value;
+    isInstance = isInstance && "nonce" in value;
+    isInstance = isInstance && "challenge" in value;
+    isInstance = isInstance && "method" in value;
+    isInstance = isInstance && "verifier" in value;
+
+    return isInstance;
 }
 
 export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
@@ -108,5 +124,4 @@ export function ChallengedPKCEToJSON(value?: ChallengedPKCE | null): any {
         'verifier': value.verifier,
     };
 }
-
 

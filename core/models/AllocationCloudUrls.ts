@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AllocationCloudUrl } from './AllocationCloudUrl';
 import {
-    AllocationCloudUrl,
     AllocationCloudUrlFromJSON,
     AllocationCloudUrlFromJSONTyped,
     AllocationCloudUrlToJSON,
-    EmbeddedModelSchema,
+} from './AllocationCloudUrl';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * you will have at minimum 2 urls,
@@ -62,6 +64,17 @@ export interface AllocationCloudUrls {
     vanity?: AllocationCloudUrl;
 }
 
+/**
+ * Check if a given object implements the AllocationCloudUrls interface.
+ */
+export function instanceOfAllocationCloudUrls(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "base" in value;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
+}
+
 export function AllocationCloudUrlsFromJSON(json: any): AllocationCloudUrls {
     return AllocationCloudUrlsFromJSONTyped(json, false);
 }
@@ -94,5 +107,4 @@ export function AllocationCloudUrlsToJSON(value?: AllocationCloudUrls | null): a
         'vanity': AllocationCloudUrlToJSON(value.vanity),
     };
 }
-
 

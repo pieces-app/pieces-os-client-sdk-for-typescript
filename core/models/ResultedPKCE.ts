@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A Model To Represent the Code Returned from a PKCE Response
@@ -44,6 +44,17 @@ export interface ResultedPKCE {
      * @memberof ResultedPKCE
      */
     state: string;
+}
+
+/**
+ * Check if a given object implements the ResultedPKCE interface.
+ */
+export function instanceOfResultedPKCE(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "code" in value;
+    isInstance = isInstance && "state" in value;
+
+    return isInstance;
 }
 
 export function ResultedPKCEFromJSON(json: any): ResultedPKCE {
@@ -76,5 +87,4 @@ export function ResultedPKCEToJSON(value?: ResultedPKCE | null): any {
         'state': value.state,
     };
 }
-
 

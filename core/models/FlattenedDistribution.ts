@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GitHubDistribution,
+} from './EmbeddedModelSchema';
+import type { GitHubDistribution } from './GitHubDistribution';
+import {
     GitHubDistributionFromJSON,
     GitHubDistributionFromJSONTyped,
     GitHubDistributionToJSON,
-    GroupedTimestamp,
+} from './GitHubDistribution';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MailgunDistribution,
+} from './GroupedTimestamp';
+import type { MailgunDistribution } from './MailgunDistribution';
+import {
     MailgunDistributionFromJSON,
     MailgunDistributionFromJSONTyped,
     MailgunDistributionToJSON,
-} from './';
+} from './MailgunDistribution';
 
 /**
  * 
@@ -88,6 +94,19 @@ export interface FlattenedDistribution {
     github?: GitHubDistribution;
 }
 
+/**
+ * Check if a given object implements the FlattenedDistribution interface.
+ */
+export function instanceOfFlattenedDistribution(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "share" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+
+    return isInstance;
+}
+
 export function FlattenedDistributionFromJSON(json: any): FlattenedDistribution {
     return FlattenedDistributionFromJSONTyped(json, false);
 }
@@ -128,5 +147,4 @@ export function FlattenedDistributionToJSON(value?: FlattenedDistribution | null
         'github': GitHubDistributionToJSON(value.github),
     };
 }
-
 

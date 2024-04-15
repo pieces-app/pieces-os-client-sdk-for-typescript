@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will describe the MaxTokens for an MLModel
@@ -56,6 +56,16 @@ export interface ModelMaxTokens {
     output?: number | null;
 }
 
+/**
+ * Check if a given object implements the ModelMaxTokens interface.
+ */
+export function instanceOfModelMaxTokens(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "total" in value;
+
+    return isInstance;
+}
+
 export function ModelMaxTokensFromJSON(json: any): ModelMaxTokens {
     return ModelMaxTokensFromJSONTyped(json, false);
 }
@@ -88,5 +98,4 @@ export function ModelMaxTokensToJSON(value?: ModelMaxTokens | null): any {
         'output': value.output,
     };
 }
-
 

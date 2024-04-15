@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Asset,
+  SeededMacOSAsset,
+} from '../models/index';
 import {
-    Asset,
     AssetFromJSON,
     AssetToJSON,
-    SeededMacOSAsset,
     SeededMacOSAssetFromJSON,
     SeededMacOSAssetToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AssetsCreateNewAssetFromMacosRequest {
     seededMacOSAsset?: SeededMacOSAsset;
@@ -36,7 +38,7 @@ export class MacOSApi extends runtime.BaseAPI {
      * Exposes an endpoint for the MacOS Services plugin to send over MacOS Specific Data
      * /macos/assets/create [Post]
      */
-    async assetsCreateNewAssetFromMacosRaw(requestParameters: AssetsCreateNewAssetFromMacosRequest): Promise<runtime.ApiResponse<Asset>> {
+    async assetsCreateNewAssetFromMacosRaw(requestParameters: AssetsCreateNewAssetFromMacosRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -49,7 +51,7 @@ export class MacOSApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededMacOSAssetToJSON(requestParameters.seededMacOSAsset),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
     }
@@ -58,8 +60,8 @@ export class MacOSApi extends runtime.BaseAPI {
      * Exposes an endpoint for the MacOS Services plugin to send over MacOS Specific Data
      * /macos/assets/create [Post]
      */
-    async assetsCreateNewAssetFromMacos(requestParameters: AssetsCreateNewAssetFromMacosRequest): Promise<Asset> {
-        const response = await this.assetsCreateNewAssetFromMacosRaw(requestParameters);
+    async assetsCreateNewAssetFromMacos(requestParameters: AssetsCreateNewAssetFromMacosRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Asset> {
+        const response = await this.assetsCreateNewAssetFromMacosRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

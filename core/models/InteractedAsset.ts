@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { InteractedAssetInteractions } from './InteractedAssetInteractions';
 import {
-    InteractedAssetInteractions,
     InteractedAssetInteractionsFromJSON,
     InteractedAssetInteractionsFromJSONTyped,
     InteractedAssetInteractionsToJSON,
-} from './';
+} from './InteractedAssetInteractions';
 
 /**
  * A model that represents an asset that has been interacted with. 
@@ -38,6 +38,15 @@ export interface InteractedAsset {
      * @memberof InteractedAsset
      */
     interactions?: InteractedAssetInteractions;
+}
+
+/**
+ * Check if a given object implements the InteractedAsset interface.
+ */
+export function instanceOfInteractedAsset(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function InteractedAssetFromJSON(json: any): InteractedAsset {
@@ -68,5 +77,4 @@ export function InteractedAssetToJSON(value?: InteractedAsset | null): any {
         'interactions': InteractedAssetInteractionsToJSON(value.interactions),
     };
 }
-
 

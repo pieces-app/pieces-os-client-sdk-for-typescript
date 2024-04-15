@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SeededScoreIncrement,
+  Website,
+} from '../models/index';
 import {
-    SeededScoreIncrement,
     SeededScoreIncrementFromJSON,
     SeededScoreIncrementToJSON,
-    Website,
     WebsiteFromJSON,
     WebsiteToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface WebsiteAssociateAssetRequest {
     asset: string;
@@ -38,6 +40,11 @@ export interface WebsiteAssociatePersonRequest {
     person: string;
 }
 
+export interface WebsiteAssociateWorkstreamSummaryRequest {
+    website: string;
+    workstreamSummary: string;
+}
+
 export interface WebsiteDisassociateAssetRequest {
     website: string;
     asset: string;
@@ -51,6 +58,11 @@ export interface WebsiteDisassociateConversationRequest {
 export interface WebsiteDisassociatePersonRequest {
     website: string;
     person: string;
+}
+
+export interface WebsiteDisassociateWorkstreamSummaryRequest {
+    website: string;
+    workstreamSummary: string;
 }
 
 export interface WebsiteScoresIncrementRequest {
@@ -77,7 +89,7 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will associate a website with a asset.
      * /website/{website}/assets/associate/{asset} [POST]
      */
-    async websiteAssociateAssetRaw(requestParameters: WebsiteAssociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteAssociateAssetRaw(requestParameters: WebsiteAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
             throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling websiteAssociateAsset.');
         }
@@ -95,7 +107,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -104,15 +116,15 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will associate a website with a asset.
      * /website/{website}/assets/associate/{asset} [POST]
      */
-    async websiteAssociateAsset(requestParameters: WebsiteAssociateAssetRequest): Promise<void> {
-        await this.websiteAssociateAssetRaw(requestParameters);
+    async websiteAssociateAsset(requestParameters: WebsiteAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateAssetRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will associate a website with a conversation.
      * /website/{website}/conversations/associate/{conversation} [POST]
      */
-    async websiteAssociateConversationRaw(requestParameters: WebsiteAssociateConversationRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteAssociateConversationRaw(requestParameters: WebsiteAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
             throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateConversation.');
         }
@@ -130,7 +142,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -139,15 +151,15 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will associate a website with a conversation.
      * /website/{website}/conversations/associate/{conversation} [POST]
      */
-    async websiteAssociateConversation(requestParameters: WebsiteAssociateConversationRequest): Promise<void> {
-        await this.websiteAssociateConversationRaw(requestParameters);
+    async websiteAssociateConversation(requestParameters: WebsiteAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateConversationRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will associate a website with a person.
      * /website/{website}/persons/associate/{person} [POST]
      */
-    async websiteAssociatePersonRaw(requestParameters: WebsiteAssociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteAssociatePersonRaw(requestParameters: WebsiteAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
             throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociatePerson.');
         }
@@ -165,7 +177,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -174,15 +186,50 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will associate a website with a person.
      * /website/{website}/persons/associate/{person} [POST]
      */
-    async websiteAssociatePerson(requestParameters: WebsiteAssociatePersonRequest): Promise<void> {
-        await this.websiteAssociatePersonRaw(requestParameters);
+    async websiteAssociatePerson(requestParameters: WebsiteAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociatePersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a website with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /website/{website}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async websiteAssociateWorkstreamSummaryRaw(requestParameters: WebsiteAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateWorkstreamSummary.');
+        }
+
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling websiteAssociateWorkstreamSummary.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a website with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /website/{website}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async websiteAssociateWorkstreamSummary(requestParameters: WebsiteAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateWorkstreamSummaryRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will enable us to dissassociate a website from a asset.
      * /website/{website}/assets/disassociate/{asset} [POST]
      */
-    async websiteDisassociateAssetRaw(requestParameters: WebsiteDisassociateAssetRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteDisassociateAssetRaw(requestParameters: WebsiteDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
             throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateAsset.');
         }
@@ -200,7 +247,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -209,15 +256,15 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a website from a asset.
      * /website/{website}/assets/disassociate/{asset} [POST]
      */
-    async websiteDisassociateAsset(requestParameters: WebsiteDisassociateAssetRequest): Promise<void> {
-        await this.websiteDisassociateAssetRaw(requestParameters);
+    async websiteDisassociateAsset(requestParameters: WebsiteDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateAssetRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will enable us to dissassociate a website from a conversation.
      * /website/{website}/conversations/disassociate/{conversation} [POST]
      */
-    async websiteDisassociateConversationRaw(requestParameters: WebsiteDisassociateConversationRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteDisassociateConversationRaw(requestParameters: WebsiteDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
             throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateConversation.');
         }
@@ -235,7 +282,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -244,15 +291,15 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a website from a conversation.
      * /website/{website}/conversations/disassociate/{conversation} [POST]
      */
-    async websiteDisassociateConversation(requestParameters: WebsiteDisassociateConversationRequest): Promise<void> {
-        await this.websiteDisassociateConversationRaw(requestParameters);
+    async websiteDisassociateConversation(requestParameters: WebsiteDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateConversationRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will enable us to dissassociate a website from a person.
      * /website/{website}/persons/disassociate/{person} [POST]
      */
-    async websiteDisassociatePersonRaw(requestParameters: WebsiteDisassociatePersonRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteDisassociatePersonRaw(requestParameters: WebsiteDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
             throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociatePerson.');
         }
@@ -270,7 +317,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -279,15 +326,50 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will enable us to dissassociate a website from a person.
      * /website/{website}/persons/disassociate/{person} [POST]
      */
-    async websiteDisassociatePerson(requestParameters: WebsiteDisassociatePersonRequest): Promise<void> {
-        await this.websiteDisassociatePersonRaw(requestParameters);
+    async websiteDisassociatePerson(requestParameters: WebsiteDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociatePersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /website/{website}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async websiteDisassociateWorkstreamSummaryRaw(requestParameters: WebsiteDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateWorkstreamSummary.');
+        }
+
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling websiteDisassociateWorkstreamSummary.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /website/{website}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async websiteDisassociateWorkstreamSummary(requestParameters: WebsiteDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateWorkstreamSummaryRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/website/{website}/scores/increment\' [POST]
      */
-    async websiteScoresIncrementRaw(requestParameters: WebsiteScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+    async websiteScoresIncrementRaw(requestParameters: WebsiteScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
             throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteScoresIncrement.');
         }
@@ -304,7 +386,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -313,15 +395,15 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/website/{website}/scores/increment\' [POST]
      */
-    async websiteScoresIncrement(requestParameters: WebsiteScoresIncrementRequest): Promise<void> {
-        await this.websiteScoresIncrementRaw(requestParameters);
+    async websiteScoresIncrement(requestParameters: WebsiteScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will update a specific website.
      * /website/update [POST]
      */
-    async websiteUpdateRaw(requestParameters: WebsiteUpdateRequest): Promise<runtime.ApiResponse<Website>> {
+    async websiteUpdateRaw(requestParameters: WebsiteUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -338,7 +420,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: WebsiteToJSON(requestParameters.website),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsiteFromJSON(jsonValue));
     }
@@ -347,8 +429,8 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will update a specific website.
      * /website/update [POST]
      */
-    async websiteUpdate(requestParameters: WebsiteUpdateRequest): Promise<Website> {
-        const response = await this.websiteUpdateRaw(requestParameters);
+    async websiteUpdate(requestParameters: WebsiteUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Website> {
+        const response = await this.websiteUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -356,7 +438,7 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will get a snapshot of a single website.
      * /website/{website} [GET]
      */
-    async websitesSpecificWebsiteSnapshotRaw(requestParameters: WebsitesSpecificWebsiteSnapshotRequest): Promise<runtime.ApiResponse<Website>> {
+    async websitesSpecificWebsiteSnapshotRaw(requestParameters: WebsitesSpecificWebsiteSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
         if (requestParameters.website === null || requestParameters.website === undefined) {
             throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websitesSpecificWebsiteSnapshot.');
         }
@@ -374,7 +456,7 @@ export class WebsiteApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsiteFromJSON(jsonValue));
     }
@@ -383,8 +465,8 @@ export class WebsiteApi extends runtime.BaseAPI {
      * This will get a snapshot of a single website.
      * /website/{website} [GET]
      */
-    async websitesSpecificWebsiteSnapshot(requestParameters: WebsitesSpecificWebsiteSnapshotRequest): Promise<Website> {
-        const response = await this.websitesSpecificWebsiteSnapshotRaw(requestParameters);
+    async websitesSpecificWebsiteSnapshot(requestParameters: WebsitesSpecificWebsiteSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Website> {
+        const response = await this.websitesSpecificWebsiteSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

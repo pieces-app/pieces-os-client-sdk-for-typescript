@@ -14,20 +14,22 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  OnboardedPersonaDetails,
+  PreonboardedPersonaDetails,
+  SegmentedTechnicalLanguage,
+  UnsegmentedTechnicalLanguage,
+} from '../models/index';
 import {
-    OnboardedPersonaDetails,
     OnboardedPersonaDetailsFromJSON,
     OnboardedPersonaDetailsToJSON,
-    PreonboardedPersonaDetails,
     PreonboardedPersonaDetailsFromJSON,
     PreonboardedPersonaDetailsToJSON,
-    SegmentedTechnicalLanguage,
     SegmentedTechnicalLanguageFromJSON,
     SegmentedTechnicalLanguageToJSON,
-    UnsegmentedTechnicalLanguage,
     UnsegmentedTechnicalLanguageFromJSON,
     UnsegmentedTechnicalLanguageToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface PersonificationTechnicalLanguageGenerationRequest {
     preonboardedPersonaDetails?: PreonboardedPersonaDetails;
@@ -47,7 +49,7 @@ export class MachineLearningApi extends runtime.BaseAPI {
      * This is going to take in some personification details ie languages & personas.  and will return generated Seeds that can be used as snippets post/pre onboarding.
      * /machine_learning/text/technical_language/generators/personification [GET]
      */
-    async personificationTechnicalLanguageGenerationRaw(requestParameters: PersonificationTechnicalLanguageGenerationRequest): Promise<runtime.ApiResponse<OnboardedPersonaDetails>> {
+    async personificationTechnicalLanguageGenerationRaw(requestParameters: PersonificationTechnicalLanguageGenerationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OnboardedPersonaDetails>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -60,7 +62,7 @@ export class MachineLearningApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: PreonboardedPersonaDetailsToJSON(requestParameters.preonboardedPersonaDetails),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OnboardedPersonaDetailsFromJSON(jsonValue));
     }
@@ -69,8 +71,8 @@ export class MachineLearningApi extends runtime.BaseAPI {
      * This is going to take in some personification details ie languages & personas.  and will return generated Seeds that can be used as snippets post/pre onboarding.
      * /machine_learning/text/technical_language/generators/personification [GET]
      */
-    async personificationTechnicalLanguageGeneration(requestParameters: PersonificationTechnicalLanguageGenerationRequest): Promise<OnboardedPersonaDetails> {
-        const response = await this.personificationTechnicalLanguageGenerationRaw(requestParameters);
+    async personificationTechnicalLanguageGeneration(requestParameters: PersonificationTechnicalLanguageGenerationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OnboardedPersonaDetails> {
+        const response = await this.personificationTechnicalLanguageGenerationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -78,7 +80,7 @@ export class MachineLearningApi extends runtime.BaseAPI {
      * This is a functional endpoint that will parse a message or text in to text or code.  if the optional query param is passed along \'classify\' then we will optionally classify the just the code that is segmented.
      * /machine_learning/text/technical_language/parsers/segmentation [POST]
      */
-    async segmentTechnicalLanguageRaw(requestParameters: SegmentTechnicalLanguageRequest): Promise<runtime.ApiResponse<SegmentedTechnicalLanguage>> {
+    async segmentTechnicalLanguageRaw(requestParameters: SegmentTechnicalLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SegmentedTechnicalLanguage>> {
         const queryParameters: any = {};
 
         if (requestParameters.classify !== undefined) {
@@ -95,7 +97,7 @@ export class MachineLearningApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: UnsegmentedTechnicalLanguageToJSON(requestParameters.unsegmentedTechnicalLanguage),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SegmentedTechnicalLanguageFromJSON(jsonValue));
     }
@@ -104,8 +106,8 @@ export class MachineLearningApi extends runtime.BaseAPI {
      * This is a functional endpoint that will parse a message or text in to text or code.  if the optional query param is passed along \'classify\' then we will optionally classify the just the code that is segmented.
      * /machine_learning/text/technical_language/parsers/segmentation [POST]
      */
-    async segmentTechnicalLanguage(requestParameters: SegmentTechnicalLanguageRequest): Promise<SegmentedTechnicalLanguage> {
-        const response = await this.segmentTechnicalLanguageRaw(requestParameters);
+    async segmentTechnicalLanguage(requestParameters: SegmentTechnicalLanguageRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SegmentedTechnicalLanguage> {
+        const response = await this.segmentTechnicalLanguageRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

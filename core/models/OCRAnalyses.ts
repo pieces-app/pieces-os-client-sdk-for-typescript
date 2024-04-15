@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    OCRAnalysis,
+} from './EmbeddedModelSchema';
+import type { OCRAnalysis } from './OCRAnalysis';
+import {
     OCRAnalysisFromJSON,
     OCRAnalysisFromJSONTyped,
     OCRAnalysisToJSON,
-} from './';
+} from './OCRAnalysis';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface OCRAnalyses {
      * @memberof OCRAnalyses
      */
     iterable: Array<OCRAnalysis>;
+}
+
+/**
+ * Check if a given object implements the OCRAnalyses interface.
+ */
+export function instanceOfOCRAnalyses(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function OCRAnalysesFromJSON(json: any): OCRAnalyses {
@@ -72,5 +84,4 @@ export function OCRAnalysesToJSON(value?: OCRAnalyses | null): any {
         'iterable': ((value.iterable as Array<any>).map(OCRAnalysisToJSON)),
     };
 }
-
 

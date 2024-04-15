@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedSensitive,
+} from './EmbeddedModelSchema';
+import type { ReferencedSensitive } from './ReferencedSensitive';
+import {
     ReferencedSensitiveFromJSON,
     ReferencedSensitiveFromJSONTyped,
     ReferencedSensitiveToJSON,
-    Score,
+} from './ReferencedSensitive';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a flattened representation of multiple sensitive pieces of data.
@@ -52,6 +56,16 @@ export interface FlattenedSensitives {
      * @memberof FlattenedSensitives
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedSensitives interface.
+ */
+export function instanceOfFlattenedSensitives(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedSensitivesFromJSON(json: any): FlattenedSensitives {
@@ -84,5 +98,4 @@ export function FlattenedSensitivesToJSON(value?: FlattenedSensitives | null): a
         'score': ScoreToJSON(value.score),
     };
 }
-
 

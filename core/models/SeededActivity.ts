@@ -13,36 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    MechanismEnum,
+} from './Application';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
+} from './MechanismEnum';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedConversation,
+} from './ReferencedAsset';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    ReferencedFormat,
+} from './ReferencedConversation';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-    ReferencedUser,
+} from './ReferencedFormat';
+import type { ReferencedUser } from './ReferencedUser';
+import {
     ReferencedUserFromJSON,
     ReferencedUserFromJSONTyped,
     ReferencedUserToJSON,
-    SeededConnectorTracking,
+} from './ReferencedUser';
+import type { SeededConnectorTracking } from './SeededConnectorTracking';
+import {
     SeededConnectorTrackingFromJSON,
     SeededConnectorTrackingFromJSONTyped,
     SeededConnectorTrackingToJSON,
-} from './';
+} from './SeededConnectorTracking';
 
 /**
  * This is the preseed to a full blown Activity.
@@ -100,6 +112,17 @@ export interface SeededActivity {
     conversation?: ReferencedConversation;
 }
 
+/**
+ * Check if a given object implements the SeededActivity interface.
+ */
+export function instanceOfSeededActivity(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "event" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
+}
+
 export function SeededActivityFromJSON(json: any): SeededActivity {
     return SeededActivityFromJSONTyped(json, false);
 }
@@ -138,5 +161,4 @@ export function SeededActivityToJSON(value?: SeededActivity | null): any {
         'conversation': ReferencedConversationToJSON(value.conversation),
     };
 }
-
 

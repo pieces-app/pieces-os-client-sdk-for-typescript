@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Asset } from './Asset';
 import {
-    Asset,
     AssetFromJSON,
     AssetFromJSONTyped,
     AssetToJSON,
-    ClassificationSpecificEnum,
+} from './Asset';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a model that will represent the miminum properties required to update the classification of this asset.
@@ -52,6 +56,17 @@ export interface AssetReclassification {
      * @memberof AssetReclassification
      */
     asset: Asset;
+}
+
+/**
+ * Check if a given object implements the AssetReclassification interface.
+ */
+export function instanceOfAssetReclassification(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "ext" in value;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
 }
 
 export function AssetReclassificationFromJSON(json: any): AssetReclassification {
@@ -84,5 +99,4 @@ export function AssetReclassificationToJSON(value?: AssetReclassification | null
         'asset': AssetToJSON(value.asset),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AssetFilterPhraseOptions } from './AssetFilterPhraseOptions';
 import {
-    AssetFilterPhraseOptions,
     AssetFilterPhraseOptionsFromJSON,
     AssetFilterPhraseOptionsFromJSONTyped,
     AssetFilterPhraseOptionsToJSON,
-    EmbeddedModelSchema,
+} from './AssetFilterPhraseOptions';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -68,6 +70,15 @@ export interface AssetFilterPhrase {
     options?: AssetFilterPhraseOptions;
 }
 
+/**
+ * Check if a given object implements the AssetFilterPhrase interface.
+ */
+export function instanceOfAssetFilterPhrase(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function AssetFilterPhraseFromJSON(json: any): AssetFilterPhrase {
     return AssetFilterPhraseFromJSONTyped(json, false);
 }
@@ -104,5 +115,4 @@ export function AssetFilterPhraseToJSON(value?: AssetFilterPhrase | null): any {
         'options': AssetFilterPhraseOptionsToJSON(value.options),
     };
 }
-
 

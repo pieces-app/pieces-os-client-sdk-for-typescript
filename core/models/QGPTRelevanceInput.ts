@@ -13,28 +13,42 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedConversationMessages,
+} from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-    QGPTRelevanceInputOptions,
+} from './FlattenedConversationMessages';
+import type { QGPTRelevanceInputOptions } from './QGPTRelevanceInputOptions';
+import {
     QGPTRelevanceInputOptionsFromJSON,
     QGPTRelevanceInputOptionsFromJSONTyped,
     QGPTRelevanceInputOptionsToJSON,
-    Seeds,
+} from './QGPTRelevanceInputOptions';
+import type { Seeds } from './Seeds';
+import {
     SeedsFromJSON,
     SeedsFromJSONTyped,
     SeedsToJSON,
-} from './';
+} from './Seeds';
+import type { TemporalRangeGrounding } from './TemporalRangeGrounding';
+import {
+    TemporalRangeGroundingFromJSON,
+    TemporalRangeGroundingFromJSONTyped,
+    TemporalRangeGroundingToJSON,
+} from './TemporalRangeGrounding';
 
 /**
  * This is the input body for the /code_gpt/relevance endpoint.
@@ -108,6 +122,22 @@ export interface QGPTRelevanceInput {
      * @memberof QGPTRelevanceInput
      */
     model?: string;
+    /**
+     * 
+     * @type {TemporalRangeGrounding}
+     * @memberof QGPTRelevanceInput
+     */
+    temporal?: TemporalRangeGrounding;
+}
+
+/**
+ * Check if a given object implements the QGPTRelevanceInput interface.
+ */
+export function instanceOfQGPTRelevanceInput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "query" in value;
+
+    return isInstance;
 }
 
 export function QGPTRelevanceInputFromJSON(json: any): QGPTRelevanceInput {
@@ -129,6 +159,7 @@ export function QGPTRelevanceInputFromJSONTyped(json: any, ignoreDiscriminator: 
         'options': !exists(json, 'options') ? undefined : QGPTRelevanceInputOptionsFromJSON(json['options']),
         'application': !exists(json, 'application') ? undefined : json['application'],
         'model': !exists(json, 'model') ? undefined : json['model'],
+        'temporal': !exists(json, 'temporal') ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
     };
 }
 
@@ -150,7 +181,7 @@ export function QGPTRelevanceInputToJSON(value?: QGPTRelevanceInput | null): any
         'options': QGPTRelevanceInputOptionsToJSON(value.options),
         'application': value.application,
         'model': value.model,
+        'temporal': TemporalRangeGroundingToJSON(value.temporal),
     };
 }
-
 

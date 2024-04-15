@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Notification,
+} from '../models/index';
 import {
-    Notification,
     NotificationFromJSON,
     NotificationToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface SendLocalNotificationRequest {
     notification?: Notification;
@@ -30,10 +32,10 @@ export interface SendLocalNotificationRequest {
 export class NotificationsApi extends runtime.BaseAPI {
 
     /**
-     * This one is to universaly send notifications from any member of the system
+     * Retrieves a snapshot of all available models.
      * Send notification
      */
-    async sendLocalNotificationRaw(requestParameters: SendLocalNotificationRequest): Promise<runtime.ApiResponse<void>> {
+    async sendLocalNotificationRaw(requestParameters: SendLocalNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -46,17 +48,17 @@ export class NotificationsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: NotificationToJSON(requestParameters.notification),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
 
     /**
-     * This one is to universaly send notifications from any member of the system
+     * Retrieves a snapshot of all available models.
      * Send notification
      */
-    async sendLocalNotification(requestParameters: SendLocalNotificationRequest): Promise<void> {
-        await this.sendLocalNotificationRaw(requestParameters);
+    async sendLocalNotification(requestParameters: SendLocalNotificationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.sendLocalNotificationRaw(requestParameters, initOverrides);
     }
 
 }

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAsset,
+} from './EmbeddedModelSchema';
+import type { FlattenedAsset } from './FlattenedAsset';
+import {
     FlattenedAssetFromJSON,
     FlattenedAssetFromJSONTyped,
     FlattenedAssetToJSON,
-} from './';
+} from './FlattenedAsset';
 
 /**
  * A reference to a asset, which at minimum must have the asset's id. But in the case of a hydrated client API it may have a populated reference of type Asset.
@@ -48,6 +50,16 @@ export interface ReferencedAsset {
      * @memberof ReferencedAsset
      */
     reference?: FlattenedAsset;
+}
+
+/**
+ * Check if a given object implements the ReferencedAsset interface.
+ */
+export function instanceOfReferencedAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedAssetFromJSON(json: any): ReferencedAsset {
@@ -80,5 +92,4 @@ export function ReferencedAssetToJSON(value?: ReferencedAsset | null): any {
         'reference': FlattenedAssetToJSON(value.reference),
     };
 }
-
 

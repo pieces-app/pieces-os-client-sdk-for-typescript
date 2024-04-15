@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  ImageAnalyses,
+} from '../models/index';
 import {
-    ImageAnalyses,
     ImageAnalysesFromJSON,
     ImageAnalysesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ImageAnalysesSnapshotRequest {
     transferables?: boolean;
@@ -33,7 +35,7 @@ export class ImageAnalysesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your code analyses, a code analysis is attached to an image analysis.
      * Your GET endpoint
      */
-    async imageAnalysesSnapshotRaw(requestParameters: ImageAnalysesSnapshotRequest): Promise<runtime.ApiResponse<ImageAnalyses>> {
+    async imageAnalysesSnapshotRaw(requestParameters: ImageAnalysesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ImageAnalyses>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -47,7 +49,7 @@ export class ImageAnalysesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ImageAnalysesFromJSON(jsonValue));
     }
@@ -56,8 +58,8 @@ export class ImageAnalysesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your code analyses, a code analysis is attached to an image analysis.
      * Your GET endpoint
      */
-    async imageAnalysesSnapshot(requestParameters: ImageAnalysesSnapshotRequest): Promise<ImageAnalyses> {
-        const response = await this.imageAnalysesSnapshotRaw(requestParameters);
+    async imageAnalysesSnapshot(requestParameters: ImageAnalysesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ImageAnalyses> {
+        const response = await this.imageAnalysesSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

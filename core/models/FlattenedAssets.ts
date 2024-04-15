@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAsset,
+} from './EmbeddedModelSchema';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    Score,
+} from './ReferencedAsset';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * A collection of Assets specific to the authenticated user. [DAG Compatible - Directed Acyclic Graph Data Structure]
@@ -64,6 +68,15 @@ export interface FlattenedAssets {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedAssets interface.
+ */
+export function instanceOfFlattenedAssets(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function FlattenedAssetsFromJSON(json: any): FlattenedAssets {
     return FlattenedAssetsFromJSONTyped(json, false);
 }
@@ -96,5 +109,4 @@ export function FlattenedAssetsToJSON(value?: FlattenedAssets | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

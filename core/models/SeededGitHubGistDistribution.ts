@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Recipients,
+} from './EmbeddedModelSchema';
+import type { Recipients } from './Recipients';
+import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
-} from './';
+} from './Recipients';
 
 /**
  * This is the minimum information needed to distribute a Piece to a Gist.
@@ -62,6 +64,16 @@ export interface SeededGitHubGistDistribution {
     name: string;
 }
 
+/**
+ * Check if a given object implements the SeededGitHubGistDistribution interface.
+ */
+export function instanceOfSeededGitHubGistDistribution(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function SeededGitHubGistDistributionFromJSON(json: any): SeededGitHubGistDistribution {
     return SeededGitHubGistDistributionFromJSONTyped(json, false);
 }
@@ -96,5 +108,4 @@ export function SeededGitHubGistDistributionToJSON(value?: SeededGitHubGistDistr
         'name': value.name,
     };
 }
-
 

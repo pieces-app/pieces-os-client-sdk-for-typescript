@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a nice microclass to help with managing the size of a File or Fragment in a readable way for UI's
@@ -44,6 +44,17 @@ export interface ByteDescriptor {
      * @memberof ByteDescriptor
      */
     readable: string;
+}
+
+/**
+ * Check if a given object implements the ByteDescriptor interface.
+ */
+export function instanceOfByteDescriptor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+    isInstance = isInstance && "readable" in value;
+
+    return isInstance;
 }
 
 export function ByteDescriptorFromJSON(json: any): ByteDescriptor {
@@ -76,5 +87,4 @@ export function ByteDescriptorToJSON(value?: ByteDescriptor | null): any {
         'readable': value.readable,
     };
 }
-
 

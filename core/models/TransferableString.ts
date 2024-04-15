@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a String representaion of any of these changes.
@@ -61,6 +61,15 @@ export interface TransferableString {
     dataUrl?: string;
 }
 
+/**
+ * Check if a given object implements the TransferableString interface.
+ */
+export function instanceOfTransferableString(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function TransferableStringFromJSON(json: any): TransferableString {
     return TransferableStringFromJSONTyped(json, false);
 }
@@ -95,5 +104,4 @@ export function TransferableStringToJSON(value?: TransferableString | null): any
         'data_url': value.dataUrl,
     };
 }
-
 

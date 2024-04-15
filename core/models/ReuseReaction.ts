@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * if reuse was used in the reaction then we can provide the uuid of the asset that was reused.
@@ -38,6 +38,16 @@ export interface ReuseReaction {
      * @memberof ReuseReaction
      */
     asset: string;
+}
+
+/**
+ * Check if a given object implements the ReuseReaction interface.
+ */
+export function instanceOfReuseReaction(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+
+    return isInstance;
 }
 
 export function ReuseReactionFromJSON(json: any): ReuseReaction {
@@ -68,5 +78,4 @@ export function ReuseReactionToJSON(value?: ReuseReaction | null): any {
         'asset': value.asset,
     };
 }
-
 

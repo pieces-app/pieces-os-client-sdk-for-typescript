@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTQuestionAnswers,
+} from './EmbeddedModelSchema';
+import type { QGPTQuestionAnswers } from './QGPTQuestionAnswers';
+import {
     QGPTQuestionAnswersFromJSON,
     QGPTQuestionAnswersFromJSONTyped,
     QGPTQuestionAnswersToJSON,
-} from './';
+} from './QGPTQuestionAnswers';
 
 /**
  * This is the output/returned value from the /qgpt/question endpoint. && /qgpt/followup
@@ -44,6 +46,16 @@ export interface QGPTQuestionOutput {
      * @memberof QGPTQuestionOutput
      */
     answers: QGPTQuestionAnswers;
+}
+
+/**
+ * Check if a given object implements the QGPTQuestionOutput interface.
+ */
+export function instanceOfQGPTQuestionOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "answers" in value;
+
+    return isInstance;
 }
 
 export function QGPTQuestionOutputFromJSON(json: any): QGPTQuestionOutput {
@@ -74,5 +86,4 @@ export function QGPTQuestionOutputToJSON(value?: QGPTQuestionOutput | null): any
         'answers': QGPTQuestionAnswersToJSON(value.answers),
     };
 }
-
 

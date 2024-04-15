@@ -13,32 +13,42 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    AvailableFormats,
+} from './Application';
+import type { AvailableFormats } from './AvailableFormats';
+import {
     AvailableFormatsFromJSON,
     AvailableFormatsFromJSONTyped,
     AvailableFormatsToJSON,
-    EmbeddedModelSchema,
+} from './AvailableFormats';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededAssetEnrichment,
+} from './EmbeddedModelSchema';
+import type { SeededAssetEnrichment } from './SeededAssetEnrichment';
+import {
     SeededAssetEnrichmentFromJSON,
     SeededAssetEnrichmentFromJSONTyped,
     SeededAssetEnrichmentToJSON,
-    SeededAssetMetadata,
+} from './SeededAssetEnrichment';
+import type { SeededAssetMetadata } from './SeededAssetMetadata';
+import {
     SeededAssetMetadataFromJSON,
     SeededAssetMetadataFromJSONTyped,
     SeededAssetMetadataToJSON,
-    SeededFormat,
+} from './SeededAssetMetadata';
+import type { SeededFormat } from './SeededFormat';
+import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './';
+} from './SeededFormat';
 
 /**
  * This is seed data that will be come an asset.
@@ -48,6 +58,7 @@ import {
  * pseudo: if this is an asset that a user did NOT explicitly save.
  * 
  * available: This is a model that is used within our '/assets/draft' endpoint that will emitt a seed with all the available format that one can generate based on the original seed that was passed in. ie if a png was passed in, we may  say that there is a text/code format available. If available formats is passed into the '/assets/create' we will short curcuit certain operations to speed up the process, for instance, if we determine that there is no text within this image then there is no sense in running ocr.
+ * 
  * @export
  * @interface SeededAsset
  */
@@ -108,6 +119,17 @@ export interface SeededAsset {
     demo?: boolean;
 }
 
+/**
+ * Check if a given object implements the SeededAsset interface.
+ */
+export function instanceOfSeededAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
+}
+
 export function SeededAssetFromJSON(json: any): SeededAsset {
     return SeededAssetFromJSONTyped(json, false);
 }
@@ -150,5 +172,4 @@ export function SeededAssetToJSON(value?: SeededAsset | null): any {
         'demo': value.demo,
     };
 }
-
 

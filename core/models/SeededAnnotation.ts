@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnnotationTypeEnum } from './AnnotationTypeEnum';
 import {
-    AnnotationTypeEnum,
     AnnotationTypeEnumFromJSON,
     AnnotationTypeEnumFromJSONTyped,
     AnnotationTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './AnnotationTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversationMessages,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-    MechanismEnum,
+} from './FlattenedConversationMessages';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './';
+} from './MechanismEnum';
 
 /**
  * This is the percursor to a fully referenced Annotation.
@@ -112,6 +118,17 @@ export interface SeededAnnotation {
     messages?: FlattenedConversationMessages;
 }
 
+/**
+ * Check if a given object implements the SeededAnnotation interface.
+ */
+export function instanceOfSeededAnnotation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
+}
+
 export function SeededAnnotationFromJSON(json: any): SeededAnnotation {
     return SeededAnnotationFromJSONTyped(json, false);
 }
@@ -160,5 +177,4 @@ export function SeededAnnotationToJSON(value?: SeededAnnotation | null): any {
         'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
-
 

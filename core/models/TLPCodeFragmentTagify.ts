@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TLPCodeSnippetTagifyCode,
+} from './EmbeddedModelSchema';
+import type { TLPCodeSnippetTagifyCode } from './TLPCodeSnippetTagifyCode';
+import {
     TLPCodeSnippetTagifyCodeFromJSON,
     TLPCodeSnippetTagifyCodeFromJSONTyped,
     TLPCodeSnippetTagifyCodeToJSON,
-} from './';
+} from './TLPCodeSnippetTagifyCode';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface TLPCodeFragmentTagify {
      * @memberof TLPCodeFragmentTagify
      */
     code?: TLPCodeSnippetTagifyCode;
+}
+
+/**
+ * Check if a given object implements the TLPCodeFragmentTagify interface.
+ */
+export function instanceOfTLPCodeFragmentTagify(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentTagifyFromJSON(json: any): TLPCodeFragmentTagify {
@@ -72,5 +83,4 @@ export function TLPCodeFragmentTagifyToJSON(value?: TLPCodeFragmentTagify | null
         'code': TLPCodeSnippetTagifyCodeToJSON(value.code),
     };
 }
-
 

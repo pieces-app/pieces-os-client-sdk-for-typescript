@@ -13,19 +13,22 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTrackedInteractionEventIdentifierDescriptionPairs,
+} from './EmbeddedModelSchema';
+import type { SeededTrackedInteractionEventIdentifierDescriptionPairs } from './SeededTrackedInteractionEventIdentifierDescriptionPairs';
+import {
     SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON,
     SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSONTyped,
     SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON,
-} from './';
+} from './SeededTrackedInteractionEventIdentifierDescriptionPairs';
 
 /**
  * This is a model that will hold relavent information in relation to an interaction(ONLY CLICK/TAP) analytics event(usage). If you want to register an event that relates to an interaction with the key then register a Keyboard Event.
+ * 
  * @export
  * @interface SeededTrackedInteractionEvent
  */
@@ -54,6 +57,16 @@ export interface SeededTrackedInteractionEvent {
      * @memberof SeededTrackedInteractionEvent
      */
     identifierDescriptionPair?: SeededTrackedInteractionEventIdentifierDescriptionPairs;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedInteractionEvent interface.
+ */
+export function instanceOfSeededTrackedInteractionEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedInteractionEventFromJSON(json: any): SeededTrackedInteractionEvent {
@@ -88,5 +101,4 @@ export function SeededTrackedInteractionEventToJSON(value?: SeededTrackedInterac
         'identifier_description_pair': SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
     };
 }
-
 

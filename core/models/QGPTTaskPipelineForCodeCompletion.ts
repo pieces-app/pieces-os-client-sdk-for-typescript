@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This task is for code_completion ie auto-complete.
@@ -44,6 +44,15 @@ export interface QGPTTaskPipelineForCodeCompletion {
      * @memberof QGPTTaskPipelineForCodeCompletion
      */
     context?: Array<string>;
+}
+
+/**
+ * Check if a given object implements the QGPTTaskPipelineForCodeCompletion interface.
+ */
+export function instanceOfQGPTTaskPipelineForCodeCompletion(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTTaskPipelineForCodeCompletionFromJSON(json: any): QGPTTaskPipelineForCodeCompletion {
@@ -74,5 +83,4 @@ export function QGPTTaskPipelineForCodeCompletionToJSON(value?: QGPTTaskPipeline
         'context': value.context,
     };
 }
-
 

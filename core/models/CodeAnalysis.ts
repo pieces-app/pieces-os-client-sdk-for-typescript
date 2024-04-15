@@ -13,25 +13,29 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
-    ClassificationGenericEnum,
     ClassificationGenericEnumFromJSON,
     ClassificationGenericEnumFromJSONTyped,
     ClassificationGenericEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationGenericEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Model,
+} from './EmbeddedModelSchema';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './Model';
 
 /**
  * This is the ML Analysis object Specific to code.
  * 
- * prediction and similarity are custom types {[string]: number}. ** please dont not modify **
+ * prediction and similarity are custom types. ** please dont not modify **
  * @export
  * @interface CodeAnalysis
  */
@@ -104,6 +108,19 @@ export interface CodeAnalysis {
     model: Model;
 }
 
+/**
+ * Check if a given object implements the CodeAnalysis interface.
+ */
+export function instanceOfCodeAnalysis(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "analysis" in value;
+    isInstance = isInstance && "model" in value;
+
+    return isInstance;
+}
+
 export function CodeAnalysisFromJSON(json: any): CodeAnalysis {
     return CodeAnalysisFromJSONTyped(json, false);
 }
@@ -150,5 +167,4 @@ export function CodeAnalysisToJSON(value?: CodeAnalysis | null): any {
         'model': ModelToJSON(value.model),
     };
 }
-
 

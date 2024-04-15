@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Recipients,
+} from './EmbeddedModelSchema';
+import type { Recipients } from './Recipients';
+import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
-} from './';
+} from './Recipients';
 
 /**
  * This is a specific Distribution for mailgun specific information.
@@ -42,6 +44,16 @@ export interface MailgunDistribution {
      * @memberof MailgunDistribution
      */
     recipients: Recipients;
+}
+
+/**
+ * Check if a given object implements the MailgunDistribution interface.
+ */
+export function instanceOfMailgunDistribution(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "recipients" in value;
+
+    return isInstance;
 }
 
 export function MailgunDistributionFromJSON(json: any): MailgunDistribution {
@@ -72,5 +84,4 @@ export function MailgunDistributionToJSON(value?: MailgunDistribution | null): a
         'recipients': RecipientsToJSON(value.recipients),
     };
 }
-
 

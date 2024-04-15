@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SystemExecutionInformation,
+} from './EmbeddedModelSchema';
+import type { SystemExecutionInformation } from './SystemExecutionInformation';
+import {
     SystemExecutionInformationFromJSON,
     SystemExecutionInformationFromJSONTyped,
     SystemExecutionInformationToJSON,
-    TLPCodeFragmentClassificationMetadata,
+} from './SystemExecutionInformation';
+import type { TLPCodeFragmentClassificationMetadata } from './TLPCodeFragmentClassificationMetadata';
+import {
     TLPCodeFragmentClassificationMetadataFromJSON,
     TLPCodeFragmentClassificationMetadataFromJSONTyped,
     TLPCodeFragmentClassificationMetadataToJSON,
-} from './';
+} from './TLPCodeFragmentClassificationMetadata';
 
 /**
  * Model for ML big query classification.
@@ -108,6 +112,22 @@ export interface TLPCodeFragmentClassification {
     system?: SystemExecutionInformation;
 }
 
+/**
+ * Check if a given object implements the TLPCodeFragmentClassification interface.
+ */
+export function instanceOfTLPCodeFragmentClassification(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "classification" in value;
+    isInstance = isInstance && "probability" in value;
+    isInstance = isInstance && "context" in value;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
+}
+
 export function TLPCodeFragmentClassificationFromJSON(json: any): TLPCodeFragmentClassification {
     return TLPCodeFragmentClassificationFromJSONTyped(json, false);
 }
@@ -156,5 +176,4 @@ export function TLPCodeFragmentClassificationToJSON(value?: TLPCodeFragmentClass
         'system': SystemExecutionInformationToJSON(value.system),
     };
 }
-
 

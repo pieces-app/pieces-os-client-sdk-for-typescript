@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Seeds,
+} from './EmbeddedModelSchema';
+import type { Seeds } from './Seeds';
+import {
     SeedsFromJSON,
     SeedsFromJSONTyped,
     SeedsToJSON,
-} from './';
+} from './Seeds';
 
 /**
  * This is an out body for the /machine_learning/text/technical_processing/generators/personification endpoint.
@@ -44,6 +46,16 @@ export interface OnboardedPersonaDetails {
      * @memberof OnboardedPersonaDetails
      */
     seeds: Seeds;
+}
+
+/**
+ * Check if a given object implements the OnboardedPersonaDetails interface.
+ */
+export function instanceOfOnboardedPersonaDetails(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "seeds" in value;
+
+    return isInstance;
 }
 
 export function OnboardedPersonaDetailsFromJSON(json: any): OnboardedPersonaDetails {
@@ -74,5 +86,4 @@ export function OnboardedPersonaDetailsToJSON(value?: OnboardedPersonaDetails | 
         'seeds': SeedsToJSON(value.seeds),
     };
 }
-
 

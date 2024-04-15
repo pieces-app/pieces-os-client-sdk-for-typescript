@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs } from './AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs';
 import {
-    AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs,
     AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON,
     AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSONTyped,
     AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON,
-    EmbeddedModelSchema,
+} from './AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface SeededTrackedAdoptionEvent {
      * @memberof SeededTrackedAdoptionEvent
      */
     identifierDescriptionPair?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedAdoptionEvent interface.
+ */
+export function instanceOfSeededTrackedAdoptionEvent(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedAdoptionEventFromJSON(json: any): SeededTrackedAdoptionEvent {
@@ -72,5 +83,4 @@ export function SeededTrackedAdoptionEventToJSON(value?: SeededTrackedAdoptionEv
         'identifier_description_pair': AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedConversationEventRenameMetadata,
+} from './EmbeddedModelSchema';
+import type { TrackedConversationEventRenameMetadata } from './TrackedConversationEventRenameMetadata';
+import {
     TrackedConversationEventRenameMetadataFromJSON,
     TrackedConversationEventRenameMetadataFromJSONTyped,
     TrackedConversationEventRenameMetadataToJSON,
-} from './';
+} from './TrackedConversationEventRenameMetadata';
 
 /**
  * This is the metadata for the the ConversationEvent
@@ -42,6 +44,15 @@ export interface TrackedConversationEventMetadata {
      * @memberof TrackedConversationEventMetadata
      */
     rename?: TrackedConversationEventRenameMetadata;
+}
+
+/**
+ * Check if a given object implements the TrackedConversationEventMetadata interface.
+ */
+export function instanceOfTrackedConversationEventMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedConversationEventMetadataFromJSON(json: any): TrackedConversationEventMetadata {
@@ -72,5 +83,4 @@ export function TrackedConversationEventMetadataToJSON(value?: TrackedConversati
         'rename': TrackedConversationEventRenameMetadataToJSON(value.rename),
     };
 }
-
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a returnable for the metrics/formats/ordered
@@ -38,6 +38,16 @@ export interface OrderedMetrics {
      * @memberof OrderedMetrics
      */
     ordered: Array<string>;
+}
+
+/**
+ * Check if a given object implements the OrderedMetrics interface.
+ */
+export function instanceOfOrderedMetrics(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "ordered" in value;
+
+    return isInstance;
 }
 
 export function OrderedMetricsFromJSON(json: any): OrderedMetrics {
@@ -68,5 +78,4 @@ export function OrderedMetricsToJSON(value?: OrderedMetrics | null): any {
         'ordered': value.ordered,
     };
 }
-
 

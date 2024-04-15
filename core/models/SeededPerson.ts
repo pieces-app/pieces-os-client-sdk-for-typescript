@@ -13,32 +13,42 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    PersonAccess,
+} from './MechanismEnum';
+import type { PersonAccess } from './PersonAccess';
+import {
     PersonAccessFromJSON,
     PersonAccessFromJSONTyped,
     PersonAccessToJSON,
-    PersonModel,
+} from './PersonAccess';
+import type { PersonModel } from './PersonModel';
+import {
     PersonModelFromJSON,
     PersonModelFromJSONTyped,
     PersonModelToJSON,
-    PersonType,
+} from './PersonModel';
+import type { PersonType } from './PersonType';
+import {
     PersonTypeFromJSON,
     PersonTypeFromJSONTyped,
     PersonTypeToJSON,
-    SeededAnnotation,
+} from './PersonType';
+import type { SeededAnnotation } from './SeededAnnotation';
+import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-} from './';
+} from './SeededAnnotation';
 
 /**
  * This is a per-cursor to a full person.
@@ -98,6 +108,16 @@ export interface SeededPerson {
     annotations?: Array<SeededAnnotation>;
 }
 
+/**
+ * Check if a given object implements the SeededPerson interface.
+ */
+export function instanceOfSeededPerson(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function SeededPersonFromJSON(json: any): SeededPerson {
     return SeededPersonFromJSONTyped(json, false);
 }
@@ -136,5 +156,4 @@ export function SeededPersonToJSON(value?: SeededPerson | null): any {
         'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
     };
 }
-
 

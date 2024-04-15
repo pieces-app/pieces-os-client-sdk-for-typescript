@@ -27,6 +27,16 @@ export interface GraphicalOCRDescriptiveStatisticsConfidence {
     mean: string;
 }
 
+/**
+ * Check if a given object implements the GraphicalOCRDescriptiveStatisticsConfidence interface.
+ */
+export function instanceOfGraphicalOCRDescriptiveStatisticsConfidence(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "mean" in value;
+
+    return isInstance;
+}
+
 export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSON(json: any): GraphicalOCRDescriptiveStatisticsConfidence {
     return GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json, false);
 }
@@ -53,5 +63,4 @@ export function GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value?: Graphi
         'mean': value.mean,
     };
 }
-
 

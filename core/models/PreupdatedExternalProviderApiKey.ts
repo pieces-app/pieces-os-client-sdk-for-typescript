@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0OpenAIUserMetadata } from './Auth0OpenAIUserMetadata';
 import {
-    Auth0OpenAIUserMetadata,
     Auth0OpenAIUserMetadataFromJSON,
     Auth0OpenAIUserMetadataFromJSONTyped,
     Auth0OpenAIUserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0OpenAIUserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the endput model for "/external_provider/api_key/update". everything but the uder will be optional, anything that is defined will get an update.
@@ -48,6 +50,16 @@ export interface PreupdatedExternalProviderApiKey {
      * @memberof PreupdatedExternalProviderApiKey
      */
     openAI?: Auth0OpenAIUserMetadata;
+}
+
+/**
+ * Check if a given object implements the PreupdatedExternalProviderApiKey interface.
+ */
+export function instanceOfPreupdatedExternalProviderApiKey(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "user" in value;
+
+    return isInstance;
 }
 
 export function PreupdatedExternalProviderApiKeyFromJSON(json: any): PreupdatedExternalProviderApiKey {
@@ -80,5 +92,4 @@ export function PreupdatedExternalProviderApiKeyToJSON(value?: PreupdatedExterna
         'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
     };
 }
-
 

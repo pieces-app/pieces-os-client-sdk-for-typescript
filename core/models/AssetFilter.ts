@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AssetFilterPhrase } from './AssetFilterPhrase';
 import {
-    AssetFilterPhrase,
     AssetFilterPhraseFromJSON,
     AssetFilterPhraseFromJSONTyped,
     AssetFilterPhraseToJSON,
-    AssetFilterTimestamp,
+} from './AssetFilterPhrase';
+import type { AssetFilterTimestamp } from './AssetFilterTimestamp';
+import {
     AssetFilterTimestampFromJSON,
     AssetFilterTimestampFromJSONTyped,
     AssetFilterTimestampToJSON,
-    AssetFilters,
+} from './AssetFilterTimestamp';
+import type { AssetFilters } from './AssetFilters';
+import {
     AssetFiltersFromJSON,
     AssetFiltersFromJSONTyped,
     AssetFiltersToJSON,
-    ClassificationSpecificEnum,
+} from './AssetFilters';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * ** in the future, consider adding an optional bool's called nextAnd, nextOr which will say that the next filter will be  AND behavor or OR behavior.
@@ -100,6 +108,15 @@ export interface AssetFilter {
     operations?: AssetFilters;
 }
 
+/**
+ * Check if a given object implements the AssetFilter interface.
+ */
+export function instanceOfAssetFilter(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function AssetFilterFromJSON(json: any): AssetFilter {
     return AssetFilterFromJSONTyped(json, false);
 }
@@ -142,5 +159,4 @@ export function AssetFilterToJSON(value?: AssetFilter | null): any {
         'operations': AssetFiltersToJSON(value.operations),
     };
 }
-
 

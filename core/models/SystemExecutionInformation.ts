@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { SystemExecutionCpuInformation } from './SystemExecutionCpuInformation';
 import {
-    SystemExecutionCpuInformation,
     SystemExecutionCpuInformationFromJSON,
     SystemExecutionCpuInformationFromJSONTyped,
     SystemExecutionCpuInformationToJSON,
-} from './';
+} from './SystemExecutionCpuInformation';
 
 /**
  * This is system information that we are able to get from the users machine(rust package TBD). TODO potentially pull this out of TLP.
@@ -50,6 +50,19 @@ export interface SystemExecutionInformation {
      * @memberof SystemExecutionInformation
      */
     cpu: SystemExecutionCpuInformation;
+}
+
+/**
+ * Check if a given object implements the SystemExecutionInformation interface.
+ */
+export function instanceOfSystemExecutionInformation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "memory" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "kernel" in value;
+    isInstance = isInstance && "cpu" in value;
+
+    return isInstance;
 }
 
 export function SystemExecutionInformationFromJSON(json: any): SystemExecutionInformation {
@@ -84,5 +97,4 @@ export function SystemExecutionInformationToJSON(value?: SystemExecutionInformat
         'cpu': SystemExecutionCpuInformationToJSON(value.cpu),
     };
 }
-
 

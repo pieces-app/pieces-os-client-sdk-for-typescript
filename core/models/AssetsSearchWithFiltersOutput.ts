@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SearchedAssets,
+} from './EmbeddedModelSchema';
+import type { SearchedAssets } from './SearchedAssets';
+import {
     SearchedAssetsFromJSON,
     SearchedAssetsFromJSONTyped,
     SearchedAssetsToJSON,
-} from './';
+} from './SearchedAssets';
 
 /**
  * output for the /assets/search [POST] 
@@ -42,6 +44,16 @@ export interface AssetsSearchWithFiltersOutput {
      * @memberof AssetsSearchWithFiltersOutput
      */
     results: SearchedAssets;
+}
+
+/**
+ * Check if a given object implements the AssetsSearchWithFiltersOutput interface.
+ */
+export function instanceOfAssetsSearchWithFiltersOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "results" in value;
+
+    return isInstance;
 }
 
 export function AssetsSearchWithFiltersOutputFromJSON(json: any): AssetsSearchWithFiltersOutput {
@@ -72,5 +84,4 @@ export function AssetsSearchWithFiltersOutputToJSON(value?: AssetsSearchWithFilt
         'results': SearchedAssetsToJSON(value.results),
     };
 }
-
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will be a simple model with a score and a text value that will represent the value returned for this answer.
@@ -44,6 +44,17 @@ export interface QGPTQuestionAnswer {
      * @memberof QGPTQuestionAnswer
      */
     text: string;
+}
+
+/**
+ * Check if a given object implements the QGPTQuestionAnswer interface.
+ */
+export function instanceOfQGPTQuestionAnswer(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "score" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function QGPTQuestionAnswerFromJSON(json: any): QGPTQuestionAnswer {
@@ -76,5 +87,4 @@ export function QGPTQuestionAnswerToJSON(value?: QGPTQuestionAnswer | null): any
         'text': value.text,
     };
 }
-
 

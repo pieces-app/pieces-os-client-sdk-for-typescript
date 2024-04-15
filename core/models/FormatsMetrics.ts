@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FormatMetric,
+} from './EmbeddedModelSchema';
+import type { FormatMetric } from './FormatMetric';
+import {
     FormatMetricFromJSON,
     FormatMetricFromJSONTyped,
     FormatMetricToJSON,
-} from './';
+} from './FormatMetric';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface FormatsMetrics {
      * @memberof FormatsMetrics
      */
     iterable: Array<FormatMetric>;
+}
+
+/**
+ * Check if a given object implements the FormatsMetrics interface.
+ */
+export function instanceOfFormatsMetrics(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FormatsMetricsFromJSON(json: any): FormatsMetrics {
@@ -72,5 +84,4 @@ export function FormatsMetricsToJSON(value?: FormatsMetrics | null): any {
         'iterable': ((value.iterable as Array<any>).map(FormatMetricToJSON)),
     };
 }
-
 

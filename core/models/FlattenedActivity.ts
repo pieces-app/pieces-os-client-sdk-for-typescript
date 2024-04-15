@@ -13,40 +13,54 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    EmbeddedModelSchema,
+} from './Application';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedUserProfile,
+} from './EmbeddedModelSchema';
+import type { FlattenedUserProfile } from './FlattenedUserProfile';
+import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-    GroupedTimestamp,
+} from './FlattenedUserProfile';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
+} from './MechanismEnum';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedFormat,
+} from './ReferencedAsset';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-    SeededConnectorTracking,
+} from './ReferencedFormat';
+import type { SeededConnectorTracking } from './SeededConnectorTracking';
+import {
     SeededConnectorTrackingFromJSON,
     SeededConnectorTrackingFromJSONTyped,
     SeededConnectorTrackingToJSON,
-} from './';
+} from './SeededConnectorTracking';
 
 /**
  * Note:
@@ -129,6 +143,21 @@ export interface FlattenedActivity {
     rank?: number;
 }
 
+/**
+ * Check if a given object implements the FlattenedActivity interface.
+ */
+export function instanceOfFlattenedActivity(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "event" in value;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "mechanism" in value;
+
+    return isInstance;
+}
+
 export function FlattenedActivityFromJSON(json: any): FlattenedActivity {
     return FlattenedActivityFromJSONTyped(json, false);
 }
@@ -177,5 +206,4 @@ export function FlattenedActivityToJSON(value?: FlattenedActivity | null): any {
         'rank': value.rank,
     };
 }
-
 

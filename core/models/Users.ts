@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    UserProfile,
+} from './EmbeddedModelSchema';
+import type { UserProfile } from './UserProfile';
+import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './UserProfile';
 
 /**
  * A base class for a collection of users and some additional meta properties.
@@ -42,6 +44,15 @@ export interface Users {
      * @memberof Users
      */
     iterable?: Array<UserProfile>;
+}
+
+/**
+ * Check if a given object implements the Users interface.
+ */
+export function instanceOfUsers(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UsersFromJSON(json: any): Users {
@@ -72,5 +83,4 @@ export function UsersToJSON(value?: Users | null): any {
         'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(UserProfileToJSON)),
     };
 }
-
 

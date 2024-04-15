@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedConversation,
+} from './EmbeddedModelSchema';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    TrackedConversationEventIdentifierDescriptionPairs,
+} from './ReferencedConversation';
+import type { TrackedConversationEventIdentifierDescriptionPairs } from './TrackedConversationEventIdentifierDescriptionPairs';
+import {
     TrackedConversationEventIdentifierDescriptionPairsFromJSON,
     TrackedConversationEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedConversationEventIdentifierDescriptionPairsToJSON,
-    TrackedConversationEventMetadata,
+} from './TrackedConversationEventIdentifierDescriptionPairs';
+import type { TrackedConversationEventMetadata } from './TrackedConversationEventMetadata';
+import {
     TrackedConversationEventMetadataFromJSON,
     TrackedConversationEventMetadataFromJSONTyped,
     TrackedConversationEventMetadataToJSON,
-} from './';
+} from './TrackedConversationEventMetadata';
 
 /**
  * This is a pre-created(seed) TrackedConversationEvent
@@ -62,6 +68,17 @@ export interface SeededTrackedConversationEvent {
      * @memberof SeededTrackedConversationEvent
      */
     metadata?: TrackedConversationEventMetadata;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedConversationEvent interface.
+ */
+export function instanceOfSeededTrackedConversationEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+    isInstance = isInstance && "conversation" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedConversationEventFromJSON(json: any): SeededTrackedConversationEvent {
@@ -96,5 +113,4 @@ export function SeededTrackedConversationEventToJSON(value?: SeededTrackedConver
         'metadata': TrackedConversationEventMetadataToJSON(value.metadata),
     };
 }
-
 

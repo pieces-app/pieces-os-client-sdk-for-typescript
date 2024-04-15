@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedConversationMessages,
+} from './EmbeddedModelSchema';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-} from './';
+} from './FlattenedConversationMessages';
 
 /**
  * Optionally you may pass in a list of conversation message that you would like to use for the summary.
@@ -42,6 +44,15 @@ export interface ConversationSummarizeInput {
      * @memberof ConversationSummarizeInput
      */
     messages?: FlattenedConversationMessages;
+}
+
+/**
+ * Check if a given object implements the ConversationSummarizeInput interface.
+ */
+export function instanceOfConversationSummarizeInput(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ConversationSummarizeInputFromJSON(json: any): ConversationSummarizeInput {
@@ -72,5 +83,4 @@ export function ConversationSummarizeInputToJSON(value?: ConversationSummarizeIn
         'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
-
 

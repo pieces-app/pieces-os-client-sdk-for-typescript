@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Activity,
+  FlattenedActivities,
+} from '../models/index';
 import {
-    Activity,
     ActivityFromJSON,
     ActivityToJSON,
-    FlattenedActivities,
     FlattenedActivitiesFromJSON,
     FlattenedActivitiesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ActivitiesSpecificActivitySnapshotRequest {
     activity: string;
@@ -47,7 +49,7 @@ export class ActivityApi extends runtime.BaseAPI {
      * This will attempt to get a specific activity.
      * /activity/{activity} [GET]
      */
-    async activitiesSpecificActivitySnapshotRaw(requestParameters: ActivitiesSpecificActivitySnapshotRequest): Promise<runtime.ApiResponse<Activity>> {
+    async activitiesSpecificActivitySnapshotRaw(requestParameters: ActivitiesSpecificActivitySnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activity>> {
         if (requestParameters.activity === null || requestParameters.activity === undefined) {
             throw new runtime.RequiredError('activity','Required parameter requestParameters.activity was null or undefined when calling activitiesSpecificActivitySnapshot.');
         }
@@ -65,7 +67,7 @@ export class ActivityApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivityFromJSON(jsonValue));
     }
@@ -74,8 +76,8 @@ export class ActivityApi extends runtime.BaseAPI {
      * This will attempt to get a specific activity.
      * /activity/{activity} [GET]
      */
-    async activitiesSpecificActivitySnapshot(requestParameters: ActivitiesSpecificActivitySnapshotRequest): Promise<Activity> {
-        const response = await this.activitiesSpecificActivitySnapshotRaw(requestParameters);
+    async activitiesSpecificActivitySnapshot(requestParameters: ActivitiesSpecificActivitySnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Activity> {
+        const response = await this.activitiesSpecificActivitySnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -83,7 +85,7 @@ export class ActivityApi extends runtime.BaseAPI {
      * This is going to return all the identifiers of the activity event in order of most recent -> oldest.
      * /activity/identifiers [GET]
      */
-    async activityIdentifiersSnapshotRaw(requestParameters: ActivityIdentifiersSnapshotRequest): Promise<runtime.ApiResponse<FlattenedActivities>> {
+    async activityIdentifiersSnapshotRaw(requestParameters: ActivityIdentifiersSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlattenedActivities>> {
         const queryParameters: any = {};
 
         if (requestParameters.pseudo !== undefined) {
@@ -101,7 +103,7 @@ export class ActivityApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlattenedActivitiesFromJSON(jsonValue));
     }
@@ -110,8 +112,8 @@ export class ActivityApi extends runtime.BaseAPI {
      * This is going to return all the identifiers of the activity event in order of most recent -> oldest.
      * /activity/identifiers [GET]
      */
-    async activityIdentifiersSnapshot(requestParameters: ActivityIdentifiersSnapshotRequest): Promise<FlattenedActivities> {
-        const response = await this.activityIdentifiersSnapshotRaw(requestParameters);
+    async activityIdentifiersSnapshot(requestParameters: ActivityIdentifiersSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlattenedActivities> {
+        const response = await this.activityIdentifiersSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -119,7 +121,7 @@ export class ActivityApi extends runtime.BaseAPI {
      * this will update a specific activity.
      * /activity/update [POST]
      */
-    async activityUpdateRaw(requestParameters: ActivityUpdateRequest): Promise<runtime.ApiResponse<Activity>> {
+    async activityUpdateRaw(requestParameters: ActivityUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activity>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -136,7 +138,7 @@ export class ActivityApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: ActivityToJSON(requestParameters.activity),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivityFromJSON(jsonValue));
     }
@@ -145,20 +147,20 @@ export class ActivityApi extends runtime.BaseAPI {
      * this will update a specific activity.
      * /activity/update [POST]
      */
-    async activityUpdate(requestParameters: ActivityUpdateRequest): Promise<Activity> {
-        const response = await this.activityUpdateRaw(requestParameters);
+    async activityUpdate(requestParameters: ActivityUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Activity> {
+        const response = await this.activityUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
 }
 
 /**
-    * @export
-    * @enum {string}
-    */
-export enum ActivityIdentifiersSnapshotActivityFilterEnumEnum {
-    Created = 'CREATED',
-    Updated = 'UPDATED',
-    Deleted = 'DELETED',
-    Referenced = 'REFERENCED'
-}
+ * @export
+ */
+export const ActivityIdentifiersSnapshotActivityFilterEnumEnum = {
+    Created: 'CREATED',
+    Updated: 'UPDATED',
+    Deleted: 'DELETED',
+    Referenced: 'REFERENCED'
+} as const;
+export type ActivityIdentifiersSnapshotActivityFilterEnumEnum = typeof ActivityIdentifiersSnapshotActivityFilterEnumEnum[keyof typeof ActivityIdentifiersSnapshotActivityFilterEnumEnum];

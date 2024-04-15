@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This task is for modifying a bit of code, IE modify this code to do xyz.
@@ -42,6 +42,15 @@ export interface QGPTTaskPipelineForCodeModification {
      * @memberof QGPTTaskPipelineForCodeModification
      */
     instruction?: string;
+}
+
+/**
+ * Check if a given object implements the QGPTTaskPipelineForCodeModification interface.
+ */
+export function instanceOfQGPTTaskPipelineForCodeModification(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTTaskPipelineForCodeModificationFromJSON(json: any): QGPTTaskPipelineForCodeModification {
@@ -72,5 +81,4 @@ export function QGPTTaskPipelineForCodeModificationToJSON(value?: QGPTTaskPipeli
         'instruction': value.instruction,
     };
 }
-
 

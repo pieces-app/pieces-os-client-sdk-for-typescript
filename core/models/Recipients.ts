@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PersonBasicType,
+} from './EmbeddedModelSchema';
+import type { PersonBasicType } from './PersonBasicType';
+import {
     PersonBasicTypeFromJSON,
     PersonBasicTypeFromJSONTyped,
     PersonBasicTypeToJSON,
-} from './';
+} from './PersonBasicType';
 
 /**
  * This an iterable of People that are attached to a specific distribution ie, slack, maigun, ...etc
@@ -42,6 +44,16 @@ export interface Recipients {
      * @memberof Recipients
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the Recipients interface.
+ */
+export function instanceOfRecipients(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function RecipientsFromJSON(json: any): Recipients {
@@ -72,5 +84,4 @@ export function RecipientsToJSON(value?: Recipients | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

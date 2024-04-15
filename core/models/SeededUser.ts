@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -38,6 +38,16 @@ export interface SeededUser {
      * @memberof SeededUser
      */
     emails: Array<string>;
+}
+
+/**
+ * Check if a given object implements the SeededUser interface.
+ */
+export function instanceOfSeededUser(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "emails" in value;
+
+    return isInstance;
 }
 
 export function SeededUserFromJSON(json: any): SeededUser {
@@ -68,5 +78,4 @@ export function SeededUserToJSON(value?: SeededUser | null): any {
         'emails': value.emails,
     };
 }
-
 

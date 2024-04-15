@@ -13,32 +13,42 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTTaskPipelineForCodeCommentation,
+} from './EmbeddedModelSchema';
+import type { QGPTTaskPipelineForCodeCommentation } from './QGPTTaskPipelineForCodeCommentation';
+import {
     QGPTTaskPipelineForCodeCommentationFromJSON,
     QGPTTaskPipelineForCodeCommentationFromJSONTyped,
     QGPTTaskPipelineForCodeCommentationToJSON,
-    QGPTTaskPipelineForCodeCompletion,
+} from './QGPTTaskPipelineForCodeCommentation';
+import type { QGPTTaskPipelineForCodeCompletion } from './QGPTTaskPipelineForCodeCompletion';
+import {
     QGPTTaskPipelineForCodeCompletionFromJSON,
     QGPTTaskPipelineForCodeCompletionFromJSONTyped,
     QGPTTaskPipelineForCodeCompletionToJSON,
-    QGPTTaskPipelineForCodeExplanation,
+} from './QGPTTaskPipelineForCodeCompletion';
+import type { QGPTTaskPipelineForCodeExplanation } from './QGPTTaskPipelineForCodeExplanation';
+import {
     QGPTTaskPipelineForCodeExplanationFromJSON,
     QGPTTaskPipelineForCodeExplanationFromJSONTyped,
     QGPTTaskPipelineForCodeExplanationToJSON,
-    QGPTTaskPipelineForCodeFix,
+} from './QGPTTaskPipelineForCodeExplanation';
+import type { QGPTTaskPipelineForCodeFix } from './QGPTTaskPipelineForCodeFix';
+import {
     QGPTTaskPipelineForCodeFixFromJSON,
     QGPTTaskPipelineForCodeFixFromJSONTyped,
     QGPTTaskPipelineForCodeFixToJSON,
-    QGPTTaskPipelineForCodeModification,
+} from './QGPTTaskPipelineForCodeFix';
+import type { QGPTTaskPipelineForCodeModification } from './QGPTTaskPipelineForCodeModification';
+import {
     QGPTTaskPipelineForCodeModificationFromJSON,
     QGPTTaskPipelineForCodeModificationFromJSONTyped,
     QGPTTaskPipelineForCodeModificationToJSON,
-} from './';
+} from './QGPTTaskPipelineForCodeModification';
 
 /**
  * This model is specifically for QGPT Task pipelines, the model is used to group one off tasks for instance fix/explaining/commenting
@@ -85,6 +95,15 @@ export interface QGPTTaskPipeline {
     codeCompletion?: QGPTTaskPipelineForCodeCompletion;
 }
 
+/**
+ * Check if a given object implements the QGPTTaskPipeline interface.
+ */
+export function instanceOfQGPTTaskPipeline(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function QGPTTaskPipelineFromJSON(json: any): QGPTTaskPipeline {
     return QGPTTaskPipelineFromJSONTyped(json, false);
 }
@@ -121,5 +140,4 @@ export function QGPTTaskPipelineToJSON(value?: QGPTTaskPipeline | null): any {
         'code_completion': QGPTTaskPipelineForCodeCompletionToJSON(value.codeCompletion),
     };
 }
-
 

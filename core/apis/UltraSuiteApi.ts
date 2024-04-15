@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Asset,
+  SeededUltraSuiteAsset,
+} from '../models/index';
 import {
-    Asset,
     AssetFromJSON,
     AssetToJSON,
-    SeededUltraSuiteAsset,
     SeededUltraSuiteAssetFromJSON,
     SeededUltraSuiteAssetToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AssetsCreateUltraSuiteAssetRequest {
     seededUltraSuiteAsset?: SeededUltraSuiteAsset;
@@ -36,7 +38,7 @@ export class UltraSuiteApi extends runtime.BaseAPI {
      * This Endpoint will create an Asset that is sent from UltraSuite.
      * /ultra_suite/assets/create [POST]
      */
-    async assetsCreateUltraSuiteAssetRaw(requestParameters: AssetsCreateUltraSuiteAssetRequest): Promise<runtime.ApiResponse<Asset>> {
+    async assetsCreateUltraSuiteAssetRaw(requestParameters: AssetsCreateUltraSuiteAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -49,7 +51,7 @@ export class UltraSuiteApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededUltraSuiteAssetToJSON(requestParameters.seededUltraSuiteAsset),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
     }
@@ -58,8 +60,8 @@ export class UltraSuiteApi extends runtime.BaseAPI {
      * This Endpoint will create an Asset that is sent from UltraSuite.
      * /ultra_suite/assets/create [POST]
      */
-    async assetsCreateUltraSuiteAsset(requestParameters: AssetsCreateUltraSuiteAssetRequest): Promise<Asset> {
-        const response = await this.assetsCreateUltraSuiteAssetRaw(requestParameters);
+    async assetsCreateUltraSuiteAsset(requestParameters: AssetsCreateUltraSuiteAssetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Asset> {
+        const response = await this.assetsCreateUltraSuiteAssetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -13,21 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedFormat,
+} from './EmbeddedModelSchema';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-} from './';
+} from './ReferencedFormat';
 
 /**
  * A collection of Formats specific to the authenticated user. [DAG Compatible - Directed Acyclic Graph Data Structure]
  * 
  * FlattenedFormats prevent Cycles in Reference because all outbound references are strings as opposed to crosspollinated objects.
+ * 
  * @export
  * @interface FlattenedFormats
  */
@@ -44,6 +47,16 @@ export interface FlattenedFormats {
      * @memberof FlattenedFormats
      */
     iterable: Array<ReferencedFormat>;
+}
+
+/**
+ * Check if a given object implements the FlattenedFormats interface.
+ */
+export function instanceOfFlattenedFormats(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedFormatsFromJSON(json: any): FlattenedFormats {
@@ -74,5 +87,4 @@ export function FlattenedFormatsToJSON(value?: FlattenedFormats | null): any {
         'iterable': ((value.iterable as Array<any>).map(ReferencedFormatToJSON)),
     };
 }
-
 

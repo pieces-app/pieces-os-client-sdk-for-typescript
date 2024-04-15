@@ -13,40 +13,54 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
+} from './MechanismEnum';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    Score,
+} from './ReferencedAsset';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    SensitiveCategoryEnum,
+} from './Score';
+import type { SensitiveCategoryEnum } from './SensitiveCategoryEnum';
+import {
     SensitiveCategoryEnumFromJSON,
     SensitiveCategoryEnumFromJSONTyped,
     SensitiveCategoryEnumToJSON,
-    SensitiveMetadata,
+} from './SensitiveCategoryEnum';
+import type { SensitiveMetadata } from './SensitiveMetadata';
+import {
     SensitiveMetadataFromJSON,
     SensitiveMetadataFromJSONTyped,
     SensitiveMetadataToJSON,
-    SensitiveSeverityEnum,
+} from './SensitiveMetadata';
+import type { SensitiveSeverityEnum } from './SensitiveSeverityEnum';
+import {
     SensitiveSeverityEnumFromJSON,
     SensitiveSeverityEnumFromJSONTyped,
     SensitiveSeverityEnumToJSON,
-} from './';
+} from './SensitiveSeverityEnum';
 
 /**
  * This is a dereferenced representation of a sensitive pieces of data.
@@ -146,6 +160,25 @@ export interface FlattenedSensitive {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedSensitive interface.
+ */
+export function instanceOfFlattenedSensitive(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "mechanism" in value;
+    isInstance = isInstance && "category" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+
+    return isInstance;
+}
+
 export function FlattenedSensitiveFromJSON(json: any): FlattenedSensitive {
     return FlattenedSensitiveFromJSONTyped(json, false);
 }
@@ -200,5 +233,4 @@ export function FlattenedSensitiveToJSON(value?: FlattenedSensitive | null): any
         'score': ScoreToJSON(value.score),
     };
 }
-
 

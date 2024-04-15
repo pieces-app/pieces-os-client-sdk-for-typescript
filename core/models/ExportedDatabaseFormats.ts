@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExportedDatabaseFormat,
+} from './EmbeddedModelSchema';
+import type { ExportedDatabaseFormat } from './ExportedDatabaseFormat';
+import {
     ExportedDatabaseFormatFromJSON,
     ExportedDatabaseFormatFromJSONTyped,
     ExportedDatabaseFormatToJSON,
-} from './';
+} from './ExportedDatabaseFormat';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface ExportedDatabaseFormats {
      * @memberof ExportedDatabaseFormats
      */
     iterable: Array<ExportedDatabaseFormat>;
+}
+
+/**
+ * Check if a given object implements the ExportedDatabaseFormats interface.
+ */
+export function instanceOfExportedDatabaseFormats(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ExportedDatabaseFormatsFromJSON(json: any): ExportedDatabaseFormats {
@@ -72,5 +84,4 @@ export function ExportedDatabaseFormatsToJSON(value?: ExportedDatabaseFormats | 
         'iterable': ((value.iterable as Array<any>).map(ExportedDatabaseFormatToJSON)),
     };
 }
-
 

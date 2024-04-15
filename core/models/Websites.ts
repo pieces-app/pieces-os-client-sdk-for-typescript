@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    Website,
+} from './Score';
+import type { Website } from './Website';
+import {
     WebsiteFromJSON,
     WebsiteFromJSONTyped,
     WebsiteToJSON,
-} from './';
+} from './Website';
 
 /**
  * This is a specific model for related websites to an asset.
@@ -58,6 +62,16 @@ export interface Websites {
      * @memberof Websites
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Websites interface.
+ */
+export function instanceOfWebsites(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function WebsitesFromJSON(json: any): Websites {
@@ -92,5 +106,4 @@ export function WebsitesToJSON(value?: Websites | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

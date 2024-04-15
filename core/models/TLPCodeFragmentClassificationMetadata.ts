@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -48,6 +50,15 @@ export interface TLPCodeFragmentClassificationMetadata {
      * @memberof TLPCodeFragmentClassificationMetadata
      */
     prior?: Classification;
+}
+
+/**
+ * Check if a given object implements the TLPCodeFragmentClassificationMetadata interface.
+ */
+export function instanceOfTLPCodeFragmentClassificationMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentClassificationMetadataFromJSON(json: any): TLPCodeFragmentClassificationMetadata {
@@ -80,5 +91,4 @@ export function TLPCodeFragmentClassificationMetadataToJSON(value?: TLPCodeFragm
         'prior': ClassificationToJSON(value.prior),
     };
 }
-
 

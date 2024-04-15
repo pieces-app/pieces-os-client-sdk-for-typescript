@@ -13,44 +13,60 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
 import {
-    ConversationMessageSentimentEnum,
     ConversationMessageSentimentEnumFromJSON,
     ConversationMessageSentimentEnumFromJSONTyped,
     ConversationMessageSentimentEnumToJSON,
-    EmbeddedModelSchema,
+} from './ConversationMessageSentimentEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnnotations,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
-    FragmentFormat,
+} from './FlattenedAnnotations';
+import type { FragmentFormat } from './FragmentFormat';
+import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
-    GroupedTimestamp,
+} from './FragmentFormat';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Model,
+} from './GroupedTimestamp';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-    QGPTConversationMessageRoleEnum,
+} from './Model';
+import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
+import {
     QGPTConversationMessageRoleEnumFromJSON,
     QGPTConversationMessageRoleEnumFromJSONTyped,
     QGPTConversationMessageRoleEnumToJSON,
-    ReferencedConversation,
+} from './QGPTConversationMessageRoleEnum';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-    Score,
+} from './ReferencedConversation';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a fully referenced ConversationMessage.
@@ -136,6 +152,20 @@ export interface ConversationMessage {
     annotations?: FlattenedAnnotations;
 }
 
+/**
+ * Check if a given object implements the ConversationMessage interface.
+ */
+export function instanceOfConversationMessage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "conversation" in value;
+    isInstance = isInstance && "role" in value;
+
+    return isInstance;
+}
+
 export function ConversationMessageFromJSON(json: any): ConversationMessage {
     return ConversationMessageFromJSONTyped(json, false);
 }
@@ -184,5 +214,4 @@ export function ConversationMessageToJSON(value?: ConversationMessage | null): a
         'annotations': FlattenedAnnotationsToJSON(value.annotations),
     };
 }
-
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Model for collecting descriptive statistics of images uploaded to Pieces
@@ -76,6 +76,21 @@ export interface GraphicalImageDescriptiveStatistics {
     os: string;
 }
 
+/**
+ * Check if a given object implements the GraphicalImageDescriptiveStatistics interface.
+ */
+export function instanceOfGraphicalImageDescriptiveStatistics(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "width" in value;
+    isInstance = isInstance && "height" in value;
+    isInstance = isInstance && "channels" in value;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "os" in value;
+
+    return isInstance;
+}
+
 export function GraphicalImageDescriptiveStatisticsFromJSON(json: any): GraphicalImageDescriptiveStatistics {
     return GraphicalImageDescriptiveStatisticsFromJSONTyped(json, false);
 }
@@ -116,5 +131,4 @@ export function GraphicalImageDescriptiveStatisticsToJSON(value?: GraphicalImage
         'os': value.os,
     };
 }
-
 

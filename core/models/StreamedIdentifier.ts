@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ReferencedAsset } from './ReferencedAsset';
 import {
-    ReferencedAsset,
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedConversation,
+} from './ReferencedAsset';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './';
+} from './ReferencedConversation';
 
 /**
  * This is currently only used within /assets/steam/identifiers && /conversations/steam/identifiers but can be used with other as well, if we want to expand this class.
@@ -48,6 +50,15 @@ export interface StreamedIdentifier {
      * @memberof StreamedIdentifier
      */
     deleted?: boolean;
+}
+
+/**
+ * Check if a given object implements the StreamedIdentifier interface.
+ */
+export function instanceOfStreamedIdentifier(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function StreamedIdentifierFromJSON(json: any): StreamedIdentifier {
@@ -80,5 +91,4 @@ export function StreamedIdentifierToJSON(value?: StreamedIdentifier | null): any
         'deleted': value.deleted,
     };
 }
-
 

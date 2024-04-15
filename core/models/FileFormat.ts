@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TransferableBytes,
+} from './EmbeddedModelSchema';
+import type { TransferableBytes } from './TransferableBytes';
+import {
     TransferableBytesFromJSON,
     TransferableBytesFromJSONTyped,
     TransferableBytesToJSON,
-    TransferableString,
+} from './TransferableBytes';
+import type { TransferableString } from './TransferableString';
+import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
-} from './';
+} from './TransferableString';
 
 /**
  * This describes a FileFormat. If you need meta data you can get all of that from your format wrapper.
@@ -52,6 +56,15 @@ export interface FileFormat {
      * @memberof FileFormat
      */
     string?: TransferableString;
+}
+
+/**
+ * Check if a given object implements the FileFormat interface.
+ */
+export function instanceOfFileFormat(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FileFormatFromJSON(json: any): FileFormat {
@@ -84,5 +97,4 @@ export function FileFormatToJSON(value?: FileFormat | null): any {
         'string': TransferableStringToJSON(value.string),
     };
 }
-
 

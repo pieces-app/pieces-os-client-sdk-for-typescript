@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededDiscoverableRelatedTag,
+} from './EmbeddedModelSchema';
+import type { SeededDiscoverableRelatedTag } from './SeededDiscoverableRelatedTag';
+import {
     SeededDiscoverableRelatedTagFromJSON,
     SeededDiscoverableRelatedTagFromJSONTyped,
     SeededDiscoverableRelatedTagToJSON,
-} from './';
+} from './SeededDiscoverableRelatedTag';
 
 /**
  * 
@@ -48,6 +50,17 @@ export interface SeededDiscoverableRelatedTags {
      * @memberof SeededDiscoverableRelatedTags
      */
     application: string;
+}
+
+/**
+ * Check if a given object implements the SeededDiscoverableRelatedTags interface.
+ */
+export function instanceOfSeededDiscoverableRelatedTags(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableRelatedTagsFromJSON(json: any): SeededDiscoverableRelatedTags {
@@ -80,5 +93,4 @@ export function SeededDiscoverableRelatedTagsToJSON(value?: SeededDiscoverableRe
         'application': value.application,
     };
 }
-
 

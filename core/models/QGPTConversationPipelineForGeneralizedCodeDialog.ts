@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is for the users that wants to have generalized code conversations without any context.
@@ -34,6 +34,15 @@ export interface QGPTConversationPipelineForGeneralizedCodeDialog {
      * @memberof QGPTConversationPipelineForGeneralizedCodeDialog
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the QGPTConversationPipelineForGeneralizedCodeDialog interface.
+ */
+export function instanceOfQGPTConversationPipelineForGeneralizedCodeDialog(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json: any): QGPTConversationPipelineForGeneralizedCodeDialog {
@@ -62,5 +71,4 @@ export function QGPTConversationPipelineForGeneralizedCodeDialogToJSON(value?: Q
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

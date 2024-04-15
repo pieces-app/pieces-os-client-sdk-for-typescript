@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    Tag,
+} from './Score';
+import type { Tag } from './Tag';
+import {
     TagFromJSON,
     TagFromJSONTyped,
     TagToJSON,
-} from './';
+} from './Tag';
 
 /**
  * This is a model that represents multiple Tag Models
@@ -58,6 +62,16 @@ export interface Tags {
      * @memberof Tags
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Tags interface.
+ */
+export function instanceOfTags(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function TagsFromJSON(json: any): Tags {
@@ -92,5 +106,4 @@ export function TagsToJSON(value?: Tags | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

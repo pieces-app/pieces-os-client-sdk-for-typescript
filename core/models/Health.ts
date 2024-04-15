@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    OSHealth,
+} from './EmbeddedModelSchema';
+import type { OSHealth } from './OSHealth';
+import {
     OSHealthFromJSON,
     OSHealthFromJSONTyped,
     OSHealthToJSON,
-} from './';
+} from './OSHealth';
 
 /**
  * This is a health model used to determine the "health" of the os server and cloud server(Coming Soon). READONLY Model.
@@ -42,6 +44,16 @@ export interface Health {
      * @memberof Health
      */
     os: OSHealth;
+}
+
+/**
+ * Check if a given object implements the Health interface.
+ */
+export function instanceOfHealth(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "os" in value;
+
+    return isInstance;
 }
 
 export function HealthFromJSON(json: any): Health {
@@ -72,5 +84,4 @@ export function HealthToJSON(value?: Health | null): any {
         'os': OSHealthToJSON(value.os),
     };
 }
-
 

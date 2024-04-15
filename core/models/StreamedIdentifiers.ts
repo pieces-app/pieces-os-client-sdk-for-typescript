@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    StreamedIdentifier,
+} from './EmbeddedModelSchema';
+import type { StreamedIdentifier } from './StreamedIdentifier';
+import {
     StreamedIdentifierFromJSON,
     StreamedIdentifierFromJSONTyped,
     StreamedIdentifierToJSON,
-} from './';
+} from './StreamedIdentifier';
 
 /**
  * This is currently only used within /assets/steam/identifiers && /conversations/steam/identifiers but can be used with other as well, if we want to expand this class. && expand the StreamedIdentifier class.
@@ -42,6 +44,16 @@ export interface StreamedIdentifiers {
      * @memberof StreamedIdentifiers
      */
     iterable: Array<StreamedIdentifier>;
+}
+
+/**
+ * Check if a given object implements the StreamedIdentifiers interface.
+ */
+export function instanceOfStreamedIdentifiers(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function StreamedIdentifiersFromJSON(json: any): StreamedIdentifiers {
@@ -72,5 +84,4 @@ export function StreamedIdentifiersToJSON(value?: StreamedIdentifiers | null): a
         'iterable': ((value.iterable as Array<any>).map(StreamedIdentifierToJSON)),
     };
 }
-
 

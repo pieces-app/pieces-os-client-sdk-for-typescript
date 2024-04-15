@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Role,
+} from './EmbeddedModelSchema';
+import type { Role } from './Role';
+import {
     RoleFromJSON,
     RoleFromJSONTyped,
     RoleToJSON,
-} from './';
+} from './Role';
 
 /**
  * A minimal format to send to Mixpanel
@@ -78,6 +82,21 @@ export interface TrackedFormat {
     file: boolean;
 }
 
+/**
+ * Check if a given object implements the TrackedFormat interface.
+ */
+export function instanceOfTrackedFormat(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "classification" in value;
+    isInstance = isInstance && "role" in value;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "fragment" in value;
+    isInstance = isInstance && "file" in value;
+
+    return isInstance;
+}
+
 export function TrackedFormatFromJSON(json: any): TrackedFormat {
     return TrackedFormatFromJSONTyped(json, false);
 }
@@ -116,5 +135,4 @@ export function TrackedFormatToJSON(value?: TrackedFormat | null): any {
         'file': value.file,
     };
 }
-
 

@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * This is a specific model that will let us know at what time this user was using the application.
@@ -44,6 +44,17 @@ export interface Session {
      * @memberof Session
      */
     closed?: GroupedTimestamp;
+}
+
+/**
+ * Check if a given object implements the Session interface.
+ */
+export function instanceOfSession(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "opened" in value;
+
+    return isInstance;
 }
 
 export function SessionFromJSON(json: any): Session {
@@ -76,5 +87,4 @@ export function SessionToJSON(value?: Session | null): any {
         'closed': GroupedTimestampToJSON(value.closed),
     };
 }
-
 

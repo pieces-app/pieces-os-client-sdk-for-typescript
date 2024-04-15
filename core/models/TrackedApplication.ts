@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ApplicationNameEnum } from './ApplicationNameEnum';
 import {
-    ApplicationNameEnum,
     ApplicationNameEnumFromJSON,
     ApplicationNameEnumFromJSONTyped,
     ApplicationNameEnumToJSON,
-    EmbeddedModelSchema,
+} from './ApplicationNameEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PlatformEnum,
+} from './EmbeddedModelSchema';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-} from './';
+} from './PlatformEnum';
 
 /**
  * A Model to describe what application a format/analytics event originated.
@@ -72,6 +76,19 @@ export interface TrackedApplication {
     automaticUnload?: boolean;
 }
 
+/**
+ * Check if a given object implements the TrackedApplication interface.
+ */
+export function instanceOfTrackedApplication(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "platform" in value;
+
+    return isInstance;
+}
+
 export function TrackedApplicationFromJSON(json: any): TrackedApplication {
     return TrackedApplicationFromJSONTyped(json, false);
 }
@@ -108,5 +125,4 @@ export function TrackedApplicationToJSON(value?: TrackedApplication | null): any
         'automaticUnload': value.automaticUnload,
     };
 }
-
 

@@ -1,6 +1,6 @@
 {
   "name": "@pieces.app/pieces-os-client",
-  "version": "2.1.0",
+  "version": "3.0.2",
   "description": "@pieces.app/pieces-os-client is an open source on-device AI development workflow assistant. Follow along the README.md to get started and add Pieces Copilot functionality to your application or project.",
   "keywords": [
     "pieces",
@@ -23,8 +23,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "clean": "rm -r node_modules && rm package-lock.json && rm -r dist",
-    "export": "npm pack --pack-destination ~",
-    "publish": "npm publish --access public"
+    "export": "npm pack --pack-destination ~"
   },
   "author": "Pieces for Developers",
   "license": "MIT",

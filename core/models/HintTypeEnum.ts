@@ -12,15 +12,17 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is the hint enum used to describe a type of hint.
  * @export
- * @enum {string}
  */
-export enum HintTypeEnum {
-    SuggestedQuery = 'SUGGESTED_QUERY',
-    QgptHint = 'QGPT_HINT'
-}
+export const HintTypeEnum = {
+    SuggestedQuery: 'SUGGESTED_QUERY',
+    QgptHint: 'QGPT_HINT'
+} as const;
+export type HintTypeEnum = typeof HintTypeEnum[keyof typeof HintTypeEnum];
+
 
 export function HintTypeEnumFromJSON(json: any): HintTypeEnum {
     return HintTypeEnumFromJSONTyped(json, false);

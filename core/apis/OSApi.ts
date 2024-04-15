@@ -14,35 +14,44 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  CheckedOSUpdate,
+  FilePickerInput,
+  OSDeviceInformationReturnable,
+  OSPermissions,
+  ReturnedUserProfile,
+  SeededExternalProvider,
+  UncheckedOSUpdate,
+  UserProfile,
+  Users,
+} from '../models/index';
 import {
-    CheckedOSUpdate,
     CheckedOSUpdateFromJSON,
     CheckedOSUpdateToJSON,
-    FilePickerInput,
     FilePickerInputFromJSON,
     FilePickerInputToJSON,
-    OSDeviceInformationReturnable,
     OSDeviceInformationReturnableFromJSON,
     OSDeviceInformationReturnableToJSON,
-    ReturnedUserProfile,
+    OSPermissionsFromJSON,
+    OSPermissionsToJSON,
     ReturnedUserProfileFromJSON,
     ReturnedUserProfileToJSON,
-    SeededExternalProvider,
     SeededExternalProviderFromJSON,
     SeededExternalProviderToJSON,
-    UncheckedOSUpdate,
     UncheckedOSUpdateFromJSON,
     UncheckedOSUpdateToJSON,
-    UserProfile,
     UserProfileFromJSON,
     UserProfileToJSON,
-    Users,
     UsersFromJSON,
     UsersToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface LinkProviderRequest {
     seededExternalProvider?: SeededExternalProvider;
+}
+
+export interface OsPermissionsRequestRequest {
+    oSPermissions?: OSPermissions;
 }
 
 export interface OsUpdateCheckRequest {
@@ -62,7 +71,7 @@ export class OSApi extends runtime.BaseAPI {
      * This will link an external provider to your current auth0 account.  Will throw errors if your user is not signed in.
      * /os/link_provider [POST]
      */
-    async linkProviderRaw(requestParameters: LinkProviderRequest): Promise<runtime.ApiResponse<ReturnedUserProfile>> {
+    async linkProviderRaw(requestParameters: LinkProviderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReturnedUserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -75,7 +84,7 @@ export class OSApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededExternalProviderToJSON(requestParameters.seededExternalProvider),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReturnedUserProfileFromJSON(jsonValue));
     }
@@ -84,8 +93,8 @@ export class OSApi extends runtime.BaseAPI {
      * This will link an external provider to your current auth0 account.  Will throw errors if your user is not signed in.
      * /os/link_provider [POST]
      */
-    async linkProvider(requestParameters: LinkProviderRequest): Promise<ReturnedUserProfile> {
-        const response = await this.linkProviderRaw(requestParameters);
+    async linkProvider(requestParameters: LinkProviderRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReturnedUserProfile> {
+        const response = await this.linkProviderRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -93,7 +102,7 @@ export class OSApi extends runtime.BaseAPI {
      * This will get information related to your specific device.
      * /os/device/information [GET]
      */
-    async osDeviceInformationRaw(): Promise<runtime.ApiResponse<OSDeviceInformationReturnable>> {
+    async osDeviceInformationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSDeviceInformationReturnable>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -103,7 +112,7 @@ export class OSApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OSDeviceInformationReturnableFromJSON(jsonValue));
     }
@@ -112,8 +121,67 @@ export class OSApi extends runtime.BaseAPI {
      * This will get information related to your specific device.
      * /os/device/information [GET]
      */
-    async osDeviceInformation(): Promise<OSDeviceInformationReturnable> {
-        const response = await this.osDeviceInformationRaw();
+    async osDeviceInformation(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSDeviceInformationReturnable> {
+        const response = await this.osDeviceInformationRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will only work on Macos and Windows.  And will get the permissions of the user\'s local machine w/ regard to anything needed to effectively run PiecesOS.  Note: this will let us know if we need to tell them to take action to enable any given permissions
+     * /os/permissions [GET]
+     */
+    async osPermissionsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSPermissions>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/permissions`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSPermissionsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will only work on Macos and Windows.  And will get the permissions of the user\'s local machine w/ regard to anything needed to effectively run PiecesOS.  Note: this will let us know if we need to tell them to take action to enable any given permissions
+     * /os/permissions [GET]
+     */
+    async osPermissions(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSPermissions> {
+        const response = await this.osPermissionsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will only work on Macos and Windows.  This will request permissions for the given inputs
+     * /os/permissions/request [POST]
+     */
+    async osPermissionsRequestRaw(requestParameters: OsPermissionsRequestRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSPermissions>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/permissions/request`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: OSPermissionsToJSON(requestParameters.oSPermissions),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSPermissionsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will only work on Macos and Windows.  This will request permissions for the given inputs
+     * /os/permissions/request [POST]
+     */
+    async osPermissionsRequest(requestParameters: OsPermissionsRequestRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSPermissions> {
+        const response = await this.osPermissionsRequestRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -121,7 +189,7 @@ export class OSApi extends runtime.BaseAPI {
      * This will restart PiecesOS, if successfull with return a 204. This is a LOCALOS Only Endpoint.
      * Your GET endpoint
      */
-    async osRestartRaw(): Promise<runtime.ApiResponse<void>> {
+    async osRestartRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -131,7 +199,7 @@ export class OSApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -140,15 +208,15 @@ export class OSApi extends runtime.BaseAPI {
      * This will restart PiecesOS, if successfull with return a 204. This is a LOCALOS Only Endpoint.
      * Your GET endpoint
      */
-    async osRestart(): Promise<void> {
-        await this.osRestartRaw();
+    async osRestart(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.osRestartRaw(initOverrides);
     }
 
     /**
      * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
      * /os/update/check [POST]
      */
-    async osUpdateCheckRaw(requestParameters: OsUpdateCheckRequest): Promise<runtime.ApiResponse<CheckedOSUpdate>> {
+    async osUpdateCheckRaw(requestParameters: OsUpdateCheckRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CheckedOSUpdate>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -161,7 +229,7 @@ export class OSApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: UncheckedOSUpdateToJSON(requestParameters.uncheckedOSUpdate),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CheckedOSUpdateFromJSON(jsonValue));
     }
@@ -170,8 +238,8 @@ export class OSApi extends runtime.BaseAPI {
      * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
      * /os/update/check [POST]
      */
-    async osUpdateCheck(requestParameters: OsUpdateCheckRequest): Promise<CheckedOSUpdate> {
-        const response = await this.osUpdateCheckRaw(requestParameters);
+    async osUpdateCheck(requestParameters: OsUpdateCheckRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CheckedOSUpdate> {
+        const response = await this.osUpdateCheckRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -179,7 +247,7 @@ export class OSApi extends runtime.BaseAPI {
      * This will trigger a filer picker and return the string paths of the files that were selected.
      * /os/files/pick [POST]
      */
-    async pickFilesRaw(requestParameters: PickFilesRequest): Promise<runtime.ApiResponse<Array<string>>> {
+    async pickFilesRaw(requestParameters: PickFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -192,7 +260,7 @@ export class OSApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: FilePickerInputToJSON(requestParameters.filePickerInput),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -201,8 +269,8 @@ export class OSApi extends runtime.BaseAPI {
      * This will trigger a filer picker and return the string paths of the files that were selected.
      * /os/files/pick [POST]
      */
-    async pickFiles(requestParameters: PickFilesRequest): Promise<Array<string>> {
-        const response = await this.pickFilesRaw(requestParameters);
+    async pickFiles(requestParameters: PickFilesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
+        const response = await this.pickFilesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -210,7 +278,7 @@ export class OSApi extends runtime.BaseAPI {
      * This will trigger a folder picker and return the string paths of the folders that were selected.
      * /os/folders/pick [POST]
      */
-    async pickFoldersRaw(): Promise<runtime.ApiResponse<Array<string>>> {
+    async pickFoldersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -220,7 +288,7 @@ export class OSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
     }
@@ -229,15 +297,16 @@ export class OSApi extends runtime.BaseAPI {
      * This will trigger a folder picker and return the string paths of the folders that were selected.
      * /os/folders/pick [POST]
      */
-    async pickFolders(): Promise<Array<string>> {
-        const response = await this.pickFoldersRaw();
+    async pickFolders(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
+        const response = await this.pickFoldersRaw(initOverrides);
         return await response.value();
     }
 
     /**
      * A trigger that launches a Sign into OS Server
+     * 
      */
-    async signIntoOSRaw(): Promise<runtime.ApiResponse<UserProfile>> {
+    async signIntoOSRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -247,16 +316,17 @@ export class OSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
     }
 
     /**
      * A trigger that launches a Sign into OS Server
+     * 
      */
-    async signIntoOS(): Promise<UserProfile> {
-        const response = await this.signIntoOSRaw();
+    async signIntoOS(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
+        const response = await this.signIntoOSRaw(initOverrides);
         return await response.value();
     }
 
@@ -264,7 +334,7 @@ export class OSApi extends runtime.BaseAPI {
      * A trigger that signs out a user from the OS
      * /os/sign_out [POST]
      */
-    async signOutOfOSRaw(): Promise<runtime.ApiResponse<Users>> {
+    async signOutOfOSRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Users>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -274,7 +344,7 @@ export class OSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UsersFromJSON(jsonValue));
     }
@@ -283,8 +353,8 @@ export class OSApi extends runtime.BaseAPI {
      * A trigger that signs out a user from the OS
      * /os/sign_out [POST]
      */
-    async signOutOfOS(): Promise<Users> {
-        const response = await this.signOutOfOSRaw();
+    async signOutOfOS(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Users> {
+        const response = await this.signOutOfOSRaw(initOverrides);
         return await response.value();
     }
 

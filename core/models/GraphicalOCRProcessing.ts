@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalOCRStatistics,
+} from './EmbeddedModelSchema';
+import type { GraphicalOCRStatistics } from './GraphicalOCRStatistics';
+import {
     GraphicalOCRStatisticsFromJSON,
     GraphicalOCRStatisticsFromJSONTyped,
     GraphicalOCRStatisticsToJSON,
-} from './';
+} from './GraphicalOCRStatistics';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface GraphicalOCRProcessing {
      * @memberof GraphicalOCRProcessing
      */
     statistics?: GraphicalOCRStatistics;
+}
+
+/**
+ * Check if a given object implements the GraphicalOCRProcessing interface.
+ */
+export function instanceOfGraphicalOCRProcessing(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalOCRProcessingFromJSON(json: any): GraphicalOCRProcessing {
@@ -72,5 +83,4 @@ export function GraphicalOCRProcessingToJSON(value?: GraphicalOCRProcessing | nu
         'statistics': GraphicalOCRStatisticsToJSON(value.statistics),
     };
 }
-
 

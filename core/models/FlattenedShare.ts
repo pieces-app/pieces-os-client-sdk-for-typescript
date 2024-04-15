@@ -13,36 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AccessEnum } from './AccessEnum';
 import {
-    AccessEnum,
     AccessEnumFromJSON,
     AccessEnumFromJSONTyped,
     AccessEnumToJSON,
-    Accessors,
+} from './AccessEnum';
+import type { Accessors } from './Accessors';
+import {
     AccessorsFromJSON,
     AccessorsFromJSONTyped,
     AccessorsToJSON,
-    EmbeddedModelSchema,
+} from './Accessors';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedDistributions,
+} from './FlattenedAssets';
+import type { FlattenedDistributions } from './FlattenedDistributions';
+import {
     FlattenedDistributionsFromJSON,
     FlattenedDistributionsFromJSONTyped,
     FlattenedDistributionsToJSON,
-    GroupedTimestamp,
+} from './FlattenedDistributions';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    Score,
+} from './GroupedTimestamp';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a dag safe version of the Share.
@@ -132,6 +144,21 @@ export interface FlattenedShare {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedShare interface.
+ */
+export function instanceOfFlattenedShare(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "link" in value;
+    isInstance = isInstance && "access" in value;
+    isInstance = isInstance && "accessors" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "_short" in value;
+
+    return isInstance;
+}
+
 export function FlattenedShareFromJSON(json: any): FlattenedShare {
     return FlattenedShareFromJSONTyped(json, false);
 }
@@ -182,5 +209,4 @@ export function FlattenedShareToJSON(value?: FlattenedShare | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

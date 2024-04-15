@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GraphicalOCRDescriptiveStatisticsConfidence,
+} from './EmbeddedModelSchema';
+import type { GraphicalOCRDescriptiveStatisticsConfidence } from './GraphicalOCRDescriptiveStatisticsConfidence';
+import {
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSON,
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped,
     GraphicalOCRDescriptiveStatisticsConfidenceToJSON,
-} from './';
+} from './GraphicalOCRDescriptiveStatisticsConfidence';
 
 /**
  * Model for monitoring and evaluating the OCR feature
@@ -80,6 +82,22 @@ export interface GraphicalOCRDescriptiveStatistics {
     duration: string;
 }
 
+/**
+ * Check if a given object implements the GraphicalOCRDescriptiveStatistics interface.
+ */
+export function instanceOfGraphicalOCRDescriptiveStatistics(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "user" in value;
+    isInstance = isInstance && "model" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "os" in value;
+    isInstance = isInstance && "confidence" in value;
+    isInstance = isInstance && "duration" in value;
+
+    return isInstance;
+}
+
 export function GraphicalOCRDescriptiveStatisticsFromJSON(json: any): GraphicalOCRDescriptiveStatistics {
     return GraphicalOCRDescriptiveStatisticsFromJSONTyped(json, false);
 }
@@ -120,5 +138,4 @@ export function GraphicalOCRDescriptiveStatisticsToJSON(value?: GraphicalOCRDesc
         'duration': value.duration,
     };
 }
-
 

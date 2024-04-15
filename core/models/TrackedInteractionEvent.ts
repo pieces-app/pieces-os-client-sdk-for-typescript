@@ -13,15 +13,16 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a model that will hold relavent information in relation to an interaction(ONLY CLICK/TAP) analytics event(usage). If you want to register an event that relates to an interaction with the key then register a Keyboard Event.
+ * 
  * @export
  * @interface TrackedInteractionEvent
  */
@@ -44,6 +45,16 @@ export interface TrackedInteractionEvent {
      * @memberof TrackedInteractionEvent
      */
     element?: string;
+}
+
+/**
+ * Check if a given object implements the TrackedInteractionEvent interface.
+ */
+export function instanceOfTrackedInteractionEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "description" in value;
+
+    return isInstance;
 }
 
 export function TrackedInteractionEventFromJSON(json: any): TrackedInteractionEvent {
@@ -76,5 +87,4 @@ export function TrackedInteractionEventToJSON(value?: TrackedInteractionEvent | 
         'element': value.element,
     };
 }
-
 

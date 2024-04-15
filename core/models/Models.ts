@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Model,
+} from './EmbeddedModelSchema';
+import type { Model } from './Model';
+import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
-} from './';
+} from './Model';
 
 /**
  * This is a List of MachineLearning Models
@@ -42,6 +44,16 @@ export interface Models {
      * @memberof Models
      */
     iterable: Array<Model>;
+}
+
+/**
+ * Check if a given object implements the Models interface.
+ */
+export function instanceOfModels(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ModelsFromJSON(json: any): Models {
@@ -72,5 +84,4 @@ export function ModelsToJSON(value?: Models | null): any {
         'iterable': ((value.iterable as Array<any>).map(ModelToJSON)),
     };
 }
-
 

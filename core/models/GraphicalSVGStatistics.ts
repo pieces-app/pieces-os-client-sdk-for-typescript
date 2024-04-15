@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -38,6 +38,15 @@ export interface GraphicalSVGStatistics {
      * @memberof GraphicalSVGStatistics
      */
     id?: string;
+}
+
+/**
+ * Check if a given object implements the GraphicalSVGStatistics interface.
+ */
+export function instanceOfGraphicalSVGStatistics(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function GraphicalSVGStatisticsFromJSON(json: any): GraphicalSVGStatistics {
@@ -68,5 +77,4 @@ export function GraphicalSVGStatisticsToJSON(value?: GraphicalSVGStatistics | nu
         'id': value.id,
     };
 }
-
 

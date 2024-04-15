@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
 import {
-    ClassificationSpecificEnum,
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a model for metadata of a file!
@@ -54,6 +56,15 @@ export interface FileMetadata {
      * @memberof FileMetadata
      */
     size?: number;
+}
+
+/**
+ * Check if a given object implements the FileMetadata interface.
+ */
+export function instanceOfFileMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FileMetadataFromJSON(json: any): FileMetadata {
@@ -88,5 +99,4 @@ export function FileMetadataToJSON(value?: FileMetadata | null): any {
         'size': value.size,
     };
 }
-
 

@@ -33,6 +33,17 @@ export interface Auth0UserAllocationMetadata {
     region: string;
 }
 
+/**
+ * Check if a given object implements the Auth0UserAllocationMetadata interface.
+ */
+export function instanceOfAuth0UserAllocationMetadata(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "project" in value;
+    isInstance = isInstance && "region" in value;
+
+    return isInstance;
+}
+
 export function Auth0UserAllocationMetadataFromJSON(json: any): Auth0UserAllocationMetadata {
     return Auth0UserAllocationMetadataFromJSONTyped(json, false);
 }
@@ -61,5 +72,4 @@ export function Auth0UserAllocationMetadataToJSON(value?: Auth0UserAllocationMet
         'region': value.region,
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    QGPTConversationMessage,
+} from './EmbeddedModelSchema';
+import type { QGPTConversationMessage } from './QGPTConversationMessage';
+import {
     QGPTConversationMessageFromJSON,
     QGPTConversationMessageFromJSONTyped,
     QGPTConversationMessageToJSON,
-} from './';
+} from './QGPTConversationMessage';
 
 /**
  * 
@@ -42,6 +44,15 @@ export interface QGPTConversation {
      * @memberof QGPTConversation
      */
     iterable?: Array<QGPTConversationMessage>;
+}
+
+/**
+ * Check if a given object implements the QGPTConversation interface.
+ */
+export function instanceOfQGPTConversation(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTConversationFromJSON(json: any): QGPTConversation {
@@ -72,5 +83,4 @@ export function QGPTConversationToJSON(value?: QGPTConversation | null): any {
         'iterable': value.iterable === undefined ? undefined : ((value.iterable as Array<any>).map(QGPTConversationMessageToJSON)),
     };
 }
-
 

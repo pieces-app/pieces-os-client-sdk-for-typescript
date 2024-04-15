@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { QGPTQuestionInput } from './QGPTQuestionInput';
 import {
-    QGPTQuestionInput,
     QGPTQuestionInputFromJSON,
     QGPTQuestionInputFromJSONTyped,
     QGPTQuestionInputToJSON,
-    QGPTRelevanceInput,
+} from './QGPTQuestionInput';
+import type { QGPTRelevanceInput } from './QGPTRelevanceInput';
+import {
     QGPTRelevanceInputFromJSON,
     QGPTRelevanceInputFromJSONTyped,
     QGPTRelevanceInputToJSON,
-} from './';
+} from './QGPTRelevanceInput';
 
 /**
  * This is the input for the /qgpt/stream endpoint.
@@ -55,17 +57,32 @@ export interface QGPTStreamInput {
      */
     conversation?: string;
     /**
-     * 
+     * This will stop the output of the current LLM
      * @type {boolean}
      * @memberof QGPTStreamInput
      */
     stop?: boolean;
+    /**
+     * This will fully reset all current Activity within the QGPT stream Flows.
+     * @type {boolean}
+     * @memberof QGPTStreamInput
+     */
+    reset?: boolean;
     /**
      * This will let us know if we want to run the agent routing as well, this is default to true. However if set to false you will save on processing and you will recieve null for the agentRoutes class on the QGPTStreamOutput.
      * @type {boolean}
      * @memberof QGPTStreamInput
      */
     agent?: boolean;
+}
+
+/**
+ * Check if a given object implements the QGPTStreamInput interface.
+ */
+export function instanceOfQGPTStreamInput(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTStreamInputFromJSON(json: any): QGPTStreamInput {
@@ -83,6 +100,7 @@ export function QGPTStreamInputFromJSONTyped(json: any, ignoreDiscriminator: boo
         'request': !exists(json, 'request') ? undefined : json['request'],
         'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
         'stop': !exists(json, 'stop') ? undefined : json['stop'],
+        'reset': !exists(json, 'reset') ? undefined : json['reset'],
         'agent': !exists(json, 'agent') ? undefined : json['agent'],
     };
 }
@@ -101,8 +119,8 @@ export function QGPTStreamInputToJSON(value?: QGPTStreamInput | null): any {
         'request': value.request,
         'conversation': value.conversation,
         'stop': value.stop,
+        'reset': value.reset,
         'agent': value.agent,
     };
 }
-
 

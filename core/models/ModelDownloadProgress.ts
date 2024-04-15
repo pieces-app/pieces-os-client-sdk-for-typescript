@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ModelDownloadProgressStatusEnum,
+} from './EmbeddedModelSchema';
+import type { ModelDownloadProgressStatusEnum } from './ModelDownloadProgressStatusEnum';
+import {
     ModelDownloadProgressStatusEnumFromJSON,
     ModelDownloadProgressStatusEnumFromJSONTyped,
     ModelDownloadProgressStatusEnumToJSON,
-} from './';
+} from './ModelDownloadProgressStatusEnum';
 
 /**
  * This is the model that is sent over our ws for streaming the progress of a model that is being downloaded.
@@ -50,6 +52,15 @@ export interface ModelDownloadProgress {
      * @memberof ModelDownloadProgress
      */
     percentage?: number | null;
+}
+
+/**
+ * Check if a given object implements the ModelDownloadProgress interface.
+ */
+export function instanceOfModelDownloadProgress(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ModelDownloadProgressFromJSON(json: any): ModelDownloadProgress {
@@ -82,5 +93,4 @@ export function ModelDownloadProgressToJSON(value?: ModelDownloadProgress | null
         'percentage': value.percentage,
     };
 }
-
 

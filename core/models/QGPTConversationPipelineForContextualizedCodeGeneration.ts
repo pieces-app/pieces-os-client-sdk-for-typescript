@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This type of conversation is reccomended to be provided when a user want generate code w/ context provided.
@@ -34,6 +34,15 @@ export interface QGPTConversationPipelineForContextualizedCodeGeneration {
      * @memberof QGPTConversationPipelineForContextualizedCodeGeneration
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeGeneration interface.
+ */
+export function instanceOfQGPTConversationPipelineForContextualizedCodeGeneration(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeGeneration {
@@ -62,5 +71,4 @@ export function QGPTConversationPipelineForContextualizedCodeGenerationToJSON(va
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

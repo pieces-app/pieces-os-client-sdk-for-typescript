@@ -14,11 +14,13 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Analyses,
+} from '../models/index';
 import {
-    Analyses,
     AnalysesFromJSON,
     AnalysesToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AnalysesSnapshotRequest {
     transferables?: boolean;
@@ -33,7 +35,7 @@ export class AnalysesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your analyses, that are all attached to formats. An analysis can optionally have an codeAnalysis or an optional imageAnalysis.
      * Your GET endpoint
      */
-    async analysesSnapshotRaw(requestParameters: AnalysesSnapshotRequest): Promise<runtime.ApiResponse<Analyses>> {
+    async analysesSnapshotRaw(requestParameters: AnalysesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Analyses>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -47,7 +49,7 @@ export class AnalysesApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnalysesFromJSON(jsonValue));
     }
@@ -56,8 +58,8 @@ export class AnalysesApi extends runtime.BaseAPI {
      * This will get a snapshot of all of your analyses, that are all attached to formats. An analysis can optionally have an codeAnalysis or an optional imageAnalysis.
      * Your GET endpoint
      */
-    async analysesSnapshot(requestParameters: AnalysesSnapshotRequest): Promise<Analyses> {
-        const response = await this.analysesSnapshotRaw(requestParameters);
+    async analysesSnapshot(requestParameters: AnalysesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Analyses> {
+        const response = await this.analysesSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

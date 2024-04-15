@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededAssetMetadata,
+} from './EmbeddedModelSchema';
+import type { SeededAssetMetadata } from './SeededAssetMetadata';
+import {
     SeededAssetMetadataFromJSON,
     SeededAssetMetadataFromJSONTyped,
     SeededAssetMetadataToJSON,
-    SeededFile,
+} from './SeededAssetMetadata';
+import type { SeededFile } from './SeededFile';
+import {
     SeededFileFromJSON,
     SeededFileFromJSONTyped,
     SeededFileToJSON,
-    SeededFragment,
+} from './SeededFile';
+import type { SeededFragment } from './SeededFragment';
+import {
     SeededFragmentFromJSON,
     SeededFragmentFromJSONTyped,
     SeededFragmentToJSON,
-    TLPDirectedDiscoveryFilters,
+} from './SeededFragment';
+import type { TLPDirectedDiscoveryFilters } from './TLPDirectedDiscoveryFilters';
+import {
     TLPDirectedDiscoveryFiltersFromJSON,
     TLPDirectedDiscoveryFiltersFromJSONTyped,
     TLPDirectedDiscoveryFiltersToJSON,
-} from './';
+} from './TLPDirectedDiscoveryFilters';
 
 /**
  * 
@@ -80,6 +88,15 @@ export interface DiscoveredAsset {
     filters?: TLPDirectedDiscoveryFilters;
 }
 
+/**
+ * Check if a given object implements the DiscoveredAsset interface.
+ */
+export function instanceOfDiscoveredAsset(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function DiscoveredAssetFromJSON(json: any): DiscoveredAsset {
     return DiscoveredAssetFromJSONTyped(json, false);
 }
@@ -116,5 +133,4 @@ export function DiscoveredAssetToJSON(value?: DiscoveredAsset | null): any {
         'filters': TLPDirectedDiscoveryFiltersToJSON(value.filters),
     };
 }
-
 

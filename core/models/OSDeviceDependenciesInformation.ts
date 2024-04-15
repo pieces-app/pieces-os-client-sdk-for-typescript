@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will lets us know about specific dependencies that we are looking for on the device that are needed for specific tasks.
@@ -38,6 +38,16 @@ export interface OSDeviceDependenciesInformation {
      * @memberof OSDeviceDependenciesInformation
      */
     vulkan: boolean;
+}
+
+/**
+ * Check if a given object implements the OSDeviceDependenciesInformation interface.
+ */
+export function instanceOfOSDeviceDependenciesInformation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "vulkan" in value;
+
+    return isInstance;
 }
 
 export function OSDeviceDependenciesInformationFromJSON(json: any): OSDeviceDependenciesInformation {
@@ -68,5 +78,4 @@ export function OSDeviceDependenciesInformationToJSON(value?: OSDeviceDependenci
         'vulkan': value.vulkan,
     };
 }
-
 

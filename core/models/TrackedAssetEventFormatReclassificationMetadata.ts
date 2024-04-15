@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * Metadata of a format reclassification event
@@ -48,6 +50,15 @@ export interface TrackedAssetEventFormatReclassificationMetadata {
      * @memberof TrackedAssetEventFormatReclassificationMetadata
      */
     current?: Classification;
+}
+
+/**
+ * Check if a given object implements the TrackedAssetEventFormatReclassificationMetadata interface.
+ */
+export function instanceOfTrackedAssetEventFormatReclassificationMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventFormatReclassificationMetadataFromJSON(json: any): TrackedAssetEventFormatReclassificationMetadata {
@@ -80,5 +91,4 @@ export function TrackedAssetEventFormatReclassificationMetadataToJSON(value?: Tr
         'current': ClassificationToJSON(value.current),
     };
 }
-
 

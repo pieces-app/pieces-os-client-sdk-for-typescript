@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedUserProfile,
+} from './EmbeddedModelSchema';
+import type { FlattenedUserProfile } from './FlattenedUserProfile';
+import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
-} from './';
+} from './FlattenedUserProfile';
 
 /**
  * A object to reference a user's ID and optionally a FlattenedUserProfile Instance 
@@ -48,6 +50,16 @@ export interface ReferencedUser {
      * @memberof ReferencedUser
      */
     reference?: FlattenedUserProfile;
+}
+
+/**
+ * Check if a given object implements the ReferencedUser interface.
+ */
+export function instanceOfReferencedUser(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedUserFromJSON(json: any): ReferencedUser {
@@ -80,5 +92,4 @@ export function ReferencedUserToJSON(value?: ReferencedUser | null): any {
         'reference': FlattenedUserProfileToJSON(value.reference),
     };
 }
-
 

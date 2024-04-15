@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PersonBasicType,
+} from './EmbeddedModelSchema';
+import type { PersonBasicType } from './PersonBasicType';
+import {
     PersonBasicTypeFromJSON,
     PersonBasicTypeFromJSONTyped,
     PersonBasicTypeToJSON,
-    UserProfile,
+} from './PersonBasicType';
+import type { UserProfile } from './UserProfile';
+import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
-} from './';
+} from './UserProfile';
 
 /**
  * basic or platform is absolutely required here.
@@ -54,6 +58,15 @@ export interface PersonType {
      * @memberof PersonType
      */
     platform?: UserProfile;
+}
+
+/**
+ * Check if a given object implements the PersonType interface.
+ */
+export function instanceOfPersonType(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function PersonTypeFromJSON(json: any): PersonType {
@@ -86,5 +99,4 @@ export function PersonTypeToJSON(value?: PersonType | null): any {
         'platform': UserProfileToJSON(value.platform),
     };
 }
-
 

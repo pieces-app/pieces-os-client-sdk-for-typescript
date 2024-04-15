@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a model that allows us to send send over super specific format related events such as copied, deleted, downloaded, etc
@@ -94,66 +94,95 @@ export interface TrackedFormatEventIdentifierDescriptionPairs {
     formatValueEdited?: TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum {
-    AFormatWasCreated = 'a_format_was_created'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum {
-    IfAFormatWasEntirelyCopied = 'if_a_format_was_entirely_copied'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum {
-    IfAFormatWasPartiallyCopied = 'if_a_format_was_partially_copied'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum {
-    IfAFormatWasDownloaded = 'if_a_format_was_downloaded'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum {
-    IfAFormatWasDeleted = 'if_a_format_was_deleted'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum {
-    IfAGenericClassificationWasChangedOnAFormat = 'if_a_generic_classification_was_changed_on_a_format'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum {
-    IfASpecificClassificationWasChangedOnAFormat = 'if_a_specific_classification_was_changed_on_a_format'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum {
-    AFormatWasUpdated = 'a_format_was_updated'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum {
-    AFormatWasInserted = 'a_format_was_inserted'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum {
-    AFormatValueWasEdited = 'a_format_value_was_edited'
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum = {
+    AFormatWasCreated: 'a_format_was_created'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum = {
+    IfAFormatWasEntirelyCopied: 'if_a_format_was_entirely_copied'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum = {
+    IfAFormatWasPartiallyCopied: 'if_a_format_was_partially_copied'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum = {
+    IfAFormatWasDownloaded: 'if_a_format_was_downloaded'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum = {
+    IfAFormatWasDeleted: 'if_a_format_was_deleted'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum = {
+    IfAGenericClassificationWasChangedOnAFormat: 'if_a_generic_classification_was_changed_on_a_format'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum = {
+    IfASpecificClassificationWasChangedOnAFormat: 'if_a_specific_classification_was_changed_on_a_format'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum = {
+    AFormatWasUpdated: 'a_format_was_updated'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum = {
+    AFormatWasInserted: 'a_format_was_inserted'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum];
+
+/**
+ * @export
+ */
+export const TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum = {
+    AFormatValueWasEdited: 'a_format_value_was_edited'
+} as const;
+export type TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum];
+
+
+/**
+ * Check if a given object implements the TrackedFormatEventIdentifierDescriptionPairs interface.
+ */
+export function instanceOfTrackedFormatEventIdentifierDescriptionPairs(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedFormatEventIdentifierDescriptionPairsFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairs {
@@ -202,5 +231,4 @@ export function TrackedFormatEventIdentifierDescriptionPairsToJSON(value?: Track
         'format_value_edited': value.formatValueEdited,
     };
 }
-
 

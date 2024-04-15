@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TextLocation,
+} from './EmbeddedModelSchema';
+import type { TextLocation } from './TextLocation';
+import {
     TextLocationFromJSON,
     TextLocationFromJSONTyped,
     TextLocationToJSON,
-} from './';
+} from './TextLocation';
 
 /**
  * Thext Match currently used for sensitive for scales for people, and anything related to text matching.
@@ -51,6 +53,16 @@ export interface TextMatch {
      * @memberof TextMatch
      */
     subgroup?: TextLocation;
+}
+
+/**
+ * Check if a given object implements the TextMatch interface.
+ */
+export function instanceOfTextMatch(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "group" in value;
+
+    return isInstance;
 }
 
 export function TextMatchFromJSON(json: any): TextMatch {
@@ -83,5 +95,4 @@ export function TextMatchToJSON(value?: TextMatch | null): any {
         'subgroup': TextLocationToJSON(value.subgroup),
     };
 }
-
 

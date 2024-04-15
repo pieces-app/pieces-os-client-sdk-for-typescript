@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedApplication,
+} from './EmbeddedModelSchema';
+import type { TrackedApplication } from './TrackedApplication';
+import {
     TrackedApplicationFromJSON,
     TrackedApplicationFromJSONTyped,
     TrackedApplicationToJSON,
-    TrackedUserProfile,
+} from './TrackedApplication';
+import type { TrackedUserProfile } from './TrackedUserProfile';
+import {
     TrackedUserProfileFromJSON,
     TrackedUserProfileFromJSONTyped,
     TrackedUserProfileToJSON,
-} from './';
+} from './TrackedUserProfile';
 
 /**
  * This is a model used to track when an Application is Updated
@@ -58,6 +62,16 @@ export interface TrackedApplicationUpdate {
      * @memberof TrackedApplicationUpdate
      */
     user?: TrackedUserProfile;
+}
+
+/**
+ * Check if a given object implements the TrackedApplicationUpdate interface.
+ */
+export function instanceOfTrackedApplicationUpdate(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "current" in value;
+
+    return isInstance;
 }
 
 export function TrackedApplicationUpdateFromJSON(json: any): TrackedApplicationUpdate {
@@ -92,5 +106,4 @@ export function TrackedApplicationUpdateToJSON(value?: TrackedApplicationUpdate 
         'user': TrackedUserProfileToJSON(value.user),
     };
 }
-
 

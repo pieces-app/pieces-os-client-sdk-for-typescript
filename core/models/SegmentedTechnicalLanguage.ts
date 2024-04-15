@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SegmentedTechnicalLanguageFragment,
+} from './EmbeddedModelSchema';
+import type { SegmentedTechnicalLanguageFragment } from './SegmentedTechnicalLanguageFragment';
+import {
     SegmentedTechnicalLanguageFragmentFromJSON,
     SegmentedTechnicalLanguageFragmentFromJSONTyped,
     SegmentedTechnicalLanguageFragmentToJSON,
-} from './';
+} from './SegmentedTechnicalLanguageFragment';
 
 /**
  * This is the output model for '/machine_learning/text/technical_language/parsers/segmentation'
@@ -44,6 +46,16 @@ export interface SegmentedTechnicalLanguage {
      * @memberof SegmentedTechnicalLanguage
      */
     iterable: Array<SegmentedTechnicalLanguageFragment>;
+}
+
+/**
+ * Check if a given object implements the SegmentedTechnicalLanguage interface.
+ */
+export function instanceOfSegmentedTechnicalLanguage(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SegmentedTechnicalLanguageFromJSON(json: any): SegmentedTechnicalLanguage {
@@ -74,5 +86,4 @@ export function SegmentedTechnicalLanguageToJSON(value?: SegmentedTechnicalLangu
         'iterable': ((value.iterable as Array<any>).map(SegmentedTechnicalLanguageFragmentToJSON)),
     };
 }
-
 

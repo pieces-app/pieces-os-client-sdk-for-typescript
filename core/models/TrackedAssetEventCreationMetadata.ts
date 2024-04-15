@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedAssetEventCreationMetadataClipboard,
+} from './EmbeddedModelSchema';
+import type { TrackedAssetEventCreationMetadataClipboard } from './TrackedAssetEventCreationMetadataClipboard';
+import {
     TrackedAssetEventCreationMetadataClipboardFromJSON,
     TrackedAssetEventCreationMetadataClipboardFromJSONTyped,
     TrackedAssetEventCreationMetadataClipboardToJSON,
-    TrackedAssetEventCreationMetadataFile,
+} from './TrackedAssetEventCreationMetadataClipboard';
+import type { TrackedAssetEventCreationMetadataFile } from './TrackedAssetEventCreationMetadataFile';
+import {
     TrackedAssetEventCreationMetadataFileFromJSON,
     TrackedAssetEventCreationMetadataFileFromJSONTyped,
     TrackedAssetEventCreationMetadataFileToJSON,
-} from './';
+} from './TrackedAssetEventCreationMetadataFile';
 
 /**
  * Metadata attached to a creation event on an Asset
@@ -52,6 +56,15 @@ export interface TrackedAssetEventCreationMetadata {
      * @memberof TrackedAssetEventCreationMetadata
      */
     file?: TrackedAssetEventCreationMetadataFile;
+}
+
+/**
+ * Check if a given object implements the TrackedAssetEventCreationMetadata interface.
+ */
+export function instanceOfTrackedAssetEventCreationMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventCreationMetadataFromJSON(json: any): TrackedAssetEventCreationMetadata {
@@ -84,5 +97,4 @@ export function TrackedAssetEventCreationMetadataToJSON(value?: TrackedAssetEven
         'file': TrackedAssetEventCreationMetadataFileToJSON(value.file),
     };
 }
-
 

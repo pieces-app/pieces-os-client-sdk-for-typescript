@@ -14,17 +14,19 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Annotation,
+  Annotations,
+  SeededAnnotation,
+} from '../models/index';
 import {
-    Annotation,
     AnnotationFromJSON,
     AnnotationToJSON,
-    Annotations,
     AnnotationsFromJSON,
     AnnotationsToJSON,
-    SeededAnnotation,
     SeededAnnotationFromJSON,
     SeededAnnotationToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AnnotationsCreateNewAnnotationRequest {
     seededAnnotation?: SeededAnnotation;
@@ -47,7 +49,7 @@ export class AnnotationsApi extends runtime.BaseAPI {
      * This will create an annotation.
      * /annotations/create [POST]
      */
-    async annotationsCreateNewAnnotationRaw(requestParameters: AnnotationsCreateNewAnnotationRequest): Promise<runtime.ApiResponse<Annotation>> {
+    async annotationsCreateNewAnnotationRaw(requestParameters: AnnotationsCreateNewAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Annotation>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -60,7 +62,7 @@ export class AnnotationsApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededAnnotationToJSON(requestParameters.seededAnnotation),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnnotationFromJSON(jsonValue));
     }
@@ -69,8 +71,8 @@ export class AnnotationsApi extends runtime.BaseAPI {
      * This will create an annotation.
      * /annotations/create [POST]
      */
-    async annotationsCreateNewAnnotation(requestParameters: AnnotationsCreateNewAnnotationRequest): Promise<Annotation> {
-        const response = await this.annotationsCreateNewAnnotationRaw(requestParameters);
+    async annotationsCreateNewAnnotation(requestParameters: AnnotationsCreateNewAnnotationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Annotation> {
+        const response = await this.annotationsCreateNewAnnotationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -78,7 +80,7 @@ export class AnnotationsApi extends runtime.BaseAPI {
      * this will delete a specific annotation
      * /annotations/{annotation}/delete [POST]
      */
-    async annotationsDeleteSpecificAnnotationRaw(requestParameters: AnnotationsDeleteSpecificAnnotationRequest): Promise<runtime.ApiResponse<void>> {
+    async annotationsDeleteSpecificAnnotationRaw(requestParameters: AnnotationsDeleteSpecificAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
             throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling annotationsDeleteSpecificAnnotation.');
         }
@@ -92,7 +94,7 @@ export class AnnotationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -101,15 +103,15 @@ export class AnnotationsApi extends runtime.BaseAPI {
      * this will delete a specific annotation
      * /annotations/{annotation}/delete [POST]
      */
-    async annotationsDeleteSpecificAnnotation(requestParameters: AnnotationsDeleteSpecificAnnotationRequest): Promise<void> {
-        await this.annotationsDeleteSpecificAnnotationRaw(requestParameters);
+    async annotationsDeleteSpecificAnnotation(requestParameters: AnnotationsDeleteSpecificAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationsDeleteSpecificAnnotationRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of all the annotations.  This will take an optional filter as a query param.
      * /annotations [GET]
      */
-    async annotationsSnapshotRaw(requestParameters: AnnotationsSnapshotRequest): Promise<runtime.ApiResponse<Annotations>> {
+    async annotationsSnapshotRaw(requestParameters: AnnotationsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Annotations>> {
         const queryParameters: any = {};
 
         if (requestParameters.annotationTypeFilter !== undefined) {
@@ -123,7 +125,7 @@ export class AnnotationsApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnnotationsFromJSON(jsonValue));
     }
@@ -132,24 +134,24 @@ export class AnnotationsApi extends runtime.BaseAPI {
      * This will get a snapshot of all the annotations.  This will take an optional filter as a query param.
      * /annotations [GET]
      */
-    async annotationsSnapshot(requestParameters: AnnotationsSnapshotRequest): Promise<Annotations> {
-        const response = await this.annotationsSnapshotRaw(requestParameters);
+    async annotationsSnapshot(requestParameters: AnnotationsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Annotations> {
+        const response = await this.annotationsSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
 }
 
 /**
-    * @export
-    * @enum {string}
-    */
-export enum AnnotationsSnapshotAnnotationTypeFilterEnum {
-    Description = 'DESCRIPTION',
-    Comment = 'COMMENT',
-    Commentation = 'COMMENTATION',
-    Documentation = 'DOCUMENTATION',
-    Summarization = 'SUMMARIZATION',
-    Summary = 'SUMMARY',
-    Explanation = 'EXPLANATION',
-    GitCommit = 'GIT_COMMIT'
-}
+ * @export
+ */
+export const AnnotationsSnapshotAnnotationTypeFilterEnum = {
+    Description: 'DESCRIPTION',
+    Comment: 'COMMENT',
+    Commentation: 'COMMENTATION',
+    Documentation: 'DOCUMENTATION',
+    Summarization: 'SUMMARIZATION',
+    Summary: 'SUMMARY',
+    Explanation: 'EXPLANATION',
+    GitCommit: 'GIT_COMMIT'
+} as const;
+export type AnnotationsSnapshotAnnotationTypeFilterEnum = typeof AnnotationsSnapshotAnnotationTypeFilterEnum[keyof typeof AnnotationsSnapshotAnnotationTypeFilterEnum];

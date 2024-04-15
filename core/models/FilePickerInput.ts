@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input model for the FilePicker
@@ -38,6 +38,15 @@ export interface FilePickerInput {
      * @memberof FilePickerInput
      */
     allowedExtensions?: Array<string>;
+}
+
+/**
+ * Check if a given object implements the FilePickerInput interface.
+ */
+export function instanceOfFilePickerInput(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function FilePickerInputFromJSON(json: any): FilePickerInput {
@@ -68,5 +77,4 @@ export function FilePickerInputToJSON(value?: FilePickerInput | null): any {
         'allowedExtensions': value.allowedExtensions,
     };
 }
-
 

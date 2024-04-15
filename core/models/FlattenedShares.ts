@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedShare,
+} from './EmbeddedModelSchema';
+import type { FlattenedShare } from './FlattenedShare';
+import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
-    Score,
+} from './FlattenedShare';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is just an iterable of our individual share models.
@@ -52,6 +56,16 @@ export interface FlattenedShares {
      * @memberof FlattenedShares
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedShares interface.
+ */
+export function instanceOfFlattenedShares(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedSharesFromJSON(json: any): FlattenedShares {
@@ -84,5 +98,4 @@ export function FlattenedSharesToJSON(value?: FlattenedShares | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

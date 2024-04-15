@@ -13,32 +13,42 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ApplicationNameEnum } from './ApplicationNameEnum';
 import {
-    ApplicationNameEnum,
     ApplicationNameEnumFromJSON,
     ApplicationNameEnumFromJSONTyped,
     ApplicationNameEnumToJSON,
-    CapabilitiesEnum,
+} from './ApplicationNameEnum';
+import type { CapabilitiesEnum } from './CapabilitiesEnum';
+import {
     CapabilitiesEnumFromJSON,
     CapabilitiesEnumFromJSONTyped,
     CapabilitiesEnumToJSON,
-    EmbeddedModelSchema,
+} from './CapabilitiesEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    PlatformEnum,
+} from './MechanismEnum';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-    PrivacyEnum,
+} from './PlatformEnum';
+import type { PrivacyEnum } from './PrivacyEnum';
+import {
     PrivacyEnumFromJSON,
     PrivacyEnumFromJSONTyped,
     PrivacyEnumToJSON,
-} from './';
+} from './PrivacyEnum';
 
 /**
  * A Model to describe what application a format/analytics event originated.
@@ -113,6 +123,21 @@ export interface Application {
     automaticUnload?: boolean;
 }
 
+/**
+ * Check if a given object implements the Application interface.
+ */
+export function instanceOfApplication(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "version" in value;
+    isInstance = isInstance && "platform" in value;
+    isInstance = isInstance && "onboarded" in value;
+    isInstance = isInstance && "privacy" in value;
+
+    return isInstance;
+}
+
 export function ApplicationFromJSON(json: any): Application {
     return ApplicationFromJSONTyped(json, false);
 }
@@ -157,5 +182,4 @@ export function ApplicationToJSON(value?: Application | null): any {
         'automaticUnload': value.automaticUnload,
     };
 }
-
 

@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedHint,
+} from './EmbeddedModelSchema';
+import type { ReferencedHint } from './ReferencedHint';
+import {
     ReferencedHintFromJSON,
     ReferencedHintFromJSONTyped,
     ReferencedHintToJSON,
-    Score,
+} from './ReferencedHint';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the flattened Version of plural hints.
@@ -58,6 +62,16 @@ export interface FlattenedHints {
      * @memberof FlattenedHints
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedHints interface.
+ */
+export function instanceOfFlattenedHints(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedHintsFromJSON(json: any): FlattenedHints {
@@ -92,5 +106,4 @@ export function FlattenedHintsToJSON(value?: FlattenedHints | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

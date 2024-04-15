@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Asset } from './Asset';
 import {
-    Asset,
     AssetFromJSON,
     AssetFromJSONTyped,
     AssetToJSON,
-    EmbeddedModelSchema,
+} from './Asset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SearchedMatchEnum,
+} from './EmbeddedModelSchema';
+import type { SearchedMatchEnum } from './SearchedMatchEnum';
+import {
     SearchedMatchEnumFromJSON,
     SearchedMatchEnumFromJSONTyped,
     SearchedMatchEnumToJSON,
-} from './';
+} from './SearchedMatchEnum';
 
 /**
  * This is a modle that will represent a searched asset!
@@ -78,6 +82,19 @@ export interface SearchedAsset {
     pseudo?: boolean;
 }
 
+/**
+ * Check if a given object implements the SearchedAsset interface.
+ */
+export function instanceOfSearchedAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "exact" in value;
+    isInstance = isInstance && "score" in value;
+    isInstance = isInstance && "match" in value;
+    isInstance = isInstance && "identifier" in value;
+
+    return isInstance;
+}
+
 export function SearchedAssetFromJSON(json: any): SearchedAsset {
     return SearchedAssetFromJSONTyped(json, false);
 }
@@ -116,5 +133,4 @@ export function SearchedAssetToJSON(value?: SearchedAsset | null): any {
         'pseudo': value.pseudo,
     };
 }
-
 

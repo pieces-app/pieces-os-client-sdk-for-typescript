@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a specific model for the health of our OS Server.
@@ -44,6 +44,17 @@ export interface OSHealth {
      * @memberof OSHealth
      */
     version: string;
+}
+
+/**
+ * Check if a given object implements the OSHealth interface.
+ */
+export function instanceOfOSHealth(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
 }
 
 export function OSHealthFromJSON(json: any): OSHealth {
@@ -76,5 +87,4 @@ export function OSHealthToJSON(value?: OSHealth | null): any {
         'version': value.version,
     };
 }
-
 

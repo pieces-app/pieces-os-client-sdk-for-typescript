@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    EmbeddedModelSchema,
+} from './Application';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * A list of all the applications
@@ -42,6 +44,16 @@ export interface Applications {
      * @memberof Applications
      */
     iterable: Array<Application>;
+}
+
+/**
+ * Check if a given object implements the Applications interface.
+ */
+export function instanceOfApplications(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function ApplicationsFromJSON(json: any): Applications {
@@ -72,5 +84,4 @@ export function ApplicationsToJSON(value?: Applications | null): any {
         'iterable': ((value.iterable as Array<any>).map(ApplicationToJSON)),
     };
 }
-
 

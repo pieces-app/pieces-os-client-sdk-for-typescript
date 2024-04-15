@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAsset,
+} from './EmbeddedModelSchema';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    TrackedAssetEventIdentifierDescriptionPairs,
+} from './ReferencedAsset';
+import type { TrackedAssetEventIdentifierDescriptionPairs } from './TrackedAssetEventIdentifierDescriptionPairs';
+import {
     TrackedAssetEventIdentifierDescriptionPairsFromJSON,
     TrackedAssetEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedAssetEventIdentifierDescriptionPairsToJSON,
-    TrackedAssetEventMetadata,
+} from './TrackedAssetEventIdentifierDescriptionPairs';
+import type { TrackedAssetEventMetadata } from './TrackedAssetEventMetadata';
+import {
     TrackedAssetEventMetadataFromJSON,
     TrackedAssetEventMetadataFromJSONTyped,
     TrackedAssetEventMetadataToJSON,
-} from './';
+} from './TrackedAssetEventMetadata';
 
 /**
  * This seeded tracked asset event will be recieved by a context on the OS Server side, which will then be able to look up the asset id and structure the asset for shipment to Segment aka a fully built TrackedAssetEvent
@@ -62,6 +68,17 @@ export interface SeededTrackedAssetEvent {
      * @memberof SeededTrackedAssetEvent
      */
     metadata?: TrackedAssetEventMetadata;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedAssetEvent interface.
+ */
+export function instanceOfSeededTrackedAssetEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedAssetEventFromJSON(json: any): SeededTrackedAssetEvent {
@@ -96,5 +113,4 @@ export function SeededTrackedAssetEventToJSON(value?: SeededTrackedAssetEvent | 
         'metadata': TrackedAssetEventMetadataToJSON(value.metadata),
     };
 }
-
 

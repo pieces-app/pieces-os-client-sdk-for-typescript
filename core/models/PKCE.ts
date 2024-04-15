@@ -13,36 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0 } from './Auth0';
 import {
-    Auth0,
     Auth0FromJSON,
     Auth0FromJSONTyped,
     Auth0ToJSON,
-    ChallengedPKCE,
+} from './Auth0';
+import type { ChallengedPKCE } from './ChallengedPKCE';
+import {
     ChallengedPKCEFromJSON,
     ChallengedPKCEFromJSONTyped,
     ChallengedPKCEToJSON,
-    EmbeddedModelSchema,
+} from './ChallengedPKCE';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ResultedPKCE,
+} from './EmbeddedModelSchema';
+import type { ResultedPKCE } from './ResultedPKCE';
+import {
     ResultedPKCEFromJSON,
     ResultedPKCEFromJSONTyped,
     ResultedPKCEToJSON,
-    RevokedPKCE,
+} from './ResultedPKCE';
+import type { RevokedPKCE } from './RevokedPKCE';
+import {
     RevokedPKCEFromJSON,
     RevokedPKCEFromJSONTyped,
     RevokedPKCEToJSON,
-    SeededPKCE,
+} from './RevokedPKCE';
+import type { SeededPKCE } from './SeededPKCE';
+import {
     SeededPKCEFromJSON,
     SeededPKCEFromJSONTyped,
     SeededPKCEToJSON,
-    TokenizedPKCE,
+} from './SeededPKCE';
+import type { TokenizedPKCE } from './TokenizedPKCE';
+import {
     TokenizedPKCEFromJSON,
     TokenizedPKCEFromJSONTyped,
     TokenizedPKCEToJSON,
-} from './';
+} from './TokenizedPKCE';
 
 /**
  * An object representing all of the properties involved in a PKCE Authentication Flow
@@ -94,6 +106,15 @@ export interface PKCE {
     auth0?: Auth0;
 }
 
+/**
+ * Check if a given object implements the PKCE interface.
+ */
+export function instanceOfPKCE(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function PKCEFromJSON(json: any): PKCE {
     return PKCEFromJSONTyped(json, false);
 }
@@ -132,5 +153,4 @@ export function PKCEToJSON(value?: PKCE | null): any {
         'auth0': Auth0ToJSON(value.auth0),
     };
 }
-
 

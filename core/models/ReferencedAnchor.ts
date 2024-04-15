@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnchor,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnchor } from './FlattenedAnchor';
+import {
     FlattenedAnchorFromJSON,
     FlattenedAnchorFromJSONTyped,
     FlattenedAnchorToJSON,
-} from './';
+} from './FlattenedAnchor';
 
 /**
  * This is the referenced version of a Anchor, main used for the uuid.
@@ -48,6 +50,16 @@ export interface ReferencedAnchor {
      * @memberof ReferencedAnchor
      */
     reference?: FlattenedAnchor;
+}
+
+/**
+ * Check if a given object implements the ReferencedAnchor interface.
+ */
+export function instanceOfReferencedAnchor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedAnchorFromJSON(json: any): ReferencedAnchor {
@@ -80,5 +92,4 @@ export function ReferencedAnchorToJSON(value?: ReferencedAnchor | null): any {
         'reference': FlattenedAnchorToJSON(value.reference),
     };
 }
-
 

@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    OSDeviceDependenciesInformation,
+} from './EmbeddedModelSchema';
+import type { OSDeviceDependenciesInformation } from './OSDeviceDependenciesInformation';
+import {
     OSDeviceDependenciesInformationFromJSON,
     OSDeviceDependenciesInformationFromJSONTyped,
     OSDeviceDependenciesInformationToJSON,
-    OSDeviceHardwareInformation,
+} from './OSDeviceDependenciesInformation';
+import type { OSDeviceHardwareInformation } from './OSDeviceHardwareInformation';
+import {
     OSDeviceHardwareInformationFromJSON,
     OSDeviceHardwareInformationFromJSONTyped,
     OSDeviceHardwareInformationToJSON,
-} from './';
+} from './OSDeviceHardwareInformation';
 
 /**
  * This is the returnable model for the /os/device/information.
@@ -66,6 +70,15 @@ export interface OSDeviceInformationReturnable {
     hardware?: OSDeviceHardwareInformation;
 }
 
+/**
+ * Check if a given object implements the OSDeviceInformationReturnable interface.
+ */
+export function instanceOfOSDeviceInformationReturnable(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function OSDeviceInformationReturnableFromJSON(json: any): OSDeviceInformationReturnable {
     return OSDeviceInformationReturnableFromJSONTyped(json, false);
 }
@@ -100,5 +113,4 @@ export function OSDeviceInformationReturnableToJSON(value?: OSDeviceInformationR
         'hardware': OSDeviceHardwareInformationToJSON(value.hardware),
     };
 }
-
 

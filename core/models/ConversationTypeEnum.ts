@@ -12,14 +12,16 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is a type of conversation, for now just COPILOT.
  * @export
- * @enum {string}
  */
-export enum ConversationTypeEnum {
-    Copilot = 'COPILOT'
-}
+export const ConversationTypeEnum = {
+    Copilot: 'COPILOT'
+} as const;
+export type ConversationTypeEnum = typeof ConversationTypeEnum[keyof typeof ConversationTypeEnum];
+
 
 export function ConversationTypeEnumFromJSON(json: any): ConversationTypeEnum {
     return ConversationTypeEnumFromJSONTyped(json, false);

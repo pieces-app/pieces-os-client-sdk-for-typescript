@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededDiscoverableAsset,
+} from './EmbeddedModelSchema';
+import type { SeededDiscoverableAsset } from './SeededDiscoverableAsset';
+import {
     SeededDiscoverableAssetFromJSON,
     SeededDiscoverableAssetFromJSONTyped,
     SeededDiscoverableAssetToJSON,
-    TLPDirectedDiscoveryFilters,
+} from './SeededDiscoverableAsset';
+import type { TLPDirectedDiscoveryFilters } from './TLPDirectedDiscoveryFilters';
+import {
     TLPDirectedDiscoveryFiltersFromJSON,
     TLPDirectedDiscoveryFiltersFromJSONTyped,
     TLPDirectedDiscoveryFiltersToJSON,
-} from './';
+} from './TLPDirectedDiscoveryFilters';
 
 /**
  * Assumption: filters imposed in this model can be overwritten by passing them in SeededDiscoverableAsset
@@ -58,6 +62,17 @@ export interface SeededDiscoverableAssets {
      * @memberof SeededDiscoverableAssets
      */
     filters?: TLPDirectedDiscoveryFilters;
+}
+
+/**
+ * Check if a given object implements the SeededDiscoverableAssets interface.
+ */
+export function instanceOfSeededDiscoverableAssets(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableAssetsFromJSON(json: any): SeededDiscoverableAssets {
@@ -92,5 +107,4 @@ export function SeededDiscoverableAssetsToJSON(value?: SeededDiscoverableAssets 
         'filters': TLPDirectedDiscoveryFiltersToJSON(value.filters),
     };
 }
-
 

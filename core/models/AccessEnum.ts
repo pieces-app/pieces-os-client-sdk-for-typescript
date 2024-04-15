@@ -12,15 +12,17 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * 
  * @export
- * @enum {string}
  */
-export enum AccessEnum {
-    Public = 'PUBLIC',
-    Private = 'PRIVATE'
-}
+export const AccessEnum = {
+    Public: 'PUBLIC',
+    Private: 'PRIVATE'
+} as const;
+export type AccessEnum = typeof AccessEnum[keyof typeof AccessEnum];
+
 
 export function AccessEnumFromJSON(json: any): AccessEnum {
     return AccessEnumFromJSONTyped(json, false);

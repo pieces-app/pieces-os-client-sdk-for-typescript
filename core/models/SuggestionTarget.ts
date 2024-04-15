@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededConnectorCreation,
+} from './EmbeddedModelSchema';
+import type { SeededConnectorCreation } from './SeededConnectorCreation';
+import {
     SeededConnectorCreationFromJSON,
     SeededConnectorCreationFromJSONTyped,
     SeededConnectorCreationToJSON,
-} from './';
+} from './SeededConnectorCreation';
 
 /**
  * This is the target that was sent to pieces. This will return the string that represents this coppied || pasted asset. This will also send along the SeededConnectorCreation and will send along the vector that we created based on the seed.
@@ -48,6 +50,17 @@ export interface SuggestionTarget {
      * @memberof SuggestionTarget
      */
     vector: number;
+}
+
+/**
+ * Check if a given object implements the SuggestionTarget interface.
+ */
+export function instanceOfSuggestionTarget(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "seed" in value;
+    isInstance = isInstance && "vector" in value;
+
+    return isInstance;
 }
 
 export function SuggestionTargetFromJSON(json: any): SuggestionTarget {
@@ -80,5 +93,4 @@ export function SuggestionTargetToJSON(value?: SuggestionTarget | null): any {
         'vector': value.vector,
     };
 }
-
 

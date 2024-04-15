@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedFormat,
+} from './EmbeddedModelSchema';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
-} from './';
+} from './ReferencedFormat';
 
 /**
  * This is a preview Model that will hold references to at minimum the base preview. which can be potentiall a base image, or also base text/code and then the oveylay is another format(image/text/code) that is 'overlayed' ontop of the base format.
@@ -48,6 +50,16 @@ export interface Preview {
      * @memberof Preview
      */
     overlay?: ReferencedFormat;
+}
+
+/**
+ * Check if a given object implements the Preview interface.
+ */
+export function instanceOfPreview(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "base" in value;
+
+    return isInstance;
 }
 
 export function PreviewFromJSON(json: any): Preview {
@@ -80,5 +92,4 @@ export function PreviewToJSON(value?: Preview | null): any {
         'overlay': ReferencedFormatToJSON(value.overlay),
     };
 }
-
 

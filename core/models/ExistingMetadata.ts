@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedTag,
+} from './EmbeddedModelSchema';
+import type { ReferencedTag } from './ReferencedTag';
+import {
     ReferencedTagFromJSON,
     ReferencedTagFromJSONTyped,
     ReferencedTagToJSON,
-    ReferencedWebsite,
+} from './ReferencedTag';
+import type { ReferencedWebsite } from './ReferencedWebsite';
+import {
     ReferencedWebsiteFromJSON,
     ReferencedWebsiteFromJSONTyped,
     ReferencedWebsiteToJSON,
-} from './';
+} from './ReferencedWebsite';
 
 /**
  * This is a shared input model for all the exists endpoints:
@@ -54,6 +58,15 @@ export interface ExistingMetadata {
      * @memberof ExistingMetadata
      */
     tag?: ReferencedTag;
+}
+
+/**
+ * Check if a given object implements the ExistingMetadata interface.
+ */
+export function instanceOfExistingMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function ExistingMetadataFromJSON(json: any): ExistingMetadata {
@@ -86,5 +99,4 @@ export function ExistingMetadataToJSON(value?: ExistingMetadata | null): any {
         'tag': ReferencedTagToJSON(value.tag),
     };
 }
-
 

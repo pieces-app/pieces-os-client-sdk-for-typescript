@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededDiscoverableHtmlWebpage,
+} from './EmbeddedModelSchema';
+import type { SeededDiscoverableHtmlWebpage } from './SeededDiscoverableHtmlWebpage';
+import {
     SeededDiscoverableHtmlWebpageFromJSON,
     SeededDiscoverableHtmlWebpageFromJSONTyped,
     SeededDiscoverableHtmlWebpageToJSON,
-} from './';
+} from './SeededDiscoverableHtmlWebpage';
 
 /**
  * 
@@ -48,6 +50,17 @@ export interface SeededDiscoverableHtmlWebpages {
      * @memberof SeededDiscoverableHtmlWebpages
      */
     application: string;
+}
+
+/**
+ * Check if a given object implements the SeededDiscoverableHtmlWebpages interface.
+ */
+export function instanceOfSeededDiscoverableHtmlWebpages(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededDiscoverableHtmlWebpagesFromJSON(json: any): SeededDiscoverableHtmlWebpages {
@@ -80,5 +93,4 @@ export function SeededDiscoverableHtmlWebpagesToJSON(value?: SeededDiscoverableH
         'application': value.application,
     };
 }
-
 

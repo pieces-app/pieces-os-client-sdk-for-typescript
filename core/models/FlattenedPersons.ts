@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedPerson,
+} from './EmbeddedModelSchema';
+import type { ReferencedPerson } from './ReferencedPerson';
+import {
     ReferencedPersonFromJSON,
     ReferencedPersonFromJSONTyped,
     ReferencedPersonToJSON,
-    Score,
+} from './ReferencedPerson';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the plural of Person. will have top level meta about the person including an iterable of all the person.
@@ -58,6 +62,16 @@ export interface FlattenedPersons {
      * @memberof FlattenedPersons
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the FlattenedPersons interface.
+ */
+export function instanceOfFlattenedPersons(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedPersonsFromJSON(json: any): FlattenedPersons {
@@ -92,5 +106,4 @@ export function FlattenedPersonsToJSON(value?: FlattenedPersons | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

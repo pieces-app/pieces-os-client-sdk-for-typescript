@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { AnchorTypeEnum } from './AnchorTypeEnum';
 import {
-    AnchorTypeEnum,
     AnchorTypeEnumFromJSON,
     AnchorTypeEnumFromJSONTyped,
     AnchorTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './AnchorTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    PlatformEnum,
+} from './EmbeddedModelSchema';
+import type { PlatformEnum } from './PlatformEnum';
+import {
     PlatformEnumFromJSON,
     PlatformEnumFromJSONTyped,
     PlatformEnumToJSON,
-    SeededAnnotation,
+} from './PlatformEnum';
+import type { SeededAnnotation } from './SeededAnnotation';
+import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-} from './';
+} from './SeededAnnotation';
 
 /**
  * 
@@ -94,6 +100,17 @@ export interface SeededAnchor {
     conversation?: string;
 }
 
+/**
+ * Check if a given object implements the SeededAnchor interface.
+ */
+export function instanceOfSeededAnchor(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "fullpath" in value;
+
+    return isInstance;
+}
+
 export function SeededAnchorFromJSON(json: any): SeededAnchor {
     return SeededAnchorFromJSONTyped(json, false);
 }
@@ -136,5 +153,4 @@ export function SeededAnchorToJSON(value?: SeededAnchor | null): any {
         'conversation': value.conversation,
     };
 }
-
 

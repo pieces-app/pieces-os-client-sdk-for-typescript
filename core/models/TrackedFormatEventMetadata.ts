@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { TrackedAssetEventFormatReclassificationMetadata } from './TrackedAssetEventFormatReclassificationMetadata';
 import {
-    TrackedAssetEventFormatReclassificationMetadata,
     TrackedAssetEventFormatReclassificationMetadataFromJSON,
     TrackedAssetEventFormatReclassificationMetadataFromJSONTyped,
     TrackedAssetEventFormatReclassificationMetadataToJSON,
-} from './';
+} from './TrackedAssetEventFormatReclassificationMetadata';
 
 /**
  * 
@@ -32,6 +32,15 @@ export interface TrackedFormatEventMetadata {
      * @memberof TrackedFormatEventMetadata
      */
     reclassification?: TrackedAssetEventFormatReclassificationMetadata;
+}
+
+/**
+ * Check if a given object implements the TrackedFormatEventMetadata interface.
+ */
+export function instanceOfTrackedFormatEventMetadata(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedFormatEventMetadataFromJSON(json: any): TrackedFormatEventMetadata {
@@ -60,5 +69,4 @@ export function TrackedFormatEventMetadataToJSON(value?: TrackedFormatEventMetad
         'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value.reclassification),
     };
 }
-
 

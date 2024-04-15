@@ -12,18 +12,22 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * Enum used for the status of the progress in downloading a model.
  * @export
- * @enum {string}
  */
-export enum ModelDownloadProgressStatusEnum {
-    Initialized = 'INITIALIZED',
-    InProgress = 'IN-PROGRESS',
-    Completed = 'COMPLETED',
-    Failed = 'FAILED',
-    Unknown = 'UNKNOWN'
-}
+export const ModelDownloadProgressStatusEnum = {
+    Initialized: 'INITIALIZED',
+    InProgress: 'IN-PROGRESS',
+    Completed: 'COMPLETED',
+    Failed: 'FAILED',
+    Unknown: 'UNKNOWN',
+    Canceled: 'CANCELED',
+    Reset: 'RESET'
+} as const;
+export type ModelDownloadProgressStatusEnum = typeof ModelDownloadProgressStatusEnum[keyof typeof ModelDownloadProgressStatusEnum];
+
 
 export function ModelDownloadProgressStatusEnumFromJSON(json: any): ModelDownloadProgressStatusEnum {
     return ModelDownloadProgressStatusEnumFromJSONTyped(json, false);

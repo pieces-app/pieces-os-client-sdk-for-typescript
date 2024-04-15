@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
 import {
-    ClassificationSpecificEnum,
     ClassificationSpecificEnumFromJSON,
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
-    EmbeddedModelSchema,
+} from './ClassificationSpecificEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededFormat,
+} from './EmbeddedModelSchema';
+import type { SeededFormat } from './SeededFormat';
+import {
     SeededFormatFromJSON,
     SeededFormatFromJSONTyped,
     SeededFormatToJSON,
-} from './';
+} from './SeededFormat';
 
 /**
  * A SeededUEAsset is the minimum data sent from UE required to create an asset within Pieces.
@@ -68,6 +72,16 @@ export interface SeededUltraSuiteAsset {
     description?: string;
 }
 
+/**
+ * Check if a given object implements the SeededUltraSuiteAsset interface.
+ */
+export function instanceOfSeededUltraSuiteAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "format" in value;
+
+    return isInstance;
+}
+
 export function SeededUltraSuiteAssetFromJSON(json: any): SeededUltraSuiteAsset {
     return SeededUltraSuiteAssetFromJSONTyped(json, false);
 }
@@ -102,5 +116,4 @@ export function SeededUltraSuiteAssetToJSON(value?: SeededUltraSuiteAsset | null
         'description': value.description,
     };
 }
-
 

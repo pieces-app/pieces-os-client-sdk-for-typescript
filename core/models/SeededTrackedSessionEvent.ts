@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    TrackedSessionEventIdentifierDescriptionPairs,
+} from './EmbeddedModelSchema';
+import type { TrackedSessionEventIdentifierDescriptionPairs } from './TrackedSessionEventIdentifierDescriptionPairs';
+import {
     TrackedSessionEventIdentifierDescriptionPairsFromJSON,
     TrackedSessionEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedSessionEventIdentifierDescriptionPairsToJSON,
-} from './';
+} from './TrackedSessionEventIdentifierDescriptionPairs';
 
 /**
  * A simple model to capture a Tracked Session to be send to the Connection API
@@ -42,6 +44,16 @@ export interface SeededTrackedSessionEvent {
      * @memberof SeededTrackedSessionEvent
      */
     identifierDescriptionPair: TrackedSessionEventIdentifierDescriptionPairs;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedSessionEvent interface.
+ */
+export function instanceOfSeededTrackedSessionEvent(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "identifierDescriptionPair" in value;
+
+    return isInstance;
 }
 
 export function SeededTrackedSessionEventFromJSON(json: any): SeededTrackedSessionEvent {
@@ -72,5 +84,4 @@ export function SeededTrackedSessionEventToJSON(value?: SeededTrackedSessionEven
         'identifier_description_pair': TrackedSessionEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
     };
 }
-
 

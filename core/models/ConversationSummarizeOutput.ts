@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedAnnotation,
+} from './EmbeddedModelSchema';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
     ReferencedAnnotationFromJSON,
     ReferencedAnnotationFromJSONTyped,
     ReferencedAnnotationToJSON,
-    ReferencedConversation,
+} from './ReferencedAnnotation';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
-} from './';
+} from './ReferencedConversation';
 
 /**
  * This is the output model for "/conversation/{conversation}/summarize
@@ -52,6 +56,17 @@ export interface ConversationSummarizeOutput {
      * @memberof ConversationSummarizeOutput
      */
     annotation: ReferencedAnnotation;
+}
+
+/**
+ * Check if a given object implements the ConversationSummarizeOutput interface.
+ */
+export function instanceOfConversationSummarizeOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "conversation" in value;
+    isInstance = isInstance && "annotation" in value;
+
+    return isInstance;
 }
 
 export function ConversationSummarizeOutputFromJSON(json: any): ConversationSummarizeOutput {
@@ -84,5 +99,4 @@ export function ConversationSummarizeOutputToJSON(value?: ConversationSummarizeO
         'annotation': ReferencedAnnotationToJSON(value.annotation),
     };
 }
-
 

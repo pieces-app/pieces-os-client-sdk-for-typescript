@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { DiscoveredAsset } from './DiscoveredAsset';
 import {
-    DiscoveredAsset,
     DiscoveredAssetFromJSON,
     DiscoveredAssetFromJSONTyped,
     DiscoveredAssetToJSON,
-    EmbeddedModelSchema,
+} from './DiscoveredAsset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a plural Model that is used within the bulk upload flow in both cases of a file(&& needing snippitization) as well as if the fragments are passed in and they only need to be clustered.
@@ -48,6 +50,17 @@ export interface DiscoveredAssets {
      * @memberof DiscoveredAssets
      */
     iterable: Array<DiscoveredAsset>;
+}
+
+/**
+ * Check if a given object implements the DiscoveredAssets interface.
+ */
+export function instanceOfDiscoveredAssets(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredAssetsFromJSON(json: any): DiscoveredAssets {
@@ -80,5 +93,4 @@ export function DiscoveredAssetsToJSON(value?: DiscoveredAssets | null): any {
         'iterable': ((value.iterable as Array<any>).map(DiscoveredAssetToJSON)),
     };
 }
-
 

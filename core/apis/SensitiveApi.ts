@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SeededScoreIncrement,
+  Sensitive,
+} from '../models/index';
 import {
-    SeededScoreIncrement,
     SeededScoreIncrementFromJSON,
     SeededScoreIncrementToJSON,
-    Sensitive,
     SensitiveFromJSON,
     SensitiveToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface SensitiveScoresIncrementRequest {
     sensitive: string;
@@ -45,7 +47,7 @@ export class SensitiveApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/sensitive/{sensitive}/scores/increment\' [POST]
      */
-    async sensitiveScoresIncrementRaw(requestParameters: SensitiveScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+    async sensitiveScoresIncrementRaw(requestParameters: SensitiveScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
             throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitiveScoresIncrement.');
         }
@@ -62,7 +64,7 @@ export class SensitiveApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -71,15 +73,15 @@ export class SensitiveApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/sensitive/{sensitive}/scores/increment\' [POST]
      */
-    async sensitiveScoresIncrement(requestParameters: SensitiveScoresIncrementRequest): Promise<void> {
-        await this.sensitiveScoresIncrementRaw(requestParameters);
+    async sensitiveScoresIncrement(requestParameters: SensitiveScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.sensitiveScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a specific sensitive via the sensitive uuid.
      * /sensitive/{sensitive} [GET]
      */
-    async sensitiveSnapshotRaw(requestParameters: SensitiveSnapshotRequest): Promise<runtime.ApiResponse<Sensitive>> {
+    async sensitiveSnapshotRaw(requestParameters: SensitiveSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Sensitive>> {
         if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
             throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitiveSnapshot.');
         }
@@ -93,7 +95,7 @@ export class SensitiveApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitiveFromJSON(jsonValue));
     }
@@ -102,8 +104,8 @@ export class SensitiveApi extends runtime.BaseAPI {
      * This will get a specific sensitive via the sensitive uuid.
      * /sensitive/{sensitive} [GET]
      */
-    async sensitiveSnapshot(requestParameters: SensitiveSnapshotRequest): Promise<Sensitive> {
-        const response = await this.sensitiveSnapshotRaw(requestParameters);
+    async sensitiveSnapshot(requestParameters: SensitiveSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Sensitive> {
+        const response = await this.sensitiveSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -111,7 +113,7 @@ export class SensitiveApi extends runtime.BaseAPI {
      * This will update a specific sensitive
      * /sensitive/update [POST]
      */
-    async updateSensitiveRaw(requestParameters: UpdateSensitiveRequest): Promise<runtime.ApiResponse<Sensitive>> {
+    async updateSensitiveRaw(requestParameters: UpdateSensitiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Sensitive>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -124,7 +126,7 @@ export class SensitiveApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SensitiveToJSON(requestParameters.sensitive),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitiveFromJSON(jsonValue));
     }
@@ -133,8 +135,8 @@ export class SensitiveApi extends runtime.BaseAPI {
      * This will update a specific sensitive
      * /sensitive/update [POST]
      */
-    async updateSensitive(requestParameters: UpdateSensitiveRequest): Promise<Sensitive> {
-        const response = await this.updateSensitiveRaw(requestParameters);
+    async updateSensitive(requestParameters: UpdateSensitiveRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Sensitive> {
+        const response = await this.updateSensitiveRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

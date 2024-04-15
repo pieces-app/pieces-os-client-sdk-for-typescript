@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededClassification,
+} from './EmbeddedModelSchema';
+import type { SeededClassification } from './SeededClassification';
+import {
     SeededClassificationFromJSON,
     SeededClassificationFromJSONTyped,
     SeededClassificationToJSON,
-    SeededFile,
+} from './SeededClassification';
+import type { SeededFile } from './SeededFile';
+import {
     SeededFileFromJSON,
     SeededFileFromJSONTyped,
     SeededFileToJSON,
-    SeededFragment,
+} from './SeededFile';
+import type { SeededFragment } from './SeededFragment';
+import {
     SeededFragmentFromJSON,
     SeededFragmentFromJSONTyped,
     SeededFragmentToJSON,
-} from './';
+} from './SeededFragment';
 
 /**
  * This is seeded data that will be come a format.
@@ -68,6 +74,15 @@ export interface SeededFormat {
     classification?: SeededClassification;
 }
 
+/**
+ * Check if a given object implements the SeededFormat interface.
+ */
+export function instanceOfSeededFormat(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function SeededFormatFromJSON(json: any): SeededFormat {
     return SeededFormatFromJSONTyped(json, false);
 }
@@ -100,5 +115,4 @@ export function SeededFormatToJSON(value?: SeededFormat | null): any {
         'classification': SeededClassificationToJSON(value.classification),
     };
 }
-
 

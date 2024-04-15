@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the input body for /os/update/check, just a placeholder for now.
@@ -32,6 +32,15 @@ export interface UncheckedOSUpdate {
      * @memberof UncheckedOSUpdate
      */
     schema?: EmbeddedModelSchema;
+}
+
+/**
+ * Check if a given object implements the UncheckedOSUpdate interface.
+ */
+export function instanceOfUncheckedOSUpdate(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function UncheckedOSUpdateFromJSON(json: any): UncheckedOSUpdate {
@@ -60,5 +69,4 @@ export function UncheckedOSUpdateToJSON(value?: UncheckedOSUpdate | null): any {
         'schema': EmbeddedModelSchemaToJSON(value.schema),
     };
 }
-
 

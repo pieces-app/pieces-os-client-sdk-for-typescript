@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the body of the /github/gists/import,
@@ -52,6 +52,16 @@ export interface SeededGithubGistsImport {
     _public?: boolean;
 }
 
+/**
+ * Check if a given object implements the SeededGithubGistsImport interface.
+ */
+export function instanceOfSeededGithubGistsImport(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
+}
+
 export function SeededGithubGistsImportFromJSON(json: any): SeededGithubGistsImport {
     return SeededGithubGistsImportFromJSONTyped(json, false);
 }
@@ -82,5 +92,4 @@ export function SeededGithubGistsImportToJSON(value?: SeededGithubGistsImport | 
         'public': value._public,
     };
 }
-
 

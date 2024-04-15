@@ -13,24 +13,30 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    ReferencedAnnotation,
+} from './GroupedTimestamp';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
     ReferencedAnnotationFromJSON,
     ReferencedAnnotationFromJSONTyped,
     ReferencedAnnotationToJSON,
-    ReferencedAsset,
+} from './ReferencedAnnotation';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedModel,
+} from './ReferencedAsset';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-} from './';
+} from './ReferencedModel';
 
 /**
  * This is a PersonSpecific Model. and will let us know for all the assets that get attached to the person if, this person was attached via a model or just attached automatically.
@@ -66,6 +72,15 @@ export interface PersonModel {
     explanation?: ReferencedAnnotation;
 }
 
+/**
+ * Check if a given object implements the PersonModel interface.
+ */
+export function instanceOfPersonModel(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function PersonModelFromJSON(json: any): PersonModel {
     return PersonModelFromJSONTyped(json, false);
 }
@@ -98,5 +113,4 @@ export function PersonModelToJSON(value?: PersonModel | null): any {
         'explanation': ReferencedAnnotationToJSON(value.explanation),
     };
 }
-
 

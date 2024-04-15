@@ -33,6 +33,15 @@ export interface Space {
     duration?: number;
 }
 
+/**
+ * Check if a given object implements the Space interface.
+ */
+export function instanceOfSpace(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function SpaceFromJSON(json: any): Space {
     return SpaceFromJSONTyped(json, false);
 }
@@ -61,5 +70,4 @@ export function SpaceToJSON(value?: Space | null): any {
         'duration': value.duration,
     };
 }
-
 

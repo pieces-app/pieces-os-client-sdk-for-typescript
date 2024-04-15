@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedOCRAnalysis,
+} from './EmbeddedModelSchema';
+import type { FlattenedOCRAnalysis } from './FlattenedOCRAnalysis';
+import {
     FlattenedOCRAnalysisFromJSON,
     FlattenedOCRAnalysisFromJSONTyped,
     FlattenedOCRAnalysisToJSON,
-} from './';
+} from './FlattenedOCRAnalysis';
 
 /**
  * 
@@ -54,6 +56,17 @@ export interface FlattenedImageAnalysis {
      * @memberof FlattenedImageAnalysis
      */
     analysis: string;
+}
+
+/**
+ * Check if a given object implements the FlattenedImageAnalysis interface.
+ */
+export function instanceOfFlattenedImageAnalysis(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "analysis" in value;
+
+    return isInstance;
 }
 
 export function FlattenedImageAnalysisFromJSON(json: any): FlattenedImageAnalysis {
@@ -88,5 +101,4 @@ export function FlattenedImageAnalysisToJSON(value?: FlattenedImageAnalysis | nu
         'analysis': value.analysis,
     };
 }
-
 

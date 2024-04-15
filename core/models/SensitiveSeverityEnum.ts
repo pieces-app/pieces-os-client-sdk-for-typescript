@@ -12,16 +12,18 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is the enum used to describe the severity of our sensitive model. ie low, moderate, high
  * @export
- * @enum {string}
  */
-export enum SensitiveSeverityEnum {
-    Low = 'LOW',
-    Moderate = 'MODERATE',
-    High = 'HIGH'
-}
+export const SensitiveSeverityEnum = {
+    Low: 'LOW',
+    Moderate: 'MODERATE',
+    High: 'HIGH'
+} as const;
+export type SensitiveSeverityEnum = typeof SensitiveSeverityEnum[keyof typeof SensitiveSeverityEnum];
+
 
 export function SensitiveSeverityEnumFromJSON(json: any): SensitiveSeverityEnum {
     return SensitiveSeverityEnumFromJSONTyped(json, false);

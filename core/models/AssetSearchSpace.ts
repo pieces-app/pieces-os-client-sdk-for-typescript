@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-} from './';
+} from './FlattenedAssets';
 
 /**
  * This is provided search spaces, This is a provided assets, TODO in the future we might want to add seeds.
@@ -42,6 +44,16 @@ export interface AssetSearchSpace {
      * @memberof AssetSearchSpace
      */
     identifers: FlattenedAssets;
+}
+
+/**
+ * Check if a given object implements the AssetSearchSpace interface.
+ */
+export function instanceOfAssetSearchSpace(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "identifers" in value;
+
+    return isInstance;
 }
 
 export function AssetSearchSpaceFromJSON(json: any): AssetSearchSpace {
@@ -72,5 +84,4 @@ export function AssetSearchSpaceToJSON(value?: AssetSearchSpace | null): any {
         'identifers': FlattenedAssetsToJSON(value.identifers),
     };
 }
-
 

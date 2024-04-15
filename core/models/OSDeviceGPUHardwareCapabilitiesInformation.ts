@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will give specific information on task specific capibilites for GPU.
@@ -38,6 +38,15 @@ export interface OSDeviceGPUHardwareCapabilitiesInformation {
      * @memberof OSDeviceGPUHardwareCapabilitiesInformation
      */
     llm?: boolean;
+}
+
+/**
+ * Check if a given object implements the OSDeviceGPUHardwareCapabilitiesInformation interface.
+ */
+export function instanceOfOSDeviceGPUHardwareCapabilitiesInformation(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function OSDeviceGPUHardwareCapabilitiesInformationFromJSON(json: any): OSDeviceGPUHardwareCapabilitiesInformation {
@@ -68,5 +77,4 @@ export function OSDeviceGPUHardwareCapabilitiesInformationToJSON(value?: OSDevic
         'llm': value.llm,
     };
 }
-
 

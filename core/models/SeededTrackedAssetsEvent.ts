@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTrackedAssetsEventMetadata,
+} from './EmbeddedModelSchema';
+import type { SeededTrackedAssetsEventMetadata } from './SeededTrackedAssetsEventMetadata';
+import {
     SeededTrackedAssetsEventMetadataFromJSON,
     SeededTrackedAssetsEventMetadataFromJSONTyped,
     SeededTrackedAssetsEventMetadataToJSON,
-    TrackedAssetsEventIdentifierDescriptionPairs,
+} from './SeededTrackedAssetsEventMetadata';
+import type { TrackedAssetsEventIdentifierDescriptionPairs } from './TrackedAssetsEventIdentifierDescriptionPairs';
+import {
     TrackedAssetsEventIdentifierDescriptionPairsFromJSON,
     TrackedAssetsEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedAssetsEventIdentifierDescriptionPairsToJSON,
-} from './';
+} from './TrackedAssetsEventIdentifierDescriptionPairs';
 
 /**
  * An seeded event model that can occur at the assets level i.e. search 
@@ -52,6 +56,15 @@ export interface SeededTrackedAssetsEvent {
      * @memberof SeededTrackedAssetsEvent
      */
     metadata?: SeededTrackedAssetsEventMetadata;
+}
+
+/**
+ * Check if a given object implements the SeededTrackedAssetsEvent interface.
+ */
+export function instanceOfSeededTrackedAssetsEvent(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function SeededTrackedAssetsEventFromJSON(json: any): SeededTrackedAssetsEvent {
@@ -84,5 +97,4 @@ export function SeededTrackedAssetsEventToJSON(value?: SeededTrackedAssetsEvent 
         'metadata': SeededTrackedAssetsEventMetadataToJSON(value.metadata),
     };
 }
-
 

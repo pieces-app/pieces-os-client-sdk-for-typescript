@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  SearchedAssets,
+  SeededAssetTags,
+} from '../models/index';
 import {
-    SearchedAssets,
     SearchedAssetsFromJSON,
     SearchedAssetsToJSON,
-    SeededAssetTags,
     SeededAssetTagsFromJSON,
     SeededAssetTagsToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface FullTextSearchRequest {
     query?: string;
@@ -47,7 +49,7 @@ export class SearchApi extends runtime.BaseAPI {
      * This will run FTS for exact search, and will NOT run fuzzy matching. This will only search the content within the 
      * /search/full_text [GET]
      */
-    async fullTextSearchRaw(requestParameters: FullTextSearchRequest): Promise<runtime.ApiResponse<SearchedAssets>> {
+    async fullTextSearchRaw(requestParameters: FullTextSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
         const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
@@ -65,7 +67,7 @@ export class SearchApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAssetsFromJSON(jsonValue));
     }
@@ -74,8 +76,8 @@ export class SearchApi extends runtime.BaseAPI {
      * This will run FTS for exact search, and will NOT run fuzzy matching. This will only search the content within the 
      * /search/full_text [GET]
      */
-    async fullTextSearch(requestParameters: FullTextSearchRequest): Promise<SearchedAssets> {
-        const response = await this.fullTextSearchRaw(requestParameters);
+    async fullTextSearch(requestParameters: FullTextSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedAssets> {
+        const response = await this.fullTextSearchRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -83,7 +85,7 @@ export class SearchApi extends runtime.BaseAPI {
      * This will run ncs on your assets. This will simply return FlattenedAssets, but will just be the assetuuids that match.
      * /search/neural_code [GET]
      */
-    async neuralCodeSearchRaw(requestParameters: NeuralCodeSearchRequest): Promise<runtime.ApiResponse<SearchedAssets>> {
+    async neuralCodeSearchRaw(requestParameters: NeuralCodeSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
         const queryParameters: any = {};
 
         if (requestParameters.query !== undefined) {
@@ -101,7 +103,7 @@ export class SearchApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAssetsFromJSON(jsonValue));
     }
@@ -110,8 +112,8 @@ export class SearchApi extends runtime.BaseAPI {
      * This will run ncs on your assets. This will simply return FlattenedAssets, but will just be the assetuuids that match.
      * /search/neural_code [GET]
      */
-    async neuralCodeSearch(requestParameters: NeuralCodeSearchRequest): Promise<SearchedAssets> {
-        const response = await this.neuralCodeSearchRaw(requestParameters);
+    async neuralCodeSearch(requestParameters: NeuralCodeSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedAssets> {
+        const response = await this.neuralCodeSearchRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -119,7 +121,7 @@ export class SearchApi extends runtime.BaseAPI {
      * This will run our tag based search, and return the assets that best match your passed in tags. This will simply return FlattenedAssets, but will just be the assetuuids that match.
      * /search/tag_based [POST]
      */
-    async tagBasedSearchRaw(requestParameters: TagBasedSearchRequest): Promise<runtime.ApiResponse<SearchedAssets>> {
+    async tagBasedSearchRaw(requestParameters: TagBasedSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
         const queryParameters: any = {};
 
         if (requestParameters.pseudo !== undefined) {
@@ -136,7 +138,7 @@ export class SearchApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededAssetTagsToJSON(requestParameters.seededAssetTags),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAssetsFromJSON(jsonValue));
     }
@@ -145,8 +147,8 @@ export class SearchApi extends runtime.BaseAPI {
      * This will run our tag based search, and return the assets that best match your passed in tags. This will simply return FlattenedAssets, but will just be the assetuuids that match.
      * /search/tag_based [POST]
      */
-    async tagBasedSearch(requestParameters: TagBasedSearchRequest): Promise<SearchedAssets> {
-        const response = await this.tagBasedSearchRaw(requestParameters);
+    async tagBasedSearch(requestParameters: TagBasedSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedAssets> {
+        const response = await this.tagBasedSearchRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

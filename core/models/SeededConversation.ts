@@ -13,48 +13,66 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    ConversationTypeEnum,
+} from './Application';
+import type { ConversationTypeEnum } from './ConversationTypeEnum';
+import {
     ConversationTypeEnumFromJSON,
     ConversationTypeEnumFromJSONTyped,
     ConversationTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './ConversationTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAssets,
+} from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedWebsites,
+} from './FlattenedAssets';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
-    QGPTPromptPipeline,
+} from './FlattenedWebsites';
+import type { QGPTPromptPipeline } from './QGPTPromptPipeline';
+import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-    ReferencedModel,
+} from './QGPTPromptPipeline';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-    SeededAnchor,
+} from './ReferencedModel';
+import type { SeededAnchor } from './SeededAnchor';
+import {
     SeededAnchorFromJSON,
     SeededAnchorFromJSONTyped,
     SeededAnchorToJSON,
-    SeededAnnotation,
+} from './SeededAnchor';
+import type { SeededAnnotation } from './SeededAnnotation';
+import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
-    SeededConversationMessage,
+} from './SeededAnnotation';
+import type { SeededConversationMessage } from './SeededConversationMessage';
+import {
     SeededConversationMessageFromJSON,
     SeededConversationMessageFromJSONTyped,
     SeededConversationMessageToJSON,
-} from './';
+} from './SeededConversationMessage';
 
 /**
  * This is a pre-Conversation object.
@@ -148,6 +166,16 @@ export interface SeededConversation {
     demo?: boolean;
 }
 
+/**
+ * Check if a given object implements the SeededConversation interface.
+ */
+export function instanceOfSeededConversation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
+}
+
 export function SeededConversationFromJSON(json: any): SeededConversation {
     return SeededConversationFromJSONTyped(json, false);
 }
@@ -198,5 +226,4 @@ export function SeededConversationToJSON(value?: SeededConversation | null): any
         'demo': value.demo,
     };
 }
-
 

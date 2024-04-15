@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedDistribution,
+} from './EmbeddedModelSchema';
+import type { ReferencedDistribution } from './ReferencedDistribution';
+import {
     ReferencedDistributionFromJSON,
     ReferencedDistributionFromJSONTyped,
     ReferencedDistributionToJSON,
-} from './';
+} from './ReferencedDistribution';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface FlattenedDistributions {
      * @memberof FlattenedDistributions
      */
     iterable: Array<ReferencedDistribution>;
+}
+
+/**
+ * Check if a given object implements the FlattenedDistributions interface.
+ */
+export function instanceOfFlattenedDistributions(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function FlattenedDistributionsFromJSON(json: any): FlattenedDistributions {
@@ -72,5 +84,4 @@ export function FlattenedDistributionsToJSON(value?: FlattenedDistributions | nu
         'iterable': ((value.iterable as Array<any>).map(ReferencedDistributionToJSON)),
     };
 }
-
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { DiscoveredRelatedTag } from './DiscoveredRelatedTag';
 import {
-    DiscoveredRelatedTag,
     DiscoveredRelatedTagFromJSON,
     DiscoveredRelatedTagFromJSONTyped,
     DiscoveredRelatedTagToJSON,
-    EmbeddedModelSchema,
+} from './DiscoveredRelatedTag';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -48,6 +50,17 @@ export interface DiscoveredRelatedTags {
      * @memberof DiscoveredRelatedTags
      */
     iterable: Array<DiscoveredRelatedTag>;
+}
+
+/**
+ * Check if a given object implements the DiscoveredRelatedTags interface.
+ */
+export function instanceOfDiscoveredRelatedTags(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function DiscoveredRelatedTagsFromJSON(json: any): DiscoveredRelatedTags {
@@ -80,5 +93,4 @@ export function DiscoveredRelatedTagsToJSON(value?: DiscoveredRelatedTags | null
         'iterable': ((value.iterable as Array<any>).map(DiscoveredRelatedTagToJSON)),
     };
 }
-
 

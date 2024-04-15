@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-} from './';
+} from './MechanismEnum';
 
 /**
  * This is the minimum information required to create a website for a specific asset.
@@ -78,6 +80,17 @@ export interface SeededWebsite {
     person?: string;
 }
 
+/**
+ * Check if a given object implements the SeededWebsite interface.
+ */
+export function instanceOfSeededWebsite(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "url" in value;
+    isInstance = isInstance && "name" in value;
+
+    return isInstance;
+}
+
 export function SeededWebsiteFromJSON(json: any): SeededWebsite {
     return SeededWebsiteFromJSONTyped(json, false);
 }
@@ -116,5 +129,4 @@ export function SeededWebsiteToJSON(value?: SeededWebsite | null): any {
         'person': value.person,
     };
 }
-
 

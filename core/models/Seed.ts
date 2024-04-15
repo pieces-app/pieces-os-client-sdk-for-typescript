@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededAsset,
+} from './EmbeddedModelSchema';
+import type { SeededAsset } from './SeededAsset';
+import {
     SeededAssetFromJSON,
     SeededAssetFromJSONTyped,
     SeededAssetToJSON,
-} from './';
+} from './SeededAsset';
 
 /**
  * A seed Model used to wrap a format or asset
@@ -50,13 +52,25 @@ export interface Seed {
     type: SeedTypeEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum SeedTypeEnum {
-    Format = 'SEEDED_FORMAT',
-    Asset = 'SEEDED_ASSET'
+ * @export
+ */
+export const SeedTypeEnum = {
+    Format: 'SEEDED_FORMAT',
+    Asset: 'SEEDED_ASSET'
+} as const;
+export type SeedTypeEnum = typeof SeedTypeEnum[keyof typeof SeedTypeEnum];
+
+
+/**
+ * Check if a given object implements the Seed interface.
+ */
+export function instanceOfSeed(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function SeedFromJSON(json: any): Seed {
@@ -89,5 +103,4 @@ export function SeedToJSON(value?: Seed | null): any {
         'type': value.type,
     };
 }
-
 

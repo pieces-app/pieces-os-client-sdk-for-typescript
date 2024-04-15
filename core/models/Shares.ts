@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    Score,
+} from './EmbeddedModelSchema';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-    Share,
+} from './Score';
+import type { Share } from './Share';
+import {
     ShareFromJSON,
     ShareFromJSONTyped,
     ShareToJSON,
-} from './';
+} from './Share';
 
 /**
  * this is just an iterable of our individual share models.
@@ -52,6 +56,16 @@ export interface Shares {
      * @memberof Shares
      */
     score?: Score;
+}
+
+/**
+ * Check if a given object implements the Shares interface.
+ */
+export function instanceOfShares(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function SharesFromJSON(json: any): Shares {
@@ -84,5 +98,4 @@ export function SharesToJSON(value?: Shares | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

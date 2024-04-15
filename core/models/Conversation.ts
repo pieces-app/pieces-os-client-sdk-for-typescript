@@ -13,60 +13,90 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    ConversationGrounding,
+} from './Application';
+import type { ConversationGrounding } from './ConversationGrounding';
+import {
     ConversationGroundingFromJSON,
     ConversationGroundingFromJSONTyped,
     ConversationGroundingToJSON,
-    ConversationTypeEnum,
+} from './ConversationGrounding';
+import type { ConversationTypeEnum } from './ConversationTypeEnum';
+import {
     ConversationTypeEnumFromJSON,
     ConversationTypeEnumFromJSONTyped,
     ConversationTypeEnumToJSON,
-    EmbeddedModelSchema,
+} from './ConversationTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedAnchors,
+} from './EmbeddedModelSchema';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
     FlattenedAnchorsFromJSON,
     FlattenedAnchorsFromJSONTyped,
     FlattenedAnchorsToJSON,
-    FlattenedAnnotations,
+} from './FlattenedAnchors';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
-    FlattenedAssets,
+} from './FlattenedAnnotations';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    FlattenedConversationMessages,
+} from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
-    FlattenedWebsites,
+} from './FlattenedConversationMessages';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
-    GroupedTimestamp,
+} from './FlattenedWebsites';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+} from './FlattenedWorkstreamSummaries';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    QGPTPromptPipeline,
+} from './GroupedTimestamp';
+import type { QGPTPromptPipeline } from './QGPTPromptPipeline';
+import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
-    ReferencedModel,
+} from './QGPTPromptPipeline';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-    Score,
+} from './ReferencedModel';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is a fully referenced Conversation.
@@ -194,6 +224,26 @@ export interface Conversation {
      * @memberof Conversation
      */
     demo?: boolean;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof Conversation
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+}
+
+/**
+ * Check if a given object implements the Conversation interface.
+ */
+export function instanceOfConversation(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "messages" in value;
+    isInstance = isInstance && "type" in value;
+
+    return isInstance;
 }
 
 export function ConversationFromJSON(json: any): Conversation {
@@ -225,6 +275,7 @@ export function ConversationFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
         'demo': !exists(json, 'demo') ? undefined : json['demo'],
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
@@ -256,7 +307,7 @@ export function ConversationToJSON(value?: Conversation | null): any {
         'score': ScoreToJSON(value.score),
         'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
         'demo': value.demo,
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }
-
 

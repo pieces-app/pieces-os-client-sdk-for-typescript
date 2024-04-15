@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Classification } from './Classification';
 import {
-    Classification,
     ClassificationFromJSON,
     ClassificationFromJSONTyped,
     ClassificationToJSON,
-    EmbeddedModelSchema,
+} from './Classification';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -48,6 +50,17 @@ export interface TLPCodeFragmentReclassificationUpdates {
      * @memberof TLPCodeFragmentReclassificationUpdates
      */
     current: Classification;
+}
+
+/**
+ * Check if a given object implements the TLPCodeFragmentReclassificationUpdates interface.
+ */
+export function instanceOfTLPCodeFragmentReclassificationUpdates(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "previous" in value;
+    isInstance = isInstance && "current" in value;
+
+    return isInstance;
 }
 
 export function TLPCodeFragmentReclassificationUpdatesFromJSON(json: any): TLPCodeFragmentReclassificationUpdates {
@@ -80,5 +93,4 @@ export function TLPCodeFragmentReclassificationUpdatesToJSON(value?: TLPCodeFrag
         'current': ClassificationToJSON(value.current),
     };
 }
-
 

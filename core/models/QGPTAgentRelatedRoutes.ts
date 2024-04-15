@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is specific for all the related materials, like people, tags, websites... xyz
@@ -38,6 +38,15 @@ export interface QGPTAgentRelatedRoutes {
      * @memberof QGPTAgentRelatedRoutes
      */
     people?: boolean;
+}
+
+/**
+ * Check if a given object implements the QGPTAgentRelatedRoutes interface.
+ */
+export function instanceOfQGPTAgentRelatedRoutes(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTAgentRelatedRoutesFromJSON(json: any): QGPTAgentRelatedRoutes {
@@ -68,5 +77,4 @@ export function QGPTAgentRelatedRoutesToJSON(value?: QGPTAgentRelatedRoutes | nu
         'people': value.people,
     };
 }
-
 

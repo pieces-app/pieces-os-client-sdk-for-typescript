@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
-    Auth0UserMetadata,
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
-    EmbeddedModelSchema,
+} from './Auth0UserMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is the outputmodel for /external_provider/api_key/create
@@ -42,6 +44,16 @@ export interface CreatedExternalProviderApiKey {
      * @memberof CreatedExternalProviderApiKey
      */
     metadata: Auth0UserMetadata;
+}
+
+/**
+ * Check if a given object implements the CreatedExternalProviderApiKey interface.
+ */
+export function instanceOfCreatedExternalProviderApiKey(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "metadata" in value;
+
+    return isInstance;
 }
 
 export function CreatedExternalProviderApiKeyFromJSON(json: any): CreatedExternalProviderApiKey {
@@ -72,5 +84,4 @@ export function CreatedExternalProviderApiKeyToJSON(value?: CreatedExternalProvi
         'metadata': Auth0UserMetadataToJSON(value.metadata),
     };
 }
-
 

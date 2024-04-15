@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { FileFormat } from './FileFormat';
 import {
-    FileFormat,
     FileFormatFromJSON,
     FileFormatFromJSONTyped,
     FileFormatToJSON,
-    GroupedTimestamp,
+} from './FileFormat';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-} from './';
+} from './GroupedTimestamp';
 
 /**
  * This is a model for a minimum exported version of an asset.
@@ -32,6 +34,7 @@ import {
 export interface ExportedAsset {
     /**
      * this is the title of the asset
+     * 
      * @type {string}
      * @memberof ExportedAsset
      */
@@ -54,6 +57,19 @@ export interface ExportedAsset {
      * @memberof ExportedAsset
      */
     raw: FileFormat;
+}
+
+/**
+ * Check if a given object implements the ExportedAsset interface.
+ */
+export function instanceOfExportedAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "raw" in value;
+
+    return isInstance;
 }
 
 export function ExportedAssetFromJSON(json: any): ExportedAsset {
@@ -88,5 +104,4 @@ export function ExportedAssetToJSON(value?: ExportedAsset | null): any {
         'raw': FileFormatToJSON(value.raw),
     };
 }
-
 

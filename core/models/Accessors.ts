@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Accessor } from './Accessor';
 import {
-    Accessor,
     AccessorFromJSON,
     AccessorFromJSONTyped,
     AccessorToJSON,
-    EmbeddedModelSchema,
+} from './Accessor';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -42,6 +44,16 @@ export interface Accessors {
      * @memberof Accessors
      */
     iterable: Array<Accessor>;
+}
+
+/**
+ * Check if a given object implements the Accessors interface.
+ */
+export function instanceOfAccessors(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "iterable" in value;
+
+    return isInstance;
 }
 
 export function AccessorsFromJSON(json: any): Accessors {
@@ -72,5 +84,4 @@ export function AccessorsToJSON(value?: Accessors | null): any {
         'iterable': ((value.iterable as Array<any>).map(AccessorToJSON)),
     };
 }
-
 

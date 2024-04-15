@@ -13,28 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    SensitiveCategoryEnum,
+} from './MechanismEnum';
+import type { SensitiveCategoryEnum } from './SensitiveCategoryEnum';
+import {
     SensitiveCategoryEnumFromJSON,
     SensitiveCategoryEnumFromJSONTyped,
     SensitiveCategoryEnumToJSON,
-    SensitiveMetadata,
+} from './SensitiveCategoryEnum';
+import type { SensitiveMetadata } from './SensitiveMetadata';
+import {
     SensitiveMetadataFromJSON,
     SensitiveMetadataFromJSONTyped,
     SensitiveMetadataToJSON,
-    SensitiveSeverityEnum,
+} from './SensitiveMetadata';
+import type { SensitiveSeverityEnum } from './SensitiveSeverityEnum';
+import {
     SensitiveSeverityEnumFromJSON,
     SensitiveSeverityEnumFromJSONTyped,
     SensitiveSeverityEnumToJSON,
-} from './';
+} from './SensitiveSeverityEnum';
 
 /**
  * This is the seededSensitive, this does not have an id yet as we will add it on the server side.
@@ -102,6 +110,21 @@ export interface SeededSensitive {
     metadata?: SensitiveMetadata;
 }
 
+/**
+ * Check if a given object implements the SeededSensitive interface.
+ */
+export function instanceOfSeededSensitive(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "asset" in value;
+    isInstance = isInstance && "text" in value;
+    isInstance = isInstance && "category" in value;
+    isInstance = isInstance && "severity" in value;
+    isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "description" in value;
+
+    return isInstance;
+}
+
 export function SeededSensitiveFromJSON(json: any): SeededSensitive {
     return SeededSensitiveFromJSONTyped(json, false);
 }
@@ -144,5 +167,4 @@ export function SeededSensitiveToJSON(value?: SeededSensitive | null): any {
         'metadata': SensitiveMetadataToJSON(value.metadata),
     };
 }
-
 

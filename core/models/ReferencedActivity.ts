@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedActivity,
+} from './EmbeddedModelSchema';
+import type { FlattenedActivity } from './FlattenedActivity';
+import {
     FlattenedActivityFromJSON,
     FlattenedActivityFromJSONTyped,
     FlattenedActivityToJSON,
-} from './';
+} from './FlattenedActivity';
 
 /**
  * 
@@ -48,6 +50,16 @@ export interface ReferencedActivity {
      * @memberof ReferencedActivity
      */
     reference?: FlattenedActivity;
+}
+
+/**
+ * Check if a given object implements the ReferencedActivity interface.
+ */
+export function instanceOfReferencedActivity(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedActivityFromJSON(json: any): ReferencedActivity {
@@ -80,5 +92,4 @@ export function ReferencedActivityToJSON(value?: ReferencedActivity | null): any
         'reference': FlattenedActivityToJSON(value.reference),
     };
 }
-
 

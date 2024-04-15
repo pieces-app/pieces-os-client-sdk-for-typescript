@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This will let us know specific hardware information related to the CPU.
@@ -44,6 +44,15 @@ export interface OSDeviceCPUHardwareInformation {
      * @memberof OSDeviceCPUHardwareInformation
      */
     memory?: number;
+}
+
+/**
+ * Check if a given object implements the OSDeviceCPUHardwareInformation interface.
+ */
+export function instanceOfOSDeviceCPUHardwareInformation(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function OSDeviceCPUHardwareInformationFromJSON(json: any): OSDeviceCPUHardwareInformation {
@@ -76,5 +85,4 @@ export function OSDeviceCPUHardwareInformationToJSON(value?: OSDeviceCPUHardware
         'memory': value.memory,
     };
 }
-
 

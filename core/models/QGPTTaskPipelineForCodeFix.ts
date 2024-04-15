@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This task is for fixing a bit of code.
@@ -42,6 +42,15 @@ export interface QGPTTaskPipelineForCodeFix {
      * @memberof QGPTTaskPipelineForCodeFix
      */
     error?: string;
+}
+
+/**
+ * Check if a given object implements the QGPTTaskPipelineForCodeFix interface.
+ */
+export function instanceOfQGPTTaskPipelineForCodeFix(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function QGPTTaskPipelineForCodeFixFromJSON(json: any): QGPTTaskPipelineForCodeFix {
@@ -72,5 +81,4 @@ export function QGPTTaskPipelineForCodeFixToJSON(value?: QGPTTaskPipelineForCode
         'error': value.error,
     };
 }
-
 

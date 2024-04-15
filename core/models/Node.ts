@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
-    GroupedTimestamp,
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    NodeTypeEnum,
+} from './GroupedTimestamp';
+import type { NodeTypeEnum } from './NodeTypeEnum';
+import {
     NodeTypeEnumFromJSON,
     NodeTypeEnumFromJSONTyped,
     NodeTypeEnumToJSON,
-} from './';
+} from './NodeTypeEnum';
 
 /**
  * This describes a node within a relationship graph used to related like types. ie asset to asset, tag to tag, ...etc
@@ -60,6 +62,19 @@ export interface Node {
     created: GroupedTimestamp;
 }
 
+/**
+ * Check if a given object implements the Node interface.
+ */
+export function instanceOfNode(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "root" in value;
+    isInstance = isInstance && "created" in value;
+
+    return isInstance;
+}
+
 export function NodeFromJSON(json: any): Node {
     return NodeFromJSONTyped(json, false);
 }
@@ -92,5 +107,4 @@ export function NodeToJSON(value?: Node | null): any {
         'created': GroupedTimestampToJSON(value.created),
     };
 }
-
 

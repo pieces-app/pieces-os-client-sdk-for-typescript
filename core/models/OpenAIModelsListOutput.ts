@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededModels,
+} from './EmbeddedModelSchema';
+import type { SeededModels } from './SeededModels';
+import {
     SeededModelsFromJSON,
     SeededModelsFromJSONTyped,
     SeededModelsToJSON,
-} from './';
+} from './SeededModels';
 
 /**
  * This is the output model for the /open_ai/models/list endpoint.
@@ -42,6 +44,16 @@ export interface OpenAIModelsListOutput {
      * @memberof OpenAIModelsListOutput
      */
     models: SeededModels;
+}
+
+/**
+ * Check if a given object implements the OpenAIModelsListOutput interface.
+ */
+export function instanceOfOpenAIModelsListOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "models" in value;
+
+    return isInstance;
 }
 
 export function OpenAIModelsListOutputFromJSON(json: any): OpenAIModelsListOutput {
@@ -72,5 +84,4 @@ export function OpenAIModelsListOutputToJSON(value?: OpenAIModelsListOutput | nu
         'models': SeededModelsToJSON(value.models),
     };
 }
-
 

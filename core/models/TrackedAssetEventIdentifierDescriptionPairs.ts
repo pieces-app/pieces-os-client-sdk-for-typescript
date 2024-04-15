@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * These are all of the available event types that are permitted in an object pair notation.
@@ -250,222 +250,303 @@ export interface TrackedAssetEventIdentifierDescriptionPairs {
     assetAnchorUpdated?: TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
 }
 
+
 /**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum {
-    AnAssetWasCreated = 'an_asset_was_created'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum {
-    AnAssetWasViewed = 'an_asset_was_viewed'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum {
-    AnAssetPreviewFormatWasCopied = 'an_asset_preview_format_was_copied'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum {
-    AnAssetFormatWasDownloaded = 'an_asset_format_was_downloaded'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum {
-    AnAssetWasDeleted = 'an_asset_was_deleted'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum {
-    AnAssetWasRedescribedByTheUser = 'an_asset_was_redescribed_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum {
-    AnAssetWasRenamedByTheUser = 'an_asset_was_renamed_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum {
-    AGenericClassificationWasChangedOnAFormatWithinAnAsset = 'a_generic_classification_was_changed_on_a_format_within_an_asset'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum {
-    ASpecificClassificationWasChangedOnAFormatWithinAnAsset = 'a_specific_classification_was_changed_on_a_format_within_an_asset'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum {
-    AnAssetFailedToBeCreated = 'an_asset_failed_to_be_created'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum {
-    ATagWasAddedByTheUser = 'a_tag_was_added_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum {
-    ALinkWasAddedByTheUser = 'a_link_was_added_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum {
-    AnAssetLinkWasGenerated = 'an_asset_link_was_generated'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum {
-    ALinkWasDeletedByTheUser = 'a_link_was_deleted_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum {
-    ATagWasDeletedByTheUser = 'a_tag_was_deleted_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum {
-    AnAssetWasUpdated = 'an_asset_was_updated'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum {
-    ASpecificFormatValueWasEditedOnAnAsset = 'a_specific_format_value_was_edited_on_an_asset'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum {
-    ASpecificFormatWasUpdatedOnAnAsset = 'a_specific_format_was_updated_on_an_asset'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum {
-    AnAssetLinkWasRevoked = 'an_asset_link_was_revoked'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum {
-    APersonWasAddedByTheUser = 'a_person_was_added_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum {
-    APersonWasDeletedByTheUser = 'a_person_was_deleted_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum {
-    ASensitiveWasAddedByTheUser = 'a_sensitive_was_added_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum {
-    ASensitiveWasDeletedByTheUser = 'a_sensitive_was_deleted_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum {
-    ASuggestedAssetWasReferencedByTheUser = 'a_suggested_asset_was_referenced_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum {
-    ASearchedAssetWasReferencedByTheUser = 'a_searched_asset_was_referenced_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum {
-    AnAssetWasReferencedByTheUser = 'an_asset_was_referenced_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum {
-    AnActivityAssetWasReferencedByTheUser = 'an_activity_asset_was_referenced_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum {
-    AnAnnotationWasAddedByTheUser = 'an_annotation_was_added_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum {
-    AnAnnotationWasDeletedByTheUser = 'an_annotation_was_deleted_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum {
-    AnAnnotationWasUpdatedByTheUser = 'an_annotation_was_updated_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum {
-    AHintWasAddedByTheUser = 'a_hint_was_added_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum {
-    AHintWasDeletedByTheUser = 'a_hint_was_deleted_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum {
-    AHintWasUpdatedByTheUser = 'a_hint_was_updated_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum {
-    AAnchorWasAddedByTheUser = 'a_anchor_was_added_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum {
-    AAnchorWasDeletedByTheUser = 'a_anchor_was_deleted_by_the_user'
-}/**
-* @export
-* @enum {string}
-*/
-export enum TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum {
-    AAnchorWasUpdatedByTheUser = 'a_anchor_was_updated_by_the_user'
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum = {
+    AnAssetWasCreated: 'an_asset_was_created'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum = {
+    AnAssetWasViewed: 'an_asset_was_viewed'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum = {
+    AnAssetPreviewFormatWasCopied: 'an_asset_preview_format_was_copied'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum = {
+    AnAssetFormatWasDownloaded: 'an_asset_format_was_downloaded'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum = {
+    AnAssetWasDeleted: 'an_asset_was_deleted'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum = {
+    AnAssetWasRedescribedByTheUser: 'an_asset_was_redescribed_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum = {
+    AnAssetWasRenamedByTheUser: 'an_asset_was_renamed_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum = {
+    AGenericClassificationWasChangedOnAFormatWithinAnAsset: 'a_generic_classification_was_changed_on_a_format_within_an_asset'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum = {
+    ASpecificClassificationWasChangedOnAFormatWithinAnAsset: 'a_specific_classification_was_changed_on_a_format_within_an_asset'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum = {
+    AnAssetFailedToBeCreated: 'an_asset_failed_to_be_created'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum = {
+    ATagWasAddedByTheUser: 'a_tag_was_added_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum = {
+    ALinkWasAddedByTheUser: 'a_link_was_added_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum = {
+    AnAssetLinkWasGenerated: 'an_asset_link_was_generated'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum = {
+    ALinkWasDeletedByTheUser: 'a_link_was_deleted_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum = {
+    ATagWasDeletedByTheUser: 'a_tag_was_deleted_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum = {
+    AnAssetWasUpdated: 'an_asset_was_updated'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum = {
+    ASpecificFormatValueWasEditedOnAnAsset: 'a_specific_format_value_was_edited_on_an_asset'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum = {
+    ASpecificFormatWasUpdatedOnAnAsset: 'a_specific_format_was_updated_on_an_asset'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum = {
+    AnAssetLinkWasRevoked: 'an_asset_link_was_revoked'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum = {
+    APersonWasAddedByTheUser: 'a_person_was_added_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum = {
+    APersonWasDeletedByTheUser: 'a_person_was_deleted_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum = {
+    ASensitiveWasAddedByTheUser: 'a_sensitive_was_added_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum = {
+    ASensitiveWasDeletedByTheUser: 'a_sensitive_was_deleted_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum = {
+    ASuggestedAssetWasReferencedByTheUser: 'a_suggested_asset_was_referenced_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum = {
+    ASearchedAssetWasReferencedByTheUser: 'a_searched_asset_was_referenced_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum = {
+    AnAssetWasReferencedByTheUser: 'an_asset_was_referenced_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum = {
+    AnActivityAssetWasReferencedByTheUser: 'an_activity_asset_was_referenced_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum = {
+    AnAnnotationWasAddedByTheUser: 'an_annotation_was_added_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum = {
+    AnAnnotationWasDeletedByTheUser: 'an_annotation_was_deleted_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum = {
+    AnAnnotationWasUpdatedByTheUser: 'an_annotation_was_updated_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum = {
+    AHintWasAddedByTheUser: 'a_hint_was_added_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum = {
+    AHintWasDeletedByTheUser: 'a_hint_was_deleted_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum = {
+    AHintWasUpdatedByTheUser: 'a_hint_was_updated_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum = {
+    AAnchorWasAddedByTheUser: 'a_anchor_was_added_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum = {
+    AAnchorWasDeletedByTheUser: 'a_anchor_was_deleted_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum];
+
+/**
+ * @export
+ */
+export const TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum = {
+    AAnchorWasUpdatedByTheUser: 'a_anchor_was_updated_by_the_user'
+} as const;
+export type TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum];
+
+
+/**
+ * Check if a given object implements the TrackedAssetEventIdentifierDescriptionPairs interface.
+ */
+export function instanceOfTrackedAssetEventIdentifierDescriptionPairs(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetEventIdentifierDescriptionPairsFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairs {
@@ -566,5 +647,4 @@ export function TrackedAssetEventIdentifierDescriptionPairsToJSON(value?: Tracke
         'asset_anchor_updated': value.assetAnchorUpdated,
     };
 }
-
 

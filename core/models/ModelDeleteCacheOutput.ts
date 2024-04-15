@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ReferencedModel,
+} from './EmbeddedModelSchema';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-} from './';
+} from './ReferencedModel';
 
 /**
  * This is the output model for '/model/{model}/delete/cache'
@@ -42,6 +44,16 @@ export interface ModelDeleteCacheOutput {
      * @memberof ModelDeleteCacheOutput
      */
     model: ReferencedModel;
+}
+
+/**
+ * Check if a given object implements the ModelDeleteCacheOutput interface.
+ */
+export function instanceOfModelDeleteCacheOutput(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "model" in value;
+
+    return isInstance;
 }
 
 export function ModelDeleteCacheOutputFromJSON(json: any): ModelDeleteCacheOutput {
@@ -72,5 +84,4 @@ export function ModelDeleteCacheOutputToJSON(value?: ModelDeleteCacheOutput | nu
         'model': ReferencedModelToJSON(value.model),
     };
 }
-
 

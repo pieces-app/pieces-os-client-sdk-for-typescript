@@ -13,36 +13,48 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    GroupedTimestamp,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    HintTypeEnum,
+} from './GroupedTimestamp';
+import type { HintTypeEnum } from './HintTypeEnum';
+import {
     HintTypeEnumFromJSON,
     HintTypeEnumFromJSONTyped,
     HintTypeEnumToJSON,
-    MechanismEnum,
+} from './HintTypeEnum';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    ReferencedAsset,
+} from './MechanismEnum';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
-    ReferencedModel,
+} from './ReferencedAsset';
+import type { ReferencedModel } from './ReferencedModel';
+import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
-    Score,
+} from './ReferencedModel';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * This is the flattened version of a hint. Ensure that you DO NOT reference the Asset here as you can create an infinite loop within the packaging.
@@ -118,6 +130,20 @@ export interface FlattenedHint {
     score?: Score;
 }
 
+/**
+ * Check if a given object implements the FlattenedHint interface.
+ */
+export function instanceOfFlattenedHint(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "type" in value;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
+}
+
 export function FlattenedHintFromJSON(json: any): FlattenedHint {
     return FlattenedHintFromJSONTyped(json, false);
 }
@@ -164,5 +190,4 @@ export function FlattenedHintToJSON(value?: FlattenedHint | null): any {
         'score': ScoreToJSON(value.score),
     };
 }
-
 

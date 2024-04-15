@@ -12,21 +12,23 @@
  * Do not edit the class manually.
  */
 
+
 /**
  * This is a specific Enum used for the QGPT Stream.
  * @export
- * @enum {string}
  */
-export enum QGPTStreamEnum {
-    Canceled = 'CANCELED',
-    Initialized = 'INITIALIZED',
-    InProgress = 'IN-PROGRESS',
-    Completed = 'COMPLETED',
-    Failed = 'FAILED',
-    Unknown = 'UNKNOWN',
-    Stopped = 'STOPPED',
-    Reset = 'RESET'
-}
+export const QGPTStreamEnum = {
+    Canceled: 'CANCELED',
+    Initialized: 'INITIALIZED',
+    InProgress: 'IN-PROGRESS',
+    Completed: 'COMPLETED',
+    Failed: 'FAILED',
+    Unknown: 'UNKNOWN',
+    Stopped: 'STOPPED',
+    Reset: 'RESET'
+} as const;
+export type QGPTStreamEnum = typeof QGPTStreamEnum[keyof typeof QGPTStreamEnum];
+
 
 export function QGPTStreamEnumFromJSON(json: any): QGPTStreamEnum {
     return QGPTStreamEnumFromJSONTyped(json, false);

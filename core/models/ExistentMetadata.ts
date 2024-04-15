@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a shared output model for all the exists endpoints:
@@ -40,6 +40,16 @@ export interface ExistentMetadata {
      * @memberof ExistentMetadata
      */
     value: string;
+}
+
+/**
+ * Check if a given object implements the ExistentMetadata interface.
+ */
+export function instanceOfExistentMetadata(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
 }
 
 export function ExistentMetadataFromJSON(json: any): ExistentMetadata {
@@ -70,5 +80,4 @@ export function ExistentMetadataToJSON(value?: ExistentMetadata | null): any {
         'value': value.value,
     };
 }
-
 

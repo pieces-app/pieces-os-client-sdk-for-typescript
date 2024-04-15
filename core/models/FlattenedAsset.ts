@@ -13,79 +13,115 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedActivities,
+} from './EmbeddedModelSchema';
+import type { FlattenedActivities } from './FlattenedActivities';
+import {
     FlattenedActivitiesFromJSON,
     FlattenedActivitiesFromJSONTyped,
     FlattenedActivitiesToJSON,
-    FlattenedAnchors,
+} from './FlattenedActivities';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
     FlattenedAnchorsFromJSON,
     FlattenedAnchorsFromJSONTyped,
     FlattenedAnchorsToJSON,
-    FlattenedAnnotations,
+} from './FlattenedAnchors';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
-    FlattenedConversations,
+} from './FlattenedAnnotations';
+import type { FlattenedConversations } from './FlattenedConversations';
+import {
     FlattenedConversationsFromJSON,
     FlattenedConversationsFromJSONTyped,
     FlattenedConversationsToJSON,
-    FlattenedFormats,
+} from './FlattenedConversations';
+import type { FlattenedFormats } from './FlattenedFormats';
+import {
     FlattenedFormatsFromJSON,
     FlattenedFormatsFromJSONTyped,
     FlattenedFormatsToJSON,
-    FlattenedHints,
+} from './FlattenedFormats';
+import type { FlattenedHints } from './FlattenedHints';
+import {
     FlattenedHintsFromJSON,
     FlattenedHintsFromJSONTyped,
     FlattenedHintsToJSON,
-    FlattenedPersons,
+} from './FlattenedHints';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
     FlattenedPersonsFromJSON,
     FlattenedPersonsFromJSONTyped,
     FlattenedPersonsToJSON,
-    FlattenedPreview,
+} from './FlattenedPersons';
+import type { FlattenedPreview } from './FlattenedPreview';
+import {
     FlattenedPreviewFromJSON,
     FlattenedPreviewFromJSONTyped,
     FlattenedPreviewToJSON,
-    FlattenedSensitives,
+} from './FlattenedPreview';
+import type { FlattenedSensitives } from './FlattenedSensitives';
+import {
     FlattenedSensitivesFromJSON,
     FlattenedSensitivesFromJSONTyped,
     FlattenedSensitivesToJSON,
-    FlattenedShares,
+} from './FlattenedSensitives';
+import type { FlattenedShares } from './FlattenedShares';
+import {
     FlattenedSharesFromJSON,
     FlattenedSharesFromJSONTyped,
     FlattenedSharesToJSON,
-    FlattenedTags,
+} from './FlattenedShares';
+import type { FlattenedTags } from './FlattenedTags';
+import {
     FlattenedTagsFromJSON,
     FlattenedTagsFromJSONTyped,
     FlattenedTagsToJSON,
-    FlattenedWebsites,
+} from './FlattenedTags';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
-    GroupedTimestamp,
+} from './FlattenedWebsites';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+} from './FlattenedWorkstreamSummaries';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
-    MechanismEnum,
+} from './GroupedTimestamp';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    Score,
+} from './MechanismEnum';
+import type { Score } from './Score';
+import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
-} from './';
+} from './Score';
 
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats. [DAG Compatible - Directed Acyclic Graph Data Structure]
  * 
  * FlattenedAsset prevent Cycles in Reference because all outbound references are strings as opposed to crosspollinated objects.
  * 
- * i.e. FlattenedFormat.formats is Type String[] or List\<String\>, FlattenedFormat.preview is Type String, and
+ * i.e. FlattenedFormat.preview is Type String, and
  * FlattenedFormat.original is Type String
  * @export
  * @interface FlattenedAsset
@@ -265,6 +301,29 @@ export interface FlattenedAsset {
      * @memberof FlattenedAsset
      */
     demo?: boolean;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof FlattenedAsset
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+}
+
+/**
+ * Check if a given object implements the FlattenedAsset interface.
+ */
+export function instanceOfFlattenedAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "creator" in value;
+    isInstance = isInstance && "created" in value;
+    isInstance = isInstance && "updated" in value;
+    isInstance = isInstance && "formats" in value;
+    isInstance = isInstance && "preview" in value;
+    isInstance = isInstance && "original" in value;
+    isInstance = isInstance && "mechanism" in value;
+
+    return isInstance;
 }
 
 export function FlattenedAssetFromJSON(json: any): FlattenedAsset {
@@ -306,6 +365,7 @@ export function FlattenedAssetFromJSONTyped(json: any, ignoreDiscriminator: bool
         'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
         'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
         'demo': !exists(json, 'demo') ? undefined : json['demo'],
+        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
@@ -347,7 +407,7 @@ export function FlattenedAssetToJSON(value?: FlattenedAsset | null): any {
         'anchors': FlattenedAnchorsToJSON(value.anchors),
         'conversations': FlattenedConversationsToJSON(value.conversations),
         'demo': value.demo,
+        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }
-
 

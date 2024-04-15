@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -38,6 +38,15 @@ export interface TLPCodeRepositoryAnalytics {
      * @memberof TLPCodeRepositoryAnalytics
      */
     id?: string;
+}
+
+/**
+ * Check if a given object implements the TLPCodeRepositoryAnalytics interface.
+ */
+export function instanceOfTLPCodeRepositoryAnalytics(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TLPCodeRepositoryAnalyticsFromJSON(json: any): TLPCodeRepositoryAnalytics {
@@ -68,5 +77,4 @@ export function TLPCodeRepositoryAnalyticsToJSON(value?: TLPCodeRepositoryAnalyt
         'id': value.id,
     };
 }
-
 

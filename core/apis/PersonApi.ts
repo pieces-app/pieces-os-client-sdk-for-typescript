@@ -14,14 +14,26 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Person,
+  SeededScoreIncrement,
+} from '../models/index';
 import {
-    Person,
     PersonFromJSON,
     PersonToJSON,
-    SeededScoreIncrement,
     SeededScoreIncrementFromJSON,
     SeededScoreIncrementToJSON,
-} from '../models';
+} from '../models/index';
+
+export interface PersonAssociateWorkstreamSummaryRequest {
+    person: string;
+    workstreamSummary: string;
+}
+
+export interface PersonDisassociateWorkstreamSummaryRequest {
+    person: string;
+    workstreamSummary: string;
+}
 
 export interface PersonScoresIncrementRequest {
     person: string;
@@ -44,10 +56,80 @@ export interface UpdatePersonRequest {
 export class PersonApi extends runtime.BaseAPI {
 
     /**
+     * This will associate a person with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /person/{person}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async personAssociateWorkstreamSummaryRaw(requestParameters: PersonAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateWorkstreamSummary.');
+        }
+
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling personAssociateWorkstreamSummary.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/person/{person}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a person with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /person/{person}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async personAssociateWorkstreamSummary(requestParameters: PersonAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personAssociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate an person from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /person/{person}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async personDisassociateWorkstreamSummaryRaw(requestParameters: PersonDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateWorkstreamSummary.');
+        }
+
+        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
+            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling personDisassociateWorkstreamSummary.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/person/{person}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate an person from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /person/{person}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async personDisassociateWorkstreamSummary(requestParameters: PersonDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personDisassociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/person/{person}/scores/increment\' [POST]
      */
-    async personScoresIncrementRaw(requestParameters: PersonScoresIncrementRequest): Promise<runtime.ApiResponse<void>> {
+    async personScoresIncrementRaw(requestParameters: PersonScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.person === null || requestParameters.person === undefined) {
             throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personScoresIncrement.');
         }
@@ -64,7 +146,7 @@ export class PersonApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
-        });
+        }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -73,15 +155,15 @@ export class PersonApi extends runtime.BaseAPI {
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/person/{person}/scores/increment\' [POST]
      */
-    async personScoresIncrement(requestParameters: PersonScoresIncrementRequest): Promise<void> {
-        await this.personScoresIncrementRaw(requestParameters);
+    async personScoresIncrement(requestParameters: PersonScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
      * This will get a snapshot of a specific person
      * /person/{person} [GET]
      */
-    async personSnapshotRaw(requestParameters: PersonSnapshotRequest): Promise<runtime.ApiResponse<Person>> {
+    async personSnapshotRaw(requestParameters: PersonSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Person>> {
         if (requestParameters.person === null || requestParameters.person === undefined) {
             throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personSnapshot.');
         }
@@ -99,7 +181,7 @@ export class PersonApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PersonFromJSON(jsonValue));
     }
@@ -108,8 +190,8 @@ export class PersonApi extends runtime.BaseAPI {
      * This will get a snapshot of a specific person
      * /person/{person} [GET]
      */
-    async personSnapshot(requestParameters: PersonSnapshotRequest): Promise<Person> {
-        const response = await this.personSnapshotRaw(requestParameters);
+    async personSnapshot(requestParameters: PersonSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Person> {
+        const response = await this.personSnapshotRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -117,7 +199,7 @@ export class PersonApi extends runtime.BaseAPI {
      * This will update a specific person
      * /person/update [POST]
      */
-    async updatePersonRaw(requestParameters: UpdatePersonRequest): Promise<runtime.ApiResponse<Person>> {
+    async updatePersonRaw(requestParameters: UpdatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Person>> {
         const queryParameters: any = {};
 
         if (requestParameters.transferables !== undefined) {
@@ -134,7 +216,7 @@ export class PersonApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: PersonToJSON(requestParameters.person),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PersonFromJSON(jsonValue));
     }
@@ -143,8 +225,8 @@ export class PersonApi extends runtime.BaseAPI {
      * This will update a specific person
      * /person/update [POST]
      */
-    async updatePerson(requestParameters: UpdatePersonRequest): Promise<Person> {
-        const response = await this.updatePersonRaw(requestParameters);
+    async updatePerson(requestParameters: UpdatePersonRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Person> {
+        const response = await this.updatePersonRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

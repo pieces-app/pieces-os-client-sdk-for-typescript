@@ -13,20 +13,24 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    MechanismEnum,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
-    TagCategoryEnum,
+} from './MechanismEnum';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
-} from './';
+} from './TagCategoryEnum';
 
 /**
  * This is similar to an SeededTag, where this is the minimum information of a tag, but this can get added to a seededAsset,  where you may not yet have an asset id.
@@ -58,6 +62,16 @@ export interface SeededAssetTag {
      * @memberof SeededAssetTag
      */
     category?: TagCategoryEnum;
+}
+
+/**
+ * Check if a given object implements the SeededAssetTag interface.
+ */
+export function instanceOfSeededAssetTag(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "text" in value;
+
+    return isInstance;
 }
 
 export function SeededAssetTagFromJSON(json: any): SeededAssetTag {
@@ -92,5 +106,4 @@ export function SeededAssetTagToJSON(value?: SeededAssetTag | null): any {
         'category': TagCategoryEnumToJSON(value.category),
     };
 }
-
 

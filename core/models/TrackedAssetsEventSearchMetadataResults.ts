@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { FlattenedAssets } from './FlattenedAssets';
 import {
-    FlattenedAssets,
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
-    Space,
+} from './FlattenedAssets';
+import type { Space } from './Space';
+import {
     SpaceFromJSON,
     SpaceFromJSONTyped,
     SpaceToJSON,
-} from './';
+} from './Space';
 
 /**
  * Numbers related to search results
@@ -54,6 +56,15 @@ export interface TrackedAssetsEventSearchMetadataResults {
      * @memberof TrackedAssetsEventSearchMetadataResults
      */
     space?: Space;
+}
+
+/**
+ * Check if a given object implements the TrackedAssetsEventSearchMetadataResults interface.
+ */
+export function instanceOfTrackedAssetsEventSearchMetadataResults(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
 }
 
 export function TrackedAssetsEventSearchMetadataResultsFromJSON(json: any): TrackedAssetsEventSearchMetadataResults {
@@ -88,5 +99,4 @@ export function TrackedAssetsEventSearchMetadataResultsToJSON(value?: TrackedAss
         'space': SpaceToJSON(value.space),
     };
 }
-
 

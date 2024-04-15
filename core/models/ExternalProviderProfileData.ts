@@ -251,6 +251,15 @@ export interface ExternalProviderProfileData {
     twoFactorAuthentication?: boolean;
 }
 
+/**
+ * Check if a given object implements the ExternalProviderProfileData interface.
+ */
+export function instanceOfExternalProviderProfileData(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function ExternalProviderProfileDataFromJSON(json: any): ExternalProviderProfileData {
     return ExternalProviderProfileDataFromJSONTyped(json, false);
 }
@@ -351,5 +360,4 @@ export function ExternalProviderProfileDataToJSON(value?: ExternalProviderProfil
         'two_factor_authentication': value.twoFactorAuthentication,
     };
 }
-
 

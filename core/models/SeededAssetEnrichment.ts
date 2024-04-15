@@ -13,12 +13,12 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * This is a specific Model for the SeededAsset that will enable the developer to modify the enrichment levels of persons, tags, websites.
@@ -60,6 +60,15 @@ export interface SeededAssetEnrichment {
     hints?: number;
 }
 
+/**
+ * Check if a given object implements the SeededAssetEnrichment interface.
+ */
+export function instanceOfSeededAssetEnrichment(value: object): boolean {
+    let isInstance = true;
+
+    return isInstance;
+}
+
 export function SeededAssetEnrichmentFromJSON(json: any): SeededAssetEnrichment {
     return SeededAssetEnrichmentFromJSONTyped(json, false);
 }
@@ -94,5 +103,4 @@ export function SeededAssetEnrichmentToJSON(value?: SeededAssetEnrichment | null
         'hints': value.hints,
     };
 }
-
 

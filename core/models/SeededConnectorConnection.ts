@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    SeededTrackedApplication,
+} from './EmbeddedModelSchema';
+import type { SeededTrackedApplication } from './SeededTrackedApplication';
+import {
     SeededTrackedApplicationFromJSON,
     SeededTrackedApplicationFromJSONTyped,
     SeededTrackedApplicationToJSON,
-} from './';
+} from './SeededTrackedApplication';
 
 /**
  * A model that is passed to the context API at bootup
@@ -42,6 +44,16 @@ export interface SeededConnectorConnection {
      * @memberof SeededConnectorConnection
      */
     application: SeededTrackedApplication;
+}
+
+/**
+ * Check if a given object implements the SeededConnectorConnection interface.
+ */
+export function instanceOfSeededConnectorConnection(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "application" in value;
+
+    return isInstance;
 }
 
 export function SeededConnectorConnectionFromJSON(json: any): SeededConnectorConnection {
@@ -72,5 +84,4 @@ export function SeededConnectorConnectionToJSON(value?: SeededConnectorConnectio
         'application': SeededTrackedApplicationToJSON(value.application),
     };
 }
-
 

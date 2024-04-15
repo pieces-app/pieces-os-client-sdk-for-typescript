@@ -14,26 +14,28 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  CreatedExternalProviderApiKey,
+  DeletedExternalProviderApiKey,
+  PrecreatedExternalProviderApiKey,
+  PredeletedExternalProviderApiKey,
+  PreupdatedExternalProviderApiKey,
+  UpdatedExternalProviderApiKey,
+} from '../models/index';
 import {
-    CreatedExternalProviderApiKey,
     CreatedExternalProviderApiKeyFromJSON,
     CreatedExternalProviderApiKeyToJSON,
-    DeletedExternalProviderApiKey,
     DeletedExternalProviderApiKeyFromJSON,
     DeletedExternalProviderApiKeyToJSON,
-    PrecreatedExternalProviderApiKey,
     PrecreatedExternalProviderApiKeyFromJSON,
     PrecreatedExternalProviderApiKeyToJSON,
-    PredeletedExternalProviderApiKey,
     PredeletedExternalProviderApiKeyFromJSON,
     PredeletedExternalProviderApiKeyToJSON,
-    PreupdatedExternalProviderApiKey,
     PreupdatedExternalProviderApiKeyFromJSON,
     PreupdatedExternalProviderApiKeyToJSON,
-    UpdatedExternalProviderApiKey,
     UpdatedExternalProviderApiKeyFromJSON,
     UpdatedExternalProviderApiKeyToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface ExternalProviderApiKeyCreateRequest {
     precreatedExternalProviderApiKey?: PrecreatedExternalProviderApiKey;
@@ -56,7 +58,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
      * This will create a specific external_provider api_key from a specific user Auth0UserMetadata
      * /external_provider/api_key/create [POST]
      */
-    async externalProviderApiKeyCreateRaw(requestParameters: ExternalProviderApiKeyCreateRequest): Promise<runtime.ApiResponse<CreatedExternalProviderApiKey>> {
+    async externalProviderApiKeyCreateRaw(requestParameters: ExternalProviderApiKeyCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreatedExternalProviderApiKey>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -69,7 +71,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: PrecreatedExternalProviderApiKeyToJSON(requestParameters.precreatedExternalProviderApiKey),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CreatedExternalProviderApiKeyFromJSON(jsonValue));
     }
@@ -78,8 +80,8 @@ export class ExternalProviderApi extends runtime.BaseAPI {
      * This will create a specific external_provider api_key from a specific user Auth0UserMetadata
      * /external_provider/api_key/create [POST]
      */
-    async externalProviderApiKeyCreate(requestParameters: ExternalProviderApiKeyCreateRequest): Promise<CreatedExternalProviderApiKey> {
-        const response = await this.externalProviderApiKeyCreateRaw(requestParameters);
+    async externalProviderApiKeyCreate(requestParameters: ExternalProviderApiKeyCreateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatedExternalProviderApiKey> {
+        const response = await this.externalProviderApiKeyCreateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -87,7 +89,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
      * This will remove a specific external_provider api_key from a specific user Auth0UserMetadata
      * /external_provider/api_key/delete [POST]
      */
-    async externalProviderApiKeyDeleteRaw(requestParameters: ExternalProviderApiKeyDeleteRequest): Promise<runtime.ApiResponse<DeletedExternalProviderApiKey>> {
+    async externalProviderApiKeyDeleteRaw(requestParameters: ExternalProviderApiKeyDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DeletedExternalProviderApiKey>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -100,7 +102,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: PredeletedExternalProviderApiKeyToJSON(requestParameters.predeletedExternalProviderApiKey),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeletedExternalProviderApiKeyFromJSON(jsonValue));
     }
@@ -109,8 +111,8 @@ export class ExternalProviderApi extends runtime.BaseAPI {
      * This will remove a specific external_provider api_key from a specific user Auth0UserMetadata
      * /external_provider/api_key/delete [POST]
      */
-    async externalProviderApiKeyDelete(requestParameters: ExternalProviderApiKeyDeleteRequest): Promise<DeletedExternalProviderApiKey> {
-        const response = await this.externalProviderApiKeyDeleteRaw(requestParameters);
+    async externalProviderApiKeyDelete(requestParameters: ExternalProviderApiKeyDeleteRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DeletedExternalProviderApiKey> {
+        const response = await this.externalProviderApiKeyDeleteRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -118,7 +120,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
      * This will update a specific external_provider api_key from a specific user Auth0UserMetadata
      * /external_provider/api_key/update [POST]
      */
-    async externalProviderApiKeyUpdateRaw(requestParameters: ExternalProviderApiKeyUpdateRequest): Promise<runtime.ApiResponse<UpdatedExternalProviderApiKey>> {
+    async externalProviderApiKeyUpdateRaw(requestParameters: ExternalProviderApiKeyUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UpdatedExternalProviderApiKey>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -131,7 +133,7 @@ export class ExternalProviderApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
             body: PreupdatedExternalProviderApiKeyToJSON(requestParameters.preupdatedExternalProviderApiKey),
-        });
+        }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UpdatedExternalProviderApiKeyFromJSON(jsonValue));
     }
@@ -140,8 +142,8 @@ export class ExternalProviderApi extends runtime.BaseAPI {
      * This will update a specific external_provider api_key from a specific user Auth0UserMetadata
      * /external_provider/api_key/update [POST]
      */
-    async externalProviderApiKeyUpdate(requestParameters: ExternalProviderApiKeyUpdateRequest): Promise<UpdatedExternalProviderApiKey> {
-        const response = await this.externalProviderApiKeyUpdateRaw(requestParameters);
+    async externalProviderApiKeyUpdate(requestParameters: ExternalProviderApiKeyUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UpdatedExternalProviderApiKey> {
+        const response = await this.externalProviderApiKeyUpdateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    ExportedDatabaseFormats,
+} from './EmbeddedModelSchema';
+import type { ExportedDatabaseFormats } from './ExportedDatabaseFormats';
+import {
     ExportedDatabaseFormatsFromJSON,
     ExportedDatabaseFormatsFromJSONTyped,
     ExportedDatabaseFormatsToJSON,
-} from './';
+} from './ExportedDatabaseFormats';
 
 /**
  * 
@@ -188,10 +190,60 @@ export interface ExportedDatabase {
     conversationMessages?: Array<number>;
     /**
      * 
+     * @type {Array<number>}
+     * @memberof ExportedDatabase
+     */
+    workstreamEvents?: Array<number>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof ExportedDatabase
+     */
+    ranges?: Array<number>;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof ExportedDatabase
+     */
+    workstreamSummaries?: Array<number>;
+    /**
+     * 
      * @type {ExportedDatabaseFormats}
      * @memberof ExportedDatabase
      */
     messageValues?: ExportedDatabaseFormats;
+    /**
+     * 
+     * @type {ExportedDatabaseFormats}
+     * @memberof ExportedDatabase
+     */
+    workstreamEventValues?: ExportedDatabaseFormats;
+}
+
+/**
+ * Check if a given object implements the ExportedDatabase interface.
+ */
+export function instanceOfExportedDatabase(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "analyses" in value;
+    isInstance = isInstance && "applications" in value;
+    isInstance = isInstance && "assets" in value;
+    isInstance = isInstance && "codeAnalyses" in value;
+    isInstance = isInstance && "files" in value;
+    isInstance = isInstance && "formatMetrics" in value;
+    isInstance = isInstance && "formats" in value;
+    isInstance = isInstance && "fragments" in value;
+    isInstance = isInstance && "imageAnalyses" in value;
+    isInstance = isInstance && "models" in value;
+    isInstance = isInstance && "ocrAnalyses" in value;
+    isInstance = isInstance && "persons" in value;
+    isInstance = isInstance && "sensitives" in value;
+    isInstance = isInstance && "tags" in value;
+    isInstance = isInstance && "websites" in value;
+    isInstance = isInstance && "values" in value;
+    isInstance = isInstance && "version" in value;
+
+    return isInstance;
 }
 
 export function ExportedDatabaseFromJSON(json: any): ExportedDatabase {
@@ -230,7 +282,11 @@ export function ExportedDatabaseFromJSONTyped(json: any, ignoreDiscriminator: bo
         'anchorPoints': !exists(json, 'anchorPoints') ? undefined : json['anchorPoints'],
         'conversations': !exists(json, 'conversations') ? undefined : json['conversations'],
         'conversationMessages': !exists(json, 'conversationMessages') ? undefined : json['conversationMessages'],
+        'workstreamEvents': !exists(json, 'workstreamEvents') ? undefined : json['workstreamEvents'],
+        'ranges': !exists(json, 'ranges') ? undefined : json['ranges'],
+        'workstreamSummaries': !exists(json, 'workstreamSummaries') ? undefined : json['workstreamSummaries'],
         'messageValues': !exists(json, 'messageValues') ? undefined : ExportedDatabaseFormatsFromJSON(json['messageValues']),
+        'workstreamEventValues': !exists(json, 'workstreamEventValues') ? undefined : ExportedDatabaseFormatsFromJSON(json['workstreamEventValues']),
     };
 }
 
@@ -269,8 +325,11 @@ export function ExportedDatabaseToJSON(value?: ExportedDatabase | null): any {
         'anchorPoints': value.anchorPoints,
         'conversations': value.conversations,
         'conversationMessages': value.conversationMessages,
+        'workstreamEvents': value.workstreamEvents,
+        'ranges': value.ranges,
+        'workstreamSummaries': value.workstreamSummaries,
         'messageValues': ExportedDatabaseFormatsToJSON(value.messageValues),
+        'workstreamEventValues': ExportedDatabaseFormatsToJSON(value.workstreamEventValues),
     };
 }
-
 

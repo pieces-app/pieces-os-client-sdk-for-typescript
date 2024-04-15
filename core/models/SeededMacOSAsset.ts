@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
 import {
-    Application,
     ApplicationFromJSON,
     ApplicationFromJSONTyped,
     ApplicationToJSON,
-    EmbeddedModelSchema,
+} from './Application';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-} from './';
+} from './EmbeddedModelSchema';
 
 /**
  * An Seeded Asset specific to MacOS which takes in a Value, and Application
@@ -48,6 +50,16 @@ export interface SeededMacOSAsset {
      * @memberof SeededMacOSAsset
      */
     value: string;
+}
+
+/**
+ * Check if a given object implements the SeededMacOSAsset interface.
+ */
+export function instanceOfSeededMacOSAsset(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "value" in value;
+
+    return isInstance;
 }
 
 export function SeededMacOSAssetFromJSON(json: any): SeededMacOSAsset {
@@ -80,5 +92,4 @@ export function SeededMacOSAssetToJSON(value?: SeededMacOSAsset | null): any {
         'value': value.value,
     };
 }
-
 

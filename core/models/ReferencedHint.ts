@@ -13,16 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    EmbeddedModelSchema,
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
-    FlattenedHint,
+} from './EmbeddedModelSchema';
+import type { FlattenedHint } from './FlattenedHint';
+import {
     FlattenedHintFromJSON,
     FlattenedHintFromJSONTyped,
     FlattenedHintToJSON,
-} from './';
+} from './FlattenedHint';
 
 /**
  * This is the referenced version of a hint, main used for the uuid.
@@ -48,6 +50,16 @@ export interface ReferencedHint {
      * @memberof ReferencedHint
      */
     reference?: FlattenedHint;
+}
+
+/**
+ * Check if a given object implements the ReferencedHint interface.
+ */
+export function instanceOfReferencedHint(value: object): boolean {
+    let isInstance = true;
+    isInstance = isInstance && "id" in value;
+
+    return isInstance;
 }
 
 export function ReferencedHintFromJSON(json: any): ReferencedHint {
@@ -80,5 +92,4 @@ export function ReferencedHintToJSON(value?: ReferencedHint | null): any {
         'reference': FlattenedHintToJSON(value.reference),
     };
 }
-
 
