@@ -87,7 +87,7 @@ export interface PostApplicationsUsageUpdatedRequest {
 export class ApplicationsApi extends runtime.BaseAPI {
 
     /**
-     * This will get the Applications that are currently installed on your Machine, that we have detected that we have an available Pieces integration for, however that you as a user have not installed yet. + applications that are installed where Pieces is going to be coming soon.
+     * Retrieves a list of external applications installed on the user\'s machine that have potential integrations with Pieces, including those not yet installed by the user and those anticipated to be supported in the future.
      * /applications/external/related [GET]
      */
     async applicationsExternalRelatedRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectedExternalApplications>> {
@@ -106,7 +106,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get the Applications that are currently installed on your Machine, that we have detected that we have an available Pieces integration for, however that you as a user have not installed yet. + applications that are installed where Pieces is going to be coming soon.
+     * Retrieves a list of external applications installed on the user\'s machine that have potential integrations with Pieces, including those not yet installed by the user and those anticipated to be supported in the future.
      * /applications/external/related [GET]
      */
     async applicationsExternalRelated(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DetectedExternalApplications> {
@@ -115,7 +115,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a snapshot of your installed applications on your local Machine. Applications like \"Microsoft Teams classic\", \"Google Chat\", \"Obsidian\", etc...
+     * Provides a snapshot of all external applications detected on the user\'s machine, such as Microsoft Teams classic, Google Chat, Obsidian, etc.
      * /applications/external [GET]
      */
     async applicationsExternalSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DetectedExternalApplications>> {
@@ -134,7 +134,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a snapshot of your installed applications on your local Machine. Applications like \"Microsoft Teams classic\", \"Google Chat\", \"Obsidian\", etc...
+     * Provides a snapshot of all external applications detected on the user\'s machine, such as Microsoft Teams classic, Google Chat, Obsidian, etc.
      * /applications/external [GET]
      */
     async applicationsExternalSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<DetectedExternalApplications> {
@@ -143,8 +143,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will register a connected applicaiton.
+     * Registers a new application within the Pieces ecosystem.
      * /applications/register [POST]
+     * @deprecated
      */
     async applicationsRegisterRaw(requestParameters: ApplicationsRegisterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Application>> {
         const queryParameters: any = {};
@@ -165,8 +166,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will register a connected applicaiton.
+     * Registers a new application within the Pieces ecosystem.
      * /applications/register [POST]
+     * @deprecated
      */
     async applicationsRegister(requestParameters: ApplicationsRegisterRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Application> {
         const response = await this.applicationsRegisterRaw(requestParameters, initOverrides);
@@ -174,8 +176,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will close your opened session! Going to want to accept a session uuid here.
+     * Closes an active session, identified by a session UUID, marking the end of the user\'s current interaction with the Pieces application.
      * /applications/session/close [POST]
+     * @deprecated
      */
     async applicationsSessionCloseRaw(requestParameters: ApplicationsSessionCloseRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Session>> {
         const queryParameters: any = {};
@@ -196,8 +199,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will close your opened session! Going to want to accept a session uuid here.
+     * Closes an active session, identified by a session UUID, marking the end of the user\'s current interaction with the Pieces application.
      * /applications/session/close [POST]
+     * @deprecated
      */
     async applicationsSessionClose(requestParameters: ApplicationsSessionCloseRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Session> {
         const response = await this.applicationsSessionCloseRaw(requestParameters, initOverrides);
@@ -205,8 +209,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will open a new session. A session is when someone is using the pieces application.
+     * Initiates a new session, marking the start of a user\'s interaction with the Pieces application.
      * /applications/session/open [POST]
+     * @deprecated
      */
     async applicationsSessionOpenRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Session>> {
         const queryParameters: any = {};
@@ -224,8 +229,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will open a new session. A session is when someone is using the pieces application.
+     * Initiates a new session, marking the start of a user\'s interaction with the Pieces application.
      * /applications/session/open [POST]
+     * @deprecated
      */
     async applicationsSessionOpen(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Session> {
         const response = await this.applicationsSessionOpenRaw(initOverrides);
@@ -233,8 +239,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an endpoint to get a snapshot of a specific session.
+     * Fetches detailed information about a specific session, identified by a session UUID, including application usage and engagement data.
      * /applications/sessions/{session} [GET]
+     * @deprecated
      */
     async applicationsSessionSnapshotRaw(requestParameters: ApplicationsSessionSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Session>> {
         if (requestParameters.session === null || requestParameters.session === undefined) {
@@ -256,8 +263,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an endpoint to get a snapshot of a specific session.
+     * Fetches detailed information about a specific session, identified by a session UUID, including application usage and engagement data.
      * /applications/sessions/{session} [GET]
+     * @deprecated
      */
     async applicationsSessionSnapshot(requestParameters: ApplicationsSessionSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Session> {
         const response = await this.applicationsSessionSnapshotRaw(requestParameters, initOverrides);
@@ -265,7 +273,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * 
+     * Retrieves a comprehensive overview of all applications tracked by the Pieces system, including status, version, and engagement metrics.
      * /applications [GET]
      */
     async applicationsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Applications>> {
@@ -284,7 +292,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * 
+     * Retrieves a comprehensive overview of all applications tracked by the Pieces system, including status, version, and engagement metrics.
      * /applications [GET]
      */
     async applicationsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Applications> {
@@ -293,7 +301,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will retrieve snapshot of a single application.
+     * Obtains a snapshot with information about a specific application, identified by its UUID.
      * /applications/{application} [GET]
      */
     async applicationsSpecificApplicationSnapshotRaw(requestParameters: ApplicationsSpecificApplicationSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Application>> {
@@ -316,7 +324,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will retrieve snapshot of a single application.
+     * Obtains a snapshot with information about a specific application, identified by its UUID.
      * /applications/{application} [GET]
      */
     async applicationsSpecificApplicationSnapshot(requestParameters: ApplicationsSpecificApplicationSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Application> {
@@ -325,8 +333,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an analytics endpoint that will enable us to know when a user engages something via an interaction(ie click/tap).
+     * Records user interaction events within applications, such as clicks or taps, to analyze engagement patterns and user behavior.
      * /applications/usage/engagement/interaction [POST] Scoped to Apps
+     * @deprecated
      */
     async applicationsUsageEngagementInteractionRaw(requestParameters: ApplicationsUsageEngagementInteractionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TrackedInteractionEvent>> {
         const queryParameters: any = {};
@@ -347,8 +356,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an analytics endpoint that will enable us to know when a user engages something via an interaction(ie click/tap).
+     * Records user interaction events within applications, such as clicks or taps, to analyze engagement patterns and user behavior.
      * /applications/usage/engagement/interaction [POST] Scoped to Apps
+     * @deprecated
      */
     async applicationsUsageEngagementInteraction(requestParameters: ApplicationsUsageEngagementInteractionRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TrackedInteractionEvent> {
         const response = await this.applicationsUsageEngagementInteractionRaw(requestParameters, initOverrides);
@@ -356,8 +366,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an analytics endpoint that will enable us to know when a user uses a keyboard short cut for any sort of engagement.
+     * Captures keyboard interaction events, including shortcuts, within applications to monitor user engagement and productivity enhancements.
      * /applications/usage/engagement/keyboard [POST] Scoped to Apps
+     * @deprecated
      */
     async applicationsUsageEngagementKeyboardRaw(requestParameters: ApplicationsUsageEngagementKeyboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TrackedKeyboardEvent>> {
         const queryParameters: any = {};
@@ -378,8 +389,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an analytics endpoint that will enable us to know when a user uses a keyboard short cut for any sort of engagement.
+     * Captures keyboard interaction events, including shortcuts, within applications to monitor user engagement and productivity enhancements.
      * /applications/usage/engagement/keyboard [POST] Scoped to Apps
+     * @deprecated
      */
     async applicationsUsageEngagementKeyboard(requestParameters: ApplicationsUsageEngagementKeyboardRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TrackedKeyboardEvent> {
         const response = await this.applicationsUsageEngagementKeyboardRaw(requestParameters, initOverrides);
@@ -387,8 +399,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an analytics endpoint that will enable us to know when a user has installed a version of Pieces
+     * Logs the installation events of the Pieces application.
      * /applications/usage/installation [POST]
+     * @deprecated
      */
     async applicationsUsageInstallationRaw(requestParameters: ApplicationsUsageInstallationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
@@ -409,16 +422,18 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an analytics endpoint that will enable us to know when a user has installed a version of Pieces
+     * Logs the installation events of the Pieces application.
      * /applications/usage/installation [POST]
+     * @deprecated
      */
     async applicationsUsageInstallation(requestParameters: ApplicationsUsageInstallationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.applicationsUsageInstallationRaw(requestParameters, initOverrides);
     }
 
     /**
-     * This is an endpoint to determine when an application has been updated 
+     * Tracks updates to the Pieces application, including version changes.
      * /applications/usage/updated [POST]
+     * @deprecated
      */
     async postApplicationsUsageUpdatedRaw(requestParameters: PostApplicationsUsageUpdatedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
@@ -439,8 +454,9 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is an endpoint to determine when an application has been updated 
+     * Tracks updates to the Pieces application, including version changes.
      * /applications/usage/updated [POST]
+     * @deprecated
      */
     async postApplicationsUsageUpdated(requestParameters: PostApplicationsUsageUpdatedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.postApplicationsUsageUpdatedRaw(requestParameters, initOverrides);

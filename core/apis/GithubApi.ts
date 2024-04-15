@@ -36,7 +36,7 @@ export interface ImportGithubGistsRequest {
 export class GithubApi extends runtime.BaseAPI {
 
     /**
-     * This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users\' gists. <- implemented. v2. can get specific a public gist.
+     * This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users\' gists. implemented. v2. can get specific a public gist.
      * /github/gists/import [POST]
      */
     async importGithubGistsRaw(requestParameters: ImportGithubGistsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Seeds>> {
@@ -62,7 +62,7 @@ export class GithubApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users\' gists. <- implemented. v2. can get specific a public gist.
+     * This will attempt to get all the gist availble and return them to the user as a DiscoveredAssets.  if automatic is true we will automatically create the asset.  v1. will just get all the users\' gists. implemented. v2. can get specific a public gist.
      * /github/gists/import [POST]
      */
     async importGithubGists(requestParameters: ImportGithubGistsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Seeds> {

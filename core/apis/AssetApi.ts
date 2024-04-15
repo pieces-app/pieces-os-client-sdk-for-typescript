@@ -125,7 +125,7 @@ export interface AssetUpdateRequest {
 export class AssetApi extends runtime.BaseAPI {
 
     /**
-     * This will associate a tag with a asset. This will do the same thing as the tag equivalent.
+     * Associates a tag with a specified asset. It performs the same action as the tag equivalent.
      * /asset/{asset}/tags/associate/{tag} [POST]
      */
     async assetAssociateTagRaw(requestParameters: AssetAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -152,7 +152,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a tag with a asset. This will do the same thing as the tag equivalent.
+     * Associates a tag with a specified asset. It performs the same action as the tag equivalent.
      * /asset/{asset}/tags/associate/{tag} [POST]
      */
     async assetAssociateTag(requestParameters: AssetAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -160,7 +160,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a website with a asset. This will do the same thing as the website equivalent.
+     * Associates a website with an asset. It performs the same action as its website equivalent.
      * /asset/{asset}/websites/associate/{website} [POST]
      */
     async assetAssociateWebsiteRaw(requestParameters: AssetAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -187,7 +187,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a website with a asset. This will do the same thing as the website equivalent.
+     * Associates a website with an asset. It performs the same action as its website equivalent.
      * /asset/{asset}/websites/associate/{website} [POST]
      */
     async assetAssociateWebsite(requestParameters: AssetAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -230,7 +230,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a tag from a asset. This will do the same thing as the tag equivalent.
+     * Disassociates a tag from an asset. It performs the same action as the tag equivalent.
      * /asset/{asset}/tags/disassociate/{tag} [POST]
      */
     async assetDisassociateTagRaw(requestParameters: AssetDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -257,7 +257,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a tag from a asset. This will do the same thing as the tag equivalent.
+     * Disassociates a tag from an asset. It performs the same action as the tag equivalent.
      * /asset/{asset}/tags/disassociate/{tag} [POST]
      */
     async assetDisassociateTag(requestParameters: AssetDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -265,7 +265,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivalent.
+     * Disassociates a website from an asset. It performs the same action as the website equivalent.
      * /asset/{asset}/websites/disassociate/{website} [POST]
      */
     async assetDisassociateWebsiteRaw(requestParameters: AssetDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -292,7 +292,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a website from a asset. This will do the same thing as the website equivalent.
+     * Disassociates a website from an asset. It performs the same action as the website equivalent.
      * /asset/{asset}/websites/disassociate/{website} [POST]
      */
     async assetDisassociateWebsite(requestParameters: AssetDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -335,7 +335,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the formats for a given asset.
+     * Retrieves the formats available for a specified asset.
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
     async assetFormatsRaw(requestParameters: AssetFormatsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Formats>> {
@@ -362,7 +362,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the formats for a given asset.
+     * Retrieves the formats available for a specified asset.
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
     async assetFormats(requestParameters: AssetFormatsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Formats> {
@@ -371,7 +371,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update the classification of this asset to the proper classification.
+     * Retrieves the formats available for a specified asset.
      * /asset/reclassify [POST]
      */
     async assetReclassifyRaw(requestParameters: AssetReclassifyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
@@ -397,7 +397,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update the classification of this asset to the proper classification.
+     * Retrieves the formats available for a specified asset.
      * /asset/reclassify [POST]
      */
     async assetReclassify(requestParameters: AssetReclassifyRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Asset> {
@@ -406,8 +406,8 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
-     * \'/asset/{asset}/scores/increment\' [POST]
+     * Increments the scores associated with the specified asset based on the provided SeededScoreIncrement data in the request body.
+     * /asset/{asset}/scores/increment [POST]
      */
     async assetScoresIncrementRaw(requestParameters: AssetScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
@@ -432,15 +432,15 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
-     * \'/asset/{asset}/scores/increment\' [POST]
+     * Increments the scores associated with the specified asset based on the provided SeededScoreIncrement data in the request body.
+     * /asset/{asset}/scores/increment [POST]
      */
     async assetScoresIncrement(requestParameters: AssetScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.assetScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
-     * Get the snapshot of a specific asset.
+     * Retrieves the snapshot of a specific asset
      * /asset/{asset} [GET] Scoped To Asset
      */
     async assetSnapshotRaw(requestParameters: AssetSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
@@ -467,7 +467,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the snapshot of a specific asset.
+     * Retrieves the snapshot of a specific asset
      * /asset/{asset} [GET] Scoped To Asset
      */
     async assetSnapshot(requestParameters: AssetSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Asset> {
@@ -476,7 +476,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the snapshot of a specific asset. by passing over as well the user who is getting the snapshot.
+     * Retrieves a snapshot of a specific asset, along with the user requesting the snapshot.
      * /asset/{asset} [POST] Scoped to an Asset
      */
     async assetSnapshotPostRaw(requestParameters: AssetSnapshotPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
@@ -506,7 +506,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the snapshot of a specific asset. by passing over as well the user who is getting the snapshot.
+     * Retrieves a snapshot of a specific asset, along with the user requesting the snapshot.
      * /asset/{asset} [POST] Scoped to an Asset
      */
     async assetSnapshotPost(requestParameters: AssetSnapshotPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Asset> {
@@ -515,7 +515,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific asset\'s activity events
+     * Retrieves activity events specific to the given asset.
      * /asset/{asset}/activities [GET]
      */
     async assetSpecificAssetActivitiesRaw(requestParameters: AssetSpecificAssetActivitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activities>> {
@@ -542,7 +542,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific asset\'s activity events
+     * Retrieves activity events specific to the given asset.
      * /asset/{asset}/activities [GET]
      */
     async assetSpecificAssetActivities(requestParameters: AssetSpecificAssetActivitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Activities> {
@@ -551,7 +551,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific asset\'s conversations
+     * Retrieves conversations specific to the given asset.
      * /asset/{asset}/conversations [GET]
      */
     async assetSpecificAssetConversationsRaw(requestParameters: AssetSpecificAssetConversationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversations>> {
@@ -578,7 +578,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific asset\'s conversations
+     * Retrieves conversations specific to the given asset.
      * /asset/{asset}/conversations [GET]
      */
     async assetSpecificAssetConversations(requestParameters: AssetSpecificAssetConversationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Conversations> {
@@ -587,8 +587,8 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will return a export version of your asset.
-     * [GET] /asset/{asset}/export
+     * Retrieves an export version of the specified asset.
+     * /asset/{asset}/export [GET]
      */
     async assetSpecificAssetExportRaw(requestParameters: AssetSpecificAssetExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportedAsset>> {
         if (requestParameters.asset === null || requestParameters.asset === undefined) {
@@ -618,8 +618,8 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will return a export version of your asset.
-     * [GET] /asset/{asset}/export
+     * Retrieves an export version of the specified asset.
+     * /asset/{asset}/export [GET]
      */
     async assetSpecificAssetExport(requestParameters: AssetSpecificAssetExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExportedAsset> {
         const response = await this.assetSpecificAssetExportRaw(requestParameters, initOverrides);
@@ -627,7 +627,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint will accept an Asset that the user wants to update, and will return the a full Asset that was updated!
+     * Allows the user to update an existing Asset. It accepts the Asset object that needs updating and returns the fully updated Asset.
      * /asset/update [POST] Scoped to Asset
      */
     async assetUpdateRaw(requestParameters: AssetUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
@@ -653,7 +653,7 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint will accept an Asset that the user wants to update, and will return the a full Asset that was updated!
+     * Allows the user to update an existing Asset. It accepts the Asset object that needs updating and returns the fully updated Asset.
      * /asset/update [POST] Scoped to Asset
      */
     async assetUpdate(requestParameters: AssetUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Asset> {

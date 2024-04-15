@@ -121,7 +121,7 @@ import {
  * 
  * FlattenedAsset prevent Cycles in Reference because all outbound references are strings as opposed to crosspollinated objects.
  * 
- * i.e. FlattenedFormat.formats is Type String[] or List\<String\>, FlattenedFormat.preview is Type String, and
+ * i.e. FlattenedFormat.preview is Type String, and
  * FlattenedFormat.original is Type String
  * @export
  * @interface FlattenedAsset

@@ -50,6 +50,10 @@ export interface LinkProviderRequest {
     seededExternalProvider?: SeededExternalProvider;
 }
 
+export interface OsPermissionsRequestRequest {
+    oSPermissions?: OSPermissions;
+}
+
 export interface OsUpdateCheckRequest {
     uncheckedOSUpdate?: UncheckedOSUpdate;
 }
@@ -147,6 +151,37 @@ export class OSApi extends runtime.BaseAPI {
      */
     async osPermissions(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSPermissions> {
         const response = await this.osPermissionsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will only work on Macos and Windows.  This will request permissions for the given inputs
+     * /os/permissions/request [POST]
+     */
+    async osPermissionsRequestRaw(requestParameters: OsPermissionsRequestRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSPermissions>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/permissions/request`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: OSPermissionsToJSON(requestParameters.oSPermissions),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSPermissionsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will only work on Macos and Windows.  This will request permissions for the given inputs
+     * /os/permissions/request [POST]
+     */
+    async osPermissionsRequest(requestParameters: OsPermissionsRequestRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSPermissions> {
+        const response = await this.osPermissionsRequestRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

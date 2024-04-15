@@ -57,7 +57,7 @@ export interface ConversationsSnapshotRequest {
 export class ConversationsApi extends runtime.BaseAPI {
 
     /**
-     * This will create a conversation from an asset, This will create a conversation and an initial message for the conversation(w/ a summary of the asset that is being used as grounding context).
+     * Creates a conversation based on an asset. It initiates a conversation and generates an initial message that includes a summary of the asset used as contextual grounding.
      * /conversations/create/from_asset/{asset} [POST]
      */
     async conversationsCreateFromAssetRaw(requestParameters: ConversationsCreateFromAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationsCreateFromAssetOutput>> {
@@ -80,7 +80,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will create a conversation from an asset, This will create a conversation and an initial message for the conversation(w/ a summary of the asset that is being used as grounding context).
+     * Creates a conversation based on an asset. It initiates a conversation and generates an initial message that includes a summary of the asset used as contextual grounding.
      * /conversations/create/from_asset/{asset} [POST]
      */
     async conversationsCreateFromAsset(requestParameters: ConversationsCreateFromAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConversationsCreateFromAssetOutput> {
@@ -89,7 +89,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will create a specific conversation.
+     * Creates a specific conversation.
      * /conversations/create [POST]
      */
     async conversationsCreateSpecificConversationRaw(requestParameters: ConversationsCreateSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
@@ -115,7 +115,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will create a specific conversation.
+     * Creates a specific conversation.
      * /conversations/create [POST]
      */
     async conversationsCreateSpecificConversation(requestParameters: ConversationsCreateSpecificConversationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Conversation> {
@@ -124,7 +124,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will delete a specific Conversation.
+     * Deletes a specific conversation.
      * /conversations/{conversation}/delete [POST]
      */
     async conversationsDeleteSpecificConversationRaw(requestParameters: ConversationsDeleteSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -147,7 +147,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will delete a specific Conversation.
+     * Deletes a specific conversation.
      * /conversations/{conversation}/delete [POST]
      */
     async conversationsDeleteSpecificConversation(requestParameters: ConversationsDeleteSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -155,7 +155,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get all the uuids of a Conversation.
+     * Retrieves all the UUIDs associated with a Conversation.
      * /conversations/identifiers [GET]
      */
     async conversationsIdentifiersSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlattenedConversations>> {
@@ -174,7 +174,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get all the uuids of a Conversation.
+     * Retrieves all the UUIDs associated with a Conversation.
      * /conversations/identifiers [GET]
      */
     async conversationsIdentifiersSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlattenedConversations> {
@@ -183,7 +183,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will return a snapshot of a specific conversation
+     * Retrieves a snapshot of a specific conversation.
      * /conversations [GET]
      */
     async conversationsSnapshotRaw(requestParameters: ConversationsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversations>> {
@@ -206,7 +206,7 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will return a snapshot of a specific conversation
+     * Retrieves a snapshot of a specific conversation.
      * /conversations [GET]
      */
     async conversationsSnapshot(requestParameters: ConversationsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Conversations> {
@@ -215,8 +215,8 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is a stream for the conversation identifiers. will return StreamedIdentifiers.
-     * /conversations/stream/identifiers [STREAMED]
+     * Provides a WebSocket connection that emits changes to your conversation identifiers (UUIDs).
+     * /conversations/stream/identifiers [WS]
      */
     async conversationsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
@@ -234,8 +234,8 @@ export class ConversationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is a stream for the conversation identifiers. will return StreamedIdentifiers.
-     * /conversations/stream/identifiers [STREAMED]
+     * Provides a WebSocket connection that emits changes to your conversation identifiers (UUIDs).
+     * /conversations/stream/identifiers [WS]
      */
     async conversationsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.conversationsStreamIdentifiersRaw(initOverrides);

@@ -59,7 +59,7 @@ export interface ModelsSpecificModelSnapshotRequest {
 export class ModelApi extends runtime.BaseAPI {
 
     /**
-     * This will download a specific model onto your local machine.
+     * Downloads a specific model to your local machine.
      * /model/{model}/download [POST]
      */
     async modelSpecificModelDownloadRaw(requestParameters: ModelSpecificModelDownloadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
@@ -82,7 +82,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will download a specific model onto your local machine.
+     * Downloads a specific model to your local machine.
      * /model/{model}/download [POST]
      */
     async modelSpecificModelDownload(requestParameters: ModelSpecificModelDownloadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Model> {
@@ -91,7 +91,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will cancel a specific model download in progress.
+     * Cancels a specific model download that is currently in progress.
      * /model/{model}/download/cancel [POST]
      */
     async modelSpecificModelDownloadCancelRaw(requestParameters: ModelSpecificModelDownloadCancelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
@@ -114,7 +114,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will cancel a specific model download in progress.
+     * Cancels a specific model download that is currently in progress.
      * /model/{model}/download/cancel [POST]
      */
     async modelSpecificModelDownloadCancel(requestParameters: ModelSpecificModelDownloadCancelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Model> {
@@ -123,7 +123,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is a Websocket Connection, to get the progress of the downloading of a specific model.
+     * This is a WebSocket connection that provides real-time updates on the download progress of a specific model.
      * /model/{model}/download/progress [WS]
      */
     async modelSpecificModelDownloadProgressRaw(requestParameters: ModelSpecificModelDownloadProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelDownloadProgress>> {
@@ -146,7 +146,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is a Websocket Connection, to get the progress of the downloading of a specific model.
+     * This is a WebSocket connection that provides real-time updates on the download progress of a specific model.
      * /model/{model}/download/progress [WS]
      */
     async modelSpecificModelDownloadProgress(requestParameters: ModelSpecificModelDownloadProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelDownloadProgress> {
@@ -155,7 +155,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will load an already downloaded model into memory. This is different that downloading becuase downloading the entire model onto your machine, load will load the downloaded model into memory.
+     * Loads a previously downloaded model into memory. It differs from downloading, as downloading involves transferring the entire model to your machine, while loading simply loads the model into memory.
      * /model/{model}/load [POST]
      */
     async modelSpecificModelLoadRaw(requestParameters: ModelSpecificModelLoadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
@@ -178,7 +178,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will load an already downloaded model into memory. This is different that downloading becuase downloading the entire model onto your machine, load will load the downloaded model into memory.
+     * Loads a previously downloaded model into memory. It differs from downloading, as downloading involves transferring the entire model to your machine, while loading simply loads the model into memory.
      * /model/{model}/load [POST]
      */
     async modelSpecificModelLoad(requestParameters: ModelSpecificModelLoadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Model> {
@@ -187,7 +187,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will unload an already loaded model from memory. This will free up the ram that this model is currently consuming.
+     * Unloads a previously loaded model from memory and effectively frees up the RAM consumed by the model.
      * /model/{model}/unload [POST]
      */
     async modelSpecificModelUnloadRaw(requestParameters: ModelSpecificModelUnloadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
@@ -210,7 +210,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will unload an already loaded model from memory. This will free up the ram that this model is currently consuming.
+     * Unloads a previously loaded model from memory and effectively frees up the RAM consumed by the model.
      * /model/{model}/unload [POST]
      */
     async modelSpecificModelUnload(requestParameters: ModelSpecificModelUnloadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Model> {
@@ -219,7 +219,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
+     * Updates a machine learning model. This functionality is exclusively available for models with the \'custom:true\' setting.
      * /model/update [POST]
      */
     async modelUpdateRaw(requestParameters: ModelUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
@@ -241,7 +241,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update Machinelearning Model, this is only available for \"custom:true\" models.
+     * Updates a machine learning model. This functionality is exclusively available for models with the \'custom:true\' setting.
      * /model/update [POST]
      */
     async modelUpdate(requestParameters: ModelUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Model> {
@@ -250,7 +250,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * 
+     * Retrieves a specific ML model.
      * /model/{model} [GET]
      */
     async modelsSpecificModelSnapshotRaw(requestParameters: ModelsSpecificModelSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
@@ -273,7 +273,7 @@ export class ModelApi extends runtime.BaseAPI {
     }
 
     /**
-     * 
+     * Retrieves a specific ML model.
      * /model/{model} [GET]
      */
     async modelsSpecificModelSnapshot(requestParameters: ModelsSpecificModelSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Model> {

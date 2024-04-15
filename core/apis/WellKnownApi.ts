@@ -21,7 +21,7 @@ import * as runtime from '../runtime';
 export class WellKnownApi extends runtime.BaseAPI {
 
     /**
-     * This will get the health of the server.
+     * Retrieves the health status of the server.
      * /.well-known/health [GET]
      */
     async getWellKnownHealthRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
@@ -44,7 +44,7 @@ export class WellKnownApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get the health of the server.
+     * Retrieves the health status of the server.
      * /.well-known/health [GET]
      */
     async getWellKnownHealth(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
@@ -53,7 +53,7 @@ export class WellKnownApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get the version of the server. This will return a string of current version.
+     * Retrieves the version of the server. It returns a string representing the current version.
      * /.well-known/version [Get]
      */
     async getWellKnownVersionRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
@@ -76,7 +76,7 @@ export class WellKnownApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get the version of the server. This will return a string of current version.
+     * Retrieves the version of the server. It returns a string representing the current version.
      * /.well-known/version [Get]
      */
     async getWellKnownVersion(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {

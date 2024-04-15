@@ -32,7 +32,7 @@ export interface SendLocalNotificationRequest {
 export class NotificationsApi extends runtime.BaseAPI {
 
     /**
-     * This one is to universaly send notifications from any member of the system
+     * Retrieves a snapshot of all available models.
      * Send notification
      */
     async sendLocalNotificationRaw(requestParameters: SendLocalNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -54,7 +54,7 @@ export class NotificationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This one is to universaly send notifications from any member of the system
+     * Retrieves a snapshot of all available models.
      * Send notification
      */
     async sendLocalNotification(requestParameters: SendLocalNotificationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {

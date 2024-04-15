@@ -130,7 +130,7 @@ export interface ConversationUpdateRequest {
 export class ConversationApi extends runtime.BaseAPI {
 
     /**
-     * This will update both the anchor and the conversation.  and associate the 2 together
+     * Updates both the anchor and the conversation, associating them together.
      * /conversation/{conversation}/anchors/associate/{anchor} [POST]
      */
     async conversationAssociateAnchorRaw(requestParameters: ConversationAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -157,7 +157,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the anchor and the conversation.  and associate the 2 together
+     * Updates both the anchor and the conversation, associating them together.
      * /conversation/{conversation}/anchors/associate/{anchor} [POST]
      */
     async conversationAssociateAnchor(requestParameters: ConversationAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -165,7 +165,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the asset and the conversation.  and associate the 2 together
+     * Updates both the asset and the conversation, associating the two together.
      * /conversation/{conversation}/assets/associate/{asset} [POST]
      */
     async conversationAssociateAssetRaw(requestParameters: ConversationAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -192,7 +192,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the asset and the conversation.  and associate the 2 together
+     * Updates both the asset and the conversation, associating the two together.
      * /conversation/{conversation}/assets/associate/{asset} [POST]
      */
     async conversationAssociateAsset(requestParameters: ConversationAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -235,7 +235,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the website and the conversation.  and associate the 2 together
+     * Updates both the website and the conversation, and associate them together.
      * /conversation/{conversation}/websites/associate/{website} [POST]
      */
     async conversationAssociateWebsiteRaw(requestParameters: ConversationAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -262,7 +262,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the website and the conversation.  and associate the 2 together
+     * Updates both the website and the conversation, and associate them together.
      * /conversation/{conversation}/websites/associate/{website} [POST]
      */
     async conversationAssociateWebsite(requestParameters: ConversationAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -305,7 +305,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the anchor and the conversation.  and delete(disassociate) the 2 together
+     * Updates both the anchor and the conversation, deleting (disassociating) them simultaneously.
      * /conversation/{conversation}/anchors/delete/{anchor} [POST]
      */
     async conversationDisassociateAnchorRaw(requestParameters: ConversationDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -332,7 +332,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the anchor and the conversation.  and delete(disassociate) the 2 together
+     * Updates both the anchor and the conversation, deleting (disassociating) them simultaneously.
      * /conversation/{conversation}/anchors/delete/{anchor} [POST]
      */
     async conversationDisassociateAnchor(requestParameters: ConversationDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -340,7 +340,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the asset and the conversation.  and delete(disassociate) the 2.
+     * Updates both the asset and the conversation, effectively disassociating them.
      * /conversation/{conversation}/assets/delete/{asset} [POST]
      */
     async conversationDisassociateAssetRaw(requestParameters: ConversationDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -367,7 +367,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update both the asset and the conversation.  and delete(disassociate) the 2.
+     * Updates both the asset and the conversation, effectively disassociating them.
      * /conversation/{conversation}/assets/delete/{asset} [POST]
      */
     async conversationDisassociateAsset(requestParameters: ConversationDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -410,7 +410,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a conversation from a website.
+     * Allows us to disassociate a conversation from a specific website
      * /website/{website}/websites/disassociate/{website} [POST]
      */
     async conversationDisassociateWebsiteRaw(requestParameters: ConversationDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -437,7 +437,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a conversation from a website.
+     * Allows us to disassociate a conversation from a specific website
      * /website/{website}/websites/disassociate/{website} [POST]
      */
     async conversationDisassociateWebsite(requestParameters: ConversationDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -480,7 +480,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific conversation.
+     * Retrieves a specific conversation.
      * /conversation/{conversation} [GET]
      */
     async conversationGetSpecificConversationRaw(requestParameters: ConversationGetSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
@@ -507,7 +507,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific conversation.
+     * Retrieves a specific conversation.
      * /conversation/{conversation} [GET]
      */
     async conversationGetSpecificConversation(requestParameters: ConversationGetSpecificConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Conversation> {
@@ -516,7 +516,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will save the grounding context for a conversation. This will enable us to associate a message to the conversation.grounding object.
+     * Stores the grounding context for a conversation. It allows to associate a message with the conversation\'s grounding object, facilitating contextual understanding and management of the conversation.
      * /conversation/{conversation}/grounding/messages/associate/{message} [POST]
      */
     async conversationGroundingMessagesAssociateMessageRaw(requestParameters: ConversationGroundingMessagesAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -543,7 +543,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will save the grounding context for a conversation. This will enable us to associate a message to the conversation.grounding object.
+     * Stores the grounding context for a conversation. It allows to associate a message with the conversation\'s grounding object, facilitating contextual understanding and management of the conversation.
      * /conversation/{conversation}/grounding/messages/associate/{message} [POST]
      */
     async conversationGroundingMessagesAssociateMessage(requestParameters: ConversationGroundingMessagesAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -551,7 +551,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will remove specific grounding context for a conversation. This will enable us to dissassociate a message from the conversation.grounding object.
+     * Removes a specific grounding context for a conversation, and allows us to disassociate a message from the conversation\'s grounding object.
      * /conversation/{conversation}/grounding/messages/disassociate/{message} [POST]
      */
     async conversationGroundingMessagesDisassociateMessageRaw(requestParameters: ConversationGroundingMessagesDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -578,7 +578,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will remove specific grounding context for a conversation. This will enable us to dissassociate a message from the conversation.grounding object.
+     * Removes a specific grounding context for a conversation, and allows us to disassociate a message from the conversation\'s grounding object.
      * /conversation/{conversation}/grounding/messages/disassociate/{message} [POST]
      */
     async conversationGroundingMessagesDisassociateMessage(requestParameters: ConversationGroundingMessagesDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -586,8 +586,8 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
-     * \'/conversation/{conversation}/scores/increment\' [POST]
+     * Increment scores associated with a conversation. It accepts a SeededScoreIncrement object as input to adjust the scores accordingly based on the provided data.
+     * /conversation/{conversation}/scores/increment [POST]
      */
     async conversationScoresIncrementRaw(requestParameters: ConversationScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
@@ -612,15 +612,15 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
-     * \'/conversation/{conversation}/scores/increment\' [POST]
+     * Increment scores associated with a conversation. It accepts a SeededScoreIncrement object as input to adjust the scores accordingly based on the provided data.
+     * /conversation/{conversation}/scores/increment [POST]
      */
     async conversationScoresIncrement(requestParameters: ConversationScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.conversationScoresIncrementRaw(requestParameters, initOverrides);
     }
 
     /**
-     * This will get a specific conversations messages
+     * Retrieves messages specific to a particular conversation.
      * /conversation/{conversation}/messages [GET]
      */
     async conversationSpecificConversationMessagesRaw(requestParameters: ConversationSpecificConversationMessagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessages>> {
@@ -647,7 +647,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will get a specific conversations messages
+     * Retrieves messages specific to a particular conversation.
      * /conversation/{conversation}/messages [GET]
      */
     async conversationSpecificConversationMessages(requestParameters: ConversationSpecificConversationMessagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConversationMessages> {
@@ -656,7 +656,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take a specific converssation and it will rename using ML.
+     * Renames a specific conversation using machine learning (ML) techniques.
      * /conversation/{conversation}/rename [POST]
      */
     async conversationSpecificConversationRenameRaw(requestParameters: ConversationSpecificConversationRenameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
@@ -683,7 +683,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take a specific converssation and it will rename using ML.
+     * Renames a specific conversation using machine learning (ML) techniques.
      * /conversation/{conversation}/rename [POST]
      */
     async conversationSpecificConversationRename(requestParameters: ConversationSpecificConversationRenameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Conversation> {
@@ -692,7 +692,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take a current conversation and create a summary of the conversation and save it as an annotation on the conversation.  will return the annotation reference used as the summary.
+     * Generates a summary of a given conversation and saves it as an annotation associated with the conversation. It returns a reference to the annotation, which serves as the summary.
      * /conversation/{conversation}/summarize [POST]
      */
     async conversationSummarizeRaw(requestParameters: ConversationSummarizeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationSummarizeOutput>> {
@@ -718,7 +718,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will take a current conversation and create a summary of the conversation and save it as an annotation on the conversation.  will return the annotation reference used as the summary.
+     * Generates a summary of a given conversation and saves it as an annotation associated with the conversation. It returns a reference to the annotation, which serves as the summary.
      * /conversation/{conversation}/summarize [POST]
      */
     async conversationSummarize(requestParameters: ConversationSummarizeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConversationSummarizeOutput> {
@@ -727,7 +727,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update a specific conversation.
+     * Updates a specific conversation.
      * /conversation/update [POST]
      */
     async conversationUpdateRaw(requestParameters: ConversationUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversation>> {
@@ -753,7 +753,7 @@ export class ConversationApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will update a specific conversation.
+     * Updates a specific conversation.
      * /conversation/update [POST]
      */
     async conversationUpdate(requestParameters: ConversationUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Conversation> {

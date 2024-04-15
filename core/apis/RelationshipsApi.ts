@@ -28,7 +28,7 @@ import {
 export class RelationshipsApi extends runtime.BaseAPI {
 
     /**
-     * This will reurn all of the relationships that exists within your pieces db.
+     * This will return all of the relationships that exists within your pieces db.
      * /relationships [GET]
      */
     async relationshipsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Relationships>> {
@@ -47,7 +47,7 @@ export class RelationshipsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will reurn all of the relationships that exists within your pieces db.
+     * This will return all of the relationships that exists within your pieces db.
      * /relationships [GET]
      */
     async relationshipsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Relationships> {

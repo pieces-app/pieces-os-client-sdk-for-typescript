@@ -53,7 +53,7 @@ export interface ModelsDeleteSpecificModelCacheRequest {
 export class ModelsApi extends runtime.BaseAPI {
 
     /**
-     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
+     * Creates a machine learning model. By default, all models created through this endpoint will have the \'custom\' attribute set to true. Additionally, the endpoint ensures that no duplicate models exist before creating a new one.
      * /models/create [POST]
      */
     async modelsCreateNewModelRaw(requestParameters: ModelsCreateNewModelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
@@ -75,7 +75,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will create a ml model, this is aloud however all models will be set to custom: true.  && we will verify we dont have a model that matches this model.
+     * Creates a machine learning model. By default, all models created through this endpoint will have the \'custom\' attribute set to true. Additionally, the endpoint ensures that no duplicate models exist before creating a new one.
      * /models/create [POST]
      */
     async modelsCreateNewModel(requestParameters: ModelsCreateNewModelRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Model> {
@@ -84,7 +84,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will delete a model, This is only available for custom: true models.
+     * Deletes a specific model. It is exclusively available for custom models with the \'custom: true\' attribute.
      * /models/{model}/delete [POST]
      */
     async modelsDeleteSpecificModelRaw(requestParameters: ModelsDeleteSpecificModelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -107,7 +107,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will delete a model, This is only available for custom: true models.
+     * Deletes a specific model. It is exclusively available for custom models with the \'custom: true\' attribute.
      * /models/{model}/delete [POST]
      */
     async modelsDeleteSpecificModel(requestParameters: ModelsDeleteSpecificModelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
@@ -115,7 +115,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * Deletes the data associated with a specific model, such as assets or libraries downloaded specifically for this model.   Note: This functionality is currently only available for LLM models.
      * /models/{model}/delete/cache [POST]
      */
     async modelsDeleteSpecificModelCacheRaw(requestParameters: ModelsDeleteSpecificModelCacheRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelDeleteCacheOutput>> {
@@ -141,7 +141,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is going to delete and sort of data that is associated with the Model itself IE the Assets/Libraries downloaded specifically for this model.  This is only available for the LLLM models for now.
+     * Deletes the data associated with a specific model, such as assets or libraries downloaded specifically for this model.   Note: This functionality is currently only available for LLM models.
      * /models/{model}/delete/cache [POST]
      */
     async modelsDeleteSpecificModelCache(requestParameters: ModelsDeleteSpecificModelCacheRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ModelDeleteCacheOutput> {
@@ -178,7 +178,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will unload all of the ml models.(that are unloadable)
+     * Unloads all available machine learning models that are unloadable.
      * /models/unload [POST]
      */
     async unloadModelsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -197,7 +197,7 @@ export class ModelsApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will unload all of the ml models.(that are unloadable)
+     * Unloads all available machine learning models that are unloadable.
      * /models/unload [POST]
      */
     async unloadModels(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {

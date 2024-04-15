@@ -154,8 +154,8 @@ export class UserApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will stream in the current user, not quiet sure yet how we want to do this.
-     * /user/stream [GET]
+     * Provides a WebSocket connection that streams user data.
+     * /user/stream [WS]
      */
     async streamUserRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
         const queryParameters: any = {};
@@ -173,8 +173,8 @@ export class UserApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will stream in the current user, not quiet sure yet how we want to do this.
-     * /user/stream [GET]
+     * Provides a WebSocket connection that streams user data.
+     * /user/stream [WS]
      */
     async streamUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserProfile> {
         const response = await this.streamUserRaw(initOverrides);

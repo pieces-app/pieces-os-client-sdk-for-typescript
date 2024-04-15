@@ -35,7 +35,7 @@ import {
 /**
  * This is the ML Analysis object Specific to code.
  * 
- * prediction and similarity are custom types {[string]: number}. ** please dont not modify **
+ * prediction and similarity are custom types. ** please dont not modify **
  * @export
  * @interface CodeAnalysis
  */

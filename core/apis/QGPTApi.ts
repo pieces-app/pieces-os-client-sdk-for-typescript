@@ -83,7 +83,7 @@ export interface RepromptRequest {
 export class QGPTApi extends runtime.BaseAPI {
 
     /**
-     * This is only to generate suggested questions that the user can ask. ( we will provide the answer we displayed to the user, the relevant snippets used for the answer, and the previous query.  We will return a list of questions that can be displayed to the user.
+     * Generates suggested questions that users can ask. It accepts the answer displayed to the user, relevant code snippets used for the answer, and the previous query as inputs. In return, it provides a list of questions that can be presented to the user.
      * /qgpt/hints [POST]
      */
     async hintsRaw(requestParameters: HintsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTQuestionOutput>> {
@@ -105,7 +105,7 @@ export class QGPTApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is only to generate suggested questions that the user can ask. ( we will provide the answer we displayed to the user, the relevant snippets used for the answer, and the previous query.  We will return a list of questions that can be displayed to the user.
+     * Generates suggested questions that users can ask. It accepts the answer displayed to the user, relevant code snippets used for the answer, and the previous query as inputs. In return, it provides a list of questions that can be presented to the user.
      * /qgpt/hints [POST]
      */
     async hints(requestParameters: HintsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTQuestionOutput> {
@@ -114,7 +114,7 @@ export class QGPTApi extends runtime.BaseAPI {
     }
 
     /**
-     * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
+     * Utilize this endpoint for Who Support, identifying individuals who can provide assistance when given context such as a Seed or a QGPT Conversation, for example.  Input:   - (optional) seed: Seed - Only supports fragments for now.   - (optional) conversation: QGPTConversation.  Output:   - persons: Persons
      * /qgpt/persons/related [POST]
      */
     async personsRelatedRaw(requestParameters: PersonsRelatedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTPersonsRelatedOutput>> {
@@ -140,7 +140,7 @@ export class QGPTApi extends runtime.BaseAPI {
     }
 
     /**
-     * This Endpoint is used for Who Support.  IE given context like a Seed, or a qgptConversation, who will be able to help out.   Input: - (optional) seed: Seed - ONLY GOING TO SUPPORT fragments.for now. - (optional) conversation: QGPTConversation.  Output: - persons: Persons
+     * Utilize this endpoint for Who Support, identifying individuals who can provide assistance when given context such as a Seed or a QGPT Conversation, for example.  Input:   - (optional) seed: Seed - Only supports fragments for now.   - (optional) conversation: QGPTConversation.  Output:   - persons: Persons
      * /qgpt/persons/related [POST]
      */
     async personsRelated(requestParameters: PersonsRelatedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTPersonsRelatedOutput> {
@@ -149,8 +149,8 @@ export class QGPTApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is a version of qGPT stream that will stream the inputs.  This will handle relevance.  This will handle question.  This will throw an error if both are passed in. That being said if you want to utalize question && relevant, you can get stream results by passing in relevance with options.question:true.  This will handle multiple conversations.  This is a Websocket.  StatusCodes of the output of this will be on the output of the websocket: 200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
-     * /qgpt/stream [GET]
+     * Provides a WebSocket connection that streams inputs to the qGPT model. It handles relevance and questions, but will throw an error if both are passed in simultaneously. However, if you wish to utilize both question and relevance, you can obtain stream results by passing relevance with the option \'question:true\'. It is designed to manage multiple conversations.
+     * /qgpt/stream [WS]
      */
     async qgptStreamRaw(requestParameters: QgptStreamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTStreamOutput>> {
         const queryParameters: any = {};
@@ -171,8 +171,8 @@ export class QGPTApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is a version of qGPT stream that will stream the inputs.  This will handle relevance.  This will handle question.  This will throw an error if both are passed in. That being said if you want to utalize question && relevant, you can get stream results by passing in relevance with options.question:true.  This will handle multiple conversations.  This is a Websocket.  StatusCodes of the output of this will be on the output of the websocket: 200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
-     * /qgpt/stream [GET]
+     * Provides a WebSocket connection that streams inputs to the qGPT model. It handles relevance and questions, but will throw an error if both are passed in simultaneously. However, if you wish to utilize both question and relevance, you can obtain stream results by passing relevance with the option \'question:true\'. It is designed to manage multiple conversations.
+     * /qgpt/stream [WS]
      */
     async qgptStream(requestParameters: QgptStreamRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTStreamOutput> {
         const response = await this.qgptStreamRaw(requestParameters, initOverrides);
@@ -180,7 +180,7 @@ export class QGPTApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is going to accept, relevant code snippets or uuids returned from the /qgpt/relevance endpoint, as well as a question query and we will return possible results to answer your question.  NOTE: - The relevant seeds, must require either an id, that was used within the /qgpt/relevance endpoint or a seed with afragment/string. or else we will throw and error.  This endpoint will take your query and your relevant snippets and use them to answer your question, returning multiple answers to your question all of which with scores.  200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
+     * Processes relevant code snippets or UUIDs returned from the /qgpt/relevance endpoint, along with a question query, to provide possible answers.  Note:   - Relevant seeds must either include an ID used within the /qgpt/relevance endpoint or a seed with a fragment/string; otherwise, an error will be thrown.   - This endpoint utilizes your query and relevant snippets to generate multiple answers, each accompanied by a score.
      * /qgpt/question [POST]
      */
     async questionRaw(requestParameters: QuestionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<QGPTQuestionOutput>> {
@@ -202,7 +202,7 @@ export class QGPTApi extends runtime.BaseAPI {
     }
 
     /**
-     * This is going to accept, relevant code snippets or uuids returned from the /qgpt/relevance endpoint, as well as a question query and we will return possible results to answer your question.  NOTE: - The relevant seeds, must require either an id, that was used within the /qgpt/relevance endpoint or a seed with afragment/string. or else we will throw and error.  This endpoint will take your query and your relevant snippets and use them to answer your question, returning multiple answers to your question all of which with scores.  200: success 401: invalid authentication/api key 429: Rate limit/Quota exceeded 500: server had an error 503: the engine is currently overloaded
+     * Processes relevant code snippets or UUIDs returned from the /qgpt/relevance endpoint, along with a question query, to provide possible answers.  Note:   - Relevant seeds must either include an ID used within the /qgpt/relevance endpoint or a seed with a fragment/string; otherwise, an error will be thrown.   - This endpoint utilizes your query and relevant snippets to generate multiple answers, each accompanied by a score.
      * /qgpt/question [POST]
      */
     async question(requestParameters: QuestionRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<QGPTQuestionOutput> {
