@@ -100,9 +100,9 @@ import * as pieces from '@pieces.app/pieces-os-client'
 >
 > **If you are having issues with your installation, it is likely due to a conflict in Typescript versions - `npm uninstall typescript` - then go back and perform all other npm installations before reinstalling typescript again**.
 
-You can get it here: [GitHub Repo](https://github.com/pieces-app/example-typescript)
+You can take a look at an example repo using the TS SDK: [GitHub Repo](https://github.com/pieces-app/example-typescript)
 
-For detailed usage instructions and examples, refer to the [documentation](https://docs.pieces.app/build).
+For detailed usage instructions and examples, refer to the [documentation](https://docs.pieces.app/build/reference/typescript).
 
 ## Features
 The Pieces SDK offers the following key features:
@@ -113,6 +113,9 @@ The Pieces SDK offers the following key features:
 4. Multi LLMs support: Use any Pieces supported LLMs to power apps.
 
 ## Getting Started
+
+First, we will create a Typescript script to test the connection to the Pieces OS server. This involves creating a main.ts file to store your configuration info to test the connection.
+
 > It's important to note that the localhost port for Pieces OS is different based on the operating system.
 >
 > For Linux, you should use `localhost:5323`.
@@ -154,10 +157,33 @@ ts-node main.ts
 ```
 
 ## Examples
-Here are a few examples of using some of the basic endpoints for getting up and running, along with creating an asset for the first time. 
+Here are a few examples of using some of the basic endpoints for getting up and running, along with creating an asset for the first time.
 
+<details>
+<summary> Connect </summary>
 
+  When developing and creating an application on top of Pieces OS, it is important that you authenticate with the application itself when performing requests.
+  
+  To 'connect' your application (this typescript project) to the server, you will need to make a POST request to the `apiInstance.connect()` endpoint of the API and print the response.
 
+  ```tsx
+
+  import * as Pieces from '@pieces.app/pieces-os-client'
+
+  const configuration = Pieces.Configuration()
+  const apiInstance = new Pieces.ConnectorApi(configuration)
+
+  const body: Pieces.ConnectRequest = {
+      // SeededConnectorConnection |  (optional)
+      seededConnectorConnection: ,
+  };
+
+  apiInstance.connect(body).then((data: Context) => {
+      console.log('API called successfully. Returned data: ' + data)
+  }).catch((error: unknown) => console.error(error))
+
+  ```
+</details>
 
 <details>
 <summary>Create New Assets</summary>
@@ -211,7 +237,7 @@ function createAsset() {
 }
 ```
 
-The response back will look similar to the following: [https://jwaf.pieces.cloud/?p=24e242a85e](https://jwaf.pieces.cloud/?p=24e242a85e)
+The response back will look similar to the following: [https://jwaf.pieces.cloud](https://jwaf.pieces.cloud/?p=24e242a85e)
 
 </details>
 
