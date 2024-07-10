@@ -13,18 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+} from './Application';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
-import type { TrackedApplication } from './TrackedApplication';
-import {
-    TrackedApplicationFromJSON,
-    TrackedApplicationFromJSONTyped,
-    TrackedApplicationToJSON,
-} from './TrackedApplication';
 import type { TrackedUserProfile } from './TrackedUserProfile';
 import {
     TrackedUserProfileFromJSON,
@@ -46,10 +46,10 @@ export interface TrackedApplicationInstall {
     schema?: EmbeddedModelSchema;
     /**
      * 
-     * @type {TrackedApplication}
+     * @type {Application}
      * @memberof TrackedApplicationInstall
      */
-    application: TrackedApplication;
+    application: Application;
     /**
      * 
      * @type {TrackedUserProfile}
@@ -79,7 +79,7 @@ export function TrackedApplicationInstallFromJSONTyped(json: any, ignoreDiscrimi
     return {
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'application': TrackedApplicationFromJSON(json['application']),
+        'application': ApplicationFromJSON(json['application']),
         'user': !exists(json, 'user') ? undefined : TrackedUserProfileFromJSON(json['user']),
     };
 }
@@ -94,7 +94,7 @@ export function TrackedApplicationInstallToJSON(value?: TrackedApplicationInstal
     return {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': TrackedApplicationToJSON(value.application),
+        'application': ApplicationToJSON(value.application),
         'user': TrackedUserProfileToJSON(value.user),
     };
 }

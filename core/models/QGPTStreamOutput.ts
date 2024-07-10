@@ -37,6 +37,12 @@ import {
     QGPTStreamEnumFromJSONTyped,
     QGPTStreamEnumToJSON,
 } from './QGPTStreamEnum';
+import type { QGPTStreamedOutputExtractedMaterials } from './QGPTStreamedOutputExtractedMaterials';
+import {
+    QGPTStreamedOutputExtractedMaterialsFromJSON,
+    QGPTStreamedOutputExtractedMaterialsFromJSONTyped,
+    QGPTStreamedOutputExtractedMaterialsToJSON,
+} from './QGPTStreamedOutputExtractedMaterials';
 
 /**
  * This is the out for the /qgpt/stream endpoint.
@@ -98,6 +104,12 @@ export interface QGPTStreamOutput {
      * @memberof QGPTStreamOutput
      */
     agentRoutes?: QGPTAgentRoutes;
+    /**
+     * 
+     * @type {QGPTStreamedOutputExtractedMaterials}
+     * @memberof QGPTStreamOutput
+     */
+    extracted?: QGPTStreamedOutputExtractedMaterials;
 }
 
 /**
@@ -128,6 +140,7 @@ export function QGPTStreamOutputFromJSONTyped(json: any, ignoreDiscriminator: bo
         'statusCode': !exists(json, 'statusCode') ? undefined : json['statusCode'],
         'errorMessage': !exists(json, 'errorMessage') ? undefined : json['errorMessage'],
         'agentRoutes': !exists(json, 'agentRoutes') ? undefined : QGPTAgentRoutesFromJSON(json['agentRoutes']),
+        'extracted': !exists(json, 'extracted') ? undefined : QGPTStreamedOutputExtractedMaterialsFromJSON(json['extracted']),
     };
 }
 
@@ -148,6 +161,7 @@ export function QGPTStreamOutputToJSON(value?: QGPTStreamOutput | null): any {
         'statusCode': value.statusCode,
         'errorMessage': value.errorMessage,
         'agentRoutes': QGPTAgentRoutesToJSON(value.agentRoutes),
+        'extracted': QGPTStreamedOutputExtractedMaterialsToJSON(value.extracted),
     };
 }
 

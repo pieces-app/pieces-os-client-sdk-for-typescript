@@ -25,6 +25,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+} from './FlattenedPersons';
 import type { PlatformEnum } from './PlatformEnum';
 import {
     PlatformEnumFromJSON,
@@ -98,6 +104,12 @@ export interface SeededAnchor {
      * @memberof SeededAnchor
      */
     conversation?: string;
+    /**
+     * 
+     * @type {FlattenedPersons}
+     * @memberof SeededAnchor
+     */
+    persons?: FlattenedPersons;
 }
 
 /**
@@ -130,6 +142,7 @@ export function SeededAnchorFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'name': !exists(json, 'name') ? undefined : json['name'],
         'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
         'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
+        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
     };
 }
 
@@ -151,6 +164,7 @@ export function SeededAnchorToJSON(value?: SeededAnchor | null): any {
         'name': value.name,
         'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
         'conversation': value.conversation,
+        'persons': FlattenedPersonsToJSON(value.persons),
     };
 }
 

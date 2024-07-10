@@ -517,7 +517,9 @@ export const ClassificationSpecificEnum = {
     Scss: 'scss',
     Feature: 'feature',
     Ini: 'ini',
-    Ftl: 'ftl'
+    Ftl: 'ftl',
+    Hcl: 'hcl',
+    Abap: 'abap'
 } as const;
 export type ClassificationSpecificEnum = typeof ClassificationSpecificEnum[keyof typeof ClassificationSpecificEnum];
 

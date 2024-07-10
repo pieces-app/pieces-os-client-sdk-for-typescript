@@ -19,6 +19,8 @@ import type {
   ConversationMessages,
   ConversationSummarizeInput,
   ConversationSummarizeOutput,
+  SearchInput,
+  SearchedConversationMessages,
   SeededScoreIncrement,
 } from '../models/index';
 import {
@@ -30,6 +32,10 @@ import {
     ConversationSummarizeInputToJSON,
     ConversationSummarizeOutputFromJSON,
     ConversationSummarizeOutputToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedConversationMessagesFromJSON,
+    SearchedConversationMessagesToJSON,
     SeededScoreIncrementFromJSON,
     SeededScoreIncrementToJSON,
 } from '../models/index';
@@ -122,6 +128,12 @@ export interface ConversationSummarizeRequest {
 export interface ConversationUpdateRequest {
     transferables?: boolean;
     conversation?: Conversation;
+}
+
+export interface SearchConversationSpecificMessagesRequest {
+    conversation: string;
+    transferables?: boolean;
+    searchInput?: SearchInput;
 }
 
 /**
@@ -306,7 +318,7 @@ export class ConversationApi extends runtime.BaseAPI {
 
     /**
      * Updates both the anchor and the conversation, deleting (disassociating) them simultaneously.
-     * /conversation/{conversation}/anchors/delete/{anchor} [POST]
+     * /conversation/{conversation}/anchors/disassociate/{anchor} [POST]
      */
     async conversationDisassociateAnchorRaw(requestParameters: ConversationDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
@@ -322,7 +334,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/anchors/delete/{anchor}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/conversation/{conversation}/anchors/disassociate/{anchor}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -333,7 +345,7 @@ export class ConversationApi extends runtime.BaseAPI {
 
     /**
      * Updates both the anchor and the conversation, deleting (disassociating) them simultaneously.
-     * /conversation/{conversation}/anchors/delete/{anchor} [POST]
+     * /conversation/{conversation}/anchors/disassociate/{anchor} [POST]
      */
     async conversationDisassociateAnchor(requestParameters: ConversationDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.conversationDisassociateAnchorRaw(requestParameters, initOverrides);
@@ -341,7 +353,7 @@ export class ConversationApi extends runtime.BaseAPI {
 
     /**
      * Updates both the asset and the conversation, effectively disassociating them.
-     * /conversation/{conversation}/assets/delete/{asset} [POST]
+     * /conversation/{conversation}/assets/disassociate/{asset} [POST]
      */
     async conversationDisassociateAssetRaw(requestParameters: ConversationDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
@@ -357,7 +369,7 @@ export class ConversationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/conversation/{conversation}/assets/delete/{asset}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/conversation/{conversation}/assets/disassociate/{asset}`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -368,7 +380,7 @@ export class ConversationApi extends runtime.BaseAPI {
 
     /**
      * Updates both the asset and the conversation, effectively disassociating them.
-     * /conversation/{conversation}/assets/delete/{asset} [POST]
+     * /conversation/{conversation}/assets/disassociate/{asset} [POST]
      */
     async conversationDisassociateAsset(requestParameters: ConversationDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.conversationDisassociateAssetRaw(requestParameters, initOverrides);
@@ -758,6 +770,45 @@ export class ConversationApi extends runtime.BaseAPI {
      */
     async conversationUpdate(requestParameters: ConversationUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Conversation> {
         const response = await this.conversationUpdateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will search a specific conversation for a match  note: here we will only search the conversationMessages for this given Conversation
+     * /conversation/{conversation}/search [POST]
+     */
+    async searchConversationSpecificMessagesRaw(requestParameters: SearchConversationSpecificMessagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedConversationMessages>> {
+        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
+            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling searchConversationSpecificMessages.');
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/conversation/{conversation}/search`.replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters.searchInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedConversationMessagesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search a specific conversation for a match  note: here we will only search the conversationMessages for this given Conversation
+     * /conversation/{conversation}/search [POST]
+     */
+    async searchConversationSpecificMessages(requestParameters: SearchConversationSpecificMessagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedConversationMessages> {
+        const response = await this.searchConversationSpecificMessagesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   ExistentMetadata,
   ExistingMetadata,
+  SearchInput,
+  SearchedWebsites,
   SeededWebsite,
   Website,
   Websites,
@@ -26,6 +28,10 @@ import {
     ExistentMetadataToJSON,
     ExistingMetadataFromJSON,
     ExistingMetadataToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedWebsitesFromJSON,
+    SearchedWebsitesToJSON,
     SeededWebsiteFromJSON,
     SeededWebsiteToJSON,
     WebsiteFromJSON,
@@ -33,6 +39,11 @@ import {
     WebsitesFromJSON,
     WebsitesToJSON,
 } from '../models/index';
+
+export interface SearchWebsitesRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
 
 export interface WebsitesCreateNewWebsiteRequest {
     transferables?: boolean;
@@ -55,6 +66,41 @@ export interface WebsitesSnapshotRequest {
  * 
  */
 export class WebsitesApi extends runtime.BaseAPI {
+
+    /**
+     * This will search your websites for a specific website  note: we will search the url, and search the name of the website
+     * /websites/search [POST]
+     */
+    async searchWebsitesRaw(requestParameters: SearchWebsitesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedWebsites>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/websites/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters.searchInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedWebsitesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your websites for a specific website  note: we will search the url, and search the name of the website
+     * /websites/search [POST]
+     */
+    async searchWebsites(requestParameters: SearchWebsitesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedWebsites> {
+        const response = await this.searchWebsitesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * This will create a website and attach it to a specific asset.

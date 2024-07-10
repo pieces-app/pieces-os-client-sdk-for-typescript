@@ -13,18 +13,18 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+} from './Application';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
-import type { TrackedApplication } from './TrackedApplication';
-import {
-    TrackedApplicationFromJSON,
-    TrackedApplicationFromJSONTyped,
-    TrackedApplicationToJSON,
-} from './TrackedApplication';
 import type { TrackedUserProfile } from './TrackedUserProfile';
 import {
     TrackedUserProfileFromJSON,
@@ -46,16 +46,16 @@ export interface TrackedApplicationUpdate {
     schema?: EmbeddedModelSchema;
     /**
      * 
-     * @type {TrackedApplication}
+     * @type {Application}
      * @memberof TrackedApplicationUpdate
      */
-    current: TrackedApplication;
+    current: Application;
     /**
      * 
-     * @type {TrackedApplication}
+     * @type {Application}
      * @memberof TrackedApplicationUpdate
      */
-    previous?: TrackedApplication;
+    previous?: Application;
     /**
      * 
      * @type {TrackedUserProfile}
@@ -85,8 +85,8 @@ export function TrackedApplicationUpdateFromJSONTyped(json: any, ignoreDiscrimin
     return {
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'current': TrackedApplicationFromJSON(json['current']),
-        'previous': !exists(json, 'previous') ? undefined : TrackedApplicationFromJSON(json['previous']),
+        'current': ApplicationFromJSON(json['current']),
+        'previous': !exists(json, 'previous') ? undefined : ApplicationFromJSON(json['previous']),
         'user': !exists(json, 'user') ? undefined : TrackedUserProfileFromJSON(json['user']),
     };
 }
@@ -101,8 +101,8 @@ export function TrackedApplicationUpdateToJSON(value?: TrackedApplicationUpdate 
     return {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'current': TrackedApplicationToJSON(value.current),
-        'previous': TrackedApplicationToJSON(value.previous),
+        'current': ApplicationToJSON(value.current),
+        'previous': ApplicationToJSON(value.previous),
         'user': TrackedUserProfileToJSON(value.user),
     };
 }

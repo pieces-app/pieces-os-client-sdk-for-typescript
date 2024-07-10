@@ -38,6 +38,12 @@ export interface FilePickerInput {
      * @memberof FilePickerInput
      */
     allowedExtensions?: Array<string>;
+    /**
+     * default behavior is set to true
+     * @type {boolean}
+     * @memberof FilePickerInput
+     */
+    allowMultiple?: boolean;
 }
 
 /**
@@ -61,6 +67,7 @@ export function FilePickerInputFromJSONTyped(json: any, ignoreDiscriminator: boo
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'allowedExtensions': !exists(json, 'allowedExtensions') ? undefined : json['allowedExtensions'],
+        'allowMultiple': !exists(json, 'allowMultiple') ? undefined : json['allowMultiple'],
     };
 }
 
@@ -75,6 +82,7 @@ export function FilePickerInputToJSON(value?: FilePickerInput | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'allowedExtensions': value.allowedExtensions,
+        'allowMultiple': value.allowMultiple,
     };
 }
 

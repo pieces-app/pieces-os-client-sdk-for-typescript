@@ -15,51 +15,107 @@
 
 import * as runtime from '../runtime';
 import type {
-  CheckedOSUpdate,
+  ActiveOSServerApplet,
   FilePickerInput,
+  InactiveOSServerApplet,
   OSDeviceInformationReturnable,
+  OSFileStreamingRead,
+  OSFileStreamingReadAttempt,
   OSPermissions,
+  OSServerMetadata,
+  OSServerSettings,
+  OSServerUpdateStatus,
   ReturnedUserProfile,
   SeededExternalProvider,
-  UncheckedOSUpdate,
+  TerminatingOSServerApplet,
+  UncheckedOSServerUpdate,
   UserProfile,
   Users,
+  VerifiedOSFilesystemPath,
 } from '../models/index';
 import {
-    CheckedOSUpdateFromJSON,
-    CheckedOSUpdateToJSON,
+    ActiveOSServerAppletFromJSON,
+    ActiveOSServerAppletToJSON,
     FilePickerInputFromJSON,
     FilePickerInputToJSON,
+    InactiveOSServerAppletFromJSON,
+    InactiveOSServerAppletToJSON,
     OSDeviceInformationReturnableFromJSON,
     OSDeviceInformationReturnableToJSON,
+    OSFileStreamingReadFromJSON,
+    OSFileStreamingReadToJSON,
+    OSFileStreamingReadAttemptFromJSON,
+    OSFileStreamingReadAttemptToJSON,
     OSPermissionsFromJSON,
     OSPermissionsToJSON,
+    OSServerMetadataFromJSON,
+    OSServerMetadataToJSON,
+    OSServerSettingsFromJSON,
+    OSServerSettingsToJSON,
+    OSServerUpdateStatusFromJSON,
+    OSServerUpdateStatusToJSON,
     ReturnedUserProfileFromJSON,
     ReturnedUserProfileToJSON,
     SeededExternalProviderFromJSON,
     SeededExternalProviderToJSON,
-    UncheckedOSUpdateFromJSON,
-    UncheckedOSUpdateToJSON,
+    TerminatingOSServerAppletFromJSON,
+    TerminatingOSServerAppletToJSON,
+    UncheckedOSServerUpdateFromJSON,
+    UncheckedOSServerUpdateToJSON,
     UserProfileFromJSON,
     UserProfileToJSON,
     UsersFromJSON,
     UsersToJSON,
+    VerifiedOSFilesystemPathFromJSON,
+    VerifiedOSFilesystemPathToJSON,
 } from '../models/index';
 
 export interface LinkProviderRequest {
     seededExternalProvider?: SeededExternalProvider;
 }
 
+export interface OsAppletLaunchRequest {
+    inactiveOSServerApplet?: InactiveOSServerApplet;
+}
+
+export interface OsAppletRestartRequest {
+    inactiveOSServerApplet?: InactiveOSServerApplet;
+}
+
+export interface OsAppletTerminateRequest {
+    terminatingOSServerApplet?: TerminatingOSServerApplet;
+}
+
+export interface OsBrowserUrlOpenRequest {
+    body?: string;
+}
+
+export interface OsFilesystemFileOpenRequest {
+    body?: string;
+}
+
+export interface OsFilesystemFileReadStreamedRequest {
+    oSFileStreamingReadAttempt?: OSFileStreamingReadAttempt;
+}
+
+export interface OsFilesystemPathVerifyRequest {
+    body?: string;
+}
+
+export interface OsFilesystemPickFilesRequest {
+    filePickerInput?: FilePickerInput;
+}
+
 export interface OsPermissionsRequestRequest {
     oSPermissions?: OSPermissions;
 }
 
-export interface OsUpdateCheckRequest {
-    uncheckedOSUpdate?: UncheckedOSUpdate;
+export interface OsSettingsUpdateRequest {
+    oSServerSettings?: OSServerSettings;
 }
 
-export interface PickFilesRequest {
-    filePickerInput?: FilePickerInput;
+export interface OsUpdateCheckRequest {
+    uncheckedOSServerUpdate?: UncheckedOSServerUpdate;
 }
 
 /**
@@ -99,6 +155,128 @@ export class OSApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will attempt to launch(serve) a micro_application. If one is already spun up we will just return the port number. TODO: take in an application and return a port number at minimum.
+     * /os/applet/launch [POST]
+     */
+    async osAppletLaunchRaw(requestParameters: OsAppletLaunchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ActiveOSServerApplet>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/applet/launch`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: InactiveOSServerAppletToJSON(requestParameters.inactiveOSServerApplet),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActiveOSServerAppletFromJSON(jsonValue));
+    }
+
+    /**
+     * This will attempt to launch(serve) a micro_application. If one is already spun up we will just return the port number. TODO: take in an application and return a port number at minimum.
+     * /os/applet/launch [POST]
+     */
+    async osAppletLaunch(requestParameters: OsAppletLaunchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ActiveOSServerApplet> {
+        const response = await this.osAppletLaunchRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will attempt to restart a micro_application.(this will shut down the copilot and then rehost it)
+     * /os/applet/restart [POST]
+     */
+    async osAppletRestartRaw(requestParameters: OsAppletRestartRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ActiveOSServerApplet>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/applet/restart`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: InactiveOSServerAppletToJSON(requestParameters.inactiveOSServerApplet),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ActiveOSServerAppletFromJSON(jsonValue));
+    }
+
+    /**
+     * This will attempt to restart a micro_application.(this will shut down the copilot and then rehost it)
+     * /os/applet/restart [POST]
+     */
+    async osAppletRestart(requestParameters: OsAppletRestartRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ActiveOSServerApplet> {
+        const response = await this.osAppletRestartRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will attempt to shutdown or terminate a specified micro_application.
+     * /os/applet/terminate [POST]
+     */
+    async osAppletTerminateRaw(requestParameters: OsAppletTerminateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/applet/terminate`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TerminatingOSServerAppletToJSON(requestParameters.terminatingOSServerApplet),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will attempt to shutdown or terminate a specified micro_application.
+     * /os/applet/terminate [POST]
+     */
+    async osAppletTerminate(requestParameters: OsAppletTerminateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.osAppletTerminateRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will accept a url and launch this in an external browser.
+     * /os/browser/url/open [POST]
+     */
+    async osBrowserUrlOpenRaw(requestParameters: OsBrowserUrlOpenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/browser/url/open`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will accept a url and launch this in an external browser.
+     * /os/browser/url/open [POST]
+     */
+    async osBrowserUrlOpen(requestParameters: OsBrowserUrlOpenRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.osBrowserUrlOpenRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * This will get information related to your specific device.
      * /os/device/information [GET]
      */
@@ -123,6 +301,212 @@ export class OSApi extends runtime.BaseAPI {
      */
     async osDeviceInformation(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSDeviceInformationReturnable> {
         const response = await this.osDeviceInformationRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will accept a path and will launch a path in a given finder/file explorer window  note: TODO in the future add an endpoint for open/in || open/with (browser,files,...etc)       && if so we will want /os/open_with/file
+     * /os/filesystem/file/open [POST]
+     */
+    async osFilesystemFileOpenRaw(requestParameters: OsFilesystemFileOpenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/filesystem/file/open`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will accept a path and will launch a path in a given finder/file explorer window  note: TODO in the future add an endpoint for open/in || open/with (browser,files,...etc)       && if so we will want /os/open_with/file
+     * /os/filesystem/file/open [POST]
+     */
+    async osFilesystemFileOpen(requestParameters: OsFilesystemFileOpenRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.osFilesystemFileOpenRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will stream(via a WS the contents of a file back to the client, given a file, it will read the contents and return to the client.  NOTE: will NOT support relative paths. only ABSOLUTE paths. NOTE: needs to be a File.(will not stream a folder) NOTE: we might want to put a limit on the size of the file(IE no more than a GB or something like that??) TODO: would be nice to cancel stream NOTE: for v2 we could have two query params i.e. find which could take in a relative path and or file name and        the other could be compress i.e. streaming a gzip vs the raw bytes..        the caveat here would be mack would need to decompress em.
+     * /os/filesystem/file/read/streamed [WS]
+     */
+    async osFilesystemFileReadStreamedRaw(requestParameters: OsFilesystemFileReadStreamedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSFileStreamingRead>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/filesystem/file/read/streamed`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: OSFileStreamingReadAttemptToJSON(requestParameters.oSFileStreamingReadAttempt),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSFileStreamingReadFromJSON(jsonValue));
+    }
+
+    /**
+     * This will stream(via a WS the contents of a file back to the client, given a file, it will read the contents and return to the client.  NOTE: will NOT support relative paths. only ABSOLUTE paths. NOTE: needs to be a File.(will not stream a folder) NOTE: we might want to put a limit on the size of the file(IE no more than a GB or something like that??) TODO: would be nice to cancel stream NOTE: for v2 we could have two query params i.e. find which could take in a relative path and or file name and        the other could be compress i.e. streaming a gzip vs the raw bytes..        the caveat here would be mack would need to decompress em.
+     * /os/filesystem/file/read/streamed [WS]
+     */
+    async osFilesystemFileReadStreamed(requestParameters: OsFilesystemFileReadStreamedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSFileStreamingRead> {
+        const response = await this.osFilesystemFileReadStreamedRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will determine in a given path is a file/a directory or invalid.
+     * /os/filesystem/path/verify [POST]
+     */
+    async osFilesystemPathVerifyRaw(requestParameters: OsFilesystemPathVerifyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VerifiedOSFilesystemPath>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/filesystem/path/verify`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => VerifiedOSFilesystemPathFromJSON(jsonValue));
+    }
+
+    /**
+     * This will determine in a given path is a file/a directory or invalid.
+     * /os/filesystem/path/verify [POST]
+     */
+    async osFilesystemPathVerify(requestParameters: OsFilesystemPathVerifyRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VerifiedOSFilesystemPath> {
+        const response = await this.osFilesystemPathVerifyRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will trigger a filer picker and return the string paths of the files that were selected.
+     * /os/filesystem/files/pick [POST]
+     */
+    async osFilesystemPickFilesRaw(requestParameters: OsFilesystemPickFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/filesystem/files/pick`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: FilePickerInputToJSON(requestParameters.filePickerInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * This will trigger a filer picker and return the string paths of the files that were selected.
+     * /os/filesystem/files/pick [POST]
+     */
+    async osFilesystemPickFiles(requestParameters: OsFilesystemPickFilesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
+        const response = await this.osFilesystemPickFilesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will trigger a folder picker and return the string paths of the folders that were selected.
+     * /os/filesystem/folders/pick [POST]
+     */
+    async osFilesystemPickFoldersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/filesystem/folders/pick`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse<any>(response);
+    }
+
+    /**
+     * This will trigger a folder picker and return the string paths of the folders that were selected.
+     * /os/filesystem/folders/pick [POST]
+     */
+    async osFilesystemPickFolders(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
+        const response = await this.osFilesystemPickFoldersRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will optimize memory across PiecesOS.(TODO in the future might want to accept a body, so this will be a POST)
+     * /os/memory/optimize [POST]
+     */
+    async osMemoryOptimizeRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/memory/optimize`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will optimize memory across PiecesOS.(TODO in the future might want to accept a body, so this will be a POST)
+     * /os/memory/optimize [POST]
+     */
+    async osMemoryOptimize(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.osMemoryOptimizeRaw(initOverrides);
+    }
+
+    /**
+     * This will return metadata (total materials) in your pieces drive.
+     * /os/metadata [GET]
+     */
+    async osMetadataRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSServerMetadata>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/metadata`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSServerMetadataFromJSON(jsonValue));
+    }
+
+    /**
+     * This will return metadata (total materials) in your pieces drive.
+     * /os/metadata [GET]
+     */
+    async osMetadata(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSServerMetadata> {
+        const response = await this.osMetadataRaw(initOverrides);
         return await response.value();
     }
 
@@ -213,10 +597,124 @@ export class OSApi extends runtime.BaseAPI {
     }
 
     /**
+     * This is a snapshot of the piecesOS settings
+     * /os/settings [GET]
+     */
+    async osSettingsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSServerSettings>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/settings`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSServerSettingsFromJSON(jsonValue));
+    }
+
+    /**
+     * This is a snapshot of the piecesOS settings
+     * /os/settings [GET]
+     */
+    async osSettingsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSServerSettings> {
+        const response = await this.osSettingsSnapshotRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This is a websocket that will emit a change on the update of the OSSettings.
+     * /os/settings/stream [WS]
+     */
+    async osSettingsStreamRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSServerSettings>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/settings/stream`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSServerSettingsFromJSON(jsonValue));
+    }
+
+    /**
+     * This is a websocket that will emit a change on the update of the OSSettings.
+     * /os/settings/stream [WS]
+     */
+    async osSettingsStream(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSServerSettings> {
+        const response = await this.osSettingsStreamRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will ensure that we update the os settings.  This will emit a change via the setting stream as well.
+     * /os/settings/update [POST]
+     */
+    async osSettingsUpdateRaw(requestParameters: OsSettingsUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSServerSettings>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/os/settings/update`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: OSServerSettingsToJSON(requestParameters.oSServerSettings),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSServerSettingsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will ensure that we update the os settings.  This will emit a change via the setting stream as well.
+     * /os/settings/update [POST]
+     */
+    async osSettingsUpdate(requestParameters: OsSettingsUpdateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSServerSettings> {
+        const response = await this.osSettingsUpdateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will force quit PiecesOS
+     * /os/terminate [POST]
+     */
+    async osTerminateRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/os/terminate`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will force quit PiecesOS
+     * /os/terminate [POST]
+     */
+    async osTerminate(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.osTerminateRaw(initOverrides);
+    }
+
+    /**
      * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
      * /os/update/check [POST]
      */
-    async osUpdateCheckRaw(requestParameters: OsUpdateCheckRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CheckedOSUpdate>> {
+    async osUpdateCheckRaw(requestParameters: OsUpdateCheckRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSServerUpdateStatus>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -228,77 +726,46 @@ export class OSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UncheckedOSUpdateToJSON(requestParameters.uncheckedOSUpdate),
+            body: UncheckedOSServerUpdateToJSON(requestParameters.uncheckedOSServerUpdate),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => CheckedOSUpdateFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSServerUpdateStatusFromJSON(jsonValue));
     }
 
     /**
      * This is a helper endpoint that will check the status of an update for PiecesOS. IE if there is an update downloading, if there is one available, but the downloading has not started... etc
      * /os/update/check [POST]
      */
-    async osUpdateCheck(requestParameters: OsUpdateCheckRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CheckedOSUpdate> {
+    async osUpdateCheck(requestParameters: OsUpdateCheckRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSServerUpdateStatus> {
         const response = await this.osUpdateCheckRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * This will trigger a filer picker and return the string paths of the files that were selected.
-     * /os/files/pick [POST]
+     * This will first kick off the check.  Then will stream the progress.  **TODO lets think about if we want to have a closing NOTE: it is reccommended to use the stream instead of pulling(via the normal check endpoint).
+     * /os/update/check/stream [WS]
      */
-    async pickFilesRaw(requestParameters: PickFilesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/os/files/pick`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: FilePickerInputToJSON(requestParameters.filePickerInput),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse<any>(response);
-    }
-
-    /**
-     * This will trigger a filer picker and return the string paths of the files that were selected.
-     * /os/files/pick [POST]
-     */
-    async pickFiles(requestParameters: PickFilesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
-        const response = await this.pickFilesRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * This will trigger a folder picker and return the string paths of the folders that were selected.
-     * /os/folders/pick [POST]
-     */
-    async pickFoldersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<string>>> {
+    async osUpdateCheckStreamRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OSServerUpdateStatus>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/os/folders/pick`,
-            method: 'POST',
+            path: `/os/update/check/stream`,
+            method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse<any>(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => OSServerUpdateStatusFromJSON(jsonValue));
     }
 
     /**
-     * This will trigger a folder picker and return the string paths of the folders that were selected.
-     * /os/folders/pick [POST]
+     * This will first kick off the check.  Then will stream the progress.  **TODO lets think about if we want to have a closing NOTE: it is reccommended to use the stream instead of pulling(via the normal check endpoint).
+     * /os/update/check/stream [WS]
      */
-    async pickFolders(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<string>> {
-        const response = await this.pickFoldersRaw(initOverrides);
+    async osUpdateCheckStream(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<OSServerUpdateStatus> {
+        const response = await this.osUpdateCheckStreamRaw(initOverrides);
         return await response.value();
     }
 

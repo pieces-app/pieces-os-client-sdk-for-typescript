@@ -68,6 +68,7 @@ export * from './UsersApi';
 export * from './WebsiteApi';
 export * from './WebsitesApi';
 export * from './WellKnownApi';
+export * from './WorkstreamApi';
 export * from './WorkstreamEventApi';
 export * from './WorkstreamEventsApi';
 export * from './WorkstreamPatternEngineApi';

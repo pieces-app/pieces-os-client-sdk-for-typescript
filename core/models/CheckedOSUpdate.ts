@@ -19,6 +19,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+} from './GroupedTimestamp';
 import type { UpdatingStatusEnum } from './UpdatingStatusEnum';
 import {
     UpdatingStatusEnumFromJSON,
@@ -27,7 +33,16 @@ import {
 } from './UpdatingStatusEnum';
 
 /**
- * This is the returnable for /os/update/check
+ * This is the model for the progress of the current update of Pieces os.
+ * 
+ * /os/update/check/stream && /os/update/check/
+ * 
+ * we will emit on a progress update
+ * 
+ * updated: is an optional property that will let us know when the update was checked last.
+ * 
+ * NOTE: it is reccommended to use the stream instead of pulling.
+ * NOTE: lets think about if we want to have a closing(as well as how we want to handle restarts)
  * @export
  * @interface CheckedOSUpdate
  */
@@ -44,6 +59,18 @@ export interface CheckedOSUpdate {
      * @memberof CheckedOSUpdate
      */
     status: UpdatingStatusEnum;
+    /**
+     * 
+     * @type {GroupedTimestamp}
+     * @memberof CheckedOSUpdate
+     */
+    updated?: GroupedTimestamp;
+    /**
+     * Optionally if the update is in progress you will recieve a download percent(from 0-100).
+     * @type {number}
+     * @memberof CheckedOSUpdate
+     */
+    percentage?: number | null;
 }
 
 /**
@@ -68,6 +95,8 @@ export function CheckedOSUpdateFromJSONTyped(json: any, ignoreDiscriminator: boo
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'status': UpdatingStatusEnumFromJSON(json['status']),
+        'updated': !exists(json, 'updated') ? undefined : GroupedTimestampFromJSON(json['updated']),
+        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
     };
 }
 
@@ -82,6 +111,8 @@ export function CheckedOSUpdateToJSON(value?: CheckedOSUpdate | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'status': UpdatingStatusEnumToJSON(value.status),
+        'updated': GroupedTimestampToJSON(value.updated),
+        'percentage': value.percentage,
     };
 }
 

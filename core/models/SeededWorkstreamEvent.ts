@@ -37,18 +37,18 @@ import {
     ScoreFromJSONTyped,
     ScoreToJSON,
 } from './Score';
+import type { WorkstreamEventContext } from './WorkstreamEventContext';
+import {
+    WorkstreamEventContextFromJSON,
+    WorkstreamEventContextFromJSONTyped,
+    WorkstreamEventContextToJSON,
+} from './WorkstreamEventContext';
 import type { WorkstreamEventTrigger } from './WorkstreamEventTrigger';
 import {
     WorkstreamEventTriggerFromJSON,
     WorkstreamEventTriggerFromJSONTyped,
     WorkstreamEventTriggerToJSON,
 } from './WorkstreamEventTrigger';
-import type { WorkstreamEventTriggerMetadata } from './WorkstreamEventTriggerMetadata';
-import {
-    WorkstreamEventTriggerMetadataFromJSON,
-    WorkstreamEventTriggerMetadataFromJSONTyped,
-    WorkstreamEventTriggerMetadataToJSON,
-} from './WorkstreamEventTriggerMetadata';
 
 /**
  * This is a precreated version of a WorkstreamEvent event, this will be used ingested into PiecesOS and PiecesOS will do all the magic to transform this into relevant data show in the workstream feed.
@@ -82,10 +82,10 @@ export interface SeededWorkstreamEvent {
     trigger: WorkstreamEventTrigger;
     /**
      * 
-     * @type {WorkstreamEventTriggerMetadata}
+     * @type {WorkstreamEventContext}
      * @memberof SeededWorkstreamEvent
      */
-    metadata?: WorkstreamEventTriggerMetadata;
+    context?: WorkstreamEventContext;
     /**
      * 
      * @type {ReferencedWorkstreamSummary}
@@ -125,7 +125,7 @@ export function SeededWorkstreamEventFromJSONTyped(json: any, ignoreDiscriminato
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'application': ApplicationFromJSON(json['application']),
         'trigger': WorkstreamEventTriggerFromJSON(json['trigger']),
-        'metadata': !exists(json, 'metadata') ? undefined : WorkstreamEventTriggerMetadataFromJSON(json['metadata']),
+        'context': !exists(json, 'context') ? undefined : WorkstreamEventContextFromJSON(json['context']),
         'summary': !exists(json, 'summary') ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
         'internalIdentifier': !exists(json, 'internal_identifier') ? undefined : json['internal_identifier'],
     };
@@ -144,7 +144,7 @@ export function SeededWorkstreamEventToJSON(value?: SeededWorkstreamEvent | null
         'score': ScoreToJSON(value.score),
         'application': ApplicationToJSON(value.application),
         'trigger': WorkstreamEventTriggerToJSON(value.trigger),
-        'metadata': WorkstreamEventTriggerMetadataToJSON(value.metadata),
+        'context': WorkstreamEventContextToJSON(value.context),
         'summary': ReferencedWorkstreamSummaryToJSON(value.summary),
         'internal_identifier': value.internalIdentifier,
     };

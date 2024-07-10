@@ -71,6 +71,12 @@ export interface Score {
      * @memberof Score
      */
     reference?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Score
+     */
+    searched?: number;
 }
 
 /**
@@ -101,6 +107,7 @@ export function ScoreFromJSONTyped(json: any, ignoreDiscriminator: boolean): Sco
         'reuse': !exists(json, 'reuse') ? undefined : json['reuse'],
         'update': !exists(json, 'update') ? undefined : json['update'],
         'reference': !exists(json, 'reference') ? undefined : json['reference'],
+        'searched': !exists(json, 'searched') ? undefined : json['searched'],
     };
 }
 
@@ -120,6 +127,7 @@ export function ScoreToJSON(value?: Score | null): any {
         'reuse': value.reuse,
         'update': value.update,
         'reference': value.reference,
+        'searched': value.searched,
     };
 }
 
