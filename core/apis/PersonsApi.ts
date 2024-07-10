@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   Person,
   Persons,
+  SearchInput,
+  SearchedPersons,
   SeededPerson,
 } from '../models/index';
 import {
@@ -24,14 +26,13 @@ import {
     PersonToJSON,
     PersonsFromJSON,
     PersonsToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedPersonsFromJSON,
+    SearchedPersonsToJSON,
     SeededPersonFromJSON,
     SeededPersonToJSON,
 } from '../models/index';
-
-export interface PersonDisassociateAssetRequest {
-    person: string;
-    asset: string;
-}
 
 export interface PersonsCreateNewPersonRequest {
     transferables?: boolean;
@@ -46,45 +47,15 @@ export interface PersonsSnapshotRequest {
     transferables?: boolean;
 }
 
+export interface SearchPersonsRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
+
 /**
  * 
  */
 export class PersonsApi extends runtime.BaseAPI {
-
-    /**
-     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /persons/{person}/assets/delete/{asset} [POST]
-     */
-    async personDisassociateAssetRaw(requestParameters: PersonDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateAsset.');
-        }
-
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling personDisassociateAsset.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/persons/{person}/assets/delete/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * This will update both the asset and the person reference, that will remove a person from an asset(only the references).  This will NOT remove the person. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /persons/{person}/assets/delete/{asset} [POST]
-     */
-    async personDisassociateAsset(requestParameters: PersonDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.personDisassociateAssetRaw(requestParameters, initOverrides);
-    }
 
     /**
      * This will create a new person.
@@ -93,8 +64,8 @@ export class PersonsApi extends runtime.BaseAPI {
     async personsCreateNewPersonRaw(requestParameters: PersonsCreateNewPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Person>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -106,7 +77,7 @@ export class PersonsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededPersonToJSON(requestParameters.seededPerson),
+            body: SeededPersonToJSON(requestParameters['seededPerson']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PersonFromJSON(jsonValue));
@@ -126,8 +97,11 @@ export class PersonsApi extends runtime.BaseAPI {
      * /persons/{person}/delete [POST]
      */
     async personsDeletePersonRaw(requestParameters: PersonsDeletePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personsDeletePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personsDeletePerson().'
+            );
         }
 
         const queryParameters: any = {};
@@ -135,7 +109,7 @@ export class PersonsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/persons/{person}/delete`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/persons/{person}/delete`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -159,8 +133,8 @@ export class PersonsApi extends runtime.BaseAPI {
     async personsSnapshotRaw(requestParameters: PersonsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Persons>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -181,6 +155,41 @@ export class PersonsApi extends runtime.BaseAPI {
      */
     async personsSnapshot(requestParameters: PersonsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Persons> {
         const response = await this.personsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will search your persons for a specific person  note: we will search, name, email, and username
+     * /persons/search [POST]
+     */
+    async searchPersonsRaw(requestParameters: SearchPersonsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedPersons>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/persons/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters['searchInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedPersonsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your persons for a specific person  note: we will search, name, email, and username
+     * /persons/search [POST]
+     */
+    async searchPersons(requestParameters: SearchPersonsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedPersons> {
+        const response = await this.searchPersonsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

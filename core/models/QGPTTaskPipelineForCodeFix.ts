@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -47,10 +47,8 @@ export interface QGPTTaskPipelineForCodeFix {
 /**
  * Check if a given object implements the QGPTTaskPipelineForCodeFix interface.
  */
-export function instanceOfQGPTTaskPipelineForCodeFix(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTTaskPipelineForCodeFix(value: object): value is QGPTTaskPipelineForCodeFix {
+    return true;
 }
 
 export function QGPTTaskPipelineForCodeFixFromJSON(json: any): QGPTTaskPipelineForCodeFix {
@@ -58,27 +56,24 @@ export function QGPTTaskPipelineForCodeFixFromJSON(json: any): QGPTTaskPipelineF
 }
 
 export function QGPTTaskPipelineForCodeFixFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeFix {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'error': !exists(json, 'error') ? undefined : json['error'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'error': json['error'] == null ? undefined : json['error'],
     };
 }
 
 export function QGPTTaskPipelineForCodeFixToJSON(value?: QGPTTaskPipelineForCodeFix | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'error': value.error,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'error': value['error'],
     };
 }
 

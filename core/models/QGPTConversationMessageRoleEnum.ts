@@ -25,6 +25,17 @@ export const QGPTConversationMessageRoleEnum = {
 export type QGPTConversationMessageRoleEnum = typeof QGPTConversationMessageRoleEnum[keyof typeof QGPTConversationMessageRoleEnum];
 
 
+export function instanceOfQGPTConversationMessageRoleEnum(value: any): boolean {
+    for (const key in QGPTConversationMessageRoleEnum) {
+        if (Object.prototype.hasOwnProperty.call(QGPTConversationMessageRoleEnum, key)) {
+            if (QGPTConversationMessageRoleEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function QGPTConversationMessageRoleEnumFromJSON(json: any): QGPTConversationMessageRoleEnum {
     return QGPTConversationMessageRoleEnumFromJSONTyped(json, false);
 }

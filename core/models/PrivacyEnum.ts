@@ -27,6 +27,17 @@ export const PrivacyEnum = {
 export type PrivacyEnum = typeof PrivacyEnum[keyof typeof PrivacyEnum];
 
 
+export function instanceOfPrivacyEnum(value: any): boolean {
+    for (const key in PrivacyEnum) {
+        if (Object.prototype.hasOwnProperty.call(PrivacyEnum, key)) {
+            if (PrivacyEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function PrivacyEnumFromJSON(json: any): PrivacyEnum {
     return PrivacyEnumFromJSONTyped(json, false);
 }

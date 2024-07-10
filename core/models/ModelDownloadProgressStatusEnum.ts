@@ -29,6 +29,17 @@ export const ModelDownloadProgressStatusEnum = {
 export type ModelDownloadProgressStatusEnum = typeof ModelDownloadProgressStatusEnum[keyof typeof ModelDownloadProgressStatusEnum];
 
 
+export function instanceOfModelDownloadProgressStatusEnum(value: any): boolean {
+    for (const key in ModelDownloadProgressStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelDownloadProgressStatusEnum, key)) {
+            if (ModelDownloadProgressStatusEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ModelDownloadProgressStatusEnumFromJSON(json: any): ModelDownloadProgressStatusEnum {
     return ModelDownloadProgressStatusEnumFromJSONTyped(json, false);
 }

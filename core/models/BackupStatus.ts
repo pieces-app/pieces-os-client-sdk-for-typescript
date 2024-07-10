@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { Backup } from './Backup';
 import {
     BackupFromJSON,
@@ -25,12 +31,6 @@ import {
     BackupStatusEnumFromJSONTyped,
     BackupStatusEnumToJSON,
 } from './BackupStatusEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
 
 /**
  * TODO add more description to this.
@@ -57,7 +57,7 @@ export interface BackupStatus {
      * @type {number}
      * @memberof BackupStatus
      */
-    percentage?: number | null;
+    percentage?: number;
     /**
      * 
      * @type {Backup}
@@ -69,11 +69,9 @@ export interface BackupStatus {
 /**
  * Check if a given object implements the BackupStatus interface.
  */
-export function instanceOfBackupStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "backup" in value;
-
-    return isInstance;
+export function instanceOfBackupStatus(value: object): value is BackupStatus {
+    if (!('backup' in value) || value['backup'] === undefined) return false;
+    return true;
 }
 
 export function BackupStatusFromJSON(json: any): BackupStatus {
@@ -81,31 +79,28 @@ export function BackupStatusFromJSON(json: any): BackupStatus {
 }
 
 export function BackupStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): BackupStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'value': !exists(json, 'value') ? undefined : BackupStatusEnumFromJSON(json['value']),
-        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'value': json['value'] == null ? undefined : BackupStatusEnumFromJSON(json['value']),
+        'percentage': json['percentage'] == null ? undefined : json['percentage'],
         'backup': BackupFromJSON(json['backup']),
     };
 }
 
 export function BackupStatusToJSON(value?: BackupStatus | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'value': BackupStatusEnumToJSON(value.value),
-        'percentage': value.percentage,
-        'backup': BackupToJSON(value.backup),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'value': BackupStatusEnumToJSON(value['value']),
+        'percentage': value['percentage'],
+        'backup': BackupToJSON(value['backup']),
     };
 }
 

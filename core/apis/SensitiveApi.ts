@@ -48,8 +48,11 @@ export class SensitiveApi extends runtime.BaseAPI {
      * \'/sensitive/{sensitive}/scores/increment\' [POST]
      */
     async sensitiveScoresIncrementRaw(requestParameters: SensitiveScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
-            throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitiveScoresIncrement.');
+        if (requestParameters['sensitive'] == null) {
+            throw new runtime.RequiredError(
+                'sensitive',
+                'Required parameter "sensitive" was null or undefined when calling sensitiveScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -59,11 +62,11 @@ export class SensitiveApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/sensitive/{sensitive}/scores/increment`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters.sensitive))),
+            path: `/sensitive/{sensitive}/scores/increment`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters['sensitive']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -82,8 +85,11 @@ export class SensitiveApi extends runtime.BaseAPI {
      * /sensitive/{sensitive} [GET]
      */
     async sensitiveSnapshotRaw(requestParameters: SensitiveSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Sensitive>> {
-        if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
-            throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitiveSnapshot.');
+        if (requestParameters['sensitive'] == null) {
+            throw new runtime.RequiredError(
+                'sensitive',
+                'Required parameter "sensitive" was null or undefined when calling sensitiveSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
@@ -91,7 +97,7 @@ export class SensitiveApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/sensitive/{sensitive}`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters.sensitive))),
+            path: `/sensitive/{sensitive}`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters['sensitive']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -125,7 +131,7 @@ export class SensitiveApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SensitiveToJSON(requestParameters.sensitive),
+            body: SensitiveToJSON(requestParameters['sensitive']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitiveFromJSON(jsonValue));

@@ -15,11 +15,17 @@
 
 import * as runtime from '../runtime';
 import type {
+  SearchInput,
+  SearchedWorkstreamSummaries,
   SeededWorkstreamSummary,
   WorkstreamSummaries,
   WorkstreamSummary,
 } from '../models/index';
 import {
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedWorkstreamSummariesFromJSON,
+    SearchedWorkstreamSummariesToJSON,
     SeededWorkstreamSummaryFromJSON,
     SeededWorkstreamSummaryToJSON,
     WorkstreamSummariesFromJSON,
@@ -27,6 +33,11 @@ import {
     WorkstreamSummaryFromJSON,
     WorkstreamSummaryToJSON,
 } from '../models/index';
+
+export interface SearchWorkstreamSummariesRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
 
 export interface WorkstreamSummariesCreateNewWorkstreamSummaryRequest {
     transferables?: boolean;
@@ -47,14 +58,49 @@ export interface WorkstreamSummariesSnapshotRequest {
 export class WorkstreamSummariesApi extends runtime.BaseAPI {
 
     /**
+     * This will search your workstream_summaries for a specific workstream_summary  note: we will just search the summary value(which is an annotation)
+     * /workstream_summaries/search [POST]
+     */
+    async searchWorkstreamSummariesRaw(requestParameters: SearchWorkstreamSummariesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedWorkstreamSummaries>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/workstream_summaries/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters['searchInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedWorkstreamSummariesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your workstream_summaries for a specific workstream_summary  note: we will just search the summary value(which is an annotation)
+     * /workstream_summaries/search [POST]
+     */
+    async searchWorkstreamSummaries(requestParameters: SearchWorkstreamSummariesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedWorkstreamSummaries> {
+        const response = await this.searchWorkstreamSummariesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * This will create a new WorkstreamSummary in the database.
      * /workstream_summaries/create [POST]
      */
     async workstreamSummariesCreateNewWorkstreamSummaryRaw(requestParameters: WorkstreamSummariesCreateNewWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamSummary>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -66,7 +112,7 @@ export class WorkstreamSummariesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededWorkstreamSummaryToJSON(requestParameters.seededWorkstreamSummary),
+            body: SeededWorkstreamSummaryToJSON(requestParameters['seededWorkstreamSummary']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamSummaryFromJSON(jsonValue));
@@ -86,8 +132,11 @@ export class WorkstreamSummariesApi extends runtime.BaseAPI {
      * /workstream_summaries/{workstream_summary}/delete [POST]
      */
     async workstreamSummariesDeleteSpecificWorkstreamSummaryRaw(requestParameters: WorkstreamSummariesDeleteSpecificWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummariesDeleteSpecificWorkstreamSummary.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummariesDeleteSpecificWorkstreamSummary().'
+            );
         }
 
         const queryParameters: any = {};
@@ -95,7 +144,7 @@ export class WorkstreamSummariesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/workstream_summaries/{workstream_summary}/delete`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/workstream_summaries/{workstream_summary}/delete`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -119,8 +168,8 @@ export class WorkstreamSummariesApi extends runtime.BaseAPI {
     async workstreamSummariesSnapshotRaw(requestParameters: WorkstreamSummariesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamSummaries>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

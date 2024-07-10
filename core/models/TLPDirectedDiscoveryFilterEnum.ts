@@ -32,6 +32,17 @@ export const TLPDirectedDiscoveryFilterEnum = {
 export type TLPDirectedDiscoveryFilterEnum = typeof TLPDirectedDiscoveryFilterEnum[keyof typeof TLPDirectedDiscoveryFilterEnum];
 
 
+export function instanceOfTLPDirectedDiscoveryFilterEnum(value: any): boolean {
+    for (const key in TLPDirectedDiscoveryFilterEnum) {
+        if (Object.prototype.hasOwnProperty.call(TLPDirectedDiscoveryFilterEnum, key)) {
+            if (TLPDirectedDiscoveryFilterEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function TLPDirectedDiscoveryFilterEnumFromJSON(json: any): TLPDirectedDiscoveryFilterEnum {
     return TLPDirectedDiscoveryFilterEnumFromJSONTyped(json, false);
 }

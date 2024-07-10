@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -55,11 +55,9 @@ export interface ReferencedRange {
 /**
  * Check if a given object implements the ReferencedRange interface.
  */
-export function instanceOfReferencedRange(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedRange(value: object): value is ReferencedRange {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedRangeFromJSON(json: any): ReferencedRange {
@@ -67,29 +65,26 @@ export function ReferencedRangeFromJSON(json: any): ReferencedRange {
 }
 
 export function ReferencedRangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedRange {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedRangeFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedRangeFromJSON(json['reference']),
     };
 }
 
 export function ReferencedRangeToJSON(value?: ReferencedRange | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedRangeToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedRangeToJSON(value['reference']),
     };
 }
 

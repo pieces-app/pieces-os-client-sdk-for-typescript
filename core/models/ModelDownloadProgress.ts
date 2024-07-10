@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -51,16 +51,14 @@ export interface ModelDownloadProgress {
      * @type {number}
      * @memberof ModelDownloadProgress
      */
-    percentage?: number | null;
+    percentage?: number;
 }
 
 /**
  * Check if a given object implements the ModelDownloadProgress interface.
  */
-export function instanceOfModelDownloadProgress(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfModelDownloadProgress(value: object): value is ModelDownloadProgress {
+    return true;
 }
 
 export function ModelDownloadProgressFromJSON(json: any): ModelDownloadProgress {
@@ -68,29 +66,26 @@ export function ModelDownloadProgressFromJSON(json: any): ModelDownloadProgress 
 }
 
 export function ModelDownloadProgressFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDownloadProgress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'status': !exists(json, 'status') ? undefined : ModelDownloadProgressStatusEnumFromJSON(json['status']),
-        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'status': json['status'] == null ? undefined : ModelDownloadProgressStatusEnumFromJSON(json['status']),
+        'percentage': json['percentage'] == null ? undefined : json['percentage'],
     };
 }
 
 export function ModelDownloadProgressToJSON(value?: ModelDownloadProgress | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'status': ModelDownloadProgressStatusEnumToJSON(value.status),
-        'percentage': value.percentage,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'status': ModelDownloadProgressStatusEnumToJSON(value['status']),
+        'percentage': value['percentage'],
     };
 }
 

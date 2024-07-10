@@ -57,7 +57,7 @@ export class DistributionsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededDistributionToJSON(requestParameters.seededDistribution),
+            body: SeededDistributionToJSON(requestParameters['seededDistribution']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DistributionFromJSON(jsonValue));
@@ -77,8 +77,11 @@ export class DistributionsApi extends runtime.BaseAPI {
      * /distributions/{distribution}/delete [POST]
      */
     async distributionsDeleteSpecificDistributionRaw(requestParameters: DistributionsDeleteSpecificDistributionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.distribution === null || requestParameters.distribution === undefined) {
-            throw new runtime.RequiredError('distribution','Required parameter requestParameters.distribution was null or undefined when calling distributionsDeleteSpecificDistribution.');
+        if (requestParameters['distribution'] == null) {
+            throw new runtime.RequiredError(
+                'distribution',
+                'Required parameter "distribution" was null or undefined when calling distributionsDeleteSpecificDistribution().'
+            );
         }
 
         const queryParameters: any = {};
@@ -86,7 +89,7 @@ export class DistributionsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/distributions/{distribution}/delete`.replace(`{${"distribution"}}`, encodeURIComponent(String(requestParameters.distribution))),
+            path: `/distributions/{distribution}/delete`.replace(`{${"distribution"}}`, encodeURIComponent(String(requestParameters['distribution']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

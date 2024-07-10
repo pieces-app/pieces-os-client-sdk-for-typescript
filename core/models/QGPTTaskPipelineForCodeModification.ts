@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -47,10 +47,8 @@ export interface QGPTTaskPipelineForCodeModification {
 /**
  * Check if a given object implements the QGPTTaskPipelineForCodeModification interface.
  */
-export function instanceOfQGPTTaskPipelineForCodeModification(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTTaskPipelineForCodeModification(value: object): value is QGPTTaskPipelineForCodeModification {
+    return true;
 }
 
 export function QGPTTaskPipelineForCodeModificationFromJSON(json: any): QGPTTaskPipelineForCodeModification {
@@ -58,27 +56,24 @@ export function QGPTTaskPipelineForCodeModificationFromJSON(json: any): QGPTTask
 }
 
 export function QGPTTaskPipelineForCodeModificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeModification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'instruction': !exists(json, 'instruction') ? undefined : json['instruction'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'instruction': json['instruction'] == null ? undefined : json['instruction'],
     };
 }
 
 export function QGPTTaskPipelineForCodeModificationToJSON(value?: QGPTTaskPipelineForCodeModification | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'instruction': value.instruction,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'instruction': value['instruction'],
     };
 }
 

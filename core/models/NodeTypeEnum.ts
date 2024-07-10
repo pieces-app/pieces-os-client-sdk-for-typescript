@@ -26,6 +26,17 @@ export const NodeTypeEnum = {
 export type NodeTypeEnum = typeof NodeTypeEnum[keyof typeof NodeTypeEnum];
 
 
+export function instanceOfNodeTypeEnum(value: any): boolean {
+    for (const key in NodeTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(NodeTypeEnum, key)) {
+            if (NodeTypeEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function NodeTypeEnumFromJSON(json: any): NodeTypeEnum {
     return NodeTypeEnumFromJSONTyped(json, false);
 }

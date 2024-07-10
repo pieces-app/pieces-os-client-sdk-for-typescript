@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { FlattenedRanges } from './FlattenedRanges';
 import {
     FlattenedRangesFromJSON,
@@ -41,10 +41,8 @@ export interface TemporalRangeGrounding {
 /**
  * Check if a given object implements the TemporalRangeGrounding interface.
  */
-export function instanceOfTemporalRangeGrounding(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTemporalRangeGrounding(value: object): value is TemporalRangeGrounding {
+    return true;
 }
 
 export function TemporalRangeGroundingFromJSON(json: any): TemporalRangeGrounding {
@@ -52,25 +50,22 @@ export function TemporalRangeGroundingFromJSON(json: any): TemporalRangeGroundin
 }
 
 export function TemporalRangeGroundingFromJSONTyped(json: any, ignoreDiscriminator: boolean): TemporalRangeGrounding {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'workstreams': !exists(json, 'workstreams') ? undefined : FlattenedRangesFromJSON(json['workstreams']),
+        'workstreams': json['workstreams'] == null ? undefined : FlattenedRangesFromJSON(json['workstreams']),
     };
 }
 
 export function TemporalRangeGroundingToJSON(value?: TemporalRangeGrounding | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'workstreams': FlattenedRangesToJSON(value.workstreams),
+        'workstreams': FlattenedRangesToJSON(value['workstreams']),
     };
 }
 

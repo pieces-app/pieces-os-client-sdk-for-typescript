@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,12 +49,10 @@ export interface QGPTQuestionAnswer {
 /**
  * Check if a given object implements the QGPTQuestionAnswer interface.
  */
-export function instanceOfQGPTQuestionAnswer(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "score" in value;
-    isInstance = isInstance && "text" in value;
-
-    return isInstance;
+export function instanceOfQGPTQuestionAnswer(value: object): value is QGPTQuestionAnswer {
+    if (!('score' in value) || value['score'] === undefined) return false;
+    if (!('text' in value) || value['text'] === undefined) return false;
+    return true;
 }
 
 export function QGPTQuestionAnswerFromJSON(json: any): QGPTQuestionAnswer {
@@ -62,29 +60,26 @@ export function QGPTQuestionAnswerFromJSON(json: any): QGPTQuestionAnswer {
 }
 
 export function QGPTQuestionAnswerFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionAnswer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'score': json['score'],
         'text': json['text'],
     };
 }
 
 export function QGPTQuestionAnswerToJSON(value?: QGPTQuestionAnswer | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'score': value.score,
-        'text': value.text,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'score': value['score'],
+        'text': value['text'],
     };
 }
 

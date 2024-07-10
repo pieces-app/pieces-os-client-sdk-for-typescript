@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
-import {
-    ClassificationGenericEnumFromJSON,
-    ClassificationGenericEnumFromJSONTyped,
-    ClassificationGenericEnumToJSON,
-} from './ClassificationGenericEnum';
-import type { ClassificationRenderingEnum } from './ClassificationRenderingEnum';
-import {
-    ClassificationRenderingEnumFromJSON,
-    ClassificationRenderingEnumFromJSONTyped,
-    ClassificationRenderingEnumToJSON,
-} from './ClassificationRenderingEnum';
-import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
-import {
-    ClassificationSpecificEnumFromJSON,
-    ClassificationSpecificEnumFromJSONTyped,
-    ClassificationSpecificEnumToJSON,
-} from './ClassificationSpecificEnum';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
+import {
+    ClassificationGenericEnumFromJSON,
+    ClassificationGenericEnumFromJSONTyped,
+    ClassificationGenericEnumToJSON,
+} from './ClassificationGenericEnum';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
+    ClassificationSpecificEnumFromJSON,
+    ClassificationSpecificEnumFromJSONTyped,
+    ClassificationSpecificEnumToJSON,
+} from './ClassificationSpecificEnum';
+import type { ClassificationRenderingEnum } from './ClassificationRenderingEnum';
+import {
+    ClassificationRenderingEnumFromJSON,
+    ClassificationRenderingEnumFromJSONTyped,
+    ClassificationRenderingEnumToJSON,
+} from './ClassificationRenderingEnum';
 
 /**
  * This is the specific classification of an Asset's Format.(This is on a per format basis b/c an asset could have different formats that are different format representations of the Asset.)
@@ -73,12 +73,10 @@ export interface Classification {
 /**
  * Check if a given object implements the Classification interface.
  */
-export function instanceOfClassification(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "generic" in value;
-    isInstance = isInstance && "specific" in value;
-
-    return isInstance;
+export function instanceOfClassification(value: object): value is Classification {
+    if (!('generic' in value) || value['generic'] === undefined) return false;
+    if (!('specific' in value) || value['specific'] === undefined) return false;
+    return true;
 }
 
 export function ClassificationFromJSON(json: any): Classification {
@@ -86,31 +84,28 @@ export function ClassificationFromJSON(json: any): Classification {
 }
 
 export function ClassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): Classification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'generic': ClassificationGenericEnumFromJSON(json['generic']),
         'specific': ClassificationSpecificEnumFromJSON(json['specific']),
-        'rendering': !exists(json, 'rendering') ? undefined : ClassificationRenderingEnumFromJSON(json['rendering']),
+        'rendering': json['rendering'] == null ? undefined : ClassificationRenderingEnumFromJSON(json['rendering']),
     };
 }
 
 export function ClassificationToJSON(value?: Classification | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'generic': ClassificationGenericEnumToJSON(value.generic),
-        'specific': ClassificationSpecificEnumToJSON(value.specific),
-        'rendering': ClassificationRenderingEnumToJSON(value.rendering),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'generic': ClassificationGenericEnumToJSON(value['generic']),
+        'specific': ClassificationSpecificEnumToJSON(value['specific']),
+        'rendering': ClassificationRenderingEnumToJSON(value['rendering']),
     };
 }
 

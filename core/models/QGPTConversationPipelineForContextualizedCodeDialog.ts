@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -39,10 +39,8 @@ export interface QGPTConversationPipelineForContextualizedCodeDialog {
 /**
  * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeDialog interface.
  */
-export function instanceOfQGPTConversationPipelineForContextualizedCodeDialog(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTConversationPipelineForContextualizedCodeDialog(value: object): value is QGPTConversationPipelineForContextualizedCodeDialog {
+    return true;
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeDialog {
@@ -50,25 +48,22 @@ export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipelineForContextualizedCodeDialog {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogToJSON(value?: QGPTConversationPipelineForContextualizedCodeDialog | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

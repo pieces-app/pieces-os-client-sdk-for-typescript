@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   ConversationMessage,
   ConversationMessages,
+  SearchInput,
+  SearchedConversationMessages,
   SeededConversationMessage,
 } from '../models/index';
 import {
@@ -24,6 +26,10 @@ import {
     ConversationMessageToJSON,
     ConversationMessagesFromJSON,
     ConversationMessagesToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedConversationMessagesFromJSON,
+    SearchedConversationMessagesToJSON,
     SeededConversationMessageFromJSON,
     SeededConversationMessageToJSON,
 } from '../models/index';
@@ -41,6 +47,11 @@ export interface MessagesSnapshotRequest {
     transferables?: boolean;
 }
 
+export interface SearchMessagesRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
+
 /**
  * 
  */
@@ -53,8 +64,8 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
     async messagesCreateSpecificMessageRaw(requestParameters: MessagesCreateSpecificMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -66,7 +77,7 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededConversationMessageToJSON(requestParameters.seededConversationMessage),
+            body: SeededConversationMessageToJSON(requestParameters['seededConversationMessage']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessageFromJSON(jsonValue));
@@ -86,8 +97,11 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      * /messages/{message}/delete [POST]
      */
     async messagesDeleteSpecificMessageRaw(requestParameters: MessagesDeleteSpecificMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messagesDeleteSpecificMessage.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messagesDeleteSpecificMessage().'
+            );
         }
 
         const queryParameters: any = {};
@@ -95,7 +109,7 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/messages/{message}/delete`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/messages/{message}/delete`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -119,8 +133,8 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
     async messagesSnapshotRaw(requestParameters: MessagesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessages>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -141,6 +155,41 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      */
     async messagesSnapshot(requestParameters: MessagesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConversationMessages> {
         const response = await this.messagesSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will search your conversationMessages for a specific conversation_message  note: we will just search the conversation message values
+     * /messages/search [POST]
+     */
+    async searchMessagesRaw(requestParameters: SearchMessagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedConversationMessages>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/messages/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters['searchInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedConversationMessagesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your conversationMessages for a specific conversation_message  note: we will just search the conversation message values
+     * /messages/search [POST]
+     */
+    async searchMessages(requestParameters: SearchMessagesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedConversationMessages> {
+        const response = await this.searchMessagesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -15,15 +15,55 @@
 
 import * as runtime from '../runtime';
 import type {
+  FlattenedWorkstreamPatternEngineVisionEvents,
+  SearchInput,
+  SearchedWorkstreamPatternEngineVisionEvents,
+  SeededWorkstreamIngestion,
+  WorkstreamIngestion,
   WorkstreamPatternEngineDataCleanupRequest,
+  WorkstreamPatternEngineSources,
   WorkstreamPatternEngineStatus,
+  WorkstreamPatternEngineVisionCalibration,
+  WorkstreamPatternEngineVisionCalibrations,
+  WorkstreamPatternEngineVisionEvent,
+  WorkstreamPatternEngineVisionEventDeletions,
+  WorkstreamPatternEngineVisionEvents,
+  WorkstreamPatternEngineVisionMetadata,
 } from '../models/index';
 import {
+    FlattenedWorkstreamPatternEngineVisionEventsFromJSON,
+    FlattenedWorkstreamPatternEngineVisionEventsToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedWorkstreamPatternEngineVisionEventsFromJSON,
+    SearchedWorkstreamPatternEngineVisionEventsToJSON,
+    SeededWorkstreamIngestionFromJSON,
+    SeededWorkstreamIngestionToJSON,
+    WorkstreamIngestionFromJSON,
+    WorkstreamIngestionToJSON,
     WorkstreamPatternEngineDataCleanupRequestFromJSON,
     WorkstreamPatternEngineDataCleanupRequestToJSON,
+    WorkstreamPatternEngineSourcesFromJSON,
+    WorkstreamPatternEngineSourcesToJSON,
     WorkstreamPatternEngineStatusFromJSON,
     WorkstreamPatternEngineStatusToJSON,
+    WorkstreamPatternEngineVisionCalibrationFromJSON,
+    WorkstreamPatternEngineVisionCalibrationToJSON,
+    WorkstreamPatternEngineVisionCalibrationsFromJSON,
+    WorkstreamPatternEngineVisionCalibrationsToJSON,
+    WorkstreamPatternEngineVisionEventFromJSON,
+    WorkstreamPatternEngineVisionEventToJSON,
+    WorkstreamPatternEngineVisionEventDeletionsFromJSON,
+    WorkstreamPatternEngineVisionEventDeletionsToJSON,
+    WorkstreamPatternEngineVisionEventsFromJSON,
+    WorkstreamPatternEngineVisionEventsToJSON,
+    WorkstreamPatternEngineVisionMetadataFromJSON,
+    WorkstreamPatternEngineVisionMetadataToJSON,
 } from '../models/index';
+
+export interface WorkstreamPatternEngineCreateIngestionRequest {
+    seededWorkstreamIngestion?: SeededWorkstreamIngestion;
+}
 
 export interface WorkstreamPatternEngineProcessorsVisionActivateRequest {
     workstreamPatternEngineStatus?: WorkstreamPatternEngineStatus;
@@ -37,10 +77,91 @@ export interface WorkstreamPatternEngineProcessorsVisionDeactivateRequest {
     workstreamPatternEngineStatus?: WorkstreamPatternEngineStatus;
 }
 
+export interface WorkstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEventRequest {
+    visionEvent: string;
+}
+
+export interface WorkstreamPatternEngineProcessorsVisionEventsScopedDeleteRequest {
+    workstreamPatternEngineVisionEventDeletions?: WorkstreamPatternEngineVisionEventDeletions;
+}
+
+export interface WorkstreamPatternEngineProcessorsVisionEventsSearchRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
+
+export interface WorkstreamPatternEngineProcessorsVisionEventsSnapshotRequest {
+    transferables?: boolean;
+}
+
+export interface WorkstreamPatternEngineProcessorsVisionEventsSpecificSnapshotRequest {
+    visionEvent: string;
+    transferables?: boolean;
+}
+
 /**
  * 
  */
 export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
+
+    /**
+     * This will take in events from plugins that will be used to drive data to be displayed in the feed.  This is not guaranteed to display information that is taken into this endpoint in the feed.  We take a subset of the information provided in this endpoint + information from the WPE to curated a highly relevant Heads up display of useful materials.
+     * /workstream_pattern_engine/ingestions/create [POST]
+     */
+    async workstreamPatternEngineCreateIngestionRaw(requestParameters: WorkstreamPatternEngineCreateIngestionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamIngestion>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/ingestions/create`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededWorkstreamIngestionToJSON(requestParameters['seededWorkstreamIngestion']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamIngestionFromJSON(jsonValue));
+    }
+
+    /**
+     * This will take in events from plugins that will be used to drive data to be displayed in the feed.  This is not guaranteed to display information that is taken into this endpoint in the feed.  We take a subset of the information provided in this endpoint + information from the WPE to curated a highly relevant Heads up display of useful materials.
+     * /workstream_pattern_engine/ingestions/create [POST]
+     */
+    async workstreamPatternEngineCreateIngestion(requestParameters: WorkstreamPatternEngineCreateIngestionRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamIngestion> {
+        const response = await this.workstreamPatternEngineCreateIngestionRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will return all of the applications(focused windows) that have events saved within WPE qdrant collection.
+     * /workstream_pattern_engine/processors/sources [GET]
+     */
+    async workstreamPatternEngineProcessorsSourcesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineSources>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/sources`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineSourcesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will return all of the applications(focused windows) that have events saved within WPE qdrant collection.
+     * /workstream_pattern_engine/processors/sources [GET]
+     */
+    async workstreamPatternEngineProcessorsSources(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineSources> {
+        const response = await this.workstreamPatternEngineProcessorsSourcesRaw(initOverrides);
+        return await response.value();
+    }
 
     /**
      * This will activate your Workstream Pattern Engine. This is used to aggregate information on your user\'s desktop, specifically recording the application in focus and aggregating relevant context that will then be used to ground the copilot conversations, as well as the feed.  Note: required to be a beta user to use this feature until this is live(roughly mid to late April)
@@ -58,7 +179,7 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamPatternEngineStatusToJSON(requestParameters.workstreamPatternEngineStatus),
+            body: WorkstreamPatternEngineStatusToJSON(requestParameters['workstreamPatternEngineStatus']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineStatusFromJSON(jsonValue));
@@ -70,6 +191,90 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
      */
     async workstreamPatternEngineProcessorsVisionActivate(requestParameters: WorkstreamPatternEngineProcessorsVisionActivateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineStatus> {
         const response = await this.workstreamPatternEngineProcessorsVisionActivateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will attempt to capture the copilot/feed/xyz dimensions of current focused window  note: in the future we can make a differentiation of the dimensions based on the type of qrCode.
+     * /workstream_pattern_engine/processors/vision/calibration/capture [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionCalibrationCaptureRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionCalibration>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/calibration/capture`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineVisionCalibrationFromJSON(jsonValue));
+    }
+
+    /**
+     * This will attempt to capture the copilot/feed/xyz dimensions of current focused window  note: in the future we can make a differentiation of the dimensions based on the type of qrCode.
+     * /workstream_pattern_engine/processors/vision/calibration/capture [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionCalibrationCapture(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineVisionCalibration> {
+        const response = await this.workstreamPatternEngineProcessorsVisionCalibrationCaptureRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will get the copilot/feed/xyz dimensions of the focused window.  This endpoint will attempt to do the following: 1. get the focus window 2. we will do a lookup to see if we have the copilot/feed/xyz dimension for this window if not we will return null if so we will return the dimensions as well as when the dimensions were taken  note: in the future we can make a differentiation of the dimensions based on the type of qrCode. note: no need to pass in the window name: b/c we will just get the focused window note: we will also return the window name in the returnable so the dev can verify this is the window of the plugin.
+     * /workstream_pattern_engine/processors/vision/calibrations/focused [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionCalibrationsFocusedRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionCalibration>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/calibrations/focused`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineVisionCalibrationFromJSON(jsonValue));
+    }
+
+    /**
+     * This will get the copilot/feed/xyz dimensions of the focused window.  This endpoint will attempt to do the following: 1. get the focus window 2. we will do a lookup to see if we have the copilot/feed/xyz dimension for this window if not we will return null if so we will return the dimensions as well as when the dimensions were taken  note: in the future we can make a differentiation of the dimensions based on the type of qrCode. note: no need to pass in the window name: b/c we will just get the focused window note: we will also return the window name in the returnable so the dev can verify this is the window of the plugin.
+     * /workstream_pattern_engine/processors/vision/calibrations/focused [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionCalibrationsFocused(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineVisionCalibration> {
+        const response = await this.workstreamPatternEngineProcessorsVisionCalibrationsFocusedRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will return a snapshot of all of our captured copilot window Dimensions   note: this will return many captures note: will want to add type of calibration for this specific dimension(ie copilot/feed/xyz) note: in the future we can make a differentiation of the dimensions based on the type of qrCode.
+     * /workstream_pattern_engine/processors/vision/calibrations [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionCalibrationsSnapshotRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionCalibrations>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/calibrations`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineVisionCalibrationsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will return a snapshot of all of our captured copilot window Dimensions   note: this will return many captures note: will want to add type of calibration for this specific dimension(ie copilot/feed/xyz) note: in the future we can make a differentiation of the dimensions based on the type of qrCode.
+     * /workstream_pattern_engine/processors/vision/calibrations [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionCalibrationsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineVisionCalibrations> {
+        const response = await this.workstreamPatternEngineProcessorsVisionCalibrationsSnapshotRaw(initOverrides);
         return await response.value();
     }
 
@@ -89,7 +294,7 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamPatternEngineDataCleanupRequestToJSON(requestParameters.workstreamPatternEngineDataCleanupRequest),
+            body: WorkstreamPatternEngineDataCleanupRequestToJSON(requestParameters['workstreamPatternEngineDataCleanupRequest']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -119,7 +324,7 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamPatternEngineStatusToJSON(requestParameters.workstreamPatternEngineStatus),
+            body: WorkstreamPatternEngineStatusToJSON(requestParameters['workstreamPatternEngineStatus']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineStatusFromJSON(jsonValue));
@@ -131,6 +336,205 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
      */
     async workstreamPatternEngineProcessorsVisionDeactivate(requestParameters: WorkstreamPatternEngineProcessorsVisionDeactivateRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineStatus> {
         const response = await this.workstreamPatternEngineProcessorsVisionDeactivateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will delete a single event.
+     * /workstream_pattern_engine/processors/vision/events/{vision_event}/delete [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEventRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['visionEvent'] == null) {
+            throw new runtime.RequiredError(
+                'visionEvent',
+                'Required parameter "visionEvent" was null or undefined when calling workstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/data/events/{vision_event}/delete`.replace(`{${"vision_event"}}`, encodeURIComponent(String(requestParameters['visionEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will delete a single event.
+     * /workstream_pattern_engine/processors/vision/events/{vision_event}/delete [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEvent(requestParameters: WorkstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will remove the UUIDs that were removed from the qdrant event.
+     * /workstream_pattern_engine/processors/vision/events/scoped_delete [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsScopedDeleteRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsScopedDeleteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlattenedWorkstreamPatternEngineVisionEvents>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/data/events/scoped_delete`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: WorkstreamPatternEngineVisionEventDeletionsToJSON(requestParameters['workstreamPatternEngineVisionEventDeletions']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FlattenedWorkstreamPatternEngineVisionEventsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will remove the UUIDs that were removed from the qdrant event.
+     * /workstream_pattern_engine/processors/vision/events/scoped_delete [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsScopedDelete(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsScopedDeleteRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FlattenedWorkstreamPatternEngineVisionEvents> {
+        const response = await this.workstreamPatternEngineProcessorsVisionEventsScopedDeleteRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will search your WPE events and will return a list of events that match the query/timestamp range/list of applications
+     * /workstream_pattern_engine/processors/vision/data/events/search [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsSearchRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedWorkstreamPatternEngineVisionEvents>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/data/events/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters['searchInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedWorkstreamPatternEngineVisionEventsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your WPE events and will return a list of events that match the query/timestamp range/list of applications
+     * /workstream_pattern_engine/processors/vision/data/events/search [POST]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsSearch(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSearchRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedWorkstreamPatternEngineVisionEvents> {
+        const response = await this.workstreamPatternEngineProcessorsVisionEventsSearchRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will return a snapshot of all of the WPE qdrant events  note: if the transferables: are true then we will provide values for each of our events otherwise       we will just provide basic metadata
+     * /workstream_pattern_engine/processors/vision/data/events [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsSnapshotRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionEvents>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/data/events`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineVisionEventsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will return a snapshot of all of the WPE qdrant events  note: if the transferables: are true then we will provide values for each of our events otherwise       we will just provide basic metadata
+     * /workstream_pattern_engine/processors/vision/data/events [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsSnapshot(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineVisionEvents> {
+        const response = await this.workstreamPatternEngineProcessorsVisionEventsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will return a specific event from the WPE.
+     * /workstream_pattern_engine/processors/vision/data/events/{vision_event} [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsSpecificSnapshotRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSpecificSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionEvent>> {
+        if (requestParameters['visionEvent'] == null) {
+            throw new runtime.RequiredError(
+                'visionEvent',
+                'Required parameter "visionEvent" was null or undefined when calling workstreamPatternEngineProcessorsVisionEventsSpecificSnapshot().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/data/events/{vision_event}`.replace(`{${"vision_event"}}`, encodeURIComponent(String(requestParameters['visionEvent']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineVisionEventFromJSON(jsonValue));
+    }
+
+    /**
+     * This will return a specific event from the WPE.
+     * /workstream_pattern_engine/processors/vision/data/events/{vision_event} [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionEventsSpecificSnapshot(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSpecificSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineVisionEvent> {
+        const response = await this.workstreamPatternEngineProcessorsVisionEventsSpecificSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This is an endpoint that will return the metadata of the vision data (WPE qdrant size)
+     * /workstream_pattern_engine/processors/vision/metadata [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionMetadataRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionMetadata>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/metadata`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineVisionMetadataFromJSON(jsonValue));
+    }
+
+    /**
+     * This is an endpoint that will return the metadata of the vision data (WPE qdrant size)
+     * /workstream_pattern_engine/processors/vision/metadata [GET]
+     */
+    async workstreamPatternEngineProcessorsVisionMetadata(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineVisionMetadata> {
+        const response = await this.workstreamPatternEngineProcessorsVisionMetadataRaw(initOverrides);
         return await response.value();
     }
 
@@ -159,6 +563,34 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
      */
     async workstreamPatternEngineProcessorsVisionStatus(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineStatus> {
         const response = await this.workstreamPatternEngineProcessorsVisionStatusRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This is a websocket for the status of the workstream pattern engine for vision.  This will emit an event when this is first connected to, and will emit an event when every this value changes  This will emit a \"WorkstreamPatternEngineStatus\" Model.
+     * /workstream_pattern_engine/processors/vision/status/steam [WS]
+     */
+    async workstreamPatternEngineProcessorsVisionStatusStreamRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineStatus>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/workstream_pattern_engine/processors/vision/status/stream`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineStatusFromJSON(jsonValue));
+    }
+
+    /**
+     * This is a websocket for the status of the workstream pattern engine for vision.  This will emit an event when this is first connected to, and will emit an event when every this value changes  This will emit a \"WorkstreamPatternEngineStatus\" Model.
+     * /workstream_pattern_engine/processors/vision/status/steam [WS]
+     */
+    async workstreamPatternEngineProcessorsVisionStatusStream(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineStatus> {
+        const response = await this.workstreamPatternEngineProcessorsVisionStatusStreamRaw(initOverrides);
         return await response.value();
     }
 

@@ -25,6 +25,17 @@ export const ConversationMessageSentimentEnum = {
 export type ConversationMessageSentimentEnum = typeof ConversationMessageSentimentEnum[keyof typeof ConversationMessageSentimentEnum];
 
 
+export function instanceOfConversationMessageSentimentEnum(value: any): boolean {
+    for (const key in ConversationMessageSentimentEnum) {
+        if (Object.prototype.hasOwnProperty.call(ConversationMessageSentimentEnum, key)) {
+            if (ConversationMessageSentimentEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ConversationMessageSentimentEnumFromJSON(json: any): ConversationMessageSentimentEnum {
     return ConversationMessageSentimentEnumFromJSONTyped(json, false);
 }

@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { Asset } from './Asset';
 import {
     AssetFromJSON,
@@ -25,12 +31,6 @@ import {
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
 } from './ClassificationSpecificEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
 
 /**
  * This is a model that will represent the miminum properties required to update the classification of this asset.
@@ -61,12 +61,10 @@ export interface AssetReclassification {
 /**
  * Check if a given object implements the AssetReclassification interface.
  */
-export function instanceOfAssetReclassification(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "ext" in value;
-    isInstance = isInstance && "asset" in value;
-
-    return isInstance;
+export function instanceOfAssetReclassification(value: object): value is AssetReclassification {
+    if (!('ext' in value) || value['ext'] === undefined) return false;
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    return true;
 }
 
 export function AssetReclassificationFromJSON(json: any): AssetReclassification {
@@ -74,29 +72,26 @@ export function AssetReclassificationFromJSON(json: any): AssetReclassification 
 }
 
 export function AssetReclassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetReclassification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'ext': ClassificationSpecificEnumFromJSON(json['ext']),
         'asset': AssetFromJSON(json['asset']),
     };
 }
 
 export function AssetReclassificationToJSON(value?: AssetReclassification | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'ext': ClassificationSpecificEnumToJSON(value.ext),
-        'asset': AssetToJSON(value.asset),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'ext': ClassificationSpecificEnumToJSON(value['ext']),
+        'asset': AssetToJSON(value['asset']),
     };
 }
 

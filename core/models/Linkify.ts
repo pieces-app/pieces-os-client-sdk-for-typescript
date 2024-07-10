@@ -12,31 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AccessEnum } from './AccessEnum';
-import {
-    AccessEnumFromJSON,
-    AccessEnumFromJSONTyped,
-    AccessEnumToJSON,
-} from './AccessEnum';
-import type { Asset } from './Asset';
-import {
-    AssetFromJSON,
-    AssetFromJSONTyped,
-    AssetToJSON,
-} from './Asset';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { Seed } from './Seed';
-import {
-    SeedFromJSON,
-    SeedFromJSONTyped,
-    SeedToJSON,
-} from './Seed';
+import { mapValues } from '../runtime';
 import type { SeededDistributions } from './SeededDistributions';
 import {
     SeededDistributionsFromJSON,
@@ -49,6 +25,30 @@ import {
     SeededUserFromJSONTyped,
     SeededUserToJSON,
 } from './SeededUser';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
+import type { Seed } from './Seed';
+import {
+    SeedFromJSON,
+    SeedFromJSONTyped,
+    SeedToJSON,
+} from './Seed';
+import type { Asset } from './Asset';
+import {
+    AssetFromJSON,
+    AssetFromJSONTyped,
+    AssetToJSON,
+} from './Asset';
+import type { AccessEnum } from './AccessEnum';
+import {
+    AccessEnumFromJSON,
+    AccessEnumFromJSONTyped,
+    AccessEnumToJSON,
+} from './AccessEnum';
 
 /**
  * This is the incoming linkify model.
@@ -100,11 +100,9 @@ export interface Linkify {
 /**
  * Check if a given object implements the Linkify interface.
  */
-export function instanceOfLinkify(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "access" in value;
-
-    return isInstance;
+export function instanceOfLinkify(value: object): value is Linkify {
+    if (!('access' in value) || value['access'] === undefined) return false;
+    return true;
 }
 
 export function LinkifyFromJSON(json: any): Linkify {
@@ -112,35 +110,32 @@ export function LinkifyFromJSON(json: any): Linkify {
 }
 
 export function LinkifyFromJSONTyped(json: any, ignoreDiscriminator: boolean): Linkify {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
-        'asset': !exists(json, 'asset') ? undefined : AssetFromJSON(json['asset']),
-        'users': !exists(json, 'users') ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'seed': json['seed'] == null ? undefined : SeedFromJSON(json['seed']),
+        'asset': json['asset'] == null ? undefined : AssetFromJSON(json['asset']),
+        'users': json['users'] == null ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
         'access': AccessEnumFromJSON(json['access']),
-        'distributions': !exists(json, 'distributions') ? undefined : SeededDistributionsFromJSON(json['distributions']),
+        'distributions': json['distributions'] == null ? undefined : SeededDistributionsFromJSON(json['distributions']),
     };
 }
 
 export function LinkifyToJSON(value?: Linkify | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seed': SeedToJSON(value.seed),
-        'asset': AssetToJSON(value.asset),
-        'users': value.users === undefined ? undefined : ((value.users as Array<any>).map(SeededUserToJSON)),
-        'access': AccessEnumToJSON(value.access),
-        'distributions': SeededDistributionsToJSON(value.distributions),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seed': SeedToJSON(value['seed']),
+        'asset': AssetToJSON(value['asset']),
+        'users': value['users'] == null ? undefined : ((value['users'] as Array<any>).map(SeededUserToJSON)),
+        'access': AccessEnumToJSON(value['access']),
+        'distributions': SeededDistributionsToJSON(value['distributions']),
     };
 }
 

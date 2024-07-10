@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -51,10 +51,8 @@ export interface PreonboardedPersonaDetails {
 /**
  * Check if a given object implements the PreonboardedPersonaDetails interface.
  */
-export function instanceOfPreonboardedPersonaDetails(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfPreonboardedPersonaDetails(value: object): value is PreonboardedPersonaDetails {
+    return true;
 }
 
 export function PreonboardedPersonaDetailsFromJSON(json: any): PreonboardedPersonaDetails {
@@ -62,29 +60,26 @@ export function PreonboardedPersonaDetailsFromJSON(json: any): PreonboardedPerso
 }
 
 export function PreonboardedPersonaDetailsFromJSONTyped(json: any, ignoreDiscriminator: boolean): PreonboardedPersonaDetails {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'languages': !exists(json, 'languages') ? undefined : json['languages'],
-        'personas': !exists(json, 'personas') ? undefined : json['personas'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'languages': json['languages'] == null ? undefined : json['languages'],
+        'personas': json['personas'] == null ? undefined : json['personas'],
     };
 }
 
 export function PreonboardedPersonaDetailsToJSON(value?: PreonboardedPersonaDetails | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'languages': value.languages,
-        'personas': value.personas,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'languages': value['languages'],
+        'personas': value['personas'],
     };
 }
 

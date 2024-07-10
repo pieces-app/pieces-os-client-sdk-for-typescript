@@ -30,6 +30,17 @@ export const PlatformEnum = {
 export type PlatformEnum = typeof PlatformEnum[keyof typeof PlatformEnum];
 
 
+export function instanceOfPlatformEnum(value: any): boolean {
+    for (const key in PlatformEnum) {
+        if (Object.prototype.hasOwnProperty.call(PlatformEnum, key)) {
+            if (PlatformEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function PlatformEnumFromJSON(json: any): PlatformEnum {
     return PlatformEnumFromJSONTyped(json, false);
 }

@@ -34,6 +34,17 @@ export const ExternalProviderTypeEnum = {
 export type ExternalProviderTypeEnum = typeof ExternalProviderTypeEnum[keyof typeof ExternalProviderTypeEnum];
 
 
+export function instanceOfExternalProviderTypeEnum(value: any): boolean {
+    for (const key in ExternalProviderTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternalProviderTypeEnum, key)) {
+            if (ExternalProviderTypeEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ExternalProviderTypeEnumFromJSON(json: any): ExternalProviderTypeEnum {
     return ExternalProviderTypeEnumFromJSONTyped(json, false);
 }

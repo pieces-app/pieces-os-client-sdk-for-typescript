@@ -26,6 +26,17 @@ export const PersonAccessScopedEnum = {
 export type PersonAccessScopedEnum = typeof PersonAccessScopedEnum[keyof typeof PersonAccessScopedEnum];
 
 
+export function instanceOfPersonAccessScopedEnum(value: any): boolean {
+    for (const key in PersonAccessScopedEnum) {
+        if (Object.prototype.hasOwnProperty.call(PersonAccessScopedEnum, key)) {
+            if (PersonAccessScopedEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function PersonAccessScopedEnumFromJSON(json: any): PersonAccessScopedEnum {
     return PersonAccessScopedEnumFromJSONTyped(json, false);
 }

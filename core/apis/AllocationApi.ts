@@ -40,8 +40,11 @@ export class AllocationApi extends runtime.BaseAPI {
      * /allocation/{allocation} [GET]
      */
     async allocationSnapshotRaw(requestParameters: AllocationSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AllocationCloud>> {
-        if (requestParameters.allocation === null || requestParameters.allocation === undefined) {
-            throw new runtime.RequiredError('allocation','Required parameter requestParameters.allocation was null or undefined when calling allocationSnapshot.');
+        if (requestParameters['allocation'] == null) {
+            throw new runtime.RequiredError(
+                'allocation',
+                'Required parameter "allocation" was null or undefined when calling allocationSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
@@ -49,7 +52,7 @@ export class AllocationApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/allocation/{allocation}`.replace(`{${"allocation"}}`, encodeURIComponent(String(requestParameters.allocation))),
+            path: `/allocation/{allocation}`.replace(`{${"allocation"}}`, encodeURIComponent(String(requestParameters['allocation']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -83,7 +86,7 @@ export class AllocationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));

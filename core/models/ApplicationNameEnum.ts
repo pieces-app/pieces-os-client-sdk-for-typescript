@@ -55,10 +55,25 @@ export const ApplicationNameEnum = {
     Sketch: 'SKETCH',
     AdobeIllustrator: 'ADOBE_ILLUSTRATOR',
     NotepadPlusPlus: 'NOTEPAD_PLUS_PLUS',
+    Embeetle: 'EMBEETLE',
+    Eclipse: 'ECLIPSE',
+    XCode: 'X_CODE',
+    Netbeans: 'NETBEANS',
     Unknown: 'UNKNOWN'
 } as const;
 export type ApplicationNameEnum = typeof ApplicationNameEnum[keyof typeof ApplicationNameEnum];
 
+
+export function instanceOfApplicationNameEnum(value: any): boolean {
+    for (const key in ApplicationNameEnum) {
+        if (Object.prototype.hasOwnProperty.call(ApplicationNameEnum, key)) {
+            if (ApplicationNameEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ApplicationNameEnumFromJSON(json: any): ApplicationNameEnum {
     return ApplicationNameEnumFromJSONTyped(json, false);

@@ -65,7 +65,7 @@ export class BackupsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededBackupToJSON(requestParameters.seededBackup),
+            body: SeededBackupToJSON(requestParameters['seededBackup']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BackupFromJSON(jsonValue));
@@ -96,7 +96,7 @@ export class BackupsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededBackupToJSON(requestParameters.seededBackup),
+            body: SeededBackupToJSON(requestParameters['seededBackup']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => BackupStreamedProgressFromJSON(jsonValue));
@@ -116,8 +116,11 @@ export class BackupsApi extends runtime.BaseAPI {
      * /backups/{backup}/delete [POST]
      */
     async backupsDeleteSpecificBackupRaw(requestParameters: BackupsDeleteSpecificBackupRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.backup === null || requestParameters.backup === undefined) {
-            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupsDeleteSpecificBackup.');
+        if (requestParameters['backup'] == null) {
+            throw new runtime.RequiredError(
+                'backup',
+                'Required parameter "backup" was null or undefined when calling backupsDeleteSpecificBackup().'
+            );
         }
 
         const queryParameters: any = {};
@@ -127,11 +130,11 @@ export class BackupsApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/backups/{backup}/delete`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            path: `/backups/{backup}/delete`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters['backup']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BackupToJSON(requestParameters.backup2),
+            body: BackupToJSON(requestParameters['backup2']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);

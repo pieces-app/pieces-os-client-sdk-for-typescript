@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { CodeAnalysis } from './CodeAnalysis';
-import {
-    CodeAnalysisFromJSON,
-    CodeAnalysisFromJSONTyped,
-    CodeAnalysisToJSON,
-} from './CodeAnalysis';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { CodeAnalysis } from './CodeAnalysis';
+import {
+    CodeAnalysisFromJSON,
+    CodeAnalysisFromJSONTyped,
+    CodeAnalysisToJSON,
+} from './CodeAnalysis';
 
 /**
  * 
@@ -49,11 +49,9 @@ export interface CodeAnalyses {
 /**
  * Check if a given object implements the CodeAnalyses interface.
  */
-export function instanceOfCodeAnalyses(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfCodeAnalyses(value: object): value is CodeAnalyses {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function CodeAnalysesFromJSON(json: any): CodeAnalyses {
@@ -61,27 +59,24 @@ export function CodeAnalysesFromJSON(json: any): CodeAnalyses {
 }
 
 export function CodeAnalysesFromJSONTyped(json: any, ignoreDiscriminator: boolean): CodeAnalyses {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(CodeAnalysisFromJSON)),
     };
 }
 
 export function CodeAnalysesToJSON(value?: CodeAnalyses | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(CodeAnalysisToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(CodeAnalysisToJSON)),
     };
 }
 

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededTag } from './SeededTag';
 import {
     SeededTagFromJSON,
     SeededTagFromJSONTyped,
     SeededTagToJSON,
 } from './SeededTag';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -49,11 +49,9 @@ export interface DiscoveredRelatedTag {
 /**
  * Check if a given object implements the DiscoveredRelatedTag interface.
  */
-export function instanceOfDiscoveredRelatedTag(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "seed" in value;
-
-    return isInstance;
+export function instanceOfDiscoveredRelatedTag(value: object): value is DiscoveredRelatedTag {
+    if (!('seed' in value) || value['seed'] === undefined) return false;
+    return true;
 }
 
 export function DiscoveredRelatedTagFromJSON(json: any): DiscoveredRelatedTag {
@@ -61,27 +59,24 @@ export function DiscoveredRelatedTagFromJSON(json: any): DiscoveredRelatedTag {
 }
 
 export function DiscoveredRelatedTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredRelatedTag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seed': SeededTagFromJSON(json['seed']),
     };
 }
 
 export function DiscoveredRelatedTagToJSON(value?: DiscoveredRelatedTag | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seed': SeededTagToJSON(value.seed),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seed': SeededTagToJSON(value['seed']),
     };
 }
 

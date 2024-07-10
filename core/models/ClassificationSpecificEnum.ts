@@ -517,10 +517,23 @@ export const ClassificationSpecificEnum = {
     Scss: 'scss',
     Feature: 'feature',
     Ini: 'ini',
-    Ftl: 'ftl'
+    Ftl: 'ftl',
+    Hcl: 'hcl',
+    Abap: 'abap'
 } as const;
 export type ClassificationSpecificEnum = typeof ClassificationSpecificEnum[keyof typeof ClassificationSpecificEnum];
 
+
+export function instanceOfClassificationSpecificEnum(value: any): boolean {
+    for (const key in ClassificationSpecificEnum) {
+        if (Object.prototype.hasOwnProperty.call(ClassificationSpecificEnum, key)) {
+            if (ClassificationSpecificEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ClassificationSpecificEnumFromJSON(json: any): ClassificationSpecificEnum {
     return ClassificationSpecificEnumFromJSONTyped(json, false);

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -55,11 +55,9 @@ export interface ReferencedConversation {
 /**
  * Check if a given object implements the ReferencedConversation interface.
  */
-export function instanceOfReferencedConversation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedConversation(value: object): value is ReferencedConversation {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedConversationFromJSON(json: any): ReferencedConversation {
@@ -67,29 +65,26 @@ export function ReferencedConversationFromJSON(json: any): ReferencedConversatio
 }
 
 export function ReferencedConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedConversation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedConversationFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedConversationFromJSON(json['reference']),
     };
 }
 
 export function ReferencedConversationToJSON(value?: ReferencedConversation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedConversationToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedConversationToJSON(value['reference']),
     };
 }
 

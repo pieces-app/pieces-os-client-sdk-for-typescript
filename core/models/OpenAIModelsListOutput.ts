@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededModels } from './SeededModels';
 import {
     SeededModelsFromJSON,
     SeededModelsFromJSONTyped,
     SeededModelsToJSON,
 } from './SeededModels';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * This is the output model for the /open_ai/models/list endpoint.
@@ -49,11 +49,9 @@ export interface OpenAIModelsListOutput {
 /**
  * Check if a given object implements the OpenAIModelsListOutput interface.
  */
-export function instanceOfOpenAIModelsListOutput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "models" in value;
-
-    return isInstance;
+export function instanceOfOpenAIModelsListOutput(value: object): value is OpenAIModelsListOutput {
+    if (!('models' in value) || value['models'] === undefined) return false;
+    return true;
 }
 
 export function OpenAIModelsListOutputFromJSON(json: any): OpenAIModelsListOutput {
@@ -61,27 +59,24 @@ export function OpenAIModelsListOutputFromJSON(json: any): OpenAIModelsListOutpu
 }
 
 export function OpenAIModelsListOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpenAIModelsListOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'models': SeededModelsFromJSON(json['models']),
     };
 }
 
 export function OpenAIModelsListOutputToJSON(value?: OpenAIModelsListOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'models': SeededModelsToJSON(value.models),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'models': SeededModelsToJSON(value['models']),
     };
 }
 

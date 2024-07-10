@@ -30,6 +30,17 @@ export const QGPTStreamEnum = {
 export type QGPTStreamEnum = typeof QGPTStreamEnum[keyof typeof QGPTStreamEnum];
 
 
+export function instanceOfQGPTStreamEnum(value: any): boolean {
+    for (const key in QGPTStreamEnum) {
+        if (Object.prototype.hasOwnProperty.call(QGPTStreamEnum, key)) {
+            if (QGPTStreamEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function QGPTStreamEnumFromJSON(json: any): QGPTStreamEnum {
     return QGPTStreamEnumFromJSONTyped(json, false);
 }

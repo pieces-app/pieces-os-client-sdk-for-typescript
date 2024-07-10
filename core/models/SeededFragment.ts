@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FragmentMetadata } from './FragmentMetadata';
 import {
     FragmentMetadataFromJSON,
     FragmentMetadataFromJSONTyped,
     FragmentMetadataToJSON,
 } from './FragmentMetadata';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { TransferableBytes } from './TransferableBytes';
 import {
     TransferableBytesFromJSON,
@@ -73,10 +73,8 @@ export interface SeededFragment {
 /**
  * Check if a given object implements the SeededFragment interface.
  */
-export function instanceOfSeededFragment(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededFragment(value: object): value is SeededFragment {
+    return true;
 }
 
 export function SeededFragmentFromJSON(json: any): SeededFragment {
@@ -84,31 +82,28 @@ export function SeededFragmentFromJSON(json: any): SeededFragment {
 }
 
 export function SeededFragmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededFragment {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'string': !exists(json, 'string') ? undefined : TransferableStringFromJSON(json['string']),
-        'bytes': !exists(json, 'bytes') ? undefined : TransferableBytesFromJSON(json['bytes']),
-        'metadata': !exists(json, 'metadata') ? undefined : FragmentMetadataFromJSON(json['metadata']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'string': json['string'] == null ? undefined : TransferableStringFromJSON(json['string']),
+        'bytes': json['bytes'] == null ? undefined : TransferableBytesFromJSON(json['bytes']),
+        'metadata': json['metadata'] == null ? undefined : FragmentMetadataFromJSON(json['metadata']),
     };
 }
 
 export function SeededFragmentToJSON(value?: SeededFragment | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'string': TransferableStringToJSON(value.string),
-        'bytes': TransferableBytesToJSON(value.bytes),
-        'metadata': FragmentMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'string': TransferableStringToJSON(value['string']),
+        'bytes': TransferableBytesToJSON(value['bytes']),
+        'metadata': FragmentMetadataToJSON(value['metadata']),
     };
 }
 

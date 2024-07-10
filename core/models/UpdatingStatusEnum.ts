@@ -35,6 +35,17 @@ export const UpdatingStatusEnum = {
 export type UpdatingStatusEnum = typeof UpdatingStatusEnum[keyof typeof UpdatingStatusEnum];
 
 
+export function instanceOfUpdatingStatusEnum(value: any): boolean {
+    for (const key in UpdatingStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(UpdatingStatusEnum, key)) {
+            if (UpdatingStatusEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function UpdatingStatusEnumFromJSON(json: any): UpdatingStatusEnum {
     return UpdatingStatusEnumFromJSONTyped(json, false);
 }

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -55,11 +55,9 @@ export interface ReferencedFormat {
 /**
  * Check if a given object implements the ReferencedFormat interface.
  */
-export function instanceOfReferencedFormat(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedFormat(value: object): value is ReferencedFormat {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedFormatFromJSON(json: any): ReferencedFormat {
@@ -67,29 +65,26 @@ export function ReferencedFormatFromJSON(json: any): ReferencedFormat {
 }
 
 export function ReferencedFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedFormat {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedFormatFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedFormatFromJSON(json['reference']),
     };
 }
 
 export function ReferencedFormatToJSON(value?: ReferencedFormat | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedFormatToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedFormatToJSON(value['reference']),
     };
 }
 

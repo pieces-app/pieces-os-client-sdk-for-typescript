@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,10 +49,8 @@ export interface WorkstreamPatternEngineStatus {
 /**
  * Check if a given object implements the WorkstreamPatternEngineStatus interface.
  */
-export function instanceOfWorkstreamPatternEngineStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineStatus(value: object): value is WorkstreamPatternEngineStatus {
+    return true;
 }
 
 export function WorkstreamPatternEngineStatusFromJSON(json: any): WorkstreamPatternEngineStatus {
@@ -60,27 +58,24 @@ export function WorkstreamPatternEngineStatusFromJSON(json: any): WorkstreamPatt
 }
 
 export function WorkstreamPatternEngineStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'vision': !exists(json, 'vision') ? undefined : WorkstreamPatternEngineVisionStatusFromJSON(json['vision']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'vision': json['vision'] == null ? undefined : WorkstreamPatternEngineVisionStatusFromJSON(json['vision']),
     };
 }
 
 export function WorkstreamPatternEngineStatusToJSON(value?: WorkstreamPatternEngineStatus | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'vision': WorkstreamPatternEngineVisionStatusToJSON(value.vision),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'vision': WorkstreamPatternEngineVisionStatusToJSON(value['vision']),
     };
 }
 

@@ -75,7 +75,7 @@ export class DatabaseApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ExportedDatabaseToJSON(requestParameters.exportedDatabase),
+            body: ExportedDatabaseToJSON(requestParameters['exportedDatabase']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);

@@ -12,25 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { QGPTConversationPipelineForContextualizedCodeDialog } from './QGPTConversationPipelineForContextualizedCodeDialog';
-import {
-    QGPTConversationPipelineForContextualizedCodeDialogFromJSON,
-    QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped,
-    QGPTConversationPipelineForContextualizedCodeDialogToJSON,
-} from './QGPTConversationPipelineForContextualizedCodeDialog';
-import type { QGPTConversationPipelineForContextualizedCodeGeneration } from './QGPTConversationPipelineForContextualizedCodeGeneration';
-import {
-    QGPTConversationPipelineForContextualizedCodeGenerationFromJSON,
-    QGPTConversationPipelineForContextualizedCodeGenerationFromJSONTyped,
-    QGPTConversationPipelineForContextualizedCodeGenerationToJSON,
-} from './QGPTConversationPipelineForContextualizedCodeGeneration';
+import { mapValues } from '../runtime';
 import type { QGPTConversationPipelineForContextualizedCodeWorkstreamDialog } from './QGPTConversationPipelineForContextualizedCodeWorkstreamDialog';
 import {
     QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSON,
@@ -43,6 +25,24 @@ import {
     QGPTConversationPipelineForGeneralizedCodeDialogFromJSONTyped,
     QGPTConversationPipelineForGeneralizedCodeDialogToJSON,
 } from './QGPTConversationPipelineForGeneralizedCodeDialog';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
+import type { QGPTConversationPipelineForContextualizedCodeGeneration } from './QGPTConversationPipelineForContextualizedCodeGeneration';
+import {
+    QGPTConversationPipelineForContextualizedCodeGenerationFromJSON,
+    QGPTConversationPipelineForContextualizedCodeGenerationFromJSONTyped,
+    QGPTConversationPipelineForContextualizedCodeGenerationToJSON,
+} from './QGPTConversationPipelineForContextualizedCodeGeneration';
+import type { QGPTConversationPipelineForContextualizedCodeDialog } from './QGPTConversationPipelineForContextualizedCodeDialog';
+import {
+    QGPTConversationPipelineForContextualizedCodeDialogFromJSON,
+    QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped,
+    QGPTConversationPipelineForContextualizedCodeDialogToJSON,
+} from './QGPTConversationPipelineForContextualizedCodeDialog';
 
 /**
  * This model is specifically for QGPT Conversation pipelines, the model is used to group conversational prompts for instance a conversation around generating code.
@@ -91,10 +91,8 @@ export interface QGPTConversationPipeline {
 /**
  * Check if a given object implements the QGPTConversationPipeline interface.
  */
-export function instanceOfQGPTConversationPipeline(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTConversationPipeline(value: object): value is QGPTConversationPipeline {
+    return true;
 }
 
 export function QGPTConversationPipelineFromJSON(json: any): QGPTConversationPipeline {
@@ -102,33 +100,30 @@ export function QGPTConversationPipelineFromJSON(json: any): QGPTConversationPip
 }
 
 export function QGPTConversationPipelineFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipeline {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'contextualizedCodeGeneration': !exists(json, 'contextualized_code_generation') ? undefined : QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(json['contextualized_code_generation']),
-        'generalizedCodeDialog': !exists(json, 'generalized_code_dialog') ? undefined : QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json['generalized_code_dialog']),
-        'contextualizedCodeDialog': !exists(json, 'contextualized_code_dialog') ? undefined : QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json['contextualized_code_dialog']),
-        'contextualizedCodeWorkstreamDialog': !exists(json, 'contextualized_code_workstream_dialog') ? undefined : QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSON(json['contextualized_code_workstream_dialog']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'contextualizedCodeGeneration': json['contextualized_code_generation'] == null ? undefined : QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(json['contextualized_code_generation']),
+        'generalizedCodeDialog': json['generalized_code_dialog'] == null ? undefined : QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json['generalized_code_dialog']),
+        'contextualizedCodeDialog': json['contextualized_code_dialog'] == null ? undefined : QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json['contextualized_code_dialog']),
+        'contextualizedCodeWorkstreamDialog': json['contextualized_code_workstream_dialog'] == null ? undefined : QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSON(json['contextualized_code_workstream_dialog']),
     };
 }
 
 export function QGPTConversationPipelineToJSON(value?: QGPTConversationPipeline | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'contextualized_code_generation': QGPTConversationPipelineForContextualizedCodeGenerationToJSON(value.contextualizedCodeGeneration),
-        'generalized_code_dialog': QGPTConversationPipelineForGeneralizedCodeDialogToJSON(value.generalizedCodeDialog),
-        'contextualized_code_dialog': QGPTConversationPipelineForContextualizedCodeDialogToJSON(value.contextualizedCodeDialog),
-        'contextualized_code_workstream_dialog': QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSON(value.contextualizedCodeWorkstreamDialog),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'contextualized_code_generation': QGPTConversationPipelineForContextualizedCodeGenerationToJSON(value['contextualizedCodeGeneration']),
+        'generalized_code_dialog': QGPTConversationPipelineForGeneralizedCodeDialogToJSON(value['generalizedCodeDialog']),
+        'contextualized_code_dialog': QGPTConversationPipelineForContextualizedCodeDialogToJSON(value['contextualizedCodeDialog']),
+        'contextualized_code_workstream_dialog': QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSON(value['contextualizedCodeWorkstreamDialog']),
     };
 }
 

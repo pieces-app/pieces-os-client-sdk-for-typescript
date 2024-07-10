@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedAssets } from './FlattenedAssets';
 import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
 } from './FlattenedAssets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * This is provided search spaces, This is a provided assets, TODO in the future we might want to add seeds.
@@ -49,11 +49,9 @@ export interface AssetSearchSpace {
 /**
  * Check if a given object implements the AssetSearchSpace interface.
  */
-export function instanceOfAssetSearchSpace(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "identifers" in value;
-
-    return isInstance;
+export function instanceOfAssetSearchSpace(value: object): value is AssetSearchSpace {
+    if (!('identifers' in value) || value['identifers'] === undefined) return false;
+    return true;
 }
 
 export function AssetSearchSpaceFromJSON(json: any): AssetSearchSpace {
@@ -61,27 +59,24 @@ export function AssetSearchSpaceFromJSON(json: any): AssetSearchSpace {
 }
 
 export function AssetSearchSpaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetSearchSpace {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'identifers': FlattenedAssetsFromJSON(json['identifers']),
     };
 }
 
 export function AssetSearchSpaceToJSON(value?: AssetSearchSpace | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'identifers': FlattenedAssetsToJSON(value.identifers),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'identifers': FlattenedAssetsToJSON(value['identifers']),
     };
 }
 

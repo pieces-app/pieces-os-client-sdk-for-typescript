@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,10 +49,8 @@ export interface GraphicalOCRStatistics {
 /**
  * Check if a given object implements the GraphicalOCRStatistics interface.
  */
-export function instanceOfGraphicalOCRStatistics(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfGraphicalOCRStatistics(value: object): value is GraphicalOCRStatistics {
+    return true;
 }
 
 export function GraphicalOCRStatisticsFromJSON(json: any): GraphicalOCRStatistics {
@@ -60,27 +58,24 @@ export function GraphicalOCRStatisticsFromJSON(json: any): GraphicalOCRStatistic
 }
 
 export function GraphicalOCRStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'descriptive': !exists(json, 'descriptive') ? undefined : GraphicalOCRDescriptiveStatisticsFromJSON(json['descriptive']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'descriptive': json['descriptive'] == null ? undefined : GraphicalOCRDescriptiveStatisticsFromJSON(json['descriptive']),
     };
 }
 
 export function GraphicalOCRStatisticsToJSON(value?: GraphicalOCRStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'descriptive': GraphicalOCRDescriptiveStatisticsToJSON(value.descriptive),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'descriptive': GraphicalOCRDescriptiveStatisticsToJSON(value['descriptive']),
     };
 }
 

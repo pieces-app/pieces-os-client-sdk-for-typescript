@@ -69,7 +69,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
+            body: UserProfileToJSON(requestParameters['userProfile']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
@@ -100,7 +100,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
@@ -131,7 +131,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -166,7 +166,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -201,7 +201,7 @@ export class AllocationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));

@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { TrackedFormatEventMetadata } from './TrackedFormatEventMetadata';
+import {
+    TrackedFormatEventMetadataFromJSON,
+    TrackedFormatEventMetadataFromJSONTyped,
+    TrackedFormatEventMetadataToJSON,
+} from './TrackedFormatEventMetadata';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -31,12 +37,6 @@ import {
     TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedFormatEventIdentifierDescriptionPairsToJSON,
 } from './TrackedFormatEventIdentifierDescriptionPairs';
-import type { TrackedFormatEventMetadata } from './TrackedFormatEventMetadata';
-import {
-    TrackedFormatEventMetadataFromJSON,
-    TrackedFormatEventMetadataFromJSONTyped,
-    TrackedFormatEventMetadataToJSON,
-} from './TrackedFormatEventMetadata';
 
 /**
  * This is a model that represents a generic event that we may want to track in relation to a format, for example beamed, copied, downloaded, and view. ** Note: This is the model that will get returned by our api, and is. Representative of a full TrackedFormat event. **
@@ -73,12 +73,10 @@ export interface TrackedFormatEvent {
 /**
  * Check if a given object implements the TrackedFormatEvent interface.
  */
-export function instanceOfTrackedFormatEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "format" in value;
-    isInstance = isInstance && "identifierDescriptionPair" in value;
-
-    return isInstance;
+export function instanceOfTrackedFormatEvent(value: object): value is TrackedFormatEvent {
+    if (!('format' in value) || value['format'] === undefined) return false;
+    if (!('identifierDescriptionPair' in value) || value['identifierDescriptionPair'] === undefined) return false;
+    return true;
 }
 
 export function TrackedFormatEventFromJSON(json: any): TrackedFormatEvent {
@@ -86,31 +84,28 @@ export function TrackedFormatEventFromJSON(json: any): TrackedFormatEvent {
 }
 
 export function TrackedFormatEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'format': TrackedFormatFromJSON(json[' format']),
         'identifierDescriptionPair': TrackedFormatEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
-        'metadata': !exists(json, 'metadata') ? undefined : TrackedFormatEventMetadataFromJSON(json['metadata']),
+        'metadata': json['metadata'] == null ? undefined : TrackedFormatEventMetadataFromJSON(json['metadata']),
     };
 }
 
 export function TrackedFormatEventToJSON(value?: TrackedFormatEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        ' format': TrackedFormatToJSON(value.format),
-        'identifier_description_pair': TrackedFormatEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
-        'metadata': TrackedFormatEventMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        ' format': TrackedFormatToJSON(value['format']),
+        'identifier_description_pair': TrackedFormatEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
+        'metadata': TrackedFormatEventMetadataToJSON(value['metadata']),
     };
 }
 

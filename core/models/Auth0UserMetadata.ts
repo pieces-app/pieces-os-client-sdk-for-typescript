@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
-import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
 import type { Auth0OpenAIUserMetadata } from './Auth0OpenAIUserMetadata';
 import {
     Auth0OpenAIUserMetadataFromJSON,
     Auth0OpenAIUserMetadataFromJSONTyped,
     Auth0OpenAIUserMetadataToJSON,
 } from './Auth0OpenAIUserMetadata';
-import type { Auth0UserAllocationMetadata } from './Auth0UserAllocationMetadata';
-import {
-    Auth0UserAllocationMetadataFromJSON,
-    Auth0UserAllocationMetadataFromJSONTyped,
-    Auth0UserAllocationMetadataToJSON,
-} from './Auth0UserAllocationMetadata';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { Auth0UserAllocationMetadata } from './Auth0UserAllocationMetadata';
+import {
+    Auth0UserAllocationMetadataFromJSON,
+    Auth0UserAllocationMetadataFromJSONTyped,
+    Auth0UserAllocationMetadataToJSON,
+} from './Auth0UserAllocationMetadata';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import {
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+} from './AnonymousTemporalRange';
 
 /**
  * User Metadata from Auth0
@@ -97,11 +97,9 @@ export interface Auth0UserMetadata {
 /**
  * Check if a given object implements the Auth0UserMetadata interface.
  */
-export function instanceOfAuth0UserMetadata(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "globalId" in value;
-
-    return isInstance;
+export function instanceOfAuth0UserMetadata(value: object): value is Auth0UserMetadata {
+    if (!('globalId' in value) || value['globalId'] === undefined) return false;
+    return true;
 }
 
 export function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata {
@@ -109,39 +107,36 @@ export function Auth0UserMetadataFromJSON(json: any): Auth0UserMetadata {
 }
 
 export function Auth0UserMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0UserMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'globalId': json['global_id'],
-        'cloudKey': !exists(json, 'cloud_key') ? undefined : json['cloud_key'],
-        'stripeCustomerId': !exists(json, 'stripe_customer_id') ? undefined : json['stripe_customer_id'],
-        'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
-        'allocation': !exists(json, 'allocation') ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
-        'openAI': !exists(json, 'open_AI') ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
-        'beta': !exists(json, 'beta') ? undefined : AnonymousTemporalRangeFromJSON(json['beta']),
+        'cloudKey': json['cloud_key'] == null ? undefined : json['cloud_key'],
+        'stripeCustomerId': json['stripe_customer_id'] == null ? undefined : json['stripe_customer_id'],
+        'vanityname': json['vanityname'] == null ? undefined : json['vanityname'],
+        'allocation': json['allocation'] == null ? undefined : Auth0UserAllocationMetadataFromJSON(json['allocation']),
+        'openAI': json['open_AI'] == null ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
+        'beta': json['beta'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['beta']),
     };
 }
 
 export function Auth0UserMetadataToJSON(value?: Auth0UserMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'global_id': value.globalId,
-        'cloud_key': value.cloudKey,
-        'stripe_customer_id': value.stripeCustomerId,
-        'vanityname': value.vanityname,
-        'allocation': Auth0UserAllocationMetadataToJSON(value.allocation),
-        'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
-        'beta': AnonymousTemporalRangeToJSON(value.beta),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'global_id': value['globalId'],
+        'cloud_key': value['cloudKey'],
+        'stripe_customer_id': value['stripeCustomerId'],
+        'vanityname': value['vanityname'],
+        'allocation': Auth0UserAllocationMetadataToJSON(value['allocation']),
+        'open_AI': Auth0OpenAIUserMetadataToJSON(value['openAI']),
+        'beta': AnonymousTemporalRangeToJSON(value['beta']),
     };
 }
 

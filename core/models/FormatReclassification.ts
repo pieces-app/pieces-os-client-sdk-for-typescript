@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
-import {
-    ClassificationSpecificEnumFromJSON,
-    ClassificationSpecificEnumFromJSONTyped,
-    ClassificationSpecificEnumToJSON,
-} from './ClassificationSpecificEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { Format } from './Format';
 import {
     FormatFromJSON,
     FormatFromJSONTyped,
     FormatToJSON,
 } from './Format';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
+    ClassificationSpecificEnumFromJSON,
+    ClassificationSpecificEnumFromJSONTyped,
+    ClassificationSpecificEnumToJSON,
+} from './ClassificationSpecificEnum';
 
 /**
  * This is a model that will represent the miminum properties required to update the classification of this format.
@@ -61,12 +61,10 @@ export interface FormatReclassification {
 /**
  * Check if a given object implements the FormatReclassification interface.
  */
-export function instanceOfFormatReclassification(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "ext" in value;
-    isInstance = isInstance && "format" in value;
-
-    return isInstance;
+export function instanceOfFormatReclassification(value: object): value is FormatReclassification {
+    if (!('ext' in value) || value['ext'] === undefined) return false;
+    if (!('format' in value) || value['format'] === undefined) return false;
+    return true;
 }
 
 export function FormatReclassificationFromJSON(json: any): FormatReclassification {
@@ -74,29 +72,26 @@ export function FormatReclassificationFromJSON(json: any): FormatReclassificatio
 }
 
 export function FormatReclassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): FormatReclassification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'ext': ClassificationSpecificEnumFromJSON(json['ext']),
         'format': FormatFromJSON(json['format']),
     };
 }
 
 export function FormatReclassificationToJSON(value?: FormatReclassification | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'ext': ClassificationSpecificEnumToJSON(value.ext),
-        'format': FormatToJSON(value.format),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'ext': ClassificationSpecificEnumToJSON(value['ext']),
+        'format': FormatToJSON(value['format']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,12 +49,10 @@ export interface ByteDescriptor {
 /**
  * Check if a given object implements the ByteDescriptor interface.
  */
-export function instanceOfByteDescriptor(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "value" in value;
-    isInstance = isInstance && "readable" in value;
-
-    return isInstance;
+export function instanceOfByteDescriptor(value: object): value is ByteDescriptor {
+    if (!('value' in value) || value['value'] === undefined) return false;
+    if (!('readable' in value) || value['readable'] === undefined) return false;
+    return true;
 }
 
 export function ByteDescriptorFromJSON(json: any): ByteDescriptor {
@@ -62,29 +60,26 @@ export function ByteDescriptorFromJSON(json: any): ByteDescriptor {
 }
 
 export function ByteDescriptorFromJSONTyped(json: any, ignoreDiscriminator: boolean): ByteDescriptor {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'value': json['value'],
         'readable': json['readable'],
     };
 }
 
 export function ByteDescriptorToJSON(value?: ByteDescriptor | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'value': value.value,
-        'readable': value.readable,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'value': value['value'],
+        'readable': value['readable'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -39,10 +39,8 @@ export interface QGPTConversationPipelineForGeneralizedCodeDialog {
 /**
  * Check if a given object implements the QGPTConversationPipelineForGeneralizedCodeDialog interface.
  */
-export function instanceOfQGPTConversationPipelineForGeneralizedCodeDialog(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTConversationPipelineForGeneralizedCodeDialog(value: object): value is QGPTConversationPipelineForGeneralizedCodeDialog {
+    return true;
 }
 
 export function QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json: any): QGPTConversationPipelineForGeneralizedCodeDialog {
@@ -50,25 +48,22 @@ export function QGPTConversationPipelineForGeneralizedCodeDialogFromJSON(json: a
 }
 
 export function QGPTConversationPipelineForGeneralizedCodeDialogFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipelineForGeneralizedCodeDialog {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
 export function QGPTConversationPipelineForGeneralizedCodeDialogToJSON(value?: QGPTConversationPipelineForGeneralizedCodeDialog | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

@@ -35,6 +35,17 @@ export const MechanismEnum = {
 export type MechanismEnum = typeof MechanismEnum[keyof typeof MechanismEnum];
 
 
+export function instanceOfMechanismEnum(value: any): boolean {
+    for (const key in MechanismEnum) {
+        if (Object.prototype.hasOwnProperty.call(MechanismEnum, key)) {
+            if (MechanismEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function MechanismEnumFromJSON(json: any): MechanismEnum {
     return MechanismEnumFromJSONTyped(json, false);
 }

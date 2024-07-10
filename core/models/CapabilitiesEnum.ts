@@ -25,6 +25,17 @@ export const CapabilitiesEnum = {
 export type CapabilitiesEnum = typeof CapabilitiesEnum[keyof typeof CapabilitiesEnum];
 
 
+export function instanceOfCapabilitiesEnum(value: any): boolean {
+    for (const key in CapabilitiesEnum) {
+        if (Object.prototype.hasOwnProperty.call(CapabilitiesEnum, key)) {
+            if (CapabilitiesEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function CapabilitiesEnumFromJSON(json: any): CapabilitiesEnum {
     return CapabilitiesEnumFromJSONTyped(json, false);
 }

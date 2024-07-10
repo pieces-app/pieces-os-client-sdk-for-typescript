@@ -12,73 +12,73 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { Activities } from './Activities';
 import {
     ActivitiesFromJSON,
     ActivitiesFromJSONTyped,
     ActivitiesToJSON,
 } from './Activities';
-import type { Anchors } from './Anchors';
+import type { Sensitives } from './Sensitives';
 import {
-    AnchorsFromJSON,
-    AnchorsFromJSONTyped,
-    AnchorsToJSON,
-} from './Anchors';
-import type { Annotations } from './Annotations';
-import {
-    AnnotationsFromJSON,
-    AnnotationsFromJSONTyped,
-    AnnotationsToJSON,
-} from './Annotations';
-import type { Conversations } from './Conversations';
-import {
-    ConversationsFromJSON,
-    ConversationsFromJSONTyped,
-    ConversationsToJSON,
-} from './Conversations';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { Formats } from './Formats';
-import {
-    FormatsFromJSON,
-    FormatsFromJSONTyped,
-    FormatsToJSON,
-} from './Formats';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
+    SensitivesFromJSON,
+    SensitivesFromJSONTyped,
+    SensitivesToJSON,
+} from './Sensitives';
 import type { Hints } from './Hints';
 import {
     HintsFromJSON,
     HintsFromJSONTyped,
     HintsToJSON,
 } from './Hints';
-import type { MechanismEnum } from './MechanismEnum';
+import type { Websites } from './Websites';
 import {
-    MechanismEnumFromJSON,
-    MechanismEnumFromJSONTyped,
-    MechanismEnumToJSON,
-} from './MechanismEnum';
-import type { Persons } from './Persons';
+    WebsitesFromJSON,
+    WebsitesFromJSONTyped,
+    WebsitesToJSON,
+} from './Websites';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    PersonsFromJSON,
-    PersonsFromJSONTyped,
-    PersonsToJSON,
-} from './Persons';
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { Preview } from './Preview';
 import {
     PreviewFromJSON,
     PreviewFromJSONTyped,
     PreviewToJSON,
 } from './Preview';
+import type { Formats } from './Formats';
+import {
+    FormatsFromJSON,
+    FormatsFromJSONTyped,
+    FormatsToJSON,
+} from './Formats';
+import type { Conversations } from './Conversations';
+import {
+    ConversationsFromJSON,
+    ConversationsFromJSONTyped,
+    ConversationsToJSON,
+} from './Conversations';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+} from './GroupedTimestamp';
+import type { WorkstreamSummaries } from './WorkstreamSummaries';
+import {
+    WorkstreamSummariesFromJSON,
+    WorkstreamSummariesFromJSONTyped,
+    WorkstreamSummariesToJSON,
+} from './WorkstreamSummaries';
+import type { Anchors } from './Anchors';
+import {
+    AnchorsFromJSON,
+    AnchorsFromJSONTyped,
+    AnchorsToJSON,
+} from './Anchors';
 import type { ReferencedFormat } from './ReferencedFormat';
 import {
     ReferencedFormatFromJSON,
@@ -91,12 +91,24 @@ import {
     ScoreFromJSONTyped,
     ScoreToJSON,
 } from './Score';
-import type { Sensitives } from './Sensitives';
+import type { Annotations } from './Annotations';
 import {
-    SensitivesFromJSON,
-    SensitivesFromJSONTyped,
-    SensitivesToJSON,
-} from './Sensitives';
+    AnnotationsFromJSON,
+    AnnotationsFromJSONTyped,
+    AnnotationsToJSON,
+} from './Annotations';
+import type { Persons } from './Persons';
+import {
+    PersonsFromJSON,
+    PersonsFromJSONTyped,
+    PersonsToJSON,
+} from './Persons';
+import type { MechanismEnum } from './MechanismEnum';
+import {
+    MechanismEnumFromJSON,
+    MechanismEnumFromJSONTyped,
+    MechanismEnumToJSON,
+} from './MechanismEnum';
 import type { Shares } from './Shares';
 import {
     SharesFromJSON,
@@ -109,18 +121,6 @@ import {
     TagsFromJSONTyped,
     TagsToJSON,
 } from './Tags';
-import type { Websites } from './Websites';
-import {
-    WebsitesFromJSON,
-    WebsitesFromJSONTyped,
-    WebsitesToJSON,
-} from './Websites';
-import type { WorkstreamSummaries } from './WorkstreamSummaries';
-import {
-    WorkstreamSummariesFromJSON,
-    WorkstreamSummariesFromJSONTyped,
-    WorkstreamSummariesToJSON,
-} from './WorkstreamSummaries';
 
 /**
  * An Asset Model representing data extracted from an Application connecting a group of data containing one or more Formats.
@@ -315,18 +315,16 @@ export interface Asset {
 /**
  * Check if a given object implements the Asset interface.
  */
-export function instanceOfAsset(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "creator" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "formats" in value;
-    isInstance = isInstance && "preview" in value;
-    isInstance = isInstance && "original" in value;
-    isInstance = isInstance && "mechanism" in value;
-
-    return isInstance;
+export function instanceOfAsset(value: object): value is Asset {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('creator' in value) || value['creator'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('formats' in value) || value['formats'] === undefined) return false;
+    if (!('preview' in value) || value['preview'] === undefined) return false;
+    if (!('original' in value) || value['original'] === undefined) return false;
+    if (!('mechanism' in value) || value['mechanism'] === undefined) return false;
+    return true;
 }
 
 export function AssetFromJSON(json: any): Asset {
@@ -334,83 +332,80 @@ export function AssetFromJSON(json: any): Asset {
 }
 
 export function AssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): Asset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'] == null ? undefined : json['name'],
         'creator': json['creator'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'synced': !exists(json, 'synced') ? undefined : GroupedTimestampFromJSON(json['synced']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'synced': json['synced'] == null ? undefined : GroupedTimestampFromJSON(json['synced']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'formats': FormatsFromJSON(json['formats']),
         'preview': PreviewFromJSON(json['preview']),
         'original': ReferencedFormatFromJSON(json['original']),
-        'shares': !exists(json, 'shares') ? undefined : SharesFromJSON(json['shares']),
+        'shares': json['shares'] == null ? undefined : SharesFromJSON(json['shares']),
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
-        'websites': !exists(json, 'websites') ? undefined : WebsitesFromJSON(json['websites']),
-        'interacted': !exists(json, 'interacted') ? undefined : GroupedTimestampFromJSON(json['interacted']),
-        'tags': !exists(json, 'tags') ? undefined : TagsFromJSON(json['tags']),
-        'sensitives': !exists(json, 'sensitives') ? undefined : SensitivesFromJSON(json['sensitives']),
-        'persons': !exists(json, 'persons') ? undefined : PersonsFromJSON(json['persons']),
-        'curated': !exists(json, 'curated') ? undefined : json['curated'],
-        'discovered': !exists(json, 'discovered') ? undefined : json['discovered'],
-        'activities': !exists(json, 'activities') ? undefined : ActivitiesFromJSON(json['activities']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
-        'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
-        'pseudo': !exists(json, 'pseudo') ? undefined : json['pseudo'],
-        'annotations': !exists(json, 'annotations') ? undefined : AnnotationsFromJSON(json['annotations']),
-        'hints': !exists(json, 'hints') ? undefined : HintsFromJSON(json['hints']),
-        'anchors': !exists(json, 'anchors') ? undefined : AnchorsFromJSON(json['anchors']),
-        'conversations': !exists(json, 'conversations') ? undefined : ConversationsFromJSON(json['conversations']),
-        'summaries': !exists(json, 'summaries') ? undefined : WorkstreamSummariesFromJSON(json['summaries']),
-        'demo': !exists(json, 'demo') ? undefined : json['demo'],
+        'websites': json['websites'] == null ? undefined : WebsitesFromJSON(json['websites']),
+        'interacted': json['interacted'] == null ? undefined : GroupedTimestampFromJSON(json['interacted']),
+        'tags': json['tags'] == null ? undefined : TagsFromJSON(json['tags']),
+        'sensitives': json['sensitives'] == null ? undefined : SensitivesFromJSON(json['sensitives']),
+        'persons': json['persons'] == null ? undefined : PersonsFromJSON(json['persons']),
+        'curated': json['curated'] == null ? undefined : json['curated'],
+        'discovered': json['discovered'] == null ? undefined : json['discovered'],
+        'activities': json['activities'] == null ? undefined : ActivitiesFromJSON(json['activities']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'favorited': json['favorited'] == null ? undefined : json['favorited'],
+        'pseudo': json['pseudo'] == null ? undefined : json['pseudo'],
+        'annotations': json['annotations'] == null ? undefined : AnnotationsFromJSON(json['annotations']),
+        'hints': json['hints'] == null ? undefined : HintsFromJSON(json['hints']),
+        'anchors': json['anchors'] == null ? undefined : AnchorsFromJSON(json['anchors']),
+        'conversations': json['conversations'] == null ? undefined : ConversationsFromJSON(json['conversations']),
+        'summaries': json['summaries'] == null ? undefined : WorkstreamSummariesFromJSON(json['summaries']),
+        'demo': json['demo'] == null ? undefined : json['demo'],
     };
 }
 
 export function AssetToJSON(value?: Asset | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'name': value.name,
-        'creator': value.creator,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'synced': GroupedTimestampToJSON(value.synced),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'formats': FormatsToJSON(value.formats),
-        'preview': PreviewToJSON(value.preview),
-        'original': ReferencedFormatToJSON(value.original),
-        'shares': SharesToJSON(value.shares),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'websites': WebsitesToJSON(value.websites),
-        'interacted': GroupedTimestampToJSON(value.interacted),
-        'tags': TagsToJSON(value.tags),
-        'sensitives': SensitivesToJSON(value.sensitives),
-        'persons': PersonsToJSON(value.persons),
-        'curated': value.curated,
-        'discovered': value.discovered,
-        'activities': ActivitiesToJSON(value.activities),
-        'score': ScoreToJSON(value.score),
-        'favorited': value.favorited,
-        'pseudo': value.pseudo,
-        'annotations': AnnotationsToJSON(value.annotations),
-        'hints': HintsToJSON(value.hints),
-        'anchors': AnchorsToJSON(value.anchors),
-        'conversations': ConversationsToJSON(value.conversations),
-        'summaries': WorkstreamSummariesToJSON(value.summaries),
-        'demo': value.demo,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'name': value['name'],
+        'creator': value['creator'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'synced': GroupedTimestampToJSON(value['synced']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'formats': FormatsToJSON(value['formats']),
+        'preview': PreviewToJSON(value['preview']),
+        'original': ReferencedFormatToJSON(value['original']),
+        'shares': SharesToJSON(value['shares']),
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'websites': WebsitesToJSON(value['websites']),
+        'interacted': GroupedTimestampToJSON(value['interacted']),
+        'tags': TagsToJSON(value['tags']),
+        'sensitives': SensitivesToJSON(value['sensitives']),
+        'persons': PersonsToJSON(value['persons']),
+        'curated': value['curated'],
+        'discovered': value['discovered'],
+        'activities': ActivitiesToJSON(value['activities']),
+        'score': ScoreToJSON(value['score']),
+        'favorited': value['favorited'],
+        'pseudo': value['pseudo'],
+        'annotations': AnnotationsToJSON(value['annotations']),
+        'hints': HintsToJSON(value['hints']),
+        'anchors': AnchorsToJSON(value['anchors']),
+        'conversations': ConversationsToJSON(value['conversations']),
+        'summaries': WorkstreamSummariesToJSON(value['summaries']),
+        'demo': value['demo'],
     };
 }
 

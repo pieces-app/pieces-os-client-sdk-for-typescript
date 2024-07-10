@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -64,10 +64,8 @@ export interface TransferableBytes {
 /**
  * Check if a given object implements the TransferableBytes interface.
  */
-export function instanceOfTransferableBytes(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTransferableBytes(value: object): value is TransferableBytes {
+    return true;
 }
 
 export function TransferableBytesFromJSON(json: any): TransferableBytes {
@@ -75,33 +73,30 @@ export function TransferableBytesFromJSON(json: any): TransferableBytes {
 }
 
 export function TransferableBytesFromJSONTyped(json: any, ignoreDiscriminator: boolean): TransferableBytes {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'raw': !exists(json, 'raw') ? undefined : json['raw'],
-        'base64': !exists(json, 'base64') ? undefined : json['base64'],
-        'base64Url': !exists(json, 'base64_url') ? undefined : json['base64_url'],
-        'dataUrl': !exists(json, 'data_url') ? undefined : json['data_url'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'raw': json['raw'] == null ? undefined : json['raw'],
+        'base64': json['base64'] == null ? undefined : json['base64'],
+        'base64Url': json['base64_url'] == null ? undefined : json['base64_url'],
+        'dataUrl': json['data_url'] == null ? undefined : json['data_url'],
     };
 }
 
 export function TransferableBytesToJSON(value?: TransferableBytes | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'raw': value.raw,
-        'base64': value.base64,
-        'base64_url': value.base64Url,
-        'data_url': value.dataUrl,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'raw': value['raw'],
+        'base64': value['base64'],
+        'base64_url': value['base64Url'],
+        'data_url': value['dataUrl'],
     };
 }
 

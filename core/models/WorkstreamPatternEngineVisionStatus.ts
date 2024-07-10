@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
-import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import {
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+} from './AnonymousTemporalRange';
 
 /**
  * activation: can be active for forever w/ continous true, or it can be activated for the next couple hours
@@ -59,10 +59,8 @@ export interface WorkstreamPatternEngineVisionStatus {
 /**
  * Check if a given object implements the WorkstreamPatternEngineVisionStatus interface.
  */
-export function instanceOfWorkstreamPatternEngineVisionStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineVisionStatus(value: object): value is WorkstreamPatternEngineVisionStatus {
+    return true;
 }
 
 export function WorkstreamPatternEngineVisionStatusFromJSON(json: any): WorkstreamPatternEngineVisionStatus {
@@ -70,29 +68,26 @@ export function WorkstreamPatternEngineVisionStatusFromJSON(json: any): Workstre
 }
 
 export function WorkstreamPatternEngineVisionStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineVisionStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'activation': !exists(json, 'activation') ? undefined : AnonymousTemporalRangeFromJSON(json['activation']),
-        'deactivation': !exists(json, 'deactivation') ? undefined : AnonymousTemporalRangeFromJSON(json['deactivation']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'activation': json['activation'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['activation']),
+        'deactivation': json['deactivation'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['deactivation']),
     };
 }
 
 export function WorkstreamPatternEngineVisionStatusToJSON(value?: WorkstreamPatternEngineVisionStatus | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'activation': AnonymousTemporalRangeToJSON(value.activation),
-        'deactivation': AnonymousTemporalRangeToJSON(value.deactivation),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'activation': AnonymousTemporalRangeToJSON(value['activation']),
+        'deactivation': AnonymousTemporalRangeToJSON(value['deactivation']),
     };
 }
 

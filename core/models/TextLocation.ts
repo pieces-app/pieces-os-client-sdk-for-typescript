@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -55,13 +55,11 @@ export interface TextLocation {
 /**
  * Check if a given object implements the TextLocation interface.
  */
-export function instanceOfTextLocation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "text" in value;
-    isInstance = isInstance && "start" in value;
-    isInstance = isInstance && "end" in value;
-
-    return isInstance;
+export function instanceOfTextLocation(value: object): value is TextLocation {
+    if (!('text' in value) || value['text'] === undefined) return false;
+    if (!('start' in value) || value['start'] === undefined) return false;
+    if (!('end' in value) || value['end'] === undefined) return false;
+    return true;
 }
 
 export function TextLocationFromJSON(json: any): TextLocation {
@@ -69,12 +67,12 @@ export function TextLocationFromJSON(json: any): TextLocation {
 }
 
 export function TextLocationFromJSONTyped(json: any, ignoreDiscriminator: boolean): TextLocation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
         'start': json['start'],
         'end': json['end'],
@@ -82,18 +80,15 @@ export function TextLocationFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function TextLocationToJSON(value?: TextLocation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'text': value.text,
-        'start': value.start,
-        'end': value.end,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'text': value['text'],
+        'start': value['start'],
+        'end': value['end'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -71,10 +71,8 @@ export interface AnonymousTemporalRange {
 /**
  * Check if a given object implements the AnonymousTemporalRange interface.
  */
-export function instanceOfAnonymousTemporalRange(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAnonymousTemporalRange(value: object): value is AnonymousTemporalRange {
+    return true;
 }
 
 export function AnonymousTemporalRangeFromJSON(json: any): AnonymousTemporalRange {
@@ -82,33 +80,30 @@ export function AnonymousTemporalRangeFromJSON(json: any): AnonymousTemporalRang
 }
 
 export function AnonymousTemporalRangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnonymousTemporalRange {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'from': !exists(json, 'from') ? undefined : GroupedTimestampFromJSON(json['from']),
-        'to': !exists(json, 'to') ? undefined : GroupedTimestampFromJSON(json['to']),
-        'between': !exists(json, 'between') ? undefined : json['between'],
-        'continuous': !exists(json, 'continuous') ? undefined : json['continuous'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'from': json['from'] == null ? undefined : GroupedTimestampFromJSON(json['from']),
+        'to': json['to'] == null ? undefined : GroupedTimestampFromJSON(json['to']),
+        'between': json['between'] == null ? undefined : json['between'],
+        'continuous': json['continuous'] == null ? undefined : json['continuous'],
     };
 }
 
 export function AnonymousTemporalRangeToJSON(value?: AnonymousTemporalRange | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'from': GroupedTimestampToJSON(value.from),
-        'to': GroupedTimestampToJSON(value.to),
-        'between': value.between,
-        'continuous': value.continuous,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'from': GroupedTimestampToJSON(value['from']),
+        'to': GroupedTimestampToJSON(value['to']),
+        'between': value['between'],
+        'continuous': value['continuous'],
     };
 }
 

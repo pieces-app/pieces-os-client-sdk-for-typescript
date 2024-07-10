@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -44,11 +44,9 @@ export interface MailgunMetadata {
 /**
  * Check if a given object implements the MailgunMetadata interface.
  */
-export function instanceOfMailgunMetadata(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "messageId" in value;
-
-    return isInstance;
+export function instanceOfMailgunMetadata(value: object): value is MailgunMetadata {
+    if (!('messageId' in value) || value['messageId'] === undefined) return false;
+    return true;
 }
 
 export function MailgunMetadataFromJSON(json: any): MailgunMetadata {
@@ -56,27 +54,24 @@ export function MailgunMetadataFromJSON(json: any): MailgunMetadata {
 }
 
 export function MailgunMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): MailgunMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'messageId': json['messageId'],
     };
 }
 
 export function MailgunMetadataToJSON(value?: MailgunMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'messageId': value.messageId,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'messageId': value['messageId'],
     };
 }
 

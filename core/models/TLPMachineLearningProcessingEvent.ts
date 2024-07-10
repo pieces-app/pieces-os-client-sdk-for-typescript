@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,10 +49,8 @@ export interface TLPMachineLearningProcessingEvent {
 /**
  * Check if a given object implements the TLPMachineLearningProcessingEvent interface.
  */
-export function instanceOfTLPMachineLearningProcessingEvent(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTLPMachineLearningProcessingEvent(value: object): value is TLPMachineLearningProcessingEvent {
+    return true;
 }
 
 export function TLPMachineLearningProcessingEventFromJSON(json: any): TLPMachineLearningProcessingEvent {
@@ -60,27 +58,24 @@ export function TLPMachineLearningProcessingEventFromJSON(json: any): TLPMachine
 }
 
 export function TLPMachineLearningProcessingEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPMachineLearningProcessingEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'code': !exists(json, 'code') ? undefined : TLPCodeProcessingFromJSON(json['code']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'code': json['code'] == null ? undefined : TLPCodeProcessingFromJSON(json['code']),
     };
 }
 
 export function TLPMachineLearningProcessingEventToJSON(value?: TLPMachineLearningProcessingEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code': TLPCodeProcessingToJSON(value.code),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code': TLPCodeProcessingToJSON(value['code']),
     };
 }
 

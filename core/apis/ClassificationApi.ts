@@ -47,7 +47,7 @@ export class ClassificationApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededFormatToJSON(requestParameters.seededFormat),
+            body: SeededFormatToJSON(requestParameters['seededFormat']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SeededFormatFromJSON(jsonValue));

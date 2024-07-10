@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { OSProcessingPermissions } from './OSProcessingPermissions';
 import {
     OSProcessingPermissionsFromJSON,
     OSProcessingPermissionsFromJSONTyped,
     OSProcessingPermissionsToJSON,
 } from './OSProcessingPermissions';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * This will return the permission of this specific operating system w/ relation to given features.
@@ -49,10 +49,8 @@ export interface OSPermissions {
 /**
  * Check if a given object implements the OSPermissions interface.
  */
-export function instanceOfOSPermissions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOSPermissions(value: object): value is OSPermissions {
+    return true;
 }
 
 export function OSPermissionsFromJSON(json: any): OSPermissions {
@@ -60,27 +58,24 @@ export function OSPermissionsFromJSON(json: any): OSPermissions {
 }
 
 export function OSPermissionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSPermissions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'processing': !exists(json, 'processing') ? undefined : OSProcessingPermissionsFromJSON(json['processing']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'processing': json['processing'] == null ? undefined : OSProcessingPermissionsFromJSON(json['processing']),
     };
 }
 
 export function OSPermissionsToJSON(value?: OSPermissions | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'processing': OSProcessingPermissionsToJSON(value.processing),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'processing': OSProcessingPermissionsToJSON(value['processing']),
     };
 }
 

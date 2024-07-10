@@ -31,6 +31,17 @@ export const SearchedMatchEnum = {
 export type SearchedMatchEnum = typeof SearchedMatchEnum[keyof typeof SearchedMatchEnum];
 
 
+export function instanceOfSearchedMatchEnum(value: any): boolean {
+    for (const key in SearchedMatchEnum) {
+        if (Object.prototype.hasOwnProperty.call(SearchedMatchEnum, key)) {
+            if (SearchedMatchEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function SearchedMatchEnumFromJSON(json: any): SearchedMatchEnum {
     return SearchedMatchEnumFromJSONTyped(json, false);
 }

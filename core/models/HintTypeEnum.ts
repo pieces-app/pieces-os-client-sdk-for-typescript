@@ -24,6 +24,17 @@ export const HintTypeEnum = {
 export type HintTypeEnum = typeof HintTypeEnum[keyof typeof HintTypeEnum];
 
 
+export function instanceOfHintTypeEnum(value: any): boolean {
+    for (const key in HintTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(HintTypeEnum, key)) {
+            if (HintTypeEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function HintTypeEnumFromJSON(json: any): HintTypeEnum {
     return HintTypeEnumFromJSONTyped(json, false);
 }

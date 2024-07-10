@@ -12,49 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
 import {
     ConversationMessageSentimentEnumFromJSON,
     ConversationMessageSentimentEnumFromJSONTyped,
     ConversationMessageSentimentEnumToJSON,
 } from './ConversationMessageSentimentEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FragmentFormat } from './FragmentFormat';
-import {
-    FragmentFormatFromJSON,
-    FragmentFormatFromJSONTyped,
-    FragmentFormatToJSON,
-} from './FragmentFormat';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
-import type { Model } from './Model';
-import {
-    ModelFromJSON,
-    ModelFromJSONTyped,
-    ModelToJSON,
-} from './Model';
-import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
-import {
-    QGPTConversationMessageRoleEnumFromJSON,
-    QGPTConversationMessageRoleEnumFromJSONTyped,
-    QGPTConversationMessageRoleEnumToJSON,
-} from './QGPTConversationMessageRoleEnum';
 import type { ReferencedConversation } from './ReferencedConversation';
 import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
 } from './ReferencedConversation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
+import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
+import {
+    QGPTConversationMessageRoleEnumFromJSON,
+    QGPTConversationMessageRoleEnumFromJSONTyped,
+    QGPTConversationMessageRoleEnumToJSON,
+} from './QGPTConversationMessageRoleEnum';
+import type { FragmentFormat } from './FragmentFormat';
+import {
+    FragmentFormatFromJSON,
+    FragmentFormatFromJSONTyped,
+    FragmentFormatToJSON,
+} from './FragmentFormat';
+import type { Model } from './Model';
+import {
+    ModelFromJSON,
+    ModelFromJSONTyped,
+    ModelToJSON,
+} from './Model';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+} from './GroupedTimestamp';
 
 /**
  * This is a seeded version of a ConversationMessage.
@@ -111,12 +111,10 @@ export interface SeededConversationMessage {
 /**
  * Check if a given object implements the SeededConversationMessage interface.
  */
-export function instanceOfSeededConversationMessage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "fragment" in value;
-    isInstance = isInstance && "role" in value;
-
-    return isInstance;
+export function instanceOfSeededConversationMessage(value: object): value is SeededConversationMessage {
+    if (!('fragment' in value) || value['fragment'] === undefined) return false;
+    if (!('role' in value) || value['role'] === undefined) return false;
+    return true;
 }
 
 export function SeededConversationMessageFromJSON(json: any): SeededConversationMessage {
@@ -124,37 +122,34 @@ export function SeededConversationMessageFromJSON(json: any): SeededConversation
 }
 
 export function SeededConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConversationMessage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'created': !exists(json, 'created') ? undefined : GroupedTimestampFromJSON(json['created']),
-        'model': !exists(json, 'model') ? undefined : ModelFromJSON(json['model']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'created': json['created'] == null ? undefined : GroupedTimestampFromJSON(json['created']),
+        'model': json['model'] == null ? undefined : ModelFromJSON(json['model']),
         'fragment': FragmentFormatFromJSON(json['fragment']),
-        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
-        'sentiment': !exists(json, 'sentiment') ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
+        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'sentiment': json['sentiment'] == null ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
         'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
     };
 }
 
 export function SeededConversationMessageToJSON(value?: SeededConversationMessage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'created': GroupedTimestampToJSON(value.created),
-        'model': ModelToJSON(value.model),
-        'fragment': FragmentFormatToJSON(value.fragment),
-        'conversation': ReferencedConversationToJSON(value.conversation),
-        'sentiment': ConversationMessageSentimentEnumToJSON(value.sentiment),
-        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'model': ModelToJSON(value['model']),
+        'fragment': FragmentFormatToJSON(value['fragment']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'sentiment': ConversationMessageSentimentEnumToJSON(value['sentiment']),
+        'role': QGPTConversationMessageRoleEnumToJSON(value['role']),
     };
 }
 

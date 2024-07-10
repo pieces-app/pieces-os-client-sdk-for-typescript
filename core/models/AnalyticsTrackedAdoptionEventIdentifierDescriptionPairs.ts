@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -67,10 +67,8 @@ export type AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUnins
 /**
  * Check if a given object implements the AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairs(value: object): value is AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON(json: any): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
@@ -78,29 +76,26 @@ export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON(
 }
 
 export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'adoptionInstall': !exists(json, 'adoption_install') ? undefined : json['adoption_install'],
-        'adoptionUninstall': !exists(json, 'adoption_uninstall') ? undefined : json['adoption_uninstall'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'adoptionInstall': json['adoption_install'] == null ? undefined : json['adoption_install'],
+        'adoptionUninstall': json['adoption_uninstall'] == null ? undefined : json['adoption_uninstall'],
     };
 }
 
 export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON(value?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'adoption_install': value.adoptionInstall,
-        'adoption_uninstall': value.adoptionUninstall,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'adoption_install': value['adoptionInstall'],
+        'adoption_uninstall': value['adoptionUninstall'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * A Model to support account creation to Auth0's Database.
  * @export
@@ -78,19 +78,17 @@ export interface OAuthAccount {
 /**
  * Check if a given object implements the OAuthAccount interface.
  */
-export function instanceOfOAuthAccount(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "clientId" in value;
-    isInstance = isInstance && "email" in value;
-    isInstance = isInstance && "connection" in value;
-    isInstance = isInstance && "username" in value;
-    isInstance = isInstance && "givenName" in value;
-    isInstance = isInstance && "familyName" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "picture" in value;
-    isInstance = isInstance && "nickname" in value;
-
-    return isInstance;
+export function instanceOfOAuthAccount(value: object): value is OAuthAccount {
+    if (!('clientId' in value) || value['clientId'] === undefined) return false;
+    if (!('email' in value) || value['email'] === undefined) return false;
+    if (!('connection' in value) || value['connection'] === undefined) return false;
+    if (!('username' in value) || value['username'] === undefined) return false;
+    if (!('givenName' in value) || value['givenName'] === undefined) return false;
+    if (!('familyName' in value) || value['familyName'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('picture' in value) || value['picture'] === undefined) return false;
+    if (!('nickname' in value) || value['nickname'] === undefined) return false;
+    return true;
 }
 
 export function OAuthAccountFromJSON(json: any): OAuthAccount {
@@ -98,7 +96,7 @@ export function OAuthAccountFromJSON(json: any): OAuthAccount {
 }
 
 export function OAuthAccountFromJSONTyped(json: any, ignoreDiscriminator: boolean): OAuthAccount {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -116,23 +114,20 @@ export function OAuthAccountFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function OAuthAccountToJSON(value?: OAuthAccount | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'client_id': value.clientId,
-        'email': value.email,
-        'connection': value.connection,
-        'username': value.username,
-        'given_name': value.givenName,
-        'family_name': value.familyName,
-        'name': value.name,
-        'picture': value.picture,
-        'nickname': value.nickname,
+        'client_id': value['clientId'],
+        'email': value['email'],
+        'connection': value['connection'],
+        'username': value['username'],
+        'given_name': value['givenName'],
+        'family_name': value['familyName'],
+        'name': value['name'],
+        'picture': value['picture'],
+        'nickname': value['nickname'],
     };
 }
 

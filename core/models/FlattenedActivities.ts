@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,11 +49,9 @@ export interface FlattenedActivities {
 /**
  * Check if a given object implements the FlattenedActivities interface.
  */
-export function instanceOfFlattenedActivities(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfFlattenedActivities(value: object): value is FlattenedActivities {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedActivitiesFromJSON(json: any): FlattenedActivities {
@@ -61,27 +59,24 @@ export function FlattenedActivitiesFromJSON(json: any): FlattenedActivities {
 }
 
 export function FlattenedActivitiesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedActivities {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedActivityFromJSON)),
     };
 }
 
 export function FlattenedActivitiesToJSON(value?: FlattenedActivities | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedActivityToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedActivityToJSON)),
     };
 }
 

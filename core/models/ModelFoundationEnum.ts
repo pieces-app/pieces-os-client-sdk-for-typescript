@@ -15,6 +15,10 @@
 
 /**
  * This is used to describe the foundational models used within POS.
+ * 
+ * Note: LATEST models could be used as the latests of these and then could use a system to either(check a file) or
+ *       we could add and endpoint to click out to the cloud to get the latest models and update these locally so that our users
+ *       can always have the latest without having to update the application.(not used for now)
  * @export
  */
 export const ModelFoundationEnum = {
@@ -25,7 +29,6 @@ export const ModelFoundationEnum = {
     Llama213B: 'LLAMA_2_13B',
     Llama270B: 'LLAMA_2_70B',
     Llama32B: 'LLAMA_3_2B',
-    Llama37B: 'LLAMA_3_7B',
     Llama313B: 'LLAMA_3_13B',
     Llama370B: 'LLAMA_3_70B',
     CodeLlama27B: 'CODE_LLAMA_2_7B',
@@ -116,10 +119,45 @@ export const ModelFoundationEnum = {
     Dbrx: 'DBRX',
     CommandR: 'COMMAND_R+',
     Gemma112B: 'GEMMA_1.1_2B',
-    Gemma117B: 'GEMMA_1.1_7B'
+    Gemma117B: 'GEMMA_1.1_7B',
+    Gemma29B: 'GEMMA_2_9B',
+    Phi3Mini: 'PHI_3_MINI',
+    Phi3Small: 'PHI_3_SMALL',
+    Granite3B: 'GRANITE_3B',
+    Granite8B: 'GRANITE_8B',
+    Llama38B: 'LLAMA_3_8B',
+    Claude35: 'CLAUDE_3.5',
+    ClaudeLatest: 'CLAUDE_LATEST',
+    GraniteLatest: 'GRANITE_LATEST',
+    LlamaLatest: 'LLAMA_LATEST',
+    PhiLatest: 'PHI_LATEST',
+    GemmaLatest: 'GEMMA_LATEST',
+    GeminiLatest: 'GEMINI_LATEST',
+    GptLatest: 'GPT_LATEST',
+    AzureLatest: 'AZURE_LATEST',
+    AzureFast: 'AZURE_FAST',
+    AzureBest: 'AZURE_BEST',
+    AzureDefault: 'AZURE_DEFAULT',
+    AzureCustom: 'AZURE_CUSTOM',
+    PerplexityLatest: 'PERPLEXITY_LATEST',
+    PerplexityFast: 'PERPLEXITY_FAST',
+    PerplexityBest: 'PERPLEXITY_BEST',
+    PerplexityDefault: 'PERPLEXITY_DEFAULT',
+    PerplexityCustom: 'PERPLEXITY_CUSTOM'
 } as const;
 export type ModelFoundationEnum = typeof ModelFoundationEnum[keyof typeof ModelFoundationEnum];
 
+
+export function instanceOfModelFoundationEnum(value: any): boolean {
+    for (const key in ModelFoundationEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelFoundationEnum, key)) {
+            if (ModelFoundationEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ModelFoundationEnumFromJSON(json: any): ModelFoundationEnum {
     return ModelFoundationEnumFromJSONTyped(json, false);

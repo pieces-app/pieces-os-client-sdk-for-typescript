@@ -53,8 +53,8 @@ export class WorkstreamEventsApi extends runtime.BaseAPI {
     async workstreamEventsCreateNewWorkstreamEventRaw(requestParameters: WorkstreamEventsCreateNewWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamEvent>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -66,7 +66,7 @@ export class WorkstreamEventsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededWorkstreamEventToJSON(requestParameters.seededWorkstreamEvent),
+            body: SeededWorkstreamEventToJSON(requestParameters['seededWorkstreamEvent']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamEventFromJSON(jsonValue));
@@ -86,8 +86,11 @@ export class WorkstreamEventsApi extends runtime.BaseAPI {
      * /workstream_events/{workstream_event}/delete [POST]
      */
     async workstreamEventsDeleteSpecificWorkstreamEventRaw(requestParameters: WorkstreamEventsDeleteSpecificWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventsDeleteSpecificWorkstreamEvent.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventsDeleteSpecificWorkstreamEvent().'
+            );
         }
 
         const queryParameters: any = {};
@@ -95,7 +98,7 @@ export class WorkstreamEventsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/workstream_events/{workstream_event}/delete`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))),
+            path: `/workstream_events/{workstream_event}/delete`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -119,8 +122,8 @@ export class WorkstreamEventsApi extends runtime.BaseAPI {
     async workstreamEventsSnapshotRaw(requestParameters: WorkstreamEventsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamEvents>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

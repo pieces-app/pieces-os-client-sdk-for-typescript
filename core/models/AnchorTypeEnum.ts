@@ -24,6 +24,17 @@ export const AnchorTypeEnum = {
 export type AnchorTypeEnum = typeof AnchorTypeEnum[keyof typeof AnchorTypeEnum];
 
 
+export function instanceOfAnchorTypeEnum(value: any): boolean {
+    for (const key in AnchorTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(AnchorTypeEnum, key)) {
+            if (AnchorTypeEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function AnchorTypeEnumFromJSON(json: any): AnchorTypeEnum {
     return AnchorTypeEnumFromJSONTyped(json, false);
 }

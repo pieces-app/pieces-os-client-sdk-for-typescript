@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -43,11 +43,9 @@ export interface QGPTRepromptOutput {
 /**
  * Check if a given object implements the QGPTRepromptOutput interface.
  */
-export function instanceOfQGPTRepromptOutput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "query" in value;
-
-    return isInstance;
+export function instanceOfQGPTRepromptOutput(value: object): value is QGPTRepromptOutput {
+    if (!('query' in value) || value['query'] === undefined) return false;
+    return true;
 }
 
 export function QGPTRepromptOutputFromJSON(json: any): QGPTRepromptOutput {
@@ -55,27 +53,24 @@ export function QGPTRepromptOutputFromJSON(json: any): QGPTRepromptOutput {
 }
 
 export function QGPTRepromptOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTRepromptOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'query': json['query'],
     };
 }
 
 export function QGPTRepromptOutputToJSON(value?: QGPTRepromptOutput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'query': value.query,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'query': value['query'],
     };
 }
 

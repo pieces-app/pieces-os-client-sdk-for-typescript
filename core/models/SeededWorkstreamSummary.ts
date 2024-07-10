@@ -12,49 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Applications } from './Applications';
-import {
-    ApplicationsFromJSON,
-    ApplicationsFromJSONTyped,
-    ApplicationsToJSON,
-} from './Applications';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAnchors } from './FlattenedAnchors';
-import {
-    FlattenedAnchorsFromJSON,
-    FlattenedAnchorsFromJSONTyped,
-    FlattenedAnchorsToJSON,
-} from './FlattenedAnchors';
-import type { FlattenedAssets } from './FlattenedAssets';
-import {
-    FlattenedAssetsFromJSON,
-    FlattenedAssetsFromJSONTyped,
-    FlattenedAssetsToJSON,
-} from './FlattenedAssets';
+import { mapValues } from '../runtime';
 import type { FlattenedConversations } from './FlattenedConversations';
 import {
     FlattenedConversationsFromJSON,
     FlattenedConversationsFromJSONTyped,
     FlattenedConversationsToJSON,
 } from './FlattenedConversations';
-import type { FlattenedPersons } from './FlattenedPersons';
-import {
-    FlattenedPersonsFromJSON,
-    FlattenedPersonsFromJSONTyped,
-    FlattenedPersonsToJSON,
-} from './FlattenedPersons';
-import type { FlattenedRanges } from './FlattenedRanges';
-import {
-    FlattenedRangesFromJSON,
-    FlattenedRangesFromJSONTyped,
-    FlattenedRangesToJSON,
-} from './FlattenedRanges';
 import type { FlattenedWebsites } from './FlattenedWebsites';
 import {
     FlattenedWebsitesFromJSON,
@@ -67,18 +31,54 @@ import {
     FlattenedWorkstreamEventsFromJSONTyped,
     FlattenedWorkstreamEventsToJSON,
 } from './FlattenedWorkstreamEvents';
-import type { Model } from './Model';
+import type { Applications } from './Applications';
 import {
-    ModelFromJSON,
-    ModelFromJSONTyped,
-    ModelToJSON,
-} from './Model';
+    ApplicationsFromJSON,
+    ApplicationsFromJSONTyped,
+    ApplicationsToJSON,
+} from './Applications';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+} from './FlattenedAssets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { SeededAnnotation } from './SeededAnnotation';
 import {
     SeededAnnotationFromJSON,
     SeededAnnotationFromJSONTyped,
     SeededAnnotationToJSON,
 } from './SeededAnnotation';
+import type { Model } from './Model';
+import {
+    ModelFromJSON,
+    ModelFromJSONTyped,
+    ModelToJSON,
+} from './Model';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+} from './FlattenedPersons';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+} from './FlattenedAnchors';
+import type { FlattenedRanges } from './FlattenedRanges';
+import {
+    FlattenedRangesFromJSON,
+    FlattenedRangesFromJSONTyped,
+    FlattenedRangesToJSON,
+} from './FlattenedRanges';
 
 /**
  * This is a seeded version of a WorkstreamSummary
@@ -163,12 +163,10 @@ export interface SeededWorkstreamSummary {
 /**
  * Check if a given object implements the SeededWorkstreamSummary interface.
  */
-export function instanceOfSeededWorkstreamSummary(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "model" in value;
-
-    return isInstance;
+export function instanceOfSeededWorkstreamSummary(value: object): value is SeededWorkstreamSummary {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('model' in value) || value['model'] === undefined) return false;
+    return true;
 }
 
 export function SeededWorkstreamSummaryFromJSON(json: any): SeededWorkstreamSummary {
@@ -176,47 +174,44 @@ export function SeededWorkstreamSummaryFromJSON(json: any): SeededWorkstreamSumm
 }
 
 export function SeededWorkstreamSummaryFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededWorkstreamSummary {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'events': !exists(json, 'events') ? undefined : FlattenedWorkstreamEventsFromJSON(json['events']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'events': json['events'] == null ? undefined : FlattenedWorkstreamEventsFromJSON(json['events']),
         'name': json['name'],
-        'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
-        'ranges': !exists(json, 'ranges') ? undefined : FlattenedRangesFromJSON(json['ranges']),
+        'annotations': json['annotations'] == null ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
+        'ranges': json['ranges'] == null ? undefined : FlattenedRangesFromJSON(json['ranges']),
         'model': ModelFromJSON(json['model']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'applications': !exists(json, 'applications') ? undefined : ApplicationsFromJSON(json['applications']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'applications': json['applications'] == null ? undefined : ApplicationsFromJSON(json['applications']),
     };
 }
 
 export function SeededWorkstreamSummaryToJSON(value?: SeededWorkstreamSummary | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'events': FlattenedWorkstreamEventsToJSON(value.events),
-        'name': value.name,
-        'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
-        'ranges': FlattenedRangesToJSON(value.ranges),
-        'model': ModelToJSON(value.model),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'conversations': FlattenedConversationsToJSON(value.conversations),
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'applications': ApplicationsToJSON(value.applications),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'events': FlattenedWorkstreamEventsToJSON(value['events']),
+        'name': value['name'],
+        'annotations': value['annotations'] == null ? undefined : ((value['annotations'] as Array<any>).map(SeededAnnotationToJSON)),
+        'ranges': FlattenedRangesToJSON(value['ranges']),
+        'model': ModelToJSON(value['model']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'conversations': FlattenedConversationsToJSON(value['conversations']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'applications': ApplicationsToJSON(value['applications']),
     };
 }
 

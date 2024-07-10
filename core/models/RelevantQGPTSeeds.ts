@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { RelevantQGPTSeed } from './RelevantQGPTSeed';
 import {
     RelevantQGPTSeedFromJSON,
     RelevantQGPTSeedFromJSONTyped,
     RelevantQGPTSeedToJSON,
 } from './RelevantQGPTSeed';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a plural of RelevantQGPTSeed.
@@ -49,11 +49,9 @@ export interface RelevantQGPTSeeds {
 /**
  * Check if a given object implements the RelevantQGPTSeeds interface.
  */
-export function instanceOfRelevantQGPTSeeds(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfRelevantQGPTSeeds(value: object): value is RelevantQGPTSeeds {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function RelevantQGPTSeedsFromJSON(json: any): RelevantQGPTSeeds {
@@ -61,27 +59,24 @@ export function RelevantQGPTSeedsFromJSON(json: any): RelevantQGPTSeeds {
 }
 
 export function RelevantQGPTSeedsFromJSONTyped(json: any, ignoreDiscriminator: boolean): RelevantQGPTSeeds {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(RelevantQGPTSeedFromJSON)),
     };
 }
 
 export function RelevantQGPTSeedsToJSON(value?: RelevantQGPTSeeds | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(RelevantQGPTSeedToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(RelevantQGPTSeedToJSON)),
     };
 }
 

@@ -68,12 +68,18 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range}/conversations/grounding/temporal_range/workstreams/associate/{conversation} [POST]
      */
     async rangeAssociateConversationGroundingTemporalRangeWorkstreamsRaw(requestParameters: RangeAssociateConversationGroundingTemporalRangeWorkstreamsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
         const queryParameters: any = {};
@@ -81,7 +87,7 @@ export class RangeApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/associate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/associate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -103,12 +109,18 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range}/workstream_summaries/associate/{workstream_summary} [POST]
      */
     async rangeAssociateWorkstreamSummaryRaw(requestParameters: RangeAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeAssociateWorkstreamSummary.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeAssociateWorkstreamSummary().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling rangeAssociateWorkstreamSummary.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling rangeAssociateWorkstreamSummary().'
+            );
         }
 
         const queryParameters: any = {};
@@ -116,7 +128,7 @@ export class RangeApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/range/{range}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/range/{range}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -138,12 +150,18 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range}/conversations/grounding/temporal_range/workstreams/disassociate/{conversation} [POST]
      */
     async rangeDisassociateConversationGroundingTemporalRangeWorkstreamsRaw(requestParameters: RangeDisassociateConversationGroundingTemporalRangeWorkstreamsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
         const queryParameters: any = {};
@@ -151,7 +169,7 @@ export class RangeApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/disassociate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/disassociate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -173,12 +191,18 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range}/workstream_summaries/disassociate/{workstream_summary} [POST]
      */
     async rangeDisassociateWorkstreamSummaryRaw(requestParameters: RangeDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeDisassociateWorkstreamSummary.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeDisassociateWorkstreamSummary().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling rangeDisassociateWorkstreamSummary.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling rangeDisassociateWorkstreamSummary().'
+            );
         }
 
         const queryParameters: any = {};
@@ -186,7 +210,7 @@ export class RangeApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/range/{range}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/range/{range}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -208,8 +232,11 @@ export class RangeApi extends runtime.BaseAPI {
      * \'/range/{range}/scores/increment\' [POST]
      */
     async rangeScoresIncrementRaw(requestParameters: RangeScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeScoresIncrement.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -219,11 +246,11 @@ export class RangeApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/range/{range}/scores/increment`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
+            path: `/range/{range}/scores/increment`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -253,7 +280,7 @@ export class RangeApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: RangeToJSON(requestParameters.range),
+            body: RangeToJSON(requestParameters['range']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RangeFromJSON(jsonValue));
@@ -273,8 +300,11 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range} [GET]
      */
     async rangesSpecificRangeSnapshotRaw(requestParameters: RangesSpecificRangeSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Range>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangesSpecificRangeSnapshot.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangesSpecificRangeSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
@@ -282,7 +312,7 @@ export class RangeApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/range/{range}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
+            path: `/range/{range}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

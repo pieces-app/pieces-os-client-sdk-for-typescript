@@ -12,37 +12,37 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ApplicationNameEnum } from './ApplicationNameEnum';
 import {
     ApplicationNameEnumFromJSON,
     ApplicationNameEnumFromJSONTyped,
     ApplicationNameEnumToJSON,
 } from './ApplicationNameEnum';
-import type { CapabilitiesEnum } from './CapabilitiesEnum';
-import {
-    CapabilitiesEnumFromJSON,
-    CapabilitiesEnumFromJSONTyped,
-    CapabilitiesEnumToJSON,
-} from './CapabilitiesEnum';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
-import type { PlatformEnum } from './PlatformEnum';
-import {
-    PlatformEnumFromJSON,
-    PlatformEnumFromJSONTyped,
-    PlatformEnumToJSON,
-} from './PlatformEnum';
 import type { PrivacyEnum } from './PrivacyEnum';
 import {
     PrivacyEnumFromJSON,
     PrivacyEnumFromJSONTyped,
     PrivacyEnumToJSON,
 } from './PrivacyEnum';
+import type { CapabilitiesEnum } from './CapabilitiesEnum';
+import {
+    CapabilitiesEnumFromJSON,
+    CapabilitiesEnumFromJSONTyped,
+    CapabilitiesEnumToJSON,
+} from './CapabilitiesEnum';
+import type { PlatformEnum } from './PlatformEnum';
+import {
+    PlatformEnumFromJSON,
+    PlatformEnumFromJSONTyped,
+    PlatformEnumToJSON,
+} from './PlatformEnum';
 
 /**
  * A Model to describe what application a format/analytics event originated - Specifically NOT requiring an ID
@@ -97,13 +97,11 @@ export interface SeededTrackedApplication {
 /**
  * Check if a given object implements the SeededTrackedApplication interface.
  */
-export function instanceOfSeededTrackedApplication(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "version" in value;
-    isInstance = isInstance && "platform" in value;
-
-    return isInstance;
+export function instanceOfSeededTrackedApplication(value: object): value is SeededTrackedApplication {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('version' in value) || value['version'] === undefined) return false;
+    if (!('platform' in value) || value['platform'] === undefined) return false;
+    return true;
 }
 
 export function SeededTrackedApplicationFromJSON(json: any): SeededTrackedApplication {
@@ -111,37 +109,34 @@ export function SeededTrackedApplicationFromJSON(json: any): SeededTrackedApplic
 }
 
 export function SeededTrackedApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedApplication {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'name': ApplicationNameEnumFromJSON(json['name']),
         'version': json['version'],
         'platform': PlatformEnumFromJSON(json['platform']),
-        'capabilities': !exists(json, 'capabilities') ? undefined : CapabilitiesEnumFromJSON(json['capabilities']),
-        'privacy': !exists(json, 'privacy') ? undefined : PrivacyEnumFromJSON(json['privacy']),
-        'automaticUnload': !exists(json, 'automaticUnload') ? undefined : json['automaticUnload'],
+        'capabilities': json['capabilities'] == null ? undefined : CapabilitiesEnumFromJSON(json['capabilities']),
+        'privacy': json['privacy'] == null ? undefined : PrivacyEnumFromJSON(json['privacy']),
+        'automaticUnload': json['automaticUnload'] == null ? undefined : json['automaticUnload'],
     };
 }
 
 export function SeededTrackedApplicationToJSON(value?: SeededTrackedApplication | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': ApplicationNameEnumToJSON(value.name),
-        'version': value.version,
-        'platform': PlatformEnumToJSON(value.platform),
-        'capabilities': CapabilitiesEnumToJSON(value.capabilities),
-        'privacy': PrivacyEnumToJSON(value.privacy),
-        'automaticUnload': value.automaticUnload,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': ApplicationNameEnumToJSON(value['name']),
+        'version': value['version'],
+        'platform': PlatformEnumToJSON(value['platform']),
+        'capabilities': CapabilitiesEnumToJSON(value['capabilities']),
+        'privacy': PrivacyEnumToJSON(value['privacy']),
+        'automaticUnload': value['automaticUnload'],
     };
 }
 

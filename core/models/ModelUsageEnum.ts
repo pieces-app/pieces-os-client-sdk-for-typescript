@@ -38,10 +38,22 @@ export const ModelUsageEnum = {
     CodeFramework: 'CODE_FRAMEWORK',
     VideoOcr: 'VIDEO_OCR',
     TextVsCodeSegmentation: 'TEXT_VS_CODE_SEGMENTATION',
-    TextEmbedding: 'TEXT_EMBEDDING'
+    TextEmbedding: 'TEXT_EMBEDDING',
+    TechnicalError: 'TECHNICAL_ERROR'
 } as const;
 export type ModelUsageEnum = typeof ModelUsageEnum[keyof typeof ModelUsageEnum];
 
+
+export function instanceOfModelUsageEnum(value: any): boolean {
+    for (const key in ModelUsageEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelUsageEnum, key)) {
+            if (ModelUsageEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ModelUsageEnumFromJSON(json: any): ModelUsageEnum {
     return ModelUsageEnumFromJSONTyped(json, false);

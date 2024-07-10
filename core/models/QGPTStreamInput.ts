@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { QGPTQuestionInput } from './QGPTQuestionInput';
 import {
     QGPTQuestionInputFromJSON,
@@ -79,10 +79,8 @@ export interface QGPTStreamInput {
 /**
  * Check if a given object implements the QGPTStreamInput interface.
  */
-export function instanceOfQGPTStreamInput(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTStreamInput(value: object): value is QGPTStreamInput {
+    return true;
 }
 
 export function QGPTStreamInputFromJSON(json: any): QGPTStreamInput {
@@ -90,37 +88,34 @@ export function QGPTStreamInputFromJSON(json: any): QGPTStreamInput {
 }
 
 export function QGPTStreamInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTStreamInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'relevance': !exists(json, 'relevance') ? undefined : QGPTRelevanceInputFromJSON(json['relevance']),
-        'question': !exists(json, 'question') ? undefined : QGPTQuestionInputFromJSON(json['question']),
-        'request': !exists(json, 'request') ? undefined : json['request'],
-        'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
-        'stop': !exists(json, 'stop') ? undefined : json['stop'],
-        'reset': !exists(json, 'reset') ? undefined : json['reset'],
-        'agent': !exists(json, 'agent') ? undefined : json['agent'],
+        'relevance': json['relevance'] == null ? undefined : QGPTRelevanceInputFromJSON(json['relevance']),
+        'question': json['question'] == null ? undefined : QGPTQuestionInputFromJSON(json['question']),
+        'request': json['request'] == null ? undefined : json['request'],
+        'conversation': json['conversation'] == null ? undefined : json['conversation'],
+        'stop': json['stop'] == null ? undefined : json['stop'],
+        'reset': json['reset'] == null ? undefined : json['reset'],
+        'agent': json['agent'] == null ? undefined : json['agent'],
     };
 }
 
 export function QGPTStreamInputToJSON(value?: QGPTStreamInput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'relevance': QGPTRelevanceInputToJSON(value.relevance),
-        'question': QGPTQuestionInputToJSON(value.question),
-        'request': value.request,
-        'conversation': value.conversation,
-        'stop': value.stop,
-        'reset': value.reset,
-        'agent': value.agent,
+        'relevance': QGPTRelevanceInputToJSON(value['relevance']),
+        'question': QGPTQuestionInputToJSON(value['question']),
+        'request': value['request'],
+        'conversation': value['conversation'],
+        'stop': value['stop'],
+        'reset': value['reset'],
+        'agent': value['agent'],
     };
 }
 

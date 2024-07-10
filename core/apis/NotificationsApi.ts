@@ -47,7 +47,7 @@ export class NotificationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: NotificationToJSON(requestParameters.notification),
+            body: NotificationToJSON(requestParameters['notification']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -65,10 +65,8 @@ export interface AssetFilterTimestamp {
 /**
  * Check if a given object implements the AssetFilterTimestamp interface.
  */
-export function instanceOfAssetFilterTimestamp(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAssetFilterTimestamp(value: object): value is AssetFilterTimestamp {
+    return true;
 }
 
 export function AssetFilterTimestampFromJSON(json: any): AssetFilterTimestamp {
@@ -76,31 +74,28 @@ export function AssetFilterTimestampFromJSON(json: any): AssetFilterTimestamp {
 }
 
 export function AssetFilterTimestampFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilterTimestamp {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'from': !exists(json, 'from') ? undefined : GroupedTimestampFromJSON(json['from']),
-        'to': !exists(json, 'to') ? undefined : GroupedTimestampFromJSON(json['to']),
-        'between': !exists(json, 'between') ? undefined : json['between'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'from': json['from'] == null ? undefined : GroupedTimestampFromJSON(json['from']),
+        'to': json['to'] == null ? undefined : GroupedTimestampFromJSON(json['to']),
+        'between': json['between'] == null ? undefined : json['between'],
     };
 }
 
 export function AssetFilterTimestampToJSON(value?: AssetFilterTimestamp | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'from': GroupedTimestampToJSON(value.from),
-        'to': GroupedTimestampToJSON(value.to),
-        'between': value.between,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'from': GroupedTimestampToJSON(value['from']),
+        'to': GroupedTimestampToJSON(value['to']),
+        'between': value['between'],
     };
 }
 

@@ -159,7 +159,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ApplicationToJSON(requestParameters.application),
+            body: ApplicationToJSON(requestParameters['application']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationFromJSON(jsonValue));
@@ -192,7 +192,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SessionFromJSON(jsonValue));
@@ -244,8 +244,11 @@ export class ApplicationsApi extends runtime.BaseAPI {
      * @deprecated
      */
     async applicationsSessionSnapshotRaw(requestParameters: ApplicationsSessionSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Session>> {
-        if (requestParameters.session === null || requestParameters.session === undefined) {
-            throw new runtime.RequiredError('session','Required parameter requestParameters.session was null or undefined when calling applicationsSessionSnapshot.');
+        if (requestParameters['session'] == null) {
+            throw new runtime.RequiredError(
+                'session',
+                'Required parameter "session" was null or undefined when calling applicationsSessionSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
@@ -253,7 +256,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/applications/sessions/{session}`.replace(`{${"session"}}`, encodeURIComponent(String(requestParameters.session))),
+            path: `/applications/sessions/{session}`.replace(`{${"session"}}`, encodeURIComponent(String(requestParameters['session']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -305,8 +308,11 @@ export class ApplicationsApi extends runtime.BaseAPI {
      * /applications/{application} [GET]
      */
     async applicationsSpecificApplicationSnapshotRaw(requestParameters: ApplicationsSpecificApplicationSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Application>> {
-        if (requestParameters.application === null || requestParameters.application === undefined) {
-            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling applicationsSpecificApplicationSnapshot.');
+        if (requestParameters['application'] == null) {
+            throw new runtime.RequiredError(
+                'application',
+                'Required parameter "application" was null or undefined when calling applicationsSpecificApplicationSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
@@ -314,7 +320,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/applications/{application}`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            path: `/applications/{application}`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters['application']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -349,7 +355,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededTrackedInteractionEventToJSON(requestParameters.seededTrackedInteractionEvent),
+            body: SeededTrackedInteractionEventToJSON(requestParameters['seededTrackedInteractionEvent']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TrackedInteractionEventFromJSON(jsonValue));
@@ -382,7 +388,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededTrackedKeyboardEventToJSON(requestParameters.seededTrackedKeyboardEvent),
+            body: SeededTrackedKeyboardEventToJSON(requestParameters['seededTrackedKeyboardEvent']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TrackedKeyboardEventFromJSON(jsonValue));
@@ -415,7 +421,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TrackedApplicationInstallToJSON(requestParameters.trackedApplicationInstall),
+            body: TrackedApplicationInstallToJSON(requestParameters['trackedApplicationInstall']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -447,7 +453,7 @@ export class ApplicationsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TrackedApplicationUpdateToJSON(requestParameters.trackedApplicationUpdate),
+            body: TrackedApplicationUpdateToJSON(requestParameters['trackedApplicationUpdate']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);

@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
 import {
     ClassificationGenericEnumFromJSON,
@@ -25,12 +31,6 @@ import {
     ClassificationSpecificEnumFromJSONTyped,
     ClassificationSpecificEnumToJSON,
 } from './ClassificationSpecificEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
 
 /**
  * FormatMetric
@@ -69,13 +69,11 @@ export interface FormatMetric {
 /**
  * Check if a given object implements the FormatMetric interface.
  */
-export function instanceOfFormatMetric(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "generic" in value;
-    isInstance = isInstance && "specific" in value;
-    isInstance = isInstance && "identifiers" in value;
-
-    return isInstance;
+export function instanceOfFormatMetric(value: object): value is FormatMetric {
+    if (!('generic' in value) || value['generic'] === undefined) return false;
+    if (!('specific' in value) || value['specific'] === undefined) return false;
+    if (!('identifiers' in value) || value['identifiers'] === undefined) return false;
+    return true;
 }
 
 export function FormatMetricFromJSON(json: any): FormatMetric {
@@ -83,12 +81,12 @@ export function FormatMetricFromJSON(json: any): FormatMetric {
 }
 
 export function FormatMetricFromJSONTyped(json: any, ignoreDiscriminator: boolean): FormatMetric {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'generic': ClassificationGenericEnumFromJSON(json['generic']),
         'specific': ClassificationSpecificEnumFromJSON(json['specific']),
         'identifiers': json['identifiers'],
@@ -96,18 +94,15 @@ export function FormatMetricFromJSONTyped(json: any, ignoreDiscriminator: boolea
 }
 
 export function FormatMetricToJSON(value?: FormatMetric | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'generic': ClassificationGenericEnumToJSON(value.generic),
-        'specific': ClassificationSpecificEnumToJSON(value.specific),
-        'identifiers': value.identifiers,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'generic': ClassificationGenericEnumToJSON(value['generic']),
+        'specific': ClassificationSpecificEnumToJSON(value['specific']),
+        'identifiers': value['identifiers'],
     };
 }
 

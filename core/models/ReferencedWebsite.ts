@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedWebsite } from './FlattenedWebsite';
 import {
     FlattenedWebsiteFromJSON,
     FlattenedWebsiteFromJSONTyped,
     FlattenedWebsiteToJSON,
 } from './FlattenedWebsite';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -55,11 +55,9 @@ export interface ReferencedWebsite {
 /**
  * Check if a given object implements the ReferencedWebsite interface.
  */
-export function instanceOfReferencedWebsite(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedWebsite(value: object): value is ReferencedWebsite {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedWebsiteFromJSON(json: any): ReferencedWebsite {
@@ -67,29 +65,26 @@ export function ReferencedWebsiteFromJSON(json: any): ReferencedWebsite {
 }
 
 export function ReferencedWebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedWebsite {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedWebsiteFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedWebsiteFromJSON(json['reference']),
     };
 }
 
 export function ReferencedWebsiteToJSON(value?: ReferencedWebsite | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedWebsiteToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedWebsiteToJSON(value['reference']),
     };
 }
 

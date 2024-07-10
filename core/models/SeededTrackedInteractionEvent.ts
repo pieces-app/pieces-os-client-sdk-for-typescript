@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -62,11 +62,9 @@ export interface SeededTrackedInteractionEvent {
 /**
  * Check if a given object implements the SeededTrackedInteractionEvent interface.
  */
-export function instanceOfSeededTrackedInteractionEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "description" in value;
-
-    return isInstance;
+export function instanceOfSeededTrackedInteractionEvent(value: object): value is SeededTrackedInteractionEvent {
+    if (!('description' in value) || value['description'] === undefined) return false;
+    return true;
 }
 
 export function SeededTrackedInteractionEventFromJSON(json: any): SeededTrackedInteractionEvent {
@@ -74,31 +72,28 @@ export function SeededTrackedInteractionEventFromJSON(json: any): SeededTrackedI
 }
 
 export function SeededTrackedInteractionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedInteractionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'description': json['description'],
-        'element': !exists(json, 'element') ? undefined : json['element'],
-        'identifierDescriptionPair': !exists(json, 'identifier_description_pair') ? undefined : SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
+        'element': json['element'] == null ? undefined : json['element'],
+        'identifierDescriptionPair': json['identifier_description_pair'] == null ? undefined : SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
     };
 }
 
 export function SeededTrackedInteractionEventToJSON(value?: SeededTrackedInteractionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'description': value.description,
-        'element': value.element,
-        'identifier_description_pair': SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'description': value['description'],
+        'element': value['element'],
+        'identifier_description_pair': SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
     };
 }
 

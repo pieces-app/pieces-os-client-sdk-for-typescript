@@ -50,20 +50,23 @@ export class ActivityApi extends runtime.BaseAPI {
      * /activity/{activity} [GET]
      */
     async activitiesSpecificActivitySnapshotRaw(requestParameters: ActivitiesSpecificActivitySnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activity>> {
-        if (requestParameters.activity === null || requestParameters.activity === undefined) {
-            throw new runtime.RequiredError('activity','Required parameter requestParameters.activity was null or undefined when calling activitiesSpecificActivitySnapshot.');
+        if (requestParameters['activity'] == null) {
+            throw new runtime.RequiredError(
+                'activity',
+                'Required parameter "activity" was null or undefined when calling activitiesSpecificActivitySnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/activity/{activity}`.replace(`{${"activity"}}`, encodeURIComponent(String(requestParameters.activity))),
+            path: `/activity/{activity}`.replace(`{${"activity"}}`, encodeURIComponent(String(requestParameters['activity']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -88,12 +91,12 @@ export class ActivityApi extends runtime.BaseAPI {
     async activityIdentifiersSnapshotRaw(requestParameters: ActivityIdentifiersSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FlattenedActivities>> {
         const queryParameters: any = {};
 
-        if (requestParameters.pseudo !== undefined) {
-            queryParameters['pseudo'] = requestParameters.pseudo;
+        if (requestParameters['pseudo'] != null) {
+            queryParameters['pseudo'] = requestParameters['pseudo'];
         }
 
-        if (requestParameters.activityFilterEnum !== undefined) {
-            queryParameters['activity_filter_enum'] = requestParameters.activityFilterEnum;
+        if (requestParameters['activityFilterEnum'] != null) {
+            queryParameters['activity_filter_enum'] = requestParameters['activityFilterEnum'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -124,8 +127,8 @@ export class ActivityApi extends runtime.BaseAPI {
     async activityUpdateRaw(requestParameters: ActivityUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activity>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -137,7 +140,7 @@ export class ActivityApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ActivityToJSON(requestParameters.activity),
+            body: ActivityToJSON(requestParameters['activity']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActivityFromJSON(jsonValue));

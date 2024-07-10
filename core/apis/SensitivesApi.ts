@@ -15,11 +15,17 @@
 
 import * as runtime from '../runtime';
 import type {
+  SearchInput,
+  SearchedSensitives,
   SeededSensitive,
   Sensitive,
   Sensitives,
 } from '../models/index';
 import {
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedSensitivesFromJSON,
+    SearchedSensitivesToJSON,
     SeededSensitiveFromJSON,
     SeededSensitiveToJSON,
     SensitiveFromJSON,
@@ -27,6 +33,11 @@ import {
     SensitivesFromJSON,
     SensitivesToJSON,
 } from '../models/index';
+
+export interface SearchSensitivesRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
 
 export interface SensitivesCreateNewSensitiveRequest {
     seededSensitive?: SeededSensitive;
@@ -40,6 +51,41 @@ export interface SensitivesDeleteSensitiveRequest {
  * 
  */
 export class SensitivesApi extends runtime.BaseAPI {
+
+    /**
+     * This will search your sensitives for a specific sensitive  note: we will search the value of the sensitive
+     * /sensitives/search [POST]
+     */
+    async searchSensitivesRaw(requestParameters: SearchSensitivesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedSensitives>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/sensitives/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters['searchInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedSensitivesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your sensitives for a specific sensitive  note: we will search the value of the sensitive
+     * /sensitives/search [POST]
+     */
+    async searchSensitives(requestParameters: SearchSensitivesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedSensitives> {
+        const response = await this.searchSensitivesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * This will create a new sensitive model.
@@ -57,7 +103,7 @@ export class SensitivesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededSensitiveToJSON(requestParameters.seededSensitive),
+            body: SeededSensitiveToJSON(requestParameters['seededSensitive']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitiveFromJSON(jsonValue));
@@ -77,8 +123,11 @@ export class SensitivesApi extends runtime.BaseAPI {
      * /sensitives/{sensitive}/delete [POST]
      */
     async sensitivesDeleteSensitiveRaw(requestParameters: SensitivesDeleteSensitiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
-            throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitivesDeleteSensitive.');
+        if (requestParameters['sensitive'] == null) {
+            throw new runtime.RequiredError(
+                'sensitive',
+                'Required parameter "sensitive" was null or undefined when calling sensitivesDeleteSensitive().'
+            );
         }
 
         const queryParameters: any = {};
@@ -86,7 +135,7 @@ export class SensitivesApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters.sensitive))),
+            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters['sensitive']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

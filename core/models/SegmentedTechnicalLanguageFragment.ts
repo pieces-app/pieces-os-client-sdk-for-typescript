@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
-import {
-    ClassificationGenericEnumFromJSON,
-    ClassificationGenericEnumFromJSONTyped,
-    ClassificationGenericEnumToJSON,
-} from './ClassificationGenericEnum';
-import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
-import {
-    ClassificationSpecificEnumFromJSON,
-    ClassificationSpecificEnumFromJSONTyped,
-    ClassificationSpecificEnumToJSON,
-} from './ClassificationSpecificEnum';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
+import {
+    ClassificationGenericEnumFromJSON,
+    ClassificationGenericEnumFromJSONTyped,
+    ClassificationGenericEnumToJSON,
+} from './ClassificationGenericEnum';
 import type { FragmentFormat } from './FragmentFormat';
 import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
 } from './FragmentFormat';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
+    ClassificationSpecificEnumFromJSON,
+    ClassificationSpecificEnumFromJSONTyped,
+    ClassificationSpecificEnumToJSON,
+} from './ClassificationSpecificEnum';
 
 /**
  * This is the output iterable model for '/machine_learning/text/technical_language/parsers/segmentation'
@@ -75,12 +75,10 @@ export interface SegmentedTechnicalLanguageFragment {
 /**
  * Check if a given object implements the SegmentedTechnicalLanguageFragment interface.
  */
-export function instanceOfSegmentedTechnicalLanguageFragment(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "generic" in value;
-    isInstance = isInstance && "fragment" in value;
-
-    return isInstance;
+export function instanceOfSegmentedTechnicalLanguageFragment(value: object): value is SegmentedTechnicalLanguageFragment {
+    if (!('generic' in value) || value['generic'] === undefined) return false;
+    if (!('fragment' in value) || value['fragment'] === undefined) return false;
+    return true;
 }
 
 export function SegmentedTechnicalLanguageFragmentFromJSON(json: any): SegmentedTechnicalLanguageFragment {
@@ -88,31 +86,28 @@ export function SegmentedTechnicalLanguageFragmentFromJSON(json: any): Segmented
 }
 
 export function SegmentedTechnicalLanguageFragmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): SegmentedTechnicalLanguageFragment {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'generic': ClassificationGenericEnumFromJSON(json['generic']),
-        'specific': !exists(json, 'specific') ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
+        'specific': json['specific'] == null ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
         'fragment': FragmentFormatFromJSON(json['fragment']),
     };
 }
 
 export function SegmentedTechnicalLanguageFragmentToJSON(value?: SegmentedTechnicalLanguageFragment | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'generic': ClassificationGenericEnumToJSON(value.generic),
-        'specific': ClassificationSpecificEnumToJSON(value.specific),
-        'fragment': FragmentFormatToJSON(value.fragment),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'generic': ClassificationGenericEnumToJSON(value['generic']),
+        'specific': ClassificationSpecificEnumToJSON(value['specific']),
+        'fragment': FragmentFormatToJSON(value['fragment']),
     };
 }
 

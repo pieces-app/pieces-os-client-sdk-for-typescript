@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { Embedding } from './Embedding';
 import {
     EmbeddingFromJSON,
@@ -37,11 +37,9 @@ export interface Embeddings {
 /**
  * Check if a given object implements the Embeddings interface.
  */
-export function instanceOfEmbeddings(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfEmbeddings(value: object): value is Embeddings {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function EmbeddingsFromJSON(json: any): Embeddings {
@@ -49,7 +47,7 @@ export function EmbeddingsFromJSON(json: any): Embeddings {
 }
 
 export function EmbeddingsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Embeddings {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,15 +57,12 @@ export function EmbeddingsFromJSONTyped(json: any, ignoreDiscriminator: boolean)
 }
 
 export function EmbeddingsToJSON(value?: Embeddings | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(EmbeddingToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(EmbeddingToJSON)),
     };
 }
 

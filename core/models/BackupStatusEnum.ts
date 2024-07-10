@@ -29,6 +29,17 @@ export const BackupStatusEnum = {
 export type BackupStatusEnum = typeof BackupStatusEnum[keyof typeof BackupStatusEnum];
 
 
+export function instanceOfBackupStatusEnum(value: any): boolean {
+    for (const key in BackupStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(BackupStatusEnum, key)) {
+            if (BackupStatusEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function BackupStatusEnumFromJSON(json: any): BackupStatusEnum {
     return BackupStatusEnumFromJSONTyped(json, false);
 }

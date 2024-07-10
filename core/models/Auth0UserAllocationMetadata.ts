@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * This is specifically for our allocation server metadata.
  * @export
@@ -36,12 +36,10 @@ export interface Auth0UserAllocationMetadata {
 /**
  * Check if a given object implements the Auth0UserAllocationMetadata interface.
  */
-export function instanceOfAuth0UserAllocationMetadata(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "project" in value;
-    isInstance = isInstance && "region" in value;
-
-    return isInstance;
+export function instanceOfAuth0UserAllocationMetadata(value: object): value is Auth0UserAllocationMetadata {
+    if (!('project' in value) || value['project'] === undefined) return false;
+    if (!('region' in value) || value['region'] === undefined) return false;
+    return true;
 }
 
 export function Auth0UserAllocationMetadataFromJSON(json: any): Auth0UserAllocationMetadata {
@@ -49,7 +47,7 @@ export function Auth0UserAllocationMetadataFromJSON(json: any): Auth0UserAllocat
 }
 
 export function Auth0UserAllocationMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0UserAllocationMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -60,16 +58,13 @@ export function Auth0UserAllocationMetadataFromJSONTyped(json: any, ignoreDiscri
 }
 
 export function Auth0UserAllocationMetadataToJSON(value?: Auth0UserAllocationMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'project': value.project,
-        'region': value.region,
+        'project': value['project'],
+        'region': value['region'],
     };
 }
 

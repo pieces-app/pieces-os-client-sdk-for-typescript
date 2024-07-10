@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
-import type { QGPTConversationPipeline } from './QGPTConversationPipeline';
-import {
-    QGPTConversationPipelineFromJSON,
-    QGPTConversationPipelineFromJSONTyped,
-    QGPTConversationPipelineToJSON,
-} from './QGPTConversationPipeline';
 import type { QGPTTaskPipeline } from './QGPTTaskPipeline';
 import {
     QGPTTaskPipelineFromJSON,
     QGPTTaskPipelineFromJSONTyped,
     QGPTTaskPipelineToJSON,
 } from './QGPTTaskPipeline';
+import type { QGPTConversationPipeline } from './QGPTConversationPipeline';
+import {
+    QGPTConversationPipelineFromJSON,
+    QGPTConversationPipelineFromJSONTyped,
+    QGPTConversationPipelineToJSON,
+} from './QGPTConversationPipeline';
 
 /**
  * This is a model related to switching between different prompts based on if we are dealing with 
@@ -68,10 +68,8 @@ export interface QGPTPromptPipeline {
 /**
  * Check if a given object implements the QGPTPromptPipeline interface.
  */
-export function instanceOfQGPTPromptPipeline(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTPromptPipeline(value: object): value is QGPTPromptPipeline {
+    return true;
 }
 
 export function QGPTPromptPipelineFromJSON(json: any): QGPTPromptPipeline {
@@ -79,29 +77,26 @@ export function QGPTPromptPipelineFromJSON(json: any): QGPTPromptPipeline {
 }
 
 export function QGPTPromptPipelineFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTPromptPipeline {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'task': !exists(json, 'task') ? undefined : QGPTTaskPipelineFromJSON(json['task']),
-        'conversation': !exists(json, 'conversation') ? undefined : QGPTConversationPipelineFromJSON(json['conversation']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'task': json['task'] == null ? undefined : QGPTTaskPipelineFromJSON(json['task']),
+        'conversation': json['conversation'] == null ? undefined : QGPTConversationPipelineFromJSON(json['conversation']),
     };
 }
 
 export function QGPTPromptPipelineToJSON(value?: QGPTPromptPipeline | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'task': QGPTTaskPipelineToJSON(value.task),
-        'conversation': QGPTConversationPipelineToJSON(value.conversation),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'task': QGPTTaskPipelineToJSON(value['task']),
+        'conversation': QGPTConversationPipelineToJSON(value['conversation']),
     };
 }
 

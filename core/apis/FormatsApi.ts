@@ -46,8 +46,8 @@ export class FormatsApi extends runtime.BaseAPI {
     async formatsSnapshotRaw(requestParameters: FormatsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Formats>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -76,20 +76,23 @@ export class FormatsApi extends runtime.BaseAPI {
      * /formats/{format} [GET] Scoped to Formats
      */
     async formatsSpecificFormatSnapshotRaw(requestParameters: FormatsSpecificFormatSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Format>> {
-        if (requestParameters.format === null || requestParameters.format === undefined) {
-            throw new runtime.RequiredError('format','Required parameter requestParameters.format was null or undefined when calling formatsSpecificFormatSnapshot.');
+        if (requestParameters['format'] == null) {
+            throw new runtime.RequiredError(
+                'format',
+                'Required parameter "format" was null or undefined when calling formatsSpecificFormatSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferable !== undefined) {
-            queryParameters['transferable'] = requestParameters.transferable;
+        if (requestParameters['transferable'] != null) {
+            queryParameters['transferable'] = requestParameters['transferable'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/formats/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters.format))),
+            path: `/formats/{format}`.replace(`{${"format"}}`, encodeURIComponent(String(requestParameters['format']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

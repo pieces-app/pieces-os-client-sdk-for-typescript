@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { Auth0OpenAIUserMetadata } from './Auth0OpenAIUserMetadata';
 import {
     Auth0OpenAIUserMetadataFromJSON,
@@ -55,11 +55,9 @@ export interface PrecreatedExternalProviderApiKey {
 /**
  * Check if a given object implements the PrecreatedExternalProviderApiKey interface.
  */
-export function instanceOfPrecreatedExternalProviderApiKey(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "user" in value;
-
-    return isInstance;
+export function instanceOfPrecreatedExternalProviderApiKey(value: object): value is PrecreatedExternalProviderApiKey {
+    if (!('user' in value) || value['user'] === undefined) return false;
+    return true;
 }
 
 export function PrecreatedExternalProviderApiKeyFromJSON(json: any): PrecreatedExternalProviderApiKey {
@@ -67,29 +65,26 @@ export function PrecreatedExternalProviderApiKeyFromJSON(json: any): PrecreatedE
 }
 
 export function PrecreatedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): PrecreatedExternalProviderApiKey {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
-        'openAI': !exists(json, 'open_AI') ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
+        'openAI': json['open_AI'] == null ? undefined : Auth0OpenAIUserMetadataFromJSON(json['open_AI']),
     };
 }
 
 export function PrecreatedExternalProviderApiKeyToJSON(value?: PrecreatedExternalProviderApiKey | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': value.user,
-        'open_AI': Auth0OpenAIUserMetadataToJSON(value.openAI),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': value['user'],
+        'open_AI': Auth0OpenAIUserMetadataToJSON(value['openAI']),
     };
 }
 

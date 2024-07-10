@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,10 +49,8 @@ export interface OSProcessingPermissions {
 /**
  * Check if a given object implements the OSProcessingPermissions interface.
  */
-export function instanceOfOSProcessingPermissions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOSProcessingPermissions(value: object): value is OSProcessingPermissions {
+    return true;
 }
 
 export function OSProcessingPermissionsFromJSON(json: any): OSProcessingPermissions {
@@ -60,29 +58,26 @@ export function OSProcessingPermissionsFromJSON(json: any): OSProcessingPermissi
 }
 
 export function OSProcessingPermissionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSProcessingPermissions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'vision': !exists(json, 'vision') ? undefined : json['vision'],
-        'accessibility': !exists(json, 'accessibility') ? undefined : json['accessibility'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'vision': json['vision'] == null ? undefined : json['vision'],
+        'accessibility': json['accessibility'] == null ? undefined : json['accessibility'],
     };
 }
 
 export function OSProcessingPermissionsToJSON(value?: OSProcessingPermissions | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'vision': value.vision,
-        'accessibility': value.accessibility,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'vision': value['vision'],
+        'accessibility': value['accessibility'],
     };
 }
 

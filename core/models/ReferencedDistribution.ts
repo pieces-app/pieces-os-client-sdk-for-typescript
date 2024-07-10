@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedDistribution } from './FlattenedDistribution';
 import {
     FlattenedDistributionFromJSON,
     FlattenedDistributionFromJSONTyped,
     FlattenedDistributionToJSON,
 } from './FlattenedDistribution';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -55,11 +55,9 @@ export interface ReferencedDistribution {
 /**
  * Check if a given object implements the ReferencedDistribution interface.
  */
-export function instanceOfReferencedDistribution(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedDistribution(value: object): value is ReferencedDistribution {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedDistributionFromJSON(json: any): ReferencedDistribution {
@@ -67,29 +65,26 @@ export function ReferencedDistributionFromJSON(json: any): ReferencedDistributio
 }
 
 export function ReferencedDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedDistribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedDistributionFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedDistributionFromJSON(json['reference']),
     };
 }
 
 export function ReferencedDistributionToJSON(value?: ReferencedDistribution | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedDistributionToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedDistributionToJSON(value['reference']),
     };
 }
 

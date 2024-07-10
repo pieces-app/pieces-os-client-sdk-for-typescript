@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -50,11 +50,9 @@ export interface TrackedInteractionEvent {
 /**
  * Check if a given object implements the TrackedInteractionEvent interface.
  */
-export function instanceOfTrackedInteractionEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "description" in value;
-
-    return isInstance;
+export function instanceOfTrackedInteractionEvent(value: object): value is TrackedInteractionEvent {
+    if (!('description' in value) || value['description'] === undefined) return false;
+    return true;
 }
 
 export function TrackedInteractionEventFromJSON(json: any): TrackedInteractionEvent {
@@ -62,29 +60,26 @@ export function TrackedInteractionEventFromJSON(json: any): TrackedInteractionEv
 }
 
 export function TrackedInteractionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedInteractionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'description': json['description'],
-        'element': !exists(json, 'element') ? undefined : json['element'],
+        'element': json['element'] == null ? undefined : json['element'],
     };
 }
 
 export function TrackedInteractionEventToJSON(value?: TrackedInteractionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'description': value.description,
-        'element': value.element,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'description': value['description'],
+        'element': value['element'],
     };
 }
 

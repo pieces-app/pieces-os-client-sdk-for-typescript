@@ -24,6 +24,17 @@ export const AccessEnum = {
 export type AccessEnum = typeof AccessEnum[keyof typeof AccessEnum];
 
 
+export function instanceOfAccessEnum(value: any): boolean {
+    for (const key in AccessEnum) {
+        if (Object.prototype.hasOwnProperty.call(AccessEnum, key)) {
+            if (AccessEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function AccessEnumFromJSON(json: any): AccessEnum {
     return AccessEnumFromJSONTyped(json, false);
 }

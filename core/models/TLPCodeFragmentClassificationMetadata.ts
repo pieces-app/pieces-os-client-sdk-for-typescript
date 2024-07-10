@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Classification } from './Classification';
-import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+} from './Classification';
 
 /**
  * 
@@ -55,10 +55,8 @@ export interface TLPCodeFragmentClassificationMetadata {
 /**
  * Check if a given object implements the TLPCodeFragmentClassificationMetadata interface.
  */
-export function instanceOfTLPCodeFragmentClassificationMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTLPCodeFragmentClassificationMetadata(value: object): value is TLPCodeFragmentClassificationMetadata {
+    return true;
 }
 
 export function TLPCodeFragmentClassificationMetadataFromJSON(json: any): TLPCodeFragmentClassificationMetadata {
@@ -66,29 +64,26 @@ export function TLPCodeFragmentClassificationMetadataFromJSON(json: any): TLPCod
 }
 
 export function TLPCodeFragmentClassificationMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentClassificationMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'context': !exists(json, 'context') ? undefined : ClassificationFromJSON(json['context']),
-        'prior': !exists(json, 'prior') ? undefined : ClassificationFromJSON(json['prior']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'context': json['context'] == null ? undefined : ClassificationFromJSON(json['context']),
+        'prior': json['prior'] == null ? undefined : ClassificationFromJSON(json['prior']),
     };
 }
 
 export function TLPCodeFragmentClassificationMetadataToJSON(value?: TLPCodeFragmentClassificationMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'context': ClassificationToJSON(value.context),
-        'prior': ClassificationToJSON(value.prior),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'context': ClassificationToJSON(value['context']),
+        'prior': ClassificationToJSON(value['prior']),
     };
 }
 

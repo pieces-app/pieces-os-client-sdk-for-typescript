@@ -12,7 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { SeededAnchor } from './SeededAnchor';
+import {
+    SeededAnchorFromJSON,
+    SeededAnchorFromJSONTyped,
+    SeededAnchorToJSON,
+} from './SeededAnchor';
+import type { SeededPerson } from './SeededPerson';
+import {
+    SeededPersonFromJSON,
+    SeededPersonFromJSONTyped,
+    SeededPersonToJSON,
+} from './SeededPerson';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -25,9 +37,21 @@ import {
     SeededAssetFromJSONTyped,
     SeededAssetToJSON,
 } from './SeededAsset';
+import type { SeededWebsite } from './SeededWebsite';
+import {
+    SeededWebsiteFromJSON,
+    SeededWebsiteFromJSONTyped,
+    SeededWebsiteToJSON,
+} from './SeededWebsite';
 
 /**
  * A seed Model used to wrap a format or asset
+ * 
+ * Note: we will expand this now to support additional paramerters.
+ * 
+ * Note: however if create an asset, only pass in the asset, not passing in an asset in this case will cause the endpoint to fail.
+ * 
+ * TODO: for a breaking change update the type enum here to add support for the additional materials or remove it entirely.
  * @export
  * @interface Seed
  */
@@ -46,10 +70,28 @@ export interface Seed {
     asset?: SeededAsset;
     /**
      * 
+     * @type {SeededPerson}
+     * @memberof Seed
+     */
+    person?: SeededPerson;
+    /**
+     * 
+     * @type {SeededAnchor}
+     * @memberof Seed
+     */
+    anchor?: SeededAnchor;
+    /**
+     * 
+     * @type {SeededWebsite}
+     * @memberof Seed
+     */
+    website?: SeededWebsite;
+    /**
+     * 
      * @type {string}
      * @memberof Seed
      */
-    type: SeedTypeEnum;
+    type?: SeedTypeEnum;
 }
 
 
@@ -66,11 +108,8 @@ export type SeedTypeEnum = typeof SeedTypeEnum[keyof typeof SeedTypeEnum];
 /**
  * Check if a given object implements the Seed interface.
  */
-export function instanceOfSeed(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfSeed(value: object): value is Seed {
+    return true;
 }
 
 export function SeedFromJSON(json: any): Seed {
@@ -78,29 +117,32 @@ export function SeedFromJSON(json: any): Seed {
 }
 
 export function SeedFromJSONTyped(json: any, ignoreDiscriminator: boolean): Seed {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : SeededAssetFromJSON(json['asset']),
-        'type': json['type'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : SeededAssetFromJSON(json['asset']),
+        'person': json['person'] == null ? undefined : SeededPersonFromJSON(json['person']),
+        'anchor': json['anchor'] == null ? undefined : SeededAnchorFromJSON(json['anchor']),
+        'website': json['website'] == null ? undefined : SeededWebsiteFromJSON(json['website']),
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
 export function SeedToJSON(value?: Seed | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': SeededAssetToJSON(value.asset),
-        'type': value.type,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': SeededAssetToJSON(value['asset']),
+        'person': SeededPersonToJSON(value['person']),
+        'anchor': SeededAnchorToJSON(value['anchor']),
+        'website': SeededWebsiteToJSON(value['website']),
+        'type': value['type'],
     };
 }
 

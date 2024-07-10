@@ -12,13 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedConversations } from './FlattenedConversations';
 import {
     FlattenedConversationsFromJSON,
@@ -31,18 +25,24 @@ import {
     FlattenedWorkstreamSummariesFromJSONTyped,
     FlattenedWorkstreamSummariesToJSON,
 } from './FlattenedWorkstreamSummaries';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
 } from './Score';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+} from './GroupedTimestamp';
 
 /**
  * This is an identified Range, this is ONLY needed when using plural rangedTimestamps, in order to ensure granularity(add/modify/delete)
@@ -115,13 +115,11 @@ export interface Range {
 /**
  * Check if a given object implements the Range interface.
  */
-export function instanceOfRange(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-
-    return isInstance;
+export function instanceOfRange(value: object): value is Range {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    return true;
 }
 
 export function RangeFromJSON(json: any): Range {
@@ -129,43 +127,40 @@ export function RangeFromJSON(json: any): Range {
 }
 
 export function RangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Range {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'to': !exists(json, 'to') ? undefined : GroupedTimestampFromJSON(json['to']),
-        'from': !exists(json, 'from') ? undefined : GroupedTimestampFromJSON(json['from']),
-        'between': !exists(json, 'between') ? undefined : json['between'],
-        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
-        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'to': json['to'] == null ? undefined : GroupedTimestampFromJSON(json['to']),
+        'from': json['from'] == null ? undefined : GroupedTimestampFromJSON(json['from']),
+        'between': json['between'] == null ? undefined : json['between'],
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
     };
 }
 
 export function RangeToJSON(value?: Range | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'score': ScoreToJSON(value.score),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'to': GroupedTimestampToJSON(value.to),
-        'from': GroupedTimestampToJSON(value.from),
-        'between': value.between,
-        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
-        'conversations': FlattenedConversationsToJSON(value.conversations),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'score': ScoreToJSON(value['score']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'to': GroupedTimestampToJSON(value['to']),
+        'from': GroupedTimestampToJSON(value['from']),
+        'between': value['between'],
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'conversations': FlattenedConversationsToJSON(value['conversations']),
     };
 }
 

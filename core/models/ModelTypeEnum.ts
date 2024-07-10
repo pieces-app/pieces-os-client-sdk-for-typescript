@@ -25,6 +25,17 @@ export const ModelTypeEnum = {
 export type ModelTypeEnum = typeof ModelTypeEnum[keyof typeof ModelTypeEnum];
 
 
+export function instanceOfModelTypeEnum(value: any): boolean {
+    for (const key in ModelTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelTypeEnum, key)) {
+            if (ModelTypeEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ModelTypeEnumFromJSON(json: any): ModelTypeEnum {
     return ModelTypeEnumFromJSONTyped(json, false);
 }

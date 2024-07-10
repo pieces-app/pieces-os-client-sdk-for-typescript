@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FormatMetric } from './FormatMetric';
 import {
     FormatMetricFromJSON,
     FormatMetricFromJSONTyped,
     FormatMetricToJSON,
 } from './FormatMetric';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -49,11 +49,9 @@ export interface FormatsMetrics {
 /**
  * Check if a given object implements the FormatsMetrics interface.
  */
-export function instanceOfFormatsMetrics(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfFormatsMetrics(value: object): value is FormatsMetrics {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function FormatsMetricsFromJSON(json: any): FormatsMetrics {
@@ -61,27 +59,24 @@ export function FormatsMetricsFromJSON(json: any): FormatsMetrics {
 }
 
 export function FormatsMetricsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FormatsMetrics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(FormatMetricFromJSON)),
     };
 }
 
 export function FormatsMetricsToJSON(value?: FormatsMetrics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(FormatMetricToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(FormatMetricToJSON)),
     };
 }
 

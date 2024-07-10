@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { ReferencedConversation } from './ReferencedConversation';
 import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
 } from './ReferencedConversation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { SeededRangeConversationGroundingAssociation } from './SeededRangeConversationGroundingAssociation';
 import {
     SeededRangeConversationGroundingAssociationFromJSON,
@@ -61,11 +61,9 @@ export interface SeededRangeConversationAssociation {
 /**
  * Check if a given object implements the SeededRangeConversationAssociation interface.
  */
-export function instanceOfSeededRangeConversationAssociation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "reference" in value;
-
-    return isInstance;
+export function instanceOfSeededRangeConversationAssociation(value: object): value is SeededRangeConversationAssociation {
+    if (!('reference' in value) || value['reference'] === undefined) return false;
+    return true;
 }
 
 export function SeededRangeConversationAssociationFromJSON(json: any): SeededRangeConversationAssociation {
@@ -73,29 +71,26 @@ export function SeededRangeConversationAssociationFromJSON(json: any): SeededRan
 }
 
 export function SeededRangeConversationAssociationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededRangeConversationAssociation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'reference': ReferencedConversationFromJSON(json['reference']),
-        'grounding': !exists(json, 'grounding') ? undefined : SeededRangeConversationGroundingAssociationFromJSON(json['grounding']),
+        'grounding': json['grounding'] == null ? undefined : SeededRangeConversationGroundingAssociationFromJSON(json['grounding']),
     };
 }
 
 export function SeededRangeConversationAssociationToJSON(value?: SeededRangeConversationAssociation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'reference': ReferencedConversationToJSON(value.reference),
-        'grounding': SeededRangeConversationGroundingAssociationToJSON(value.grounding),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'reference': ReferencedConversationToJSON(value['reference']),
+        'grounding': SeededRangeConversationGroundingAssociationToJSON(value['grounding']),
     };
 }
 

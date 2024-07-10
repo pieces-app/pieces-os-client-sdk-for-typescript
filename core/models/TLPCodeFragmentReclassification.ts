@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -79,16 +79,14 @@ export interface TLPCodeFragmentReclassification {
 /**
  * Check if a given object implements the TLPCodeFragmentReclassification interface.
  */
-export function instanceOfTLPCodeFragmentReclassification(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "asset" in value;
-    isInstance = isInstance && "model" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updates" in value;
-    isInstance = isInstance && "user" in value;
-    isInstance = isInstance && "context" in value;
-
-    return isInstance;
+export function instanceOfTLPCodeFragmentReclassification(value: object): value is TLPCodeFragmentReclassification {
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    if (!('model' in value) || value['model'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updates' in value) || value['updates'] === undefined) return false;
+    if (!('user' in value) || value['user'] === undefined) return false;
+    if (!('context' in value) || value['context'] === undefined) return false;
+    return true;
 }
 
 export function TLPCodeFragmentReclassificationFromJSON(json: any): TLPCodeFragmentReclassification {
@@ -96,12 +94,12 @@ export function TLPCodeFragmentReclassificationFromJSON(json: any): TLPCodeFragm
 }
 
 export function TLPCodeFragmentReclassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentReclassification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
         'model': json['model'],
         'created': json['created'],
@@ -112,21 +110,18 @@ export function TLPCodeFragmentReclassificationFromJSONTyped(json: any, ignoreDi
 }
 
 export function TLPCodeFragmentReclassificationToJSON(value?: TLPCodeFragmentReclassification | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': value.asset,
-        'model': value.model,
-        'created': value.created,
-        'updates': TLPCodeFragmentReclassificationUpdatesToJSON(value.updates),
-        'user': value.user,
-        'context': value.context,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': value['asset'],
+        'model': value['model'],
+        'created': value['created'],
+        'updates': TLPCodeFragmentReclassificationUpdatesToJSON(value['updates']),
+        'user': value['user'],
+        'context': value['context'],
     };
 }
 

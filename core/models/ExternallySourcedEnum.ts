@@ -34,6 +34,17 @@ export const ExternallySourcedEnum = {
 export type ExternallySourcedEnum = typeof ExternallySourcedEnum[keyof typeof ExternallySourcedEnum];
 
 
+export function instanceOfExternallySourcedEnum(value: any): boolean {
+    for (const key in ExternallySourcedEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternallySourcedEnum, key)) {
+            if (ExternallySourcedEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ExternallySourcedEnumFromJSON(json: any): ExternallySourcedEnum {
     return ExternallySourcedEnumFromJSONTyped(json, false);
 }

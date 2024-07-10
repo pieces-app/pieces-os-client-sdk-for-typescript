@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -55,12 +55,10 @@ export interface RevokedPKCE {
 /**
  * Check if a given object implements the RevokedPKCE interface.
  */
-export function instanceOfRevokedPKCE(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "clientId" in value;
-    isInstance = isInstance && "token" in value;
-
-    return isInstance;
+export function instanceOfRevokedPKCE(value: object): value is RevokedPKCE {
+    if (!('clientId' in value) || value['clientId'] === undefined) return false;
+    if (!('token' in value) || value['token'] === undefined) return false;
+    return true;
 }
 
 export function RevokedPKCEFromJSON(json: any): RevokedPKCE {
@@ -68,29 +66,26 @@ export function RevokedPKCEFromJSON(json: any): RevokedPKCE {
 }
 
 export function RevokedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): RevokedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'clientId': json['client_id'],
         'token': json['token'],
     };
 }
 
 export function RevokedPKCEToJSON(value?: RevokedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'client_id': value.clientId,
-        'token': value.token,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'client_id': value['clientId'],
+        'token': value['token'],
     };
 }
 

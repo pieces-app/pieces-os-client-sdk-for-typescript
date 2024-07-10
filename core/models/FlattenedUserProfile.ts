@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -73,11 +73,9 @@ export interface FlattenedUserProfile {
 /**
  * Check if a given object implements the FlattenedUserProfile interface.
  */
-export function instanceOfFlattenedUserProfile(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfFlattenedUserProfile(value: object): value is FlattenedUserProfile {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedUserProfileFromJSON(json: any): FlattenedUserProfile {
@@ -85,37 +83,34 @@ export function FlattenedUserProfileFromJSON(json: any): FlattenedUserProfile {
 }
 
 export function FlattenedUserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedUserProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'username': !exists(json, 'username') ? undefined : json['username'],
-        'picture': !exists(json, 'picture') ? undefined : json['picture'],
-        'vanityname': !exists(json, 'vanityname') ? undefined : json['vanityname'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'username': json['username'] == null ? undefined : json['username'],
+        'picture': json['picture'] == null ? undefined : json['picture'],
+        'vanityname': json['vanityname'] == null ? undefined : json['vanityname'],
     };
 }
 
 export function FlattenedUserProfileToJSON(value?: FlattenedUserProfile | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'email': value.email,
-        'name': value.name,
-        'username': value.username,
-        'picture': value.picture,
-        'vanityname': value.vanityname,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'email': value['email'],
+        'name': value['name'],
+        'username': value['username'],
+        'picture': value['picture'],
+        'vanityname': value['vanityname'],
     };
 }
 

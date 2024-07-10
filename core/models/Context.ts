@@ -12,31 +12,31 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
-import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { Health } from './Health';
-import {
-    HealthFromJSON,
-    HealthFromJSONTyped,
-    HealthToJSON,
-} from './Health';
+import { mapValues } from '../runtime';
 import type { UserProfile } from './UserProfile';
 import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
 } from './UserProfile';
+import type { Health } from './Health';
+import {
+    HealthFromJSON,
+    HealthFromJSONTyped,
+    HealthToJSON,
+} from './Health';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+} from './Application';
 
 /**
  * A Context that is returned from almost all calls to the ContextAPI
@@ -79,13 +79,11 @@ export interface Context {
 /**
  * Check if a given object implements the Context interface.
  */
-export function instanceOfContext(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "os" in value;
-    isInstance = isInstance && "application" in value;
-    isInstance = isInstance && "health" in value;
-
-    return isInstance;
+export function instanceOfContext(value: object): value is Context {
+    if (!('os' in value) || value['os'] === undefined) return false;
+    if (!('application' in value) || value['application'] === undefined) return false;
+    if (!('health' in value) || value['health'] === undefined) return false;
+    return true;
 }
 
 export function ContextFromJSON(json: any): Context {
@@ -93,33 +91,30 @@ export function ContextFromJSON(json: any): Context {
 }
 
 export function ContextFromJSONTyped(json: any, ignoreDiscriminator: boolean): Context {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'os': json['os'],
         'application': ApplicationFromJSON(json['application']),
         'health': HealthFromJSON(json['health']),
-        'user': !exists(json, 'user') ? undefined : UserProfileFromJSON(json['user']),
+        'user': json['user'] == null ? undefined : UserProfileFromJSON(json['user']),
     };
 }
 
 export function ContextToJSON(value?: Context | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'os': value.os,
-        'application': ApplicationToJSON(value.application),
-        'health': HealthToJSON(value.health),
-        'user': UserProfileToJSON(value.user),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'os': value['os'],
+        'application': ApplicationToJSON(value['application']),
+        'health': HealthToJSON(value['health']),
+        'user': UserProfileToJSON(value['user']),
     };
 }
 

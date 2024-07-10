@@ -35,6 +35,17 @@ export const SensitiveCategoryEnum = {
 export type SensitiveCategoryEnum = typeof SensitiveCategoryEnum[keyof typeof SensitiveCategoryEnum];
 
 
+export function instanceOfSensitiveCategoryEnum(value: any): boolean {
+    for (const key in SensitiveCategoryEnum) {
+        if (Object.prototype.hasOwnProperty.call(SensitiveCategoryEnum, key)) {
+            if (SensitiveCategoryEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function SensitiveCategoryEnumFromJSON(json: any): SensitiveCategoryEnum {
     return SensitiveCategoryEnumFromJSONTyped(json, false);
 }

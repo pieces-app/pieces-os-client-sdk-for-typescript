@@ -23,6 +23,17 @@ export const ConversationTypeEnum = {
 export type ConversationTypeEnum = typeof ConversationTypeEnum[keyof typeof ConversationTypeEnum];
 
 
+export function instanceOfConversationTypeEnum(value: any): boolean {
+    for (const key in ConversationTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ConversationTypeEnum, key)) {
+            if (ConversationTypeEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ConversationTypeEnumFromJSON(json: any): ConversationTypeEnum {
     return ConversationTypeEnumFromJSONTyped(json, false);
 }

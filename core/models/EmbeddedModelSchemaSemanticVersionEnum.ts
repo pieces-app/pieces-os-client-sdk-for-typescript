@@ -23,6 +23,17 @@ export const EmbeddedModelSchemaSemanticVersionEnum = {
 export type EmbeddedModelSchemaSemanticVersionEnum = typeof EmbeddedModelSchemaSemanticVersionEnum[keyof typeof EmbeddedModelSchemaSemanticVersionEnum];
 
 
+export function instanceOfEmbeddedModelSchemaSemanticVersionEnum(value: any): boolean {
+    for (const key in EmbeddedModelSchemaSemanticVersionEnum) {
+        if (Object.prototype.hasOwnProperty.call(EmbeddedModelSchemaSemanticVersionEnum, key)) {
+            if (EmbeddedModelSchemaSemanticVersionEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function EmbeddedModelSchemaSemanticVersionEnumFromJSON(json: any): EmbeddedModelSchemaSemanticVersionEnum {
     return EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped(json, false);
 }

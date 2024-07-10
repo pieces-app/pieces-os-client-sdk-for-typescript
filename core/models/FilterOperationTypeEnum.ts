@@ -24,6 +24,17 @@ export const FilterOperationTypeEnum = {
 export type FilterOperationTypeEnum = typeof FilterOperationTypeEnum[keyof typeof FilterOperationTypeEnum];
 
 
+export function instanceOfFilterOperationTypeEnum(value: any): boolean {
+    for (const key in FilterOperationTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(FilterOperationTypeEnum, key)) {
+            if (FilterOperationTypeEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function FilterOperationTypeEnumFromJSON(json: any): FilterOperationTypeEnum {
     return FilterOperationTypeEnumFromJSONTyped(json, false);
 }

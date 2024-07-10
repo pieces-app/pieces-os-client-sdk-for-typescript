@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,11 +49,9 @@ export interface InteractedAssets {
 /**
  * Check if a given object implements the InteractedAssets interface.
  */
-export function instanceOfInteractedAssets(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfInteractedAssets(value: object): value is InteractedAssets {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function InteractedAssetsFromJSON(json: any): InteractedAssets {
@@ -61,27 +59,24 @@ export function InteractedAssetsFromJSON(json: any): InteractedAssets {
 }
 
 export function InteractedAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): InteractedAssets {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(InteractedAssetFromJSON)),
     };
 }
 
 export function InteractedAssetsToJSON(value?: InteractedAssets | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(InteractedAssetToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(InteractedAssetToJSON)),
     };
 }
 

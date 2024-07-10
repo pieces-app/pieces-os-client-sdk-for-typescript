@@ -27,6 +27,17 @@ export const AllocationStatusEnum = {
 export type AllocationStatusEnum = typeof AllocationStatusEnum[keyof typeof AllocationStatusEnum];
 
 
+export function instanceOfAllocationStatusEnum(value: any): boolean {
+    for (const key in AllocationStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(AllocationStatusEnum, key)) {
+            if (AllocationStatusEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function AllocationStatusEnumFromJSON(json: any): AllocationStatusEnum {
     return AllocationStatusEnumFromJSONTyped(json, false);
 }

@@ -25,6 +25,17 @@ export const TagCategoryEnum = {
 export type TagCategoryEnum = typeof TagCategoryEnum[keyof typeof TagCategoryEnum];
 
 
+export function instanceOfTagCategoryEnum(value: any): boolean {
+    for (const key in TagCategoryEnum) {
+        if (Object.prototype.hasOwnProperty.call(TagCategoryEnum, key)) {
+            if (TagCategoryEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function TagCategoryEnumFromJSON(json: any): TagCategoryEnum {
     return TagCategoryEnumFromJSONTyped(json, false);
 }

@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { TLPCodeFragmentDescriptiveStatistics } from './TLPCodeFragmentDescriptiveStatistics';
 import {
     TLPCodeFragmentDescriptiveStatisticsFromJSON,
     TLPCodeFragmentDescriptiveStatisticsFromJSONTyped,
     TLPCodeFragmentDescriptiveStatisticsToJSON,
 } from './TLPCodeFragmentDescriptiveStatistics';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -49,10 +49,8 @@ export interface TLPCodeFragmentStatistics {
 /**
  * Check if a given object implements the TLPCodeFragmentStatistics interface.
  */
-export function instanceOfTLPCodeFragmentStatistics(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTLPCodeFragmentStatistics(value: object): value is TLPCodeFragmentStatistics {
+    return true;
 }
 
 export function TLPCodeFragmentStatisticsFromJSON(json: any): TLPCodeFragmentStatistics {
@@ -60,27 +58,24 @@ export function TLPCodeFragmentStatisticsFromJSON(json: any): TLPCodeFragmentSta
 }
 
 export function TLPCodeFragmentStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'descriptive': !exists(json, 'descriptive') ? undefined : TLPCodeFragmentDescriptiveStatisticsFromJSON(json['descriptive']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'descriptive': json['descriptive'] == null ? undefined : TLPCodeFragmentDescriptiveStatisticsFromJSON(json['descriptive']),
     };
 }
 
 export function TLPCodeFragmentStatisticsToJSON(value?: TLPCodeFragmentStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'descriptive': TLPCodeFragmentDescriptiveStatisticsToJSON(value.descriptive),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'descriptive': TLPCodeFragmentDescriptiveStatisticsToJSON(value['descriptive']),
     };
 }
 

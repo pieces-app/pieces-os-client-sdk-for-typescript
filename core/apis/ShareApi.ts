@@ -50,8 +50,11 @@ export class ShareApi extends runtime.BaseAPI {
      * \'/share/{share}/scores/increment\' [POST]
      */
     async shareScoresIncrementRaw(requestParameters: ShareScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.share === null || requestParameters.share === undefined) {
-            throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling shareScoresIncrement.');
+        if (requestParameters['share'] == null) {
+            throw new runtime.RequiredError(
+                'share',
+                'Required parameter "share" was null or undefined when calling shareScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -61,11 +64,11 @@ export class ShareApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/share/{share}/scores/increment`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters.share))),
+            path: `/share/{share}/scores/increment`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters['share']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -84,20 +87,23 @@ export class ShareApi extends runtime.BaseAPI {
      * /share/{share}
      */
     async shareSnapshotRaw(requestParameters: ShareSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Share>> {
-        if (requestParameters.share === null || requestParameters.share === undefined) {
-            throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling shareSnapshot.');
+        if (requestParameters['share'] == null) {
+            throw new runtime.RequiredError(
+                'share',
+                'Required parameter "share" was null or undefined when calling shareSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/share/{share}`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters.share))),
+            path: `/share/{share}`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters['share']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -122,8 +128,8 @@ export class ShareApi extends runtime.BaseAPI {
     async shareUpdateRaw(requestParameters: ShareUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Share>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -135,7 +141,7 @@ export class ShareApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ShareToJSON(requestParameters.share),
+            body: ShareToJSON(requestParameters['share']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ShareFromJSON(jsonValue));

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -38,15 +38,19 @@ export interface FilePickerInput {
      * @memberof FilePickerInput
      */
     allowedExtensions?: Array<string>;
+    /**
+     * default behavior is set to true
+     * @type {boolean}
+     * @memberof FilePickerInput
+     */
+    allowMultiple?: boolean;
 }
 
 /**
  * Check if a given object implements the FilePickerInput interface.
  */
-export function instanceOfFilePickerInput(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFilePickerInput(value: object): value is FilePickerInput {
+    return true;
 }
 
 export function FilePickerInputFromJSON(json: any): FilePickerInput {
@@ -54,27 +58,26 @@ export function FilePickerInputFromJSON(json: any): FilePickerInput {
 }
 
 export function FilePickerInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): FilePickerInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'allowedExtensions': !exists(json, 'allowedExtensions') ? undefined : json['allowedExtensions'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'allowedExtensions': json['allowedExtensions'] == null ? undefined : json['allowedExtensions'],
+        'allowMultiple': json['allowMultiple'] == null ? undefined : json['allowMultiple'],
     };
 }
 
 export function FilePickerInputToJSON(value?: FilePickerInput | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'allowedExtensions': value.allowedExtensions,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'allowedExtensions': value['allowedExtensions'],
+        'allowMultiple': value['allowMultiple'],
     };
 }
 

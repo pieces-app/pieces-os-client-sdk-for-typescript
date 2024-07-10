@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ReferencedAsset } from './ReferencedAsset';
-import {
-    ReferencedAssetFromJSON,
-    ReferencedAssetFromJSONTyped,
-    ReferencedAssetToJSON,
-} from './ReferencedAsset';
+import { mapValues } from '../runtime';
 import type { ReferencedConversation } from './ReferencedConversation';
 import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
 } from './ReferencedConversation';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
+    ReferencedAssetFromJSON,
+    ReferencedAssetFromJSONTyped,
+    ReferencedAssetToJSON,
+} from './ReferencedAsset';
 
 /**
  * This is currently only used within /assets/steam/identifiers && /conversations/steam/identifiers but can be used with other as well, if we want to expand this class.
@@ -55,10 +55,8 @@ export interface StreamedIdentifier {
 /**
  * Check if a given object implements the StreamedIdentifier interface.
  */
-export function instanceOfStreamedIdentifier(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfStreamedIdentifier(value: object): value is StreamedIdentifier {
+    return true;
 }
 
 export function StreamedIdentifierFromJSON(json: any): StreamedIdentifier {
@@ -66,29 +64,26 @@ export function StreamedIdentifierFromJSON(json: any): StreamedIdentifier {
 }
 
 export function StreamedIdentifierFromJSONTyped(json: any, ignoreDiscriminator: boolean): StreamedIdentifier {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
-        'deleted': !exists(json, 'deleted') ? undefined : json['deleted'],
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'deleted': json['deleted'] == null ? undefined : json['deleted'],
     };
 }
 
 export function StreamedIdentifierToJSON(value?: StreamedIdentifier | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'asset': ReferencedAssetToJSON(value.asset),
-        'conversation': ReferencedConversationToJSON(value.conversation),
-        'deleted': value.deleted,
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'deleted': value['deleted'],
     };
 }
 

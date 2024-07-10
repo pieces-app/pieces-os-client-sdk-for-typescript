@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { DiscoveredAssets } from './DiscoveredAssets';
 import {
     DiscoveredAssetsFromJSON,
@@ -55,12 +55,10 @@ export interface DiscoveredHtmlWebpage {
 /**
  * Check if a given object implements the DiscoveredHtmlWebpage interface.
  */
-export function instanceOfDiscoveredHtmlWebpage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "assets" in value;
-    isInstance = isInstance && "url" in value;
-
-    return isInstance;
+export function instanceOfDiscoveredHtmlWebpage(value: object): value is DiscoveredHtmlWebpage {
+    if (!('assets' in value) || value['assets'] === undefined) return false;
+    if (!('url' in value) || value['url'] === undefined) return false;
+    return true;
 }
 
 export function DiscoveredHtmlWebpageFromJSON(json: any): DiscoveredHtmlWebpage {
@@ -68,29 +66,26 @@ export function DiscoveredHtmlWebpageFromJSON(json: any): DiscoveredHtmlWebpage 
 }
 
 export function DiscoveredHtmlWebpageFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredHtmlWebpage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'assets': DiscoveredAssetsFromJSON(json['assets']),
         'url': json['url'],
     };
 }
 
 export function DiscoveredHtmlWebpageToJSON(value?: DiscoveredHtmlWebpage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'assets': DiscoveredAssetsToJSON(value.assets),
-        'url': value.url,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assets': DiscoveredAssetsToJSON(value['assets']),
+        'url': value['url'],
     };
 }
 

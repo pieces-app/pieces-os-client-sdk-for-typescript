@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { TrackedApplication } from './TrackedApplication';
-import {
-    TrackedApplicationFromJSON,
-    TrackedApplicationFromJSONTyped,
-    TrackedApplicationToJSON,
-} from './TrackedApplication';
+import { mapValues } from '../runtime';
 import type { TrackedUserProfile } from './TrackedUserProfile';
 import {
     TrackedUserProfileFromJSON,
     TrackedUserProfileFromJSONTyped,
     TrackedUserProfileToJSON,
 } from './TrackedUserProfile';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+} from './Application';
 
 /**
  * A model that allows for us to specifically track Application Installs & Related Data
@@ -46,10 +46,10 @@ export interface TrackedApplicationInstall {
     schema?: EmbeddedModelSchema;
     /**
      * 
-     * @type {TrackedApplication}
+     * @type {Application}
      * @memberof TrackedApplicationInstall
      */
-    application: TrackedApplication;
+    application: Application;
     /**
      * 
      * @type {TrackedUserProfile}
@@ -61,11 +61,9 @@ export interface TrackedApplicationInstall {
 /**
  * Check if a given object implements the TrackedApplicationInstall interface.
  */
-export function instanceOfTrackedApplicationInstall(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "application" in value;
-
-    return isInstance;
+export function instanceOfTrackedApplicationInstall(value: object): value is TrackedApplicationInstall {
+    if (!('application' in value) || value['application'] === undefined) return false;
+    return true;
 }
 
 export function TrackedApplicationInstallFromJSON(json: any): TrackedApplicationInstall {
@@ -73,29 +71,26 @@ export function TrackedApplicationInstallFromJSON(json: any): TrackedApplication
 }
 
 export function TrackedApplicationInstallFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedApplicationInstall {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'application': TrackedApplicationFromJSON(json['application']),
-        'user': !exists(json, 'user') ? undefined : TrackedUserProfileFromJSON(json['user']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'application': ApplicationFromJSON(json['application']),
+        'user': json['user'] == null ? undefined : TrackedUserProfileFromJSON(json['user']),
     };
 }
 
 export function TrackedApplicationInstallToJSON(value?: TrackedApplicationInstall | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': TrackedApplicationToJSON(value.application),
-        'user': TrackedUserProfileToJSON(value.user),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'application': ApplicationToJSON(value['application']),
+        'user': TrackedUserProfileToJSON(value['user']),
     };
 }
 

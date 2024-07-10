@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { GraphicalOCRDescriptiveStatisticsConfidence } from './GraphicalOCRDescriptiveStatisticsConfidence';
 import {
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSON,
     GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped,
     GraphicalOCRDescriptiveStatisticsConfidenceToJSON,
 } from './GraphicalOCRDescriptiveStatisticsConfidence';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * Model for monitoring and evaluating the OCR feature
@@ -85,17 +85,15 @@ export interface GraphicalOCRDescriptiveStatistics {
 /**
  * Check if a given object implements the GraphicalOCRDescriptiveStatistics interface.
  */
-export function instanceOfGraphicalOCRDescriptiveStatistics(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "asset" in value;
-    isInstance = isInstance && "user" in value;
-    isInstance = isInstance && "model" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "os" in value;
-    isInstance = isInstance && "confidence" in value;
-    isInstance = isInstance && "duration" in value;
-
-    return isInstance;
+export function instanceOfGraphicalOCRDescriptiveStatistics(value: object): value is GraphicalOCRDescriptiveStatistics {
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    if (!('user' in value) || value['user'] === undefined) return false;
+    if (!('model' in value) || value['model'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('os' in value) || value['os'] === undefined) return false;
+    if (!('confidence' in value) || value['confidence'] === undefined) return false;
+    if (!('duration' in value) || value['duration'] === undefined) return false;
+    return true;
 }
 
 export function GraphicalOCRDescriptiveStatisticsFromJSON(json: any): GraphicalOCRDescriptiveStatistics {
@@ -103,12 +101,12 @@ export function GraphicalOCRDescriptiveStatisticsFromJSON(json: any): GraphicalO
 }
 
 export function GraphicalOCRDescriptiveStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRDescriptiveStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': json['asset'],
         'user': json['user'],
         'model': json['model'],
@@ -120,22 +118,19 @@ export function GraphicalOCRDescriptiveStatisticsFromJSONTyped(json: any, ignore
 }
 
 export function GraphicalOCRDescriptiveStatisticsToJSON(value?: GraphicalOCRDescriptiveStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': value.asset,
-        'user': value.user,
-        'model': value.model,
-        'created': value.created,
-        'os': value.os,
-        'confidence': GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value.confidence),
-        'duration': value.duration,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': value['asset'],
+        'user': value['user'],
+        'model': value['model'],
+        'created': value['created'],
+        'os': value['os'],
+        'confidence': GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value['confidence']),
+        'duration': value['duration'],
     };
 }
 

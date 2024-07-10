@@ -93,7 +93,7 @@ export class PKCEApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededPKCEToJSON(requestParameters.seededPKCE),
+            body: SeededPKCEToJSON(requestParameters['seededPKCE']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PKCEFromJSON(jsonValue));
@@ -124,7 +124,7 @@ export class PKCEApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TokenizedPKCEToJSON(requestParameters.tokenizedPKCE),
+            body: TokenizedPKCEToJSON(requestParameters['tokenizedPKCE']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PKCEFromJSON(jsonValue));
@@ -172,12 +172,18 @@ export class PKCEApi extends runtime.BaseAPI {
      * /pkce/response/code [POST]
      */
     async respondWithCodeRaw(requestParameters: RespondWithCodeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PKCE>> {
-        if (requestParameters.code === null || requestParameters.code === undefined) {
-            throw new runtime.RequiredError('code','Required parameter requestParameters.code was null or undefined when calling respondWithCode.');
+        if (requestParameters['code'] == null) {
+            throw new runtime.RequiredError(
+                'code',
+                'Required parameter "code" was null or undefined when calling respondWithCode().'
+            );
         }
 
-        if (requestParameters.state === null || requestParameters.state === undefined) {
-            throw new runtime.RequiredError('state','Required parameter requestParameters.state was null or undefined when calling respondWithCode.');
+        if (requestParameters['state'] == null) {
+            throw new runtime.RequiredError(
+                'state',
+                'Required parameter "state" was null or undefined when calling respondWithCode().'
+            );
         }
 
         const queryParameters: any = {};
@@ -198,16 +204,16 @@ export class PKCEApi extends runtime.BaseAPI {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters.schema !== undefined) {
-            formParams.append('schema', new Blob([JSON.stringify(EmbeddedModelSchemaToJSON(requestParameters.schema))], { type: "application/json", }));
+        if (requestParameters['schema'] != null) {
+            formParams.append('schema', new Blob([JSON.stringify(EmbeddedModelSchemaToJSON(requestParameters['schema']))], { type: "application/json", }));
                     }
 
-        if (requestParameters.code !== undefined) {
-            formParams.append('code', requestParameters.code as any);
+        if (requestParameters['code'] != null) {
+            formParams.append('code', requestParameters['code'] as any);
         }
 
-        if (requestParameters.state !== undefined) {
-            formParams.append('state', requestParameters.state as any);
+        if (requestParameters['state'] != null) {
+            formParams.append('state', requestParameters['state'] as any);
         }
 
         const response = await this.request({

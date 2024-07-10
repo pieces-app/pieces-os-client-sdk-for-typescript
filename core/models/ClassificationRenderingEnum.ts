@@ -25,6 +25,17 @@ export const ClassificationRenderingEnum = {
 export type ClassificationRenderingEnum = typeof ClassificationRenderingEnum[keyof typeof ClassificationRenderingEnum];
 
 
+export function instanceOfClassificationRenderingEnum(value: any): boolean {
+    for (const key in ClassificationRenderingEnum) {
+        if (Object.prototype.hasOwnProperty.call(ClassificationRenderingEnum, key)) {
+            if (ClassificationRenderingEnum[key] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ClassificationRenderingEnumFromJSON(json: any): ClassificationRenderingEnum {
     return ClassificationRenderingEnumFromJSONTyped(json, false);
 }

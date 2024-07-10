@@ -12,25 +12,25 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { ReferencedAsset } from './ReferencedAsset';
-import {
-    ReferencedAssetFromJSON,
-    ReferencedAssetFromJSONTyped,
-    ReferencedAssetToJSON,
-} from './ReferencedAsset';
+import { mapValues } from '../runtime';
 import type { TrackedAssetEventIdentifierDescriptionPairs } from './TrackedAssetEventIdentifierDescriptionPairs';
 import {
     TrackedAssetEventIdentifierDescriptionPairsFromJSON,
     TrackedAssetEventIdentifierDescriptionPairsFromJSONTyped,
     TrackedAssetEventIdentifierDescriptionPairsToJSON,
 } from './TrackedAssetEventIdentifierDescriptionPairs';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
+    ReferencedAssetFromJSON,
+    ReferencedAssetFromJSONTyped,
+    ReferencedAssetToJSON,
+} from './ReferencedAsset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 import type { TrackedAssetEventMetadata } from './TrackedAssetEventMetadata';
 import {
     TrackedAssetEventMetadataFromJSON,
@@ -73,12 +73,10 @@ export interface SeededTrackedAssetEvent {
 /**
  * Check if a given object implements the SeededTrackedAssetEvent interface.
  */
-export function instanceOfSeededTrackedAssetEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "asset" in value;
-    isInstance = isInstance && "identifierDescriptionPair" in value;
-
-    return isInstance;
+export function instanceOfSeededTrackedAssetEvent(value: object): value is SeededTrackedAssetEvent {
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    if (!('identifierDescriptionPair' in value) || value['identifierDescriptionPair'] === undefined) return false;
+    return true;
 }
 
 export function SeededTrackedAssetEventFromJSON(json: any): SeededTrackedAssetEvent {
@@ -86,31 +84,28 @@ export function SeededTrackedAssetEventFromJSON(json: any): SeededTrackedAssetEv
 }
 
 export function SeededTrackedAssetEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedAssetEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': ReferencedAssetFromJSON(json['asset']),
         'identifierDescriptionPair': TrackedAssetEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
-        'metadata': !exists(json, 'metadata') ? undefined : TrackedAssetEventMetadataFromJSON(json['metadata']),
+        'metadata': json['metadata'] == null ? undefined : TrackedAssetEventMetadataFromJSON(json['metadata']),
     };
 }
 
 export function SeededTrackedAssetEventToJSON(value?: SeededTrackedAssetEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': ReferencedAssetToJSON(value.asset),
-        'identifier_description_pair': TrackedAssetEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
-        'metadata': TrackedAssetEventMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'identifier_description_pair': TrackedAssetEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
+        'metadata': TrackedAssetEventMetadataToJSON(value['metadata']),
     };
 }
 

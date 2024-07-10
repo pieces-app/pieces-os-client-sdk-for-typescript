@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -61,12 +61,10 @@ export interface SeededTrackedKeyboardEvent {
 /**
  * Check if a given object implements the SeededTrackedKeyboardEvent interface.
  */
-export function instanceOfSeededTrackedKeyboardEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "shortcut" in value;
-
-    return isInstance;
+export function instanceOfSeededTrackedKeyboardEvent(value: object): value is SeededTrackedKeyboardEvent {
+    if (!('description' in value) || value['description'] === undefined) return false;
+    if (!('shortcut' in value) || value['shortcut'] === undefined) return false;
+    return true;
 }
 
 export function SeededTrackedKeyboardEventFromJSON(json: any): SeededTrackedKeyboardEvent {
@@ -74,31 +72,28 @@ export function SeededTrackedKeyboardEventFromJSON(json: any): SeededTrackedKeyb
 }
 
 export function SeededTrackedKeyboardEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedKeyboardEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'description': json['description'],
         'shortcut': json['shortcut'],
-        'identifierDescriptionPair': !exists(json, 'identifier_description_pair') ? undefined : SeededTrackedKeyboardEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
+        'identifierDescriptionPair': json['identifier_description_pair'] == null ? undefined : SeededTrackedKeyboardEventIdentifierDescriptionPairsFromJSON(json['identifier_description_pair']),
     };
 }
 
 export function SeededTrackedKeyboardEventToJSON(value?: SeededTrackedKeyboardEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'description': value.description,
-        'shortcut': value.shortcut,
-        'identifier_description_pair': SeededTrackedKeyboardEventIdentifierDescriptionPairsToJSON(value.identifierDescriptionPair),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'description': value['description'],
+        'shortcut': value['shortcut'],
+        'identifier_description_pair': SeededTrackedKeyboardEventIdentifierDescriptionPairsToJSON(value['identifierDescriptionPair']),
     };
 }
 

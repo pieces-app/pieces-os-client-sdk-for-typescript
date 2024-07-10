@@ -90,7 +90,7 @@ export class ConnectorApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededConnectorConnectionToJSON(requestParameters.seededConnectorConnection),
+            body: SeededConnectorConnectionToJSON(requestParameters['seededConnectorConnection']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ContextFromJSON(jsonValue));
@@ -110,8 +110,11 @@ export class ConnectorApi extends runtime.BaseAPI {
      * /{application}/intention [POST]
      */
     async intentionRaw(requestParameters: IntentionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.application === null || requestParameters.application === undefined) {
-            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling intention.');
+        if (requestParameters['application'] == null) {
+            throw new runtime.RequiredError(
+                'application',
+                'Required parameter "application" was null or undefined when calling intention().'
+            );
         }
 
         const queryParameters: any = {};
@@ -121,11 +124,11 @@ export class ConnectorApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/{application}/intention`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            path: `/{application}/intention`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters['application']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededConnectorAssetToJSON(requestParameters.seededConnectorAsset),
+            body: SeededConnectorAssetToJSON(requestParameters['seededConnectorAsset']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -149,8 +152,11 @@ export class ConnectorApi extends runtime.BaseAPI {
      * /onboarded [POST]
      */
     async onboardedRaw(requestParameters: OnboardedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.application === null || requestParameters.application === undefined) {
-            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling onboarded.');
+        if (requestParameters['application'] == null) {
+            throw new runtime.RequiredError(
+                'application',
+                'Required parameter "application" was null or undefined when calling onboarded().'
+            );
         }
 
         const queryParameters: any = {};
@@ -160,11 +166,11 @@ export class ConnectorApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/{application}/onboarded`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            path: `/{application}/onboarded`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters['application']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -188,8 +194,11 @@ export class ConnectorApi extends runtime.BaseAPI {
      * /{application}/reaction [POST]
      */
     async reactRaw(requestParameters: ReactRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.application === null || requestParameters.application === undefined) {
-            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling react.');
+        if (requestParameters['application'] == null) {
+            throw new runtime.RequiredError(
+                'application',
+                'Required parameter "application" was null or undefined when calling react().'
+            );
         }
 
         const queryParameters: any = {};
@@ -199,11 +208,11 @@ export class ConnectorApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/{application}/reaction`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            path: `/{application}/reaction`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters['application']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ReactionToJSON(requestParameters.reaction),
+            body: ReactionToJSON(requestParameters['reaction']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -227,8 +236,11 @@ export class ConnectorApi extends runtime.BaseAPI {
      * /{application}/suggestion [POST]
      */
     async suggestRaw(requestParameters: SuggestRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Suggestion>> {
-        if (requestParameters.application === null || requestParameters.application === undefined) {
-            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling suggest.');
+        if (requestParameters['application'] == null) {
+            throw new runtime.RequiredError(
+                'application',
+                'Required parameter "application" was null or undefined when calling suggest().'
+            );
         }
 
         const queryParameters: any = {};
@@ -238,11 +250,11 @@ export class ConnectorApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/{application}/suggestion`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            path: `/{application}/suggestion`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters['application']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededConnectorCreationToJSON(requestParameters.seededConnectorCreation),
+            body: SeededConnectorCreationToJSON(requestParameters['seededConnectorCreation']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SuggestionFromJSON(jsonValue));
@@ -262,8 +274,11 @@ export class ConnectorApi extends runtime.BaseAPI {
      * /{application}/track [POST]
      */
     async trackRaw(requestParameters: TrackRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.application === null || requestParameters.application === undefined) {
-            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling track.');
+        if (requestParameters['application'] == null) {
+            throw new runtime.RequiredError(
+                'application',
+                'Required parameter "application" was null or undefined when calling track().'
+            );
         }
 
         const queryParameters: any = {};
@@ -273,11 +288,11 @@ export class ConnectorApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/{application}/track`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            path: `/{application}/track`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters['application']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededConnectorTrackingToJSON(requestParameters.seededConnectorTracking),
+            body: SeededConnectorTrackingToJSON(requestParameters['seededConnectorTracking']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {

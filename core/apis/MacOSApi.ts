@@ -50,7 +50,7 @@ export class MacOSApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededMacOSAssetToJSON(requestParameters.seededMacOSAsset),
+            body: SeededMacOSAssetToJSON(requestParameters['seededMacOSAsset']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));

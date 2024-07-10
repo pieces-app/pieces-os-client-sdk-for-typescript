@@ -12,19 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
-import type { GraphicalImageProcessing } from './GraphicalImageProcessing';
-import {
-    GraphicalImageProcessingFromJSON,
-    GraphicalImageProcessingFromJSONTyped,
-    GraphicalImageProcessingToJSON,
-} from './GraphicalImageProcessing';
 import type { GraphicalOCRProcessing } from './GraphicalOCRProcessing';
 import {
     GraphicalOCRProcessingFromJSON,
@@ -37,6 +31,12 @@ import {
     GraphicalSVGStatisticsFromJSONTyped,
     GraphicalSVGStatisticsToJSON,
 } from './GraphicalSVGStatistics';
+import type { GraphicalImageProcessing } from './GraphicalImageProcessing';
+import {
+    GraphicalImageProcessingFromJSON,
+    GraphicalImageProcessingFromJSONTyped,
+    GraphicalImageProcessingToJSON,
+} from './GraphicalImageProcessing';
 
 /**
  * 
@@ -73,10 +73,8 @@ export interface GraphicalMachineLearningProcessingEvent {
 /**
  * Check if a given object implements the GraphicalMachineLearningProcessingEvent interface.
  */
-export function instanceOfGraphicalMachineLearningProcessingEvent(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfGraphicalMachineLearningProcessingEvent(value: object): value is GraphicalMachineLearningProcessingEvent {
+    return true;
 }
 
 export function GraphicalMachineLearningProcessingEventFromJSON(json: any): GraphicalMachineLearningProcessingEvent {
@@ -84,31 +82,28 @@ export function GraphicalMachineLearningProcessingEventFromJSON(json: any): Grap
 }
 
 export function GraphicalMachineLearningProcessingEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalMachineLearningProcessingEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'ocr': !exists(json, 'ocr') ? undefined : GraphicalOCRProcessingFromJSON(json['ocr']),
-        'image': !exists(json, 'image') ? undefined : GraphicalImageProcessingFromJSON(json['image']),
-        'svg': !exists(json, 'svg') ? undefined : GraphicalSVGStatisticsFromJSON(json['svg']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'ocr': json['ocr'] == null ? undefined : GraphicalOCRProcessingFromJSON(json['ocr']),
+        'image': json['image'] == null ? undefined : GraphicalImageProcessingFromJSON(json['image']),
+        'svg': json['svg'] == null ? undefined : GraphicalSVGStatisticsFromJSON(json['svg']),
     };
 }
 
 export function GraphicalMachineLearningProcessingEventToJSON(value?: GraphicalMachineLearningProcessingEvent | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'ocr': GraphicalOCRProcessingToJSON(value.ocr),
-        'image': GraphicalImageProcessingToJSON(value.image),
-        'svg': GraphicalSVGStatisticsToJSON(value.svg),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'ocr': GraphicalOCRProcessingToJSON(value['ocr']),
+        'image': GraphicalImageProcessingToJSON(value['image']),
+        'svg': GraphicalSVGStatisticsToJSON(value['svg']),
     };
 }
 

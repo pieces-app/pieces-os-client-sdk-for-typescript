@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -49,11 +49,9 @@ export interface DetectedExternalApplication {
 /**
  * Check if a given object implements the DetectedExternalApplication interface.
  */
-export function instanceOfDetectedExternalApplication(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfDetectedExternalApplication(value: object): value is DetectedExternalApplication {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function DetectedExternalApplicationFromJSON(json: any): DetectedExternalApplication {
@@ -61,29 +59,26 @@ export function DetectedExternalApplicationFromJSON(json: any): DetectedExternal
 }
 
 export function DetectedExternalApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): DetectedExternalApplication {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'name': json['name'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
+        'version': json['version'] == null ? undefined : json['version'],
     };
 }
 
 export function DetectedExternalApplicationToJSON(value?: DetectedExternalApplication | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
-        'version': value.version,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'version': value['version'],
     };
 }
 

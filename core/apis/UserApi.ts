@@ -138,7 +138,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: Auth0UserToJSON(requestParameters.auth0User),
+            body: Auth0UserToJSON(requestParameters['auth0User']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
@@ -197,7 +197,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
+            body: UserProfileToJSON(requestParameters['userProfile']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
@@ -228,7 +228,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserBetaStatusToJSON(requestParameters.userBetaStatus),
+            body: UserBetaStatusToJSON(requestParameters['userBetaStatus']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserBetaStatusFromJSON(jsonValue));
@@ -315,7 +315,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
+            body: UserProfileToJSON(requestParameters['userProfile']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));

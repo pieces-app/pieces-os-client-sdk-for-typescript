@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { InteractedAssets } from './InteractedAssets';
+import {
+    InteractedAssetsFromJSON,
+    InteractedAssetsFromJSONTyped,
+    InteractedAssetsToJSON,
+} from './InteractedAssets';
 import type { Assets } from './Assets';
 import {
     AssetsFromJSON,
@@ -25,12 +31,6 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
-import type { InteractedAssets } from './InteractedAssets';
-import {
-    InteractedAssetsFromJSON,
-    InteractedAssetsFromJSONTyped,
-    InteractedAssetsToJSON,
-} from './InteractedAssets';
 
 /**
  * This is the input data model for the /assets/recommend [GET] endpoint. It includes both a list of assets but also 
@@ -61,12 +61,10 @@ export interface SeededAssetsRecommendation {
 /**
  * Check if a given object implements the SeededAssetsRecommendation interface.
  */
-export function instanceOfSeededAssetsRecommendation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "assets" in value;
-    isInstance = isInstance && "interactions" in value;
-
-    return isInstance;
+export function instanceOfSeededAssetsRecommendation(value: object): value is SeededAssetsRecommendation {
+    if (!('assets' in value) || value['assets'] === undefined) return false;
+    if (!('interactions' in value) || value['interactions'] === undefined) return false;
+    return true;
 }
 
 export function SeededAssetsRecommendationFromJSON(json: any): SeededAssetsRecommendation {
@@ -74,29 +72,26 @@ export function SeededAssetsRecommendationFromJSON(json: any): SeededAssetsRecom
 }
 
 export function SeededAssetsRecommendationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetsRecommendation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'assets': AssetsFromJSON(json['assets']),
         'interactions': InteractedAssetsFromJSON(json['interactions']),
     };
 }
 
 export function SeededAssetsRecommendationToJSON(value?: SeededAssetsRecommendation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'assets': AssetsToJSON(value.assets),
-        'interactions': InteractedAssetsToJSON(value.interactions),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assets': AssetsToJSON(value['assets']),
+        'interactions': InteractedAssetsToJSON(value['interactions']),
     };
 }
 

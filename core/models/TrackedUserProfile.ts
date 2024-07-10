@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -73,13 +73,11 @@ export type TrackedUserProfileGranularityEnum = typeof TrackedUserProfileGranula
 /**
  * Check if a given object implements the TrackedUserProfile interface.
  */
-export function instanceOfTrackedUserProfile(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "username" in value;
-    isInstance = isInstance && "granularity" in value;
-
-    return isInstance;
+export function instanceOfTrackedUserProfile(value: object): value is TrackedUserProfile {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('username' in value) || value['username'] === undefined) return false;
+    if (!('granularity' in value) || value['granularity'] === undefined) return false;
+    return true;
 }
 
 export function TrackedUserProfileFromJSON(json: any): TrackedUserProfile {
@@ -87,33 +85,30 @@ export function TrackedUserProfileFromJSON(json: any): TrackedUserProfile {
 }
 
 export function TrackedUserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedUserProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'username': json['username'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
+        'email': json['email'] == null ? undefined : json['email'],
         'granularity': json['granularity'],
     };
 }
 
 export function TrackedUserProfileToJSON(value?: TrackedUserProfile | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'username': value.username,
-        'email': value.email,
-        'granularity': value.granularity,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'username': value['username'],
+        'email': value['email'],
+        'granularity': value['granularity'],
     };
 }
 

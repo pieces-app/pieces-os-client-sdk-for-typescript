@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { Analysis } from './Analysis';
 import {
     AnalysisFromJSON,
@@ -49,11 +49,9 @@ export interface Analyses {
 /**
  * Check if a given object implements the Analyses interface.
  */
-export function instanceOfAnalyses(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfAnalyses(value: object): value is Analyses {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function AnalysesFromJSON(json: any): Analyses {
@@ -61,27 +59,24 @@ export function AnalysesFromJSON(json: any): Analyses {
 }
 
 export function AnalysesFromJSONTyped(json: any, ignoreDiscriminator: boolean): Analyses {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AnalysisFromJSON)),
     };
 }
 
 export function AnalysesToJSON(value?: Analyses | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AnalysisToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AnalysisToJSON)),
     };
 }
 

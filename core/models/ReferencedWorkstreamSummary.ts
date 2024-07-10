@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -55,11 +55,9 @@ export interface ReferencedWorkstreamSummary {
 /**
  * Check if a given object implements the ReferencedWorkstreamSummary interface.
  */
-export function instanceOfReferencedWorkstreamSummary(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedWorkstreamSummary(value: object): value is ReferencedWorkstreamSummary {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedWorkstreamSummaryFromJSON(json: any): ReferencedWorkstreamSummary {
@@ -67,29 +65,26 @@ export function ReferencedWorkstreamSummaryFromJSON(json: any): ReferencedWorkst
 }
 
 export function ReferencedWorkstreamSummaryFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedWorkstreamSummary {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedWorkstreamSummaryFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedWorkstreamSummaryFromJSON(json['reference']),
     };
 }
 
 export function ReferencedWorkstreamSummaryToJSON(value?: ReferencedWorkstreamSummary | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedWorkstreamSummaryToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedWorkstreamSummaryToJSON(value['reference']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -42,13 +42,11 @@ export interface SystemExecutionCpuInformation {
 /**
  * Check if a given object implements the SystemExecutionCpuInformation interface.
  */
-export function instanceOfSystemExecutionCpuInformation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "count" in value;
-    isInstance = isInstance && "brand" in value;
-    isInstance = isInstance && "frequency" in value;
-
-    return isInstance;
+export function instanceOfSystemExecutionCpuInformation(value: object): value is SystemExecutionCpuInformation {
+    if (!('count' in value) || value['count'] === undefined) return false;
+    if (!('brand' in value) || value['brand'] === undefined) return false;
+    if (!('frequency' in value) || value['frequency'] === undefined) return false;
+    return true;
 }
 
 export function SystemExecutionCpuInformationFromJSON(json: any): SystemExecutionCpuInformation {
@@ -56,7 +54,7 @@ export function SystemExecutionCpuInformationFromJSON(json: any): SystemExecutio
 }
 
 export function SystemExecutionCpuInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SystemExecutionCpuInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -68,17 +66,14 @@ export function SystemExecutionCpuInformationFromJSONTyped(json: any, ignoreDisc
 }
 
 export function SystemExecutionCpuInformationToJSON(value?: SystemExecutionCpuInformation | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'count': value.count,
-        'brand': value.brand,
-        'frequency': value.frequency,
+        'count': value['count'],
+        'brand': value['brand'],
+        'frequency': value['frequency'],
     };
 }
 

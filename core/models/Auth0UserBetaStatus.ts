@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
-import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import {
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+} from './AnonymousTemporalRange';
 
 /**
  * Note: continuous: this means that from this moment in time, the user is continuously opted into beta
@@ -53,10 +53,8 @@ export interface Auth0UserBetaStatus {
 /**
  * Check if a given object implements the Auth0UserBetaStatus interface.
  */
-export function instanceOfAuth0UserBetaStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAuth0UserBetaStatus(value: object): value is Auth0UserBetaStatus {
+    return true;
 }
 
 export function Auth0UserBetaStatusFromJSON(json: any): Auth0UserBetaStatus {
@@ -64,27 +62,24 @@ export function Auth0UserBetaStatusFromJSON(json: any): Auth0UserBetaStatus {
 }
 
 export function Auth0UserBetaStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0UserBetaStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'vision': !exists(json, 'vision') ? undefined : AnonymousTemporalRangeFromJSON(json['vision']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'vision': json['vision'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['vision']),
     };
 }
 
 export function Auth0UserBetaStatusToJSON(value?: Auth0UserBetaStatus | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'vision': AnonymousTemporalRangeToJSON(value.vision),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'vision': AnonymousTemporalRangeToJSON(value['vision']),
     };
 }
 

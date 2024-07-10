@@ -60,12 +60,18 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
      * /workstream_event/{workstream_event}/workstream_summaries/associate/{workstream_summary} [POST]
      */
     async workstreamEventAssociateWorkstreamSummaryRaw(requestParameters: WorkstreamEventAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventAssociateWorkstreamSummary.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateWorkstreamSummary().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamEventAssociateWorkstreamSummary.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamEventAssociateWorkstreamSummary().'
+            );
         }
 
         const queryParameters: any = {};
@@ -73,7 +79,7 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/workstream_event/{workstream_event}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -95,12 +101,18 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
      * /workstream_event/{workstream_event}/workstream_summaries/disassociate/{workstream_summary} [POST]
      */
     async workstreamEventDisassociateWorkstreamSummaryRaw(requestParameters: WorkstreamEventDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventDisassociateWorkstreamSummary.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateWorkstreamSummary().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamEventDisassociateWorkstreamSummary.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamEventDisassociateWorkstreamSummary().'
+            );
         }
 
         const queryParameters: any = {};
@@ -108,7 +120,7 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/workstream_event/{workstream_event}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -130,8 +142,11 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
      * \'/workstream_event/{workstream_event}/scores/increment\' [POST]
      */
     async workstreamEventScoresIncrementRaw(requestParameters: WorkstreamEventScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventScoresIncrement.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -141,11 +156,11 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}/scores/increment`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))),
+            path: `/workstream_event/{workstream_event}/scores/increment`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -166,8 +181,8 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
     async workstreamEventUpdateRaw(requestParameters: WorkstreamEventUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamEvent>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -179,7 +194,7 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamEventToJSON(requestParameters.workstreamEvent),
+            body: WorkstreamEventToJSON(requestParameters['workstreamEvent']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamEventFromJSON(jsonValue));
@@ -199,20 +214,23 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
      * /workstream_event/{workstream_event} [GET]
      */
     async workstreamEventsSpecificWorkstreamEventSnapshotRaw(requestParameters: WorkstreamEventsSpecificWorkstreamEventSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamEvent>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventsSpecificWorkstreamEventSnapshot.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventsSpecificWorkstreamEventSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))),
+            path: `/workstream_event/{workstream_event}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

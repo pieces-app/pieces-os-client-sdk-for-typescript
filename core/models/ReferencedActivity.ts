@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -55,11 +55,9 @@ export interface ReferencedActivity {
 /**
  * Check if a given object implements the ReferencedActivity interface.
  */
-export function instanceOfReferencedActivity(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedActivity(value: object): value is ReferencedActivity {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedActivityFromJSON(json: any): ReferencedActivity {
@@ -67,29 +65,26 @@ export function ReferencedActivityFromJSON(json: any): ReferencedActivity {
 }
 
 export function ReferencedActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedActivity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedActivityFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedActivityFromJSON(json['reference']),
     };
 }
 
 export function ReferencedActivityToJSON(value?: ReferencedActivity | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedActivityToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedActivityToJSON(value['reference']),
     };
 }
 

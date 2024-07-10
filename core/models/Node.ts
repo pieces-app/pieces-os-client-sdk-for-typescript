@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
+import { mapValues } from '../runtime';
 import type { NodeTypeEnum } from './NodeTypeEnum';
 import {
     NodeTypeEnumFromJSON,
     NodeTypeEnumFromJSONTyped,
     NodeTypeEnumToJSON,
 } from './NodeTypeEnum';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+} from './GroupedTimestamp';
 
 /**
  * This describes a node within a relationship graph used to related like types. ie asset to asset, tag to tag, ...etc
@@ -65,14 +65,12 @@ export interface Node {
 /**
  * Check if a given object implements the Node interface.
  */
-export function instanceOfNode(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "root" in value;
-    isInstance = isInstance && "created" in value;
-
-    return isInstance;
+export function instanceOfNode(value: object): value is Node {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    if (!('root' in value) || value['root'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    return true;
 }
 
 export function NodeFromJSON(json: any): Node {
@@ -80,7 +78,7 @@ export function NodeFromJSON(json: any): Node {
 }
 
 export function NodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Node {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -93,18 +91,15 @@ export function NodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Node
 }
 
 export function NodeToJSON(value?: Node | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'type': NodeTypeEnumToJSON(value.type),
-        'root': value.root,
-        'created': GroupedTimestampToJSON(value.created),
+        'id': value['id'],
+        'type': NodeTypeEnumToJSON(value['type']),
+        'root': value['root'],
+        'created': GroupedTimestampToJSON(value['created']),
     };
 }
 

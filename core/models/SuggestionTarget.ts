@@ -12,19 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededConnectorCreation } from './SeededConnectorCreation';
 import {
     SeededConnectorCreationFromJSON,
     SeededConnectorCreationFromJSONTyped,
     SeededConnectorCreationToJSON,
 } from './SeededConnectorCreation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+} from './EmbeddedModelSchema';
 
 /**
  * This is the target that was sent to pieces. This will return the string that represents this coppied || pasted asset. This will also send along the SeededConnectorCreation and will send along the vector that we created based on the seed.
@@ -55,12 +55,10 @@ export interface SuggestionTarget {
 /**
  * Check if a given object implements the SuggestionTarget interface.
  */
-export function instanceOfSuggestionTarget(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "seed" in value;
-    isInstance = isInstance && "vector" in value;
-
-    return isInstance;
+export function instanceOfSuggestionTarget(value: object): value is SuggestionTarget {
+    if (!('seed' in value) || value['seed'] === undefined) return false;
+    if (!('vector' in value) || value['vector'] === undefined) return false;
+    return true;
 }
 
 export function SuggestionTargetFromJSON(json: any): SuggestionTarget {
@@ -68,29 +66,26 @@ export function SuggestionTargetFromJSON(json: any): SuggestionTarget {
 }
 
 export function SuggestionTargetFromJSONTyped(json: any, ignoreDiscriminator: boolean): SuggestionTarget {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seed': SeededConnectorCreationFromJSON(json['seed']),
         'vector': json['vector'],
     };
 }
 
 export function SuggestionTargetToJSON(value?: SuggestionTarget | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seed': SeededConnectorCreationToJSON(value.seed),
-        'vector': value.vector,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seed': SeededConnectorCreationToJSON(value['seed']),
+        'vector': value['vector'],
     };
 }
 

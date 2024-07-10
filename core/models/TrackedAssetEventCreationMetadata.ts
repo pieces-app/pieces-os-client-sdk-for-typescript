@@ -12,7 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { TrackedAssetEventCreationMetadataFile } from './TrackedAssetEventCreationMetadataFile';
+import {
+    TrackedAssetEventCreationMetadataFileFromJSON,
+    TrackedAssetEventCreationMetadataFileFromJSONTyped,
+    TrackedAssetEventCreationMetadataFileToJSON,
+} from './TrackedAssetEventCreationMetadataFile';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
@@ -25,12 +31,6 @@ import {
     TrackedAssetEventCreationMetadataClipboardFromJSONTyped,
     TrackedAssetEventCreationMetadataClipboardToJSON,
 } from './TrackedAssetEventCreationMetadataClipboard';
-import type { TrackedAssetEventCreationMetadataFile } from './TrackedAssetEventCreationMetadataFile';
-import {
-    TrackedAssetEventCreationMetadataFileFromJSON,
-    TrackedAssetEventCreationMetadataFileFromJSONTyped,
-    TrackedAssetEventCreationMetadataFileToJSON,
-} from './TrackedAssetEventCreationMetadataFile';
 
 /**
  * Metadata attached to a creation event on an Asset
@@ -61,10 +61,8 @@ export interface TrackedAssetEventCreationMetadata {
 /**
  * Check if a given object implements the TrackedAssetEventCreationMetadata interface.
  */
-export function instanceOfTrackedAssetEventCreationMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedAssetEventCreationMetadata(value: object): value is TrackedAssetEventCreationMetadata {
+    return true;
 }
 
 export function TrackedAssetEventCreationMetadataFromJSON(json: any): TrackedAssetEventCreationMetadata {
@@ -72,29 +70,26 @@ export function TrackedAssetEventCreationMetadataFromJSON(json: any): TrackedAss
 }
 
 export function TrackedAssetEventCreationMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventCreationMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'clipboard': !exists(json, 'clipboard') ? undefined : TrackedAssetEventCreationMetadataClipboardFromJSON(json['clipboard']),
-        'file': !exists(json, 'file') ? undefined : TrackedAssetEventCreationMetadataFileFromJSON(json['file']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'clipboard': json['clipboard'] == null ? undefined : TrackedAssetEventCreationMetadataClipboardFromJSON(json['clipboard']),
+        'file': json['file'] == null ? undefined : TrackedAssetEventCreationMetadataFileFromJSON(json['file']),
     };
 }
 
 export function TrackedAssetEventCreationMetadataToJSON(value?: TrackedAssetEventCreationMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'clipboard': TrackedAssetEventCreationMetadataClipboardToJSON(value.clipboard),
-        'file': TrackedAssetEventCreationMetadataFileToJSON(value.file),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'clipboard': TrackedAssetEventCreationMetadataClipboardToJSON(value['clipboard']),
+        'file': TrackedAssetEventCreationMetadataFileToJSON(value['file']),
     };
 }
 
