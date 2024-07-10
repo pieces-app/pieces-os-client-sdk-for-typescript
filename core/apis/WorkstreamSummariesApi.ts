@@ -15,11 +15,17 @@
 
 import * as runtime from '../runtime';
 import type {
+  SearchInput,
+  SearchedWorkstreamSummaries,
   SeededWorkstreamSummary,
   WorkstreamSummaries,
   WorkstreamSummary,
 } from '../models/index';
 import {
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedWorkstreamSummariesFromJSON,
+    SearchedWorkstreamSummariesToJSON,
     SeededWorkstreamSummaryFromJSON,
     SeededWorkstreamSummaryToJSON,
     WorkstreamSummariesFromJSON,
@@ -27,6 +33,11 @@ import {
     WorkstreamSummaryFromJSON,
     WorkstreamSummaryToJSON,
 } from '../models/index';
+
+export interface SearchWorkstreamSummariesRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
 
 export interface WorkstreamSummariesCreateNewWorkstreamSummaryRequest {
     transferables?: boolean;
@@ -45,6 +56,41 @@ export interface WorkstreamSummariesSnapshotRequest {
  * 
  */
 export class WorkstreamSummariesApi extends runtime.BaseAPI {
+
+    /**
+     * This will search your workstream_summaries for a specific workstream_summary  note: we will just search the summary value(which is an annotation)
+     * /workstream_summaries/search [POST]
+     */
+    async searchWorkstreamSummariesRaw(requestParameters: SearchWorkstreamSummariesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedWorkstreamSummaries>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/workstream_summaries/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters.searchInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedWorkstreamSummariesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your workstream_summaries for a specific workstream_summary  note: we will just search the summary value(which is an annotation)
+     * /workstream_summaries/search [POST]
+     */
+    async searchWorkstreamSummaries(requestParameters: SearchWorkstreamSummariesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedWorkstreamSummaries> {
+        const response = await this.searchWorkstreamSummariesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * This will create a new WorkstreamSummary in the database.

@@ -40,7 +40,11 @@ export const ExternalMLProviderEnum = {
     HongKongBaptistUniversity: 'HONG_KONG_BAPTIST_UNIVERSITY',
     Bigcode: 'BIGCODE',
     Jina: 'JINA',
-    Pieces: 'PIECES'
+    Pieces: 'PIECES',
+    Anthropic: 'ANTHROPIC',
+    Ibm: 'IBM',
+    Snowflake: 'SNOWFLAKE',
+    Perplexity: 'PERPLEXITY'
 } as const;
 export type ExternalMLProviderEnum = typeof ExternalMLProviderEnum[keyof typeof ExternalMLProviderEnum];
 

@@ -25,6 +25,16 @@ import {
     SeededScoreIncrementToJSON,
 } from '../models/index';
 
+export interface HintAssociateAssetRequest {
+    hint: string;
+    asset: string;
+}
+
+export interface HintDisassociateAssetRequest {
+    hint: string;
+    asset: string;
+}
+
 export interface HintScoresIncrementRequest {
     hint: string;
     seededScoreIncrement?: SeededScoreIncrement;
@@ -42,6 +52,76 @@ export interface HintUpdateRequest {
  * 
  */
 export class HintApi extends runtime.BaseAPI {
+
+    /**
+     * associates a hint and an asset. It performs the same action as the asset equivalent.
+     * /hint/{hint}/assets/associate/{asset} [POST]
+     */
+    async hintAssociateAssetRaw(requestParameters: HintAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.hint === null || requestParameters.hint === undefined) {
+            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintAssociateAsset.');
+        }
+
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling hintAssociateAsset.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/hint/{hint}/assets/associate/{asset}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * associates a hint and an asset. It performs the same action as the asset equivalent.
+     * /hint/{hint}/assets/associate/{asset} [POST]
+     */
+    async hintAssociateAsset(requestParameters: HintAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.hintAssociateAssetRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Disassociates a hint from an asset. It performs the same action as the asset equivalent.
+     * /hint/{hint}/assets/disassociate/{asset} [POST]
+     */
+    async hintDisassociateAssetRaw(requestParameters: HintDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.hint === null || requestParameters.hint === undefined) {
+            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintDisassociateAsset.');
+        }
+
+        if (requestParameters.asset === null || requestParameters.asset === undefined) {
+            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling hintDisassociateAsset.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/hint/{hint}/assets/disassociate/{asset}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Disassociates a hint from an asset. It performs the same action as the asset equivalent.
+     * /hint/{hint}/assets/disassociate/{asset} [POST]
+     */
+    async hintDisassociateAsset(requestParameters: HintDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.hintDisassociateAssetRaw(requestParameters, initOverrides);
+    }
 
     /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.

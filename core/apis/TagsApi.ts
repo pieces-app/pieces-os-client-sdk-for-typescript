@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   ExistentMetadata,
   ExistingMetadata,
+  SearchInput,
+  SearchedTags,
   SeededTag,
   Tag,
   Tags,
@@ -26,6 +28,10 @@ import {
     ExistentMetadataToJSON,
     ExistingMetadataFromJSON,
     ExistingMetadataToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedTagsFromJSON,
+    SearchedTagsToJSON,
     SeededTagFromJSON,
     SeededTagToJSON,
     TagFromJSON,
@@ -33,6 +39,11 @@ import {
     TagsFromJSON,
     TagsToJSON,
 } from '../models/index';
+
+export interface SearchTagsRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
 
 export interface TagsCreateNewTagRequest {
     transferables?: boolean;
@@ -55,6 +66,41 @@ export interface TagsSnapshotRequest {
  * 
  */
 export class TagsApi extends runtime.BaseAPI {
+
+    /**
+     * This will search your tags for a specific tag
+     * /tags/search [POST]
+     */
+    async searchTagsRaw(requestParameters: SearchTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedTags>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/tags/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters.searchInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedTagsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your tags for a specific tag
+     * /tags/search [POST]
+     */
+    async searchTags(requestParameters: SearchTagsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedTags> {
+        const response = await this.searchTagsRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * This will create a new tag.

@@ -78,13 +78,6 @@ export interface AssetsIdentifiersSnapshotRequest {
     pseudo?: boolean;
 }
 
-export interface AssetsSearchAssetsRequest {
-    query?: string;
-    transferables?: boolean;
-    searchableTags?: string;
-    pseudo?: boolean;
-}
-
 export interface AssetsSearchWithFiltersRequest {
     transferables?: boolean;
     pseudo?: boolean;
@@ -105,6 +98,13 @@ export interface AssetsSpecificAssetFormatsSnapshotRequest {
 export interface AssetsSpecificAssetSnapshotRequest {
     asset: string;
     transferables?: boolean;
+}
+
+export interface SearchAssetsRequest {
+    query?: string;
+    transferables?: boolean;
+    searchableTags?: string;
+    pseudo?: boolean;
 }
 
 /**
@@ -341,50 +341,6 @@ export class AssetsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Performs a search across your pieces and returns Assets (the results) based on your query. Presently, it only requires your query to be sent in the body. It is mandatory to include searchable_tags (comma-separated values of tags) or a query string.  If a query is provided, a fuzzy search will be conducted. If searchable tags are provided, a tag-based search will be executed.  If neither are included, a 500 error will be returned.
-     * /assets/search?query=string [GET]
-     */
-    async assetsSearchAssetsRaw(requestParameters: AssetsSearchAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
-        const queryParameters: any = {};
-
-        if (requestParameters.query !== undefined) {
-            queryParameters['query'] = requestParameters.query;
-        }
-
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
-        }
-
-        if (requestParameters.searchableTags !== undefined) {
-            queryParameters['searchable_tags'] = requestParameters.searchableTags;
-        }
-
-        if (requestParameters.pseudo !== undefined) {
-            queryParameters['pseudo'] = requestParameters.pseudo;
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/assets/search`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAssetsFromJSON(jsonValue));
-    }
-
-    /**
-     * Performs a search across your pieces and returns Assets (the results) based on your query. Presently, it only requires your query to be sent in the body. It is mandatory to include searchable_tags (comma-separated values of tags) or a query string.  If a query is provided, a fuzzy search will be conducted. If searchable tags are provided, a tag-based search will be executed.  If neither are included, a 500 error will be returned.
-     * /assets/search?query=string [GET]
-     */
-    async assetsSearchAssets(requestParameters: AssetsSearchAssetsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedAssets> {
-        const response = await this.assetsSearchAssetsRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * Enables searching through your pieces and returns Assets (the results) based on your query.  When sending a query in the request body, fuzzy search is applied.  Additionally, the request body can include a search space, currently as a list of UUIDs (and potentially Seeds in the future). Optional filters can also be included in the request body, represented as an iterable of filters, all of which are combined using AND operations.
      * /assets/search [POST]
      */
@@ -588,6 +544,50 @@ export class AssetsApi extends runtime.BaseAPI {
      */
     async getAssetsStreamTransferables(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Assets> {
         const response = await this.getAssetsStreamTransferablesRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Performs a search across your pieces and returns Assets (the results) based on your query. Presently, it only requires your query to be sent in the body. It is mandatory to include searchable_tags (comma-separated values of tags) or a query string.  If a query is provided, a fuzzy search will be conducted. If searchable tags are provided, a tag-based search will be executed.  If neither are included, a 500 error will be returned.
+     * /assets/search?query=string [GET]
+     */
+    async searchAssetsRaw(requestParameters: SearchAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.query !== undefined) {
+            queryParameters['query'] = requestParameters.query;
+        }
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        if (requestParameters.searchableTags !== undefined) {
+            queryParameters['searchable_tags'] = requestParameters.searchableTags;
+        }
+
+        if (requestParameters.pseudo !== undefined) {
+            queryParameters['pseudo'] = requestParameters.pseudo;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/assets/search`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAssetsFromJSON(jsonValue));
+    }
+
+    /**
+     * Performs a search across your pieces and returns Assets (the results) based on your query. Presently, it only requires your query to be sent in the body. It is mandatory to include searchable_tags (comma-separated values of tags) or a query string.  If a query is provided, a fuzzy search will be conducted. If searchable tags are provided, a tag-based search will be executed.  If neither are included, a 500 error will be returned.
+     * /assets/search?query=string [GET]
+     */
+    async searchAssets(requestParameters: SearchAssetsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedAssets> {
+        const response = await this.searchAssetsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

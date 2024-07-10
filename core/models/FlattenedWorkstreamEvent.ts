@@ -43,18 +43,18 @@ import {
     ScoreFromJSONTyped,
     ScoreToJSON,
 } from './Score';
+import type { WorkstreamEventContext } from './WorkstreamEventContext';
+import {
+    WorkstreamEventContextFromJSON,
+    WorkstreamEventContextFromJSONTyped,
+    WorkstreamEventContextToJSON,
+} from './WorkstreamEventContext';
 import type { WorkstreamEventTrigger } from './WorkstreamEventTrigger';
 import {
     WorkstreamEventTriggerFromJSON,
     WorkstreamEventTriggerFromJSONTyped,
     WorkstreamEventTriggerToJSON,
 } from './WorkstreamEventTrigger';
-import type { WorkstreamEventTriggerMetadata } from './WorkstreamEventTriggerMetadata';
-import {
-    WorkstreamEventTriggerMetadataFromJSON,
-    WorkstreamEventTriggerMetadataFromJSONTyped,
-    WorkstreamEventTriggerMetadataToJSON,
-} from './WorkstreamEventTriggerMetadata';
 
 /**
  * This is a singular (DAG Safe) version of a WorkstreamEvent.
@@ -106,10 +106,10 @@ export interface FlattenedWorkstreamEvent {
     trigger: WorkstreamEventTrigger;
     /**
      * 
-     * @type {WorkstreamEventTriggerMetadata}
+     * @type {WorkstreamEventContext}
      * @memberof FlattenedWorkstreamEvent
      */
-    metadata?: WorkstreamEventTriggerMetadata;
+    context?: WorkstreamEventContext;
     /**
      * 
      * @type {FlattenedWorkstreamSummaries}
@@ -149,7 +149,7 @@ export function FlattenedWorkstreamEventFromJSONTyped(json: any, ignoreDiscrimin
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'trigger': WorkstreamEventTriggerFromJSON(json['trigger']),
-        'metadata': !exists(json, 'metadata') ? undefined : WorkstreamEventTriggerMetadataFromJSON(json['metadata']),
+        'context': !exists(json, 'context') ? undefined : WorkstreamEventContextFromJSON(json['context']),
         'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
@@ -170,7 +170,7 @@ export function FlattenedWorkstreamEventToJSON(value?: FlattenedWorkstreamEvent 
         'created': GroupedTimestampToJSON(value.created),
         'updated': GroupedTimestampToJSON(value.updated),
         'trigger': WorkstreamEventTriggerToJSON(value.trigger),
-        'metadata': WorkstreamEventTriggerMetadataToJSON(value.metadata),
+        'context': WorkstreamEventContextToJSON(value.context),
         'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
     };
 }

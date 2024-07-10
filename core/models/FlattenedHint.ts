@@ -19,6 +19,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+} from './FlattenedAssets';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
@@ -37,12 +43,6 @@ import {
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
 } from './MechanismEnum';
-import type { ReferencedAsset } from './ReferencedAsset';
-import {
-    ReferencedAssetFromJSON,
-    ReferencedAssetFromJSONTyped,
-    ReferencedAssetToJSON,
-} from './ReferencedAsset';
 import type { ReferencedModel } from './ReferencedModel';
 import {
     ReferencedModelFromJSON,
@@ -93,17 +93,17 @@ export interface FlattenedHint {
      */
     deleted?: GroupedTimestamp;
     /**
-     * 
-     * @type {MechanismEnum}
+     * This is a Map<String, MechanismEnum> where the the key is an asset id.
+     * @type {{ [key: string]: MechanismEnum; }}
      * @memberof FlattenedHint
      */
-    mechanism?: MechanismEnum;
+    mechanisms?: { [key: string]: MechanismEnum; };
     /**
      * 
-     * @type {ReferencedAsset}
+     * @type {FlattenedAssets}
      * @memberof FlattenedHint
      */
-    asset?: ReferencedAsset;
+    assets?: FlattenedAssets;
     /**
      * 
      * @type {HintTypeEnum}
@@ -159,8 +159,8 @@ export function FlattenedHintFromJSONTyped(json: any, ignoreDiscriminator: boole
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'type': HintTypeEnumFromJSON(json['type']),
         'text': json['text'],
         'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
@@ -182,8 +182,8 @@ export function FlattenedHintToJSON(value?: FlattenedHint | null): any {
         'created': GroupedTimestampToJSON(value.created),
         'updated': GroupedTimestampToJSON(value.updated),
         'deleted': GroupedTimestampToJSON(value.deleted),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'asset': ReferencedAssetToJSON(value.asset),
+        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
+        'assets': FlattenedAssetsToJSON(value.assets),
         'type': HintTypeEnumToJSON(value.type),
         'text': value.text,
         'model': ReferencedModelToJSON(value.model),

@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   ConversationMessage,
   ConversationMessages,
+  SearchInput,
+  SearchedConversationMessages,
   SeededConversationMessage,
 } from '../models/index';
 import {
@@ -24,6 +26,10 @@ import {
     ConversationMessageToJSON,
     ConversationMessagesFromJSON,
     ConversationMessagesToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedConversationMessagesFromJSON,
+    SearchedConversationMessagesToJSON,
     SeededConversationMessageFromJSON,
     SeededConversationMessageToJSON,
 } from '../models/index';
@@ -39,6 +45,11 @@ export interface MessagesDeleteSpecificMessageRequest {
 
 export interface MessagesSnapshotRequest {
     transferables?: boolean;
+}
+
+export interface SearchMessagesRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
 }
 
 /**
@@ -141,6 +152,41 @@ export class ConversationMessagesApi extends runtime.BaseAPI {
      */
     async messagesSnapshot(requestParameters: MessagesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ConversationMessages> {
         const response = await this.messagesSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will search your conversationMessages for a specific conversation_message  note: we will just search the conversation message values
+     * /messages/search [POST]
+     */
+    async searchMessagesRaw(requestParameters: SearchMessagesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedConversationMessages>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/messages/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters.searchInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedConversationMessagesFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your conversationMessages for a specific conversation_message  note: we will just search the conversation message values
+     * /messages/search [POST]
+     */
+    async searchMessages(requestParameters: SearchMessagesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedConversationMessages> {
+        const response = await this.searchMessagesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

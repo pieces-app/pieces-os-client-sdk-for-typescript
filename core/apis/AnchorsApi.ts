@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   Anchor,
   Anchors,
+  SearchInput,
+  SearchedAnchors,
   SeededAnchor,
 } from '../models/index';
 import {
@@ -24,14 +26,13 @@ import {
     AnchorToJSON,
     AnchorsFromJSON,
     AnchorsToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedAnchorsFromJSON,
+    SearchedAnchorsToJSON,
     SeededAnchorFromJSON,
     SeededAnchorToJSON,
 } from '../models/index';
-
-export interface AnchorDisassociateAssetRequest {
-    anchor: string;
-    asset: string;
-}
 
 export interface AnchorsCreateNewAnchorRequest {
     transferables?: boolean;
@@ -46,45 +47,15 @@ export interface AnchorsSnapshotRequest {
     transferables?: boolean;
 }
 
+export interface SearchAnchorsRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
+}
+
 /**
  * 
  */
 export class AnchorsApi extends runtime.BaseAPI {
-
-    /**
-     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /anchors/{anchor}/assets/delete/{asset} [POST]
-     */
-    async anchorDisassociateAssetRaw(requestParameters: AnchorDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateAsset.');
-        }
-
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling anchorDisassociateAsset.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/anchors/{anchor}/assets/delete/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * This will update both the asset and the anchor reference, that will remove a anchor from an asset(only the references).  This will NOT remove the anchor. This will NOT remove the asset. This will only update the references so that they are disconnected from one another.
-     * /anchors/{anchor}/assets/delete/{asset} [POST]
-     */
-    async anchorDisassociateAsset(requestParameters: AnchorDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.anchorDisassociateAssetRaw(requestParameters, initOverrides);
-    }
 
     /**
      * This will create a anchor and attach it to a specific asset(s) This will also ensure the anchor is normalized.
@@ -181,6 +152,41 @@ export class AnchorsApi extends runtime.BaseAPI {
      */
     async anchorsSnapshot(requestParameters: AnchorsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Anchors> {
         const response = await this.anchorsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will search your anchors for a specific anchor  note: we will search all the anchor points
+     * /anchors/search [POST]
+     */
+    async searchAnchorsRaw(requestParameters: SearchAnchorsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAnchors>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/anchors/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters.searchInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAnchorsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your anchors for a specific anchor  note: we will search all the anchor points
+     * /anchors/search [POST]
+     */
+    async searchAnchors(requestParameters: SearchAnchorsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedAnchors> {
+        const response = await this.searchAnchorsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

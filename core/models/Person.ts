@@ -19,6 +19,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+} from './FlattenedAnchors';
 import type { FlattenedAnnotations } from './FlattenedAnnotations';
 import {
     FlattenedAnnotationsFromJSON,
@@ -192,6 +198,12 @@ export interface Person {
      * @memberof Person
      */
     summaries?: FlattenedWorkstreamSummaries;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof Person
+     */
+    anchors?: FlattenedAnchors;
 }
 
 /**
@@ -233,6 +245,7 @@ export function PersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): Pe
         'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
     };
 }
 
@@ -261,6 +274,7 @@ export function PersonToJSON(value?: Person | null): any {
         'annotations': FlattenedAnnotationsToJSON(value.annotations),
         'score': ScoreToJSON(value.score),
         'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
+        'anchors': FlattenedAnchorsToJSON(value.anchors),
     };
 }
 

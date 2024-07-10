@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   Hint,
   Hints,
+  SearchInput,
+  SearchedHints,
   SeededHint,
 } from '../models/index';
 import {
@@ -24,6 +26,10 @@ import {
     HintToJSON,
     HintsFromJSON,
     HintsToJSON,
+    SearchInputFromJSON,
+    SearchInputToJSON,
+    SearchedHintsFromJSON,
+    SearchedHintsToJSON,
     SeededHintFromJSON,
     SeededHintToJSON,
 } from '../models/index';
@@ -34,6 +40,11 @@ export interface HintsCreateNewHintRequest {
 
 export interface HintsDeleteSpecificHintRequest {
     hint: string;
+}
+
+export interface SearchHintsRequest {
+    transferables?: boolean;
+    searchInput?: SearchInput;
 }
 
 /**
@@ -128,6 +139,41 @@ export class HintsApi extends runtime.BaseAPI {
      */
     async hintsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Hints> {
         const response = await this.hintsSnapshotRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This will search your hints for a specific hint  note: we will just search the hint value
+     * /hints/search [POST]
+     */
+    async searchHintsRaw(requestParameters: SearchHintsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedHints>> {
+        const queryParameters: any = {};
+
+        if (requestParameters.transferables !== undefined) {
+            queryParameters['transferables'] = requestParameters.transferables;
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/hints/search`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SearchInputToJSON(requestParameters.searchInput),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => SearchedHintsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will search your hints for a specific hint  note: we will just search the hint value
+     * /hints/search [POST]
+     */
+    async searchHints(requestParameters: SearchHintsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<SearchedHints> {
+        const response = await this.searchHintsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

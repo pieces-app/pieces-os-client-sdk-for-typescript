@@ -58,6 +58,12 @@ export interface SeededScore {
      * @memberof SeededScore
      */
     priority?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof SeededScore
+     */
+    searched?: boolean;
 }
 
 /**
@@ -84,6 +90,7 @@ export function SeededScoreFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'update': !exists(json, 'update') ? undefined : json['update'],
         'reference': !exists(json, 'reference') ? undefined : json['reference'],
         'priority': !exists(json, 'priority') ? undefined : json['priority'],
+        'searched': !exists(json, 'searched') ? undefined : json['searched'],
     };
 }
 
@@ -101,6 +108,7 @@ export function SeededScoreToJSON(value?: SeededScore | null): any {
         'update': value.update,
         'reference': value.reference,
         'priority': value.priority,
+        'searched': value.searched,
     };
 }
 

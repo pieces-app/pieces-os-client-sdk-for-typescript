@@ -55,6 +55,10 @@ export const ApplicationNameEnum = {
     Sketch: 'SKETCH',
     AdobeIllustrator: 'ADOBE_ILLUSTRATOR',
     NotepadPlusPlus: 'NOTEPAD_PLUS_PLUS',
+    Embeetle: 'EMBEETLE',
+    Eclipse: 'ECLIPSE',
+    XCode: 'X_CODE',
+    Netbeans: 'NETBEANS',
     Unknown: 'UNKNOWN'
 } as const;
 export type ApplicationNameEnum = typeof ApplicationNameEnum[keyof typeof ApplicationNameEnum];

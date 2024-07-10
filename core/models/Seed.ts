@@ -19,15 +19,39 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { SeededAnchor } from './SeededAnchor';
+import {
+    SeededAnchorFromJSON,
+    SeededAnchorFromJSONTyped,
+    SeededAnchorToJSON,
+} from './SeededAnchor';
 import type { SeededAsset } from './SeededAsset';
 import {
     SeededAssetFromJSON,
     SeededAssetFromJSONTyped,
     SeededAssetToJSON,
 } from './SeededAsset';
+import type { SeededPerson } from './SeededPerson';
+import {
+    SeededPersonFromJSON,
+    SeededPersonFromJSONTyped,
+    SeededPersonToJSON,
+} from './SeededPerson';
+import type { SeededWebsite } from './SeededWebsite';
+import {
+    SeededWebsiteFromJSON,
+    SeededWebsiteFromJSONTyped,
+    SeededWebsiteToJSON,
+} from './SeededWebsite';
 
 /**
  * A seed Model used to wrap a format or asset
+ * 
+ * Note: we will expand this now to support additional paramerters.
+ * 
+ * Note: however if create an asset, only pass in the asset, not passing in an asset in this case will cause the endpoint to fail.
+ * 
+ * TODO: for a breaking change update the type enum here to add support for the additional materials or remove it entirely.
  * @export
  * @interface Seed
  */
@@ -46,10 +70,28 @@ export interface Seed {
     asset?: SeededAsset;
     /**
      * 
+     * @type {SeededPerson}
+     * @memberof Seed
+     */
+    person?: SeededPerson;
+    /**
+     * 
+     * @type {SeededAnchor}
+     * @memberof Seed
+     */
+    anchor?: SeededAnchor;
+    /**
+     * 
+     * @type {SeededWebsite}
+     * @memberof Seed
+     */
+    website?: SeededWebsite;
+    /**
+     * 
      * @type {string}
      * @memberof Seed
      */
-    type: SeedTypeEnum;
+    type?: SeedTypeEnum;
 }
 
 
@@ -68,7 +110,6 @@ export type SeedTypeEnum = typeof SeedTypeEnum[keyof typeof SeedTypeEnum];
  */
 export function instanceOfSeed(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "type" in value;
 
     return isInstance;
 }
@@ -85,7 +126,10 @@ export function SeedFromJSONTyped(json: any, ignoreDiscriminator: boolean): Seed
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'asset': !exists(json, 'asset') ? undefined : SeededAssetFromJSON(json['asset']),
-        'type': json['type'],
+        'person': !exists(json, 'person') ? undefined : SeededPersonFromJSON(json['person']),
+        'anchor': !exists(json, 'anchor') ? undefined : SeededAnchorFromJSON(json['anchor']),
+        'website': !exists(json, 'website') ? undefined : SeededWebsiteFromJSON(json['website']),
+        'type': !exists(json, 'type') ? undefined : json['type'],
     };
 }
 
@@ -100,6 +144,9 @@ export function SeedToJSON(value?: Seed | null): any {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
         'asset': SeededAssetToJSON(value.asset),
+        'person': SeededPersonToJSON(value.person),
+        'anchor': SeededAnchorToJSON(value.anchor),
+        'website': SeededWebsiteToJSON(value.website),
         'type': value.type,
     };
 }

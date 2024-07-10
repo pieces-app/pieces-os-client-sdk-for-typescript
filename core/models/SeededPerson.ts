@@ -19,6 +19,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+} from './FlattenedAnchors';
 import type { MechanismEnum } from './MechanismEnum';
 import {
     MechanismEnumFromJSON,
@@ -106,6 +112,12 @@ export interface SeededPerson {
      * @memberof SeededPerson
      */
     annotations?: Array<SeededAnnotation>;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof SeededPerson
+     */
+    anchors?: FlattenedAnchors;
 }
 
 /**
@@ -135,6 +147,7 @@ export function SeededPersonFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'type': PersonTypeFromJSON(json['type']),
         'model': !exists(json, 'model') ? undefined : PersonModelFromJSON(json['model']),
         'annotations': !exists(json, 'annotations') ? undefined : ((json['annotations'] as Array<any>).map(SeededAnnotationFromJSON)),
+        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
     };
 }
 
@@ -154,6 +167,7 @@ export function SeededPersonToJSON(value?: SeededPerson | null): any {
         'type': PersonTypeToJSON(value.type),
         'model': PersonModelToJSON(value.model),
         'annotations': value.annotations === undefined ? undefined : ((value.annotations as Array<any>).map(SeededAnnotationToJSON)),
+        'anchors': FlattenedAnchorsToJSON(value.anchors),
     };
 }
 
