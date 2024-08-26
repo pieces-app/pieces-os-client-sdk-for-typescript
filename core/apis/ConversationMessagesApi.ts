@@ -20,6 +20,7 @@ import type {
   SearchInput,
   SearchedConversationMessages,
   SeededConversationMessage,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     ConversationMessageFromJSON,
@@ -32,6 +33,8 @@ import {
     SearchedConversationMessagesToJSON,
     SeededConversationMessageFromJSON,
     SeededConversationMessageToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface MessagesCreateSpecificMessageRequest {
@@ -56,6 +59,34 @@ export interface SearchMessagesRequest {
  * 
  */
 export class ConversationMessagesApi extends runtime.BaseAPI {
+
+    /**
+     * Provides a WebSocket connection that emits changes to your conversation messages identifiers (UUIDs).
+     * /messages/stream/identifiers [WS]
+     */
+    async conversationMessagesStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/messages/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your conversation messages identifiers (UUIDs).
+     * /messages/stream/identifiers [WS]
+     */
+    async conversationMessagesStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.conversationMessagesStreamIdentifiersRaw(initOverrides);
+        return await response.value();
+    }
 
     /**
      * This will create a Message on a specific conversation.

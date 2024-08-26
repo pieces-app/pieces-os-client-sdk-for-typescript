@@ -13,6 +13,36 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { ReferencedActivity } from './ReferencedActivity';
+import {
+    ReferencedActivityFromJSON,
+    ReferencedActivityFromJSONTyped,
+    ReferencedActivityToJSON,
+} from './ReferencedActivity';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
+    ReferencedAnchorFromJSON,
+    ReferencedAnchorFromJSONTyped,
+    ReferencedAnchorToJSON,
+} from './ReferencedAnchor';
+import type { ReferencedAnchorPoint } from './ReferencedAnchorPoint';
+import {
+    ReferencedAnchorPointFromJSON,
+    ReferencedAnchorPointFromJSONTyped,
+    ReferencedAnchorPointToJSON,
+} from './ReferencedAnchorPoint';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
+    ReferencedAnnotationFromJSON,
+    ReferencedAnnotationFromJSONTyped,
+    ReferencedAnnotationToJSON,
+} from './ReferencedAnnotation';
+import type { ReferencedApplication } from './ReferencedApplication';
+import {
+    ReferencedApplicationFromJSON,
+    ReferencedApplicationFromJSONTyped,
+    ReferencedApplicationToJSON,
+} from './ReferencedApplication';
 import type { ReferencedAsset } from './ReferencedAsset';
 import {
     ReferencedAssetFromJSON,
@@ -25,9 +55,63 @@ import {
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
 } from './ReferencedConversation';
+import type { ReferencedConversationMessage } from './ReferencedConversationMessage';
+import {
+    ReferencedConversationMessageFromJSON,
+    ReferencedConversationMessageFromJSONTyped,
+    ReferencedConversationMessageToJSON,
+} from './ReferencedConversationMessage';
+import type { ReferencedFormat } from './ReferencedFormat';
+import {
+    ReferencedFormatFromJSON,
+    ReferencedFormatFromJSONTyped,
+    ReferencedFormatToJSON,
+} from './ReferencedFormat';
+import type { ReferencedHint } from './ReferencedHint';
+import {
+    ReferencedHintFromJSON,
+    ReferencedHintFromJSONTyped,
+    ReferencedHintToJSON,
+} from './ReferencedHint';
+import type { ReferencedModel } from './ReferencedModel';
+import {
+    ReferencedModelFromJSON,
+    ReferencedModelFromJSONTyped,
+    ReferencedModelToJSON,
+} from './ReferencedModel';
+import type { ReferencedPerson } from './ReferencedPerson';
+import {
+    ReferencedPersonFromJSON,
+    ReferencedPersonFromJSONTyped,
+    ReferencedPersonToJSON,
+} from './ReferencedPerson';
+import type { ReferencedRange } from './ReferencedRange';
+import {
+    ReferencedRangeFromJSON,
+    ReferencedRangeFromJSONTyped,
+    ReferencedRangeToJSON,
+} from './ReferencedRange';
+import type { ReferencedSensitive } from './ReferencedSensitive';
+import {
+    ReferencedSensitiveFromJSON,
+    ReferencedSensitiveFromJSONTyped,
+    ReferencedSensitiveToJSON,
+} from './ReferencedSensitive';
+import type { ReferencedTag } from './ReferencedTag';
+import {
+    ReferencedTagFromJSON,
+    ReferencedTagFromJSONTyped,
+    ReferencedTagToJSON,
+} from './ReferencedTag';
+import type { ReferencedWebsite } from './ReferencedWebsite';
+import {
+    ReferencedWebsiteFromJSON,
+    ReferencedWebsiteFromJSONTyped,
+    ReferencedWebsiteToJSON,
+} from './ReferencedWebsite';
 
 /**
- * This is currently only used within /assets/steam/identifiers && /conversations/steam/identifiers but can be used with other as well, if we want to expand this class.
+ * This is currently only used within /assets/steam/identifiers && /conversations/steam/identifiers && annotations but can be used with other as well, if we want to expand this class.
  * @export
  * @interface StreamedIdentifier
  */
@@ -44,6 +128,90 @@ export interface StreamedIdentifier {
      * @memberof StreamedIdentifier
      */
     conversation?: ReferencedConversation;
+    /**
+     * 
+     * @type {ReferencedAnnotation}
+     * @memberof StreamedIdentifier
+     */
+    annotation?: ReferencedAnnotation;
+    /**
+     * 
+     * @type {ReferencedActivity}
+     * @memberof StreamedIdentifier
+     */
+    activity?: ReferencedActivity;
+    /**
+     * 
+     * @type {ReferencedAnchor}
+     * @memberof StreamedIdentifier
+     */
+    anchor?: ReferencedAnchor;
+    /**
+     * 
+     * @type {ReferencedAnchorPoint}
+     * @memberof StreamedIdentifier
+     */
+    anchorPoint?: ReferencedAnchorPoint;
+    /**
+     * 
+     * @type {ReferencedHint}
+     * @memberof StreamedIdentifier
+     */
+    hint?: ReferencedHint;
+    /**
+     * 
+     * @type {ReferencedConversationMessage}
+     * @memberof StreamedIdentifier
+     */
+    conversationMessage?: ReferencedConversationMessage;
+    /**
+     * 
+     * @type {ReferencedFormat}
+     * @memberof StreamedIdentifier
+     */
+    format?: ReferencedFormat;
+    /**
+     * 
+     * @type {ReferencedPerson}
+     * @memberof StreamedIdentifier
+     */
+    person?: ReferencedPerson;
+    /**
+     * 
+     * @type {ReferencedRange}
+     * @memberof StreamedIdentifier
+     */
+    range?: ReferencedRange;
+    /**
+     * 
+     * @type {ReferencedSensitive}
+     * @memberof StreamedIdentifier
+     */
+    sensitive?: ReferencedSensitive;
+    /**
+     * 
+     * @type {ReferencedTag}
+     * @memberof StreamedIdentifier
+     */
+    tag?: ReferencedTag;
+    /**
+     * 
+     * @type {ReferencedWebsite}
+     * @memberof StreamedIdentifier
+     */
+    website?: ReferencedWebsite;
+    /**
+     * 
+     * @type {ReferencedApplication}
+     * @memberof StreamedIdentifier
+     */
+    application?: ReferencedApplication;
+    /**
+     * 
+     * @type {ReferencedModel}
+     * @memberof StreamedIdentifier
+     */
+    model?: ReferencedModel;
     /**
      * This is a specific bool that will let us know if we deleted an Identifierfrom the db.
      * @type {boolean}
@@ -73,6 +241,20 @@ export function StreamedIdentifierFromJSONTyped(json: any, ignoreDiscriminator: 
         
         'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
         'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'annotation': !exists(json, 'annotation') ? undefined : ReferencedAnnotationFromJSON(json['annotation']),
+        'activity': !exists(json, 'activity') ? undefined : ReferencedActivityFromJSON(json['activity']),
+        'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
+        'anchorPoint': !exists(json, 'anchorPoint') ? undefined : ReferencedAnchorPointFromJSON(json['anchorPoint']),
+        'hint': !exists(json, 'hint') ? undefined : ReferencedHintFromJSON(json['hint']),
+        'conversationMessage': !exists(json, 'conversationMessage') ? undefined : ReferencedConversationMessageFromJSON(json['conversationMessage']),
+        'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
+        'person': !exists(json, 'person') ? undefined : ReferencedPersonFromJSON(json['person']),
+        'range': !exists(json, 'range') ? undefined : ReferencedRangeFromJSON(json['range']),
+        'sensitive': !exists(json, 'sensitive') ? undefined : ReferencedSensitiveFromJSON(json['sensitive']),
+        'tag': !exists(json, 'tag') ? undefined : ReferencedTagFromJSON(json['tag']),
+        'website': !exists(json, 'website') ? undefined : ReferencedWebsiteFromJSON(json['website']),
+        'application': !exists(json, 'application') ? undefined : ReferencedApplicationFromJSON(json['application']),
+        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
         'deleted': !exists(json, 'deleted') ? undefined : json['deleted'],
     };
 }
@@ -88,6 +270,20 @@ export function StreamedIdentifierToJSON(value?: StreamedIdentifier | null): any
         
         'asset': ReferencedAssetToJSON(value.asset),
         'conversation': ReferencedConversationToJSON(value.conversation),
+        'annotation': ReferencedAnnotationToJSON(value.annotation),
+        'activity': ReferencedActivityToJSON(value.activity),
+        'anchor': ReferencedAnchorToJSON(value.anchor),
+        'anchorPoint': ReferencedAnchorPointToJSON(value.anchorPoint),
+        'hint': ReferencedHintToJSON(value.hint),
+        'conversationMessage': ReferencedConversationMessageToJSON(value.conversationMessage),
+        'format': ReferencedFormatToJSON(value.format),
+        'person': ReferencedPersonToJSON(value.person),
+        'range': ReferencedRangeToJSON(value.range),
+        'sensitive': ReferencedSensitiveToJSON(value.sensitive),
+        'tag': ReferencedTagToJSON(value.tag),
+        'website': ReferencedWebsiteToJSON(value.website),
+        'application': ReferencedApplicationToJSON(value.application),
+        'model': ReferencedModelToJSON(value.model),
         'deleted': value.deleted,
     };
 }

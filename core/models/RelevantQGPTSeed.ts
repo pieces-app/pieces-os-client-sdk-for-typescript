@@ -19,6 +19,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
+    ReferencedAnchorFromJSON,
+    ReferencedAnchorFromJSONTyped,
+    ReferencedAnchorToJSON,
+} from './ReferencedAnchor';
 import type { ReferencedAsset } from './ReferencedAsset';
 import {
     ReferencedAssetFromJSON,
@@ -68,6 +74,12 @@ export interface RelevantQGPTSeed {
     path?: string;
     /**
      * 
+     * @type {ReferencedAnchor}
+     * @memberof RelevantQGPTSeed
+     */
+    anchor?: ReferencedAnchor;
+    /**
+     * 
      * @type {ReferencedAsset}
      * @memberof RelevantQGPTSeed
      */
@@ -97,6 +109,7 @@ export function RelevantQGPTSeedFromJSONTyped(json: any, ignoreDiscriminator: bo
         'id': !exists(json, 'id') ? undefined : json['id'],
         'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
         'path': !exists(json, 'path') ? undefined : json['path'],
+        'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
         'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
     };
 }
@@ -114,6 +127,7 @@ export function RelevantQGPTSeedToJSON(value?: RelevantQGPTSeed | null): any {
         'id': value.id,
         'seed': SeedToJSON(value.seed),
         'path': value.path,
+        'anchor': ReferencedAnchorToJSON(value.anchor),
         'asset': ReferencedAssetToJSON(value.asset),
     };
 }

@@ -18,6 +18,7 @@ import type {
   Activities,
   Activity,
   SeededActivity,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     ActivitiesFromJSON,
@@ -26,6 +27,8 @@ import {
     ActivityToJSON,
     SeededActivityFromJSON,
     SeededActivityToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface ActivitiesCreateNewActivityRequest {
@@ -146,6 +149,34 @@ export class ActivitiesApi extends runtime.BaseAPI {
      */
     async activitiesSnapshot(requestParameters: ActivitiesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Activities> {
         const response = await this.activitiesSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your activity identifiers (UUIDs).
+     * /activities/stream/identifiers [WS]
+     */
+    async activitiesStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/activities/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your activity identifiers (UUIDs).
+     * /activities/stream/identifiers [WS]
+     */
+    async activitiesStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.activitiesStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

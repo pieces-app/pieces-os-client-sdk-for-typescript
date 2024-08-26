@@ -53,7 +53,38 @@ export class WellKnownApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the version of the server. It returns a string representing the current version.
+     * This is a Streamed endpoint please use a WS connection to call this Endpoint.
+     * /.well-known/stream/health [WS]
+     */
+    async getWellKnownStreamHealthRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/.well-known/stream/health`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * This is a Streamed endpoint please use a WS connection to call this Endpoint.
+     * /.well-known/stream/health [WS]
+     */
+    async getWellKnownStreamHealth(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.getWellKnownStreamHealthRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * /.well-known/version [Get]
      */
     async getWellKnownVersionRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
@@ -76,7 +107,6 @@ export class WellKnownApi extends runtime.BaseAPI {
     }
 
     /**
-     * Retrieves the version of the server. It returns a string representing the current version.
      * /.well-known/version [Get]
      */
     async getWellKnownVersion(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {

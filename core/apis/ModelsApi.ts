@@ -20,6 +20,7 @@ import type {
   ModelDeleteCacheOutput,
   Models,
   SeededModel,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     ModelFromJSON,
@@ -32,6 +33,8 @@ import {
     ModelsToJSON,
     SeededModelFromJSON,
     SeededModelToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface ModelsCreateNewModelRequest {
@@ -174,6 +177,34 @@ export class ModelsApi extends runtime.BaseAPI {
      */
     async modelsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Models> {
         const response = await this.modelsSnapshotRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your model identifiers (UUIDs).
+     * /models/stream/identifiers [WS]
+     */
+    async modelsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/models/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your model identifiers (UUIDs).
+     * /models/stream/identifiers [WS]
+     */
+    async modelsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.modelsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

@@ -35,6 +35,11 @@ export interface PersonAssociateAssetRequest {
     asset: string;
 }
 
+export interface PersonAssociateMessageRequest {
+    person: string;
+    message: string;
+}
+
 export interface PersonAssociateTagRequest {
     person: string;
     tag: string;
@@ -58,6 +63,11 @@ export interface PersonDisassociateAnchorRequest {
 export interface PersonDisassociateAssetRequest {
     person: string;
     asset: string;
+}
+
+export interface PersonDisassociateMessageRequest {
+    person: string;
+    message: string;
 }
 
 export interface PersonDisassociateTagRequest {
@@ -163,6 +173,41 @@ export class PersonApi extends runtime.BaseAPI {
      */
     async personAssociateAsset(requestParameters: PersonAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.personAssociateAssetRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a person with a message.
+     * /person/{person}/messages/associate/{message} [POST]
+     */
+    async personAssociateMessageRaw(requestParameters: PersonAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling personAssociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/person/{person}/messages/associate/{message}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a person with a message.
+     * /person/{person}/messages/associate/{message} [POST]
+     */
+    async personAssociateMessage(requestParameters: PersonAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personAssociateMessageRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -338,6 +383,41 @@ export class PersonApi extends runtime.BaseAPI {
      */
     async personDisassociateAsset(requestParameters: PersonDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.personDisassociateAssetRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a person from a message.
+     * /person/{person}/messages/disassociate/{message} [POST]
+     */
+    async personDisassociateMessageRaw(requestParameters: PersonDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.person === null || requestParameters.person === undefined) {
+            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling personDisassociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/person/{person}/messages/disassociate/{message}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a person from a message.
+     * /person/{person}/messages/disassociate/{message} [POST]
+     */
+    async personDisassociateMessage(requestParameters: PersonDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personDisassociateMessageRaw(requestParameters, initOverrides);
     }
 
     /**

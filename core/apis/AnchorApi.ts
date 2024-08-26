@@ -35,6 +35,11 @@ export interface AnchorAssociateConversationRequest {
     conversation: string;
 }
 
+export interface AnchorAssociateMessageRequest {
+    anchor: string;
+    message: string;
+}
+
 export interface AnchorAssociatePersonRequest {
     anchor: string;
     person: string;
@@ -53,6 +58,11 @@ export interface AnchorDisassociateAssetRequest {
 export interface AnchorDisassociateConversationRequest {
     anchor: string;
     conversation: string;
+}
+
+export interface AnchorDisassociateMessageRequest {
+    anchor: string;
+    message: string;
 }
 
 export interface AnchorDisassociatePersonRequest {
@@ -158,6 +168,41 @@ export class AnchorApi extends runtime.BaseAPI {
      */
     async anchorAssociateConversation(requestParameters: AnchorAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.anchorAssociateConversationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a anchor with a message.
+     * /anchor/{anchor}/messages/associate/{message} [POST]
+     */
+    async anchorAssociateMessageRaw(requestParameters: AnchorAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorAssociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling anchorAssociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/messages/associate/{message}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a anchor with a message.
+     * /anchor/{anchor}/messages/associate/{message} [POST]
+     */
+    async anchorAssociateMessage(requestParameters: AnchorAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorAssociateMessageRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -298,6 +343,41 @@ export class AnchorApi extends runtime.BaseAPI {
      */
     async anchorDisassociateConversation(requestParameters: AnchorDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.anchorDisassociateConversationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a anchor from a message.
+     * /anchor/{anchor}/messages/disassociate/{message} [POST]
+     */
+    async anchorDisassociateMessageRaw(requestParameters: AnchorDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
+            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling anchorDisassociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/messages/disassociate/{message}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a anchor from a message.
+     * /anchor/{anchor}/messages/disassociate/{message} [POST]
+     */
+    async anchorDisassociateMessage(requestParameters: AnchorDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorDisassociateMessageRaw(requestParameters, initOverrides);
     }
 
     /**

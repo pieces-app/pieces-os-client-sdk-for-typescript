@@ -37,6 +37,12 @@ import {
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
 } from './GroupedTimestamp';
+import type { ModelCapabilities } from './ModelCapabilities';
+import {
+    ModelCapabilitiesFromJSON,
+    ModelCapabilitiesFromJSONTyped,
+    ModelCapabilitiesToJSON,
+} from './ModelCapabilities';
 import type { ModelFoundationEnum } from './ModelFoundationEnum';
 import {
     ModelFoundationEnumFromJSON,
@@ -180,11 +186,17 @@ export interface SeededModel {
      */
     maxTokens?: ModelMaxTokens;
     /**
-     * This is reserved to custommly registed models.
+     * This is reserved to customly register models.
      * @type {boolean}
      * @memberof SeededModel
      */
     custom?: boolean;
+    /**
+     * 
+     * @type {ModelCapabilities}
+     * @memberof SeededModel
+     */
+    capabilities?: ModelCapabilities;
 }
 
 /**
@@ -231,6 +243,7 @@ export function SeededModelFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'cpu': !exists(json, 'cpu') ? undefined : json['cpu'],
         'maxTokens': !exists(json, 'maxTokens') ? undefined : ModelMaxTokensFromJSON(json['maxTokens']),
         'custom': !exists(json, 'custom') ? undefined : json['custom'],
+        'capabilities': !exists(json, 'capabilities') ? undefined : ModelCapabilitiesFromJSON(json['capabilities']),
     };
 }
 
@@ -262,6 +275,7 @@ export function SeededModelToJSON(value?: SeededModel | null): any {
         'cpu': value.cpu,
         'maxTokens': ModelMaxTokensToJSON(value.maxTokens),
         'custom': value.custom,
+        'capabilities': ModelCapabilitiesToJSON(value.capabilities),
     };
 }
 

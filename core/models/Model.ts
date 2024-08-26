@@ -37,6 +37,12 @@ import {
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
 } from './GroupedTimestamp';
+import type { ModelCapabilities } from './ModelCapabilities';
+import {
+    ModelCapabilitiesFromJSON,
+    ModelCapabilitiesFromJSONTyped,
+    ModelCapabilitiesToJSON,
+} from './ModelCapabilities';
 import type { ModelFoundationEnum } from './ModelFoundationEnum';
 import {
     ModelFoundationEnumFromJSON,
@@ -196,11 +202,17 @@ export interface Model {
      */
     maxTokens?: ModelMaxTokens;
     /**
-     * 
+     * This will let us know if this is a custom, or fine tuned model imported by the user.
      * @type {boolean}
      * @memberof Model
      */
     custom?: boolean;
+    /**
+     * 
+     * @type {ModelCapabilities}
+     * @memberof Model
+     */
+    capabilities?: ModelCapabilities;
 }
 
 /**
@@ -251,6 +263,7 @@ export function ModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): Mod
         'downloading': !exists(json, 'downloading') ? undefined : json['downloading'],
         'maxTokens': !exists(json, 'maxTokens') ? undefined : ModelMaxTokensFromJSON(json['maxTokens']),
         'custom': !exists(json, 'custom') ? undefined : json['custom'],
+        'capabilities': !exists(json, 'capabilities') ? undefined : ModelCapabilitiesFromJSON(json['capabilities']),
     };
 }
 
@@ -285,6 +298,7 @@ export function ModelToJSON(value?: Model | null): any {
         'downloading': value.downloading,
         'maxTokens': ModelMaxTokensToJSON(value.maxTokens),
         'custom': value.custom,
+        'capabilities': ModelCapabilitiesToJSON(value.capabilities),
     };
 }
 

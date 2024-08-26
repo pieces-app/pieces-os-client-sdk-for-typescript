@@ -25,12 +25,30 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+} from './FlattenedAnchors';
 import type { FlattenedAnnotations } from './FlattenedAnnotations';
 import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
 } from './FlattenedAnnotations';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+} from './FlattenedPersons';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
+    FlattenedWebsitesFromJSON,
+    FlattenedWebsitesFromJSONTyped,
+    FlattenedWebsitesToJSON,
+} from './FlattenedWebsites';
 import type { FragmentFormat } from './FragmentFormat';
 import {
     FragmentFormatFromJSON,
@@ -150,6 +168,24 @@ export interface ConversationMessage {
      * @memberof ConversationMessage
      */
     annotations?: FlattenedAnnotations;
+    /**
+     * 
+     * @type {FlattenedWebsites}
+     * @memberof ConversationMessage
+     */
+    websites?: FlattenedWebsites;
+    /**
+     * 
+     * @type {FlattenedPersons}
+     * @memberof ConversationMessage
+     */
+    persons?: FlattenedPersons;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof ConversationMessage
+     */
+    anchors?: FlattenedAnchors;
 }
 
 /**
@@ -188,6 +224,9 @@ export function ConversationMessageFromJSONTyped(json: any, ignoreDiscriminator:
         'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
     };
 }
 
@@ -212,6 +251,9 @@ export function ConversationMessageToJSON(value?: ConversationMessage | null): a
         'role': QGPTConversationMessageRoleEnumToJSON(value.role),
         'score': ScoreToJSON(value.score),
         'annotations': FlattenedAnnotationsToJSON(value.annotations),
+        'websites': FlattenedWebsitesToJSON(value.websites),
+        'persons': FlattenedPersonsToJSON(value.persons),
+        'anchors': FlattenedAnchorsToJSON(value.anchors),
     };
 }
 

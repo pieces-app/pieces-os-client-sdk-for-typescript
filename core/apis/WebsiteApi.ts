@@ -35,6 +35,11 @@ export interface WebsiteAssociateConversationRequest {
     conversation: string;
 }
 
+export interface WebsiteAssociateMessageRequest {
+    website: string;
+    message: string;
+}
+
 export interface WebsiteAssociatePersonRequest {
     website: string;
     person: string;
@@ -53,6 +58,11 @@ export interface WebsiteDisassociateAssetRequest {
 export interface WebsiteDisassociateConversationRequest {
     website: string;
     conversation: string;
+}
+
+export interface WebsiteDisassociateMessageRequest {
+    website: string;
+    message: string;
 }
 
 export interface WebsiteDisassociatePersonRequest {
@@ -153,6 +163,41 @@ export class WebsiteApi extends runtime.BaseAPI {
      */
     async websiteAssociateConversation(requestParameters: WebsiteAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.websiteAssociateConversationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a website with a message.
+     * /website/{website}/messages/associate/{message} [POST]
+     */
+    async websiteAssociateMessageRaw(requestParameters: WebsiteAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling websiteAssociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/website/{website}/messages/associate/{message}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a website with a message.
+     * /website/{website}/messages/associate/{message} [POST]
+     */
+    async websiteAssociateMessage(requestParameters: WebsiteAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateMessageRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -293,6 +338,41 @@ export class WebsiteApi extends runtime.BaseAPI {
      */
     async websiteDisassociateConversation(requestParameters: WebsiteDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.websiteDisassociateConversationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a message.
+     * /website/{website}/messages/disassociate/{message} [POST]
+     */
+    async websiteDisassociateMessageRaw(requestParameters: WebsiteDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.website === null || requestParameters.website === undefined) {
+            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateMessage.');
+        }
+
+        if (requestParameters.message === null || requestParameters.message === undefined) {
+            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling websiteDisassociateMessage.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/website/{website}/messages/disassociate/{message}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a message.
+     * /website/{website}/messages/disassociate/{message} [POST]
+     */
+    async websiteDisassociateMessage(requestParameters: WebsiteDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateMessageRaw(requestParameters, initOverrides);
     }
 
     /**

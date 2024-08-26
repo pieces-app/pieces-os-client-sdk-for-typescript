@@ -20,6 +20,7 @@ import type {
   SeededSensitive,
   Sensitive,
   Sensitives,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     SearchInputFromJSON,
@@ -32,6 +33,8 @@ import {
     SensitiveToJSON,
     SensitivesFromJSON,
     SensitivesToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface SearchSensitivesRequest {
@@ -174,6 +177,34 @@ export class SensitivesApi extends runtime.BaseAPI {
      */
     async sensitivesSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Sensitives> {
         const response = await this.sensitivesSnapshotRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your sensitive identifiers (UUIDs).
+     * /sensitives/stream/identifiers [WS]
+     */
+    async sensitivesStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/sensitives/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your sensitive identifiers (UUIDs).
+     * /sensitives/stream/identifiers [WS]
+     */
+    async sensitivesStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.sensitivesStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

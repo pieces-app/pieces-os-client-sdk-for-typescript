@@ -25,6 +25,12 @@ import {
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
 } from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+} from './FlattenedConversationMessages';
 import type { FlattenedConversations } from './FlattenedConversations';
 import {
     FlattenedConversationsFromJSON,
@@ -152,6 +158,12 @@ export interface Website {
      * @memberof Website
      */
     summaries?: FlattenedWorkstreamSummaries;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof Website
+     */
+    messages?: FlattenedConversationMessages;
 }
 
 /**
@@ -192,6 +204,7 @@ export function WebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): W
         'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
         'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
         'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
     };
 }
 
@@ -218,6 +231,7 @@ export function WebsiteToJSON(value?: Website | null): any {
         'conversations': FlattenedConversationsToJSON(value.conversations),
         'score': ScoreToJSON(value.score),
         'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
+        'messages': FlattenedConversationMessagesToJSON(value.messages),
     };
 }
 
