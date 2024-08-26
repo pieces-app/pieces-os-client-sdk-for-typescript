@@ -20,6 +20,7 @@ import type {
   SearchInput,
   SearchedHints,
   SeededHint,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     HintFromJSON,
@@ -32,6 +33,8 @@ import {
     SearchedHintsToJSON,
     SeededHintFromJSON,
     SeededHintToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface HintsCreateNewHintRequest {
@@ -139,6 +142,34 @@ export class HintsApi extends runtime.BaseAPI {
      */
     async hintsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Hints> {
         const response = await this.hintsSnapshotRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your hint identifiers (UUIDs).
+     * /hints/stream/identifiers [WS]
+     */
+    async hintsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/hints/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your hint identifiers (UUIDs).
+     * /hints/stream/identifiers [WS]
+     */
+    async hintsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.hintsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

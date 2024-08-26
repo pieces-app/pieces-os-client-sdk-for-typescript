@@ -31,6 +31,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
+    MechanismEnumFromJSON,
+    MechanismEnumFromJSONTyped,
+    MechanismEnumToJSON,
+} from './MechanismEnum';
 import type { PlatformEnum } from './PlatformEnum';
 import {
     PlatformEnumFromJSON,
@@ -45,88 +51,112 @@ import {
 } from './PrivacyEnum';
 
 /**
- * 
+ * Flattened version of the Application(for now just the same properties)
  * @export
- * @interface SeededTrackedApplication
+ * @interface FlattenedApplication
  */
-export interface SeededTrackedApplication {
+export interface FlattenedApplication {
     /**
      * 
      * @type {EmbeddedModelSchema}
-     * @memberof SeededTrackedApplication
+     * @memberof FlattenedApplication
      */
     schema?: EmbeddedModelSchema;
     /**
+     * The ID of the application at the device level
+     * @type {string}
+     * @memberof FlattenedApplication
+     */
+    id: string;
+    /**
      * 
      * @type {ApplicationNameEnum}
-     * @memberof SeededTrackedApplication
+     * @memberof FlattenedApplication
      */
     name: ApplicationNameEnum;
     /**
      * This is the specific version number 0.0.0
      * @type {string}
-     * @memberof SeededTrackedApplication
+     * @memberof FlattenedApplication
      */
     version: string;
     /**
      * 
      * @type {PlatformEnum}
-     * @memberof SeededTrackedApplication
+     * @memberof FlattenedApplication
      */
     platform: PlatformEnum;
     /**
      * 
+     * @type {boolean}
+     * @memberof FlattenedApplication
+     */
+    onboarded: boolean;
+    /**
+     * 
+     * @type {PrivacyEnum}
+     * @memberof FlattenedApplication
+     */
+    privacy: PrivacyEnum;
+    /**
+     * 
      * @type {CapabilitiesEnum}
-     * @memberof SeededTrackedApplication
+     * @memberof FlattenedApplication
      */
     capabilities?: CapabilitiesEnum;
     /**
      * 
-     * @type {PrivacyEnum}
-     * @memberof SeededTrackedApplication
+     * @type {MechanismEnum}
+     * @memberof FlattenedApplication
      */
-    privacy?: PrivacyEnum;
+    mechanism?: MechanismEnum;
     /**
      * This is a proper that will let us know if we will proactivity unload all of your machine learning models.by default this is false.
      * @type {boolean}
-     * @memberof SeededTrackedApplication
+     * @memberof FlattenedApplication
      */
     automaticUnload?: boolean;
 }
 
 /**
- * Check if a given object implements the SeededTrackedApplication interface.
+ * Check if a given object implements the FlattenedApplication interface.
  */
-export function instanceOfSeededTrackedApplication(value: object): boolean {
+export function instanceOfFlattenedApplication(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
     isInstance = isInstance && "version" in value;
     isInstance = isInstance && "platform" in value;
+    isInstance = isInstance && "onboarded" in value;
+    isInstance = isInstance && "privacy" in value;
 
     return isInstance;
 }
 
-export function SeededTrackedApplicationFromJSON(json: any): SeededTrackedApplication {
-    return SeededTrackedApplicationFromJSONTyped(json, false);
+export function FlattenedApplicationFromJSON(json: any): FlattenedApplication {
+    return FlattenedApplicationFromJSONTyped(json, false);
 }
 
-export function SeededTrackedApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedApplication {
+export function FlattenedApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedApplication {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
         'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': json['id'],
         'name': ApplicationNameEnumFromJSON(json['name']),
         'version': json['version'],
         'platform': PlatformEnumFromJSON(json['platform']),
+        'onboarded': json['onboarded'],
+        'privacy': PrivacyEnumFromJSON(json['privacy']),
         'capabilities': !exists(json, 'capabilities') ? undefined : CapabilitiesEnumFromJSON(json['capabilities']),
-        'privacy': !exists(json, 'privacy') ? undefined : PrivacyEnumFromJSON(json['privacy']),
+        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
         'automaticUnload': !exists(json, 'automaticUnload') ? undefined : json['automaticUnload'],
     };
 }
 
-export function SeededTrackedApplicationToJSON(value?: SeededTrackedApplication | null): any {
+export function FlattenedApplicationToJSON(value?: FlattenedApplication | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -136,11 +166,14 @@ export function SeededTrackedApplicationToJSON(value?: SeededTrackedApplication 
     return {
         
         'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'id': value.id,
         'name': ApplicationNameEnumToJSON(value.name),
         'version': value.version,
         'platform': PlatformEnumToJSON(value.platform),
-        'capabilities': CapabilitiesEnumToJSON(value.capabilities),
+        'onboarded': value.onboarded,
         'privacy': PrivacyEnumToJSON(value.privacy),
+        'capabilities': CapabilitiesEnumToJSON(value.capabilities),
+        'mechanism': MechanismEnumToJSON(value.mechanism),
         'automaticUnload': value.automaticUnload,
     };
 }

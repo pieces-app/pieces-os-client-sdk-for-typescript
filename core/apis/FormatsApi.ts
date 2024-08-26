@@ -17,12 +17,15 @@ import * as runtime from '../runtime';
 import type {
   Format,
   Formats,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     FormatFromJSON,
     FormatToJSON,
     FormatsFromJSON,
     FormatsToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface FormatsSnapshotRequest {
@@ -104,6 +107,34 @@ export class FormatsApi extends runtime.BaseAPI {
      */
     async formatsSpecificFormatSnapshot(requestParameters: FormatsSpecificFormatSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Format> {
         const response = await this.formatsSpecificFormatSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your format identifiers (UUIDs).
+     * /formats/stream/identifiers [WS]
+     */
+    async formatsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/formats/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your format identifiers (UUIDs).
+     * /formats/stream/identifiers [WS]
+     */
+    async formatsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.formatsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

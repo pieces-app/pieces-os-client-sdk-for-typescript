@@ -52,6 +52,11 @@ export interface BackupRestoreSpecificBackupStreamedRequest {
     backup2?: Backup;
 }
 
+export interface BackupRestoreSpecificBackupStreamedWebsocketRequest {
+    backup: string;
+    backup2?: Backup;
+}
+
 export interface BackupSpecificBackupSnapshotRequest {
     backup: string;
 }
@@ -172,7 +177,7 @@ export class BackupApi extends runtime.BaseAPI {
     }
 
     /**
-     * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/<backup>/restore. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
      * /backup/{backup}/restore/streamed [POST]
      */
     async backupRestoreSpecificBackupStreamedRaw(requestParameters: BackupRestoreSpecificBackupStreamedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupStreamedProgress>> {
@@ -198,11 +203,46 @@ export class BackupApi extends runtime.BaseAPI {
     }
 
     /**
-     * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/<backup>/restore. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
      * /backup/{backup}/restore/streamed [POST]
      */
     async backupRestoreSpecificBackupStreamed(requestParameters: BackupRestoreSpecificBackupStreamedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupStreamedProgress> {
         const response = await this.backupRestoreSpecificBackupStreamedRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * WEBOCKET IMPLEMENTATION: This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/<backup>/restore. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * /backup/{backup}/restore/streamed/websocket [WS]
+     */
+    async backupRestoreSpecificBackupStreamedWebsocketRaw(requestParameters: BackupRestoreSpecificBackupStreamedWebsocketRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupStreamedProgress>> {
+        if (requestParameters.backup === null || requestParameters.backup === undefined) {
+            throw new runtime.RequiredError('backup','Required parameter requestParameters.backup was null or undefined when calling backupRestoreSpecificBackupStreamedWebsocket.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/backup/{backup}/restore/streamed/websocket`.replace(`{${"backup"}}`, encodeURIComponent(String(requestParameters.backup))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: BackupToJSON(requestParameters.backup2),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupStreamedProgressFromJSON(jsonValue));
+    }
+
+    /**
+     * WEBOCKET IMPLEMENTATION: This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/<backup>/restore. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * /backup/{backup}/restore/streamed/websocket [WS]
+     */
+    async backupRestoreSpecificBackupStreamedWebsocket(requestParameters: BackupRestoreSpecificBackupStreamedWebsocketRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupStreamedProgress> {
+        const response = await this.backupRestoreSpecificBackupStreamedWebsocketRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

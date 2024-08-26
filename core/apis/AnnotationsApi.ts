@@ -20,6 +20,7 @@ import type {
   SearchInput,
   SearchedAnnotations,
   SeededAnnotation,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     AnnotationFromJSON,
@@ -32,6 +33,8 @@ import {
     SearchedAnnotationsToJSON,
     SeededAnnotationFromJSON,
     SeededAnnotationToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface AnnotationsCreateNewAnnotationRequest {
@@ -147,6 +150,34 @@ export class AnnotationsApi extends runtime.BaseAPI {
      */
     async annotationsSnapshot(requestParameters: AnnotationsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Annotations> {
         const response = await this.annotationsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your annotation identifiers (UUIDs).
+     * /annotations/stream/identifiers [WS]
+     */
+    async annotationsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/annotations/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your annotation identifiers (UUIDs).
+     * /annotations/stream/identifiers [WS]
+     */
+    async annotationsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.annotationsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

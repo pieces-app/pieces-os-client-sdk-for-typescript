@@ -18,13 +18,8 @@ import type {
   Application,
   Applications,
   DetectedExternalApplications,
-  SeededTrackedInteractionEvent,
-  SeededTrackedKeyboardEvent,
   Session,
-  TrackedApplicationInstall,
-  TrackedApplicationUpdate,
-  TrackedInteractionEvent,
-  TrackedKeyboardEvent,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     ApplicationFromJSON,
@@ -33,20 +28,10 @@ import {
     ApplicationsToJSON,
     DetectedExternalApplicationsFromJSON,
     DetectedExternalApplicationsToJSON,
-    SeededTrackedInteractionEventFromJSON,
-    SeededTrackedInteractionEventToJSON,
-    SeededTrackedKeyboardEventFromJSON,
-    SeededTrackedKeyboardEventToJSON,
     SessionFromJSON,
     SessionToJSON,
-    TrackedApplicationInstallFromJSON,
-    TrackedApplicationInstallToJSON,
-    TrackedApplicationUpdateFromJSON,
-    TrackedApplicationUpdateToJSON,
-    TrackedInteractionEventFromJSON,
-    TrackedInteractionEventToJSON,
-    TrackedKeyboardEventFromJSON,
-    TrackedKeyboardEventToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface ApplicationsRegisterRequest {
@@ -57,28 +42,8 @@ export interface ApplicationsSessionCloseRequest {
     body?: string;
 }
 
-export interface ApplicationsSessionSnapshotRequest {
-    session: string;
-}
-
 export interface ApplicationsSpecificApplicationSnapshotRequest {
     application: string;
-}
-
-export interface ApplicationsUsageEngagementInteractionRequest {
-    seededTrackedInteractionEvent?: SeededTrackedInteractionEvent;
-}
-
-export interface ApplicationsUsageEngagementKeyboardRequest {
-    seededTrackedKeyboardEvent?: SeededTrackedKeyboardEvent;
-}
-
-export interface ApplicationsUsageInstallationRequest {
-    trackedApplicationInstall?: TrackedApplicationInstall;
-}
-
-export interface PostApplicationsUsageUpdatedRequest {
-    trackedApplicationUpdate?: TrackedApplicationUpdate;
 }
 
 /**
@@ -239,40 +204,6 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Fetches detailed information about a specific session, identified by a session UUID, including application usage and engagement data.
-     * /applications/sessions/{session} [GET]
-     * @deprecated
-     */
-    async applicationsSessionSnapshotRaw(requestParameters: ApplicationsSessionSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Session>> {
-        if (requestParameters.session === null || requestParameters.session === undefined) {
-            throw new runtime.RequiredError('session','Required parameter requestParameters.session was null or undefined when calling applicationsSessionSnapshot.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/applications/sessions/{session}`.replace(`{${"session"}}`, encodeURIComponent(String(requestParameters.session))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => SessionFromJSON(jsonValue));
-    }
-
-    /**
-     * Fetches detailed information about a specific session, identified by a session UUID, including application usage and engagement data.
-     * /applications/sessions/{session} [GET]
-     * @deprecated
-     */
-    async applicationsSessionSnapshot(requestParameters: ApplicationsSessionSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Session> {
-        const response = await this.applicationsSessionSnapshotRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
      * Retrieves a comprehensive overview of all applications tracked by the Pieces system, including status, version, and engagement metrics.
      * /applications [GET]
      */
@@ -333,133 +264,31 @@ export class ApplicationsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Records user interaction events within applications, such as clicks or taps, to analyze engagement patterns and user behavior.
-     * /applications/usage/engagement/interaction [POST] Scoped to Apps
-     * @deprecated
+     * Provides a WebSocket connection that emits changes to your application identifiers (UUIDs).
+     * /applications/stream/identifiers [WS]
      */
-    async applicationsUsageEngagementInteractionRaw(requestParameters: ApplicationsUsageEngagementInteractionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TrackedInteractionEvent>> {
+    async applicationsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        headerParameters['Content-Type'] = 'application/json';
-
         const response = await this.request({
-            path: `/applications/usage/engagement/interaction`,
-            method: 'POST',
+            path: `/applications/stream/identifiers`,
+            method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededTrackedInteractionEventToJSON(requestParameters.seededTrackedInteractionEvent),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => TrackedInteractionEventFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
     }
 
     /**
-     * Records user interaction events within applications, such as clicks or taps, to analyze engagement patterns and user behavior.
-     * /applications/usage/engagement/interaction [POST] Scoped to Apps
-     * @deprecated
+     * Provides a WebSocket connection that emits changes to your application identifiers (UUIDs).
+     * /applications/stream/identifiers [WS]
      */
-    async applicationsUsageEngagementInteraction(requestParameters: ApplicationsUsageEngagementInteractionRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TrackedInteractionEvent> {
-        const response = await this.applicationsUsageEngagementInteractionRaw(requestParameters, initOverrides);
+    async applicationsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.applicationsStreamIdentifiersRaw(initOverrides);
         return await response.value();
-    }
-
-    /**
-     * Captures keyboard interaction events, including shortcuts, within applications to monitor user engagement and productivity enhancements.
-     * /applications/usage/engagement/keyboard [POST] Scoped to Apps
-     * @deprecated
-     */
-    async applicationsUsageEngagementKeyboardRaw(requestParameters: ApplicationsUsageEngagementKeyboardRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TrackedKeyboardEvent>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/applications/usage/engagement/keyboard`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: SeededTrackedKeyboardEventToJSON(requestParameters.seededTrackedKeyboardEvent),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => TrackedKeyboardEventFromJSON(jsonValue));
-    }
-
-    /**
-     * Captures keyboard interaction events, including shortcuts, within applications to monitor user engagement and productivity enhancements.
-     * /applications/usage/engagement/keyboard [POST] Scoped to Apps
-     * @deprecated
-     */
-    async applicationsUsageEngagementKeyboard(requestParameters: ApplicationsUsageEngagementKeyboardRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TrackedKeyboardEvent> {
-        const response = await this.applicationsUsageEngagementKeyboardRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Logs the installation events of the Pieces application.
-     * /applications/usage/installation [POST]
-     * @deprecated
-     */
-    async applicationsUsageInstallationRaw(requestParameters: ApplicationsUsageInstallationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/applications/usage/installation`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: TrackedApplicationInstallToJSON(requestParameters.trackedApplicationInstall),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * Logs the installation events of the Pieces application.
-     * /applications/usage/installation [POST]
-     * @deprecated
-     */
-    async applicationsUsageInstallation(requestParameters: ApplicationsUsageInstallationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.applicationsUsageInstallationRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     * Tracks updates to the Pieces application, including version changes.
-     * /applications/usage/updated [POST]
-     * @deprecated
-     */
-    async postApplicationsUsageUpdatedRaw(requestParameters: PostApplicationsUsageUpdatedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/applications/usage/updated`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: TrackedApplicationUpdateToJSON(requestParameters.trackedApplicationUpdate),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     * Tracks updates to the Pieces application, including version changes.
-     * /applications/usage/updated [POST]
-     * @deprecated
-     */
-    async postApplicationsUsageUpdated(requestParameters: PostApplicationsUsageUpdatedRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.postApplicationsUsageUpdatedRaw(requestParameters, initOverrides);
     }
 
 }

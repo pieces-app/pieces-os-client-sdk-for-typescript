@@ -20,6 +20,7 @@ import type {
   SearchInput,
   SearchedAnchors,
   SeededAnchor,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     AnchorFromJSON,
@@ -32,6 +33,8 @@ import {
     SearchedAnchorsToJSON,
     SeededAnchorFromJSON,
     SeededAnchorToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface AnchorsCreateNewAnchorRequest {
@@ -152,6 +155,34 @@ export class AnchorsApi extends runtime.BaseAPI {
      */
     async anchorsSnapshot(requestParameters: AnchorsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Anchors> {
         const response = await this.anchorsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your anchor identifiers (UUIDs).
+     * /anchors/stream/identifiers [WS]
+     */
+    async anchorsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/anchors/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your anchor identifiers (UUIDs).
+     * /anchors/stream/identifiers [WS]
+     */
+    async anchorsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.anchorsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

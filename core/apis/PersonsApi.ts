@@ -20,6 +20,7 @@ import type {
   SearchInput,
   SearchedPersons,
   SeededPerson,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     PersonFromJSON,
@@ -32,6 +33,8 @@ import {
     SearchedPersonsToJSON,
     SeededPersonFromJSON,
     SeededPersonToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface PersonsCreateNewPersonRequest {
@@ -152,6 +155,34 @@ export class PersonsApi extends runtime.BaseAPI {
      */
     async personsSnapshot(requestParameters: PersonsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Persons> {
         const response = await this.personsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your person identifiers (UUIDs).
+     * /persons/stream/identifiers [WS]
+     */
+    async personsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/persons/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your person identifiers (UUIDs).
+     * /persons/stream/identifiers [WS]
+     */
+    async personsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.personsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

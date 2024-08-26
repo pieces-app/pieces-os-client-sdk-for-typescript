@@ -18,6 +18,7 @@ import type {
   Range,
   Ranges,
   SeededRange,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     RangeFromJSON,
@@ -26,6 +27,8 @@ import {
     RangesToJSON,
     SeededRangeFromJSON,
     SeededRangeToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface RangesCreateNewRangeRequest {
@@ -128,6 +131,34 @@ export class RangesApi extends runtime.BaseAPI {
      */
     async rangesSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Ranges> {
         const response = await this.rangesSnapshotRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your range identifiers (UUIDs).
+     * /ranges/stream/identifiers [WS]
+     */
+    async rangesStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/ranges/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your range identifiers (UUIDs).
+     * /ranges/stream/identifiers [WS]
+     */
+    async rangesStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.rangesStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

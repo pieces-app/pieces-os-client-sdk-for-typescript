@@ -137,7 +137,13 @@ export class BaseAPI {
         if (response && (response.status >= 200 && response.status < 300)) {
             return response;
         }
-        throw new ResponseError(response, 'Response returned an error code');
+        let text: string;
+        try {
+            text = await response.text()
+        } catch(e) {
+            throw new ResponseError(response, `${url} returned an error code: [${response.status}]`);
+        }
+        throw new ResponseError(response, `${url} returned an error code: [${response.status}] ${text}`);
     }
 
     private async createFetchParams(context: RequestOpts, initOverrides?: RequestInit | InitOverrideFunction) {

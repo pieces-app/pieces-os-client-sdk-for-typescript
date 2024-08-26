@@ -18,6 +18,7 @@ import type {
   Backup,
   BackupStreamedProgress,
   Backups,
+  BackupsStreamedProgress,
   SeededBackup,
 } from '../models/index';
 import {
@@ -27,6 +28,8 @@ import {
     BackupStreamedProgressToJSON,
     BackupsFromJSON,
     BackupsToJSON,
+    BackupsStreamedProgressFromJSON,
+    BackupsStreamedProgressToJSON,
     SeededBackupFromJSON,
     SeededBackupToJSON,
 } from '../models/index';
@@ -36,6 +39,10 @@ export interface BackupsCreateNewBackupRequest {
 }
 
 export interface BackupsCreateNewBackupStreamedRequest {
+    seededBackup?: SeededBackup;
+}
+
+export interface BackupsCreateNewBackupStreamedWebsocketRequest {
     seededBackup?: SeededBackup;
 }
 
@@ -112,6 +119,37 @@ export class BackupsApi extends runtime.BaseAPI {
     }
 
     /**
+     * WEBSOCKET VERSION! This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * /backups/create/streamed/websocket [WS]
+     */
+    async backupsCreateNewBackupStreamedWebsocketRaw(requestParameters: BackupsCreateNewBackupStreamedWebsocketRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupStreamedProgress>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/backups/create/streamed/websocket`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededBackupToJSON(requestParameters.seededBackup),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupStreamedProgressFromJSON(jsonValue));
+    }
+
+    /**
+     * WEBSOCKET VERSION! This take a local database and ensure that it is backed up to the cloud.  NOTE: This is a streamed version of the /backups/create. and Since the Generator is unable to generate a streamed endpoint. this is a place holder, and will need to be implemented isolated from the code generator.
+     * /backups/create/streamed/websocket [WS]
+     */
+    async backupsCreateNewBackupStreamedWebsocket(requestParameters: BackupsCreateNewBackupStreamedWebsocketRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupStreamedProgress> {
+        const response = await this.backupsCreateNewBackupStreamedWebsocketRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * This will delete a specific backup from the cloud.
      * /backups/{backup}/delete [POST]
      */
@@ -170,6 +208,34 @@ export class BackupsApi extends runtime.BaseAPI {
      */
     async backupsSnapshot(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Backups> {
         const response = await this.backupsSnapshotRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This endpoint is a Websocket, that will list all the current websockets that are in progress, this will emit changes as there are changes with the backups or restores in progress.
+     * /backups/streamed/progress [WS]
+     */
+    async backupsStreamedProgressRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BackupsStreamedProgress>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/backups/streamed/progress`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => BackupsStreamedProgressFromJSON(jsonValue));
+    }
+
+    /**
+     * This endpoint is a Websocket, that will list all the current websockets that are in progress, this will emit changes as there are changes with the backups or restores in progress.
+     * /backups/streamed/progress [WS]
+     */
+    async backupsStreamedProgress(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BackupsStreamedProgress> {
+        const response = await this.backupsStreamedProgressRaw(initOverrides);
         return await response.value();
     }
 

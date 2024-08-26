@@ -18,6 +18,7 @@ import type {
   AnchorPoint,
   AnchorPoints,
   SeededAnchorPoint,
+  StreamedIdentifiers,
 } from '../models/index';
 import {
     AnchorPointFromJSON,
@@ -26,6 +27,8 @@ import {
     AnchorPointsToJSON,
     SeededAnchorPointFromJSON,
     SeededAnchorPointToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
 } from '../models/index';
 
 export interface AnchorPointsCreateNewAnchorPointRequest {
@@ -141,6 +144,34 @@ export class AnchorPointsApi extends runtime.BaseAPI {
      */
     async anchorPointsSnapshot(requestParameters: AnchorPointsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AnchorPoints> {
         const response = await this.anchorPointsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your annotation identifiers (UUIDs).
+     * /anchor_points/stream/identifiers [WS]
+     */
+    async anchorPointsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/anchor_points/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your annotation identifiers (UUIDs).
+     * /anchor_points/stream/identifiers [WS]
+     */
+    async anchorPointsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.anchorPointsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

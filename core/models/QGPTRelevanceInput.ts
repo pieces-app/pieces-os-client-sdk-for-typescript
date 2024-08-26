@@ -19,6 +19,12 @@ import {
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
 } from './EmbeddedModelSchema';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+} from './FlattenedAnchors';
 import type { FlattenedAssets } from './FlattenedAssets';
 import {
     FlattenedAssetsFromJSON,
@@ -128,6 +134,12 @@ export interface QGPTRelevanceInput {
      * @memberof QGPTRelevanceInput
      */
     temporal?: TemporalRangeGrounding;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof QGPTRelevanceInput
+     */
+    anchors?: FlattenedAnchors;
 }
 
 /**
@@ -160,6 +172,7 @@ export function QGPTRelevanceInputFromJSONTyped(json: any, ignoreDiscriminator: 
         'application': !exists(json, 'application') ? undefined : json['application'],
         'model': !exists(json, 'model') ? undefined : json['model'],
         'temporal': !exists(json, 'temporal') ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
+        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
     };
 }
 
@@ -182,6 +195,7 @@ export function QGPTRelevanceInputToJSON(value?: QGPTRelevanceInput | null): any
         'application': value.application,
         'model': value.model,
         'temporal': TemporalRangeGroundingToJSON(value.temporal),
+        'anchors': FlattenedAnchorsToJSON(value.anchors),
     };
 }
 

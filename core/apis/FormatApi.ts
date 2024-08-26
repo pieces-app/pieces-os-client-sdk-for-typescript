@@ -18,8 +18,6 @@ import type {
   Analysis,
   Format,
   FormatReclassification,
-  SeededTrackedFormatEvent,
-  TrackedFormatEvent,
 } from '../models/index';
 import {
     AnalysisFromJSON,
@@ -28,10 +26,6 @@ import {
     FormatToJSON,
     FormatReclassificationFromJSON,
     FormatReclassificationToJSON,
-    SeededTrackedFormatEventFromJSON,
-    SeededTrackedFormatEventToJSON,
-    TrackedFormatEventFromJSON,
-    TrackedFormatEventToJSON,
 } from '../models/index';
 
 export interface FormatAnalysisRequest {
@@ -51,10 +45,6 @@ export interface FormatSnapshotRequest {
 export interface FormatUpdateValueRequest {
     transferable?: boolean;
     format?: Format;
-}
-
-export interface FormatUsageEventRequest {
-    seededTrackedFormatEvent?: SeededTrackedFormatEvent;
 }
 
 /**
@@ -197,37 +187,6 @@ export class FormatApi extends runtime.BaseAPI {
      */
     async formatUpdateValue(requestParameters: FormatUpdateValueRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Format> {
         const response = await this.formatUpdateValueRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * This is an analytics endpoint that will enable us to know when a user has copied/downloaded/beamed/viewed a format.
-     * /format/usage/event [POST] Scoped to Format
-     */
-    async formatUsageEventRaw(requestParameters: FormatUsageEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TrackedFormatEvent>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/format/usage/event`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: SeededTrackedFormatEventToJSON(requestParameters.seededTrackedFormatEvent),
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => TrackedFormatEventFromJSON(jsonValue));
-    }
-
-    /**
-     * This is an analytics endpoint that will enable us to know when a user has copied/downloaded/beamed/viewed a format.
-     * /format/usage/event [POST] Scoped to Format
-     */
-    async formatUsageEvent(requestParameters: FormatUsageEventRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TrackedFormatEvent> {
-        const response = await this.formatUsageEventRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

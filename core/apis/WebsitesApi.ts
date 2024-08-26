@@ -20,6 +20,7 @@ import type {
   SearchInput,
   SearchedWebsites,
   SeededWebsite,
+  StreamedIdentifiers,
   Website,
   Websites,
 } from '../models/index';
@@ -34,6 +35,8 @@ import {
     SearchedWebsitesToJSON,
     SeededWebsiteFromJSON,
     SeededWebsiteToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
     WebsiteFromJSON,
     WebsiteToJSON,
     WebsitesFromJSON,
@@ -228,6 +231,34 @@ export class WebsitesApi extends runtime.BaseAPI {
      */
     async websitesSnapshot(requestParameters: WebsitesSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Websites> {
         const response = await this.websitesSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your website identifiers (UUIDs).
+     * /websites/stream/identifiers [WS]
+     */
+    async websitesStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/websites/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your website identifiers (UUIDs).
+     * /websites/stream/identifiers [WS]
+     */
+    async websitesStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.websitesStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 

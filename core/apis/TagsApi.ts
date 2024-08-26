@@ -20,6 +20,7 @@ import type {
   SearchInput,
   SearchedTags,
   SeededTag,
+  StreamedIdentifiers,
   Tag,
   Tags,
 } from '../models/index';
@@ -34,6 +35,8 @@ import {
     SearchedTagsToJSON,
     SeededTagFromJSON,
     SeededTagToJSON,
+    StreamedIdentifiersFromJSON,
+    StreamedIdentifiersToJSON,
     TagFromJSON,
     TagToJSON,
     TagsFromJSON,
@@ -228,6 +231,34 @@ export class TagsApi extends runtime.BaseAPI {
      */
     async tagsSnapshot(requestParameters: TagsSnapshotRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Tags> {
         const response = await this.tagsSnapshotRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your tag identifiers (UUIDs).
+     * /tags/stream/identifiers [WS]
+     */
+    async tagsStreamIdentifiersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StreamedIdentifiers>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/tags/stream/identifiers`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StreamedIdentifiersFromJSON(jsonValue));
+    }
+
+    /**
+     * Provides a WebSocket connection that emits changes to your tag identifiers (UUIDs).
+     * /tags/stream/identifiers [WS]
+     */
+    async tagsStreamIdentifiers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StreamedIdentifiers> {
+        const response = await this.tagsStreamIdentifiersRaw(initOverrides);
         return await response.value();
     }
 
