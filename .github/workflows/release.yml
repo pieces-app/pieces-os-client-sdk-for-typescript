@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ["18.x"]
+        node-version: [ "18.x" ]
 
     steps:
       - uses: actions/checkout@v4
@@ -27,6 +27,20 @@ jobs:
 
       - name: Show dependencies
         run: npm list
+
+      - name: Extract version from tag
+        id: get_version
+        run: |
+          # Remove 'v' prefix if present (e.g., v1.2.3 -> 1.2.3)
+          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION=${VERSION#v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Extracted version: $VERSION"
+
+      - name: Update package.json version
+        run: |
+          npm version ${{ steps.get_version.outputs.version }} --no-git-tag-version
+          echo "Updated package.json to version ${{ steps.get_version.outputs.version }}"
 
       - name: Build
         run: |
