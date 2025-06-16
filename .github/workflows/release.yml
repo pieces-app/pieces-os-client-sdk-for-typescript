@@ -38,11 +38,30 @@ jobs:
         run: |
           npm publish --access public
 
+      - name: Prepare release archive
+        run: |
+          # Create a directory with version name
+          mkdir -p pieces-os-client-sdk-${{ github.ref_name }}
+          
+          # Copy files into it
+          cp -r dist pieces-os-client-sdk-${{ github.ref_name }}/
+          cp package.json package-lock.json pieces-os-client-sdk-${{ github.ref_name }}/
+          
+          # Copy README and LICENSE if they exist
+          [ -f README.md ] && cp README.md pieces-os-client-sdk-${{ github.ref_name }}/
+          [ -f LICENSE ] && cp LICENSE pieces-os-client-sdk-${{ github.ref_name }}/
+          
+          # Create archives
+          zip -r pieces-os-client-sdk-${{ github.ref_name }}.zip pieces-os-client-sdk-${{ github.ref_name }}
+          tar -czf pieces-os-client-sdk-${{ github.ref_name }}.tar.gz pieces-os-client-sdk-${{ github.ref_name }}
+          
+          # Cleanup
+          rm -rf pieces-os-client-sdk-${{ github.ref_name }}
+
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            dist/**/*
-            package.json
-            package-lock.json 
+            pieces-os-client-sdk-*.zip
+            pieces-os-client-sdk-*.tar.gz 

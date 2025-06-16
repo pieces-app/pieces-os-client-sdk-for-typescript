@@ -108,7 +108,6 @@ jobs:
             ## Changes
             - Updated SDK to version ${{ github.event.inputs.version }}
             - Regenerated from latest OpenAPI spec
-            - Applied post-generation fixes
           branch: update-sdk-${{ github.event.inputs.version }}
           reviewers: bishoy-at-pieces
           delete-branch: true 
