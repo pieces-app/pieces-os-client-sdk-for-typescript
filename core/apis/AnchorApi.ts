@@ -25,6 +25,11 @@ import {
     SeededScoreIncrementToJSON,
 } from '../models/index';
 
+export interface AnchorAssociateAnnotationRequest {
+    anchor: string;
+    annotation: string;
+}
+
 export interface AnchorAssociateAssetRequest {
     anchor: string;
     asset: string;
@@ -45,9 +50,29 @@ export interface AnchorAssociatePersonRequest {
     person: string;
 }
 
+export interface AnchorAssociateTagRequest {
+    anchor: string;
+    tag: string;
+}
+
+export interface AnchorAssociateWorkstreamEventRequest {
+    anchor: string;
+    workstreamEvent: string;
+}
+
+export interface AnchorAssociateWorkstreamPatternEngineSourceRequest {
+    anchor: string;
+    source: string;
+}
+
 export interface AnchorAssociateWorkstreamSummaryRequest {
     anchor: string;
     workstreamSummary: string;
+}
+
+export interface AnchorDisassociateAnnotationRequest {
+    anchor: string;
+    annotation: string;
 }
 
 export interface AnchorDisassociateAssetRequest {
@@ -68,6 +93,21 @@ export interface AnchorDisassociateMessageRequest {
 export interface AnchorDisassociatePersonRequest {
     anchor: string;
     person: string;
+}
+
+export interface AnchorDisassociateTagRequest {
+    anchor: string;
+    tag: string;
+}
+
+export interface AnchorDisassociateWorkstreamEventRequest {
+    anchor: string;
+    workstreamEvent: string;
+}
+
+export interface AnchorDisassociateWorkstreamPatternEngineSourceRequest {
+    anchor: string;
+    source: string;
 }
 
 export interface AnchorDisassociateWorkstreamSummaryRequest {
@@ -101,24 +141,79 @@ export interface AnchorUpdateRequest {
 export class AnchorApi extends runtime.BaseAPI {
 
     /**
-     * associates an anchor and an asset. It performs the same action as the asset equivalent.
-     * /anchor/{anchor}/assets/associate/{asset} [POST]
+     * This will associate an annotation with an anchor.
+     * /anchor/{anchor}/annotations/associate/{annotation} [POST]
      */
-    async anchorAssociateAssetRaw(requestParameters: AnchorAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorAssociateAsset.');
+    async anchorAssociateAnnotationRaw(requestParameters: AnchorAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateAnnotation().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling anchorAssociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling anchorAssociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/assets/associate/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/anchor/{anchor}/annotations/associate/{annotation}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate an annotation with an anchor.
+     * /anchor/{anchor}/annotations/associate/{annotation} [POST]
+     */
+    async anchorAssociateAnnotation(requestParameters: AnchorAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorAssociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * associates an anchor and an asset. It performs the same action as the asset equivalent.
+     * /anchor/{anchor}/assets/associate/{asset} [POST]
+     */
+    async anchorAssociateAssetRaw(requestParameters: AnchorAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling anchorAssociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/assets/associate/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -140,20 +235,30 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor}/conversations/associate/{conversation} [POST]
      */
     async anchorAssociateConversationRaw(requestParameters: AnchorAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorAssociateConversation.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateConversation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling anchorAssociateConversation.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling anchorAssociateConversation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/conversations/associate/{conversation}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/anchor/{anchor}/conversations/associate/{conversation}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -175,20 +280,30 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor}/messages/associate/{message} [POST]
      */
     async anchorAssociateMessageRaw(requestParameters: AnchorAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorAssociateMessage.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateMessage().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling anchorAssociateMessage.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling anchorAssociateMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/messages/associate/{message}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/anchor/{anchor}/messages/associate/{message}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -210,20 +325,30 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor}/persons/associate/{person} [POST]
      */
     async anchorAssociatePersonRaw(requestParameters: AnchorAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorAssociatePerson.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling anchorAssociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling anchorAssociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/persons/associate/{person}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/anchor/{anchor}/persons/associate/{person}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -241,24 +366,169 @@ export class AnchorApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a anchor with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /anchor/{anchor}/workstream_summaries/associate/{workstream_summary} [POST]
+     * This will enable us to associate a tag with an anchor.
+     * /anchor/{anchor}/tags/associate/{tag} [POST]
      */
-    async anchorAssociateWorkstreamSummaryRaw(requestParameters: AnchorAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorAssociateWorkstreamSummary.');
+    async anchorAssociateTagRaw(requestParameters: AnchorAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateTag().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling anchorAssociateWorkstreamSummary.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling anchorAssociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/anchor/{anchor}/tags/associate/{tag}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a tag with an anchor.
+     * /anchor/{anchor}/tags/associate/{tag} [POST]
+     */
+    async anchorAssociateTag(requestParameters: AnchorAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorAssociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a workstream event with an anchor.
+     * /anchor/{anchor}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async anchorAssociateWorkstreamEventRaw(requestParameters: AnchorAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling anchorAssociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/workstream_events/associate/{workstream_event}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a workstream event with an anchor.
+     * /anchor/{anchor}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async anchorAssociateWorkstreamEvent(requestParameters: AnchorAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorAssociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a source with an anchor.
+     * /anchor/{anchor}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async anchorAssociateWorkstreamPatternEngineSourceRaw(requestParameters: AnchorAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling anchorAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/workstream_pattern_engine/sources/associate/{source}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a source with an anchor.
+     * /anchor/{anchor}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async anchorAssociateWorkstreamPatternEngineSource(requestParameters: AnchorAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorAssociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a anchor with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /anchor/{anchor}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async anchorAssociateWorkstreamSummaryRaw(requestParameters: AnchorAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling anchorAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -276,24 +546,79 @@ export class AnchorApi extends runtime.BaseAPI {
     }
 
     /**
-     * Disassociates an anchor from an asset. It performs the same action as the asset equivalent.
-     * /anchor/{anchor}/assets/disassociate/{asset} [POST]
+     * This will enable us to dissassociate an annotation from an anchor.
+     * /anchor/{anchor}/annotations/disassociate/{annotation} [POST]
      */
-    async anchorDisassociateAssetRaw(requestParameters: AnchorDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateAsset.');
+    async anchorDisassociateAnnotationRaw(requestParameters: AnchorDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateAnnotation().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling anchorDisassociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling anchorDisassociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/assets/disassociate/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/anchor/{anchor}/annotations/disassociate/{annotation}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from an anchor.
+     * /anchor/{anchor}/annotations/disassociate/{annotation} [POST]
+     */
+    async anchorDisassociateAnnotation(requestParameters: AnchorDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorDisassociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Disassociates an anchor from an asset. It performs the same action as the asset equivalent.
+     * /anchor/{anchor}/assets/disassociate/{asset} [POST]
+     */
+    async anchorDisassociateAssetRaw(requestParameters: AnchorDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling anchorDisassociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/assets/disassociate/{asset}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -315,20 +640,30 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor}/conversations/disassociate/{conversation} [POST]
      */
     async anchorDisassociateConversationRaw(requestParameters: AnchorDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateConversation.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateConversation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling anchorDisassociateConversation.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling anchorDisassociateConversation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/conversations/disassociate/{conversation}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/anchor/{anchor}/conversations/disassociate/{conversation}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -350,20 +685,30 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor}/messages/disassociate/{message} [POST]
      */
     async anchorDisassociateMessageRaw(requestParameters: AnchorDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateMessage.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateMessage().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling anchorDisassociateMessage.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling anchorDisassociateMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/messages/disassociate/{message}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/anchor/{anchor}/messages/disassociate/{message}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -385,20 +730,30 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor}/persons/disassociate/{person} [POST]
      */
     async anchorDisassociatePersonRaw(requestParameters: AnchorDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociatePerson.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling anchorDisassociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling anchorDisassociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/persons/disassociate/{person}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/anchor/{anchor}/persons/disassociate/{person}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -416,24 +771,169 @@ export class AnchorApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a anchor from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /anchor/{anchor}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     * This will enable us to disassociate a tag from an anchor.
+     * /anchor/{anchor}/tags/disassociate/{tag} [POST]
      */
-    async anchorDisassociateWorkstreamSummaryRaw(requestParameters: AnchorDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorDisassociateWorkstreamSummary.');
+    async anchorDisassociateTagRaw(requestParameters: AnchorDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateTag().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling anchorDisassociateWorkstreamSummary.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling anchorDisassociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/anchor/{anchor}/tags/disassociate/{tag}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a tag from an anchor.
+     * /anchor/{anchor}/tags/disassociate/{tag} [POST]
+     */
+    async anchorDisassociateTag(requestParameters: AnchorDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorDisassociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream event from an anchor.
+     * /anchor/{anchor}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async anchorDisassociateWorkstreamEventRaw(requestParameters: AnchorDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling anchorDisassociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/workstream_events/disassociate/{workstream_event}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream event from an anchor.
+     * /anchor/{anchor}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async anchorDisassociateWorkstreamEvent(requestParameters: AnchorDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorDisassociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a source from an anchor.
+     * /anchor/{anchor}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async anchorDisassociateWorkstreamPatternEngineSourceRaw(requestParameters: AnchorDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling anchorDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/workstream_pattern_engine/sources/disassociate/{source}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a source from an anchor.
+     * /anchor/{anchor}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async anchorDisassociateWorkstreamPatternEngineSource(requestParameters: AnchorDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.anchorDisassociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a anchor from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /anchor/{anchor}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async anchorDisassociateWorkstreamSummaryRaw(requestParameters: AnchorDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling anchorDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/anchor/{anchor}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -455,20 +955,27 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor}/rename [POST]
      */
     async anchorRenameRaw(requestParameters: AnchorRenameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Anchor>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorRename.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorRename().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/rename`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/anchor/{anchor}/rename`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -491,8 +998,11 @@ export class AnchorApi extends runtime.BaseAPI {
      * \'/anchor/{anchor}/scores/increment\' [POST]
      */
     async anchorScoresIncrementRaw(requestParameters: AnchorScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorScoresIncrement.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -501,12 +1011,16 @@ export class AnchorApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}/scores/increment`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/anchor/{anchor}/scores/increment`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -525,20 +1039,27 @@ export class AnchorApi extends runtime.BaseAPI {
      * /anchor/{anchor} [GET]
      */
     async anchorSpecificAnchorSnapshotRaw(requestParameters: AnchorSpecificAnchorSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Anchor>> {
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling anchorSpecificAnchorSnapshot.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling anchorSpecificAnchorSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor/{anchor}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/anchor/{anchor}`.replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -563,20 +1084,24 @@ export class AnchorApi extends runtime.BaseAPI {
     async anchorUpdateRaw(requestParameters: AnchorUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Anchor>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/anchor/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AnchorToJSON(requestParameters.anchor),
+            body: AnchorToJSON(requestParameters['anchor']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnchorFromJSON(jsonValue));

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedTag } from './FlattenedTag';
 import {
     FlattenedTagFromJSON,
     FlattenedTagFromJSONTyped,
     FlattenedTagToJSON,
+    FlattenedTagToJSONTyped,
 } from './FlattenedTag';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * [DAG Safe] version of a Tag Model. 
@@ -55,11 +57,9 @@ export interface ReferencedTag {
 /**
  * Check if a given object implements the ReferencedTag interface.
  */
-export function instanceOfReferencedTag(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedTag(value: object): value is ReferencedTag {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedTagFromJSON(json: any): ReferencedTag {
@@ -67,29 +67,31 @@ export function ReferencedTagFromJSON(json: any): ReferencedTag {
 }
 
 export function ReferencedTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedTag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedTagFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedTagFromJSON(json['reference']),
     };
 }
 
-export function ReferencedTagToJSON(value?: ReferencedTag | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedTagToJSON(json: any): ReferencedTag {
+    return ReferencedTagToJSONTyped(json, false);
+}
+
+export function ReferencedTagToJSONTyped(value?: ReferencedTag | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedTagToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedTagToJSON(value['reference']),
     };
 }
 

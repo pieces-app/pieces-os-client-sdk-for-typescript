@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -69,6 +70,7 @@ export interface ChallengedPKCE {
  * @export
  */
 export const ChallengedPKCEMethodEnum = {
+    Unknown: 'UNKNOWN',
     S256: 'S256'
 } as const;
 export type ChallengedPKCEMethodEnum = typeof ChallengedPKCEMethodEnum[keyof typeof ChallengedPKCEMethodEnum];
@@ -77,15 +79,13 @@ export type ChallengedPKCEMethodEnum = typeof ChallengedPKCEMethodEnum[keyof typ
 /**
  * Check if a given object implements the ChallengedPKCE interface.
  */
-export function instanceOfChallengedPKCE(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "state" in value;
-    isInstance = isInstance && "nonce" in value;
-    isInstance = isInstance && "challenge" in value;
-    isInstance = isInstance && "method" in value;
-    isInstance = isInstance && "verifier" in value;
-
-    return isInstance;
+export function instanceOfChallengedPKCE(value: object): value is ChallengedPKCE {
+    if (!('state' in value) || value['state'] === undefined) return false;
+    if (!('nonce' in value) || value['nonce'] === undefined) return false;
+    if (!('challenge' in value) || value['challenge'] === undefined) return false;
+    if (!('method' in value) || value['method'] === undefined) return false;
+    if (!('verifier' in value) || value['verifier'] === undefined) return false;
+    return true;
 }
 
 export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
@@ -93,12 +93,12 @@ export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
 }
 
 export function ChallengedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): ChallengedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'state': json['state'],
         'nonce': json['nonce'],
         'challenge': json['challenge'],
@@ -107,21 +107,23 @@ export function ChallengedPKCEFromJSONTyped(json: any, ignoreDiscriminator: bool
     };
 }
 
-export function ChallengedPKCEToJSON(value?: ChallengedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ChallengedPKCEToJSON(json: any): ChallengedPKCE {
+    return ChallengedPKCEToJSONTyped(json, false);
+}
+
+export function ChallengedPKCEToJSONTyped(value?: ChallengedPKCE | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'state': value.state,
-        'nonce': value.nonce,
-        'challenge': value.challenge,
-        'method': value.method,
-        'verifier': value.verifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'state': value['state'],
+        'nonce': value['nonce'],
+        'challenge': value['challenge'],
+        'method': value['method'],
+        'verifier': value['verifier'],
     };
 }
 

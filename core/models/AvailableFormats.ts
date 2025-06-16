@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Classification } from './Classification';
-import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+    ClassificationToJSONTyped,
+} from './Classification';
 
 /**
  * This is a specific model here used within the SeededAsset that enables us to return all the available formats on a specific seed that was passed as an input within the '/assets/draft' endpoint
@@ -49,11 +51,9 @@ export interface AvailableFormats {
 /**
  * Check if a given object implements the AvailableFormats interface.
  */
-export function instanceOfAvailableFormats(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfAvailableFormats(value: object): value is AvailableFormats {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function AvailableFormatsFromJSON(json: any): AvailableFormats {
@@ -61,27 +61,29 @@ export function AvailableFormatsFromJSON(json: any): AvailableFormats {
 }
 
 export function AvailableFormatsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AvailableFormats {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ClassificationFromJSON)),
     };
 }
 
-export function AvailableFormatsToJSON(value?: AvailableFormats | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AvailableFormatsToJSON(json: any): AvailableFormats {
+    return AvailableFormatsToJSONTyped(json, false);
+}
+
+export function AvailableFormatsToJSONTyped(value?: AvailableFormats | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ClassificationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ClassificationToJSON)),
     };
 }
 

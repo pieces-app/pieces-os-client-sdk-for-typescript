@@ -45,12 +45,16 @@ export class OpenAIApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/open_ai/models/list`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OpenAIModelsListInputToJSON(requestParameters.openAIModelsListInput),
+            body: OpenAIModelsListInputToJSON(requestParameters['openAIModelsListInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OpenAIModelsListOutputFromJSON(jsonValue));

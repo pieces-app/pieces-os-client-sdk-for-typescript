@@ -56,12 +56,16 @@ export class LinkifyApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/linkify`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: LinkifyToJSON(requestParameters.linkify),
+            body: LinkifyToJSON(requestParameters['linkify']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SharesFromJSON(jsonValue));
@@ -87,12 +91,16 @@ export class LinkifyApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/linkify/multiple`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: LinkifyMultipleToJSON(requestParameters.linkifyMultiple),
+            body: LinkifyMultipleToJSON(requestParameters['linkifyMultiple']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SharesFromJSON(jsonValue));
@@ -112,16 +120,23 @@ export class LinkifyApi extends runtime.BaseAPI {
      * [POST} /linkify/{share}/revoke
      */
     async linkifyShareRevokeRaw(requestParameters: LinkifyShareRevokeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
-        if (requestParameters.share === null || requestParameters.share === undefined) {
-            throw new runtime.RequiredError('share','Required parameter requestParameters.share was null or undefined when calling linkifyShareRevoke.');
+        if (requestParameters['share'] == null) {
+            throw new runtime.RequiredError(
+                'share',
+                'Required parameter "share" was null or undefined when calling linkifyShareRevoke().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/linkify/{share}/revoke`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters.share))),
+            path: `/linkify/{share}/revoke`.replace(`{${"share"}}`, encodeURIComponent(String(requestParameters['share']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

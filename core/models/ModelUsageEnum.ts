@@ -18,6 +18,7 @@
  * @export
  */
 export const ModelUsageEnum = {
+    Unknown: 'UNKNOWN',
     Ocr: 'OCR',
     CodeClassification: 'CODE_CLASSIFICATION',
     TextVsCode: 'TEXT_VS_CODE',
@@ -44,6 +45,17 @@ export const ModelUsageEnum = {
 export type ModelUsageEnum = typeof ModelUsageEnum[keyof typeof ModelUsageEnum];
 
 
+export function instanceOfModelUsageEnum(value: any): boolean {
+    for (const key in ModelUsageEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelUsageEnum, key)) {
+            if (ModelUsageEnum[key as keyof typeof ModelUsageEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ModelUsageEnumFromJSON(json: any): ModelUsageEnum {
     return ModelUsageEnumFromJSONTyped(json, false);
 }
@@ -54,5 +66,9 @@ export function ModelUsageEnumFromJSONTyped(json: any, ignoreDiscriminator: bool
 
 export function ModelUsageEnumToJSON(value?: ModelUsageEnum | null): any {
     return value as any;
+}
+
+export function ModelUsageEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ModelUsageEnum {
+    return value as ModelUsageEnum;
 }
 

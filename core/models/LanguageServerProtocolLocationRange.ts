@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { LanguageServerProtocolLocationRangePosition } from './LanguageServerProtocolLocationRangePosition';
 import {
     LanguageServerProtocolLocationRangePositionFromJSON,
     LanguageServerProtocolLocationRangePositionFromJSONTyped,
     LanguageServerProtocolLocationRangePositionToJSON,
+    LanguageServerProtocolLocationRangePositionToJSONTyped,
 } from './LanguageServerProtocolLocationRangePosition';
 
 /**
@@ -55,12 +57,10 @@ export interface LanguageServerProtocolLocationRange {
 /**
  * Check if a given object implements the LanguageServerProtocolLocationRange interface.
  */
-export function instanceOfLanguageServerProtocolLocationRange(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "start" in value;
-    isInstance = isInstance && "end" in value;
-
-    return isInstance;
+export function instanceOfLanguageServerProtocolLocationRange(value: object): value is LanguageServerProtocolLocationRange {
+    if (!('start' in value) || value['start'] === undefined) return false;
+    if (!('end' in value) || value['end'] === undefined) return false;
+    return true;
 }
 
 export function LanguageServerProtocolLocationRangeFromJSON(json: any): LanguageServerProtocolLocationRange {
@@ -68,29 +68,31 @@ export function LanguageServerProtocolLocationRangeFromJSON(json: any): Language
 }
 
 export function LanguageServerProtocolLocationRangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocolLocationRange {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'start': LanguageServerProtocolLocationRangePositionFromJSON(json['start']),
         'end': LanguageServerProtocolLocationRangePositionFromJSON(json['end']),
     };
 }
 
-export function LanguageServerProtocolLocationRangeToJSON(value?: LanguageServerProtocolLocationRange | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LanguageServerProtocolLocationRangeToJSON(json: any): LanguageServerProtocolLocationRange {
+    return LanguageServerProtocolLocationRangeToJSONTyped(json, false);
+}
+
+export function LanguageServerProtocolLocationRangeToJSONTyped(value?: LanguageServerProtocolLocationRange | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'start': LanguageServerProtocolLocationRangePositionToJSON(value.start),
-        'end': LanguageServerProtocolLocationRangePositionToJSON(value.end),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'start': LanguageServerProtocolLocationRangePositionToJSON(value['start']),
+        'end': LanguageServerProtocolLocationRangePositionToJSON(value['end']),
     };
 }
 

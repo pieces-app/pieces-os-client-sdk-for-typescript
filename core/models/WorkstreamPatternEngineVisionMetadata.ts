@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { WorkstreamPatternEngineVisionEventsMetadata } from './WorkstreamPatternEngineVisionEventsMetadata';
 import {
     WorkstreamPatternEngineVisionEventsMetadataFromJSON,
     WorkstreamPatternEngineVisionEventsMetadataFromJSONTyped,
     WorkstreamPatternEngineVisionEventsMetadataToJSON,
+    WorkstreamPatternEngineVisionEventsMetadataToJSONTyped,
 } from './WorkstreamPatternEngineVisionEventsMetadata';
 
 /**
@@ -49,10 +51,8 @@ export interface WorkstreamPatternEngineVisionMetadata {
 /**
  * Check if a given object implements the WorkstreamPatternEngineVisionMetadata interface.
  */
-export function instanceOfWorkstreamPatternEngineVisionMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineVisionMetadata(value: object): value is WorkstreamPatternEngineVisionMetadata {
+    return true;
 }
 
 export function WorkstreamPatternEngineVisionMetadataFromJSON(json: any): WorkstreamPatternEngineVisionMetadata {
@@ -60,27 +60,29 @@ export function WorkstreamPatternEngineVisionMetadataFromJSON(json: any): Workst
 }
 
 export function WorkstreamPatternEngineVisionMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineVisionMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'events': !exists(json, 'events') ? undefined : WorkstreamPatternEngineVisionEventsMetadataFromJSON(json['events']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'events': json['events'] == null ? undefined : WorkstreamPatternEngineVisionEventsMetadataFromJSON(json['events']),
     };
 }
 
-export function WorkstreamPatternEngineVisionMetadataToJSON(value?: WorkstreamPatternEngineVisionMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineVisionMetadataToJSON(json: any): WorkstreamPatternEngineVisionMetadata {
+    return WorkstreamPatternEngineVisionMetadataToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineVisionMetadataToJSONTyped(value?: WorkstreamPatternEngineVisionMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'events': WorkstreamPatternEngineVisionEventsMetadataToJSON(value.events),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'events': WorkstreamPatternEngineVisionEventsMetadataToJSON(value['events']),
     };
 }
 

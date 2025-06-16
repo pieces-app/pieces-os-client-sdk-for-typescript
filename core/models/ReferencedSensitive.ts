@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedSensitive } from './FlattenedSensitive';
 import {
     FlattenedSensitiveFromJSON,
     FlattenedSensitiveFromJSONTyped,
     FlattenedSensitiveToJSON,
+    FlattenedSensitiveToJSONTyped,
 } from './FlattenedSensitive';
 
 /**
@@ -55,11 +57,9 @@ export interface ReferencedSensitive {
 /**
  * Check if a given object implements the ReferencedSensitive interface.
  */
-export function instanceOfReferencedSensitive(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedSensitive(value: object): value is ReferencedSensitive {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedSensitiveFromJSON(json: any): ReferencedSensitive {
@@ -67,29 +67,31 @@ export function ReferencedSensitiveFromJSON(json: any): ReferencedSensitive {
 }
 
 export function ReferencedSensitiveFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedSensitive {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedSensitiveFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedSensitiveFromJSON(json['reference']),
     };
 }
 
-export function ReferencedSensitiveToJSON(value?: ReferencedSensitive | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedSensitiveToJSON(json: any): ReferencedSensitive {
+    return ReferencedSensitiveToJSONTyped(json, false);
+}
+
+export function ReferencedSensitiveToJSONTyped(value?: ReferencedSensitive | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedSensitiveToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedSensitiveToJSON(value['reference']),
     };
 }
 

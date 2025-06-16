@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -37,10 +38,8 @@ export interface ModelDeleteCacheInput {
 /**
  * Check if a given object implements the ModelDeleteCacheInput interface.
  */
-export function instanceOfModelDeleteCacheInput(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfModelDeleteCacheInput(value: object): value is ModelDeleteCacheInput {
+    return true;
 }
 
 export function ModelDeleteCacheInputFromJSON(json: any): ModelDeleteCacheInput {
@@ -48,25 +47,27 @@ export function ModelDeleteCacheInputFromJSON(json: any): ModelDeleteCacheInput 
 }
 
 export function ModelDeleteCacheInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDeleteCacheInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function ModelDeleteCacheInputToJSON(value?: ModelDeleteCacheInput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ModelDeleteCacheInputToJSON(json: any): ModelDeleteCacheInput {
+    return ModelDeleteCacheInputToJSONTyped(json, false);
+}
+
+export function ModelDeleteCacheInputToJSONTyped(value?: ModelDeleteCacheInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

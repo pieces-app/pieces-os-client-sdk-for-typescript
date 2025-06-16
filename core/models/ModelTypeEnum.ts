@@ -18,12 +18,24 @@
  * @export
  */
 export const ModelTypeEnum = {
+    Unknown: 'UNKNOWN',
     Balanced: 'BALANCED',
     Speed: 'SPEED',
     Accuracy: 'ACCURACY'
 } as const;
 export type ModelTypeEnum = typeof ModelTypeEnum[keyof typeof ModelTypeEnum];
 
+
+export function instanceOfModelTypeEnum(value: any): boolean {
+    for (const key in ModelTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelTypeEnum, key)) {
+            if (ModelTypeEnum[key as keyof typeof ModelTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ModelTypeEnumFromJSON(json: any): ModelTypeEnum {
     return ModelTypeEnumFromJSONTyped(json, false);
@@ -35,5 +47,9 @@ export function ModelTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boole
 
 export function ModelTypeEnumToJSON(value?: ModelTypeEnum | null): any {
     return value as any;
+}
+
+export function ModelTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ModelTypeEnum {
+    return value as ModelTypeEnum;
 }
 

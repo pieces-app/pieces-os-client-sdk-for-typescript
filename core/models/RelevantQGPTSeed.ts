@@ -12,31 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { ReferencedAnchor } from './ReferencedAnchor';
-import {
-    ReferencedAnchorFromJSON,
-    ReferencedAnchorFromJSONTyped,
-    ReferencedAnchorToJSON,
-} from './ReferencedAnchor';
+import { mapValues } from '../runtime';
 import type { ReferencedAsset } from './ReferencedAsset';
 import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
+    ReferencedAssetToJSONTyped,
 } from './ReferencedAsset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 import type { Seed } from './Seed';
 import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
+    SeedToJSONTyped,
 } from './Seed';
+import type { TextLocation } from './TextLocation';
+import {
+    TextLocationFromJSON,
+    TextLocationFromJSONTyped,
+    TextLocationToJSON,
+    TextLocationToJSONTyped,
+} from './TextLocation';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
+    ReferencedAnchorFromJSON,
+    ReferencedAnchorFromJSONTyped,
+    ReferencedAnchorToJSON,
+    ReferencedAnchorToJSONTyped,
+} from './ReferencedAnchor';
 
 /**
  * This is a generic model used, to wrap a seed, as well as give an identifier used to further identifiy this snippet.
@@ -44,6 +55,9 @@ import {
  * Seed is optional here because you may just want to provide the id, and not the original seed.
  * 
  * id is also optional here as you may provide an id or not here.(however with specific endpoint this ID is a guarentee.)
+ * 
+ * location:(optional) if a path or an anchor is passed in, this will let us know the specific location within the 'file' that this relevant seed is located
+ *           note: if this is null and a path/anchor is present then we will use the entire file that is provided.(this logic will be determined within the relevance flow & not by the user)
  * @export
  * @interface RelevantQGPTSeed
  */
@@ -84,15 +98,19 @@ export interface RelevantQGPTSeed {
      * @memberof RelevantQGPTSeed
      */
     asset?: ReferencedAsset;
+    /**
+     * 
+     * @type {TextLocation}
+     * @memberof RelevantQGPTSeed
+     */
+    location?: TextLocation;
 }
 
 /**
  * Check if a given object implements the RelevantQGPTSeed interface.
  */
-export function instanceOfRelevantQGPTSeed(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfRelevantQGPTSeed(value: object): value is RelevantQGPTSeed {
+    return true;
 }
 
 export function RelevantQGPTSeedFromJSON(json: any): RelevantQGPTSeed {
@@ -100,35 +118,39 @@ export function RelevantQGPTSeedFromJSON(json: any): RelevantQGPTSeed {
 }
 
 export function RelevantQGPTSeedFromJSONTyped(json: any, ignoreDiscriminator: boolean): RelevantQGPTSeed {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
-        'path': !exists(json, 'path') ? undefined : json['path'],
-        'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': json['id'] == null ? undefined : json['id'],
+        'seed': json['seed'] == null ? undefined : SeedFromJSON(json['seed']),
+        'path': json['path'] == null ? undefined : json['path'],
+        'anchor': json['anchor'] == null ? undefined : ReferencedAnchorFromJSON(json['anchor']),
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'location': json['location'] == null ? undefined : TextLocationFromJSON(json['location']),
     };
 }
 
-export function RelevantQGPTSeedToJSON(value?: RelevantQGPTSeed | null): any {
-    if (value === undefined) {
-        return undefined;
+export function RelevantQGPTSeedToJSON(json: any): RelevantQGPTSeed {
+    return RelevantQGPTSeedToJSONTyped(json, false);
+}
+
+export function RelevantQGPTSeedToJSONTyped(value?: RelevantQGPTSeed | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'seed': SeedToJSON(value.seed),
-        'path': value.path,
-        'anchor': ReferencedAnchorToJSON(value.anchor),
-        'asset': ReferencedAssetToJSON(value.asset),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'seed': SeedToJSON(value['seed']),
+        'path': value['path'],
+        'anchor': ReferencedAnchorToJSON(value['anchor']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'location': TextLocationToJSON(value['location']),
     };
 }
 

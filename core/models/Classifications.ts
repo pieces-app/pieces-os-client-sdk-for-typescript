@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Classification } from './Classification';
-import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+    ClassificationToJSONTyped,
+} from './Classification';
 
 /**
  * This is a plural representation of a Classification
@@ -49,11 +51,9 @@ export interface Classifications {
 /**
  * Check if a given object implements the Classifications interface.
  */
-export function instanceOfClassifications(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfClassifications(value: object): value is Classifications {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function ClassificationsFromJSON(json: any): Classifications {
@@ -61,27 +61,29 @@ export function ClassificationsFromJSON(json: any): Classifications {
 }
 
 export function ClassificationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Classifications {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ClassificationFromJSON)),
     };
 }
 
-export function ClassificationsToJSON(value?: Classifications | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ClassificationsToJSON(json: any): Classifications {
+    return ClassificationsToJSONTyped(json, false);
+}
+
+export function ClassificationsToJSONTyped(value?: Classifications | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ClassificationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ClassificationToJSON)),
     };
 }
 

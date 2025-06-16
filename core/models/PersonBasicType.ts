@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { MailgunMetadata } from './MailgunMetadata';
+import {
+    MailgunMetadataFromJSON,
+    MailgunMetadataFromJSONTyped,
+    MailgunMetadataToJSON,
+    MailgunMetadataToJSONTyped,
+} from './MailgunMetadata';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ExternallySourcedEnum } from './ExternallySourcedEnum';
 import {
     ExternallySourcedEnumFromJSON,
     ExternallySourcedEnumFromJSONTyped,
     ExternallySourcedEnumToJSON,
+    ExternallySourcedEnumToJSONTyped,
 } from './ExternallySourcedEnum';
-import type { MailgunMetadata } from './MailgunMetadata';
-import {
-    MailgunMetadataFromJSON,
-    MailgunMetadataFromJSONTyped,
-    MailgunMetadataToJSON,
-} from './MailgunMetadata';
 
 /**
  * This is all optional properties around the most basic information around a non-pieces user.
@@ -90,13 +93,13 @@ export interface PersonBasicType {
     mailgun?: MailgunMetadata;
 }
 
+
+
 /**
  * Check if a given object implements the PersonBasicType interface.
  */
-export function instanceOfPersonBasicType(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfPersonBasicType(value: object): value is PersonBasicType {
+    return true;
 }
 
 export function PersonBasicTypeFromJSON(json: any): PersonBasicType {
@@ -104,39 +107,41 @@ export function PersonBasicTypeFromJSON(json: any): PersonBasicType {
 }
 
 export function PersonBasicTypeFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonBasicType {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'username': !exists(json, 'username') ? undefined : json['username'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'picture': !exists(json, 'picture') ? undefined : json['picture'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'sourced': !exists(json, 'sourced') ? undefined : ExternallySourcedEnumFromJSON(json['sourced']),
-        'url': !exists(json, 'url') ? undefined : json['url'],
-        'mailgun': !exists(json, 'mailgun') ? undefined : MailgunMetadataFromJSON(json['mailgun']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'username': json['username'] == null ? undefined : json['username'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'picture': json['picture'] == null ? undefined : json['picture'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'sourced': json['sourced'] == null ? undefined : ExternallySourcedEnumFromJSON(json['sourced']),
+        'url': json['url'] == null ? undefined : json['url'],
+        'mailgun': json['mailgun'] == null ? undefined : MailgunMetadataFromJSON(json['mailgun']),
     };
 }
 
-export function PersonBasicTypeToJSON(value?: PersonBasicType | null): any {
-    if (value === undefined) {
-        return undefined;
+export function PersonBasicTypeToJSON(json: any): PersonBasicType {
+    return PersonBasicTypeToJSONTyped(json, false);
+}
+
+export function PersonBasicTypeToJSONTyped(value?: PersonBasicType | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'username': value.username,
-        'name': value.name,
-        'picture': value.picture,
-        'email': value.email,
-        'sourced': ExternallySourcedEnumToJSON(value.sourced),
-        'url': value.url,
-        'mailgun': MailgunMetadataToJSON(value.mailgun),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'username': value['username'],
+        'name': value['name'],
+        'picture': value['picture'],
+        'email': value['email'],
+        'sourced': ExternallySourcedEnumToJSON(value['sourced']),
+        'url': value['url'],
+        'mailgun': MailgunMetadataToJSON(value['mailgun']),
     };
 }
 

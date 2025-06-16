@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { ReferencedFormat } from './ReferencedFormat';
 import {
     ReferencedFormatFromJSON,
     ReferencedFormatFromJSONTyped,
     ReferencedFormatToJSON,
+    ReferencedFormatToJSONTyped,
 } from './ReferencedFormat';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a preview Model that will hold references to at minimum the base preview. which can be potentiall a base image, or also base text/code and then the oveylay is another format(image/text/code) that is 'overlayed' ontop of the base format.
@@ -55,11 +57,9 @@ export interface Preview {
 /**
  * Check if a given object implements the Preview interface.
  */
-export function instanceOfPreview(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "base" in value;
-
-    return isInstance;
+export function instanceOfPreview(value: object): value is Preview {
+    if (!('base' in value) || value['base'] === undefined) return false;
+    return true;
 }
 
 export function PreviewFromJSON(json: any): Preview {
@@ -67,29 +67,31 @@ export function PreviewFromJSON(json: any): Preview {
 }
 
 export function PreviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): Preview {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'base': ReferencedFormatFromJSON(json['base']),
-        'overlay': !exists(json, 'overlay') ? undefined : ReferencedFormatFromJSON(json['overlay']),
+        'overlay': json['overlay'] == null ? undefined : ReferencedFormatFromJSON(json['overlay']),
     };
 }
 
-export function PreviewToJSON(value?: Preview | null): any {
-    if (value === undefined) {
-        return undefined;
+export function PreviewToJSON(json: any): Preview {
+    return PreviewToJSONTyped(json, false);
+}
+
+export function PreviewToJSONTyped(value?: Preview | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'base': ReferencedFormatToJSON(value.base),
-        'overlay': ReferencedFormatToJSON(value.overlay),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'base': ReferencedFormatToJSON(value['base']),
+        'overlay': ReferencedFormatToJSON(value['overlay']),
     };
 }
 

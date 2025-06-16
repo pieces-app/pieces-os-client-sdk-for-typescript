@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { UpdatingStatusEnum } from './UpdatingStatusEnum';
+import {
+    UpdatingStatusEnumFromJSON,
+    UpdatingStatusEnumFromJSONTyped,
+    UpdatingStatusEnumToJSON,
+    UpdatingStatusEnumToJSONTyped,
+} from './UpdatingStatusEnum';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
-import type { UpdatingStatusEnum } from './UpdatingStatusEnum';
-import {
-    UpdatingStatusEnumFromJSON,
-    UpdatingStatusEnumFromJSONTyped,
-    UpdatingStatusEnumToJSON,
-} from './UpdatingStatusEnum';
 
 /**
  * This is the model for the progress of the current update of Pieces os.
@@ -73,14 +76,14 @@ export interface OSServerUpdateStatus {
     percentage?: number | null;
 }
 
+
+
 /**
  * Check if a given object implements the OSServerUpdateStatus interface.
  */
-export function instanceOfOSServerUpdateStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-
-    return isInstance;
+export function instanceOfOSServerUpdateStatus(value: object): value is OSServerUpdateStatus {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    return true;
 }
 
 export function OSServerUpdateStatusFromJSON(json: any): OSServerUpdateStatus {
@@ -88,31 +91,33 @@ export function OSServerUpdateStatusFromJSON(json: any): OSServerUpdateStatus {
 }
 
 export function OSServerUpdateStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSServerUpdateStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'status': UpdatingStatusEnumFromJSON(json['status']),
-        'updated': !exists(json, 'updated') ? undefined : GroupedTimestampFromJSON(json['updated']),
-        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
+        'updated': json['updated'] == null ? undefined : GroupedTimestampFromJSON(json['updated']),
+        'percentage': json['percentage'] == null ? undefined : json['percentage'],
     };
 }
 
-export function OSServerUpdateStatusToJSON(value?: OSServerUpdateStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSServerUpdateStatusToJSON(json: any): OSServerUpdateStatus {
+    return OSServerUpdateStatusToJSONTyped(json, false);
+}
+
+export function OSServerUpdateStatusToJSONTyped(value?: OSServerUpdateStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'status': UpdatingStatusEnumToJSON(value.status),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'percentage': value.percentage,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'status': UpdatingStatusEnumToJSON(value['status']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'percentage': value['percentage'],
     };
 }
 

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedConversation } from './SearchedConversation';
 import {
     SearchedConversationFromJSON,
     SearchedConversationFromJSONTyped,
     SearchedConversationToJSON,
+    SearchedConversationToJSONTyped,
 } from './SearchedConversation';
 
 /**
@@ -49,11 +51,9 @@ export interface SearchedConversations {
 /**
  * Check if a given object implements the SearchedConversations interface.
  */
-export function instanceOfSearchedConversations(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchedConversations(value: object): value is SearchedConversations {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchedConversationsFromJSON(json: any): SearchedConversations {
@@ -61,27 +61,29 @@ export function SearchedConversationsFromJSON(json: any): SearchedConversations 
 }
 
 export function SearchedConversationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedConversations {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedConversationFromJSON)),
     };
 }
 
-export function SearchedConversationsToJSON(value?: SearchedConversations | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedConversationsToJSON(json: any): SearchedConversations {
+    return SearchedConversationsToJSONTyped(json, false);
+}
+
+export function SearchedConversationsToJSONTyped(value?: SearchedConversations | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedConversationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedConversationToJSON)),
     };
 }
 

@@ -18,6 +18,7 @@
  * @export
  */
 export const LanguageServerProtocolSeverityEnum = {
+    Unknown: 'UNKNOWN',
     Error: 'ERROR',
     Warning: 'WARNING',
     Information: 'INFORMATION',
@@ -25,6 +26,17 @@ export const LanguageServerProtocolSeverityEnum = {
 } as const;
 export type LanguageServerProtocolSeverityEnum = typeof LanguageServerProtocolSeverityEnum[keyof typeof LanguageServerProtocolSeverityEnum];
 
+
+export function instanceOfLanguageServerProtocolSeverityEnum(value: any): boolean {
+    for (const key in LanguageServerProtocolSeverityEnum) {
+        if (Object.prototype.hasOwnProperty.call(LanguageServerProtocolSeverityEnum, key)) {
+            if (LanguageServerProtocolSeverityEnum[key as keyof typeof LanguageServerProtocolSeverityEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function LanguageServerProtocolSeverityEnumFromJSON(json: any): LanguageServerProtocolSeverityEnum {
     return LanguageServerProtocolSeverityEnumFromJSONTyped(json, false);
@@ -36,5 +48,9 @@ export function LanguageServerProtocolSeverityEnumFromJSONTyped(json: any, ignor
 
 export function LanguageServerProtocolSeverityEnumToJSON(value?: LanguageServerProtocolSeverityEnum | null): any {
     return value as any;
+}
+
+export function LanguageServerProtocolSeverityEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): LanguageServerProtocolSeverityEnum {
+    return value as LanguageServerProtocolSeverityEnum;
 }
 

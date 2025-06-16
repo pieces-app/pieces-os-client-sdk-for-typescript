@@ -61,6 +61,10 @@ export class UserApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/user/clear`,
             method: 'POST',
@@ -87,6 +91,10 @@ export class UserApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/user/refresh`,
@@ -138,7 +146,7 @@ export class UserApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: Auth0UserToJSON(requestParameters.auth0User),
+            body: Auth0UserToJSON(requestParameters['auth0User']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
@@ -161,6 +169,10 @@ export class UserApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/user/stream`,
@@ -192,12 +204,16 @@ export class UserApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/user/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
+            body: UserProfileToJSON(requestParameters['userProfile']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
@@ -213,6 +229,42 @@ export class UserApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will return a user accessToken for usage w/ this user.
+     * \'/user/access_token\' [GET]
+     */
+    async userAccessTokenRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/user/access_token`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * This will return a user accessToken for usage w/ this user.
+     * \'/user/access_token\' [GET]
+     */
+    async userAccessToken(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.userAccessTokenRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * This will be an endpoint to give access or remove access immediately from a given user.(isomorphic from the given provider)
      * /user/beta/status [POST]
      */
@@ -223,12 +275,16 @@ export class UserApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/user/beta/status`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserBetaStatusToJSON(requestParameters.userBetaStatus),
+            body: UserBetaStatusToJSON(requestParameters['userBetaStatus']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserBetaStatusFromJSON(jsonValue));
@@ -251,6 +307,10 @@ export class UserApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/user/providers`,
@@ -279,6 +339,10 @@ export class UserApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/user`,
@@ -310,12 +374,16 @@ export class UserApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/user/update/vanity`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
+            body: UserProfileToJSON(requestParameters['userProfile']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));

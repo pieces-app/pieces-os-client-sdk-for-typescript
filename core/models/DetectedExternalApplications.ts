@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { DetectedExternalApplication } from './DetectedExternalApplication';
-import {
-    DetectedExternalApplicationFromJSON,
-    DetectedExternalApplicationFromJSONTyped,
-    DetectedExternalApplicationToJSON,
-} from './DetectedExternalApplication';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { DetectedExternalApplication } from './DetectedExternalApplication';
+import {
+    DetectedExternalApplicationFromJSON,
+    DetectedExternalApplicationFromJSONTyped,
+    DetectedExternalApplicationToJSON,
+    DetectedExternalApplicationToJSONTyped,
+} from './DetectedExternalApplication';
 
 /**
  * This is used as the returnable for the /applications/external && /applications/external/related endpoints.
@@ -53,11 +55,9 @@ export interface DetectedExternalApplications {
 /**
  * Check if a given object implements the DetectedExternalApplications interface.
  */
-export function instanceOfDetectedExternalApplications(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfDetectedExternalApplications(value: object): value is DetectedExternalApplications {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function DetectedExternalApplicationsFromJSON(json: any): DetectedExternalApplications {
@@ -65,27 +65,29 @@ export function DetectedExternalApplicationsFromJSON(json: any): DetectedExterna
 }
 
 export function DetectedExternalApplicationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): DetectedExternalApplications {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(DetectedExternalApplicationFromJSON)),
     };
 }
 
-export function DetectedExternalApplicationsToJSON(value?: DetectedExternalApplications | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DetectedExternalApplicationsToJSON(json: any): DetectedExternalApplications {
+    return DetectedExternalApplicationsToJSONTyped(json, false);
+}
+
+export function DetectedExternalApplicationsToJSONTyped(value?: DetectedExternalApplications | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(DetectedExternalApplicationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(DetectedExternalApplicationToJSON)),
     };
 }
 

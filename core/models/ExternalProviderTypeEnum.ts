@@ -22,17 +22,33 @@
  * @export
  */
 export const ExternalProviderTypeEnum = {
+    Unknown: 'UNKNOWN',
     Github: 'github',
-    Auth0: 'auth0',
     GoogleOauth2: 'google-oauth2',
     Bitbucket: 'bitbucket',
     Linkedin: 'linkedin',
     Twitter: 'twitter',
     Facebook: 'facebook',
-    Waad: 'waad'
+    Waad: 'waad',
+    Discord: 'discord',
+    Gitlab: 'gitlab',
+    Apple: 'apple',
+    UsernameEmail: 'username_email',
+    Slack: 'slack'
 } as const;
 export type ExternalProviderTypeEnum = typeof ExternalProviderTypeEnum[keyof typeof ExternalProviderTypeEnum];
 
+
+export function instanceOfExternalProviderTypeEnum(value: any): boolean {
+    for (const key in ExternalProviderTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternalProviderTypeEnum, key)) {
+            if (ExternalProviderTypeEnum[key as keyof typeof ExternalProviderTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ExternalProviderTypeEnumFromJSON(json: any): ExternalProviderTypeEnum {
     return ExternalProviderTypeEnumFromJSONTyped(json, false);
@@ -44,5 +60,9 @@ export function ExternalProviderTypeEnumFromJSONTyped(json: any, ignoreDiscrimin
 
 export function ExternalProviderTypeEnumToJSON(value?: ExternalProviderTypeEnum | null): any {
     return value as any;
+}
+
+export function ExternalProviderTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ExternalProviderTypeEnum {
+    return value as ExternalProviderTypeEnum;
 }
 

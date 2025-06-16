@@ -17,13 +17,21 @@ import * as runtime from '../runtime';
 import type {
   Model,
   ModelDownloadProgress,
+  SeededScoreIncrement,
 } from '../models/index';
 import {
     ModelFromJSON,
     ModelToJSON,
     ModelDownloadProgressFromJSON,
     ModelDownloadProgressToJSON,
+    SeededScoreIncrementFromJSON,
+    SeededScoreIncrementToJSON,
 } from '../models/index';
+
+export interface ModelScoresIncrementRequest {
+    model: string;
+    seededScoreIncrement?: SeededScoreIncrement;
+}
 
 export interface ModelSpecificModelDownloadRequest {
     model: string;
@@ -59,20 +67,68 @@ export interface ModelsSpecificModelSnapshotRequest {
 export class ModelApi extends runtime.BaseAPI {
 
     /**
-     * Downloads a specific model to your local machine.
-     * /model/{model}/download [POST]
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/model/{model}/scores/increment\' [POST]
      */
-    async modelSpecificModelDownloadRaw(requestParameters: ModelSpecificModelDownloadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
-        if (requestParameters.model === null || requestParameters.model === undefined) {
-            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelSpecificModelDownload.');
+    async modelScoresIncrementRaw(requestParameters: ModelScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['model'] == null) {
+            throw new runtime.RequiredError(
+                'model',
+                'Required parameter "model" was null or undefined when calling modelScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/model/{model}/download`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            path: `/model/{model}/scores/increment`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
+     * \'/model/{model}/scores/increment\' [POST]
+     */
+    async modelScoresIncrement(requestParameters: ModelScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.modelScoresIncrementRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Downloads a specific model to your local machine.
+     * /model/{model}/download [POST]
+     */
+    async modelSpecificModelDownloadRaw(requestParameters: ModelSpecificModelDownloadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
+        if (requestParameters['model'] == null) {
+            throw new runtime.RequiredError(
+                'model',
+                'Required parameter "model" was null or undefined when calling modelSpecificModelDownload().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/model/{model}/download`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -95,16 +151,23 @@ export class ModelApi extends runtime.BaseAPI {
      * /model/{model}/download/cancel [POST]
      */
     async modelSpecificModelDownloadCancelRaw(requestParameters: ModelSpecificModelDownloadCancelRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
-        if (requestParameters.model === null || requestParameters.model === undefined) {
-            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelSpecificModelDownloadCancel.');
+        if (requestParameters['model'] == null) {
+            throw new runtime.RequiredError(
+                'model',
+                'Required parameter "model" was null or undefined when calling modelSpecificModelDownloadCancel().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/model/{model}/download/cancel`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            path: `/model/{model}/download/cancel`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -127,16 +190,23 @@ export class ModelApi extends runtime.BaseAPI {
      * /model/{model}/download/progress [WS]
      */
     async modelSpecificModelDownloadProgressRaw(requestParameters: ModelSpecificModelDownloadProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ModelDownloadProgress>> {
-        if (requestParameters.model === null || requestParameters.model === undefined) {
-            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelSpecificModelDownloadProgress.');
+        if (requestParameters['model'] == null) {
+            throw new runtime.RequiredError(
+                'model',
+                'Required parameter "model" was null or undefined when calling modelSpecificModelDownloadProgress().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/model/{model}/download/progress`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            path: `/model/{model}/download/progress`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -159,16 +229,23 @@ export class ModelApi extends runtime.BaseAPI {
      * /model/{model}/load [POST]
      */
     async modelSpecificModelLoadRaw(requestParameters: ModelSpecificModelLoadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
-        if (requestParameters.model === null || requestParameters.model === undefined) {
-            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelSpecificModelLoad.');
+        if (requestParameters['model'] == null) {
+            throw new runtime.RequiredError(
+                'model',
+                'Required parameter "model" was null or undefined when calling modelSpecificModelLoad().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/model/{model}/load`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            path: `/model/{model}/load`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -191,16 +268,23 @@ export class ModelApi extends runtime.BaseAPI {
      * /model/{model}/unload [POST]
      */
     async modelSpecificModelUnloadRaw(requestParameters: ModelSpecificModelUnloadRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
-        if (requestParameters.model === null || requestParameters.model === undefined) {
-            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelSpecificModelUnload.');
+        if (requestParameters['model'] == null) {
+            throw new runtime.RequiredError(
+                'model',
+                'Required parameter "model" was null or undefined when calling modelSpecificModelUnload().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/model/{model}/unload`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            path: `/model/{model}/unload`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -229,12 +313,16 @@ export class ModelApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/model/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ModelToJSON(requestParameters.model),
+            body: ModelToJSON(requestParameters['model']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ModelFromJSON(jsonValue));
@@ -254,16 +342,23 @@ export class ModelApi extends runtime.BaseAPI {
      * /model/{model} [GET]
      */
     async modelsSpecificModelSnapshotRaw(requestParameters: ModelsSpecificModelSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Model>> {
-        if (requestParameters.model === null || requestParameters.model === undefined) {
-            throw new runtime.RequiredError('model','Required parameter requestParameters.model was null or undefined when calling modelsSpecificModelSnapshot.');
+        if (requestParameters['model'] == null) {
+            throw new runtime.RequiredError(
+                'model',
+                'Required parameter "model" was null or undefined when calling modelsSpecificModelSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/model/{model}`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters.model))),
+            path: `/model/{model}`.replace(`{${"model"}}`, encodeURIComponent(String(requestParameters['model']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { BackupStreamedProgress } from './BackupStreamedProgress';
-import {
-    BackupStreamedProgressFromJSON,
-    BackupStreamedProgressFromJSONTyped,
-    BackupStreamedProgressToJSON,
-} from './BackupStreamedProgress';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { BackupStreamedProgress } from './BackupStreamedProgress';
+import {
+    BackupStreamedProgressFromJSON,
+    BackupStreamedProgressFromJSONTyped,
+    BackupStreamedProgressToJSON,
+    BackupStreamedProgressToJSONTyped,
+} from './BackupStreamedProgress';
 
 /**
  * This is used in the backups plural stream to stream the changes to all the restorations and backups in progress.
@@ -55,10 +57,8 @@ export interface BackupsStreamedProgress {
 /**
  * Check if a given object implements the BackupsStreamedProgress interface.
  */
-export function instanceOfBackupsStreamedProgress(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfBackupsStreamedProgress(value: object): value is BackupsStreamedProgress {
+    return true;
 }
 
 export function BackupsStreamedProgressFromJSON(json: any): BackupsStreamedProgress {
@@ -66,29 +66,31 @@ export function BackupsStreamedProgressFromJSON(json: any): BackupsStreamedProgr
 }
 
 export function BackupsStreamedProgressFromJSONTyped(json: any, ignoreDiscriminator: boolean): BackupsStreamedProgress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'backups': !exists(json, 'backups') ? undefined : ((json['backups'] as Array<any>).map(BackupStreamedProgressFromJSON)),
-        'restorations': !exists(json, 'restorations') ? undefined : ((json['restorations'] as Array<any>).map(BackupStreamedProgressFromJSON)),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'backups': json['backups'] == null ? undefined : ((json['backups'] as Array<any>).map(BackupStreamedProgressFromJSON)),
+        'restorations': json['restorations'] == null ? undefined : ((json['restorations'] as Array<any>).map(BackupStreamedProgressFromJSON)),
     };
 }
 
-export function BackupsStreamedProgressToJSON(value?: BackupsStreamedProgress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function BackupsStreamedProgressToJSON(json: any): BackupsStreamedProgress {
+    return BackupsStreamedProgressToJSONTyped(json, false);
+}
+
+export function BackupsStreamedProgressToJSONTyped(value?: BackupsStreamedProgress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'backups': value.backups === undefined ? undefined : ((value.backups as Array<any>).map(BackupStreamedProgressToJSON)),
-        'restorations': value.restorations === undefined ? undefined : ((value.restorations as Array<any>).map(BackupStreamedProgressToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'backups': value['backups'] == null ? undefined : ((value['backups'] as Array<any>).map(BackupStreamedProgressToJSON)),
+        'restorations': value['restorations'] == null ? undefined : ((value['restorations'] as Array<any>).map(BackupStreamedProgressToJSON)),
     };
 }
 

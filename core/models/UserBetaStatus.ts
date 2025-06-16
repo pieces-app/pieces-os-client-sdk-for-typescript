@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Auth0UserBetaStatus } from './Auth0UserBetaStatus';
-import {
-    Auth0UserBetaStatusFromJSON,
-    Auth0UserBetaStatusFromJSONTyped,
-    Auth0UserBetaStatusToJSON,
-} from './Auth0UserBetaStatus';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Auth0UserBetaStatus } from './Auth0UserBetaStatus';
+import {
+    Auth0UserBetaStatusFromJSON,
+    Auth0UserBetaStatusFromJSONTyped,
+    Auth0UserBetaStatusToJSON,
+    Auth0UserBetaStatusToJSONTyped,
+} from './Auth0UserBetaStatus';
 
 /**
  * This is used to either grant or remove a specific provider betastatus
@@ -46,6 +48,12 @@ export interface UserBetaStatus {
     auth0?: Auth0UserBetaStatus;
     /**
      * 
+     * @type {Auth0UserBetaStatus}
+     * @memberof UserBetaStatus
+     */
+    descope?: Auth0UserBetaStatus;
+    /**
+     * 
      * @type {string}
      * @memberof UserBetaStatus
      */
@@ -55,11 +63,9 @@ export interface UserBetaStatus {
 /**
  * Check if a given object implements the UserBetaStatus interface.
  */
-export function instanceOfUserBetaStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "user" in value;
-
-    return isInstance;
+export function instanceOfUserBetaStatus(value: object): value is UserBetaStatus {
+    if (!('user' in value) || value['user'] === undefined) return false;
+    return true;
 }
 
 export function UserBetaStatusFromJSON(json: any): UserBetaStatus {
@@ -67,29 +73,33 @@ export function UserBetaStatusFromJSON(json: any): UserBetaStatus {
 }
 
 export function UserBetaStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserBetaStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'auth0': !exists(json, 'auth0') ? undefined : Auth0UserBetaStatusFromJSON(json['auth0']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'auth0': json['auth0'] == null ? undefined : Auth0UserBetaStatusFromJSON(json['auth0']),
+        'descope': json['descope'] == null ? undefined : Auth0UserBetaStatusFromJSON(json['descope']),
         'user': json['user'],
     };
 }
 
-export function UserBetaStatusToJSON(value?: UserBetaStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function UserBetaStatusToJSON(json: any): UserBetaStatus {
+    return UserBetaStatusToJSONTyped(json, false);
+}
+
+export function UserBetaStatusToJSONTyped(value?: UserBetaStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'auth0': Auth0UserBetaStatusToJSON(value.auth0),
-        'user': value.user,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'auth0': Auth0UserBetaStatusToJSON(value['auth0']),
+        'descope': Auth0UserBetaStatusToJSON(value['descope']),
+        'user': value['user'],
     };
 }
 

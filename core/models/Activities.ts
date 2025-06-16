@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Activity } from './Activity';
-import {
-    ActivityFromJSON,
-    ActivityFromJSONTyped,
-    ActivityToJSON,
-} from './Activity';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Activity } from './Activity';
+import {
+    ActivityFromJSON,
+    ActivityFromJSONTyped,
+    ActivityToJSON,
+    ActivityToJSONTyped,
+} from './Activity';
 
 /**
  * This is the plural of activity
@@ -49,11 +51,9 @@ export interface Activities {
 /**
  * Check if a given object implements the Activities interface.
  */
-export function instanceOfActivities(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfActivities(value: object): value is Activities {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function ActivitiesFromJSON(json: any): Activities {
@@ -61,27 +61,29 @@ export function ActivitiesFromJSON(json: any): Activities {
 }
 
 export function ActivitiesFromJSONTyped(json: any, ignoreDiscriminator: boolean): Activities {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ActivityFromJSON)),
     };
 }
 
-export function ActivitiesToJSON(value?: Activities | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ActivitiesToJSON(json: any): Activities {
+    return ActivitiesToJSONTyped(json, false);
+}
+
+export function ActivitiesToJSONTyped(value?: Activities | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ActivityToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ActivityToJSON)),
     };
 }
 

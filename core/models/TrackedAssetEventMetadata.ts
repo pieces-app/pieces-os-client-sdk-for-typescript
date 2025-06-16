@@ -12,79 +12,91 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ReferencedAnchor } from './ReferencedAnchor';
-import {
-    ReferencedAnchorFromJSON,
-    ReferencedAnchorFromJSONTyped,
-    ReferencedAnchorToJSON,
-} from './ReferencedAnchor';
-import type { ReferencedAnnotation } from './ReferencedAnnotation';
-import {
-    ReferencedAnnotationFromJSON,
-    ReferencedAnnotationFromJSONTyped,
-    ReferencedAnnotationToJSON,
-} from './ReferencedAnnotation';
-import type { ReferencedHint } from './ReferencedHint';
-import {
-    ReferencedHintFromJSON,
-    ReferencedHintFromJSONTyped,
-    ReferencedHintToJSON,
-} from './ReferencedHint';
-import type { ReferencedPerson } from './ReferencedPerson';
-import {
-    ReferencedPersonFromJSON,
-    ReferencedPersonFromJSONTyped,
-    ReferencedPersonToJSON,
-} from './ReferencedPerson';
+import { mapValues } from '../runtime';
 import type { ReferencedSensitive } from './ReferencedSensitive';
 import {
     ReferencedSensitiveFromJSON,
     ReferencedSensitiveFromJSONTyped,
     ReferencedSensitiveToJSON,
+    ReferencedSensitiveToJSONTyped,
 } from './ReferencedSensitive';
-import type { ReferencedShare } from './ReferencedShare';
-import {
-    ReferencedShareFromJSON,
-    ReferencedShareFromJSONTyped,
-    ReferencedShareToJSON,
-} from './ReferencedShare';
 import type { ReferencedTag } from './ReferencedTag';
 import {
     ReferencedTagFromJSON,
     ReferencedTagFromJSONTyped,
     ReferencedTagToJSON,
+    ReferencedTagToJSONTyped,
 } from './ReferencedTag';
-import type { ReferencedWebsite } from './ReferencedWebsite';
-import {
-    ReferencedWebsiteFromJSON,
-    ReferencedWebsiteFromJSONTyped,
-    ReferencedWebsiteToJSON,
-} from './ReferencedWebsite';
-import type { TrackedAssetEventCreationMetadata } from './TrackedAssetEventCreationMetadata';
-import {
-    TrackedAssetEventCreationMetadataFromJSON,
-    TrackedAssetEventCreationMetadataFromJSONTyped,
-    TrackedAssetEventCreationMetadataToJSON,
-} from './TrackedAssetEventCreationMetadata';
 import type { TrackedAssetEventFormatReclassificationMetadata } from './TrackedAssetEventFormatReclassificationMetadata';
 import {
     TrackedAssetEventFormatReclassificationMetadataFromJSON,
     TrackedAssetEventFormatReclassificationMetadataFromJSONTyped,
     TrackedAssetEventFormatReclassificationMetadataToJSON,
+    TrackedAssetEventFormatReclassificationMetadataToJSONTyped,
 } from './TrackedAssetEventFormatReclassificationMetadata';
-import type { TrackedAssetEventRenameMetadata } from './TrackedAssetEventRenameMetadata';
-import {
-    TrackedAssetEventRenameMetadataFromJSON,
-    TrackedAssetEventRenameMetadataFromJSONTyped,
-    TrackedAssetEventRenameMetadataToJSON,
-} from './TrackedAssetEventRenameMetadata';
 import type { TrackedAssetsEventSearchMetadata } from './TrackedAssetsEventSearchMetadata';
 import {
     TrackedAssetsEventSearchMetadataFromJSON,
     TrackedAssetsEventSearchMetadataFromJSONTyped,
     TrackedAssetsEventSearchMetadataToJSON,
+    TrackedAssetsEventSearchMetadataToJSONTyped,
 } from './TrackedAssetsEventSearchMetadata';
+import type { TrackedAssetEventCreationMetadata } from './TrackedAssetEventCreationMetadata';
+import {
+    TrackedAssetEventCreationMetadataFromJSON,
+    TrackedAssetEventCreationMetadataFromJSONTyped,
+    TrackedAssetEventCreationMetadataToJSON,
+    TrackedAssetEventCreationMetadataToJSONTyped,
+} from './TrackedAssetEventCreationMetadata';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
+    ReferencedAnnotationFromJSON,
+    ReferencedAnnotationFromJSONTyped,
+    ReferencedAnnotationToJSON,
+    ReferencedAnnotationToJSONTyped,
+} from './ReferencedAnnotation';
+import type { ReferencedWebsite } from './ReferencedWebsite';
+import {
+    ReferencedWebsiteFromJSON,
+    ReferencedWebsiteFromJSONTyped,
+    ReferencedWebsiteToJSON,
+    ReferencedWebsiteToJSONTyped,
+} from './ReferencedWebsite';
+import type { ReferencedHint } from './ReferencedHint';
+import {
+    ReferencedHintFromJSON,
+    ReferencedHintFromJSONTyped,
+    ReferencedHintToJSON,
+    ReferencedHintToJSONTyped,
+} from './ReferencedHint';
+import type { TrackedAssetEventRenameMetadata } from './TrackedAssetEventRenameMetadata';
+import {
+    TrackedAssetEventRenameMetadataFromJSON,
+    TrackedAssetEventRenameMetadataFromJSONTyped,
+    TrackedAssetEventRenameMetadataToJSON,
+    TrackedAssetEventRenameMetadataToJSONTyped,
+} from './TrackedAssetEventRenameMetadata';
+import type { ReferencedShare } from './ReferencedShare';
+import {
+    ReferencedShareFromJSON,
+    ReferencedShareFromJSONTyped,
+    ReferencedShareToJSON,
+    ReferencedShareToJSONTyped,
+} from './ReferencedShare';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
+    ReferencedAnchorFromJSON,
+    ReferencedAnchorFromJSONTyped,
+    ReferencedAnchorToJSON,
+    ReferencedAnchorToJSONTyped,
+} from './ReferencedAnchor';
+import type { ReferencedPerson } from './ReferencedPerson';
+import {
+    ReferencedPersonFromJSON,
+    ReferencedPersonFromJSONTyped,
+    ReferencedPersonToJSON,
+    ReferencedPersonToJSONTyped,
+} from './ReferencedPerson';
 
 /**
  * 
@@ -169,10 +181,8 @@ export interface TrackedAssetEventMetadata {
 /**
  * Check if a given object implements the TrackedAssetEventMetadata interface.
  */
-export function instanceOfTrackedAssetEventMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedAssetEventMetadata(value: object): value is TrackedAssetEventMetadata {
+    return true;
 }
 
 export function TrackedAssetEventMetadataFromJSON(json: any): TrackedAssetEventMetadata {
@@ -180,47 +190,49 @@ export function TrackedAssetEventMetadataFromJSON(json: any): TrackedAssetEventM
 }
 
 export function TrackedAssetEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'reclassification': !exists(json, 'reclassification') ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
-        'creation': !exists(json, 'creation') ? undefined : TrackedAssetEventCreationMetadataFromJSON(json['creation']),
-        'rename': !exists(json, 'rename') ? undefined : TrackedAssetEventRenameMetadataFromJSON(json['rename']),
-        'tag': !exists(json, 'tag') ? undefined : ReferencedTagFromJSON(json['tag']),
-        'website': !exists(json, 'website') ? undefined : ReferencedWebsiteFromJSON(json['website']),
-        'person': !exists(json, 'person') ? undefined : ReferencedPersonFromJSON(json['person']),
-        'sensitive': !exists(json, 'sensitive') ? undefined : ReferencedSensitiveFromJSON(json['sensitive']),
-        'share': !exists(json, 'share') ? undefined : ReferencedShareFromJSON(json['share']),
-        'search': !exists(json, 'search') ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
-        'annotation': !exists(json, 'annotation') ? undefined : ReferencedAnnotationFromJSON(json['annotation']),
-        'hint': !exists(json, 'hint') ? undefined : ReferencedHintFromJSON(json['hint']),
-        'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
+        'reclassification': json['reclassification'] == null ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
+        'creation': json['creation'] == null ? undefined : TrackedAssetEventCreationMetadataFromJSON(json['creation']),
+        'rename': json['rename'] == null ? undefined : TrackedAssetEventRenameMetadataFromJSON(json['rename']),
+        'tag': json['tag'] == null ? undefined : ReferencedTagFromJSON(json['tag']),
+        'website': json['website'] == null ? undefined : ReferencedWebsiteFromJSON(json['website']),
+        'person': json['person'] == null ? undefined : ReferencedPersonFromJSON(json['person']),
+        'sensitive': json['sensitive'] == null ? undefined : ReferencedSensitiveFromJSON(json['sensitive']),
+        'share': json['share'] == null ? undefined : ReferencedShareFromJSON(json['share']),
+        'search': json['search'] == null ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
+        'annotation': json['annotation'] == null ? undefined : ReferencedAnnotationFromJSON(json['annotation']),
+        'hint': json['hint'] == null ? undefined : ReferencedHintFromJSON(json['hint']),
+        'anchor': json['anchor'] == null ? undefined : ReferencedAnchorFromJSON(json['anchor']),
     };
 }
 
-export function TrackedAssetEventMetadataToJSON(value?: TrackedAssetEventMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedAssetEventMetadataToJSON(json: any): TrackedAssetEventMetadata {
+    return TrackedAssetEventMetadataToJSONTyped(json, false);
+}
+
+export function TrackedAssetEventMetadataToJSONTyped(value?: TrackedAssetEventMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value.reclassification),
-        'creation': TrackedAssetEventCreationMetadataToJSON(value.creation),
-        'rename': TrackedAssetEventRenameMetadataToJSON(value.rename),
-        'tag': ReferencedTagToJSON(value.tag),
-        'website': ReferencedWebsiteToJSON(value.website),
-        'person': ReferencedPersonToJSON(value.person),
-        'sensitive': ReferencedSensitiveToJSON(value.sensitive),
-        'share': ReferencedShareToJSON(value.share),
-        'search': TrackedAssetsEventSearchMetadataToJSON(value.search),
-        'annotation': ReferencedAnnotationToJSON(value.annotation),
-        'hint': ReferencedHintToJSON(value.hint),
-        'anchor': ReferencedAnchorToJSON(value.anchor),
+        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value['reclassification']),
+        'creation': TrackedAssetEventCreationMetadataToJSON(value['creation']),
+        'rename': TrackedAssetEventRenameMetadataToJSON(value['rename']),
+        'tag': ReferencedTagToJSON(value['tag']),
+        'website': ReferencedWebsiteToJSON(value['website']),
+        'person': ReferencedPersonToJSON(value['person']),
+        'sensitive': ReferencedSensitiveToJSON(value['sensitive']),
+        'share': ReferencedShareToJSON(value['share']),
+        'search': TrackedAssetsEventSearchMetadataToJSON(value['search']),
+        'annotation': ReferencedAnnotationToJSON(value['annotation']),
+        'hint': ReferencedHintToJSON(value['hint']),
+        'anchor': ReferencedAnchorToJSON(value['anchor']),
     };
 }
 

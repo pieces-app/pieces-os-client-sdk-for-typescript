@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Conversation } from './Conversation';
-import {
-    ConversationFromJSON,
-    ConversationFromJSONTyped,
-    ConversationToJSON,
-} from './Conversation';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SearchedAnnotations } from './SearchedAnnotations';
 import {
     SearchedAnnotationsFromJSON,
     SearchedAnnotationsFromJSONTyped,
     SearchedAnnotationsToJSON,
+    SearchedAnnotationsToJSONTyped,
 } from './SearchedAnnotations';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { Conversation } from './Conversation';
+import {
+    ConversationFromJSON,
+    ConversationFromJSONTyped,
+    ConversationToJSON,
+    ConversationToJSONTyped,
+} from './Conversation';
 import type { SearchedConversationMessages } from './SearchedConversationMessages';
 import {
     SearchedConversationMessagesFromJSON,
     SearchedConversationMessagesFromJSONTyped,
     SearchedConversationMessagesToJSON,
+    SearchedConversationMessagesToJSONTyped,
 } from './SearchedConversationMessages';
 
 /**
@@ -104,13 +108,11 @@ export interface SearchedConversation {
 /**
  * Check if a given object implements the SearchedConversation interface.
  */
-export function instanceOfSearchedConversation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedConversation(value: object): value is SearchedConversation {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedConversationFromJSON(json: any): SearchedConversation {
@@ -118,39 +120,41 @@ export function SearchedConversationFromJSON(json: any): SearchedConversation {
 }
 
 export function SearchedConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedConversation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'conversation': !exists(json, 'conversation') ? undefined : ConversationFromJSON(json['conversation']),
-        'messages': !exists(json, 'messages') ? undefined : SearchedConversationMessagesFromJSON(json['messages']),
-        'annotations': !exists(json, 'annotations') ? undefined : SearchedAnnotationsFromJSON(json['annotations']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'conversation': json['conversation'] == null ? undefined : ConversationFromJSON(json['conversation']),
+        'messages': json['messages'] == null ? undefined : SearchedConversationMessagesFromJSON(json['messages']),
+        'annotations': json['annotations'] == null ? undefined : SearchedAnnotationsFromJSON(json['annotations']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedConversationToJSON(value?: SearchedConversation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedConversationToJSON(json: any): SearchedConversation {
+    return SearchedConversationToJSONTyped(json, false);
+}
+
+export function SearchedConversationToJSONTyped(value?: SearchedConversation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'conversation': ConversationToJSON(value.conversation),
-        'messages': SearchedConversationMessagesToJSON(value.messages),
-        'annotations': SearchedAnnotationsToJSON(value.annotations),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'conversation': ConversationToJSON(value['conversation']),
+        'messages': SearchedConversationMessagesToJSON(value['messages']),
+        'annotations': SearchedAnnotationsToJSON(value['annotations']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

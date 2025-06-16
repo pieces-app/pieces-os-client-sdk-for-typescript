@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -37,10 +38,8 @@ export interface WorkstreamIngestion {
 /**
  * Check if a given object implements the WorkstreamIngestion interface.
  */
-export function instanceOfWorkstreamIngestion(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamIngestion(value: object): value is WorkstreamIngestion {
+    return true;
 }
 
 export function WorkstreamIngestionFromJSON(json: any): WorkstreamIngestion {
@@ -48,25 +47,27 @@ export function WorkstreamIngestionFromJSON(json: any): WorkstreamIngestion {
 }
 
 export function WorkstreamIngestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamIngestion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function WorkstreamIngestionToJSON(value?: WorkstreamIngestion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamIngestionToJSON(json: any): WorkstreamIngestion {
+    return WorkstreamIngestionToJSONTyped(json, false);
+}
+
+export function WorkstreamIngestionToJSONTyped(value?: WorkstreamIngestion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -55,7 +56,7 @@ export interface OAuthToken {
      * @type {string}
      * @memberof OAuthToken
      */
-    scope: string;
+    scope?: string;
     /**
      * 
      * @type {string}
@@ -75,6 +76,7 @@ export interface OAuthToken {
  * @export
  */
 export const OAuthTokenTokenTypeEnum = {
+    Unknown: 'UNKNOWN',
     Bearer: 'Bearer'
 } as const;
 export type OAuthTokenTokenTypeEnum = typeof OAuthTokenTokenTypeEnum[keyof typeof OAuthTokenTokenTypeEnum];
@@ -83,14 +85,11 @@ export type OAuthTokenTokenTypeEnum = typeof OAuthTokenTokenTypeEnum[keyof typeo
 /**
  * Check if a given object implements the OAuthToken interface.
  */
-export function instanceOfOAuthToken(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "accessToken" in value;
-    isInstance = isInstance && "tokenType" in value;
-    isInstance = isInstance && "expiresIn" in value;
-    isInstance = isInstance && "scope" in value;
-
-    return isInstance;
+export function instanceOfOAuthToken(value: object): value is OAuthToken {
+    if (!('accessToken' in value) || value['accessToken'] === undefined) return false;
+    if (!('tokenType' in value) || value['tokenType'] === undefined) return false;
+    if (!('expiresIn' in value) || value['expiresIn'] === undefined) return false;
+    return true;
 }
 
 export function OAuthTokenFromJSON(json: any): OAuthToken {
@@ -98,37 +97,39 @@ export function OAuthTokenFromJSON(json: any): OAuthToken {
 }
 
 export function OAuthTokenFromJSONTyped(json: any, ignoreDiscriminator: boolean): OAuthToken {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'accessToken': json['access_token'],
         'tokenType': json['token_type'],
         'expiresIn': json['expires_in'],
-        'scope': json['scope'],
-        'refreshToken': !exists(json, 'refresh_token') ? undefined : json['refresh_token'],
-        'idToken': !exists(json, 'id_token') ? undefined : json['id_token'],
+        'scope': json['scope'] == null ? undefined : json['scope'],
+        'refreshToken': json['refresh_token'] == null ? undefined : json['refresh_token'],
+        'idToken': json['id_token'] == null ? undefined : json['id_token'],
     };
 }
 
-export function OAuthTokenToJSON(value?: OAuthToken | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OAuthTokenToJSON(json: any): OAuthToken {
+    return OAuthTokenToJSONTyped(json, false);
+}
+
+export function OAuthTokenToJSONTyped(value?: OAuthToken | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'access_token': value.accessToken,
-        'token_type': value.tokenType,
-        'expires_in': value.expiresIn,
-        'scope': value.scope,
-        'refresh_token': value.refreshToken,
-        'id_token': value.idToken,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'access_token': value['accessToken'],
+        'token_type': value['tokenType'],
+        'expires_in': value['expiresIn'],
+        'scope': value['scope'],
+        'refresh_token': value['refreshToken'],
+        'id_token': value['idToken'],
     };
 }
 

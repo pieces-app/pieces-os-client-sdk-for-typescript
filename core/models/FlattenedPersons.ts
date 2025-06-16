@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ReferencedPerson } from './ReferencedPerson';
 import {
     ReferencedPersonFromJSON,
     ReferencedPersonFromJSONTyped,
     ReferencedPersonToJSON,
+    ReferencedPersonToJSONTyped,
 } from './ReferencedPerson';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
 
 /**
  * This is the plural of Person. will have top level meta about the person including an iterable of all the person.
@@ -67,11 +70,9 @@ export interface FlattenedPersons {
 /**
  * Check if a given object implements the FlattenedPersons interface.
  */
-export function instanceOfFlattenedPersons(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfFlattenedPersons(value: object): value is FlattenedPersons {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedPersonsFromJSON(json: any): FlattenedPersons {
@@ -79,31 +80,33 @@ export function FlattenedPersonsFromJSON(json: any): FlattenedPersons {
 }
 
 export function FlattenedPersonsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedPersons {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedPersonFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function FlattenedPersonsToJSON(value?: FlattenedPersons | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedPersonsToJSON(json: any): FlattenedPersons {
+    return FlattenedPersonsToJSONTyped(json, false);
+}
+
+export function FlattenedPersonsToJSONTyped(value?: FlattenedPersons | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedPersonToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedPersonToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
 

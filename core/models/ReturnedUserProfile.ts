@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { UserProfile } from './UserProfile';
 import {
     UserProfileFromJSON,
     UserProfileFromJSONTyped,
     UserProfileToJSON,
+    UserProfileToJSONTyped,
 } from './UserProfile';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a modle strictly for the purpose that when calling '/user' and other user related endpoints the UserProfile could potentially be null, so we needed a model to do that.
@@ -49,10 +51,8 @@ export interface ReturnedUserProfile {
 /**
  * Check if a given object implements the ReturnedUserProfile interface.
  */
-export function instanceOfReturnedUserProfile(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfReturnedUserProfile(value: object): value is ReturnedUserProfile {
+    return true;
 }
 
 export function ReturnedUserProfileFromJSON(json: any): ReturnedUserProfile {
@@ -60,27 +60,29 @@ export function ReturnedUserProfileFromJSON(json: any): ReturnedUserProfile {
 }
 
 export function ReturnedUserProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReturnedUserProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'user': !exists(json, 'user') ? undefined : UserProfileFromJSON(json['user']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'user': json['user'] == null ? undefined : UserProfileFromJSON(json['user']),
     };
 }
 
-export function ReturnedUserProfileToJSON(value?: ReturnedUserProfile | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReturnedUserProfileToJSON(json: any): ReturnedUserProfile {
+    return ReturnedUserProfileToJSONTyped(json, false);
+}
+
+export function ReturnedUserProfileToJSONTyped(value?: ReturnedUserProfile | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': UserProfileToJSON(value.user),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': UserProfileToJSON(value['user']),
     };
 }
 

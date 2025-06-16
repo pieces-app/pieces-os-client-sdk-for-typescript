@@ -42,20 +42,24 @@ export class GithubApi extends runtime.BaseAPI {
     async importGithubGistsRaw(requestParameters: ImportGithubGistsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Seeds>> {
         const queryParameters: any = {};
 
-        if (requestParameters.automatic !== undefined) {
-            queryParameters['automatic'] = requestParameters.automatic;
+        if (requestParameters['automatic'] != null) {
+            queryParameters['automatic'] = requestParameters['automatic'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/github/gists/import`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededGithubGistsImportToJSON(requestParameters.seededGithubGistsImport),
+            body: SeededGithubGistsImportToJSON(requestParameters['seededGithubGistsImport']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SeedsFromJSON(jsonValue));

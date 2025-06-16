@@ -18,12 +18,24 @@
  * @export
  */
 export const ConversationMessageSentimentEnum = {
+    Unknown: 'UNKNOWN',
     Like: 'LIKE',
     Dislike: 'DISLIKE',
     Report: 'REPORT'
 } as const;
 export type ConversationMessageSentimentEnum = typeof ConversationMessageSentimentEnum[keyof typeof ConversationMessageSentimentEnum];
 
+
+export function instanceOfConversationMessageSentimentEnum(value: any): boolean {
+    for (const key in ConversationMessageSentimentEnum) {
+        if (Object.prototype.hasOwnProperty.call(ConversationMessageSentimentEnum, key)) {
+            if (ConversationMessageSentimentEnum[key as keyof typeof ConversationMessageSentimentEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ConversationMessageSentimentEnumFromJSON(json: any): ConversationMessageSentimentEnum {
     return ConversationMessageSentimentEnumFromJSONTyped(json, false);
@@ -35,5 +47,9 @@ export function ConversationMessageSentimentEnumFromJSONTyped(json: any, ignoreD
 
 export function ConversationMessageSentimentEnumToJSON(value?: ConversationMessageSentimentEnum | null): any {
     return value as any;
+}
+
+export function ConversationMessageSentimentEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ConversationMessageSentimentEnum {
+    return value as ConversationMessageSentimentEnum;
 }
 

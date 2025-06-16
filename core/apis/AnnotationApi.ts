@@ -25,6 +25,96 @@ import {
     SeededScoreIncrementToJSON,
 } from '../models/index';
 
+export interface AnnotationAssociateAnchorRequest {
+    annotation: string;
+    anchor: string;
+}
+
+export interface AnnotationAssociateAssetRequest {
+    annotation: string;
+    asset: string;
+}
+
+export interface AnnotationAssociateConversationRequest {
+    annotation: string;
+    conversation: string;
+}
+
+export interface AnnotationAssociateConversationMessageRequest {
+    annotation: string;
+    message: string;
+}
+
+export interface AnnotationAssociatePersonRequest {
+    annotation: string;
+    person: string;
+}
+
+export interface AnnotationAssociateTagRequest {
+    annotation: string;
+    tag: string;
+}
+
+export interface AnnotationAssociateWebsiteRequest {
+    annotation: string;
+    website: string;
+}
+
+export interface AnnotationAssociateWorkstreamEventRequest {
+    annotation: string;
+    workstreamEvent: string;
+}
+
+export interface AnnotationAssociateWorkstreamSummaryRequest {
+    annotation: string;
+    workstreamSummary: string;
+}
+
+export interface AnnotationDisassociateAnchorRequest {
+    annotation: string;
+    anchor: string;
+}
+
+export interface AnnotationDisassociateAssetRequest {
+    annotation: string;
+    asset: string;
+}
+
+export interface AnnotationDisassociateConversationRequest {
+    annotation: string;
+    conversation: string;
+}
+
+export interface AnnotationDisassociateConversationMessageRequest {
+    annotation: string;
+    message: string;
+}
+
+export interface AnnotationDisassociatePersonRequest {
+    annotation: string;
+    person: string;
+}
+
+export interface AnnotationDisassociateTagRequest {
+    annotation: string;
+    tag: string;
+}
+
+export interface AnnotationDisassociateWebsiteRequest {
+    annotation: string;
+    website: string;
+}
+
+export interface AnnotationDisassociateWorkstreamEventRequest {
+    annotation: string;
+    workstreamEvent: string;
+}
+
+export interface AnnotationDisassociateWorkstreamSummaryRequest {
+    annotation: string;
+    workstreamSummary: string;
+}
+
 export interface AnnotationScoresIncrementRequest {
     annotation: string;
     seededScoreIncrement?: SeededScoreIncrement;
@@ -44,12 +134,825 @@ export interface AnnotationUpdateRequest {
 export class AnnotationApi extends runtime.BaseAPI {
 
     /**
+     * This will associate an anchor with an annotation.
+     * /annotation/{annotation}/anchors/associate/{anchor} [POST]
+     */
+    async annotationAssociateAnchorRaw(requestParameters: AnnotationAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateAnchor().'
+            );
+        }
+
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling annotationAssociateAnchor().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/anchors/associate/{anchor}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate an anchor with an annotation.
+     * /annotation/{annotation}/anchors/associate/{anchor} [POST]
+     */
+    async annotationAssociateAnchor(requestParameters: AnnotationAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateAnchorRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate an asset with an annotation.
+     * /annotation/{annotation}/assets/associate/{asset} [POST]
+     */
+    async annotationAssociateAssetRaw(requestParameters: AnnotationAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling annotationAssociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/assets/associate/{asset}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate an asset with an annotation.
+     * /annotation/{annotation}/assets/associate/{asset} [POST]
+     */
+    async annotationAssociateAsset(requestParameters: AnnotationAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateAssetRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a conversation with an annotation.
+     * /annotation/{annotation}/conversations/associate/{conversation} [POST]
+     */
+    async annotationAssociateConversationRaw(requestParameters: AnnotationAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateConversation().'
+            );
+        }
+
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling annotationAssociateConversation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/conversations/associate/{conversation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation with an annotation.
+     * /annotation/{annotation}/conversations/associate/{conversation} [POST]
+     */
+    async annotationAssociateConversation(requestParameters: AnnotationAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateConversationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a message with an annotation.
+     * /annotation/{annotation}/messages/associate/{message} [POST]
+     */
+    async annotationAssociateConversationMessageRaw(requestParameters: AnnotationAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateConversationMessage().'
+            );
+        }
+
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling annotationAssociateConversationMessage().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/messages/associate/{message}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a message with an annotation.
+     * /annotation/{annotation}/messages/associate/{message} [POST]
+     */
+    async annotationAssociateConversationMessage(requestParameters: AnnotationAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a person with an annotation.
+     * /annotation/{annotation}/persons/associate/{person} [POST]
+     */
+    async annotationAssociatePersonRaw(requestParameters: AnnotationAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling annotationAssociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/persons/associate/{person}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a person with an annotation.
+     * /annotation/{annotation}/persons/associate/{person} [POST]
+     */
+    async annotationAssociatePerson(requestParameters: AnnotationAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociatePersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a tag with an annotation.
+     * /annotation/{annotation}/tags/associate/{tag} [POST]
+     */
+    async annotationAssociateTagRaw(requestParameters: AnnotationAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateTag().'
+            );
+        }
+
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling annotationAssociateTag().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/tags/associate/{tag}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a tag with an annotation.
+     * /annotation/{annotation}/tags/associate/{tag} [POST]
+     */
+    async annotationAssociateTag(requestParameters: AnnotationAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a website with an annotation.
+     * /annotation/{annotation}/websites/associate/{website} [POST]
+     */
+    async annotationAssociateWebsiteRaw(requestParameters: AnnotationAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateWebsite().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling annotationAssociateWebsite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/websites/associate/{website}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a website with an annotation.
+     * /annotation/{annotation}/websites/associate/{website} [POST]
+     */
+    async annotationAssociateWebsite(requestParameters: AnnotationAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateWebsiteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a workstream event with an annotation.
+     * /annotation/{annotation}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async annotationAssociateWorkstreamEventRaw(requestParameters: AnnotationAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling annotationAssociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/workstream_events/associate/{workstream_event}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a workstream event with an annotation.
+     * /annotation/{annotation}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async annotationAssociateWorkstreamEvent(requestParameters: AnnotationAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a workstream summary with an annotation.
+     * /annotation/{annotation}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async annotationAssociateWorkstreamSummaryRaw(requestParameters: AnnotationAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling annotationAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a workstream summary with an annotation.
+     * /annotation/{annotation}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async annotationAssociateWorkstreamSummary(requestParameters: AnnotationAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationAssociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate an anchor from an annotation.
+     * /annotation/{annotation}/anchors/disassociate/{anchor} [POST]
+     */
+    async annotationDisassociateAnchorRaw(requestParameters: AnnotationDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateAnchor().'
+            );
+        }
+
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling annotationDisassociateAnchor().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/anchors/disassociate/{anchor}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an anchor from an annotation.
+     * /annotation/{annotation}/anchors/disassociate/{anchor} [POST]
+     */
+    async annotationDisassociateAnchor(requestParameters: AnnotationDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateAnchorRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate an asset from an annotation.
+     * /annotation/{annotation}/assets/disassociate/{asset} [POST]
+     */
+    async annotationDisassociateAssetRaw(requestParameters: AnnotationDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling annotationDisassociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/assets/disassociate/{asset}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an asset from an annotation.
+     * /annotation/{annotation}/assets/disassociate/{asset} [POST]
+     */
+    async annotationDisassociateAsset(requestParameters: AnnotationDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateAssetRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a conversation from an annotation.
+     * /annotation/{annotation}/conversations/disassociate/{conversation} [POST]
+     */
+    async annotationDisassociateConversationRaw(requestParameters: AnnotationDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateConversation().'
+            );
+        }
+
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling annotationDisassociateConversation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/conversations/disassociate/{conversation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a conversation from an annotation.
+     * /annotation/{annotation}/conversations/disassociate/{conversation} [POST]
+     */
+    async annotationDisassociateConversation(requestParameters: AnnotationDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateConversationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a message from an annotation.
+     * /annotation/{annotation}/messages/disassociate/{message} [POST]
+     */
+    async annotationDisassociateConversationMessageRaw(requestParameters: AnnotationDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateConversationMessage().'
+            );
+        }
+
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling annotationDisassociateConversationMessage().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/messages/disassociate/{message}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a message from an annotation.
+     * /annotation/{annotation}/messages/disassociate/{message} [POST]
+     */
+    async annotationDisassociateConversationMessage(requestParameters: AnnotationDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a person from an annotation.
+     * /annotation/{annotation}/persons/disassociate/{person} [POST]
+     */
+    async annotationDisassociatePersonRaw(requestParameters: AnnotationDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling annotationDisassociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/persons/disassociate/{person}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a person from an annotation.
+     * /annotation/{annotation}/persons/disassociate/{person} [POST]
+     */
+    async annotationDisassociatePerson(requestParameters: AnnotationDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociatePersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from an annotation.
+     * /annotation/{annotation}/tags/disassociate/{tag} [POST]
+     */
+    async annotationDisassociateTagRaw(requestParameters: AnnotationDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateTag().'
+            );
+        }
+
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling annotationDisassociateTag().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/tags/disassociate/{tag}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from an annotation.
+     * /annotation/{annotation}/tags/disassociate/{tag} [POST]
+     */
+    async annotationDisassociateTag(requestParameters: AnnotationDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a website from an annotation.
+     * /annotation/{annotation}/websites/disassociate/{website} [POST]
+     */
+    async annotationDisassociateWebsiteRaw(requestParameters: AnnotationDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateWebsite().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling annotationDisassociateWebsite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/websites/disassociate/{website}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a website from an annotation.
+     * /annotation/{annotation}/websites/disassociate/{website} [POST]
+     */
+    async annotationDisassociateWebsite(requestParameters: AnnotationDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateWebsiteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a workstream event from an annotation.
+     * /annotation/{annotation}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async annotationDisassociateWorkstreamEventRaw(requestParameters: AnnotationDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling annotationDisassociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/workstream_events/disassociate/{workstream_event}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a workstream event from an annotation.
+     * /annotation/{annotation}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async annotationDisassociateWorkstreamEvent(requestParameters: AnnotationDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a workstream summary from an annotation.
+     * /annotation/{annotation}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async annotationDisassociateWorkstreamSummaryRaw(requestParameters: AnnotationDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling annotationDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/annotation/{annotation}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate a workstream summary from an annotation.
+     * /annotation/{annotation}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async annotationDisassociateWorkstreamSummary(requestParameters: AnnotationDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.annotationDisassociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/annotation/{annotation}/scores/increment\' [POST]
      */
     async annotationScoresIncrementRaw(requestParameters: AnnotationScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling annotationScoresIncrement.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -58,12 +961,16 @@ export class AnnotationApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/annotation/{annotation}/scores/increment`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))),
+            path: `/annotation/{annotation}/scores/increment`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -82,16 +989,23 @@ export class AnnotationApi extends runtime.BaseAPI {
      * /annotation/{annotation} [GET]
      */
     async annotationSpecificAnnotationSnapshotRaw(requestParameters: AnnotationSpecificAnnotationSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Annotation>> {
-        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling annotationSpecificAnnotationSnapshot.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationSpecificAnnotationSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/annotation/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))),
+            path: `/annotation/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -120,12 +1034,16 @@ export class AnnotationApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/annotation/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AnnotationToJSON(requestParameters.annotation),
+            body: AnnotationToJSON(requestParameters['annotation']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnnotationFromJSON(jsonValue));

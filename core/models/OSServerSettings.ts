@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -45,10 +46,8 @@ export interface OSServerSettings {
 /**
  * Check if a given object implements the OSServerSettings interface.
  */
-export function instanceOfOSServerSettings(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOSServerSettings(value: object): value is OSServerSettings {
+    return true;
 }
 
 export function OSServerSettingsFromJSON(json: any): OSServerSettings {
@@ -56,27 +55,29 @@ export function OSServerSettingsFromJSON(json: any): OSServerSettings {
 }
 
 export function OSServerSettingsFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSServerSettings {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'autoboot': !exists(json, 'autoboot') ? undefined : json['autoboot'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'autoboot': json['autoboot'] == null ? undefined : json['autoboot'],
     };
 }
 
-export function OSServerSettingsToJSON(value?: OSServerSettings | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSServerSettingsToJSON(json: any): OSServerSettings {
+    return OSServerSettingsToJSONTyped(json, false);
+}
+
+export function OSServerSettingsToJSONTyped(value?: OSServerSettings | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'autoboot': value.autoboot,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'autoboot': value['autoboot'],
     };
 }
 

@@ -18,11 +18,23 @@
  * @export
  */
 export const HintTypeEnum = {
+    Unknown: 'UNKNOWN',
     SuggestedQuery: 'SUGGESTED_QUERY',
     QgptHint: 'QGPT_HINT'
 } as const;
 export type HintTypeEnum = typeof HintTypeEnum[keyof typeof HintTypeEnum];
 
+
+export function instanceOfHintTypeEnum(value: any): boolean {
+    for (const key in HintTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(HintTypeEnum, key)) {
+            if (HintTypeEnum[key as keyof typeof HintTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function HintTypeEnumFromJSON(json: any): HintTypeEnum {
     return HintTypeEnumFromJSONTyped(json, false);
@@ -34,5 +46,9 @@ export function HintTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolea
 
 export function HintTypeEnumToJSON(value?: HintTypeEnum | null): any {
     return value as any;
+}
+
+export function HintTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): HintTypeEnum {
+    return value as HintTypeEnum;
 }
 

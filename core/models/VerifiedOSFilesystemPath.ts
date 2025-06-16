@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ByteDescriptor } from './ByteDescriptor';
-import {
-    ByteDescriptorFromJSON,
-    ByteDescriptorFromJSONTyped,
-    ByteDescriptorToJSON,
-} from './ByteDescriptor';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { ByteDescriptor } from './ByteDescriptor';
+import {
+    ByteDescriptorFromJSON,
+    ByteDescriptorFromJSONTyped,
+    ByteDescriptorToJSON,
+    ByteDescriptorToJSONTyped,
+} from './ByteDescriptor';
 
 /**
  * This will return is the given path was verified/ or it was invalid.
@@ -83,12 +85,10 @@ export interface VerifiedOSFilesystemPath {
 /**
  * Check if a given object implements the VerifiedOSFilesystemPath interface.
  */
-export function instanceOfVerifiedOSFilesystemPath(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-    isInstance = isInstance && "verified" in value;
-
-    return isInstance;
+export function instanceOfVerifiedOSFilesystemPath(value: object): value is VerifiedOSFilesystemPath {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    if (!('verified' in value) || value['verified'] === undefined) return false;
+    return true;
 }
 
 export function VerifiedOSFilesystemPathFromJSON(json: any): VerifiedOSFilesystemPath {
@@ -96,37 +96,39 @@ export function VerifiedOSFilesystemPathFromJSON(json: any): VerifiedOSFilesyste
 }
 
 export function VerifiedOSFilesystemPathFromJSONTyped(json: any, ignoreDiscriminator: boolean): VerifiedOSFilesystemPath {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'path': json['path'],
-        'file': !exists(json, 'file') ? undefined : json['file'],
-        'directory': !exists(json, 'directory') ? undefined : json['directory'],
+        'file': json['file'] == null ? undefined : json['file'],
+        'directory': json['directory'] == null ? undefined : json['directory'],
         'verified': json['verified'],
-        'denied': !exists(json, 'denied') ? undefined : json['denied'],
-        'bytes': !exists(json, 'bytes') ? undefined : ByteDescriptorFromJSON(json['bytes']),
+        'denied': json['denied'] == null ? undefined : json['denied'],
+        'bytes': json['bytes'] == null ? undefined : ByteDescriptorFromJSON(json['bytes']),
     };
 }
 
-export function VerifiedOSFilesystemPathToJSON(value?: VerifiedOSFilesystemPath | null): any {
-    if (value === undefined) {
-        return undefined;
+export function VerifiedOSFilesystemPathToJSON(json: any): VerifiedOSFilesystemPath {
+    return VerifiedOSFilesystemPathToJSONTyped(json, false);
+}
+
+export function VerifiedOSFilesystemPathToJSONTyped(value?: VerifiedOSFilesystemPath | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'path': value.path,
-        'file': value.file,
-        'directory': value.directory,
-        'verified': value.verified,
-        'denied': value.denied,
-        'bytes': ByteDescriptorToJSON(value.bytes),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'path': value['path'],
+        'file': value['file'],
+        'directory': value['directory'],
+        'verified': value['verified'],
+        'denied': value['denied'],
+        'bytes': ByteDescriptorToJSON(value['bytes']),
     };
 }
 

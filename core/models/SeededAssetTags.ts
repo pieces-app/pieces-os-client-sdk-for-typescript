@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { SeededAssetTag } from './SeededAssetTag';
 import {
     SeededAssetTagFromJSON,
     SeededAssetTagFromJSONTyped,
     SeededAssetTagToJSON,
+    SeededAssetTagToJSONTyped,
 } from './SeededAssetTag';
 
 /**
@@ -37,11 +38,9 @@ export interface SeededAssetTags {
 /**
  * Check if a given object implements the SeededAssetTags interface.
  */
-export function instanceOfSeededAssetTags(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSeededAssetTags(value: object): value is SeededAssetTags {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SeededAssetTagsFromJSON(json: any): SeededAssetTags {
@@ -49,7 +48,7 @@ export function SeededAssetTagsFromJSON(json: any): SeededAssetTags {
 }
 
 export function SeededAssetTagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetTags {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +57,18 @@ export function SeededAssetTagsFromJSONTyped(json: any, ignoreDiscriminator: boo
     };
 }
 
-export function SeededAssetTagsToJSON(value?: SeededAssetTags | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededAssetTagsToJSON(json: any): SeededAssetTags {
+    return SeededAssetTagsToJSONTyped(json, false);
+}
+
+export function SeededAssetTagsToJSONTyped(value?: SeededAssetTags | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(SeededAssetTagToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededAssetTagToJSON)),
     };
 }
 

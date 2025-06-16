@@ -12,79 +12,140 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
+import { mapValues } from '../runtime';
+import type { FlattenedTags } from './FlattenedTags';
 import {
-    ConversationMessageSentimentEnumFromJSON,
-    ConversationMessageSentimentEnumFromJSONTyped,
-    ConversationMessageSentimentEnumToJSON,
-} from './ConversationMessageSentimentEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+    FlattenedTagsFromJSON,
+    FlattenedTagsFromJSONTyped,
+    FlattenedTagsToJSON,
+    FlattenedTagsToJSONTyped,
+} from './FlattenedTags';
+import type { ReferencedConversation } from './ReferencedConversation';
 import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAnchors } from './FlattenedAnchors';
+    ReferencedConversationFromJSON,
+    ReferencedConversationFromJSONTyped,
+    ReferencedConversationToJSON,
+    ReferencedConversationToJSONTyped,
+} from './ReferencedConversation';
+import type { FlattenedWorkstreamEvents } from './FlattenedWorkstreamEvents';
 import {
-    FlattenedAnchorsFromJSON,
-    FlattenedAnchorsFromJSONTyped,
-    FlattenedAnchorsToJSON,
-} from './FlattenedAnchors';
+    FlattenedWorkstreamEventsFromJSON,
+    FlattenedWorkstreamEventsFromJSONTyped,
+    FlattenedWorkstreamEventsToJSON,
+    FlattenedWorkstreamEventsToJSONTyped,
+} from './FlattenedWorkstreamEvents';
 import type { FlattenedAnnotations } from './FlattenedAnnotations';
 import {
     FlattenedAnnotationsFromJSON,
     FlattenedAnnotationsFromJSONTyped,
     FlattenedAnnotationsToJSON,
+    FlattenedAnnotationsToJSONTyped,
 } from './FlattenedAnnotations';
-import type { FlattenedPersons } from './FlattenedPersons';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
-    FlattenedPersonsFromJSON,
-    FlattenedPersonsFromJSONTyped,
-    FlattenedPersonsToJSON,
-} from './FlattenedPersons';
-import type { FlattenedWebsites } from './FlattenedWebsites';
-import {
-    FlattenedWebsitesFromJSON,
-    FlattenedWebsitesFromJSONTyped,
-    FlattenedWebsitesToJSON,
-} from './FlattenedWebsites';
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 import type { FragmentFormat } from './FragmentFormat';
 import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
+    FragmentFormatToJSONTyped,
 } from './FragmentFormat';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
-import type { Model } from './Model';
+import type { FlattenedRanges } from './FlattenedRanges';
 import {
-    ModelFromJSON,
-    ModelFromJSONTyped,
-    ModelToJSON,
-} from './Model';
-import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
+    FlattenedRangesFromJSON,
+    FlattenedRangesFromJSONTyped,
+    FlattenedRangesToJSON,
+    FlattenedRangesToJSONTyped,
+} from './FlattenedRanges';
+import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
 import {
-    QGPTConversationMessageRoleEnumFromJSON,
-    QGPTConversationMessageRoleEnumFromJSONTyped,
-    QGPTConversationMessageRoleEnumToJSON,
-} from './QGPTConversationMessageRoleEnum';
-import type { ReferencedConversation } from './ReferencedConversation';
+    ConversationMessageSentimentEnumFromJSON,
+    ConversationMessageSentimentEnumFromJSONTyped,
+    ConversationMessageSentimentEnumToJSON,
+    ConversationMessageSentimentEnumToJSONTyped,
+} from './ConversationMessageSentimentEnum';
+import type { FlattenedWebsites } from './FlattenedWebsites';
 import {
-    ReferencedConversationFromJSON,
-    ReferencedConversationFromJSONTyped,
-    ReferencedConversationToJSON,
-} from './ReferencedConversation';
+    FlattenedWebsitesFromJSON,
+    FlattenedWebsitesFromJSONTyped,
+    FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
+} from './FlattenedWebsites';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
+} from './FlattenedWorkstreamSummaries';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
+} from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
+import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
+import {
+    QGPTConversationMessageRoleEnumFromJSON,
+    QGPTConversationMessageRoleEnumFromJSONTyped,
+    QGPTConversationMessageRoleEnumToJSON,
+    QGPTConversationMessageRoleEnumToJSONTyped,
+} from './QGPTConversationMessageRoleEnum';
+import type { Model } from './Model';
+import {
+    ModelFromJSON,
+    ModelFromJSONTyped,
+    ModelToJSON,
+    ModelToJSONTyped,
+} from './Model';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+    FlattenedPersonsToJSONTyped,
+} from './FlattenedPersons';
+import type { FlattenedIdentifiedWorkstreamPatternEngineSources } from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import {
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSONTyped,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSONTyped,
+} from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
 
 /**
  * This is a fully referenced ConversationMessage.
@@ -186,20 +247,62 @@ export interface ConversationMessage {
      * @memberof ConversationMessage
      */
     anchors?: FlattenedAnchors;
+    /**
+     * 
+     * @type {FlattenedAssets}
+     * @memberof ConversationMessage
+     */
+    assets?: FlattenedAssets;
+    /**
+     * 
+     * @type {FlattenedRanges}
+     * @memberof ConversationMessage
+     */
+    ranges?: FlattenedRanges;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof ConversationMessage
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+    /**
+     * 
+     * @type {FlattenedTags}
+     * @memberof ConversationMessage
+     */
+    tags?: FlattenedTags;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof ConversationMessage
+     */
+    messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {FlattenedWorkstreamEvents}
+     * @memberof ConversationMessage
+     */
+    workstreamEvents?: FlattenedWorkstreamEvents;
+    /**
+     * 
+     * @type {FlattenedIdentifiedWorkstreamPatternEngineSources}
+     * @memberof ConversationMessage
+     */
+    sources?: FlattenedIdentifiedWorkstreamPatternEngineSources;
 }
+
+
 
 /**
  * Check if a given object implements the ConversationMessage interface.
  */
-export function instanceOfConversationMessage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "conversation" in value;
-    isInstance = isInstance && "role" in value;
-
-    return isInstance;
+export function instanceOfConversationMessage(value: object): value is ConversationMessage {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('conversation' in value) || value['conversation'] === undefined) return false;
+    if (!('role' in value) || value['role'] === undefined) return false;
+    return true;
 }
 
 export function ConversationMessageFromJSON(json: any): ConversationMessage {
@@ -207,53 +310,69 @@ export function ConversationMessageFromJSON(json: any): ConversationMessage {
 }
 
 export function ConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationMessage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'model': !exists(json, 'model') ? undefined : ModelFromJSON(json['model']),
-        'fragment': !exists(json, 'fragment') ? undefined : FragmentFormatFromJSON(json['fragment']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'model': json['model'] == null ? undefined : ModelFromJSON(json['model']),
+        'fragment': json['fragment'] == null ? undefined : FragmentFormatFromJSON(json['fragment']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
-        'sentiment': !exists(json, 'sentiment') ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
+        'sentiment': json['sentiment'] == null ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
         'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
-        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'ranges': json['ranges'] == null ? undefined : FlattenedRangesFromJSON(json['ranges']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'tags': json['tags'] == null ? undefined : FlattenedTagsFromJSON(json['tags']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'workstreamEvents': json['workstream_events'] == null ? undefined : FlattenedWorkstreamEventsFromJSON(json['workstream_events']),
+        'sources': json['sources'] == null ? undefined : FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON(json['sources']),
     };
 }
 
-export function ConversationMessageToJSON(value?: ConversationMessage | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ConversationMessageToJSON(json: any): ConversationMessage {
+    return ConversationMessageToJSONTyped(json, false);
+}
+
+export function ConversationMessageToJSONTyped(value?: ConversationMessage | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'model': ModelToJSON(value.model),
-        'fragment': FragmentFormatToJSON(value.fragment),
-        'conversation': ReferencedConversationToJSON(value.conversation),
-        'sentiment': ConversationMessageSentimentEnumToJSON(value.sentiment),
-        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
-        'score': ScoreToJSON(value.score),
-        'annotations': FlattenedAnnotationsToJSON(value.annotations),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'model': ModelToJSON(value['model']),
+        'fragment': FragmentFormatToJSON(value['fragment']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'sentiment': ConversationMessageSentimentEnumToJSON(value['sentiment']),
+        'role': QGPTConversationMessageRoleEnumToJSON(value['role']),
+        'score': ScoreToJSON(value['score']),
+        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'ranges': FlattenedRangesToJSON(value['ranges']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'tags': FlattenedTagsToJSON(value['tags']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'workstream_events': FlattenedWorkstreamEventsToJSON(value['workstreamEvents']),
+        'sources': FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON(value['sources']),
     };
 }
 

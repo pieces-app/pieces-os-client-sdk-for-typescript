@@ -56,12 +56,16 @@ export class MachineLearningApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/machine_learning/text/technical_language/generators/personification`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PreonboardedPersonaDetailsToJSON(requestParameters.preonboardedPersonaDetails),
+            body: PreonboardedPersonaDetailsToJSON(requestParameters['preonboardedPersonaDetails']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OnboardedPersonaDetailsFromJSON(jsonValue));
@@ -83,20 +87,24 @@ export class MachineLearningApi extends runtime.BaseAPI {
     async segmentTechnicalLanguageRaw(requestParameters: SegmentTechnicalLanguageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SegmentedTechnicalLanguage>> {
         const queryParameters: any = {};
 
-        if (requestParameters.classify !== undefined) {
-            queryParameters['classify'] = requestParameters.classify;
+        if (requestParameters['classify'] != null) {
+            queryParameters['classify'] = requestParameters['classify'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/machine_learning/text/technical_language/parsers/segmentation`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UnsegmentedTechnicalLanguageToJSON(requestParameters.unsegmentedTechnicalLanguage),
+            body: UnsegmentedTechnicalLanguageToJSON(requestParameters['unsegmentedTechnicalLanguage']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SegmentedTechnicalLanguageFromJSON(jsonValue));

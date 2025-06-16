@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { AnnotationTypeEnum } from './AnnotationTypeEnum';
 import {
     AnnotationTypeEnumFromJSON,
     AnnotationTypeEnumFromJSONTyped,
     AnnotationTypeEnumToJSON,
+    AnnotationTypeEnumToJSONTyped,
 } from './AnnotationTypeEnum';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -46,13 +48,13 @@ export interface AssetFilterPhraseOptions {
     annotation?: AnnotationTypeEnum;
 }
 
+
+
 /**
  * Check if a given object implements the AssetFilterPhraseOptions interface.
  */
-export function instanceOfAssetFilterPhraseOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAssetFilterPhraseOptions(value: object): value is AssetFilterPhraseOptions {
+    return true;
 }
 
 export function AssetFilterPhraseOptionsFromJSON(json: any): AssetFilterPhraseOptions {
@@ -60,27 +62,29 @@ export function AssetFilterPhraseOptionsFromJSON(json: any): AssetFilterPhraseOp
 }
 
 export function AssetFilterPhraseOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilterPhraseOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'annotation': !exists(json, 'annotation') ? undefined : AnnotationTypeEnumFromJSON(json['annotation']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'annotation': json['annotation'] == null ? undefined : AnnotationTypeEnumFromJSON(json['annotation']),
     };
 }
 
-export function AssetFilterPhraseOptionsToJSON(value?: AssetFilterPhraseOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AssetFilterPhraseOptionsToJSON(json: any): AssetFilterPhraseOptions {
+    return AssetFilterPhraseOptionsToJSONTyped(json, false);
+}
+
+export function AssetFilterPhraseOptionsToJSONTyped(value?: AssetFilterPhraseOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'annotation': AnnotationTypeEnumToJSON(value.annotation),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'annotation': AnnotationTypeEnumToJSON(value['annotation']),
     };
 }
 

@@ -18,11 +18,23 @@
  * @export
  */
 export const AnchorTypeEnum = {
+    Unknown: 'UNKNOWN',
     File: 'FILE',
     Directory: 'DIRECTORY'
 } as const;
 export type AnchorTypeEnum = typeof AnchorTypeEnum[keyof typeof AnchorTypeEnum];
 
+
+export function instanceOfAnchorTypeEnum(value: any): boolean {
+    for (const key in AnchorTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(AnchorTypeEnum, key)) {
+            if (AnchorTypeEnum[key as keyof typeof AnchorTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function AnchorTypeEnumFromJSON(json: any): AnchorTypeEnum {
     return AnchorTypeEnumFromJSONTyped(json, false);
@@ -34,5 +46,9 @@ export function AnchorTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: bool
 
 export function AnchorTypeEnumToJSON(value?: AnchorTypeEnum | null): any {
     return value as any;
+}
+
+export function AnchorTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AnchorTypeEnum {
+    return value as AnchorTypeEnum;
 }
 

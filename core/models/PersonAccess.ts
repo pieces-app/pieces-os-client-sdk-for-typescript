@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { PersonAccessScopedEnum } from './PersonAccessScopedEnum';
+import {
+    PersonAccessScopedEnumFromJSON,
+    PersonAccessScopedEnumFromJSONTyped,
+    PersonAccessScopedEnumToJSON,
+    PersonAccessScopedEnumToJSONTyped,
+} from './PersonAccessScopedEnum';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
-import type { PersonAccessScopedEnum } from './PersonAccessScopedEnum';
-import {
-    PersonAccessScopedEnumFromJSON,
-    PersonAccessScopedEnumFromJSONTyped,
-    PersonAccessScopedEnumToJSON,
-} from './PersonAccessScopedEnum';
 
 /**
  * if scoped is provided will let us know what level of permission(access) this specific person has in relation to what scope.(collection, asset,...etc)
@@ -60,13 +63,13 @@ export interface PersonAccess {
     deleted?: GroupedTimestamp;
 }
 
+
+
 /**
  * Check if a given object implements the PersonAccess interface.
  */
-export function instanceOfPersonAccess(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfPersonAccess(value: object): value is PersonAccess {
+    return true;
 }
 
 export function PersonAccessFromJSON(json: any): PersonAccess {
@@ -74,29 +77,31 @@ export function PersonAccessFromJSON(json: any): PersonAccess {
 }
 
 export function PersonAccessFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonAccess {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'scoped': !exists(json, 'scoped') ? undefined : PersonAccessScopedEnumFromJSON(json['scoped']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'scoped': json['scoped'] == null ? undefined : PersonAccessScopedEnumFromJSON(json['scoped']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
     };
 }
 
-export function PersonAccessToJSON(value?: PersonAccess | null): any {
-    if (value === undefined) {
-        return undefined;
+export function PersonAccessToJSON(json: any): PersonAccess {
+    return PersonAccessToJSONTyped(json, false);
+}
+
+export function PersonAccessToJSONTyped(value?: PersonAccess | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'scoped': PersonAccessScopedEnumToJSON(value.scoped),
-        'deleted': GroupedTimestampToJSON(value.deleted),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'scoped': PersonAccessScopedEnumToJSON(value['scoped']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
     };
 }
 

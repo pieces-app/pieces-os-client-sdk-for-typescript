@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
 
 /**
@@ -57,12 +59,10 @@ export interface FlattenedWorkstreamPatternEngineVisionEvent {
 /**
  * Check if a given object implements the FlattenedWorkstreamPatternEngineVisionEvent interface.
  */
-export function instanceOfFlattenedWorkstreamPatternEngineVisionEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-
-    return isInstance;
+export function instanceOfFlattenedWorkstreamPatternEngineVisionEvent(value: object): value is FlattenedWorkstreamPatternEngineVisionEvent {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedWorkstreamPatternEngineVisionEventFromJSON(json: any): FlattenedWorkstreamPatternEngineVisionEvent {
@@ -70,29 +70,31 @@ export function FlattenedWorkstreamPatternEngineVisionEventFromJSON(json: any): 
 }
 
 export function FlattenedWorkstreamPatternEngineVisionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedWorkstreamPatternEngineVisionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
     };
 }
 
-export function FlattenedWorkstreamPatternEngineVisionEventToJSON(value?: FlattenedWorkstreamPatternEngineVisionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedWorkstreamPatternEngineVisionEventToJSON(json: any): FlattenedWorkstreamPatternEngineVisionEvent {
+    return FlattenedWorkstreamPatternEngineVisionEventToJSONTyped(json, false);
+}
+
+export function FlattenedWorkstreamPatternEngineVisionEventToJSONTyped(value?: FlattenedWorkstreamPatternEngineVisionEvent | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
     };
 }
 

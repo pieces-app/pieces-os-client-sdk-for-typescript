@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ImageAnalysis } from './ImageAnalysis';
 import {
     ImageAnalysisFromJSON,
     ImageAnalysisFromJSONTyped,
     ImageAnalysisToJSON,
+    ImageAnalysisToJSONTyped,
 } from './ImageAnalysis';
 
 /**
@@ -49,11 +51,9 @@ export interface ImageAnalyses {
 /**
  * Check if a given object implements the ImageAnalyses interface.
  */
-export function instanceOfImageAnalyses(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfImageAnalyses(value: object): value is ImageAnalyses {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function ImageAnalysesFromJSON(json: any): ImageAnalyses {
@@ -61,27 +61,29 @@ export function ImageAnalysesFromJSON(json: any): ImageAnalyses {
 }
 
 export function ImageAnalysesFromJSONTyped(json: any, ignoreDiscriminator: boolean): ImageAnalyses {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ImageAnalysisFromJSON)),
     };
 }
 
-export function ImageAnalysesToJSON(value?: ImageAnalyses | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ImageAnalysesToJSON(json: any): ImageAnalyses {
+    return ImageAnalysesToJSONTyped(json, false);
+}
+
+export function ImageAnalysesToJSONTyped(value?: ImageAnalyses | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ImageAnalysisToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ImageAnalysisToJSON)),
     };
 }
 

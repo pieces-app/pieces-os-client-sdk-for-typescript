@@ -115,12 +115,16 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/ingestions/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededWorkstreamIngestionToJSON(requestParameters.seededWorkstreamIngestion),
+            body: SeededWorkstreamIngestionToJSON(requestParameters['seededWorkstreamIngestion']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamIngestionFromJSON(jsonValue));
@@ -143,6 +147,10 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/sources`,
@@ -174,12 +182,16 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/activate`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamPatternEngineStatusToJSON(requestParameters.workstreamPatternEngineStatus),
+            body: WorkstreamPatternEngineStatusToJSON(requestParameters['workstreamPatternEngineStatus']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineStatusFromJSON(jsonValue));
@@ -202,6 +214,10 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/calibration/capture`,
@@ -231,6 +247,10 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/calibrations/focused`,
             method: 'GET',
@@ -258,6 +278,10 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/calibrations`,
@@ -289,12 +313,16 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/data/clear`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamPatternEngineDataCleanupRequestToJSON(requestParameters.workstreamPatternEngineDataCleanupRequest),
+            body: WorkstreamPatternEngineDataCleanupRequestToJSON(requestParameters['workstreamPatternEngineDataCleanupRequest']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -319,12 +347,16 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/deactivate`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamPatternEngineStatusToJSON(requestParameters.workstreamPatternEngineStatus),
+            body: WorkstreamPatternEngineStatusToJSON(requestParameters['workstreamPatternEngineStatus']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamPatternEngineStatusFromJSON(jsonValue));
@@ -344,16 +376,23 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
      * /workstream_pattern_engine/processors/vision/events/{vision_event}/delete [POST]
      */
     async workstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEventRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.visionEvent === null || requestParameters.visionEvent === undefined) {
-            throw new runtime.RequiredError('visionEvent','Required parameter requestParameters.visionEvent was null or undefined when calling workstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEvent.');
+        if (requestParameters['visionEvent'] == null) {
+            throw new runtime.RequiredError(
+                'visionEvent',
+                'Required parameter "visionEvent" was null or undefined when calling workstreamPatternEngineProcessorsVisionEventDeleteSpecificVisionEvent().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_pattern_engine/processors/vision/data/events/{vision_event}/delete`.replace(`{${"vision_event"}}`, encodeURIComponent(String(requestParameters.visionEvent))),
+            path: `/workstream_pattern_engine/processors/vision/data/events/{vision_event}/delete`.replace(`{${"vision_event"}}`, encodeURIComponent(String(requestParameters['visionEvent']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -381,12 +420,16 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/data/events/scoped_delete`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamPatternEngineVisionEventDeletionsToJSON(requestParameters.workstreamPatternEngineVisionEventDeletions),
+            body: WorkstreamPatternEngineVisionEventDeletionsToJSON(requestParameters['workstreamPatternEngineVisionEventDeletions']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => FlattenedWorkstreamPatternEngineVisionEventsFromJSON(jsonValue));
@@ -408,20 +451,24 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
     async workstreamPatternEngineProcessorsVisionEventsSearchRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedWorkstreamPatternEngineVisionEvents>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/data/events/search`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SearchInputToJSON(requestParameters.searchInput),
+            body: SearchInputToJSON(requestParameters['searchInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedWorkstreamPatternEngineVisionEventsFromJSON(jsonValue));
@@ -443,11 +490,15 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
     async workstreamPatternEngineProcessorsVisionEventsSnapshotRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionEvents>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/data/events`,
@@ -473,20 +524,27 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
      * /workstream_pattern_engine/processors/vision/data/events/{vision_event} [GET]
      */
     async workstreamPatternEngineProcessorsVisionEventsSpecificSnapshotRaw(requestParameters: WorkstreamPatternEngineProcessorsVisionEventsSpecificSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineVisionEvent>> {
-        if (requestParameters.visionEvent === null || requestParameters.visionEvent === undefined) {
-            throw new runtime.RequiredError('visionEvent','Required parameter requestParameters.visionEvent was null or undefined when calling workstreamPatternEngineProcessorsVisionEventsSpecificSnapshot.');
+        if (requestParameters['visionEvent'] == null) {
+            throw new runtime.RequiredError(
+                'visionEvent',
+                'Required parameter "visionEvent" was null or undefined when calling workstreamPatternEngineProcessorsVisionEventsSpecificSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_pattern_engine/processors/vision/data/events/{vision_event}`.replace(`{${"vision_event"}}`, encodeURIComponent(String(requestParameters.visionEvent))),
+            path: `/workstream_pattern_engine/processors/vision/data/events/{vision_event}`.replace(`{${"vision_event"}}`, encodeURIComponent(String(requestParameters['visionEvent']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -512,6 +570,10 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/metadata`,
@@ -541,6 +603,10 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/status`,
             method: 'GET',
@@ -562,12 +628,16 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
     /**
      * This is a websocket for the status of the workstream pattern engine for vision.  This will emit an event when this is first connected to, and will emit an event when every this value changes  This will emit a \"WorkstreamPatternEngineStatus\" Model.
-     * /workstream_pattern_engine/processors/vision/status/steam [WS]
+     * /workstream_pattern_engine/processors/vision/status/stream [WS]
      */
     async workstreamPatternEngineProcessorsVisionStatusStreamRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamPatternEngineStatus>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/workstream_pattern_engine/processors/vision/status/stream`,
@@ -581,7 +651,7 @@ export class WorkstreamPatternEngineApi extends runtime.BaseAPI {
 
     /**
      * This is a websocket for the status of the workstream pattern engine for vision.  This will emit an event when this is first connected to, and will emit an event when every this value changes  This will emit a \"WorkstreamPatternEngineStatus\" Model.
-     * /workstream_pattern_engine/processors/vision/status/steam [WS]
+     * /workstream_pattern_engine/processors/vision/status/stream [WS]
      */
     async workstreamPatternEngineProcessorsVisionStatusStream(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamPatternEngineStatus> {
         const response = await this.workstreamPatternEngineProcessorsVisionStatusStreamRaw(initOverrides);

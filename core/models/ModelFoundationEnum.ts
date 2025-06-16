@@ -22,6 +22,7 @@
  * @export
  */
 export const ModelFoundationEnum = {
+    Unknown: 'UNKNOWN',
     Gpt35: 'GPT_3.5',
     Gpt4: 'GPT_4',
     T5: 'T5',
@@ -100,6 +101,7 @@ export const ModelFoundationEnum = {
     Mistral7B: 'MISTRAL_7B',
     Gemini: 'GEMINI',
     Gemini15: 'GEMINI_1.5',
+    Gemini2: 'GEMINI_2',
     FastText: 'FAST_TEXT',
     Unixcoder: 'UNIXCODER',
     Phi15: 'PHI_1.5',
@@ -143,10 +145,36 @@ export const ModelFoundationEnum = {
     PerplexityFast: 'PERPLEXITY_FAST',
     PerplexityBest: 'PERPLEXITY_BEST',
     PerplexityDefault: 'PERPLEXITY_DEFAULT',
-    PerplexityCustom: 'PERPLEXITY_CUSTOM'
+    PerplexityCustom: 'PERPLEXITY_CUSTOM',
+    CodestralLatest: 'CODESTRAL_LATEST',
+    DeepseekLatest: 'DEEPSEEK_LATEST',
+    LlavaLatest: 'LLAVA_LATEST',
+    MixtralLatest: 'MIXTRAL_LATEST',
+    MistralLatest: 'MISTRAL_LATEST',
+    OrcaLatest: 'ORCA_LATEST',
+    QwenCoderLatest: 'QWEN_CODER_LATEST',
+    QwenLatest: 'QWEN_LATEST',
+    QwqLatest: 'QWQ_LATEST',
+    StarcoderLatest: 'STARCODER_LATEST',
+    TinyllamaLatest: 'TINYLLAMA_LATEST',
+    VicunaLatest: 'VICUNA_LATEST',
+    WizardLatest: 'WIZARD_LATEST',
+    ZephyrLatest: 'ZEPHYR_LATEST',
+    Potion: 'POTION'
 } as const;
 export type ModelFoundationEnum = typeof ModelFoundationEnum[keyof typeof ModelFoundationEnum];
 
+
+export function instanceOfModelFoundationEnum(value: any): boolean {
+    for (const key in ModelFoundationEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelFoundationEnum, key)) {
+            if (ModelFoundationEnum[key as keyof typeof ModelFoundationEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ModelFoundationEnumFromJSON(json: any): ModelFoundationEnum {
     return ModelFoundationEnumFromJSONTyped(json, false);
@@ -158,5 +186,9 @@ export function ModelFoundationEnumFromJSONTyped(json: any, ignoreDiscriminator:
 
 export function ModelFoundationEnumToJSON(value?: ModelFoundationEnum | null): any {
     return value as any;
+}
+
+export function ModelFoundationEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ModelFoundationEnum {
+    return value as ModelFoundationEnum;
 }
 

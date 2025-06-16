@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { GraphicalImageDescriptiveStatistics } from './GraphicalImageDescriptiveStatistics';
 import {
     GraphicalImageDescriptiveStatisticsFromJSON,
     GraphicalImageDescriptiveStatisticsFromJSONTyped,
     GraphicalImageDescriptiveStatisticsToJSON,
+    GraphicalImageDescriptiveStatisticsToJSONTyped,
 } from './GraphicalImageDescriptiveStatistics';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -49,10 +51,8 @@ export interface GraphicalImageStatistics {
 /**
  * Check if a given object implements the GraphicalImageStatistics interface.
  */
-export function instanceOfGraphicalImageStatistics(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfGraphicalImageStatistics(value: object): value is GraphicalImageStatistics {
+    return true;
 }
 
 export function GraphicalImageStatisticsFromJSON(json: any): GraphicalImageStatistics {
@@ -60,27 +60,29 @@ export function GraphicalImageStatisticsFromJSON(json: any): GraphicalImageStati
 }
 
 export function GraphicalImageStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalImageStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'descriptive': !exists(json, 'descriptive') ? undefined : GraphicalImageDescriptiveStatisticsFromJSON(json['descriptive']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'descriptive': json['descriptive'] == null ? undefined : GraphicalImageDescriptiveStatisticsFromJSON(json['descriptive']),
     };
 }
 
-export function GraphicalImageStatisticsToJSON(value?: GraphicalImageStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
+export function GraphicalImageStatisticsToJSON(json: any): GraphicalImageStatistics {
+    return GraphicalImageStatisticsToJSONTyped(json, false);
+}
+
+export function GraphicalImageStatisticsToJSONTyped(value?: GraphicalImageStatistics | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'descriptive': GraphicalImageDescriptiveStatisticsToJSON(value.descriptive),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'descriptive': GraphicalImageDescriptiveStatisticsToJSON(value['descriptive']),
     };
 }
 

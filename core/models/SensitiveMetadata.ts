@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { TextMatch } from './TextMatch';
 import {
     TextMatchFromJSON,
     TextMatchFromJSONTyped,
     TextMatchToJSON,
+    TextMatchToJSONTyped,
 } from './TextMatch';
 
 /**
@@ -55,10 +57,8 @@ export interface SensitiveMetadata {
 /**
  * Check if a given object implements the SensitiveMetadata interface.
  */
-export function instanceOfSensitiveMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSensitiveMetadata(value: object): value is SensitiveMetadata {
+    return true;
 }
 
 export function SensitiveMetadataFromJSON(json: any): SensitiveMetadata {
@@ -66,29 +66,31 @@ export function SensitiveMetadataFromJSON(json: any): SensitiveMetadata {
 }
 
 export function SensitiveMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): SensitiveMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'match': !exists(json, 'match') ? undefined : TextMatchFromJSON(json['match']),
-        'entropy': !exists(json, 'entropy') ? undefined : json['entropy'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'match': json['match'] == null ? undefined : TextMatchFromJSON(json['match']),
+        'entropy': json['entropy'] == null ? undefined : json['entropy'],
     };
 }
 
-export function SensitiveMetadataToJSON(value?: SensitiveMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SensitiveMetadataToJSON(json: any): SensitiveMetadata {
+    return SensitiveMetadataToJSONTyped(json, false);
+}
+
+export function SensitiveMetadataToJSONTyped(value?: SensitiveMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'match': TextMatchToJSON(value.match),
-        'entropy': value.entropy,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'match': TextMatchToJSON(value['match']),
+        'entropy': value['entropy'],
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { OSDeviceGPUHardwareCapabilitiesInformation } from './OSDeviceGPUHardwareCapabilitiesInformation';
 import {
     OSDeviceGPUHardwareCapabilitiesInformationFromJSON,
     OSDeviceGPUHardwareCapabilitiesInformationFromJSONTyped,
     OSDeviceGPUHardwareCapabilitiesInformationToJSON,
+    OSDeviceGPUHardwareCapabilitiesInformationToJSONTyped,
 } from './OSDeviceGPUHardwareCapabilitiesInformation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This will let us know specific hardware information related to the GPU.
@@ -52,6 +54,12 @@ export interface OSDeviceGPUHardwareInformation {
     memory?: number;
     /**
      * 
+     * @type {boolean}
+     * @memberof OSDeviceGPUHardwareInformation
+     */
+    sharedMemory?: boolean | null;
+    /**
+     * 
      * @type {OSDeviceGPUHardwareCapabilitiesInformation}
      * @memberof OSDeviceGPUHardwareInformation
      */
@@ -61,10 +69,8 @@ export interface OSDeviceGPUHardwareInformation {
 /**
  * Check if a given object implements the OSDeviceGPUHardwareInformation interface.
  */
-export function instanceOfOSDeviceGPUHardwareInformation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOSDeviceGPUHardwareInformation(value: object): value is OSDeviceGPUHardwareInformation {
+    return true;
 }
 
 export function OSDeviceGPUHardwareInformationFromJSON(json: any): OSDeviceGPUHardwareInformation {
@@ -72,31 +78,35 @@ export function OSDeviceGPUHardwareInformationFromJSON(json: any): OSDeviceGPUHa
 }
 
 export function OSDeviceGPUHardwareInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceGPUHardwareInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'memory': !exists(json, 'memory') ? undefined : json['memory'],
-        'capabilities': !exists(json, 'capabilities') ? undefined : OSDeviceGPUHardwareCapabilitiesInformationFromJSON(json['capabilities']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'memory': json['memory'] == null ? undefined : json['memory'],
+        'sharedMemory': json['shared_memory'] == null ? undefined : json['shared_memory'],
+        'capabilities': json['capabilities'] == null ? undefined : OSDeviceGPUHardwareCapabilitiesInformationFromJSON(json['capabilities']),
     };
 }
 
-export function OSDeviceGPUHardwareInformationToJSON(value?: OSDeviceGPUHardwareInformation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSDeviceGPUHardwareInformationToJSON(json: any): OSDeviceGPUHardwareInformation {
+    return OSDeviceGPUHardwareInformationToJSONTyped(json, false);
+}
+
+export function OSDeviceGPUHardwareInformationToJSONTyped(value?: OSDeviceGPUHardwareInformation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
-        'memory': value.memory,
-        'capabilities': OSDeviceGPUHardwareCapabilitiesInformationToJSON(value.capabilities),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'memory': value['memory'],
+        'shared_memory': value['sharedMemory'],
+        'capabilities': OSDeviceGPUHardwareCapabilitiesInformationToJSON(value['capabilities']),
     };
 }
 

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { DiscoveredAsset } from './DiscoveredAsset';
 import {
     DiscoveredAssetFromJSON,
     DiscoveredAssetFromJSONTyped,
     DiscoveredAssetToJSON,
+    DiscoveredAssetToJSONTyped,
 } from './DiscoveredAsset';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -55,12 +57,10 @@ export interface DiscoveredAssets {
 /**
  * Check if a given object implements the DiscoveredAssets interface.
  */
-export function instanceOfDiscoveredAssets(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "application" in value;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfDiscoveredAssets(value: object): value is DiscoveredAssets {
+    if (!('application' in value) || value['application'] === undefined) return false;
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function DiscoveredAssetsFromJSON(json: any): DiscoveredAssets {
@@ -68,29 +68,31 @@ export function DiscoveredAssetsFromJSON(json: any): DiscoveredAssets {
 }
 
 export function DiscoveredAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredAssets {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
         'iterable': ((json['iterable'] as Array<any>).map(DiscoveredAssetFromJSON)),
     };
 }
 
-export function DiscoveredAssetsToJSON(value?: DiscoveredAssets | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DiscoveredAssetsToJSON(json: any): DiscoveredAssets {
+    return DiscoveredAssetsToJSONTyped(json, false);
+}
+
+export function DiscoveredAssetsToJSONTyped(value?: DiscoveredAssets | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': value.application,
-        'iterable': ((value.iterable as Array<any>).map(DiscoveredAssetToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'application': value['application'],
+        'iterable': ((value['iterable'] as Array<any>).map(DiscoveredAssetToJSON)),
     };
 }
 

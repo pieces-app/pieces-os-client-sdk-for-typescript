@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -51,10 +52,8 @@ export interface FullTextSearchOptions {
 /**
  * Check if a given object implements the FullTextSearchOptions interface.
  */
-export function instanceOfFullTextSearchOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFullTextSearchOptions(value: object): value is FullTextSearchOptions {
+    return true;
 }
 
 export function FullTextSearchOptionsFromJSON(json: any): FullTextSearchOptions {
@@ -62,29 +61,31 @@ export function FullTextSearchOptionsFromJSON(json: any): FullTextSearchOptions 
 }
 
 export function FullTextSearchOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FullTextSearchOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'similarity': !exists(json, 'similarity') ? undefined : json['similarity'],
-        'exact': !exists(json, 'exact') ? undefined : json['exact'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'similarity': json['similarity'] == null ? undefined : json['similarity'],
+        'exact': json['exact'] == null ? undefined : json['exact'],
     };
 }
 
-export function FullTextSearchOptionsToJSON(value?: FullTextSearchOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FullTextSearchOptionsToJSON(json: any): FullTextSearchOptions {
+    return FullTextSearchOptionsToJSONTyped(json, false);
+}
+
+export function FullTextSearchOptionsToJSONTyped(value?: FullTextSearchOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'similarity': value.similarity,
-        'exact': value.exact,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'similarity': value['similarity'],
+        'exact': value['exact'],
     };
 }
 

@@ -12,43 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { EmbeddingsSearchOptions } from './EmbeddingsSearchOptions';
-import {
-    EmbeddingsSearchOptionsFromJSON,
-    EmbeddingsSearchOptionsFromJSONTyped,
-    EmbeddingsSearchOptionsToJSON,
-} from './EmbeddingsSearchOptions';
-import type { FullTextSearchOptions } from './FullTextSearchOptions';
-import {
-    FullTextSearchOptionsFromJSON,
-    FullTextSearchOptionsFromJSONTyped,
-    FullTextSearchOptionsToJSON,
-} from './FullTextSearchOptions';
-import type { SearchEngines } from './SearchEngines';
-import {
-    SearchEnginesFromJSON,
-    SearchEnginesFromJSONTyped,
-    SearchEnginesToJSON,
-} from './SearchEngines';
+import { mapValues } from '../runtime';
 import type { TemporalSearchOptions } from './TemporalSearchOptions';
 import {
     TemporalSearchOptionsFromJSON,
     TemporalSearchOptionsFromJSONTyped,
     TemporalSearchOptionsToJSON,
+    TemporalSearchOptionsToJSONTyped,
 } from './TemporalSearchOptions';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { SearchEngines } from './SearchEngines';
+import {
+    SearchEnginesFromJSON,
+    SearchEnginesFromJSONTyped,
+    SearchEnginesToJSON,
+    SearchEnginesToJSONTyped,
+} from './SearchEngines';
+import type { EmbeddingsSearchOptions } from './EmbeddingsSearchOptions';
+import {
+    EmbeddingsSearchOptionsFromJSON,
+    EmbeddingsSearchOptionsFromJSONTyped,
+    EmbeddingsSearchOptionsToJSON,
+    EmbeddingsSearchOptionsToJSONTyped,
+} from './EmbeddingsSearchOptions';
 import type { WorkstreamSearchOptions } from './WorkstreamSearchOptions';
 import {
     WorkstreamSearchOptionsFromJSON,
     WorkstreamSearchOptionsFromJSONTyped,
     WorkstreamSearchOptionsToJSON,
+    WorkstreamSearchOptionsToJSONTyped,
 } from './WorkstreamSearchOptions';
+import type { FullTextSearchOptions } from './FullTextSearchOptions';
+import {
+    FullTextSearchOptionsFromJSON,
+    FullTextSearchOptionsFromJSONTyped,
+    FullTextSearchOptionsToJSON,
+    FullTextSearchOptionsToJSONTyped,
+} from './FullTextSearchOptions';
 
 /**
  * This will determine the type of search that will run
@@ -109,10 +115,8 @@ export interface SearchEngine {
 /**
  * Check if a given object implements the SearchEngine interface.
  */
-export function instanceOfSearchEngine(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSearchEngine(value: object): value is SearchEngine {
+    return true;
 }
 
 export function SearchEngineFromJSON(json: any): SearchEngine {
@@ -120,37 +124,39 @@ export function SearchEngineFromJSON(json: any): SearchEngine {
 }
 
 export function SearchEngineFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchEngine {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'query': !exists(json, 'query') ? undefined : json['query'],
-        'embeddings': !exists(json, 'embeddings') ? undefined : EmbeddingsSearchOptionsFromJSON(json['embeddings']),
-        'fullText': !exists(json, 'full_text') ? undefined : FullTextSearchOptionsFromJSON(json['full_text']),
-        'temporal': !exists(json, 'temporal') ? undefined : TemporalSearchOptionsFromJSON(json['temporal']),
-        'workstream': !exists(json, 'workstream') ? undefined : WorkstreamSearchOptionsFromJSON(json['workstream']),
-        'operations': !exists(json, 'operations') ? undefined : SearchEnginesFromJSON(json['operations']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'query': json['query'] == null ? undefined : json['query'],
+        'embeddings': json['embeddings'] == null ? undefined : EmbeddingsSearchOptionsFromJSON(json['embeddings']),
+        'fullText': json['full_text'] == null ? undefined : FullTextSearchOptionsFromJSON(json['full_text']),
+        'temporal': json['temporal'] == null ? undefined : TemporalSearchOptionsFromJSON(json['temporal']),
+        'workstream': json['workstream'] == null ? undefined : WorkstreamSearchOptionsFromJSON(json['workstream']),
+        'operations': json['operations'] == null ? undefined : SearchEnginesFromJSON(json['operations']),
     };
 }
 
-export function SearchEngineToJSON(value?: SearchEngine | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchEngineToJSON(json: any): SearchEngine {
+    return SearchEngineToJSONTyped(json, false);
+}
+
+export function SearchEngineToJSONTyped(value?: SearchEngine | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'query': value.query,
-        'embeddings': EmbeddingsSearchOptionsToJSON(value.embeddings),
-        'full_text': FullTextSearchOptionsToJSON(value.fullText),
-        'temporal': TemporalSearchOptionsToJSON(value.temporal),
-        'workstream': WorkstreamSearchOptionsToJSON(value.workstream),
-        'operations': SearchEnginesToJSON(value.operations),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'query': value['query'],
+        'embeddings': EmbeddingsSearchOptionsToJSON(value['embeddings']),
+        'full_text': FullTextSearchOptionsToJSON(value['fullText']),
+        'temporal': TemporalSearchOptionsToJSON(value['temporal']),
+        'workstream': WorkstreamSearchOptionsToJSON(value['workstream']),
+        'operations': SearchEnginesToJSON(value['operations']),
     };
 }
 

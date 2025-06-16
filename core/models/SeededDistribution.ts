@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { SeededGitHubDistribution } from './SeededGitHubDistribution';
+import {
+    SeededGitHubDistributionFromJSON,
+    SeededGitHubDistributionFromJSONTyped,
+    SeededGitHubDistributionToJSON,
+    SeededGitHubDistributionToJSONTyped,
+} from './SeededGitHubDistribution';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { MailgunDistribution } from './MailgunDistribution';
 import {
     MailgunDistributionFromJSON,
     MailgunDistributionFromJSONTyped,
     MailgunDistributionToJSON,
+    MailgunDistributionToJSONTyped,
 } from './MailgunDistribution';
-import type { SeededGitHubDistribution } from './SeededGitHubDistribution';
-import {
-    SeededGitHubDistributionFromJSON,
-    SeededGitHubDistributionFromJSONTyped,
-    SeededGitHubDistributionToJSON,
-} from './SeededGitHubDistribution';
 
 /**
  * TODO if we add another distribution add to this, Distribution, and flattenedDistribution.
@@ -63,10 +66,8 @@ export interface SeededDistribution {
 /**
  * Check if a given object implements the SeededDistribution interface.
  */
-export function instanceOfSeededDistribution(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededDistribution(value: object): value is SeededDistribution {
+    return true;
 }
 
 export function SeededDistributionFromJSON(json: any): SeededDistribution {
@@ -74,29 +75,31 @@ export function SeededDistributionFromJSON(json: any): SeededDistribution {
 }
 
 export function SeededDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDistribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'mailgun': !exists(json, 'mailgun') ? undefined : MailgunDistributionFromJSON(json['mailgun']),
-        'github': !exists(json, 'github') ? undefined : SeededGitHubDistributionFromJSON(json['github']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'mailgun': json['mailgun'] == null ? undefined : MailgunDistributionFromJSON(json['mailgun']),
+        'github': json['github'] == null ? undefined : SeededGitHubDistributionFromJSON(json['github']),
     };
 }
 
-export function SeededDistributionToJSON(value?: SeededDistribution | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededDistributionToJSON(json: any): SeededDistribution {
+    return SeededDistributionToJSONTyped(json, false);
+}
+
+export function SeededDistributionToJSONTyped(value?: SeededDistribution | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'mailgun': MailgunDistributionToJSON(value.mailgun),
-        'github': SeededGitHubDistributionToJSON(value.github),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'mailgun': MailgunDistributionToJSON(value['mailgun']),
+        'github': SeededGitHubDistributionToJSON(value['github']),
     };
 }
 

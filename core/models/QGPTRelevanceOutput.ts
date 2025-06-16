@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { QGPTQuestionOutput } from './QGPTQuestionOutput';
-import {
-    QGPTQuestionOutputFromJSON,
-    QGPTQuestionOutputFromJSONTyped,
-    QGPTQuestionOutputToJSON,
-} from './QGPTQuestionOutput';
 import type { RelevantQGPTSeeds } from './RelevantQGPTSeeds';
 import {
     RelevantQGPTSeedsFromJSON,
     RelevantQGPTSeedsFromJSONTyped,
     RelevantQGPTSeedsToJSON,
+    RelevantQGPTSeedsToJSONTyped,
 } from './RelevantQGPTSeeds';
+import type { QGPTQuestionOutput } from './QGPTQuestionOutput';
+import {
+    QGPTQuestionOutputFromJSON,
+    QGPTQuestionOutputFromJSONTyped,
+    QGPTQuestionOutputToJSON,
+    QGPTQuestionOutputToJSONTyped,
+} from './QGPTQuestionOutput';
 
 /**
  * This is the returned value from /code_gpt/relevance.
@@ -68,11 +71,9 @@ export interface QGPTRelevanceOutput {
 /**
  * Check if a given object implements the QGPTRelevanceOutput interface.
  */
-export function instanceOfQGPTRelevanceOutput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "relevant" in value;
-
-    return isInstance;
+export function instanceOfQGPTRelevanceOutput(value: object): value is QGPTRelevanceOutput {
+    if (!('relevant' in value) || value['relevant'] === undefined) return false;
+    return true;
 }
 
 export function QGPTRelevanceOutputFromJSON(json: any): QGPTRelevanceOutput {
@@ -80,29 +81,31 @@ export function QGPTRelevanceOutputFromJSON(json: any): QGPTRelevanceOutput {
 }
 
 export function QGPTRelevanceOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTRelevanceOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'answer': !exists(json, 'answer') ? undefined : QGPTQuestionOutputFromJSON(json['answer']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'answer': json['answer'] == null ? undefined : QGPTQuestionOutputFromJSON(json['answer']),
         'relevant': RelevantQGPTSeedsFromJSON(json['relevant']),
     };
 }
 
-export function QGPTRelevanceOutputToJSON(value?: QGPTRelevanceOutput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTRelevanceOutputToJSON(json: any): QGPTRelevanceOutput {
+    return QGPTRelevanceOutputToJSONTyped(json, false);
+}
+
+export function QGPTRelevanceOutputToJSONTyped(value?: QGPTRelevanceOutput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'answer': QGPTQuestionOutputToJSON(value.answer),
-        'relevant': RelevantQGPTSeedsToJSON(value.relevant),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'answer': QGPTQuestionOutputToJSON(value['answer']),
+        'relevant': RelevantQGPTSeedsToJSON(value['relevant']),
     };
 }
 

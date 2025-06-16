@@ -18,11 +18,23 @@
  * @export
  */
 export const FilterOperationTypeEnum = {
+    Unknown: 'UNKNOWN',
     And: 'AND',
     Or: 'OR'
 } as const;
 export type FilterOperationTypeEnum = typeof FilterOperationTypeEnum[keyof typeof FilterOperationTypeEnum];
 
+
+export function instanceOfFilterOperationTypeEnum(value: any): boolean {
+    for (const key in FilterOperationTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(FilterOperationTypeEnum, key)) {
+            if (FilterOperationTypeEnum[key as keyof typeof FilterOperationTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function FilterOperationTypeEnumFromJSON(json: any): FilterOperationTypeEnum {
     return FilterOperationTypeEnumFromJSONTyped(json, false);
@@ -34,5 +46,9 @@ export function FilterOperationTypeEnumFromJSONTyped(json: any, ignoreDiscrimina
 
 export function FilterOperationTypeEnumToJSON(value?: FilterOperationTypeEnum | null): any {
     return value as any;
+}
+
+export function FilterOperationTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): FilterOperationTypeEnum {
+    return value as FilterOperationTypeEnum;
 }
 

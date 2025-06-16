@@ -12,37 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { FlattenedShare } from './FlattenedShare';
-import {
-    FlattenedShareFromJSON,
-    FlattenedShareFromJSONTyped,
-    FlattenedShareToJSON,
-} from './FlattenedShare';
-import type { GitHubDistribution } from './GitHubDistribution';
-import {
-    GitHubDistributionFromJSON,
-    GitHubDistributionFromJSONTyped,
-    GitHubDistributionToJSON,
-} from './GitHubDistribution';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
 import type { MailgunDistribution } from './MailgunDistribution';
 import {
     MailgunDistributionFromJSON,
     MailgunDistributionFromJSONTyped,
     MailgunDistributionToJSON,
+    MailgunDistributionToJSONTyped,
 } from './MailgunDistribution';
+import type { FlattenedShare } from './FlattenedShare';
+import {
+    FlattenedShareFromJSON,
+    FlattenedShareFromJSONTyped,
+    FlattenedShareToJSON,
+    FlattenedShareToJSONTyped,
+} from './FlattenedShare';
+import type { GitHubDistribution } from './GitHubDistribution';
+import {
+    GitHubDistributionFromJSON,
+    GitHubDistributionFromJSONTyped,
+    GitHubDistributionToJSON,
+    GitHubDistributionToJSONTyped,
+} from './GitHubDistribution';
 
 /**
  * This is a fully referenced version of a Distribution.
@@ -104,14 +109,12 @@ export interface Distribution {
 /**
  * Check if a given object implements the Distribution interface.
  */
-export function instanceOfDistribution(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "share" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-
-    return isInstance;
+export function instanceOfDistribution(value: object): value is Distribution {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('share' in value) || value['share'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    return true;
 }
 
 export function DistributionFromJSON(json: any): Distribution {
@@ -119,39 +122,41 @@ export function DistributionFromJSON(json: any): Distribution {
 }
 
 export function DistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Distribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'share': FlattenedShareFromJSON(json['share']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mailgun': !exists(json, 'mailgun') ? undefined : MailgunDistributionFromJSON(json['mailgun']),
-        'github': !exists(json, 'github') ? undefined : GitHubDistributionFromJSON(json['github']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mailgun': json['mailgun'] == null ? undefined : MailgunDistributionFromJSON(json['mailgun']),
+        'github': json['github'] == null ? undefined : GitHubDistributionFromJSON(json['github']),
     };
 }
 
-export function DistributionToJSON(value?: Distribution | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DistributionToJSON(json: any): Distribution {
+    return DistributionToJSONTyped(json, false);
+}
+
+export function DistributionToJSONTyped(value?: Distribution | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'share': FlattenedShareToJSON(value.share),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'mailgun': MailgunDistributionToJSON(value.mailgun),
-        'github': GitHubDistributionToJSON(value.github),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'share': FlattenedShareToJSON(value['share']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'mailgun': MailgunDistributionToJSON(value['mailgun']),
+        'github': GitHubDistributionToJSON(value['github']),
     };
 }
 

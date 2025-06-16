@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Classification } from './Classification';
-import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+    ClassificationToJSONTyped,
+} from './Classification';
 import type { TransferableString } from './TransferableString';
 import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
+    TransferableStringToJSONTyped,
 } from './TransferableString';
 
 /**
@@ -61,12 +64,10 @@ export interface BrowserSelection {
 /**
  * Check if a given object implements the BrowserSelection interface.
  */
-export function instanceOfBrowserSelection(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "classification" in value;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfBrowserSelection(value: object): value is BrowserSelection {
+    if (!('classification' in value) || value['classification'] === undefined) return false;
+    if (!('value' in value) || value['value'] === undefined) return false;
+    return true;
 }
 
 export function BrowserSelectionFromJSON(json: any): BrowserSelection {
@@ -74,29 +75,31 @@ export function BrowserSelectionFromJSON(json: any): BrowserSelection {
 }
 
 export function BrowserSelectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): BrowserSelection {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'classification': ClassificationFromJSON(json['classification']),
         'value': TransferableStringFromJSON(json['value']),
     };
 }
 
-export function BrowserSelectionToJSON(value?: BrowserSelection | null): any {
-    if (value === undefined) {
-        return undefined;
+export function BrowserSelectionToJSON(json: any): BrowserSelection {
+    return BrowserSelectionToJSONTyped(json, false);
+}
+
+export function BrowserSelectionToJSONTyped(value?: BrowserSelection | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'classification': ClassificationToJSON(value.classification),
-        'value': TransferableStringToJSON(value.value),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'classification': ClassificationToJSON(value['classification']),
+        'value': TransferableStringToJSON(value['value']),
     };
 }
 

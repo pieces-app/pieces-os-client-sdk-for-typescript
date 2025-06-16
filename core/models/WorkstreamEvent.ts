@@ -12,49 +12,119 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
+import { mapValues } from '../runtime';
+import type { FlattenedTags } from './FlattenedTags';
 import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
+    FlattenedTagsFromJSON,
+    FlattenedTagsFromJSONTyped,
+    FlattenedTagsToJSON,
+    FlattenedTagsToJSONTyped,
+} from './FlattenedTags';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
+    FlattenedAnnotationsFromJSON,
+    FlattenedAnnotationsFromJSONTyped,
+    FlattenedAnnotationsToJSON,
+    FlattenedAnnotationsToJSONTyped,
+} from './FlattenedAnnotations';
+import type { FlattenedWorkstreamPatternEngineSourceWindows } from './FlattenedWorkstreamPatternEngineSourceWindows';
+import {
+    FlattenedWorkstreamPatternEngineSourceWindowsFromJSON,
+    FlattenedWorkstreamPatternEngineSourceWindowsFromJSONTyped,
+    FlattenedWorkstreamPatternEngineSourceWindowsToJSON,
+    FlattenedWorkstreamPatternEngineSourceWindowsToJSONTyped,
+} from './FlattenedWorkstreamPatternEngineSourceWindows';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
-import {
-    FlattenedWorkstreamSummariesFromJSON,
-    FlattenedWorkstreamSummariesFromJSONTyped,
-    FlattenedWorkstreamSummariesToJSON,
-} from './FlattenedWorkstreamSummaries';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
-import type { WorkstreamEventContext } from './WorkstreamEventContext';
-import {
-    WorkstreamEventContextFromJSON,
-    WorkstreamEventContextFromJSONTyped,
-    WorkstreamEventContextToJSON,
-} from './WorkstreamEventContext';
 import type { WorkstreamEventTrigger } from './WorkstreamEventTrigger';
 import {
     WorkstreamEventTriggerFromJSON,
     WorkstreamEventTriggerFromJSONTyped,
     WorkstreamEventTriggerToJSON,
+    WorkstreamEventTriggerToJSONTyped,
 } from './WorkstreamEventTrigger';
+import type { CapabilitiesEnum } from './CapabilitiesEnum';
+import {
+    CapabilitiesEnumFromJSON,
+    CapabilitiesEnumFromJSONTyped,
+    CapabilitiesEnumToJSON,
+    CapabilitiesEnumToJSONTyped,
+} from './CapabilitiesEnum';
+import type { WorkstreamEventContext } from './WorkstreamEventContext';
+import {
+    WorkstreamEventContextFromJSON,
+    WorkstreamEventContextFromJSONTyped,
+    WorkstreamEventContextToJSON,
+    WorkstreamEventContextToJSONTyped,
+} from './WorkstreamEventContext';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
+    FlattenedWebsitesFromJSON,
+    FlattenedWebsitesFromJSONTyped,
+    FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
+} from './FlattenedWebsites';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
+} from './FlattenedWorkstreamSummaries';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+    FlattenedPersonsToJSONTyped,
+} from './FlattenedPersons';
+import type { FlattenedIdentifiedWorkstreamPatternEngineSources } from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import {
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSONTyped,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSONTyped,
+} from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+    ApplicationToJSONTyped,
+} from './Application';
 
 /**
  * This is a Shadow Activity event:
@@ -122,20 +192,99 @@ export interface WorkstreamEvent {
      * @memberof WorkstreamEvent
      */
     summaries?: FlattenedWorkstreamSummaries;
+    /**
+     * 
+     * @type {FlattenedTags}
+     * @memberof WorkstreamEvent
+     */
+    tags?: FlattenedTags;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkstreamEvent
+     */
+    readable?: string;
+    /**
+     * This is the embedding for the format.(NEEDs to connection.vector) and specific here because we can only index on a single name
+     * NOTE: this the the vector index that corresponds the the couchbase lite index.
+     * @type {Array<number>}
+     * @memberof WorkstreamEvent
+     */
+    workstreamEventsVector?: Array<number>;
+    /**
+     * 
+     * @type {FlattenedIdentifiedWorkstreamPatternEngineSources}
+     * @memberof WorkstreamEvent
+     */
+    sources?: FlattenedIdentifiedWorkstreamPatternEngineSources;
+    /**
+     * This is the title of a tab, or a title of a file in the ide (this is a temporary property used for the WPE flow)
+     * @type {string}
+     * @memberof WorkstreamEvent
+     */
+    windowTitle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkstreamEvent
+     */
+    browserUrl?: string;
+    /**
+     * 
+     * @type {CapabilitiesEnum}
+     * @memberof WorkstreamEvent
+     */
+    processing?: CapabilitiesEnum;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof WorkstreamEvent
+     */
+    messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {FlattenedAnnotations}
+     * @memberof WorkstreamEvent
+     */
+    annotations?: FlattenedAnnotations;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof WorkstreamEvent
+     */
+    anchors?: FlattenedAnchors;
+    /**
+     * 
+     * @type {FlattenedWebsites}
+     * @memberof WorkstreamEvent
+     */
+    websites?: FlattenedWebsites;
+    /**
+     * 
+     * @type {FlattenedWorkstreamPatternEngineSourceWindows}
+     * @memberof WorkstreamEvent
+     */
+    sourceWindows?: FlattenedWorkstreamPatternEngineSourceWindows;
+    /**
+     * 
+     * @type {FlattenedPersons}
+     * @memberof WorkstreamEvent
+     */
+    persons?: FlattenedPersons;
 }
+
+
 
 /**
  * Check if a given object implements the WorkstreamEvent interface.
  */
-export function instanceOfWorkstreamEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "application" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "trigger" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamEvent(value: object): value is WorkstreamEvent {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('application' in value) || value['application'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('trigger' in value) || value['trigger'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamEventFromJSON(json: any): WorkstreamEvent {
@@ -143,41 +292,69 @@ export function WorkstreamEventFromJSON(json: any): WorkstreamEvent {
 }
 
 export function WorkstreamEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
         'application': ApplicationFromJSON(json['application']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'trigger': WorkstreamEventTriggerFromJSON(json['trigger']),
-        'context': !exists(json, 'context') ? undefined : WorkstreamEventContextFromJSON(json['context']),
-        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'context': json['context'] == null ? undefined : WorkstreamEventContextFromJSON(json['context']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'tags': json['tags'] == null ? undefined : FlattenedTagsFromJSON(json['tags']),
+        'readable': json['readable'] == null ? undefined : json['readable'],
+        'workstreamEventsVector': json['workstreamEventsVector'] == null ? undefined : json['workstreamEventsVector'],
+        'sources': json['sources'] == null ? undefined : FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON(json['sources']),
+        'windowTitle': json['windowTitle'] == null ? undefined : json['windowTitle'],
+        'browserUrl': json['browserUrl'] == null ? undefined : json['browserUrl'],
+        'processing': json['processing'] == null ? undefined : CapabilitiesEnumFromJSON(json['processing']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'sourceWindows': json['source_windows'] == null ? undefined : FlattenedWorkstreamPatternEngineSourceWindowsFromJSON(json['source_windows']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
     };
 }
 
-export function WorkstreamEventToJSON(value?: WorkstreamEvent | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamEventToJSON(json: any): WorkstreamEvent {
+    return WorkstreamEventToJSONTyped(json, false);
+}
+
+export function WorkstreamEventToJSONTyped(value?: WorkstreamEvent | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'score': ScoreToJSON(value.score),
-        'application': ApplicationToJSON(value.application),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'trigger': WorkstreamEventTriggerToJSON(value.trigger),
-        'context': WorkstreamEventContextToJSON(value.context),
-        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'score': ScoreToJSON(value['score']),
+        'application': ApplicationToJSON(value['application']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'trigger': WorkstreamEventTriggerToJSON(value['trigger']),
+        'context': WorkstreamEventContextToJSON(value['context']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'tags': FlattenedTagsToJSON(value['tags']),
+        'readable': value['readable'],
+        'workstreamEventsVector': value['workstreamEventsVector'],
+        'sources': FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON(value['sources']),
+        'windowTitle': value['windowTitle'],
+        'browserUrl': value['browserUrl'],
+        'processing': CapabilitiesEnumToJSON(value['processing']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'source_windows': FlattenedWorkstreamPatternEngineSourceWindowsToJSON(value['sourceWindows']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -49,12 +50,10 @@ export interface ResultedPKCE {
 /**
  * Check if a given object implements the ResultedPKCE interface.
  */
-export function instanceOfResultedPKCE(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "code" in value;
-    isInstance = isInstance && "state" in value;
-
-    return isInstance;
+export function instanceOfResultedPKCE(value: object): value is ResultedPKCE {
+    if (!('code' in value) || value['code'] === undefined) return false;
+    if (!('state' in value) || value['state'] === undefined) return false;
+    return true;
 }
 
 export function ResultedPKCEFromJSON(json: any): ResultedPKCE {
@@ -62,29 +61,31 @@ export function ResultedPKCEFromJSON(json: any): ResultedPKCE {
 }
 
 export function ResultedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): ResultedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'code': json['code'],
         'state': json['state'],
     };
 }
 
-export function ResultedPKCEToJSON(value?: ResultedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ResultedPKCEToJSON(json: any): ResultedPKCE {
+    return ResultedPKCEToJSONTyped(json, false);
+}
+
+export function ResultedPKCEToJSONTyped(value?: ResultedPKCE | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code': value.code,
-        'state': value.state,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code': value['code'],
+        'state': value['state'],
     };
 }
 

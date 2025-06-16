@@ -15,9 +15,12 @@
 
 import * as runtime from '../runtime';
 import type {
+  LocalNotificationResponse,
   Notification,
 } from '../models/index';
 import {
+    LocalNotificationResponseFromJSON,
+    LocalNotificationResponseToJSON,
     NotificationFromJSON,
     NotificationToJSON,
 } from '../models/index';
@@ -32,33 +35,38 @@ export interface SendLocalNotificationRequest {
 export class NotificationsApi extends runtime.BaseAPI {
 
     /**
-     * Retrieves a snapshot of all available models.
-     * Send notification
+     * This will accept a notification to send and will return the uuid of the notification  for now: this will just be fire && forget notifications
+     * /notifications/local/send [POST]
      */
-    async sendLocalNotificationRaw(requestParameters: SendLocalNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async sendLocalNotificationRaw(requestParameters: SendLocalNotificationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LocalNotificationResponse>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/notifications/local/send`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: NotificationToJSON(requestParameters.notification),
+            body: NotificationToJSON(requestParameters['notification']),
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => LocalNotificationResponseFromJSON(jsonValue));
     }
 
     /**
-     * Retrieves a snapshot of all available models.
-     * Send notification
+     * This will accept a notification to send and will return the uuid of the notification  for now: this will just be fire && forget notifications
+     * /notifications/local/send [POST]
      */
-    async sendLocalNotification(requestParameters: SendLocalNotificationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.sendLocalNotificationRaw(requestParameters, initOverrides);
+    async sendLocalNotification(requestParameters: SendLocalNotificationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LocalNotificationResponse> {
+        const response = await this.sendLocalNotificationRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
 }

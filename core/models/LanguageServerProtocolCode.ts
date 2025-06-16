@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -55,10 +56,8 @@ export interface LanguageServerProtocolCode {
 /**
  * Check if a given object implements the LanguageServerProtocolCode interface.
  */
-export function instanceOfLanguageServerProtocolCode(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfLanguageServerProtocolCode(value: object): value is LanguageServerProtocolCode {
+    return true;
 }
 
 export function LanguageServerProtocolCodeFromJSON(json: any): LanguageServerProtocolCode {
@@ -66,31 +65,33 @@ export function LanguageServerProtocolCodeFromJSON(json: any): LanguageServerPro
 }
 
 export function LanguageServerProtocolCodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocolCode {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'codeInteger': !exists(json, 'code_integer') ? undefined : json['code_integer'],
-        'codeString': !exists(json, 'code_string') ? undefined : json['code_string'],
-        'rawJson': !exists(json, 'raw_json') ? undefined : json['raw_json'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'codeInteger': json['code_integer'] == null ? undefined : json['code_integer'],
+        'codeString': json['code_string'] == null ? undefined : json['code_string'],
+        'rawJson': json['raw_json'] == null ? undefined : json['raw_json'],
     };
 }
 
-export function LanguageServerProtocolCodeToJSON(value?: LanguageServerProtocolCode | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LanguageServerProtocolCodeToJSON(json: any): LanguageServerProtocolCode {
+    return LanguageServerProtocolCodeToJSONTyped(json, false);
+}
+
+export function LanguageServerProtocolCodeToJSONTyped(value?: LanguageServerProtocolCode | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code_integer': value.codeInteger,
-        'code_string': value.codeString,
-        'raw_json': value.rawJson,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code_integer': value['codeInteger'],
+        'code_string': value['codeString'],
+        'raw_json': value['rawJson'],
     };
 }
 

@@ -52,15 +52,19 @@ export class SearchApi extends runtime.BaseAPI {
     async fullTextSearchRaw(requestParameters: FullTextSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
         const queryParameters: any = {};
 
-        if (requestParameters.query !== undefined) {
-            queryParameters['query'] = requestParameters.query;
+        if (requestParameters['query'] != null) {
+            queryParameters['query'] = requestParameters['query'];
         }
 
-        if (requestParameters.pseudo !== undefined) {
-            queryParameters['pseudo'] = requestParameters.pseudo;
+        if (requestParameters['pseudo'] != null) {
+            queryParameters['pseudo'] = requestParameters['pseudo'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/search/full_text`,
@@ -88,15 +92,19 @@ export class SearchApi extends runtime.BaseAPI {
     async neuralCodeSearchRaw(requestParameters: NeuralCodeSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
         const queryParameters: any = {};
 
-        if (requestParameters.query !== undefined) {
-            queryParameters['query'] = requestParameters.query;
+        if (requestParameters['query'] != null) {
+            queryParameters['query'] = requestParameters['query'];
         }
 
-        if (requestParameters.pseudo !== undefined) {
-            queryParameters['pseudo'] = requestParameters.pseudo;
+        if (requestParameters['pseudo'] != null) {
+            queryParameters['pseudo'] = requestParameters['pseudo'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/search/neural_code`,
@@ -124,20 +132,24 @@ export class SearchApi extends runtime.BaseAPI {
     async tagBasedSearchRaw(requestParameters: TagBasedSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAssets>> {
         const queryParameters: any = {};
 
-        if (requestParameters.pseudo !== undefined) {
-            queryParameters['pseudo'] = requestParameters.pseudo;
+        if (requestParameters['pseudo'] != null) {
+            queryParameters['pseudo'] = requestParameters['pseudo'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/search/tag_based`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAssetTagsToJSON(requestParameters.seededAssetTags),
+            body: SeededAssetTagsToJSON(requestParameters['seededAssetTags']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAssetsFromJSON(jsonValue));

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -51,6 +52,7 @@ export interface AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
  * @export
  */
 export const AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum = {
+    Unknown: 'UNKNOWN',
     TheUserHasInstalledAPiecesApplication: 'the_user_has_installed_a_pieces_application'
 } as const;
 export type AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum = typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum[keyof typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum];
@@ -59,6 +61,7 @@ export type AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInsta
  * @export
  */
 export const AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum = {
+    Unknown: 'UNKNOWN',
     TheUserHasUninstalledAPiecesApplication: 'the_user_has_uninstalled_a_pieces_application'
 } as const;
 export type AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum = typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum[keyof typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum];
@@ -67,10 +70,8 @@ export type AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUnins
 /**
  * Check if a given object implements the AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairs(value: object): value is AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON(json: any): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
@@ -78,29 +79,31 @@ export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON(
 }
 
 export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'adoptionInstall': !exists(json, 'adoption_install') ? undefined : json['adoption_install'],
-        'adoptionUninstall': !exists(json, 'adoption_uninstall') ? undefined : json['adoption_uninstall'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'adoptionInstall': json['adoption_install'] == null ? undefined : json['adoption_install'],
+        'adoptionUninstall': json['adoption_uninstall'] == null ? undefined : json['adoption_uninstall'],
     };
 }
 
-export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON(value?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON(json: any): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
+    return AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSONTyped(value?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'adoption_install': value.adoptionInstall,
-        'adoption_uninstall': value.adoptionUninstall,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'adoption_install': value['adoptionInstall'],
+        'adoption_uninstall': value['adoptionUninstall'],
     };
 }
 

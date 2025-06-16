@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -49,11 +50,9 @@ export interface FlattenedPreview {
 /**
  * Check if a given object implements the FlattenedPreview interface.
  */
-export function instanceOfFlattenedPreview(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "base" in value;
-
-    return isInstance;
+export function instanceOfFlattenedPreview(value: object): value is FlattenedPreview {
+    if (!('base' in value) || value['base'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedPreviewFromJSON(json: any): FlattenedPreview {
@@ -61,29 +60,31 @@ export function FlattenedPreviewFromJSON(json: any): FlattenedPreview {
 }
 
 export function FlattenedPreviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedPreview {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'base': json['base'],
-        'overlay': !exists(json, 'overlay') ? undefined : json['overlay'],
+        'overlay': json['overlay'] == null ? undefined : json['overlay'],
     };
 }
 
-export function FlattenedPreviewToJSON(value?: FlattenedPreview | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedPreviewToJSON(json: any): FlattenedPreview {
+    return FlattenedPreviewToJSONTyped(json, false);
+}
+
+export function FlattenedPreviewToJSONTyped(value?: FlattenedPreview | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'base': value.base,
-        'overlay': value.overlay,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'base': value['base'],
+        'overlay': value['overlay'],
     };
 }
 

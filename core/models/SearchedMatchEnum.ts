@@ -18,6 +18,7 @@
  * @export
  */
 export const SearchedMatchEnum = {
+    Unknown: 'UNKNOWN',
     Title: 'TITLE',
     Annotation: 'ANNOTATION',
     Hint: 'HINT',
@@ -31,6 +32,17 @@ export const SearchedMatchEnum = {
 export type SearchedMatchEnum = typeof SearchedMatchEnum[keyof typeof SearchedMatchEnum];
 
 
+export function instanceOfSearchedMatchEnum(value: any): boolean {
+    for (const key in SearchedMatchEnum) {
+        if (Object.prototype.hasOwnProperty.call(SearchedMatchEnum, key)) {
+            if (SearchedMatchEnum[key as keyof typeof SearchedMatchEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function SearchedMatchEnumFromJSON(json: any): SearchedMatchEnum {
     return SearchedMatchEnumFromJSONTyped(json, false);
 }
@@ -41,5 +53,9 @@ export function SearchedMatchEnumFromJSONTyped(json: any, ignoreDiscriminator: b
 
 export function SearchedMatchEnumToJSON(value?: SearchedMatchEnum | null): any {
     return value as any;
+}
+
+export function SearchedMatchEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SearchedMatchEnum {
+    return value as SearchedMatchEnum;
 }
 

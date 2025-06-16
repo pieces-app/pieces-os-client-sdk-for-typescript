@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -63,10 +64,8 @@ export interface SeededAssetEnrichment {
 /**
  * Check if a given object implements the SeededAssetEnrichment interface.
  */
-export function instanceOfSeededAssetEnrichment(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededAssetEnrichment(value: object): value is SeededAssetEnrichment {
+    return true;
 }
 
 export function SeededAssetEnrichmentFromJSON(json: any): SeededAssetEnrichment {
@@ -74,33 +73,35 @@ export function SeededAssetEnrichmentFromJSON(json: any): SeededAssetEnrichment 
 }
 
 export function SeededAssetEnrichmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAssetEnrichment {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'tags': !exists(json, 'tags') ? undefined : json['tags'],
-        'websites': !exists(json, 'websites') ? undefined : json['websites'],
-        'persons': !exists(json, 'persons') ? undefined : json['persons'],
-        'hints': !exists(json, 'hints') ? undefined : json['hints'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'tags': json['tags'] == null ? undefined : json['tags'],
+        'websites': json['websites'] == null ? undefined : json['websites'],
+        'persons': json['persons'] == null ? undefined : json['persons'],
+        'hints': json['hints'] == null ? undefined : json['hints'],
     };
 }
 
-export function SeededAssetEnrichmentToJSON(value?: SeededAssetEnrichment | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededAssetEnrichmentToJSON(json: any): SeededAssetEnrichment {
+    return SeededAssetEnrichmentToJSONTyped(json, false);
+}
+
+export function SeededAssetEnrichmentToJSONTyped(value?: SeededAssetEnrichment | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'tags': value.tags,
-        'websites': value.websites,
-        'persons': value.persons,
-        'hints': value.hints,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'tags': value['tags'],
+        'websites': value['websites'],
+        'persons': value['persons'],
+        'hints': value['hints'],
     };
 }
 

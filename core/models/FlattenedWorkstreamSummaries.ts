@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ReferencedWorkstreamSummary } from './ReferencedWorkstreamSummary';
 import {
     ReferencedWorkstreamSummaryFromJSON,
     ReferencedWorkstreamSummaryFromJSONTyped,
     ReferencedWorkstreamSummaryToJSON,
+    ReferencedWorkstreamSummaryToJSONTyped,
 } from './ReferencedWorkstreamSummary';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
 
 /**
  * This is a DAG-Safe plural model of workstreamsummaries
@@ -67,11 +70,9 @@ export interface FlattenedWorkstreamSummaries {
 /**
  * Check if a given object implements the FlattenedWorkstreamSummaries interface.
  */
-export function instanceOfFlattenedWorkstreamSummaries(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfFlattenedWorkstreamSummaries(value: object): value is FlattenedWorkstreamSummaries {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedWorkstreamSummariesFromJSON(json: any): FlattenedWorkstreamSummaries {
@@ -79,31 +80,33 @@ export function FlattenedWorkstreamSummariesFromJSON(json: any): FlattenedWorkst
 }
 
 export function FlattenedWorkstreamSummariesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedWorkstreamSummaries {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedWorkstreamSummaryFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function FlattenedWorkstreamSummariesToJSON(value?: FlattenedWorkstreamSummaries | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedWorkstreamSummariesToJSON(json: any): FlattenedWorkstreamSummaries {
+    return FlattenedWorkstreamSummariesToJSONTyped(json, false);
+}
+
+export function FlattenedWorkstreamSummariesToJSONTyped(value?: FlattenedWorkstreamSummaries | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedWorkstreamSummaryToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedWorkstreamSummaryToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
 

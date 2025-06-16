@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * This is used to map the types of the iterable to given booleans of their respective material types
  * @export
@@ -121,15 +121,73 @@ export interface WorkstreamSuggestionType {
      * @memberof WorkstreamSuggestionType
      */
     persons?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    annotation?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    annotations?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    conversationMessage?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    conversationMessages?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    hint?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    hints?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    sensitive?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    sensitives?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    source?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamSuggestionType
+     */
+    sources?: boolean;
 }
 
 /**
  * Check if a given object implements the WorkstreamSuggestionType interface.
  */
-export function instanceOfWorkstreamSuggestionType(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamSuggestionType(value: object): value is WorkstreamSuggestionType {
+    return true;
 }
 
 export function WorkstreamSuggestionTypeFromJSON(json: any): WorkstreamSuggestionType {
@@ -137,57 +195,79 @@ export function WorkstreamSuggestionTypeFromJSON(json: any): WorkstreamSuggestio
 }
 
 export function WorkstreamSuggestionTypeFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamSuggestionType {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : json['schema'],
-        'summary': !exists(json, 'summary') ? undefined : json['summary'],
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'tag': !exists(json, 'tag') ? undefined : json['tag'],
-        'website': !exists(json, 'website') ? undefined : json['website'],
-        'anchor': !exists(json, 'anchor') ? undefined : json['anchor'],
-        'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
-        'person': !exists(json, 'person') ? undefined : json['person'],
-        'seed': !exists(json, 'seed') ? undefined : json['seed'],
-        'seeds': !exists(json, 'seeds') ? undefined : json['seeds'],
-        'summaries': !exists(json, 'summaries') ? undefined : json['summaries'],
-        'assets': !exists(json, 'assets') ? undefined : json['assets'],
-        'tags': !exists(json, 'tags') ? undefined : json['tags'],
-        'websites': !exists(json, 'websites') ? undefined : json['websites'],
-        'anchors': !exists(json, 'anchors') ? undefined : json['anchors'],
-        'conversations': !exists(json, 'conversations') ? undefined : json['conversations'],
-        'persons': !exists(json, 'persons') ? undefined : json['persons'],
+        'schema': json['schema'] == null ? undefined : json['schema'],
+        'summary': json['summary'] == null ? undefined : json['summary'],
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'tag': json['tag'] == null ? undefined : json['tag'],
+        'website': json['website'] == null ? undefined : json['website'],
+        'anchor': json['anchor'] == null ? undefined : json['anchor'],
+        'conversation': json['conversation'] == null ? undefined : json['conversation'],
+        'person': json['person'] == null ? undefined : json['person'],
+        'seed': json['seed'] == null ? undefined : json['seed'],
+        'seeds': json['seeds'] == null ? undefined : json['seeds'],
+        'summaries': json['summaries'] == null ? undefined : json['summaries'],
+        'assets': json['assets'] == null ? undefined : json['assets'],
+        'tags': json['tags'] == null ? undefined : json['tags'],
+        'websites': json['websites'] == null ? undefined : json['websites'],
+        'anchors': json['anchors'] == null ? undefined : json['anchors'],
+        'conversations': json['conversations'] == null ? undefined : json['conversations'],
+        'persons': json['persons'] == null ? undefined : json['persons'],
+        'annotation': json['annotation'] == null ? undefined : json['annotation'],
+        'annotations': json['annotations'] == null ? undefined : json['annotations'],
+        'conversationMessage': json['conversationMessage'] == null ? undefined : json['conversationMessage'],
+        'conversationMessages': json['conversationMessages'] == null ? undefined : json['conversationMessages'],
+        'hint': json['hint'] == null ? undefined : json['hint'],
+        'hints': json['hints'] == null ? undefined : json['hints'],
+        'sensitive': json['sensitive'] == null ? undefined : json['sensitive'],
+        'sensitives': json['sensitives'] == null ? undefined : json['sensitives'],
+        'source': json['source'] == null ? undefined : json['source'],
+        'sources': json['sources'] == null ? undefined : json['sources'],
     };
 }
 
-export function WorkstreamSuggestionTypeToJSON(value?: WorkstreamSuggestionType | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamSuggestionTypeToJSON(json: any): WorkstreamSuggestionType {
+    return WorkstreamSuggestionTypeToJSONTyped(json, false);
+}
+
+export function WorkstreamSuggestionTypeToJSONTyped(value?: WorkstreamSuggestionType | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': value.schema,
-        'summary': value.summary,
-        'asset': value.asset,
-        'tag': value.tag,
-        'website': value.website,
-        'anchor': value.anchor,
-        'conversation': value.conversation,
-        'person': value.person,
-        'seed': value.seed,
-        'seeds': value.seeds,
-        'summaries': value.summaries,
-        'assets': value.assets,
-        'tags': value.tags,
-        'websites': value.websites,
-        'anchors': value.anchors,
-        'conversations': value.conversations,
-        'persons': value.persons,
+        'schema': value['schema'],
+        'summary': value['summary'],
+        'asset': value['asset'],
+        'tag': value['tag'],
+        'website': value['website'],
+        'anchor': value['anchor'],
+        'conversation': value['conversation'],
+        'person': value['person'],
+        'seed': value['seed'],
+        'seeds': value['seeds'],
+        'summaries': value['summaries'],
+        'assets': value['assets'],
+        'tags': value['tags'],
+        'websites': value['websites'],
+        'anchors': value['anchors'],
+        'conversations': value['conversations'],
+        'persons': value['persons'],
+        'annotation': value['annotation'],
+        'annotations': value['annotations'],
+        'conversationMessage': value['conversationMessage'],
+        'conversationMessages': value['conversationMessages'],
+        'hint': value['hint'],
+        'hints': value['hints'],
+        'sensitive': value['sensitive'],
+        'sensitives': value['sensitives'],
+        'source': value['source'],
+        'sources': value['sources'],
     };
 }
 

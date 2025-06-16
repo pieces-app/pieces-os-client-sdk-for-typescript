@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FileMetadata } from './FileMetadata';
 import {
     FileMetadataFromJSON,
     FileMetadataFromJSONTyped,
     FileMetadataToJSON,
+    FileMetadataToJSONTyped,
 } from './FileMetadata';
 import type { TransferableBytes } from './TransferableBytes';
 import {
     TransferableBytesFromJSON,
     TransferableBytesFromJSONTyped,
     TransferableBytesToJSON,
+    TransferableBytesToJSONTyped,
 } from './TransferableBytes';
 import type { TransferableString } from './TransferableString';
 import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
+    TransferableStringToJSONTyped,
 } from './TransferableString';
 
 /**
@@ -77,10 +81,8 @@ export interface SeededFile {
 /**
  * Check if a given object implements the SeededFile interface.
  */
-export function instanceOfSeededFile(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededFile(value: object): value is SeededFile {
+    return true;
 }
 
 export function SeededFileFromJSON(json: any): SeededFile {
@@ -88,31 +90,33 @@ export function SeededFileFromJSON(json: any): SeededFile {
 }
 
 export function SeededFileFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededFile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'bytes': !exists(json, 'bytes') ? undefined : TransferableBytesFromJSON(json['bytes']),
-        'string': !exists(json, 'string') ? undefined : TransferableStringFromJSON(json['string']),
-        'metadata': !exists(json, 'metadata') ? undefined : FileMetadataFromJSON(json['metadata']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'bytes': json['bytes'] == null ? undefined : TransferableBytesFromJSON(json['bytes']),
+        'string': json['string'] == null ? undefined : TransferableStringFromJSON(json['string']),
+        'metadata': json['metadata'] == null ? undefined : FileMetadataFromJSON(json['metadata']),
     };
 }
 
-export function SeededFileToJSON(value?: SeededFile | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededFileToJSON(json: any): SeededFile {
+    return SeededFileToJSONTyped(json, false);
+}
+
+export function SeededFileToJSONTyped(value?: SeededFile | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'bytes': TransferableBytesToJSON(value.bytes),
-        'string': TransferableStringToJSON(value.string),
-        'metadata': FileMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'bytes': TransferableBytesToJSON(value['bytes']),
+        'string': TransferableStringToJSON(value['string']),
+        'metadata': FileMetadataToJSON(value['metadata']),
     };
 }
 

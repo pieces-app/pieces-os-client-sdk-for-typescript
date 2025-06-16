@@ -12,7 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { WorkstreamPatternEngineStatus } from './WorkstreamPatternEngineStatus';
+import {
+    WorkstreamPatternEngineStatusFromJSON,
+    WorkstreamPatternEngineStatusFromJSONTyped,
+    WorkstreamPatternEngineStatusToJSON,
+    WorkstreamPatternEngineStatusToJSONTyped,
+} from './WorkstreamPatternEngineStatus';
+
 /**
  * This is the counts of things that users can add.
  * @export
@@ -121,32 +129,60 @@ export interface TrackedSummaryTotals {
      * @memberof TrackedSummaryTotals
      */
     isrReports: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof TrackedSummaryTotals
+     */
+    requests?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TrackedSummaryTotals
+     */
+    workstreamEvents?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TrackedSummaryTotals
+     */
+    workstreamSummaries?: number | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof TrackedSummaryTotals
+     */
+    workstreamPatternEngineSources?: number | null;
+    /**
+     * 
+     * @type {WorkstreamPatternEngineStatus}
+     * @memberof TrackedSummaryTotals
+     */
+    workstreamPatternEngineStatus?: WorkstreamPatternEngineStatus;
 }
 
 /**
  * Check if a given object implements the TrackedSummaryTotals interface.
  */
-export function instanceOfTrackedSummaryTotals(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "assets" in value;
-    isInstance = isInstance && "tags" in value;
-    isInstance = isInstance && "websites" in value;
-    isInstance = isInstance && "persons" in value;
-    isInstance = isInstance && "sensitives" in value;
-    isInstance = isInstance && "shares" in value;
-    isInstance = isInstance && "copilotSends" in value;
-    isInstance = isInstance && "copilotReceives" in value;
-    isInstance = isInstance && "copilotSessions" in value;
-    isInstance = isInstance && "copilotConversations" in value;
-    isInstance = isInstance && "productivityScore" in value;
-    isInstance = isInstance && "searches" in value;
-    isInstance = isInstance && "references" in value;
-    isInstance = isInstance && "reuses" in value;
-    isInstance = isInstance && "anchorFiles" in value;
-    isInstance = isInstance && "anchorFolders" in value;
-    isInstance = isInstance && "isrReports" in value;
-
-    return isInstance;
+export function instanceOfTrackedSummaryTotals(value: object): value is TrackedSummaryTotals {
+    if (!('assets' in value) || value['assets'] === undefined) return false;
+    if (!('tags' in value) || value['tags'] === undefined) return false;
+    if (!('websites' in value) || value['websites'] === undefined) return false;
+    if (!('persons' in value) || value['persons'] === undefined) return false;
+    if (!('sensitives' in value) || value['sensitives'] === undefined) return false;
+    if (!('shares' in value) || value['shares'] === undefined) return false;
+    if (!('copilotSends' in value) || value['copilotSends'] === undefined) return false;
+    if (!('copilotReceives' in value) || value['copilotReceives'] === undefined) return false;
+    if (!('copilotSessions' in value) || value['copilotSessions'] === undefined) return false;
+    if (!('copilotConversations' in value) || value['copilotConversations'] === undefined) return false;
+    if (!('productivityScore' in value) || value['productivityScore'] === undefined) return false;
+    if (!('searches' in value) || value['searches'] === undefined) return false;
+    if (!('references' in value) || value['references'] === undefined) return false;
+    if (!('reuses' in value) || value['reuses'] === undefined) return false;
+    if (!('anchorFiles' in value) || value['anchorFiles'] === undefined) return false;
+    if (!('anchorFolders' in value) || value['anchorFolders'] === undefined) return false;
+    if (!('isrReports' in value) || value['isrReports'] === undefined) return false;
+    return true;
 }
 
 export function TrackedSummaryTotalsFromJSON(json: any): TrackedSummaryTotals {
@@ -154,7 +190,7 @@ export function TrackedSummaryTotalsFromJSON(json: any): TrackedSummaryTotals {
 }
 
 export function TrackedSummaryTotalsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSummaryTotals {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -176,35 +212,47 @@ export function TrackedSummaryTotalsFromJSONTyped(json: any, ignoreDiscriminator
         'anchorFiles': json['anchor_files'],
         'anchorFolders': json['anchor_folders'],
         'isrReports': json['isr_reports'],
+        'requests': json['requests'] == null ? undefined : json['requests'],
+        'workstreamEvents': json['workstream_events'] == null ? undefined : json['workstream_events'],
+        'workstreamSummaries': json['workstream_summaries'] == null ? undefined : json['workstream_summaries'],
+        'workstreamPatternEngineSources': json['workstream_pattern_engine_sources'] == null ? undefined : json['workstream_pattern_engine_sources'],
+        'workstreamPatternEngineStatus': json['workstream_pattern_engine_status'] == null ? undefined : WorkstreamPatternEngineStatusFromJSON(json['workstream_pattern_engine_status']),
     };
 }
 
-export function TrackedSummaryTotalsToJSON(value?: TrackedSummaryTotals | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedSummaryTotalsToJSON(json: any): TrackedSummaryTotals {
+    return TrackedSummaryTotalsToJSONTyped(json, false);
+}
+
+export function TrackedSummaryTotalsToJSONTyped(value?: TrackedSummaryTotals | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'assets': value.assets,
-        'tags': value.tags,
-        'websites': value.websites,
-        'persons': value.persons,
-        'sensitives': value.sensitives,
-        'shares': value.shares,
-        'copilot_sends': value.copilotSends,
-        'copilot_receives': value.copilotReceives,
-        'copilot_sessions': value.copilotSessions,
-        'copilot_conversations': value.copilotConversations,
-        'productivity_score': value.productivityScore,
-        'searches': value.searches,
-        'references': value.references,
-        'reuses': value.reuses,
-        'anchor_files': value.anchorFiles,
-        'anchor_folders': value.anchorFolders,
-        'isr_reports': value.isrReports,
+        'assets': value['assets'],
+        'tags': value['tags'],
+        'websites': value['websites'],
+        'persons': value['persons'],
+        'sensitives': value['sensitives'],
+        'shares': value['shares'],
+        'copilot_sends': value['copilotSends'],
+        'copilot_receives': value['copilotReceives'],
+        'copilot_sessions': value['copilotSessions'],
+        'copilot_conversations': value['copilotConversations'],
+        'productivity_score': value['productivityScore'],
+        'searches': value['searches'],
+        'references': value['references'],
+        'reuses': value['reuses'],
+        'anchor_files': value['anchorFiles'],
+        'anchor_folders': value['anchorFolders'],
+        'isr_reports': value['isrReports'],
+        'requests': value['requests'],
+        'workstream_events': value['workstreamEvents'],
+        'workstream_summaries': value['workstreamSummaries'],
+        'workstream_pattern_engine_sources': value['workstreamPatternEngineSources'],
+        'workstream_pattern_engine_status': WorkstreamPatternEngineStatusToJSON(value['workstreamPatternEngineStatus']),
     };
 }
 

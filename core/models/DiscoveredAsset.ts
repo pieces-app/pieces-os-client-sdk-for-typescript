@@ -12,37 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { SeededAssetMetadata } from './SeededAssetMetadata';
-import {
-    SeededAssetMetadataFromJSON,
-    SeededAssetMetadataFromJSONTyped,
-    SeededAssetMetadataToJSON,
-} from './SeededAssetMetadata';
-import type { SeededFile } from './SeededFile';
-import {
-    SeededFileFromJSON,
-    SeededFileFromJSONTyped,
-    SeededFileToJSON,
-} from './SeededFile';
 import type { SeededFragment } from './SeededFragment';
 import {
     SeededFragmentFromJSON,
     SeededFragmentFromJSONTyped,
     SeededFragmentToJSON,
+    SeededFragmentToJSONTyped,
 } from './SeededFragment';
 import type { TLPDirectedDiscoveryFilters } from './TLPDirectedDiscoveryFilters';
 import {
     TLPDirectedDiscoveryFiltersFromJSON,
     TLPDirectedDiscoveryFiltersFromJSONTyped,
     TLPDirectedDiscoveryFiltersToJSON,
+    TLPDirectedDiscoveryFiltersToJSONTyped,
 } from './TLPDirectedDiscoveryFilters';
+import type { SeededFile } from './SeededFile';
+import {
+    SeededFileFromJSON,
+    SeededFileFromJSONTyped,
+    SeededFileToJSON,
+    SeededFileToJSONTyped,
+} from './SeededFile';
+import type { SeededAssetMetadata } from './SeededAssetMetadata';
+import {
+    SeededAssetMetadataFromJSON,
+    SeededAssetMetadataFromJSONTyped,
+    SeededAssetMetadataToJSON,
+    SeededAssetMetadataToJSONTyped,
+} from './SeededAssetMetadata';
 
 /**
  * 
@@ -91,10 +96,8 @@ export interface DiscoveredAsset {
 /**
  * Check if a given object implements the DiscoveredAsset interface.
  */
-export function instanceOfDiscoveredAsset(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfDiscoveredAsset(value: object): value is DiscoveredAsset {
+    return true;
 }
 
 export function DiscoveredAssetFromJSON(json: any): DiscoveredAsset {
@@ -102,35 +105,37 @@ export function DiscoveredAssetFromJSON(json: any): DiscoveredAsset {
 }
 
 export function DiscoveredAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'file': !exists(json, 'file') ? undefined : SeededFileFromJSON(json['file']),
-        'fragment': !exists(json, 'fragment') ? undefined : SeededFragmentFromJSON(json['fragment']),
-        'directory': !exists(json, 'directory') ? undefined : json['directory'],
-        'metadata': !exists(json, 'metadata') ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
-        'filters': !exists(json, 'filters') ? undefined : TLPDirectedDiscoveryFiltersFromJSON(json['filters']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'file': json['file'] == null ? undefined : SeededFileFromJSON(json['file']),
+        'fragment': json['fragment'] == null ? undefined : SeededFragmentFromJSON(json['fragment']),
+        'directory': json['directory'] == null ? undefined : json['directory'],
+        'metadata': json['metadata'] == null ? undefined : SeededAssetMetadataFromJSON(json['metadata']),
+        'filters': json['filters'] == null ? undefined : TLPDirectedDiscoveryFiltersFromJSON(json['filters']),
     };
 }
 
-export function DiscoveredAssetToJSON(value?: DiscoveredAsset | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DiscoveredAssetToJSON(json: any): DiscoveredAsset {
+    return DiscoveredAssetToJSONTyped(json, false);
+}
+
+export function DiscoveredAssetToJSONTyped(value?: DiscoveredAsset | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'file': SeededFileToJSON(value.file),
-        'fragment': SeededFragmentToJSON(value.fragment),
-        'directory': value.directory,
-        'metadata': SeededAssetMetadataToJSON(value.metadata),
-        'filters': TLPDirectedDiscoveryFiltersToJSON(value.filters),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'file': SeededFileToJSON(value['file']),
+        'fragment': SeededFragmentToJSON(value['fragment']),
+        'directory': value['directory'],
+        'metadata': SeededAssetMetadataToJSON(value['metadata']),
+        'filters': TLPDirectedDiscoveryFiltersToJSON(value['filters']),
     };
 }
 

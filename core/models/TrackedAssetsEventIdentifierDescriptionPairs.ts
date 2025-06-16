@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -45,6 +46,7 @@ export interface TrackedAssetsEventIdentifierDescriptionPairs {
  * @export
  */
 export const TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = {
+    Unknown: 'UNKNOWN',
     AssetsWereSearched: 'assets_were_searched'
 } as const;
 export type TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = typeof TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum[keyof typeof TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum];
@@ -53,10 +55,8 @@ export type TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = typ
 /**
  * Check if a given object implements the TrackedAssetsEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfTrackedAssetsEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedAssetsEventIdentifierDescriptionPairs(value: object): value is TrackedAssetsEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function TrackedAssetsEventIdentifierDescriptionPairsFromJSON(json: any): TrackedAssetsEventIdentifierDescriptionPairs {
@@ -64,27 +64,29 @@ export function TrackedAssetsEventIdentifierDescriptionPairsFromJSON(json: any):
 }
 
 export function TrackedAssetsEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetsEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'assetsSearched': !exists(json, 'assets_searched') ? undefined : json['assets_searched'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'assetsSearched': json['assets_searched'] == null ? undefined : json['assets_searched'],
     };
 }
 
-export function TrackedAssetsEventIdentifierDescriptionPairsToJSON(value?: TrackedAssetsEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedAssetsEventIdentifierDescriptionPairsToJSON(json: any): TrackedAssetsEventIdentifierDescriptionPairs {
+    return TrackedAssetsEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function TrackedAssetsEventIdentifierDescriptionPairsToJSONTyped(value?: TrackedAssetsEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'assets_searched': value.assetsSearched,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assets_searched': value['assetsSearched'],
     };
 }
 

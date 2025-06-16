@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchemaSemanticVersionEnum } from './EmbeddedModelSchemaSemanticVersionEnum';
 import {
     EmbeddedModelSchemaSemanticVersionEnumFromJSON,
     EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped,
     EmbeddedModelSchemaSemanticVersionEnumToJSON,
+    EmbeddedModelSchemaSemanticVersionEnumToJSONTyped,
 } from './EmbeddedModelSchemaSemanticVersionEnum';
 
 /**
@@ -40,15 +41,15 @@ export interface EmbeddedModelSchema {
     semantic: EmbeddedModelSchemaSemanticVersionEnum;
 }
 
+
+
 /**
  * Check if a given object implements the EmbeddedModelSchema interface.
  */
-export function instanceOfEmbeddedModelSchema(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "migration" in value;
-    isInstance = isInstance && "semantic" in value;
-
-    return isInstance;
+export function instanceOfEmbeddedModelSchema(value: object): value is EmbeddedModelSchema {
+    if (!('migration' in value) || value['migration'] === undefined) return false;
+    if (!('semantic' in value) || value['semantic'] === undefined) return false;
+    return true;
 }
 
 export function EmbeddedModelSchemaFromJSON(json: any): EmbeddedModelSchema {
@@ -56,7 +57,7 @@ export function EmbeddedModelSchemaFromJSON(json: any): EmbeddedModelSchema {
 }
 
 export function EmbeddedModelSchemaFromJSONTyped(json: any, ignoreDiscriminator: boolean): EmbeddedModelSchema {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -66,17 +67,19 @@ export function EmbeddedModelSchemaFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function EmbeddedModelSchemaToJSON(value?: EmbeddedModelSchema | null): any {
-    if (value === undefined) {
-        return undefined;
+export function EmbeddedModelSchemaToJSON(json: any): EmbeddedModelSchema {
+    return EmbeddedModelSchemaToJSONTyped(json, false);
+}
+
+export function EmbeddedModelSchemaToJSONTyped(value?: EmbeddedModelSchema | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'migration': value.migration,
-        'semantic': EmbeddedModelSchemaSemanticVersionEnumToJSON(value.semantic),
+        'migration': value['migration'],
+        'semantic': EmbeddedModelSchemaSemanticVersionEnumToJSON(value['semantic']),
     };
 }
 

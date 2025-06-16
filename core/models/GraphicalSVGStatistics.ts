@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -43,10 +44,8 @@ export interface GraphicalSVGStatistics {
 /**
  * Check if a given object implements the GraphicalSVGStatistics interface.
  */
-export function instanceOfGraphicalSVGStatistics(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfGraphicalSVGStatistics(value: object): value is GraphicalSVGStatistics {
+    return true;
 }
 
 export function GraphicalSVGStatisticsFromJSON(json: any): GraphicalSVGStatistics {
@@ -54,27 +53,29 @@ export function GraphicalSVGStatisticsFromJSON(json: any): GraphicalSVGStatistic
 }
 
 export function GraphicalSVGStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalSVGStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': json['id'] == null ? undefined : json['id'],
     };
 }
 
-export function GraphicalSVGStatisticsToJSON(value?: GraphicalSVGStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
+export function GraphicalSVGStatisticsToJSON(json: any): GraphicalSVGStatistics {
+    return GraphicalSVGStatisticsToJSONTyped(json, false);
+}
+
+export function GraphicalSVGStatisticsToJSONTyped(value?: GraphicalSVGStatistics | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
     };
 }
 

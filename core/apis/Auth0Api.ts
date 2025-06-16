@@ -72,15 +72,19 @@ export class Auth0Api extends runtime.BaseAPI {
     async auth0LogoutRaw(requestParameters: Auth0LogoutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
         const queryParameters: any = {};
 
-        if (requestParameters.clientId !== undefined) {
-            queryParameters['client_id'] = requestParameters.clientId;
+        if (requestParameters['clientId'] != null) {
+            queryParameters['client_id'] = requestParameters['clientId'];
         }
 
-        if (requestParameters.returnTo !== undefined) {
-            queryParameters['returnTo'] = requestParameters.returnTo;
+        if (requestParameters['returnTo'] != null) {
+            queryParameters['returnTo'] = requestParameters['returnTo'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/v2/logout`,
@@ -110,81 +114,106 @@ export class Auth0Api extends runtime.BaseAPI {
      * https://auth.pieces.services/authorize [GET]
      */
     async authorizeAuth0Raw(requestParameters: AuthorizeAuth0Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResultedPKCE>> {
-        if (requestParameters.audience === null || requestParameters.audience === undefined) {
-            throw new runtime.RequiredError('audience','Required parameter requestParameters.audience was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['audience'] == null) {
+            throw new runtime.RequiredError(
+                'audience',
+                'Required parameter "audience" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.scope === null || requestParameters.scope === undefined) {
-            throw new runtime.RequiredError('scope','Required parameter requestParameters.scope was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['scope'] == null) {
+            throw new runtime.RequiredError(
+                'scope',
+                'Required parameter "scope" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.responseType === null || requestParameters.responseType === undefined) {
-            throw new runtime.RequiredError('responseType','Required parameter requestParameters.responseType was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['responseType'] == null) {
+            throw new runtime.RequiredError(
+                'responseType',
+                'Required parameter "responseType" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.clientId === null || requestParameters.clientId === undefined) {
-            throw new runtime.RequiredError('clientId','Required parameter requestParameters.clientId was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['clientId'] == null) {
+            throw new runtime.RequiredError(
+                'clientId',
+                'Required parameter "clientId" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.codeChallengeMethod === null || requestParameters.codeChallengeMethod === undefined) {
-            throw new runtime.RequiredError('codeChallengeMethod','Required parameter requestParameters.codeChallengeMethod was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['codeChallengeMethod'] == null) {
+            throw new runtime.RequiredError(
+                'codeChallengeMethod',
+                'Required parameter "codeChallengeMethod" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.codeChallenge === null || requestParameters.codeChallenge === undefined) {
-            throw new runtime.RequiredError('codeChallenge','Required parameter requestParameters.codeChallenge was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['codeChallenge'] == null) {
+            throw new runtime.RequiredError(
+                'codeChallenge',
+                'Required parameter "codeChallenge" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
-        if (requestParameters.responseMode === null || requestParameters.responseMode === undefined) {
-            throw new runtime.RequiredError('responseMode','Required parameter requestParameters.responseMode was null or undefined when calling authorizeAuth0.');
+        if (requestParameters['responseMode'] == null) {
+            throw new runtime.RequiredError(
+                'responseMode',
+                'Required parameter "responseMode" was null or undefined when calling authorizeAuth0().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.audience !== undefined) {
-            queryParameters['audience'] = requestParameters.audience;
+        if (requestParameters['audience'] != null) {
+            queryParameters['audience'] = requestParameters['audience'];
         }
 
-        if (requestParameters.scope) {
-            queryParameters['scope'] = requestParameters.scope.join(runtime.COLLECTION_FORMATS["ssv"]);
+        if (requestParameters['scope'] != null) {
+            queryParameters['scope'] = requestParameters['scope']!.join(runtime.COLLECTION_FORMATS["ssv"]);
         }
 
-        if (requestParameters.responseType !== undefined) {
-            queryParameters['response_type'] = requestParameters.responseType;
+        if (requestParameters['responseType'] != null) {
+            queryParameters['response_type'] = requestParameters['responseType'];
         }
 
-        if (requestParameters.clientId !== undefined) {
-            queryParameters['client_id'] = requestParameters.clientId;
+        if (requestParameters['clientId'] != null) {
+            queryParameters['client_id'] = requestParameters['clientId'];
         }
 
-        if (requestParameters.state !== undefined) {
-            queryParameters['state'] = requestParameters.state;
+        if (requestParameters['state'] != null) {
+            queryParameters['state'] = requestParameters['state'];
         }
 
-        if (requestParameters.redirectUri !== undefined) {
-            queryParameters['redirect_uri'] = requestParameters.redirectUri;
+        if (requestParameters['redirectUri'] != null) {
+            queryParameters['redirect_uri'] = requestParameters['redirectUri'];
         }
 
-        if (requestParameters.codeChallengeMethod !== undefined) {
-            queryParameters['code_challenge_method'] = requestParameters.codeChallengeMethod;
+        if (requestParameters['codeChallengeMethod'] != null) {
+            queryParameters['code_challenge_method'] = requestParameters['codeChallengeMethod'];
         }
 
-        if (requestParameters.codeChallenge !== undefined) {
-            queryParameters['code_challenge'] = requestParameters.codeChallenge;
+        if (requestParameters['codeChallenge'] != null) {
+            queryParameters['code_challenge'] = requestParameters['codeChallenge'];
         }
 
-        if (requestParameters.connection !== undefined) {
-            queryParameters['connection'] = requestParameters.connection;
+        if (requestParameters['connection'] != null) {
+            queryParameters['connection'] = requestParameters['connection'];
         }
 
-        if (requestParameters.prompt !== undefined) {
-            queryParameters['prompt'] = requestParameters.prompt;
+        if (requestParameters['prompt'] != null) {
+            queryParameters['prompt'] = requestParameters['prompt'];
         }
 
-        if (requestParameters.responseMode !== undefined) {
-            queryParameters['response_mode'] = requestParameters.responseMode;
+        if (requestParameters['responseMode'] != null) {
+            queryParameters['response_mode'] = requestParameters['responseMode'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/authorize`,
@@ -210,29 +239,48 @@ export class Auth0Api extends runtime.BaseAPI {
      * https://auth.pieces.services/oauth/token [POST]
      */
     async exchangeForAuth0TokenRaw(requestParameters: ExchangeForAuth0TokenRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<OAuthToken>> {
-        if (requestParameters.grantType === null || requestParameters.grantType === undefined) {
-            throw new runtime.RequiredError('grantType','Required parameter requestParameters.grantType was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['grantType'] == null) {
+            throw new runtime.RequiredError(
+                'grantType',
+                'Required parameter "grantType" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.clientId === null || requestParameters.clientId === undefined) {
-            throw new runtime.RequiredError('clientId','Required parameter requestParameters.clientId was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['clientId'] == null) {
+            throw new runtime.RequiredError(
+                'clientId',
+                'Required parameter "clientId" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.code === null || requestParameters.code === undefined) {
-            throw new runtime.RequiredError('code','Required parameter requestParameters.code was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['code'] == null) {
+            throw new runtime.RequiredError(
+                'code',
+                'Required parameter "code" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.redirectUri === null || requestParameters.redirectUri === undefined) {
-            throw new runtime.RequiredError('redirectUri','Required parameter requestParameters.redirectUri was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['redirectUri'] == null) {
+            throw new runtime.RequiredError(
+                'redirectUri',
+                'Required parameter "redirectUri" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
-        if (requestParameters.codeVerifier === null || requestParameters.codeVerifier === undefined) {
-            throw new runtime.RequiredError('codeVerifier','Required parameter requestParameters.codeVerifier was null or undefined when calling exchangeForAuth0Token.');
+        if (requestParameters['codeVerifier'] == null) {
+            throw new runtime.RequiredError(
+                'codeVerifier',
+                'Required parameter "codeVerifier" was null or undefined when calling exchangeForAuth0Token().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const consumes: runtime.Consume[] = [
             { contentType: 'application/x-www-form-urlencoded' },
@@ -248,32 +296,32 @@ export class Auth0Api extends runtime.BaseAPI {
             formParams = new URLSearchParams();
         }
 
-        if (requestParameters.schema !== undefined) {
-            formParams.append('schema', new Blob([JSON.stringify(EmbeddedModelSchemaToJSON(requestParameters.schema))], { type: "application/json", }));
+        if (requestParameters['schema'] != null) {
+            formParams.append('schema', new Blob([JSON.stringify(OAuthTokenToJSON(requestParameters['schema']))], { type: "application/json", }));
                     }
 
-        if (requestParameters.grantType !== undefined) {
-            formParams.append('grant_type', requestParameters.grantType as any);
+        if (requestParameters['grantType'] != null) {
+            formParams.append('grant_type', requestParameters['grantType'] as any);
         }
 
-        if (requestParameters.clientId !== undefined) {
-            formParams.append('client_id', requestParameters.clientId as any);
+        if (requestParameters['clientId'] != null) {
+            formParams.append('client_id', requestParameters['clientId'] as any);
         }
 
-        if (requestParameters.code !== undefined) {
-            formParams.append('code', requestParameters.code as any);
+        if (requestParameters['code'] != null) {
+            formParams.append('code', requestParameters['code'] as any);
         }
 
-        if (requestParameters.redirectUri !== undefined) {
-            formParams.append('redirect_uri', requestParameters.redirectUri as any);
+        if (requestParameters['redirectUri'] != null) {
+            formParams.append('redirect_uri', requestParameters['redirectUri'] as any);
         }
 
-        if (requestParameters.codeVerifier !== undefined) {
-            formParams.append('code_verifier', requestParameters.codeVerifier as any);
+        if (requestParameters['codeVerifier'] != null) {
+            formParams.append('code_verifier', requestParameters['codeVerifier'] as any);
         }
 
-        if (requestParameters.audience !== undefined) {
-            formParams.append('audience', requestParameters.audience as any);
+        if (requestParameters['audience'] != null) {
+            formParams.append('audience', requestParameters['audience'] as any);
         }
 
         const response = await this.request({
@@ -379,6 +427,7 @@ export type AuthorizeAuth0ResponseModeEnum = typeof AuthorizeAuth0ResponseModeEn
  * @export
  */
 export const ExchangeForAuth0TokenGrantTypeEnum = {
+    Unknown: 'UNKNOWN',
     RefreshToken: 'refresh_token',
     AuthorizationCode: 'authorization_code'
 } as const;

@@ -12,55 +12,112 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { FlattenedWorkstreamEvents } from './FlattenedWorkstreamEvents';
+import {
+    FlattenedWorkstreamEventsFromJSON,
+    FlattenedWorkstreamEventsFromJSONTyped,
+    FlattenedWorkstreamEventsToJSON,
+    FlattenedWorkstreamEventsToJSONTyped,
+} from './FlattenedWorkstreamEvents';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
+    FlattenedAnnotationsFromJSON,
+    FlattenedAnnotationsFromJSONTyped,
+    FlattenedAnnotationsToJSON,
+    FlattenedAnnotationsToJSONTyped,
+} from './FlattenedAnnotations';
+import type { FlattenedWorkstreamPatternEngineSourceWindows } from './FlattenedWorkstreamPatternEngineSourceWindows';
+import {
+    FlattenedWorkstreamPatternEngineSourceWindowsFromJSON,
+    FlattenedWorkstreamPatternEngineSourceWindowsFromJSONTyped,
+    FlattenedWorkstreamPatternEngineSourceWindowsToJSON,
+    FlattenedWorkstreamPatternEngineSourceWindowsToJSONTyped,
+} from './FlattenedWorkstreamPatternEngineSourceWindows';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { FlattenedAssets } from './FlattenedAssets';
-import {
-    FlattenedAssetsFromJSON,
-    FlattenedAssetsFromJSONTyped,
-    FlattenedAssetsToJSON,
-} from './FlattenedAssets';
-import type { FlattenedPersons } from './FlattenedPersons';
-import {
-    FlattenedPersonsFromJSON,
-    FlattenedPersonsFromJSONTyped,
-    FlattenedPersonsToJSON,
-} from './FlattenedPersons';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
-import type { MechanismEnum } from './MechanismEnum';
+import type { FlattenedWebsites } from './FlattenedWebsites';
 import {
-    MechanismEnumFromJSON,
-    MechanismEnumFromJSONTyped,
-    MechanismEnumToJSON,
-} from './MechanismEnum';
-import type { Relationship } from './Relationship';
+    FlattenedWebsitesFromJSON,
+    FlattenedWebsitesFromJSONTyped,
+    FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
+} from './FlattenedWebsites';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
 import {
-    RelationshipFromJSON,
-    RelationshipFromJSONTyped,
-    RelationshipToJSON,
-} from './Relationship';
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
+} from './FlattenedWorkstreamSummaries';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
+} from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
 import type { TagCategoryEnum } from './TagCategoryEnum';
 import {
     TagCategoryEnumFromJSON,
     TagCategoryEnumFromJSONTyped,
     TagCategoryEnumToJSON,
+    TagCategoryEnumToJSONTyped,
 } from './TagCategoryEnum';
+import type { Relationship } from './Relationship';
+import {
+    RelationshipFromJSON,
+    RelationshipFromJSONTyped,
+    RelationshipToJSON,
+    RelationshipToJSONTyped,
+} from './Relationship';
+import type { MechanismEnum } from './MechanismEnum';
+import {
+    MechanismEnumFromJSON,
+    MechanismEnumFromJSONTyped,
+    MechanismEnumToJSON,
+    MechanismEnumToJSONTyped,
+} from './MechanismEnum';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+    FlattenedPersonsToJSONTyped,
+} from './FlattenedPersons';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
 
 /**
  * This represents a fully polinated Tag, that is either attached to an asset or a format that adds additional information "tags" to describe itself.Helps improve Search and other contextual information that is useful for the user.
@@ -146,20 +203,69 @@ export interface Tag {
      * @memberof Tag
      */
     score?: Score;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof Tag
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+    /**
+     * 
+     * @type {FlattenedWorkstreamEvents}
+     * @memberof Tag
+     */
+    workstreamEvents?: FlattenedWorkstreamEvents;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof Tag
+     */
+    messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {FlattenedAnnotations}
+     * @memberof Tag
+     */
+    annotations?: FlattenedAnnotations;
+    /**
+     * This is the embedding for the format.(NEEDs to collectionection.vector) and specific here because we can only index on a single name
+     * NOTE: this the the vector index that corresponds the the couchbase lite index.
+     * @type {Array<number>}
+     * @memberof Tag
+     */
+    tagsVector?: Array<number>;
+    /**
+     * 
+     * @type {FlattenedWorkstreamPatternEngineSourceWindows}
+     * @memberof Tag
+     */
+    sourceWindows?: FlattenedWorkstreamPatternEngineSourceWindows;
+    /**
+     * 
+     * @type {FlattenedWebsites}
+     * @memberof Tag
+     */
+    websites?: FlattenedWebsites;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof Tag
+     */
+    anchors?: FlattenedAnchors;
 }
+
+
 
 /**
  * Check if a given object implements the Tag interface.
  */
-export function instanceOfTag(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "text" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "category" in value;
-
-    return isInstance;
+export function instanceOfTag(value: object): value is Tag {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('text' in value) || value['text'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('category' in value) || value['category'] === undefined) return false;
+    return true;
 }
 
 export function TagFromJSON(json: any): Tag {
@@ -167,49 +273,67 @@ export function TagFromJSON(json: any): Tag {
 }
 
 export function TagFromJSONTyped(json: any, ignoreDiscriminator: boolean): Tag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'text': json['text'],
-        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'mechanisms': json['mechanisms'] == null ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'category': TagCategoryEnumFromJSON(json['category']),
-        'relationship': !exists(json, 'relationship') ? undefined : RelationshipFromJSON(json['relationship']),
-        'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'relationship': json['relationship'] == null ? undefined : RelationshipFromJSON(json['relationship']),
+        'interactions': json['interactions'] == null ? undefined : json['interactions'],
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'workstreamEvents': json['workstream_events'] == null ? undefined : FlattenedWorkstreamEventsFromJSON(json['workstream_events']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'tagsVector': json['tagsVector'] == null ? undefined : json['tagsVector'],
+        'sourceWindows': json['source_windows'] == null ? undefined : FlattenedWorkstreamPatternEngineSourceWindowsFromJSON(json['source_windows']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
     };
 }
 
-export function TagToJSON(value?: Tag | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TagToJSON(json: any): Tag {
+    return TagToJSONTyped(json, false);
+}
+
+export function TagToJSONTyped(value?: Tag | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'text': value.text,
-        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'category': TagCategoryEnumToJSON(value.category),
-        'relationship': RelationshipToJSON(value.relationship),
-        'interactions': value.interactions,
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'text': value['text'],
+        'mechanisms': value['mechanisms'] == null ? undefined : (mapValues(value['mechanisms'], MechanismEnumToJSON)),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'category': TagCategoryEnumToJSON(value['category']),
+        'relationship': RelationshipToJSON(value['relationship']),
+        'interactions': value['interactions'],
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'score': ScoreToJSON(value['score']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'workstream_events': FlattenedWorkstreamEventsToJSON(value['workstreamEvents']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'tagsVector': value['tagsVector'],
+        'source_windows': FlattenedWorkstreamPatternEngineSourceWindowsToJSON(value['sourceWindows']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
     };
 }
 

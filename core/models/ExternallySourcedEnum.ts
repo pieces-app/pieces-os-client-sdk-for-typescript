@@ -18,6 +18,7 @@
  * @export
  */
 export const ExternallySourcedEnum = {
+    Unknown: 'UNKNOWN',
     Twitter: 'TWITTER',
     Medium: 'MEDIUM',
     LinkedIn: 'LINKED_IN',
@@ -34,6 +35,17 @@ export const ExternallySourcedEnum = {
 export type ExternallySourcedEnum = typeof ExternallySourcedEnum[keyof typeof ExternallySourcedEnum];
 
 
+export function instanceOfExternallySourcedEnum(value: any): boolean {
+    for (const key in ExternallySourcedEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternallySourcedEnum, key)) {
+            if (ExternallySourcedEnum[key as keyof typeof ExternallySourcedEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ExternallySourcedEnumFromJSON(json: any): ExternallySourcedEnum {
     return ExternallySourcedEnumFromJSONTyped(json, false);
 }
@@ -44,5 +56,9 @@ export function ExternallySourcedEnumFromJSONTyped(json: any, ignoreDiscriminato
 
 export function ExternallySourcedEnumToJSON(value?: ExternallySourcedEnum | null): any {
     return value as any;
+}
+
+export function ExternallySourcedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ExternallySourcedEnum {
+    return value as ExternallySourcedEnum;
 }
 

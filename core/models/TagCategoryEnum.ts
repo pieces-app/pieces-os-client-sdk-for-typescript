@@ -18,12 +18,23 @@
  * @export
  */
 export const TagCategoryEnum = {
+    Unknown: 'UNKNOWN',
     Handle: 'HANDLE',
-    Email: 'EMAIL',
-    Unknown: 'UNKNOWN'
+    Email: 'EMAIL'
 } as const;
 export type TagCategoryEnum = typeof TagCategoryEnum[keyof typeof TagCategoryEnum];
 
+
+export function instanceOfTagCategoryEnum(value: any): boolean {
+    for (const key in TagCategoryEnum) {
+        if (Object.prototype.hasOwnProperty.call(TagCategoryEnum, key)) {
+            if (TagCategoryEnum[key as keyof typeof TagCategoryEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function TagCategoryEnumFromJSON(json: any): TagCategoryEnum {
     return TagCategoryEnumFromJSONTyped(json, false);
@@ -35,5 +46,9 @@ export function TagCategoryEnumFromJSONTyped(json: any, ignoreDiscriminator: boo
 
 export function TagCategoryEnumToJSON(value?: TagCategoryEnum | null): any {
     return value as any;
+}
+
+export function TagCategoryEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TagCategoryEnum {
+    return value as TagCategoryEnum;
 }
 

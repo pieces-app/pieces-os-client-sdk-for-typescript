@@ -18,17 +18,28 @@
  * @export
  */
 export const QGPTStreamEnum = {
+    Unknown: 'UNKNOWN',
     Canceled: 'CANCELED',
     Initialized: 'INITIALIZED',
     InProgress: 'IN-PROGRESS',
     Completed: 'COMPLETED',
     Failed: 'FAILED',
-    Unknown: 'UNKNOWN',
     Stopped: 'STOPPED',
     Reset: 'RESET'
 } as const;
 export type QGPTStreamEnum = typeof QGPTStreamEnum[keyof typeof QGPTStreamEnum];
 
+
+export function instanceOfQGPTStreamEnum(value: any): boolean {
+    for (const key in QGPTStreamEnum) {
+        if (Object.prototype.hasOwnProperty.call(QGPTStreamEnum, key)) {
+            if (QGPTStreamEnum[key as keyof typeof QGPTStreamEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function QGPTStreamEnumFromJSON(json: any): QGPTStreamEnum {
     return QGPTStreamEnumFromJSONTyped(json, false);
@@ -40,5 +51,9 @@ export function QGPTStreamEnumFromJSONTyped(json: any, ignoreDiscriminator: bool
 
 export function QGPTStreamEnumToJSON(value?: QGPTStreamEnum | null): any {
     return value as any;
+}
+
+export function QGPTStreamEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): QGPTStreamEnum {
+    return value as QGPTStreamEnum;
 }
 

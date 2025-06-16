@@ -12,24 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
+import { mapValues } from '../runtime';
+import type { AppletServingHandlerType } from './AppletServingHandlerType';
 import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
+    AppletServingHandlerTypeFromJSON,
+    AppletServingHandlerTypeFromJSONTyped,
+    AppletServingHandlerTypeToJSON,
+    AppletServingHandlerTypeToJSONTyped,
+} from './AppletServingHandlerType';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+    ApplicationToJSONTyped,
+} from './Application';
 import type { OSAppletEnum } from './OSAppletEnum';
 import {
     OSAppletEnumFromJSON,
     OSAppletEnumFromJSONTyped,
     OSAppletEnumToJSON,
+    OSAppletEnumToJSONTyped,
 } from './OSAppletEnum';
 
 /**
@@ -62,16 +72,22 @@ export interface InactiveOSServerApplet {
      * @memberof InactiveOSServerApplet
      */
     type: OSAppletEnum;
+    /**
+     * 
+     * @type {AppletServingHandlerType}
+     * @memberof InactiveOSServerApplet
+     */
+    handler?: AppletServingHandlerType;
 }
+
+
 
 /**
  * Check if a given object implements the InactiveOSServerApplet interface.
  */
-export function instanceOfInactiveOSServerApplet(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfInactiveOSServerApplet(value: object): value is InactiveOSServerApplet {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function InactiveOSServerAppletFromJSON(json: any): InactiveOSServerApplet {
@@ -79,31 +95,35 @@ export function InactiveOSServerAppletFromJSON(json: any): InactiveOSServerApple
 }
 
 export function InactiveOSServerAppletFromJSONTyped(json: any, ignoreDiscriminator: boolean): InactiveOSServerApplet {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'parent': !exists(json, 'parent') ? undefined : ApplicationFromJSON(json['parent']),
-        'port': !exists(json, 'port') ? undefined : json['port'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'parent': json['parent'] == null ? undefined : ApplicationFromJSON(json['parent']),
+        'port': json['port'] == null ? undefined : json['port'],
         'type': OSAppletEnumFromJSON(json['type']),
+        'handler': json['handler'] == null ? undefined : AppletServingHandlerTypeFromJSON(json['handler']),
     };
 }
 
-export function InactiveOSServerAppletToJSON(value?: InactiveOSServerApplet | null): any {
-    if (value === undefined) {
-        return undefined;
+export function InactiveOSServerAppletToJSON(json: any): InactiveOSServerApplet {
+    return InactiveOSServerAppletToJSONTyped(json, false);
+}
+
+export function InactiveOSServerAppletToJSONTyped(value?: InactiveOSServerApplet | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'parent': ApplicationToJSON(value.parent),
-        'port': value.port,
-        'type': OSAppletEnumToJSON(value.type),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'parent': ApplicationToJSON(value['parent']),
+        'port': value['port'],
+        'type': OSAppletEnumToJSON(value['type']),
+        'handler': AppletServingHandlerTypeToJSON(value['handler']),
     };
 }
 

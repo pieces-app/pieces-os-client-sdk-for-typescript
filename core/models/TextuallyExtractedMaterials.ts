@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { TextuallyExtractedMaterial } from './TextuallyExtractedMaterial';
 import {
     TextuallyExtractedMaterialFromJSON,
     TextuallyExtractedMaterialFromJSONTyped,
     TextuallyExtractedMaterialToJSON,
+    TextuallyExtractedMaterialToJSONTyped,
 } from './TextuallyExtractedMaterial';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a plural of an Extraction
@@ -49,11 +51,9 @@ export interface TextuallyExtractedMaterials {
 /**
  * Check if a given object implements the TextuallyExtractedMaterials interface.
  */
-export function instanceOfTextuallyExtractedMaterials(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfTextuallyExtractedMaterials(value: object): value is TextuallyExtractedMaterials {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function TextuallyExtractedMaterialsFromJSON(json: any): TextuallyExtractedMaterials {
@@ -61,27 +61,29 @@ export function TextuallyExtractedMaterialsFromJSON(json: any): TextuallyExtract
 }
 
 export function TextuallyExtractedMaterialsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TextuallyExtractedMaterials {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(TextuallyExtractedMaterialFromJSON)),
     };
 }
 
-export function TextuallyExtractedMaterialsToJSON(value?: TextuallyExtractedMaterials | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TextuallyExtractedMaterialsToJSON(json: any): TextuallyExtractedMaterials {
+    return TextuallyExtractedMaterialsToJSONTyped(json, false);
+}
+
+export function TextuallyExtractedMaterialsToJSONTyped(value?: TextuallyExtractedMaterials | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(TextuallyExtractedMaterialToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(TextuallyExtractedMaterialToJSON)),
     };
 }
 

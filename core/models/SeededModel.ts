@@ -12,61 +12,70 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ByteDescriptor } from './ByteDescriptor';
+import { mapValues } from '../runtime';
+import type { ModelTypeEnum } from './ModelTypeEnum';
 import {
-    ByteDescriptorFromJSON,
-    ByteDescriptorFromJSONTyped,
-    ByteDescriptorToJSON,
-} from './ByteDescriptor';
+    ModelTypeEnumFromJSON,
+    ModelTypeEnumFromJSONTyped,
+    ModelTypeEnumToJSON,
+    ModelTypeEnumToJSONTyped,
+} from './ModelTypeEnum';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ExternalMLProviderEnum } from './ExternalMLProviderEnum';
 import {
     ExternalMLProviderEnumFromJSON,
     ExternalMLProviderEnumFromJSONTyped,
     ExternalMLProviderEnumToJSON,
+    ExternalMLProviderEnumToJSONTyped,
 } from './ExternalMLProviderEnum';
-import type { GroupedTimestamp } from './GroupedTimestamp';
+import type { ModelUsageEnum } from './ModelUsageEnum';
 import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
+    ModelUsageEnumFromJSON,
+    ModelUsageEnumFromJSONTyped,
+    ModelUsageEnumToJSON,
+    ModelUsageEnumToJSONTyped,
+} from './ModelUsageEnum';
+import type { ByteDescriptor } from './ByteDescriptor';
+import {
+    ByteDescriptorFromJSON,
+    ByteDescriptorFromJSONTyped,
+    ByteDescriptorToJSON,
+    ByteDescriptorToJSONTyped,
+} from './ByteDescriptor';
 import type { ModelCapabilities } from './ModelCapabilities';
 import {
     ModelCapabilitiesFromJSON,
     ModelCapabilitiesFromJSONTyped,
     ModelCapabilitiesToJSON,
+    ModelCapabilitiesToJSONTyped,
 } from './ModelCapabilities';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 import type { ModelFoundationEnum } from './ModelFoundationEnum';
 import {
     ModelFoundationEnumFromJSON,
     ModelFoundationEnumFromJSONTyped,
     ModelFoundationEnumToJSON,
+    ModelFoundationEnumToJSONTyped,
 } from './ModelFoundationEnum';
 import type { ModelMaxTokens } from './ModelMaxTokens';
 import {
     ModelMaxTokensFromJSON,
     ModelMaxTokensFromJSONTyped,
     ModelMaxTokensToJSON,
+    ModelMaxTokensToJSONTyped,
 } from './ModelMaxTokens';
-import type { ModelTypeEnum } from './ModelTypeEnum';
-import {
-    ModelTypeEnumFromJSON,
-    ModelTypeEnumFromJSONTyped,
-    ModelTypeEnumToJSON,
-} from './ModelTypeEnum';
-import type { ModelUsageEnum } from './ModelUsageEnum';
-import {
-    ModelUsageEnumFromJSON,
-    ModelUsageEnumFromJSONTyped,
-    ModelUsageEnumToJSON,
-} from './ModelUsageEnum';
 
 /**
  * This is Precursor to a Model.
@@ -199,19 +208,19 @@ export interface SeededModel {
     capabilities?: ModelCapabilities;
 }
 
+
+
 /**
  * Check if a given object implements the SeededModel interface.
  */
-export function instanceOfSeededModel(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "version" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "cloud" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "usage" in value;
-
-    return isInstance;
+export function instanceOfSeededModel(value: object): value is SeededModel {
+    if (!('version' in value) || value['version'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('cloud' in value) || value['cloud'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    if (!('usage' in value) || value['usage'] === undefined) return false;
+    return true;
 }
 
 export function SeededModelFromJSON(json: any): SeededModel {
@@ -219,63 +228,65 @@ export function SeededModelFromJSON(json: any): SeededModel {
 }
 
 export function SeededModelFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededModel {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'version': json['version'],
         'created': GroupedTimestampFromJSON(json['created']),
         'name': json['name'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
+        'description': json['description'] == null ? undefined : json['description'],
         'cloud': json['cloud'],
         'type': ModelTypeEnumFromJSON(json['type']),
         'usage': ModelUsageEnumFromJSON(json['usage']),
-        'bytes': !exists(json, 'bytes') ? undefined : ByteDescriptorFromJSON(json['bytes']),
-        'ram': !exists(json, 'ram') ? undefined : ByteDescriptorFromJSON(json['ram']),
-        'quantization': !exists(json, 'quantization') ? undefined : json['quantization'],
-        'foundation': !exists(json, 'foundation') ? undefined : ModelFoundationEnumFromJSON(json['foundation']),
-        'downloaded': !exists(json, 'downloaded') ? undefined : json['downloaded'],
-        'unique': !exists(json, 'unique') ? undefined : json['unique'],
-        'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
-        'provider': !exists(json, 'provider') ? undefined : ExternalMLProviderEnumFromJSON(json['provider']),
-        'cpu': !exists(json, 'cpu') ? undefined : json['cpu'],
-        'maxTokens': !exists(json, 'maxTokens') ? undefined : ModelMaxTokensFromJSON(json['maxTokens']),
-        'custom': !exists(json, 'custom') ? undefined : json['custom'],
-        'capabilities': !exists(json, 'capabilities') ? undefined : ModelCapabilitiesFromJSON(json['capabilities']),
+        'bytes': json['bytes'] == null ? undefined : ByteDescriptorFromJSON(json['bytes']),
+        'ram': json['ram'] == null ? undefined : ByteDescriptorFromJSON(json['ram']),
+        'quantization': json['quantization'] == null ? undefined : json['quantization'],
+        'foundation': json['foundation'] == null ? undefined : ModelFoundationEnumFromJSON(json['foundation']),
+        'downloaded': json['downloaded'] == null ? undefined : json['downloaded'],
+        'unique': json['unique'] == null ? undefined : json['unique'],
+        'parameters': json['parameters'] == null ? undefined : json['parameters'],
+        'provider': json['provider'] == null ? undefined : ExternalMLProviderEnumFromJSON(json['provider']),
+        'cpu': json['cpu'] == null ? undefined : json['cpu'],
+        'maxTokens': json['maxTokens'] == null ? undefined : ModelMaxTokensFromJSON(json['maxTokens']),
+        'custom': json['custom'] == null ? undefined : json['custom'],
+        'capabilities': json['capabilities'] == null ? undefined : ModelCapabilitiesFromJSON(json['capabilities']),
     };
 }
 
-export function SeededModelToJSON(value?: SeededModel | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededModelToJSON(json: any): SeededModel {
+    return SeededModelToJSONTyped(json, false);
+}
+
+export function SeededModelToJSONTyped(value?: SeededModel | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'version': value.version,
-        'created': GroupedTimestampToJSON(value.created),
-        'name': value.name,
-        'description': value.description,
-        'cloud': value.cloud,
-        'type': ModelTypeEnumToJSON(value.type),
-        'usage': ModelUsageEnumToJSON(value.usage),
-        'bytes': ByteDescriptorToJSON(value.bytes),
-        'ram': ByteDescriptorToJSON(value.ram),
-        'quantization': value.quantization,
-        'foundation': ModelFoundationEnumToJSON(value.foundation),
-        'downloaded': value.downloaded,
-        'unique': value.unique,
-        'parameters': value.parameters,
-        'provider': ExternalMLProviderEnumToJSON(value.provider),
-        'cpu': value.cpu,
-        'maxTokens': ModelMaxTokensToJSON(value.maxTokens),
-        'custom': value.custom,
-        'capabilities': ModelCapabilitiesToJSON(value.capabilities),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'version': value['version'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'name': value['name'],
+        'description': value['description'],
+        'cloud': value['cloud'],
+        'type': ModelTypeEnumToJSON(value['type']),
+        'usage': ModelUsageEnumToJSON(value['usage']),
+        'bytes': ByteDescriptorToJSON(value['bytes']),
+        'ram': ByteDescriptorToJSON(value['ram']),
+        'quantization': value['quantization'],
+        'foundation': ModelFoundationEnumToJSON(value['foundation']),
+        'downloaded': value['downloaded'],
+        'unique': value['unique'],
+        'parameters': value['parameters'],
+        'provider': ExternalMLProviderEnumToJSON(value['provider']),
+        'cpu': value['cpu'],
+        'maxTokens': ModelMaxTokensToJSON(value['maxTokens']),
+        'custom': value['custom'],
+        'capabilities': ModelCapabilitiesToJSON(value['capabilities']),
     };
 }
 

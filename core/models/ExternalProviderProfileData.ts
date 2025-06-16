@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * All of these will be optional.
  * 
@@ -254,10 +254,8 @@ export interface ExternalProviderProfileData {
 /**
  * Check if a given object implements the ExternalProviderProfileData interface.
  */
-export function instanceOfExternalProviderProfileData(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfExternalProviderProfileData(value: object): value is ExternalProviderProfileData {
+    return true;
 }
 
 export function ExternalProviderProfileDataFromJSON(json: any): ExternalProviderProfileData {
@@ -265,99 +263,101 @@ export function ExternalProviderProfileDataFromJSON(json: any): ExternalProvider
 }
 
 export function ExternalProviderProfileDataFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExternalProviderProfileData {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'picture': !exists(json, 'picture') ? undefined : json['picture'],
-        'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'emailVerified': !exists(json, 'email_verified') ? undefined : json['email_verified'],
-        'nodeId': !exists(json, 'node_id') ? undefined : json['node_id'],
-        'gravatarId': !exists(json, 'gravatar_id') ? undefined : json['gravatar_id'],
-        'url': !exists(json, 'url') ? undefined : json['url'],
-        'htmlUrl': !exists(json, 'html_url') ? undefined : json['html_url'],
-        'followersUrl': !exists(json, 'followers_url') ? undefined : json['followers_url'],
-        'followingUrl': !exists(json, 'following_url') ? undefined : json['following_url'],
-        'gistsUrl': !exists(json, 'gists_url') ? undefined : json['gists_url'],
-        'starredUrl': !exists(json, 'starred_url') ? undefined : json['starred_url'],
-        'subscriptionsUrl': !exists(json, 'subscriptions_url') ? undefined : json['subscriptions_url'],
-        'organizationsUrl': !exists(json, 'organizations_url') ? undefined : json['organizations_url'],
-        'reposUrl': !exists(json, 'repos_url') ? undefined : json['repos_url'],
-        'eventsUrl': !exists(json, 'events_url') ? undefined : json['events_url'],
-        'receivedEventsUrl': !exists(json, 'received_events_url') ? undefined : json['received_events_url'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
-        'siteAdmin': !exists(json, 'site_admin') ? undefined : json['site_admin'],
-        'company': !exists(json, 'company') ? undefined : json['company'],
-        'blog': !exists(json, 'blog') ? undefined : json['blog'],
-        'anchor': !exists(json, 'anchor') ? undefined : json['anchor'],
-        'hireable': !exists(json, 'hireable') ? undefined : json['hireable'],
-        'bio': !exists(json, 'bio') ? undefined : json['bio'],
-        'twitterUsername': !exists(json, 'twitter_username') ? undefined : json['twitter_username'],
-        'publicRepos': !exists(json, 'public_repos') ? undefined : json['public_repos'],
-        'publicGists': !exists(json, 'public_gists') ? undefined : json['public_gists'],
-        'followers': !exists(json, 'followers') ? undefined : json['followers'],
-        'following': !exists(json, 'following') ? undefined : json['following'],
-        'createdAt': !exists(json, 'created_at') ? undefined : json['created_at'],
-        'updatedAt': !exists(json, 'updated_at') ? undefined : json['updated_at'],
-        'privateGists': !exists(json, 'private_gists') ? undefined : json['private_gists'],
-        'totalPrivateRepos': !exists(json, 'total_private_repos') ? undefined : json['total_private_repos'],
-        'ownedPrivateRepos': !exists(json, 'owned_private_repos') ? undefined : json['owned_private_repos'],
-        'diskUsage': !exists(json, 'disk_usage') ? undefined : json['disk_usage'],
-        'collaborators': !exists(json, 'collaborators') ? undefined : json['collaborators'],
-        'twoFactorAuthentication': !exists(json, 'two_factor_authentication') ? undefined : json['two_factor_authentication'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'picture': json['picture'] == null ? undefined : json['picture'],
+        'nickname': json['nickname'] == null ? undefined : json['nickname'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'emailVerified': json['email_verified'] == null ? undefined : json['email_verified'],
+        'nodeId': json['node_id'] == null ? undefined : json['node_id'],
+        'gravatarId': json['gravatar_id'] == null ? undefined : json['gravatar_id'],
+        'url': json['url'] == null ? undefined : json['url'],
+        'htmlUrl': json['html_url'] == null ? undefined : json['html_url'],
+        'followersUrl': json['followers_url'] == null ? undefined : json['followers_url'],
+        'followingUrl': json['following_url'] == null ? undefined : json['following_url'],
+        'gistsUrl': json['gists_url'] == null ? undefined : json['gists_url'],
+        'starredUrl': json['starred_url'] == null ? undefined : json['starred_url'],
+        'subscriptionsUrl': json['subscriptions_url'] == null ? undefined : json['subscriptions_url'],
+        'organizationsUrl': json['organizations_url'] == null ? undefined : json['organizations_url'],
+        'reposUrl': json['repos_url'] == null ? undefined : json['repos_url'],
+        'eventsUrl': json['events_url'] == null ? undefined : json['events_url'],
+        'receivedEventsUrl': json['received_events_url'] == null ? undefined : json['received_events_url'],
+        'type': json['type'] == null ? undefined : json['type'],
+        'siteAdmin': json['site_admin'] == null ? undefined : json['site_admin'],
+        'company': json['company'] == null ? undefined : json['company'],
+        'blog': json['blog'] == null ? undefined : json['blog'],
+        'anchor': json['anchor'] == null ? undefined : json['anchor'],
+        'hireable': json['hireable'] == null ? undefined : json['hireable'],
+        'bio': json['bio'] == null ? undefined : json['bio'],
+        'twitterUsername': json['twitter_username'] == null ? undefined : json['twitter_username'],
+        'publicRepos': json['public_repos'] == null ? undefined : json['public_repos'],
+        'publicGists': json['public_gists'] == null ? undefined : json['public_gists'],
+        'followers': json['followers'] == null ? undefined : json['followers'],
+        'following': json['following'] == null ? undefined : json['following'],
+        'createdAt': json['created_at'] == null ? undefined : json['created_at'],
+        'updatedAt': json['updated_at'] == null ? undefined : json['updated_at'],
+        'privateGists': json['private_gists'] == null ? undefined : json['private_gists'],
+        'totalPrivateRepos': json['total_private_repos'] == null ? undefined : json['total_private_repos'],
+        'ownedPrivateRepos': json['owned_private_repos'] == null ? undefined : json['owned_private_repos'],
+        'diskUsage': json['disk_usage'] == null ? undefined : json['disk_usage'],
+        'collaborators': json['collaborators'] == null ? undefined : json['collaborators'],
+        'twoFactorAuthentication': json['two_factor_authentication'] == null ? undefined : json['two_factor_authentication'],
     };
 }
 
-export function ExternalProviderProfileDataToJSON(value?: ExternalProviderProfileData | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ExternalProviderProfileDataToJSON(json: any): ExternalProviderProfileData {
+    return ExternalProviderProfileDataToJSONTyped(json, false);
+}
+
+export function ExternalProviderProfileDataToJSONTyped(value?: ExternalProviderProfileData | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'picture': value.picture,
-        'nickname': value.nickname,
-        'email': value.email,
-        'email_verified': value.emailVerified,
-        'node_id': value.nodeId,
-        'gravatar_id': value.gravatarId,
-        'url': value.url,
-        'html_url': value.htmlUrl,
-        'followers_url': value.followersUrl,
-        'following_url': value.followingUrl,
-        'gists_url': value.gistsUrl,
-        'starred_url': value.starredUrl,
-        'subscriptions_url': value.subscriptionsUrl,
-        'organizations_url': value.organizationsUrl,
-        'repos_url': value.reposUrl,
-        'events_url': value.eventsUrl,
-        'received_events_url': value.receivedEventsUrl,
-        'type': value.type,
-        'site_admin': value.siteAdmin,
-        'company': value.company,
-        'blog': value.blog,
-        'anchor': value.anchor,
-        'hireable': value.hireable,
-        'bio': value.bio,
-        'twitter_username': value.twitterUsername,
-        'public_repos': value.publicRepos,
-        'public_gists': value.publicGists,
-        'followers': value.followers,
-        'following': value.following,
-        'created_at': value.createdAt,
-        'updated_at': value.updatedAt,
-        'private_gists': value.privateGists,
-        'total_private_repos': value.totalPrivateRepos,
-        'owned_private_repos': value.ownedPrivateRepos,
-        'disk_usage': value.diskUsage,
-        'collaborators': value.collaborators,
-        'two_factor_authentication': value.twoFactorAuthentication,
+        'name': value['name'],
+        'picture': value['picture'],
+        'nickname': value['nickname'],
+        'email': value['email'],
+        'email_verified': value['emailVerified'],
+        'node_id': value['nodeId'],
+        'gravatar_id': value['gravatarId'],
+        'url': value['url'],
+        'html_url': value['htmlUrl'],
+        'followers_url': value['followersUrl'],
+        'following_url': value['followingUrl'],
+        'gists_url': value['gistsUrl'],
+        'starred_url': value['starredUrl'],
+        'subscriptions_url': value['subscriptionsUrl'],
+        'organizations_url': value['organizationsUrl'],
+        'repos_url': value['reposUrl'],
+        'events_url': value['eventsUrl'],
+        'received_events_url': value['receivedEventsUrl'],
+        'type': value['type'],
+        'site_admin': value['siteAdmin'],
+        'company': value['company'],
+        'blog': value['blog'],
+        'anchor': value['anchor'],
+        'hireable': value['hireable'],
+        'bio': value['bio'],
+        'twitter_username': value['twitterUsername'],
+        'public_repos': value['publicRepos'],
+        'public_gists': value['publicGists'],
+        'followers': value['followers'],
+        'following': value['following'],
+        'created_at': value['createdAt'],
+        'updated_at': value['updatedAt'],
+        'private_gists': value['privateGists'],
+        'total_private_repos': value['totalPrivateRepos'],
+        'owned_private_repos': value['ownedPrivateRepos'],
+        'disk_usage': value['diskUsage'],
+        'collaborators': value['collaborators'],
+        'two_factor_authentication': value['twoFactorAuthentication'],
     };
 }
 

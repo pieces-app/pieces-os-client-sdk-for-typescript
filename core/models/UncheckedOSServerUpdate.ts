@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -37,10 +38,8 @@ export interface UncheckedOSServerUpdate {
 /**
  * Check if a given object implements the UncheckedOSServerUpdate interface.
  */
-export function instanceOfUncheckedOSServerUpdate(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfUncheckedOSServerUpdate(value: object): value is UncheckedOSServerUpdate {
+    return true;
 }
 
 export function UncheckedOSServerUpdateFromJSON(json: any): UncheckedOSServerUpdate {
@@ -48,25 +47,27 @@ export function UncheckedOSServerUpdateFromJSON(json: any): UncheckedOSServerUpd
 }
 
 export function UncheckedOSServerUpdateFromJSONTyped(json: any, ignoreDiscriminator: boolean): UncheckedOSServerUpdate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function UncheckedOSServerUpdateToJSON(value?: UncheckedOSServerUpdate | null): any {
-    if (value === undefined) {
-        return undefined;
+export function UncheckedOSServerUpdateToJSON(json: any): UncheckedOSServerUpdate {
+    return UncheckedOSServerUpdateToJSONTyped(json, false);
+}
+
+export function UncheckedOSServerUpdateToJSONTyped(value?: UncheckedOSServerUpdate | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 
