@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SeededPKCEADDITIONALPARAMETERS } from './SeededPKCEADDITIONALPARAMETERS';
 import {
     SeededPKCEADDITIONALPARAMETERSFromJSON,
     SeededPKCEADDITIONALPARAMETERSFromJSONTyped,
     SeededPKCEADDITIONALPARAMETERSToJSON,
+    SeededPKCEADDITIONALPARAMETERSToJSONTyped,
 } from './SeededPKCEADDITIONALPARAMETERS';
 
 /**
@@ -136,47 +138,290 @@ export interface SeededPKCE {
      */
     responseMode?: SeededPKCEResponseModeEnum;
 }
-
-
 /**
  * @export
  */
 export const SeededPKCEResponseTypeEnum = {
+    Unknown: 'UNKNOWN',
     Code: 'code',
     Token: 'token',
     IdToken: 'id_token'
 } as const;
 export type SeededPKCEResponseTypeEnum = typeof SeededPKCEResponseTypeEnum[keyof typeof SeededPKCEResponseTypeEnum];
 
+    export function instanceOfSeededPKCEResponseTypeEnum(value: any): boolean {
+        for (const key in SeededPKCEResponseTypeEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededPKCEResponseTypeEnum, key)) {
+                if (SeededPKCEResponseTypeEnum[key as keyof typeof SeededPKCEResponseTypeEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededPKCEResponseTypeEnumFromJSON(json: any): SeededPKCEResponseTypeEnum {
+        return SeededPKCEResponseTypeEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededPKCEResponseTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEResponseTypeEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseTypeEnum;
+        }
+
+        if (instanceOfSeededPKCEResponseTypeEnum(json)) {
+            return json as SeededPKCEResponseTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseTypeEnum;
+        }
+    }
+
+    export function SeededPKCEResponseTypeEnumToJSON(value?: SeededPKCEResponseTypeEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseTypeEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededPKCEResponseTypeEnum(value)) {
+            return value as SeededPKCEResponseTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseTypeEnum;
+        }
+    }
+
+    export function SeededPKCEResponseTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededPKCEResponseTypeEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseTypeEnum;
+        }
+        if (instanceOfSeededPKCEResponseTypeEnum(value)) {
+            return value as SeededPKCEResponseTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseTypeEnum;
+        }
+    }
+
 /**
  * @export
  */
 export const SeededPKCECodeChallengeMethodEnum = {
+    Unknown: 'UNKNOWN',
     S256: 'S256'
 } as const;
 export type SeededPKCECodeChallengeMethodEnum = typeof SeededPKCECodeChallengeMethodEnum[keyof typeof SeededPKCECodeChallengeMethodEnum];
+
+    export function instanceOfSeededPKCECodeChallengeMethodEnum(value: any): boolean {
+        for (const key in SeededPKCECodeChallengeMethodEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededPKCECodeChallengeMethodEnum, key)) {
+                if (SeededPKCECodeChallengeMethodEnum[key as keyof typeof SeededPKCECodeChallengeMethodEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededPKCECodeChallengeMethodEnumFromJSON(json: any): SeededPKCECodeChallengeMethodEnum {
+        return SeededPKCECodeChallengeMethodEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededPKCECodeChallengeMethodEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCECodeChallengeMethodEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCECodeChallengeMethodEnum;
+        }
+
+        if (instanceOfSeededPKCECodeChallengeMethodEnum(json)) {
+            return json as SeededPKCECodeChallengeMethodEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCECodeChallengeMethodEnum;
+        }
+    }
+
+    export function SeededPKCECodeChallengeMethodEnumToJSON(value?: SeededPKCECodeChallengeMethodEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCECodeChallengeMethodEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededPKCECodeChallengeMethodEnum(value)) {
+            return value as SeededPKCECodeChallengeMethodEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCECodeChallengeMethodEnum;
+        }
+    }
+
+    export function SeededPKCECodeChallengeMethodEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededPKCECodeChallengeMethodEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCECodeChallengeMethodEnum;
+        }
+        if (instanceOfSeededPKCECodeChallengeMethodEnum(value)) {
+            return value as SeededPKCECodeChallengeMethodEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCECodeChallengeMethodEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const SeededPKCEScreenHintEnum = {
+    Unknown: 'UNKNOWN',
     Signup: 'signup'
 } as const;
 export type SeededPKCEScreenHintEnum = typeof SeededPKCEScreenHintEnum[keyof typeof SeededPKCEScreenHintEnum];
+
+    export function instanceOfSeededPKCEScreenHintEnum(value: any): boolean {
+        for (const key in SeededPKCEScreenHintEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededPKCEScreenHintEnum, key)) {
+                if (SeededPKCEScreenHintEnum[key as keyof typeof SeededPKCEScreenHintEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededPKCEScreenHintEnumFromJSON(json: any): SeededPKCEScreenHintEnum {
+        return SeededPKCEScreenHintEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededPKCEScreenHintEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEScreenHintEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEScreenHintEnum;
+        }
+
+        if (instanceOfSeededPKCEScreenHintEnum(json)) {
+            return json as SeededPKCEScreenHintEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEScreenHintEnum;
+        }
+    }
+
+    export function SeededPKCEScreenHintEnumToJSON(value?: SeededPKCEScreenHintEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEScreenHintEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededPKCEScreenHintEnum(value)) {
+            return value as SeededPKCEScreenHintEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEScreenHintEnum;
+        }
+    }
+
+    export function SeededPKCEScreenHintEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededPKCEScreenHintEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEScreenHintEnum;
+        }
+        if (instanceOfSeededPKCEScreenHintEnum(value)) {
+            return value as SeededPKCEScreenHintEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEScreenHintEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const SeededPKCEPromptEnum = {
+    Unknown: 'UNKNOWN',
     Login: 'login',
     None: 'none'
 } as const;
 export type SeededPKCEPromptEnum = typeof SeededPKCEPromptEnum[keyof typeof SeededPKCEPromptEnum];
 
+    export function instanceOfSeededPKCEPromptEnum(value: any): boolean {
+        for (const key in SeededPKCEPromptEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededPKCEPromptEnum, key)) {
+                if (SeededPKCEPromptEnum[key as keyof typeof SeededPKCEPromptEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededPKCEPromptEnumFromJSON(json: any): SeededPKCEPromptEnum {
+        return SeededPKCEPromptEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededPKCEPromptEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEPromptEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEPromptEnum;
+        }
+
+        if (instanceOfSeededPKCEPromptEnum(json)) {
+            return json as SeededPKCEPromptEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEPromptEnum;
+        }
+    }
+
+    export function SeededPKCEPromptEnumToJSON(value?: SeededPKCEPromptEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEPromptEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededPKCEPromptEnum(value)) {
+            return value as SeededPKCEPromptEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEPromptEnum;
+        }
+    }
+
+    export function SeededPKCEPromptEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededPKCEPromptEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEPromptEnum;
+        }
+        if (instanceOfSeededPKCEPromptEnum(value)) {
+            return value as SeededPKCEPromptEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEPromptEnum;
+        }
+    }
+
 /**
  * @export
  */
 export const SeededPKCEScopeEnum = {
+    Unknown: 'UNKNOWN',
     OfflineAccess: 'offline_access',
     Email: 'email',
     Profile: 'profile',
@@ -188,6 +433,7 @@ export type SeededPKCEScopeEnum = typeof SeededPKCEScopeEnum[keyof typeof Seeded
  * @export
  */
 export const SeededPKCEResponseModeEnum = {
+    Unknown: 'UNKNOWN',
     FormPost: 'form_post',
     WebMessage: 'web_message',
     Fragment: 'fragment',
@@ -195,21 +441,80 @@ export const SeededPKCEResponseModeEnum = {
 } as const;
 export type SeededPKCEResponseModeEnum = typeof SeededPKCEResponseModeEnum[keyof typeof SeededPKCEResponseModeEnum];
 
+    export function instanceOfSeededPKCEResponseModeEnum(value: any): boolean {
+        for (const key in SeededPKCEResponseModeEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededPKCEResponseModeEnum, key)) {
+                if (SeededPKCEResponseModeEnum[key as keyof typeof SeededPKCEResponseModeEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededPKCEResponseModeEnumFromJSON(json: any): SeededPKCEResponseModeEnum {
+        return SeededPKCEResponseModeEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededPKCEResponseModeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEResponseModeEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseModeEnum;
+        }
+
+        if (instanceOfSeededPKCEResponseModeEnum(json)) {
+            return json as SeededPKCEResponseModeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseModeEnum;
+        }
+    }
+
+    export function SeededPKCEResponseModeEnumToJSON(value?: SeededPKCEResponseModeEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseModeEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededPKCEResponseModeEnum(value)) {
+            return value as SeededPKCEResponseModeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseModeEnum;
+        }
+    }
+
+    export function SeededPKCEResponseModeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededPKCEResponseModeEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseModeEnum;
+        }
+        if (instanceOfSeededPKCEResponseModeEnum(value)) {
+            return value as SeededPKCEResponseModeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEResponseModeEnum;
+        }
+    }
+
+
 
 /**
  * Check if a given object implements the SeededPKCE interface.
  */
-export function instanceOfSeededPKCE(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "responseType" in value;
-    isInstance = isInstance && "state" in value;
-    isInstance = isInstance && "nonce" in value;
-    isInstance = isInstance && "codeChallenge" in value;
-    isInstance = isInstance && "codeChallengeMethod" in value;
-    isInstance = isInstance && "scope" in value;
-    isInstance = isInstance && "clientId" in value;
-
-    return isInstance;
+export function instanceOfSeededPKCE(value: object): value is SeededPKCE {
+    if (!('responseType' in value) || value['responseType'] === undefined) return false;
+    if (!('state' in value) || value['state'] === undefined) return false;
+    if (!('nonce' in value) || value['nonce'] === undefined) return false;
+    if (!('codeChallenge' in value) || value['codeChallenge'] === undefined) return false;
+    if (!('codeChallengeMethod' in value) || value['codeChallengeMethod'] === undefined) return false;
+    if (!('scope' in value) || value['scope'] === undefined) return false;
+    if (!('clientId' in value) || value['clientId'] === undefined) return false;
+    return true;
 }
 
 export function SeededPKCEFromJSON(json: any): SeededPKCE {
@@ -217,57 +522,59 @@ export function SeededPKCEFromJSON(json: any): SeededPKCE {
 }
 
 export function SeededPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'responseType': json['response_type'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'responseType': SeededPKCEResponseTypeEnumFromJSON(json['response_type']),
         'state': json['state'],
         'nonce': json['nonce'],
-        'redirectUri': !exists(json, 'redirect_uri') ? undefined : json['redirect_uri'],
+        'redirectUri': json['redirect_uri'] == null ? undefined : json['redirect_uri'],
         'codeChallenge': json['code_challenge'],
-        'codeChallengeMethod': json['code_challenge_method'],
-        'domain': !exists(json, 'domain') ? undefined : json['domain'],
-        'audience': !exists(json, 'audience') ? undefined : json['audience'],
-        'screenHint': !exists(json, 'screen_hint') ? undefined : json['screen_hint'],
-        'prompt': !exists(json, 'prompt') ? undefined : json['prompt'],
-        'organization': !exists(json, 'organization') ? undefined : json['organization'],
-        'invitation': !exists(json, 'invitation') ? undefined : json['invitation'],
+        'codeChallengeMethod': SeededPKCECodeChallengeMethodEnumFromJSON(json['code_challenge_method']),
+        'domain': json['domain'] == null ? undefined : json['domain'],
+        'audience': json['audience'] == null ? undefined : json['audience'],
+        'screenHint': SeededPKCEScreenHintEnumFromJSON(json['screen_hint']),
+        'prompt': SeededPKCEPromptEnumFromJSON(json['prompt']),
+        'organization': json['organization'] == null ? undefined : json['organization'],
+        'invitation': json['invitation'] == null ? undefined : json['invitation'],
         'scope': json['scope'],
         'clientId': json['client_id'],
-        'aDDITIONALPARAMETERS': !exists(json, 'ADDITIONAL_PARAMETERS') ? undefined : SeededPKCEADDITIONALPARAMETERSFromJSON(json['ADDITIONAL_PARAMETERS']),
-        'responseMode': !exists(json, 'response_mode') ? undefined : json['response_mode'],
+        'aDDITIONALPARAMETERS': json['ADDITIONAL_PARAMETERS'] == null ? undefined : SeededPKCEADDITIONALPARAMETERSFromJSON(json['ADDITIONAL_PARAMETERS']),
+        'responseMode': SeededPKCEResponseModeEnumFromJSON(json['response_mode']),
     };
 }
 
-export function SeededPKCEToJSON(value?: SeededPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededPKCEToJSON(json: any): SeededPKCE {
+    return SeededPKCEToJSONTyped(json, false);
+}
+
+export function SeededPKCEToJSONTyped(value?: SeededPKCE | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'response_type': value.responseType,
-        'state': value.state,
-        'nonce': value.nonce,
-        'redirect_uri': value.redirectUri,
-        'code_challenge': value.codeChallenge,
-        'code_challenge_method': value.codeChallengeMethod,
-        'domain': value.domain,
-        'audience': value.audience,
-        'screen_hint': value.screenHint,
-        'prompt': value.prompt,
-        'organization': value.organization,
-        'invitation': value.invitation,
-        'scope': value.scope,
-        'client_id': value.clientId,
-        'ADDITIONAL_PARAMETERS': SeededPKCEADDITIONALPARAMETERSToJSON(value.aDDITIONALPARAMETERS),
-        'response_mode': value.responseMode,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'responseType': SeededPKCEResponseTypeEnumToJSON(value['response_type']),
+        'state': value['state'],
+        'nonce': value['nonce'],
+        'redirect_uri': value['redirectUri'],
+        'code_challenge': value['codeChallenge'],
+        'codeChallengeMethod': SeededPKCECodeChallengeMethodEnumToJSON(value['code_challenge_method']),
+        'domain': value['domain'],
+        'audience': value['audience'],
+        'screenHint': SeededPKCEScreenHintEnumToJSON(value['screen_hint']),
+        'prompt': SeededPKCEPromptEnumToJSON(value['prompt']),
+        'organization': value['organization'],
+        'invitation': value['invitation'],
+        'scope': value['scope'],
+        'client_id': value['clientId'],
+        'ADDITIONAL_PARAMETERS': SeededPKCEADDITIONALPARAMETERSToJSON(value['aDDITIONALPARAMETERS']),
+        'responseMode': SeededPKCEResponseModeEnumToJSON(value['response_mode']),
     };
 }
 

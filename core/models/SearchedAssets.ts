@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedAsset } from './SearchedAsset';
 import {
     SearchedAssetFromJSON,
     SearchedAssetFromJSONTyped,
     SearchedAssetToJSON,
+    SearchedAssetToJSONTyped,
 } from './SearchedAsset';
 
 /**
@@ -58,16 +60,15 @@ export interface SearchedAssets {
     exact: number;
 }
 
+
 /**
  * Check if a given object implements the SearchedAssets interface.
  */
-export function instanceOfSearchedAssets(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-    isInstance = isInstance && "suggested" in value;
-    isInstance = isInstance && "exact" in value;
-
-    return isInstance;
+export function instanceOfSearchedAssets(value: object): value is SearchedAssets {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    if (!('suggested' in value) || value['suggested'] === undefined) return false;
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    return true;
 }
 
 export function SearchedAssetsFromJSON(json: any): SearchedAssets {
@@ -75,31 +76,33 @@ export function SearchedAssetsFromJSON(json: any): SearchedAssets {
 }
 
 export function SearchedAssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedAssets {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedAssetFromJSON)),
         'suggested': json['suggested'],
         'exact': json['exact'],
     };
 }
 
-export function SearchedAssetsToJSON(value?: SearchedAssets | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedAssetsToJSON(json: any): SearchedAssets {
+    return SearchedAssetsToJSONTyped(json, false);
+}
+
+export function SearchedAssetsToJSONTyped(value?: SearchedAssets | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedAssetToJSON)),
-        'suggested': value.suggested,
-        'exact': value.exact,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedAssetToJSON)),
+        'suggested': value['suggested'],
+        'exact': value['exact'],
     };
 }
 

@@ -18,6 +18,7 @@
  * @export
  */
 export const AnnotationTypeEnum = {
+    Unknown: 'UNKNOWN',
     Description: 'DESCRIPTION',
     Comment: 'COMMENT',
     Documentation: 'DOCUMENTATION',
@@ -28,15 +29,62 @@ export const AnnotationTypeEnum = {
 export type AnnotationTypeEnum = typeof AnnotationTypeEnum[keyof typeof AnnotationTypeEnum];
 
 
+export function instanceOfAnnotationTypeEnum(value: any): boolean {
+    for (const key in AnnotationTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(AnnotationTypeEnum, key)) {
+            if (AnnotationTypeEnum[key as keyof typeof AnnotationTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function AnnotationTypeEnumFromJSON(json: any): AnnotationTypeEnum {
     return AnnotationTypeEnumFromJSONTyped(json, false);
 }
 
 export function AnnotationTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnnotationTypeEnum {
-    return json as AnnotationTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnnotationTypeEnum;
+    }
+
+    if (instanceOfAnnotationTypeEnum(json)) {
+        return json as AnnotationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnnotationTypeEnum;
+    }
 }
 
 export function AnnotationTypeEnumToJSON(value?: AnnotationTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnnotationTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfAnnotationTypeEnum(value)) {
+        return value as AnnotationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnnotationTypeEnum;
+    }
 }
 
+export function AnnotationTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AnnotationTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnnotationTypeEnum;
+    }
+    if (instanceOfAnnotationTypeEnum(value)) {
+        return value as AnnotationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnnotationTypeEnum;
+    }
+}

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -75,72 +76,496 @@ export interface TrackedConversationEventIdentifierDescriptionPairs {
      */
     conversationSummaryAnnotationGeneratedByTheSystem?: TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
 }
-
-
 /**
  * @export
  */
 export const TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum = {
+    Unknown: 'UNKNOWN',
     AConversationWasCreated: 'a_conversation_was_created'
 } as const;
 export type TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum];
+
+    export function instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum(value: any): boolean {
+        for (const key in TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum, key)) {
+                if (TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum[key as keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnumFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum {
+        return TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum(json)) {
+            return json as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnumToJSON(value?: TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum = {
+    Unknown: 'UNKNOWN',
     AConversationWasReferencedByTheUser: 'a_conversation_was_referenced_by_the_user'
 } as const;
 export type TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum];
+
+    export function instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum(value: any): boolean {
+        for (const key in TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum, key)) {
+                if (TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum[key as keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnumFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum {
+        return TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum(json)) {
+            return json as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnumToJSON(value?: TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum = {
+    Unknown: 'UNKNOWN',
     AConversationWasDeleted: 'a_conversation_was_deleted'
 } as const;
 export type TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum];
+
+    export function instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum(value: any): boolean {
+        for (const key in TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum, key)) {
+                if (TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum[key as keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnumFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum {
+        return TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum(json)) {
+            return json as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnumToJSON(value?: TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum = {
+    Unknown: 'UNKNOWN',
     AConversationSummaryAnnotationWasGeneratedByTheUser: 'a_conversation_summary_annotation_was_generated_by_the_user'
 } as const;
 export type TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum];
+
+    export function instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum(value: any): boolean {
+        for (const key in TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum, key)) {
+                if (TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum[key as keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnumFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum {
+        return TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum(json)) {
+            return json as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnumToJSON(value?: TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum = {
+    Unknown: 'UNKNOWN',
     AConversationWasRenamedByTheSystem: 'a_conversation_was_renamed_by_the_system'
 } as const;
 export type TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum];
+
+    export function instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum(value: any): boolean {
+        for (const key in TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum, key)) {
+                if (TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum[key as keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnumFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum {
+        return TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum(json)) {
+            return json as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnumToJSON(value?: TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum = {
+    Unknown: 'UNKNOWN',
     AConversationWasRenamedByTheUser: 'a_conversation_was_renamed_by_the_user'
 } as const;
 export type TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum];
+
+    export function instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum(value: any): boolean {
+        for (const key in TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum, key)) {
+                if (TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum[key as keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnumFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum {
+        return TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum(json)) {
+            return json as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnumToJSON(value?: TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum = {
+    Unknown: 'UNKNOWN',
     AConversationSummaryAnnotationWasGeneratedByTheSystem: 'a_conversation_summary_annotation_was_generated_by_the_system'
 } as const;
 export type TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum = typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum[keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum];
+
+    export function instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum(value: any): boolean {
+        for (const key in TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum, key)) {
+                if (TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum[key as keyof typeof TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnumFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum {
+        return TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum(json)) {
+            return json as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnumToJSON(value?: TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+    }
+
+    export function TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+        if (instanceOfTrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum(value)) {
+            return value as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the TrackedConversationEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfTrackedConversationEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedConversationEventIdentifierDescriptionPairs(value: object): value is TrackedConversationEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function TrackedConversationEventIdentifierDescriptionPairsFromJSON(json: any): TrackedConversationEventIdentifierDescriptionPairs {
@@ -148,39 +573,41 @@ export function TrackedConversationEventIdentifierDescriptionPairsFromJSON(json:
 }
 
 export function TrackedConversationEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'conversationCreated': !exists(json, 'conversation_created') ? undefined : json['conversation_created'],
-        'conversationReferenced': !exists(json, 'conversation_referenced') ? undefined : json['conversation_referenced'],
-        'conversationDeleted': !exists(json, 'conversation_deleted') ? undefined : json['conversation_deleted'],
-        'conversationSummaryAnnotationGeneratedByTheUser': !exists(json, 'conversation_summary_annotation_generated_by_the_user') ? undefined : json['conversation_summary_annotation_generated_by_the_user'],
-        'conversationNameUpdatedByTheSystem': !exists(json, 'conversation_name_updated_by_the_system') ? undefined : json['conversation_name_updated_by_the_system'],
-        'conversationNameUpdatedByTheUser': !exists(json, 'conversation_name_updated_by_the_user') ? undefined : json['conversation_name_updated_by_the_user'],
-        'conversationSummaryAnnotationGeneratedByTheSystem': !exists(json, 'conversation_summary_annotation_generated_by_the_system') ? undefined : json['conversation_summary_annotation_generated_by_the_system'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'conversationCreated': TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnumFromJSON(json['conversation_created']),
+        'conversationReferenced': TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnumFromJSON(json['conversation_referenced']),
+        'conversationDeleted': TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnumFromJSON(json['conversation_deleted']),
+        'conversationSummaryAnnotationGeneratedByTheUser': TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnumFromJSON(json['conversation_summary_annotation_generated_by_the_user']),
+        'conversationNameUpdatedByTheSystem': TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnumFromJSON(json['conversation_name_updated_by_the_system']),
+        'conversationNameUpdatedByTheUser': TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnumFromJSON(json['conversation_name_updated_by_the_user']),
+        'conversationSummaryAnnotationGeneratedByTheSystem': TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnumFromJSON(json['conversation_summary_annotation_generated_by_the_system']),
     };
 }
 
-export function TrackedConversationEventIdentifierDescriptionPairsToJSON(value?: TrackedConversationEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedConversationEventIdentifierDescriptionPairsToJSON(json: any): TrackedConversationEventIdentifierDescriptionPairs {
+    return TrackedConversationEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function TrackedConversationEventIdentifierDescriptionPairsToJSONTyped(value?: TrackedConversationEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'conversation_created': value.conversationCreated,
-        'conversation_referenced': value.conversationReferenced,
-        'conversation_deleted': value.conversationDeleted,
-        'conversation_summary_annotation_generated_by_the_user': value.conversationSummaryAnnotationGeneratedByTheUser,
-        'conversation_name_updated_by_the_system': value.conversationNameUpdatedByTheSystem,
-        'conversation_name_updated_by_the_user': value.conversationNameUpdatedByTheUser,
-        'conversation_summary_annotation_generated_by_the_system': value.conversationSummaryAnnotationGeneratedByTheSystem,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'conversationCreated': TrackedConversationEventIdentifierDescriptionPairsConversationCreatedEnumToJSON(value['conversation_created']),
+        'conversationReferenced': TrackedConversationEventIdentifierDescriptionPairsConversationReferencedEnumToJSON(value['conversation_referenced']),
+        'conversationDeleted': TrackedConversationEventIdentifierDescriptionPairsConversationDeletedEnumToJSON(value['conversation_deleted']),
+        'conversationSummaryAnnotationGeneratedByTheUser': TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheUserEnumToJSON(value['conversation_summary_annotation_generated_by_the_user']),
+        'conversationNameUpdatedByTheSystem': TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheSystemEnumToJSON(value['conversation_name_updated_by_the_system']),
+        'conversationNameUpdatedByTheUser': TrackedConversationEventIdentifierDescriptionPairsConversationNameUpdatedByTheUserEnumToJSON(value['conversation_name_updated_by_the_user']),
+        'conversationSummaryAnnotationGeneratedByTheSystem': TrackedConversationEventIdentifierDescriptionPairsConversationSummaryAnnotationGeneratedByTheSystemEnumToJSON(value['conversation_summary_annotation_generated_by_the_system']),
     };
 }
 

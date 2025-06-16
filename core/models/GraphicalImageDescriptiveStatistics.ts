@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -76,19 +77,18 @@ export interface GraphicalImageDescriptiveStatistics {
     os: string;
 }
 
+
 /**
  * Check if a given object implements the GraphicalImageDescriptiveStatistics interface.
  */
-export function instanceOfGraphicalImageDescriptiveStatistics(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "width" in value;
-    isInstance = isInstance && "height" in value;
-    isInstance = isInstance && "channels" in value;
-    isInstance = isInstance && "asset" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "os" in value;
-
-    return isInstance;
+export function instanceOfGraphicalImageDescriptiveStatistics(value: object): value is GraphicalImageDescriptiveStatistics {
+    if (!('width' in value) || value['width'] === undefined) return false;
+    if (!('height' in value) || value['height'] === undefined) return false;
+    if (!('channels' in value) || value['channels'] === undefined) return false;
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('os' in value) || value['os'] === undefined) return false;
+    return true;
 }
 
 export function GraphicalImageDescriptiveStatisticsFromJSON(json: any): GraphicalImageDescriptiveStatistics {
@@ -96,39 +96,41 @@ export function GraphicalImageDescriptiveStatisticsFromJSON(json: any): Graphica
 }
 
 export function GraphicalImageDescriptiveStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalImageDescriptiveStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'width': json['width'],
         'height': json['height'],
         'channels': json['channels'],
         'asset': json['asset'],
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'user': json['user'] == null ? undefined : json['user'],
         'created': json['created'],
         'os': json['os'],
     };
 }
 
-export function GraphicalImageDescriptiveStatisticsToJSON(value?: GraphicalImageDescriptiveStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
+export function GraphicalImageDescriptiveStatisticsToJSON(json: any): GraphicalImageDescriptiveStatistics {
+    return GraphicalImageDescriptiveStatisticsToJSONTyped(json, false);
+}
+
+export function GraphicalImageDescriptiveStatisticsToJSONTyped(value?: GraphicalImageDescriptiveStatistics | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'width': value.width,
-        'height': value.height,
-        'channels': value.channels,
-        'asset': value.asset,
-        'user': value.user,
-        'created': value.created,
-        'os': value.os,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'width': value['width'],
+        'height': value['height'],
+        'channels': value['channels'],
+        'asset': value['asset'],
+        'user': value['user'],
+        'created': value['created'],
+        'os': value['os'],
     };
 }
 

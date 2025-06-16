@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -43,16 +44,45 @@ export interface OSDeviceCPUHardwareInformation {
      * @type {number}
      * @memberof OSDeviceCPUHardwareInformation
      */
-    memory?: number;
+    l1Cache?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OSDeviceCPUHardwareInformation
+     */
+    l2Cache?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OSDeviceCPUHardwareInformation
+     */
+    l3Cache?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OSDeviceCPUHardwareInformation
+     */
+    sharedMemory?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof OSDeviceCPUHardwareInformation
+     */
+    cores?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof OSDeviceCPUHardwareInformation
+     */
+    clockCycleSpeed?: number;
 }
+
 
 /**
  * Check if a given object implements the OSDeviceCPUHardwareInformation interface.
  */
-export function instanceOfOSDeviceCPUHardwareInformation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOSDeviceCPUHardwareInformation(value: object): value is OSDeviceCPUHardwareInformation {
+    return true;
 }
 
 export function OSDeviceCPUHardwareInformationFromJSON(json: any): OSDeviceCPUHardwareInformation {
@@ -60,29 +90,41 @@ export function OSDeviceCPUHardwareInformationFromJSON(json: any): OSDeviceCPUHa
 }
 
 export function OSDeviceCPUHardwareInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceCPUHardwareInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'memory': !exists(json, 'memory') ? undefined : json['memory'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'l1Cache': json['l1_cache'] == null ? undefined : json['l1_cache'],
+        'l2Cache': json['l2_cache'] == null ? undefined : json['l2_cache'],
+        'l3Cache': json['l3_cache'] == null ? undefined : json['l3_cache'],
+        'sharedMemory': json['shared_memory'] == null ? undefined : json['shared_memory'],
+        'cores': json['cores'] == null ? undefined : json['cores'],
+        'clockCycleSpeed': json['clock_cycle_speed'] == null ? undefined : json['clock_cycle_speed'],
     };
 }
 
-export function OSDeviceCPUHardwareInformationToJSON(value?: OSDeviceCPUHardwareInformation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSDeviceCPUHardwareInformationToJSON(json: any): OSDeviceCPUHardwareInformation {
+    return OSDeviceCPUHardwareInformationToJSONTyped(json, false);
+}
+
+export function OSDeviceCPUHardwareInformationToJSONTyped(value?: OSDeviceCPUHardwareInformation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
-        'memory': value.memory,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'l1_cache': value['l1Cache'],
+        'l2_cache': value['l2Cache'],
+        'l3_cache': value['l3Cache'],
+        'shared_memory': value['sharedMemory'],
+        'cores': value['cores'],
+        'clock_cycle_speed': value['clockCycleSpeed'],
     };
 }
 

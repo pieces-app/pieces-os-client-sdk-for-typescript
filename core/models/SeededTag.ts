@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { TagCategoryEnum } from './TagCategoryEnum';
+import {
+    TagCategoryEnumFromJSON,
+    TagCategoryEnumFromJSONTyped,
+    TagCategoryEnumToJSON,
+    TagCategoryEnumToJSONTyped,
+} from './TagCategoryEnum';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { MechanismEnum } from './MechanismEnum';
 import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
+    MechanismEnumToJSONTyped,
 } from './MechanismEnum';
-import type { TagCategoryEnum } from './TagCategoryEnum';
-import {
-    TagCategoryEnumFromJSON,
-    TagCategoryEnumFromJSONTyped,
-    TagCategoryEnumToJSON,
-} from './TagCategoryEnum';
 
 /**
  * This is the minimum information needed when creating a Tag.
@@ -80,16 +83,22 @@ export interface SeededTag {
      * @memberof SeededTag
      */
     person?: string;
+    /**
+     * This is the embedding for the format.(NEEDs to collectionection.vector) and specific here because we can only index on a single name
+     * NOTE: this the the vector index that corresponds the the couchbase lite index.
+     * @type {Array<number>}
+     * @memberof SeededTag
+     */
+    tagsVector?: Array<number>;
 }
+
 
 /**
  * Check if a given object implements the SeededTag interface.
  */
-export function instanceOfSeededTag(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "text" in value;
-
-    return isInstance;
+export function instanceOfSeededTag(value: object): value is SeededTag {
+    if (!('text' in value) || value['text'] === undefined) return false;
+    return true;
 }
 
 export function SeededTagFromJSON(json: any): SeededTag {
@@ -97,35 +106,39 @@ export function SeededTagFromJSON(json: any): SeededTag {
 }
 
 export function SeededTagFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTag {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'category': !exists(json, 'category') ? undefined : TagCategoryEnumFromJSON(json['category']),
-        'person': !exists(json, 'person') ? undefined : json['person'],
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'mechanism': MechanismEnumFromJSON(json['mechanism']),
+        'category': TagCategoryEnumFromJSON(json['category']),
+        'person': json['person'] == null ? undefined : json['person'],
+        'tagsVector': json['tagsVector'] == null ? undefined : json['tagsVector'],
     };
 }
 
-export function SeededTagToJSON(value?: SeededTag | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededTagToJSON(json: any): SeededTag {
+    return SeededTagToJSONTyped(json, false);
+}
+
+export function SeededTagToJSONTyped(value?: SeededTag | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'text': value.text,
-        'asset': value.asset,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'category': TagCategoryEnumToJSON(value.category),
-        'person': value.person,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'text': value['text'],
+        'asset': value['asset'],
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'category': TagCategoryEnumToJSON(value['category']),
+        'person': value['person'],
+        'tagsVector': value['tagsVector'],
     };
 }
 

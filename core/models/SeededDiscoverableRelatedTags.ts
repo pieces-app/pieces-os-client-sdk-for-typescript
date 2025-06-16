@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededDiscoverableRelatedTag } from './SeededDiscoverableRelatedTag';
 import {
     SeededDiscoverableRelatedTagFromJSON,
     SeededDiscoverableRelatedTagFromJSONTyped,
     SeededDiscoverableRelatedTagToJSON,
+    SeededDiscoverableRelatedTagToJSONTyped,
 } from './SeededDiscoverableRelatedTag';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -52,15 +54,14 @@ export interface SeededDiscoverableRelatedTags {
     application: string;
 }
 
+
 /**
  * Check if a given object implements the SeededDiscoverableRelatedTags interface.
  */
-export function instanceOfSeededDiscoverableRelatedTags(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-    isInstance = isInstance && "application" in value;
-
-    return isInstance;
+export function instanceOfSeededDiscoverableRelatedTags(value: object): value is SeededDiscoverableRelatedTags {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    if (!('application' in value) || value['application'] === undefined) return false;
+    return true;
 }
 
 export function SeededDiscoverableRelatedTagsFromJSON(json: any): SeededDiscoverableRelatedTags {
@@ -68,29 +69,31 @@ export function SeededDiscoverableRelatedTagsFromJSON(json: any): SeededDiscover
 }
 
 export function SeededDiscoverableRelatedTagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableRelatedTags {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SeededDiscoverableRelatedTagFromJSON)),
         'application': json['application'],
     };
 }
 
-export function SeededDiscoverableRelatedTagsToJSON(value?: SeededDiscoverableRelatedTags | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededDiscoverableRelatedTagsToJSON(json: any): SeededDiscoverableRelatedTags {
+    return SeededDiscoverableRelatedTagsToJSONTyped(json, false);
+}
+
+export function SeededDiscoverableRelatedTagsToJSONTyped(value?: SeededDiscoverableRelatedTags | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SeededDiscoverableRelatedTagToJSON)),
-        'application': value.application,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededDiscoverableRelatedTagToJSON)),
+        'application': value['application'],
     };
 }
 

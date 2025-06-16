@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,13 +41,12 @@ export interface TLPCodeRepositoryAnalytics {
     id?: string;
 }
 
+
 /**
  * Check if a given object implements the TLPCodeRepositoryAnalytics interface.
  */
-export function instanceOfTLPCodeRepositoryAnalytics(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTLPCodeRepositoryAnalytics(value: object): value is TLPCodeRepositoryAnalytics {
+    return true;
 }
 
 export function TLPCodeRepositoryAnalyticsFromJSON(json: any): TLPCodeRepositoryAnalytics {
@@ -54,27 +54,29 @@ export function TLPCodeRepositoryAnalyticsFromJSON(json: any): TLPCodeRepository
 }
 
 export function TLPCodeRepositoryAnalyticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeRepositoryAnalytics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'id': !exists(json, 'id') ? undefined : json['id'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'id': json['id'] == null ? undefined : json['id'],
     };
 }
 
-export function TLPCodeRepositoryAnalyticsToJSON(value?: TLPCodeRepositoryAnalytics | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TLPCodeRepositoryAnalyticsToJSON(json: any): TLPCodeRepositoryAnalytics {
+    return TLPCodeRepositoryAnalyticsToJSONTyped(json, false);
+}
+
+export function TLPCodeRepositoryAnalyticsToJSONTyped(value?: TLPCodeRepositoryAnalytics | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
     };
 }
 

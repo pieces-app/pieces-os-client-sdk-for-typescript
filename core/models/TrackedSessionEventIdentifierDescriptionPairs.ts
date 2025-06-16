@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -105,112 +106,841 @@ export interface TrackedSessionEventIdentifierDescriptionPairs {
      */
     sessionOnboardingCompleted?: TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
 }
-
-
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum = {
+    Unknown: 'UNKNOWN',
     ASessionHasBeenInitializedAndTheApplicationHasBeenOpened: 'a_session_has_been_initialized_and_the_application_has_been_opened'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum = {
+    Unknown: 'UNKNOWN',
     OneOrMoreApplicationsHasSuccessfullyConnected: 'one_or_more_applications_has_successfully_connected'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum = {
+    Unknown: 'UNKNOWN',
     OneOrMoreApplicationsHasFailedToConnectLocally: 'one_or_more_applications_has_failed_to_connect_locally'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum = {
+    Unknown: 'UNKNOWN',
     ASessionIsInactiveBecauseTheApplicationIsNotInTheForeground: 'a_session_is_inactive_because_the_application_is_not_in_the_foreground'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum = {
+    Unknown: 'UNKNOWN',
     ASessionIsActiveBecauseTheApplicationIsInTheForeground: 'a_session_is_active_because_the_application_is_in_the_foreground'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum = {
+    Unknown: 'UNKNOWN',
     ASessionHasBeenEndedAndTheApplicationHasBeenClosed: 'a_session_has_been_ended_and_the_application_has_been_closed'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum = {
+    Unknown: 'UNKNOWN',
     AUserHasSignedIntoThisSessionWithAAnExternalAccount: 'a_user_has_signed_into_this_session_with_a_an_external_account'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum = {
+    Unknown: 'UNKNOWN',
     AUserHasSignedOutOfThisSession: 'a_user_has_signed_out_of_this_session'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum = {
+    Unknown: 'UNKNOWN',
     AUserDidNotSignIntoTheSessionWithADismissal: 'a_user_did_not_sign_into_the_session_with_a_dismissal'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum = {
+    Unknown: 'UNKNOWN',
     AUserDidNotSignIntoTheSessionWithAReminder: 'a_user_did_not_sign_into_the_session_with_a_reminder'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum = {
+    Unknown: 'UNKNOWN',
     OnboardingHasBeenInitializedForThisSession: 'onboarding_has_been_initialized_for_this_session'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum = {
+    Unknown: 'UNKNOWN',
     OnboardingHasBeenCompletedForThisSession: 'onboarding_has_been_completed_for_this_session'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum];
+
+    export function instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum(value: any): boolean {
+        for (const key in TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum, key)) {
+                if (TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum[key as keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnumFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum {
+        return TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum(json)) {
+            return json as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnumToJSON(value?: TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+    }
+
+    export function TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+        if (instanceOfTrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum(value)) {
+            return value as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the TrackedSessionEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfTrackedSessionEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedSessionEventIdentifierDescriptionPairs(value: object): value is TrackedSessionEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function TrackedSessionEventIdentifierDescriptionPairsFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairs {
@@ -218,49 +948,51 @@ export function TrackedSessionEventIdentifierDescriptionPairsFromJSON(json: any)
 }
 
 export function TrackedSessionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'sessionInitialized': !exists(json, 'session_initialized') ? undefined : json['session_initialized'],
-        'sessionLocalConnectionSucceeded': !exists(json, 'session_local_connection_succeeded') ? undefined : json['session_local_connection_succeeded'],
-        'sessionLocalConnectionFailed': !exists(json, 'session_local_connection_failed') ? undefined : json['session_local_connection_failed'],
-        'sessionInactive': !exists(json, 'session_inactive') ? undefined : json['session_inactive'],
-        'sessionActive': !exists(json, 'session_active') ? undefined : json['session_active'],
-        'sessionTerminated': !exists(json, 'session_terminated') ? undefined : json['session_terminated'],
-        'sessionAuthenticatedWithSignIn': !exists(json, 'session_authenticated_with_sign_in') ? undefined : json['session_authenticated_with_sign_in'],
-        'sessionUnauthenticatedWithSignOut': !exists(json, 'session_unauthenticated_with_sign_out') ? undefined : json['session_unauthenticated_with_sign_out'],
-        'sessionUnauthenticatedWithDismiss': !exists(json, 'session_unauthenticated_with_dismiss') ? undefined : json['session_unauthenticated_with_dismiss'],
-        'sessionUnauthenticatedWithRemind': !exists(json, 'session_unauthenticated_with_remind') ? undefined : json['session_unauthenticated_with_remind'],
-        'sessionOnboardingInitialized': !exists(json, 'session_onboarding_initialized') ? undefined : json['session_onboarding_initialized'],
-        'sessionOnboardingCompleted': !exists(json, 'session_onboarding_completed') ? undefined : json['session_onboarding_completed'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'sessionInitialized': TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnumFromJSON(json['session_initialized']),
+        'sessionLocalConnectionSucceeded': TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnumFromJSON(json['session_local_connection_succeeded']),
+        'sessionLocalConnectionFailed': TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnumFromJSON(json['session_local_connection_failed']),
+        'sessionInactive': TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnumFromJSON(json['session_inactive']),
+        'sessionActive': TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnumFromJSON(json['session_active']),
+        'sessionTerminated': TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnumFromJSON(json['session_terminated']),
+        'sessionAuthenticatedWithSignIn': TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnumFromJSON(json['session_authenticated_with_sign_in']),
+        'sessionUnauthenticatedWithSignOut': TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnumFromJSON(json['session_unauthenticated_with_sign_out']),
+        'sessionUnauthenticatedWithDismiss': TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnumFromJSON(json['session_unauthenticated_with_dismiss']),
+        'sessionUnauthenticatedWithRemind': TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnumFromJSON(json['session_unauthenticated_with_remind']),
+        'sessionOnboardingInitialized': TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnumFromJSON(json['session_onboarding_initialized']),
+        'sessionOnboardingCompleted': TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnumFromJSON(json['session_onboarding_completed']),
     };
 }
 
-export function TrackedSessionEventIdentifierDescriptionPairsToJSON(value?: TrackedSessionEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedSessionEventIdentifierDescriptionPairsToJSON(json: any): TrackedSessionEventIdentifierDescriptionPairs {
+    return TrackedSessionEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function TrackedSessionEventIdentifierDescriptionPairsToJSONTyped(value?: TrackedSessionEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'session_initialized': value.sessionInitialized,
-        'session_local_connection_succeeded': value.sessionLocalConnectionSucceeded,
-        'session_local_connection_failed': value.sessionLocalConnectionFailed,
-        'session_inactive': value.sessionInactive,
-        'session_active': value.sessionActive,
-        'session_terminated': value.sessionTerminated,
-        'session_authenticated_with_sign_in': value.sessionAuthenticatedWithSignIn,
-        'session_unauthenticated_with_sign_out': value.sessionUnauthenticatedWithSignOut,
-        'session_unauthenticated_with_dismiss': value.sessionUnauthenticatedWithDismiss,
-        'session_unauthenticated_with_remind': value.sessionUnauthenticatedWithRemind,
-        'session_onboarding_initialized': value.sessionOnboardingInitialized,
-        'session_onboarding_completed': value.sessionOnboardingCompleted,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'sessionInitialized': TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnumToJSON(value['session_initialized']),
+        'sessionLocalConnectionSucceeded': TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnumToJSON(value['session_local_connection_succeeded']),
+        'sessionLocalConnectionFailed': TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnumToJSON(value['session_local_connection_failed']),
+        'sessionInactive': TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnumToJSON(value['session_inactive']),
+        'sessionActive': TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnumToJSON(value['session_active']),
+        'sessionTerminated': TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnumToJSON(value['session_terminated']),
+        'sessionAuthenticatedWithSignIn': TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnumToJSON(value['session_authenticated_with_sign_in']),
+        'sessionUnauthenticatedWithSignOut': TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnumToJSON(value['session_unauthenticated_with_sign_out']),
+        'sessionUnauthenticatedWithDismiss': TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnumToJSON(value['session_unauthenticated_with_dismiss']),
+        'sessionUnauthenticatedWithRemind': TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnumToJSON(value['session_unauthenticated_with_remind']),
+        'sessionOnboardingInitialized': TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnumToJSON(value['session_onboarding_initialized']),
+        'sessionOnboardingCompleted': TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnumToJSON(value['session_onboarding_completed']),
     };
 }
 

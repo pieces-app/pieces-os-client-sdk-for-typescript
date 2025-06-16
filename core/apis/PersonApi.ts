@@ -25,9 +25,19 @@ import {
     SeededScoreIncrementToJSON,
 } from '../models/index';
 
+export interface PersonAssociateAdditionalPersonRequest {
+    person: string;
+    additionalPerson: string;
+}
+
 export interface PersonAssociateAnchorRequest {
     person: string;
     anchor: string;
+}
+
+export interface PersonAssociateAnnotationRequest {
+    person: string;
+    annotation: string;
 }
 
 export interface PersonAssociateAssetRequest {
@@ -50,14 +60,34 @@ export interface PersonAssociateWebsiteRequest {
     website: string;
 }
 
+export interface PersonAssociateWorkstreamEventRequest {
+    person: string;
+    workstreamEvent: string;
+}
+
+export interface PersonAssociateWorkstreamPatternEngineSourceRequest {
+    person: string;
+    source: string;
+}
+
 export interface PersonAssociateWorkstreamSummaryRequest {
     person: string;
     workstreamSummary: string;
 }
 
+export interface PersonDisassociateAdditionalPersonRequest {
+    person: string;
+    additionalPerson: string;
+}
+
 export interface PersonDisassociateAnchorRequest {
     person: string;
     anchor: string;
+}
+
+export interface PersonDisassociateAnnotationRequest {
+    person: string;
+    annotation: string;
 }
 
 export interface PersonDisassociateAssetRequest {
@@ -78,6 +108,16 @@ export interface PersonDisassociateTagRequest {
 export interface PersonDisassociateWebsiteRequest {
     person: string;
     website: string;
+}
+
+export interface PersonDisassociateWorkstreamEventRequest {
+    person: string;
+    workstreamEvent: string;
+}
+
+export interface PersonDisassociateWorkstreamPatternEngineSourceRequest {
+    person: string;
+    source: string;
 }
 
 export interface PersonDisassociateWorkstreamSummaryRequest {
@@ -106,24 +146,79 @@ export interface UpdatePersonRequest {
 export class PersonApi extends runtime.BaseAPI {
 
     /**
-     * associates a person and an anchor. It performs the same action as the anchor equivalent.
-     * /person/{person}/anchors/associate/{anchor} [POST]
+     * This will enable us to associate a person with another person.
+     * /person/{person}/persons/associate/{additional_person} [POST]
      */
-    async personAssociateAnchorRaw(requestParameters: PersonAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateAnchor.');
+    async personAssociateAdditionalPersonRaw(requestParameters: PersonAssociateAdditionalPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateAdditionalPerson().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling personAssociateAnchor.');
+        if (requestParameters['additionalPerson'] == null) {
+            throw new runtime.RequiredError(
+                'additionalPerson',
+                'Required parameter "additionalPerson" was null or undefined when calling personAssociateAdditionalPerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/anchors/associate/{anchor}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/person/{person}/persons/associate/{additional_person}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"additional_person"}}`, encodeURIComponent(String(requestParameters['additionalPerson']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a person with another person.
+     * /person/{person}/persons/associate/{additional_person} [POST]
+     */
+    async personAssociateAdditionalPerson(requestParameters: PersonAssociateAdditionalPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personAssociateAdditionalPersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * associates a person and an anchor. It performs the same action as the anchor equivalent.
+     * /person/{person}/anchors/associate/{anchor} [POST]
+     */
+    async personAssociateAnchorRaw(requestParameters: PersonAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateAnchor().'
+            );
+        }
+
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling personAssociateAnchor().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/anchors/associate/{anchor}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -141,24 +236,79 @@ export class PersonApi extends runtime.BaseAPI {
     }
 
     /**
-     * associates a person and an asset. It performs the same action as the asset equivalent.
-     * /person/{person}/assets/associate/{asset} [POST]
+     * This will associate an annotation with a person.
+     * /person/{person}/annotations/associate/{annotation} [POST]
      */
-    async personAssociateAssetRaw(requestParameters: PersonAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateAsset.');
+    async personAssociateAnnotationRaw(requestParameters: PersonAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateAnnotation().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling personAssociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling personAssociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/assets/associate/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/person/{person}/annotations/associate/{annotation}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate an annotation with a person.
+     * /person/{person}/annotations/associate/{annotation} [POST]
+     */
+    async personAssociateAnnotation(requestParameters: PersonAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personAssociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * associates a person and an asset. It performs the same action as the asset equivalent.
+     * /person/{person}/assets/associate/{asset} [POST]
+     */
+    async personAssociateAssetRaw(requestParameters: PersonAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling personAssociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/assets/associate/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -180,20 +330,30 @@ export class PersonApi extends runtime.BaseAPI {
      * /person/{person}/messages/associate/{message} [POST]
      */
     async personAssociateMessageRaw(requestParameters: PersonAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateMessage.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateMessage().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling personAssociateMessage.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling personAssociateMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/messages/associate/{message}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/person/{person}/messages/associate/{message}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -215,20 +375,30 @@ export class PersonApi extends runtime.BaseAPI {
      * /person/{person}/tags/associate/{tag} [POST]
      */
     async personAssociateTagRaw(requestParameters: PersonAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateTag.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateTag().'
+            );
         }
 
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling personAssociateTag.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling personAssociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/tags/associate/{tag}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/person/{person}/tags/associate/{tag}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -250,20 +420,30 @@ export class PersonApi extends runtime.BaseAPI {
      * /person/{person}/websites/associate/{website} [POST]
      */
     async personAssociateWebsiteRaw(requestParameters: PersonAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateWebsite.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateWebsite().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling personAssociateWebsite.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling personAssociateWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/websites/associate/{website}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/person/{person}/websites/associate/{website}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -281,24 +461,124 @@ export class PersonApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a person with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /person/{person}/workstream_summaries/associate/{workstream_summary} [POST]
+     * This will enable us to associate a workstream event with a person.
+     * /person/{person}/workstream_events/associate/{workstream_event} [POST]
      */
-    async personAssociateWorkstreamSummaryRaw(requestParameters: PersonAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personAssociateWorkstreamSummary.');
+    async personAssociateWorkstreamEventRaw(requestParameters: PersonAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateWorkstreamEvent().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling personAssociateWorkstreamSummary.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling personAssociateWorkstreamEvent().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/person/{person}/workstream_events/associate/{workstream_event}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a workstream event with a person.
+     * /person/{person}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async personAssociateWorkstreamEvent(requestParameters: PersonAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personAssociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a source with a person.
+     * /person/{person}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async personAssociateWorkstreamPatternEngineSourceRaw(requestParameters: PersonAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling personAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/workstream_pattern_engine/sources/associate/{source}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a source with a person.
+     * /person/{person}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async personAssociateWorkstreamPatternEngineSource(requestParameters: PersonAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personAssociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a person with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /person/{person}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async personAssociateWorkstreamSummaryRaw(requestParameters: PersonAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling personAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -316,24 +596,79 @@ export class PersonApi extends runtime.BaseAPI {
     }
 
     /**
-     * Disassociates a person from an achor. It performs the same action as the anchor equivalent.
-     * /person/{person}/anchors/disassociate/{anchor} [POST]
+     * This will enable us to disassociate a person from another person.
+     * /person/{person}/persons/disassociate/{additional_person} [POST]
      */
-    async personDisassociateAnchorRaw(requestParameters: PersonDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateAnchor.');
+    async personDisassociateAdditionalPersonRaw(requestParameters: PersonDisassociateAdditionalPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateAdditionalPerson().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling personDisassociateAnchor.');
+        if (requestParameters['additionalPerson'] == null) {
+            throw new runtime.RequiredError(
+                'additionalPerson',
+                'Required parameter "additionalPerson" was null or undefined when calling personDisassociateAdditionalPerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/anchors/disassociate/{anchor}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/person/{person}/persons/disassociate/{additional_person}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"additional_person"}}`, encodeURIComponent(String(requestParameters['additionalPerson']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a person from another person.
+     * /person/{person}/persons/disassociate/{additional_person} [POST]
+     */
+    async personDisassociateAdditionalPerson(requestParameters: PersonDisassociateAdditionalPersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personDisassociateAdditionalPersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Disassociates a person from an achor. It performs the same action as the anchor equivalent.
+     * /person/{person}/anchors/disassociate/{anchor} [POST]
+     */
+    async personDisassociateAnchorRaw(requestParameters: PersonDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateAnchor().'
+            );
+        }
+
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling personDisassociateAnchor().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/anchors/disassociate/{anchor}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -351,24 +686,79 @@ export class PersonApi extends runtime.BaseAPI {
     }
 
     /**
-     * Disassociates a person from an asset. It performs the same action as the asset equivalent.
-     * /person/{person}/assets/disassociate/{asset} [POST]
+     * This will enable us to dissassociate an annotation from a person.
+     * /person/{person}/annotations/disassociate/{annotation} [POST]
      */
-    async personDisassociateAssetRaw(requestParameters: PersonDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateAsset.');
+    async personDisassociateAnnotationRaw(requestParameters: PersonDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateAnnotation().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling personDisassociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling personDisassociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/assets/disassociate/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/person/{person}/annotations/disassociate/{annotation}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from a person.
+     * /person/{person}/annotations/disassociate/{annotation} [POST]
+     */
+    async personDisassociateAnnotation(requestParameters: PersonDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personDisassociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Disassociates a person from an asset. It performs the same action as the asset equivalent.
+     * /person/{person}/assets/disassociate/{asset} [POST]
+     */
+    async personDisassociateAssetRaw(requestParameters: PersonDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling personDisassociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/assets/disassociate/{asset}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -390,20 +780,30 @@ export class PersonApi extends runtime.BaseAPI {
      * /person/{person}/messages/disassociate/{message} [POST]
      */
     async personDisassociateMessageRaw(requestParameters: PersonDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateMessage.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateMessage().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling personDisassociateMessage.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling personDisassociateMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/messages/disassociate/{message}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/person/{person}/messages/disassociate/{message}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -425,20 +825,30 @@ export class PersonApi extends runtime.BaseAPI {
      * /person/{person}/tags/disassociate/{tag} [POST]
      */
     async personDisassociateTagRaw(requestParameters: PersonDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateTag.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateTag().'
+            );
         }
 
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling personDisassociateTag.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling personDisassociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/tags/disassociate/{tag}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/person/{person}/tags/disassociate/{tag}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -460,20 +870,30 @@ export class PersonApi extends runtime.BaseAPI {
      * /person/{person}/websites/disassociate/{website} [POST]
      */
     async personDisassociateWebsiteRaw(requestParameters: PersonDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateWebsite.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateWebsite().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling personDisassociateWebsite.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling personDisassociateWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/websites/disassociate/{website}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/person/{person}/websites/disassociate/{website}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -491,24 +911,124 @@ export class PersonApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate an person from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /person/{person}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     * This will enable us to disassociate a workstream event from a person.
+     * /person/{person}/workstream_events/disassociate/{workstream_event} [POST]
      */
-    async personDisassociateWorkstreamSummaryRaw(requestParameters: PersonDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personDisassociateWorkstreamSummary.');
+    async personDisassociateWorkstreamEventRaw(requestParameters: PersonDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateWorkstreamEvent().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling personDisassociateWorkstreamSummary.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling personDisassociateWorkstreamEvent().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/person/{person}/workstream_events/disassociate/{workstream_event}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream event from a person.
+     * /person/{person}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async personDisassociateWorkstreamEvent(requestParameters: PersonDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personDisassociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a source from a person.
+     * /person/{person}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async personDisassociateWorkstreamPatternEngineSourceRaw(requestParameters: PersonDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling personDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/workstream_pattern_engine/sources/disassociate/{source}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a source from a person.
+     * /person/{person}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async personDisassociateWorkstreamPatternEngineSource(requestParameters: PersonDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.personDisassociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate an person from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /person/{person}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async personDisassociateWorkstreamSummaryRaw(requestParameters: PersonDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling personDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/person/{person}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -530,8 +1050,11 @@ export class PersonApi extends runtime.BaseAPI {
      * \'/person/{person}/scores/increment\' [POST]
      */
     async personScoresIncrementRaw(requestParameters: PersonScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personScoresIncrement.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -540,12 +1063,16 @@ export class PersonApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}/scores/increment`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/person/{person}/scores/increment`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -564,20 +1091,27 @@ export class PersonApi extends runtime.BaseAPI {
      * /person/{person} [GET]
      */
     async personSnapshotRaw(requestParameters: PersonSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Person>> {
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling personSnapshot.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling personSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/person/{person}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/person/{person}`.replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -602,20 +1136,24 @@ export class PersonApi extends runtime.BaseAPI {
     async updatePersonRaw(requestParameters: UpdatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Person>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/person/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PersonToJSON(requestParameters.person),
+            body: PersonToJSON(requestParameters['person']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => PersonFromJSON(jsonValue));

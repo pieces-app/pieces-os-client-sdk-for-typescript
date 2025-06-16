@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
-import {
-    ClassificationSpecificEnumFromJSON,
-    ClassificationSpecificEnumFromJSONTyped,
-    ClassificationSpecificEnumToJSON,
-} from './ClassificationSpecificEnum';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
+    ClassificationSpecificEnumFromJSON,
+    ClassificationSpecificEnumFromJSONTyped,
+    ClassificationSpecificEnumToJSON,
+    ClassificationSpecificEnumToJSONTyped,
+} from './ClassificationSpecificEnum';
 
 /**
  * This is a model for metadata of a file!
@@ -58,13 +60,12 @@ export interface FileMetadata {
     size?: number;
 }
 
+
 /**
  * Check if a given object implements the FileMetadata interface.
  */
-export function instanceOfFileMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFileMetadata(value: object): value is FileMetadata {
+    return true;
 }
 
 export function FileMetadataFromJSON(json: any): FileMetadata {
@@ -72,31 +73,33 @@ export function FileMetadataFromJSON(json: any): FileMetadata {
 }
 
 export function FileMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): FileMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'ext': !exists(json, 'ext') ? undefined : ClassificationSpecificEnumFromJSON(json['ext']),
-        'size': !exists(json, 'size') ? undefined : json['size'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'ext': ClassificationSpecificEnumFromJSON(json['ext']),
+        'size': json['size'] == null ? undefined : json['size'],
     };
 }
 
-export function FileMetadataToJSON(value?: FileMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FileMetadataToJSON(json: any): FileMetadata {
+    return FileMetadataToJSONTyped(json, false);
+}
+
+export function FileMetadataToJSONTyped(value?: FileMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
-        'ext': ClassificationSpecificEnumToJSON(value.ext),
-        'size': value.size,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'ext': ClassificationSpecificEnumToJSON(value['ext']),
+        'size': value['size'],
     };
 }
 

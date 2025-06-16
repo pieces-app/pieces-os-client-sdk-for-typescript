@@ -12,42 +12,48 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAnchors } from './FlattenedAnchors';
-import {
-    FlattenedAnchorsFromJSON,
-    FlattenedAnchorsFromJSONTyped,
-    FlattenedAnchorsToJSON,
-} from './FlattenedAnchors';
-import type { FlattenedPersons } from './FlattenedPersons';
-import {
-    FlattenedPersonsFromJSON,
-    FlattenedPersonsFromJSONTyped,
-    FlattenedPersonsToJSON,
-} from './FlattenedPersons';
+import { mapValues } from '../runtime';
 import type { FlattenedWebsites } from './FlattenedWebsites';
 import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
 } from './FlattenedWebsites';
 import type { Seeds } from './Seeds';
 import {
     SeedsFromJSON,
     SeedsFromJSONTyped,
     SeedsToJSON,
+    SeedsToJSONTyped,
 } from './Seeds';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+    FlattenedPersonsToJSONTyped,
+} from './FlattenedPersons';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
 import type { TextLocation } from './TextLocation';
 import {
     TextLocationFromJSON,
     TextLocationFromJSONTyped,
     TextLocationToJSON,
+    TextLocationToJSONTyped,
 } from './TextLocation';
 
 /**
@@ -104,14 +110,13 @@ export interface TextuallyExtractedMaterial {
     seeds?: Seeds;
 }
 
+
 /**
  * Check if a given object implements the TextuallyExtractedMaterial interface.
  */
-export function instanceOfTextuallyExtractedMaterial(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "match" in value;
-
-    return isInstance;
+export function instanceOfTextuallyExtractedMaterial(value: object): value is TextuallyExtractedMaterial {
+    if (!('match' in value) || value['match'] === undefined) return false;
+    return true;
 }
 
 export function TextuallyExtractedMaterialFromJSON(json: any): TextuallyExtractedMaterial {
@@ -119,35 +124,37 @@ export function TextuallyExtractedMaterialFromJSON(json: any): TextuallyExtracte
 }
 
 export function TextuallyExtractedMaterialFromJSONTyped(json: any, ignoreDiscriminator: boolean): TextuallyExtractedMaterial {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'match': TextLocationFromJSON(json['match']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'seeds': !exists(json, 'seeds') ? undefined : SeedsFromJSON(json['seeds']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'seeds': json['seeds'] == null ? undefined : SeedsFromJSON(json['seeds']),
     };
 }
 
-export function TextuallyExtractedMaterialToJSON(value?: TextuallyExtractedMaterial | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TextuallyExtractedMaterialToJSON(json: any): TextuallyExtractedMaterial {
+    return TextuallyExtractedMaterialToJSONTyped(json, false);
+}
+
+export function TextuallyExtractedMaterialToJSONTyped(value?: TextuallyExtractedMaterial | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'match': TextLocationToJSON(value.match),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'seeds': SeedsToJSON(value.seeds),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'match': TextLocationToJSON(value['match']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'seeds': SeedsToJSON(value['seeds']),
     };
 }
 

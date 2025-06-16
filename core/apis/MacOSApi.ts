@@ -45,12 +45,16 @@ export class MacOSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/macos/assets/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededMacOSAssetToJSON(requestParameters.seededMacOSAsset),
+            body: SeededMacOSAssetToJSON(requestParameters['seededMacOSAsset']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));

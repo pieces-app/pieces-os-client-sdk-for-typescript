@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -38,13 +39,12 @@ export interface QGPTTaskPipelineForCodeCommentation {
     schema?: EmbeddedModelSchema;
 }
 
+
 /**
  * Check if a given object implements the QGPTTaskPipelineForCodeCommentation interface.
  */
-export function instanceOfQGPTTaskPipelineForCodeCommentation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTTaskPipelineForCodeCommentation(value: object): value is QGPTTaskPipelineForCodeCommentation {
+    return true;
 }
 
 export function QGPTTaskPipelineForCodeCommentationFromJSON(json: any): QGPTTaskPipelineForCodeCommentation {
@@ -52,25 +52,27 @@ export function QGPTTaskPipelineForCodeCommentationFromJSON(json: any): QGPTTask
 }
 
 export function QGPTTaskPipelineForCodeCommentationFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeCommentation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function QGPTTaskPipelineForCodeCommentationToJSON(value?: QGPTTaskPipelineForCodeCommentation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTTaskPipelineForCodeCommentationToJSON(json: any): QGPTTaskPipelineForCodeCommentation {
+    return QGPTTaskPipelineForCodeCommentationToJSONTyped(json, false);
+}
+
+export function QGPTTaskPipelineForCodeCommentationToJSONTyped(value?: QGPTTaskPipelineForCodeCommentation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

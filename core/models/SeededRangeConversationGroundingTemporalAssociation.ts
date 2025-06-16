@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,13 +41,12 @@ export interface SeededRangeConversationGroundingTemporalAssociation {
     workstream?: boolean;
 }
 
+
 /**
  * Check if a given object implements the SeededRangeConversationGroundingTemporalAssociation interface.
  */
-export function instanceOfSeededRangeConversationGroundingTemporalAssociation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededRangeConversationGroundingTemporalAssociation(value: object): value is SeededRangeConversationGroundingTemporalAssociation {
+    return true;
 }
 
 export function SeededRangeConversationGroundingTemporalAssociationFromJSON(json: any): SeededRangeConversationGroundingTemporalAssociation {
@@ -54,27 +54,29 @@ export function SeededRangeConversationGroundingTemporalAssociationFromJSON(json
 }
 
 export function SeededRangeConversationGroundingTemporalAssociationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededRangeConversationGroundingTemporalAssociation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'workstream': !exists(json, 'workstream') ? undefined : json['workstream'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'workstream': json['workstream'] == null ? undefined : json['workstream'],
     };
 }
 
-export function SeededRangeConversationGroundingTemporalAssociationToJSON(value?: SeededRangeConversationGroundingTemporalAssociation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededRangeConversationGroundingTemporalAssociationToJSON(json: any): SeededRangeConversationGroundingTemporalAssociation {
+    return SeededRangeConversationGroundingTemporalAssociationToJSONTyped(json, false);
+}
+
+export function SeededRangeConversationGroundingTemporalAssociationToJSONTyped(value?: SeededRangeConversationGroundingTemporalAssociation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'workstream': value.workstream,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'workstream': value['workstream'],
     };
 }
 

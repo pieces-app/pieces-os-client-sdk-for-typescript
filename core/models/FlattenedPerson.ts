@@ -12,91 +12,126 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAnchors } from './FlattenedAnchors';
-import {
-    FlattenedAnchorsFromJSON,
-    FlattenedAnchorsFromJSONTyped,
-    FlattenedAnchorsToJSON,
-} from './FlattenedAnchors';
-import type { FlattenedAnnotations } from './FlattenedAnnotations';
-import {
-    FlattenedAnnotationsFromJSON,
-    FlattenedAnnotationsFromJSONTyped,
-    FlattenedAnnotationsToJSON,
-} from './FlattenedAnnotations';
-import type { FlattenedAssets } from './FlattenedAssets';
-import {
-    FlattenedAssetsFromJSON,
-    FlattenedAssetsFromJSONTyped,
-    FlattenedAssetsToJSON,
-} from './FlattenedAssets';
-import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
-import {
-    FlattenedConversationMessagesFromJSON,
-    FlattenedConversationMessagesFromJSONTyped,
-    FlattenedConversationMessagesToJSON,
-} from './FlattenedConversationMessages';
+import { mapValues } from '../runtime';
 import type { FlattenedTags } from './FlattenedTags';
 import {
     FlattenedTagsFromJSON,
     FlattenedTagsFromJSONTyped,
     FlattenedTagsToJSON,
+    FlattenedTagsToJSONTyped,
 } from './FlattenedTags';
+import type { FlattenedWorkstreamEvents } from './FlattenedWorkstreamEvents';
+import {
+    FlattenedWorkstreamEventsFromJSON,
+    FlattenedWorkstreamEventsFromJSONTyped,
+    FlattenedWorkstreamEventsToJSON,
+    FlattenedWorkstreamEventsToJSONTyped,
+} from './FlattenedWorkstreamEvents';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
+    FlattenedAnnotationsFromJSON,
+    FlattenedAnnotationsFromJSONTyped,
+    FlattenedAnnotationsToJSON,
+    FlattenedAnnotationsToJSONTyped,
+} from './FlattenedAnnotations';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { PersonType } from './PersonType';
+import {
+    PersonTypeFromJSON,
+    PersonTypeFromJSONTyped,
+    PersonTypeToJSON,
+    PersonTypeToJSONTyped,
+} from './PersonType';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 import type { FlattenedWebsites } from './FlattenedWebsites';
 import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
 } from './FlattenedWebsites';
 import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
 import {
     FlattenedWorkstreamSummariesFromJSON,
     FlattenedWorkstreamSummariesFromJSONTyped,
     FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
 } from './FlattenedWorkstreamSummaries';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
-import type { MechanismEnum } from './MechanismEnum';
-import {
-    MechanismEnumFromJSON,
-    MechanismEnumFromJSONTyped,
-    MechanismEnumToJSON,
-} from './MechanismEnum';
-import type { PersonAccess } from './PersonAccess';
-import {
-    PersonAccessFromJSON,
-    PersonAccessFromJSONTyped,
-    PersonAccessToJSON,
-} from './PersonAccess';
-import type { PersonModel } from './PersonModel';
-import {
-    PersonModelFromJSON,
-    PersonModelFromJSONTyped,
-    PersonModelToJSON,
-} from './PersonModel';
-import type { PersonType } from './PersonType';
-import {
-    PersonTypeFromJSON,
-    PersonTypeFromJSONTyped,
-    PersonTypeToJSON,
-} from './PersonType';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
+} from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
+import type { PersonAccess } from './PersonAccess';
+import {
+    PersonAccessFromJSON,
+    PersonAccessFromJSONTyped,
+    PersonAccessToJSON,
+    PersonAccessToJSONTyped,
+} from './PersonAccess';
+import type { MechanismEnum } from './MechanismEnum';
+import {
+    MechanismEnumFromJSON,
+    MechanismEnumFromJSONTyped,
+    MechanismEnumToJSON,
+    MechanismEnumToJSONTyped,
+} from './MechanismEnum';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+    FlattenedPersonsToJSONTyped,
+} from './FlattenedPersons';
+import type { FlattenedIdentifiedWorkstreamPatternEngineSources } from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import {
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSONTyped,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSONTyped,
+} from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
+import type { PersonModel } from './PersonModel';
+import {
+    PersonModelFromJSON,
+    PersonModelFromJSONTyped,
+    PersonModelToJSON,
+    PersonModelToJSONTyped,
+} from './PersonModel';
 
 /**
  * if expiration is add then, after the alloted expiration date the user will only have view && comment only permissions. Only present in the case there is a scope such as a defined collection/asset...
@@ -214,19 +249,36 @@ export interface FlattenedPerson {
      * @memberof FlattenedPerson
      */
     messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {FlattenedPersons}
+     * @memberof FlattenedPerson
+     */
+    persons?: FlattenedPersons;
+    /**
+     * 
+     * @type {FlattenedWorkstreamEvents}
+     * @memberof FlattenedPerson
+     */
+    workstreamEvents?: FlattenedWorkstreamEvents;
+    /**
+     * 
+     * @type {FlattenedIdentifiedWorkstreamPatternEngineSources}
+     * @memberof FlattenedPerson
+     */
+    sources?: FlattenedIdentifiedWorkstreamPatternEngineSources;
 }
+
 
 /**
  * Check if a given object implements the FlattenedPerson interface.
  */
-export function instanceOfFlattenedPerson(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfFlattenedPerson(value: object): value is FlattenedPerson {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedPersonFromJSON(json: any): FlattenedPerson {
@@ -234,59 +286,67 @@ export function FlattenedPersonFromJSON(json: any): FlattenedPerson {
 }
 
 export function FlattenedPersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedPerson {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'type': PersonTypeFromJSON(json['type']),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
-        'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
-        'access': !exists(json, 'access') ? undefined : (mapValues(json['access'], PersonAccessFromJSON)),
-        'tags': !exists(json, 'tags') ? undefined : FlattenedTagsFromJSON(json['tags']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'models': !exists(json, 'models') ? undefined : (mapValues(json['models'], PersonModelFromJSON)),
-        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
-        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
-        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'mechanisms': json['mechanisms'] == null ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'interactions': json['interactions'] == null ? undefined : json['interactions'],
+        'access': json['access'] == null ? undefined : (mapValues(json['access'], PersonAccessFromJSON)),
+        'tags': json['tags'] == null ? undefined : FlattenedTagsFromJSON(json['tags']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'models': json['models'] == null ? undefined : (mapValues(json['models'], PersonModelFromJSON)),
+        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'workstreamEvents': json['workstream_events'] == null ? undefined : FlattenedWorkstreamEventsFromJSON(json['workstream_events']),
+        'sources': json['sources'] == null ? undefined : FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON(json['sources']),
     };
 }
 
-export function FlattenedPersonToJSON(value?: FlattenedPerson | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedPersonToJSON(json: any): FlattenedPerson {
+    return FlattenedPersonToJSONTyped(json, false);
+}
+
+export function FlattenedPersonToJSONTyped(value?: FlattenedPerson | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'type': PersonTypeToJSON(value.type),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
-        'interactions': value.interactions,
-        'access': value.access === undefined ? undefined : (mapValues(value.access, PersonAccessToJSON)),
-        'tags': FlattenedTagsToJSON(value.tags),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'models': value.models === undefined ? undefined : (mapValues(value.models, PersonModelToJSON)),
-        'annotations': FlattenedAnnotationsToJSON(value.annotations),
-        'score': ScoreToJSON(value.score),
-        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
-        'messages': FlattenedConversationMessagesToJSON(value.messages),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'type': PersonTypeToJSON(value['type']),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'mechanisms': value['mechanisms'] == null ? undefined : (mapValues(value['mechanisms'], MechanismEnumToJSON)),
+        'interactions': value['interactions'],
+        'access': value['access'] == null ? undefined : (mapValues(value['access'], PersonAccessToJSON)),
+        'tags': FlattenedTagsToJSON(value['tags']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'models': value['models'] == null ? undefined : (mapValues(value['models'], PersonModelToJSON)),
+        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'score': ScoreToJSON(value['score']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'workstream_events': FlattenedWorkstreamEventsToJSON(value['workstreamEvents']),
+        'sources': FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON(value['sources']),
     };
 }
 

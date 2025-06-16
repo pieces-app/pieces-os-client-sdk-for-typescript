@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -249,304 +250,2497 @@ export interface TrackedAssetEventIdentifierDescriptionPairs {
      */
     assetAnchorUpdated?: TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
 }
-
-
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetWasCreated: 'an_asset_was_created'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetWasViewed: 'an_asset_was_viewed'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetPreviewFormatWasCopied: 'an_asset_preview_format_was_copied'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetFormatWasDownloaded: 'an_asset_format_was_downloaded'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetWasDeleted: 'an_asset_was_deleted'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetWasRedescribedByTheUser: 'an_asset_was_redescribed_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetWasRenamedByTheUser: 'an_asset_was_renamed_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AGenericClassificationWasChangedOnAFormatWithinAnAsset: 'a_generic_classification_was_changed_on_a_format_within_an_asset'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     ASpecificClassificationWasChangedOnAFormatWithinAnAsset: 'a_specific_classification_was_changed_on_a_format_within_an_asset'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetFailedToBeCreated: 'an_asset_failed_to_be_created'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum = {
+    Unknown: 'UNKNOWN',
     ATagWasAddedByTheUser: 'a_tag_was_added_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum = {
+    Unknown: 'UNKNOWN',
     ALinkWasAddedByTheUser: 'a_link_was_added_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetLinkWasGenerated: 'an_asset_link_was_generated'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum = {
+    Unknown: 'UNKNOWN',
     ALinkWasDeletedByTheUser: 'a_link_was_deleted_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum = {
+    Unknown: 'UNKNOWN',
     ATagWasDeletedByTheUser: 'a_tag_was_deleted_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetWasUpdated: 'an_asset_was_updated'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum = {
+    Unknown: 'UNKNOWN',
     ASpecificFormatValueWasEditedOnAnAsset: 'a_specific_format_value_was_edited_on_an_asset'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     ASpecificFormatWasUpdatedOnAnAsset: 'a_specific_format_was_updated_on_an_asset'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetLinkWasRevoked: 'an_asset_link_was_revoked'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum = {
+    Unknown: 'UNKNOWN',
     APersonWasAddedByTheUser: 'a_person_was_added_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum = {
+    Unknown: 'UNKNOWN',
     APersonWasDeletedByTheUser: 'a_person_was_deleted_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum = {
+    Unknown: 'UNKNOWN',
     ASensitiveWasAddedByTheUser: 'a_sensitive_was_added_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum = {
+    Unknown: 'UNKNOWN',
     ASensitiveWasDeletedByTheUser: 'a_sensitive_was_deleted_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum = {
+    Unknown: 'UNKNOWN',
     ASuggestedAssetWasReferencedByTheUser: 'a_suggested_asset_was_referenced_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum = {
+    Unknown: 'UNKNOWN',
     ASearchedAssetWasReferencedByTheUser: 'a_searched_asset_was_referenced_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum = {
+    Unknown: 'UNKNOWN',
     AnAssetWasReferencedByTheUser: 'an_asset_was_referenced_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum = {
+    Unknown: 'UNKNOWN',
     AnActivityAssetWasReferencedByTheUser: 'an_activity_asset_was_referenced_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum = {
+    Unknown: 'UNKNOWN',
     AnAnnotationWasAddedByTheUser: 'an_annotation_was_added_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum = {
+    Unknown: 'UNKNOWN',
     AnAnnotationWasDeletedByTheUser: 'an_annotation_was_deleted_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AnAnnotationWasUpdatedByTheUser: 'an_annotation_was_updated_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum = {
+    Unknown: 'UNKNOWN',
     AHintWasAddedByTheUser: 'a_hint_was_added_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum = {
+    Unknown: 'UNKNOWN',
     AHintWasDeletedByTheUser: 'a_hint_was_deleted_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AHintWasUpdatedByTheUser: 'a_hint_was_updated_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum = {
+    Unknown: 'UNKNOWN',
     AAnchorWasAddedByTheUser: 'a_anchor_was_added_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum = {
+    Unknown: 'UNKNOWN',
     AAnchorWasDeletedByTheUser: 'a_anchor_was_deleted_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AAnchorWasUpdatedByTheUser: 'a_anchor_was_updated_by_the_user'
 } as const;
 export type TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum = typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum[keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum];
+
+    export function instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum(value: any): boolean {
+        for (const key in TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum, key)) {
+                if (TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum[key as keyof typeof TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnumFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum {
+        return TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum(json)) {
+            return json as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnumToJSON(value?: TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+    }
+
+    export function TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+        if (instanceOfTrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum(value)) {
+            return value as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the TrackedAssetEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfTrackedAssetEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedAssetEventIdentifierDescriptionPairs(value: object): value is TrackedAssetEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function TrackedAssetEventIdentifierDescriptionPairsFromJSON(json: any): TrackedAssetEventIdentifierDescriptionPairs {
@@ -554,97 +2748,99 @@ export function TrackedAssetEventIdentifierDescriptionPairsFromJSON(json: any): 
 }
 
 export function TrackedAssetEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'assetCreated': !exists(json, 'asset_created') ? undefined : json['asset_created'],
-        'assetViewed': !exists(json, 'asset_viewed') ? undefined : json['asset_viewed'],
-        'assetFormatCopied': !exists(json, 'asset_format_copied') ? undefined : json['asset_format_copied'],
-        'assetFormatDownloaded': !exists(json, 'asset_format_downloaded') ? undefined : json['asset_format_downloaded'],
-        'assetDeleted': !exists(json, 'asset_deleted') ? undefined : json['asset_deleted'],
-        'assetDescriptionUpdated': !exists(json, 'asset_description_updated') ? undefined : json['asset_description_updated'],
-        'assetNameUpdated': !exists(json, 'asset_name_updated') ? undefined : json['asset_name_updated'],
-        'assetFormatGenericClassificationUpdated': !exists(json, 'asset_format_generic_classification_updated') ? undefined : json['asset_format_generic_classification_updated'],
-        'assetFormatSpecificClassificationUpdated': !exists(json, 'asset_format_specific_classification_updated') ? undefined : json['asset_format_specific_classification_updated'],
-        'assetCreationFailed': !exists(json, 'asset_creation_failed') ? undefined : json['asset_creation_failed'],
-        'assetTagAdded': !exists(json, 'asset_tag_added') ? undefined : json['asset_tag_added'],
-        'assetLinkAdded': !exists(json, 'asset_link_added') ? undefined : json['asset_link_added'],
-        'assetLinkGenerated': !exists(json, 'asset_link_generated') ? undefined : json['asset_link_generated'],
-        'assetLinkDeleted': !exists(json, 'asset_link_deleted') ? undefined : json['asset_link_deleted'],
-        'assetTagDeleted': !exists(json, 'asset_tag_deleted') ? undefined : json['asset_tag_deleted'],
-        'assetUpdated': !exists(json, 'asset_updated') ? undefined : json['asset_updated'],
-        'assetFormatValueEdited': !exists(json, 'asset_format_value_edited') ? undefined : json['asset_format_value_edited'],
-        'assetFormatUpdated': !exists(json, 'asset_format_updated') ? undefined : json['asset_format_updated'],
-        'assetLinkRevoked': !exists(json, 'asset_link_revoked') ? undefined : json['asset_link_revoked'],
-        'assetPersonAdded': !exists(json, 'asset_person_added') ? undefined : json['asset_person_added'],
-        'assetPersonDeleted': !exists(json, 'asset_person_deleted') ? undefined : json['asset_person_deleted'],
-        'assetSensitiveAdded': !exists(json, 'asset_sensitive_added') ? undefined : json['asset_sensitive_added'],
-        'assetSensitiveDeleted': !exists(json, 'asset_sensitive_deleted') ? undefined : json['asset_sensitive_deleted'],
-        'suggestedAssetReferenced': !exists(json, 'suggested_asset_referenced') ? undefined : json['suggested_asset_referenced'],
-        'searchedAssetReferenced': !exists(json, 'searched_asset_referenced') ? undefined : json['searched_asset_referenced'],
-        'assetReferenced': !exists(json, 'asset_referenced') ? undefined : json['asset_referenced'],
-        'activityAssetReferenced': !exists(json, 'activity_asset_referenced') ? undefined : json['activity_asset_referenced'],
-        'assetAnnotationAdded': !exists(json, 'asset_annotation_added') ? undefined : json['asset_annotation_added'],
-        'assetAnnotationDeleted': !exists(json, 'asset_annotation_deleted') ? undefined : json['asset_annotation_deleted'],
-        'assetAnnotationUpdated': !exists(json, 'asset_annotation_updated') ? undefined : json['asset_annotation_updated'],
-        'assetHintAdded': !exists(json, 'asset_hint_added') ? undefined : json['asset_hint_added'],
-        'assetHintDeleted': !exists(json, 'asset_hint_deleted') ? undefined : json['asset_hint_deleted'],
-        'assetHintUpdated': !exists(json, 'asset_hint_updated') ? undefined : json['asset_hint_updated'],
-        'assetAnchorAdded': !exists(json, 'asset_anchor_added') ? undefined : json['asset_anchor_added'],
-        'assetAnchorDeleted': !exists(json, 'asset_anchor_deleted') ? undefined : json['asset_anchor_deleted'],
-        'assetAnchorUpdated': !exists(json, 'asset_anchor_updated') ? undefined : json['asset_anchor_updated'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'assetCreated': TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnumFromJSON(json['asset_created']),
+        'assetViewed': TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnumFromJSON(json['asset_viewed']),
+        'assetFormatCopied': TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnumFromJSON(json['asset_format_copied']),
+        'assetFormatDownloaded': TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnumFromJSON(json['asset_format_downloaded']),
+        'assetDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnumFromJSON(json['asset_deleted']),
+        'assetDescriptionUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnumFromJSON(json['asset_description_updated']),
+        'assetNameUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnumFromJSON(json['asset_name_updated']),
+        'assetFormatGenericClassificationUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnumFromJSON(json['asset_format_generic_classification_updated']),
+        'assetFormatSpecificClassificationUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnumFromJSON(json['asset_format_specific_classification_updated']),
+        'assetCreationFailed': TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnumFromJSON(json['asset_creation_failed']),
+        'assetTagAdded': TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnumFromJSON(json['asset_tag_added']),
+        'assetLinkAdded': TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnumFromJSON(json['asset_link_added']),
+        'assetLinkGenerated': TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnumFromJSON(json['asset_link_generated']),
+        'assetLinkDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnumFromJSON(json['asset_link_deleted']),
+        'assetTagDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnumFromJSON(json['asset_tag_deleted']),
+        'assetUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnumFromJSON(json['asset_updated']),
+        'assetFormatValueEdited': TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnumFromJSON(json['asset_format_value_edited']),
+        'assetFormatUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnumFromJSON(json['asset_format_updated']),
+        'assetLinkRevoked': TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnumFromJSON(json['asset_link_revoked']),
+        'assetPersonAdded': TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnumFromJSON(json['asset_person_added']),
+        'assetPersonDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnumFromJSON(json['asset_person_deleted']),
+        'assetSensitiveAdded': TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnumFromJSON(json['asset_sensitive_added']),
+        'assetSensitiveDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnumFromJSON(json['asset_sensitive_deleted']),
+        'suggestedAssetReferenced': TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnumFromJSON(json['suggested_asset_referenced']),
+        'searchedAssetReferenced': TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnumFromJSON(json['searched_asset_referenced']),
+        'assetReferenced': TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnumFromJSON(json['asset_referenced']),
+        'activityAssetReferenced': TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnumFromJSON(json['activity_asset_referenced']),
+        'assetAnnotationAdded': TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnumFromJSON(json['asset_annotation_added']),
+        'assetAnnotationDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnumFromJSON(json['asset_annotation_deleted']),
+        'assetAnnotationUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnumFromJSON(json['asset_annotation_updated']),
+        'assetHintAdded': TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnumFromJSON(json['asset_hint_added']),
+        'assetHintDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnumFromJSON(json['asset_hint_deleted']),
+        'assetHintUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnumFromJSON(json['asset_hint_updated']),
+        'assetAnchorAdded': TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnumFromJSON(json['asset_anchor_added']),
+        'assetAnchorDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnumFromJSON(json['asset_anchor_deleted']),
+        'assetAnchorUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnumFromJSON(json['asset_anchor_updated']),
     };
 }
 
-export function TrackedAssetEventIdentifierDescriptionPairsToJSON(value?: TrackedAssetEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedAssetEventIdentifierDescriptionPairsToJSON(json: any): TrackedAssetEventIdentifierDescriptionPairs {
+    return TrackedAssetEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function TrackedAssetEventIdentifierDescriptionPairsToJSONTyped(value?: TrackedAssetEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset_created': value.assetCreated,
-        'asset_viewed': value.assetViewed,
-        'asset_format_copied': value.assetFormatCopied,
-        'asset_format_downloaded': value.assetFormatDownloaded,
-        'asset_deleted': value.assetDeleted,
-        'asset_description_updated': value.assetDescriptionUpdated,
-        'asset_name_updated': value.assetNameUpdated,
-        'asset_format_generic_classification_updated': value.assetFormatGenericClassificationUpdated,
-        'asset_format_specific_classification_updated': value.assetFormatSpecificClassificationUpdated,
-        'asset_creation_failed': value.assetCreationFailed,
-        'asset_tag_added': value.assetTagAdded,
-        'asset_link_added': value.assetLinkAdded,
-        'asset_link_generated': value.assetLinkGenerated,
-        'asset_link_deleted': value.assetLinkDeleted,
-        'asset_tag_deleted': value.assetTagDeleted,
-        'asset_updated': value.assetUpdated,
-        'asset_format_value_edited': value.assetFormatValueEdited,
-        'asset_format_updated': value.assetFormatUpdated,
-        'asset_link_revoked': value.assetLinkRevoked,
-        'asset_person_added': value.assetPersonAdded,
-        'asset_person_deleted': value.assetPersonDeleted,
-        'asset_sensitive_added': value.assetSensitiveAdded,
-        'asset_sensitive_deleted': value.assetSensitiveDeleted,
-        'suggested_asset_referenced': value.suggestedAssetReferenced,
-        'searched_asset_referenced': value.searchedAssetReferenced,
-        'asset_referenced': value.assetReferenced,
-        'activity_asset_referenced': value.activityAssetReferenced,
-        'asset_annotation_added': value.assetAnnotationAdded,
-        'asset_annotation_deleted': value.assetAnnotationDeleted,
-        'asset_annotation_updated': value.assetAnnotationUpdated,
-        'asset_hint_added': value.assetHintAdded,
-        'asset_hint_deleted': value.assetHintDeleted,
-        'asset_hint_updated': value.assetHintUpdated,
-        'asset_anchor_added': value.assetAnchorAdded,
-        'asset_anchor_deleted': value.assetAnchorDeleted,
-        'asset_anchor_updated': value.assetAnchorUpdated,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assetCreated': TrackedAssetEventIdentifierDescriptionPairsAssetCreatedEnumToJSON(value['asset_created']),
+        'assetViewed': TrackedAssetEventIdentifierDescriptionPairsAssetViewedEnumToJSON(value['asset_viewed']),
+        'assetFormatCopied': TrackedAssetEventIdentifierDescriptionPairsAssetFormatCopiedEnumToJSON(value['asset_format_copied']),
+        'assetFormatDownloaded': TrackedAssetEventIdentifierDescriptionPairsAssetFormatDownloadedEnumToJSON(value['asset_format_downloaded']),
+        'assetDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetDeletedEnumToJSON(value['asset_deleted']),
+        'assetDescriptionUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetDescriptionUpdatedEnumToJSON(value['asset_description_updated']),
+        'assetNameUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetNameUpdatedEnumToJSON(value['asset_name_updated']),
+        'assetFormatGenericClassificationUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetFormatGenericClassificationUpdatedEnumToJSON(value['asset_format_generic_classification_updated']),
+        'assetFormatSpecificClassificationUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetFormatSpecificClassificationUpdatedEnumToJSON(value['asset_format_specific_classification_updated']),
+        'assetCreationFailed': TrackedAssetEventIdentifierDescriptionPairsAssetCreationFailedEnumToJSON(value['asset_creation_failed']),
+        'assetTagAdded': TrackedAssetEventIdentifierDescriptionPairsAssetTagAddedEnumToJSON(value['asset_tag_added']),
+        'assetLinkAdded': TrackedAssetEventIdentifierDescriptionPairsAssetLinkAddedEnumToJSON(value['asset_link_added']),
+        'assetLinkGenerated': TrackedAssetEventIdentifierDescriptionPairsAssetLinkGeneratedEnumToJSON(value['asset_link_generated']),
+        'assetLinkDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetLinkDeletedEnumToJSON(value['asset_link_deleted']),
+        'assetTagDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetTagDeletedEnumToJSON(value['asset_tag_deleted']),
+        'assetUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetUpdatedEnumToJSON(value['asset_updated']),
+        'assetFormatValueEdited': TrackedAssetEventIdentifierDescriptionPairsAssetFormatValueEditedEnumToJSON(value['asset_format_value_edited']),
+        'assetFormatUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetFormatUpdatedEnumToJSON(value['asset_format_updated']),
+        'assetLinkRevoked': TrackedAssetEventIdentifierDescriptionPairsAssetLinkRevokedEnumToJSON(value['asset_link_revoked']),
+        'assetPersonAdded': TrackedAssetEventIdentifierDescriptionPairsAssetPersonAddedEnumToJSON(value['asset_person_added']),
+        'assetPersonDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetPersonDeletedEnumToJSON(value['asset_person_deleted']),
+        'assetSensitiveAdded': TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveAddedEnumToJSON(value['asset_sensitive_added']),
+        'assetSensitiveDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetSensitiveDeletedEnumToJSON(value['asset_sensitive_deleted']),
+        'suggestedAssetReferenced': TrackedAssetEventIdentifierDescriptionPairsSuggestedAssetReferencedEnumToJSON(value['suggested_asset_referenced']),
+        'searchedAssetReferenced': TrackedAssetEventIdentifierDescriptionPairsSearchedAssetReferencedEnumToJSON(value['searched_asset_referenced']),
+        'assetReferenced': TrackedAssetEventIdentifierDescriptionPairsAssetReferencedEnumToJSON(value['asset_referenced']),
+        'activityAssetReferenced': TrackedAssetEventIdentifierDescriptionPairsActivityAssetReferencedEnumToJSON(value['activity_asset_referenced']),
+        'assetAnnotationAdded': TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationAddedEnumToJSON(value['asset_annotation_added']),
+        'assetAnnotationDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationDeletedEnumToJSON(value['asset_annotation_deleted']),
+        'assetAnnotationUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetAnnotationUpdatedEnumToJSON(value['asset_annotation_updated']),
+        'assetHintAdded': TrackedAssetEventIdentifierDescriptionPairsAssetHintAddedEnumToJSON(value['asset_hint_added']),
+        'assetHintDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetHintDeletedEnumToJSON(value['asset_hint_deleted']),
+        'assetHintUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetHintUpdatedEnumToJSON(value['asset_hint_updated']),
+        'assetAnchorAdded': TrackedAssetEventIdentifierDescriptionPairsAssetAnchorAddedEnumToJSON(value['asset_anchor_added']),
+        'assetAnchorDeleted': TrackedAssetEventIdentifierDescriptionPairsAssetAnchorDeletedEnumToJSON(value['asset_anchor_deleted']),
+        'assetAnchorUpdated': TrackedAssetEventIdentifierDescriptionPairsAssetAnchorUpdatedEnumToJSON(value['asset_anchor_updated']),
     };
 }
 

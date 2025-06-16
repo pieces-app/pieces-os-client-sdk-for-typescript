@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,14 +41,13 @@ export interface SeededUser {
     emails: Array<string>;
 }
 
+
 /**
  * Check if a given object implements the SeededUser interface.
  */
-export function instanceOfSeededUser(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "emails" in value;
-
-    return isInstance;
+export function instanceOfSeededUser(value: object): value is SeededUser {
+    if (!('emails' in value) || value['emails'] === undefined) return false;
+    return true;
 }
 
 export function SeededUserFromJSON(json: any): SeededUser {
@@ -55,27 +55,29 @@ export function SeededUserFromJSON(json: any): SeededUser {
 }
 
 export function SeededUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededUser {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'emails': json['emails'],
     };
 }
 
-export function SeededUserToJSON(value?: SeededUser | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededUserToJSON(json: any): SeededUser {
+    return SeededUserToJSONTyped(json, false);
+}
+
+export function SeededUserToJSONTyped(value?: SeededUser | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'emails': value.emails,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'emails': value['emails'],
     };
 }
 

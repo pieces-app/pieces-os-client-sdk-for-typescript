@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -46,13 +47,12 @@ export interface FilePickerInput {
     allowMultiple?: boolean;
 }
 
+
 /**
  * Check if a given object implements the FilePickerInput interface.
  */
-export function instanceOfFilePickerInput(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFilePickerInput(value: object): value is FilePickerInput {
+    return true;
 }
 
 export function FilePickerInputFromJSON(json: any): FilePickerInput {
@@ -60,29 +60,31 @@ export function FilePickerInputFromJSON(json: any): FilePickerInput {
 }
 
 export function FilePickerInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): FilePickerInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'allowedExtensions': !exists(json, 'allowedExtensions') ? undefined : json['allowedExtensions'],
-        'allowMultiple': !exists(json, 'allowMultiple') ? undefined : json['allowMultiple'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'allowedExtensions': json['allowedExtensions'] == null ? undefined : json['allowedExtensions'],
+        'allowMultiple': json['allowMultiple'] == null ? undefined : json['allowMultiple'],
     };
 }
 
-export function FilePickerInputToJSON(value?: FilePickerInput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FilePickerInputToJSON(json: any): FilePickerInput {
+    return FilePickerInputToJSONTyped(json, false);
+}
+
+export function FilePickerInputToJSONTyped(value?: FilePickerInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'allowedExtensions': value.allowedExtensions,
-        'allowMultiple': value.allowMultiple,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'allowedExtensions': value['allowedExtensions'],
+        'allowMultiple': value['allowMultiple'],
     };
 }
 

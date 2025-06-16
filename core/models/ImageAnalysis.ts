@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { OCRAnalysis } from './OCRAnalysis';
 import {
     OCRAnalysisFromJSON,
     OCRAnalysisFromJSONTyped,
     OCRAnalysisToJSON,
+    OCRAnalysisToJSONTyped,
 } from './OCRAnalysis';
 
 /**
@@ -58,15 +60,14 @@ export interface ImageAnalysis {
     ocr?: OCRAnalysis;
 }
 
+
 /**
  * Check if a given object implements the ImageAnalysis interface.
  */
-export function instanceOfImageAnalysis(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "analysis" in value;
-
-    return isInstance;
+export function instanceOfImageAnalysis(value: object): value is ImageAnalysis {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('analysis' in value) || value['analysis'] === undefined) return false;
+    return true;
 }
 
 export function ImageAnalysisFromJSON(json: any): ImageAnalysis {
@@ -74,31 +75,33 @@ export function ImageAnalysisFromJSON(json: any): ImageAnalysis {
 }
 
 export function ImageAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): ImageAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'analysis': json['analysis'],
-        'ocr': !exists(json, 'ocr') ? undefined : OCRAnalysisFromJSON(json['ocr']),
+        'ocr': json['ocr'] == null ? undefined : OCRAnalysisFromJSON(json['ocr']),
     };
 }
 
-export function ImageAnalysisToJSON(value?: ImageAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ImageAnalysisToJSON(json: any): ImageAnalysis {
+    return ImageAnalysisToJSONTyped(json, false);
+}
+
+export function ImageAnalysisToJSONTyped(value?: ImageAnalysis | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'analysis': value.analysis,
-        'ocr': OCRAnalysisToJSON(value.ocr),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'analysis': value['analysis'],
+        'ocr': OCRAnalysisToJSON(value['ocr']),
     };
 }
 

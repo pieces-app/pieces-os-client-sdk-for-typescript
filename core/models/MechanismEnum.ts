@@ -26,24 +26,73 @@
  * @export
  */
 export const MechanismEnum = {
+    Unknown: 'UNKNOWN',
     Manual: 'MANUAL',
     Recommended: 'RECOMMENDED',
     Automatic: 'AUTOMATIC',
     Internal: 'INTERNAL',
-    Deleted: 'DELETED'
+    Deleted: 'DELETED',
+    ExternalAgent: 'EXTERNAL_AGENT'
 } as const;
 export type MechanismEnum = typeof MechanismEnum[keyof typeof MechanismEnum];
 
+
+export function instanceOfMechanismEnum(value: any): boolean {
+    for (const key in MechanismEnum) {
+        if (Object.prototype.hasOwnProperty.call(MechanismEnum, key)) {
+            if (MechanismEnum[key as keyof typeof MechanismEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function MechanismEnumFromJSON(json: any): MechanismEnum {
     return MechanismEnumFromJSONTyped(json, false);
 }
 
 export function MechanismEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): MechanismEnum {
-    return json as MechanismEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as MechanismEnum;
+    }
+
+    if (instanceOfMechanismEnum(json)) {
+        return json as MechanismEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as MechanismEnum;
+    }
 }
 
 export function MechanismEnumToJSON(value?: MechanismEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as MechanismEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfMechanismEnum(value)) {
+        return value as MechanismEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as MechanismEnum;
+    }
 }
 
+export function MechanismEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): MechanismEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as MechanismEnum;
+    }
+    if (instanceOfMechanismEnum(value)) {
+        return value as MechanismEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as MechanismEnum;
+    }
+}

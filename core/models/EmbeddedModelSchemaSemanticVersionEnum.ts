@@ -18,20 +18,68 @@
  * @export
  */
 export const EmbeddedModelSchemaSemanticVersionEnum = {
+    Unknown: 'UNKNOWN',
     Major0Minor0Patch1: 'MAJOR_0_MINOR_0_PATCH_1'
 } as const;
 export type EmbeddedModelSchemaSemanticVersionEnum = typeof EmbeddedModelSchemaSemanticVersionEnum[keyof typeof EmbeddedModelSchemaSemanticVersionEnum];
 
+
+export function instanceOfEmbeddedModelSchemaSemanticVersionEnum(value: any): boolean {
+    for (const key in EmbeddedModelSchemaSemanticVersionEnum) {
+        if (Object.prototype.hasOwnProperty.call(EmbeddedModelSchemaSemanticVersionEnum, key)) {
+            if (EmbeddedModelSchemaSemanticVersionEnum[key as keyof typeof EmbeddedModelSchemaSemanticVersionEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function EmbeddedModelSchemaSemanticVersionEnumFromJSON(json: any): EmbeddedModelSchemaSemanticVersionEnum {
     return EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped(json, false);
 }
 
 export function EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): EmbeddedModelSchemaSemanticVersionEnum {
-    return json as EmbeddedModelSchemaSemanticVersionEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddedModelSchemaSemanticVersionEnum;
+    }
+
+    if (instanceOfEmbeddedModelSchemaSemanticVersionEnum(json)) {
+        return json as EmbeddedModelSchemaSemanticVersionEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddedModelSchemaSemanticVersionEnum;
+    }
 }
 
 export function EmbeddedModelSchemaSemanticVersionEnumToJSON(value?: EmbeddedModelSchemaSemanticVersionEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddedModelSchemaSemanticVersionEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfEmbeddedModelSchemaSemanticVersionEnum(value)) {
+        return value as EmbeddedModelSchemaSemanticVersionEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddedModelSchemaSemanticVersionEnum;
+    }
 }
 
+export function EmbeddedModelSchemaSemanticVersionEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): EmbeddedModelSchemaSemanticVersionEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddedModelSchemaSemanticVersionEnum;
+    }
+    if (instanceOfEmbeddedModelSchemaSemanticVersionEnum(value)) {
+        return value as EmbeddedModelSchemaSemanticVersionEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddedModelSchemaSemanticVersionEnum;
+    }
+}

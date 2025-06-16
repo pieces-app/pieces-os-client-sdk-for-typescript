@@ -18,21 +18,69 @@
  * @export
  */
 export const FilterOperationTypeEnum = {
+    Unknown: 'UNKNOWN',
     And: 'AND',
     Or: 'OR'
 } as const;
 export type FilterOperationTypeEnum = typeof FilterOperationTypeEnum[keyof typeof FilterOperationTypeEnum];
 
 
+export function instanceOfFilterOperationTypeEnum(value: any): boolean {
+    for (const key in FilterOperationTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(FilterOperationTypeEnum, key)) {
+            if (FilterOperationTypeEnum[key as keyof typeof FilterOperationTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function FilterOperationTypeEnumFromJSON(json: any): FilterOperationTypeEnum {
     return FilterOperationTypeEnumFromJSONTyped(json, false);
 }
 
 export function FilterOperationTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): FilterOperationTypeEnum {
-    return json as FilterOperationTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as FilterOperationTypeEnum;
+    }
+
+    if (instanceOfFilterOperationTypeEnum(json)) {
+        return json as FilterOperationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as FilterOperationTypeEnum;
+    }
 }
 
 export function FilterOperationTypeEnumToJSON(value?: FilterOperationTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as FilterOperationTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfFilterOperationTypeEnum(value)) {
+        return value as FilterOperationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as FilterOperationTypeEnum;
+    }
 }
 
+export function FilterOperationTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): FilterOperationTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as FilterOperationTypeEnum;
+    }
+    if (instanceOfFilterOperationTypeEnum(value)) {
+        return value as FilterOperationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as FilterOperationTypeEnum;
+    }
+}

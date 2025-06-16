@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { CodeAnalysis } from './CodeAnalysis';
-import {
-    CodeAnalysisFromJSON,
-    CodeAnalysisFromJSONTyped,
-    CodeAnalysisToJSON,
-} from './CodeAnalysis';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedImageAnalysis } from './FlattenedImageAnalysis';
 import {
     FlattenedImageAnalysisFromJSON,
     FlattenedImageAnalysisFromJSONTyped,
     FlattenedImageAnalysisToJSON,
+    FlattenedImageAnalysisToJSONTyped,
 } from './FlattenedImageAnalysis';
+import type { CodeAnalysis } from './CodeAnalysis';
+import {
+    CodeAnalysisFromJSON,
+    CodeAnalysisFromJSONTyped,
+    CodeAnalysisToJSON,
+    CodeAnalysisToJSONTyped,
+} from './CodeAnalysis';
 
 /**
  * 
@@ -70,15 +73,14 @@ export interface FlattenedAnalysis {
     image?: FlattenedImageAnalysis;
 }
 
+
 /**
  * Check if a given object implements the FlattenedAnalysis interface.
  */
-export function instanceOfFlattenedAnalysis(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "format" in value;
-
-    return isInstance;
+export function instanceOfFlattenedAnalysis(value: object): value is FlattenedAnalysis {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('format' in value) || value['format'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedAnalysisFromJSON(json: any): FlattenedAnalysis {
@@ -86,33 +88,35 @@ export function FlattenedAnalysisFromJSON(json: any): FlattenedAnalysis {
 }
 
 export function FlattenedAnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAnalysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'code': !exists(json, 'code') ? undefined : CodeAnalysisFromJSON(json['code']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'code': json['code'] == null ? undefined : CodeAnalysisFromJSON(json['code']),
         'id': json['id'],
         'format': json['format'],
-        'image': !exists(json, 'image') ? undefined : FlattenedImageAnalysisFromJSON(json['image']),
+        'image': json['image'] == null ? undefined : FlattenedImageAnalysisFromJSON(json['image']),
     };
 }
 
-export function FlattenedAnalysisToJSON(value?: FlattenedAnalysis | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedAnalysisToJSON(json: any): FlattenedAnalysis {
+    return FlattenedAnalysisToJSONTyped(json, false);
+}
+
+export function FlattenedAnalysisToJSONTyped(value?: FlattenedAnalysis | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code': CodeAnalysisToJSON(value.code),
-        'id': value.id,
-        'format': value.format,
-        'image': FlattenedImageAnalysisToJSON(value.image),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code': CodeAnalysisToJSON(value['code']),
+        'id': value['id'],
+        'format': value['format'],
+        'image': FlattenedImageAnalysisToJSON(value['image']),
     };
 }
 

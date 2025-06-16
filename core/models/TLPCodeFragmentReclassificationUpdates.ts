@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Classification } from './Classification';
-import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+    ClassificationToJSONTyped,
+} from './Classification';
 
 /**
  * 
@@ -52,15 +54,14 @@ export interface TLPCodeFragmentReclassificationUpdates {
     current: Classification;
 }
 
+
 /**
  * Check if a given object implements the TLPCodeFragmentReclassificationUpdates interface.
  */
-export function instanceOfTLPCodeFragmentReclassificationUpdates(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "previous" in value;
-    isInstance = isInstance && "current" in value;
-
-    return isInstance;
+export function instanceOfTLPCodeFragmentReclassificationUpdates(value: object): value is TLPCodeFragmentReclassificationUpdates {
+    if (!('previous' in value) || value['previous'] === undefined) return false;
+    if (!('current' in value) || value['current'] === undefined) return false;
+    return true;
 }
 
 export function TLPCodeFragmentReclassificationUpdatesFromJSON(json: any): TLPCodeFragmentReclassificationUpdates {
@@ -68,29 +69,31 @@ export function TLPCodeFragmentReclassificationUpdatesFromJSON(json: any): TLPCo
 }
 
 export function TLPCodeFragmentReclassificationUpdatesFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentReclassificationUpdates {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': ClassificationFromJSON(json['previous']),
         'current': ClassificationFromJSON(json['current']),
     };
 }
 
-export function TLPCodeFragmentReclassificationUpdatesToJSON(value?: TLPCodeFragmentReclassificationUpdates | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TLPCodeFragmentReclassificationUpdatesToJSON(json: any): TLPCodeFragmentReclassificationUpdates {
+    return TLPCodeFragmentReclassificationUpdatesToJSONTyped(json, false);
+}
+
+export function TLPCodeFragmentReclassificationUpdatesToJSONTyped(value?: TLPCodeFragmentReclassificationUpdates | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'previous': ClassificationToJSON(value.previous),
-        'current': ClassificationToJSON(value.current),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'previous': ClassificationToJSON(value['previous']),
+        'current': ClassificationToJSON(value['current']),
     };
 }
 

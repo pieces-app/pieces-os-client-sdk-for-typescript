@@ -12,24 +12,41 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { WorkstreamEventTriggerContextBrowser } from './WorkstreamEventTriggerContextBrowser';
 import {
     WorkstreamEventTriggerContextBrowserFromJSON,
     WorkstreamEventTriggerContextBrowserFromJSONTyped,
     WorkstreamEventTriggerContextBrowserToJSON,
+    WorkstreamEventTriggerContextBrowserToJSONTyped,
 } from './WorkstreamEventTriggerContextBrowser';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { NativeAccessibility } from './NativeAccessibility';
+import {
+    NativeAccessibilityFromJSON,
+    NativeAccessibilityFromJSONTyped,
+    NativeAccessibilityToJSON,
+    NativeAccessibilityToJSONTyped,
+} from './NativeAccessibility';
+import type { NativeOCR } from './NativeOCR';
+import {
+    NativeOCRFromJSON,
+    NativeOCRFromJSONTyped,
+    NativeOCRToJSON,
+    NativeOCRToJSONTyped,
+} from './NativeOCR';
 import type { WorkstreamEventTriggerContextIDE } from './WorkstreamEventTriggerContextIDE';
 import {
     WorkstreamEventTriggerContextIDEFromJSON,
     WorkstreamEventTriggerContextIDEFromJSONTyped,
     WorkstreamEventTriggerContextIDEToJSON,
+    WorkstreamEventTriggerContextIDEToJSONTyped,
 } from './WorkstreamEventTriggerContextIDE';
 
 /**
@@ -60,15 +77,26 @@ export interface WorkstreamEventContext {
      * @memberof WorkstreamEventContext
      */
     browser?: WorkstreamEventTriggerContextBrowser;
+    /**
+     * 
+     * @type {NativeOCR}
+     * @memberof WorkstreamEventContext
+     */
+    nativeOcr?: NativeOCR;
+    /**
+     * 
+     * @type {NativeAccessibility}
+     * @memberof WorkstreamEventContext
+     */
+    accessibility?: NativeAccessibility;
 }
+
 
 /**
  * Check if a given object implements the WorkstreamEventContext interface.
  */
-export function instanceOfWorkstreamEventContext(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamEventContext(value: object): value is WorkstreamEventContext {
+    return true;
 }
 
 export function WorkstreamEventContextFromJSON(json: any): WorkstreamEventContext {
@@ -76,29 +104,35 @@ export function WorkstreamEventContextFromJSON(json: any): WorkstreamEventContex
 }
 
 export function WorkstreamEventContextFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamEventContext {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'ide': !exists(json, 'ide') ? undefined : WorkstreamEventTriggerContextIDEFromJSON(json['ide']),
-        'browser': !exists(json, 'browser') ? undefined : WorkstreamEventTriggerContextBrowserFromJSON(json['browser']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'ide': json['ide'] == null ? undefined : WorkstreamEventTriggerContextIDEFromJSON(json['ide']),
+        'browser': json['browser'] == null ? undefined : WorkstreamEventTriggerContextBrowserFromJSON(json['browser']),
+        'nativeOcr': json['native_ocr'] == null ? undefined : NativeOCRFromJSON(json['native_ocr']),
+        'accessibility': json['accessibility'] == null ? undefined : NativeAccessibilityFromJSON(json['accessibility']),
     };
 }
 
-export function WorkstreamEventContextToJSON(value?: WorkstreamEventContext | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamEventContextToJSON(json: any): WorkstreamEventContext {
+    return WorkstreamEventContextToJSONTyped(json, false);
+}
+
+export function WorkstreamEventContextToJSONTyped(value?: WorkstreamEventContext | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'ide': WorkstreamEventTriggerContextIDEToJSON(value.ide),
-        'browser': WorkstreamEventTriggerContextBrowserToJSON(value.browser),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'ide': WorkstreamEventTriggerContextIDEToJSON(value['ide']),
+        'browser': WorkstreamEventTriggerContextBrowserToJSON(value['browser']),
+        'native_ocr': NativeOCRToJSON(value['nativeOcr']),
+        'accessibility': NativeAccessibilityToJSON(value['accessibility']),
     };
 }
 

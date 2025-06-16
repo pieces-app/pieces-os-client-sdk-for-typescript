@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { Website } from './Website';
 import {
     WebsiteFromJSON,
     WebsiteFromJSONTyped,
     WebsiteToJSON,
+    WebsiteToJSONTyped,
 } from './Website';
 
 /**
@@ -77,16 +79,15 @@ export interface SearchedWebsite {
     identifier: string;
 }
 
+
 /**
  * Check if a given object implements the SearchedWebsite interface.
  */
-export function instanceOfSearchedWebsite(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedWebsite(value: object): value is SearchedWebsite {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedWebsiteFromJSON(json: any): SearchedWebsite {
@@ -94,35 +95,37 @@ export function SearchedWebsiteFromJSON(json: any): SearchedWebsite {
 }
 
 export function SearchedWebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedWebsite {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'website': !exists(json, 'website') ? undefined : WebsiteFromJSON(json['website']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'website': json['website'] == null ? undefined : WebsiteFromJSON(json['website']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedWebsiteToJSON(value?: SearchedWebsite | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedWebsiteToJSON(json: any): SearchedWebsite {
+    return SearchedWebsiteToJSONTyped(json, false);
+}
+
+export function SearchedWebsiteToJSONTyped(value?: SearchedWebsite | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'website': WebsiteToJSON(value.website),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'website': WebsiteToJSON(value['website']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

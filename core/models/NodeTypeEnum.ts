@@ -18,6 +18,7 @@
  * @export
  */
 export const NodeTypeEnum = {
+    Unknown: 'UNKNOWN',
     Tag: 'TAG',
     Website: 'WEBSITE',
     Format: 'FORMAT',
@@ -26,15 +27,62 @@ export const NodeTypeEnum = {
 export type NodeTypeEnum = typeof NodeTypeEnum[keyof typeof NodeTypeEnum];
 
 
+export function instanceOfNodeTypeEnum(value: any): boolean {
+    for (const key in NodeTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(NodeTypeEnum, key)) {
+            if (NodeTypeEnum[key as keyof typeof NodeTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function NodeTypeEnumFromJSON(json: any): NodeTypeEnum {
     return NodeTypeEnumFromJSONTyped(json, false);
 }
 
 export function NodeTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): NodeTypeEnum {
-    return json as NodeTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as NodeTypeEnum;
+    }
+
+    if (instanceOfNodeTypeEnum(json)) {
+        return json as NodeTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as NodeTypeEnum;
+    }
 }
 
 export function NodeTypeEnumToJSON(value?: NodeTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as NodeTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfNodeTypeEnum(value)) {
+        return value as NodeTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as NodeTypeEnum;
+    }
 }
 
+export function NodeTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): NodeTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as NodeTypeEnum;
+    }
+    if (instanceOfNodeTypeEnum(value)) {
+        return value as NodeTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as NodeTypeEnum;
+    }
+}

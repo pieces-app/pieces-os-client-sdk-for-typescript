@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { ProjectModules } from './ProjectModules';
+import {
+    ProjectModulesFromJSON,
+    ProjectModulesFromJSONTyped,
+    ProjectModulesToJSON,
+    ProjectModulesToJSONTyped,
+} from './ProjectModules';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { IDETabs } from './IDETabs';
 import {
     IDETabsFromJSON,
     IDETabsFromJSONTyped,
     IDETabsToJSON,
+    IDETabsToJSONTyped,
 } from './IDETabs';
-import type { ProjectModules } from './ProjectModules';
-import {
-    ProjectModulesFromJSON,
-    ProjectModulesFromJSONTyped,
-    ProjectModulesToJSON,
-} from './ProjectModules';
 
 /**
  * This is the given context for an IDE.
@@ -70,13 +73,12 @@ export interface WorkstreamEventTriggerContextIDE {
     name?: string;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamEventTriggerContextIDE interface.
  */
-export function instanceOfWorkstreamEventTriggerContextIDE(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamEventTriggerContextIDE(value: object): value is WorkstreamEventTriggerContextIDE {
+    return true;
 }
 
 export function WorkstreamEventTriggerContextIDEFromJSON(json: any): WorkstreamEventTriggerContextIDE {
@@ -84,31 +86,33 @@ export function WorkstreamEventTriggerContextIDEFromJSON(json: any): WorkstreamE
 }
 
 export function WorkstreamEventTriggerContextIDEFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamEventTriggerContextIDE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'tabs': !exists(json, 'tabs') ? undefined : IDETabsFromJSON(json['tabs']),
-        'modules': !exists(json, 'modules') ? undefined : ProjectModulesFromJSON(json['modules']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'tabs': json['tabs'] == null ? undefined : IDETabsFromJSON(json['tabs']),
+        'modules': json['modules'] == null ? undefined : ProjectModulesFromJSON(json['modules']),
+        'name': json['name'] == null ? undefined : json['name'],
     };
 }
 
-export function WorkstreamEventTriggerContextIDEToJSON(value?: WorkstreamEventTriggerContextIDE | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamEventTriggerContextIDEToJSON(json: any): WorkstreamEventTriggerContextIDE {
+    return WorkstreamEventTriggerContextIDEToJSONTyped(json, false);
+}
+
+export function WorkstreamEventTriggerContextIDEToJSONTyped(value?: WorkstreamEventTriggerContextIDE | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'tabs': IDETabsToJSON(value.tabs),
-        'modules': ProjectModulesToJSON(value.modules),
-        'name': value.name,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'tabs': IDETabsToJSON(value['tabs']),
+        'modules': ProjectModulesToJSON(value['modules']),
+        'name': value['name'],
     };
 }
 

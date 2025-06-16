@@ -35,6 +35,11 @@ export interface WorkstreamSummaryAssociateAnchorRequest {
     anchor: string;
 }
 
+export interface WorkstreamSummaryAssociateAnnotationRequest {
+    workstreamSummary: string;
+    annotation: string;
+}
+
 export interface WorkstreamSummaryAssociateAssetRequest {
     workstreamSummary: string;
     asset: string;
@@ -43,6 +48,11 @@ export interface WorkstreamSummaryAssociateAssetRequest {
 export interface WorkstreamSummaryAssociateConversationRequest {
     workstreamSummary: string;
     conversation: string;
+}
+
+export interface WorkstreamSummaryAssociateConversationMessageRequest {
+    workstreamSummary: string;
+    message: string;
 }
 
 export interface WorkstreamSummaryAssociatePersonRequest {
@@ -55,6 +65,11 @@ export interface WorkstreamSummaryAssociateRangeRequest {
     range: string;
 }
 
+export interface WorkstreamSummaryAssociateTagRequest {
+    workstreamSummary: string;
+    tag: string;
+}
+
 export interface WorkstreamSummaryAssociateWebsiteRequest {
     workstreamSummary: string;
     website: string;
@@ -65,9 +80,19 @@ export interface WorkstreamSummaryAssociateWorkstreamEventRequest {
     workstreamEvent: string;
 }
 
+export interface WorkstreamSummaryAssociateWorkstreamPatternEngineSourceRequest {
+    workstreamSummary: string;
+    source: string;
+}
+
 export interface WorkstreamSummaryDisassociateAnchorRequest {
     workstreamSummary: string;
     anchor: string;
+}
+
+export interface WorkstreamSummaryDisassociateAnnotationRequest {
+    workstreamSummary: string;
+    annotation: string;
 }
 
 export interface WorkstreamSummaryDisassociateAssetRequest {
@@ -80,6 +105,11 @@ export interface WorkstreamSummaryDisassociateConversationRequest {
     conversation: string;
 }
 
+export interface WorkstreamSummaryDisassociateConversationMessageRequest {
+    workstreamSummary: string;
+    message: string;
+}
+
 export interface WorkstreamSummaryDisassociatePersonRequest {
     workstreamSummary: string;
     person: string;
@@ -90,6 +120,11 @@ export interface WorkstreamSummaryDisassociateRangeRequest {
     range: string;
 }
 
+export interface WorkstreamSummaryDisassociateTagRequest {
+    workstreamSummary: string;
+    tag: string;
+}
+
 export interface WorkstreamSummaryDisassociateWebsiteRequest {
     workstreamSummary: string;
     website: string;
@@ -98,6 +133,16 @@ export interface WorkstreamSummaryDisassociateWebsiteRequest {
 export interface WorkstreamSummaryDisassociateWorkstreamEventRequest {
     workstreamSummary: string;
     workstreamEvent: string;
+}
+
+export interface WorkstreamSummaryDisassociateWorkstreamPatternEngineSourceRequest {
+    workstreamSummary: string;
+    source: string;
+}
+
+export interface WorkstreamSummaryRegenerateSpecificSummaryRequest {
+    workstreamSummary: string;
+    transferables?: boolean;
 }
 
 export interface WorkstreamSummaryScoresIncrementRequest {
@@ -120,20 +165,27 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary} [GET]
      */
     async workstreamSummariesSpecificWorkstreamSummarySnapshotRaw(requestParameters: WorkstreamSummariesSpecificWorkstreamSummarySnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamSummary>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummariesSpecificWorkstreamSummarySnapshot.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummariesSpecificWorkstreamSummarySnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/workstream_summary/{workstream_summary}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -156,20 +208,30 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary}/anchors/associate/{anchor} [POST]
      */
     async workstreamSummaryAssociateAnchorRaw(requestParameters: WorkstreamSummaryAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryAssociateAnchor.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateAnchor().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling workstreamSummaryAssociateAnchor.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling workstreamSummaryAssociateAnchor().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/anchors/associate/{anchor}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/workstream_summary/{workstream_summary}/anchors/associate/{anchor}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -187,24 +249,79 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate an asset with a workstream_summary. This will do the same thing as the asset equivalent.
-     * /workstream_summary/{workstream_summary}/assets/associate/{asset} [POST]
+     * This will enable us to associate an annotation with a workstream summary.
+     * /workstream_summary/{workstream_summary}/annotations/associate/{annotation} [POST]
      */
-    async workstreamSummaryAssociateAssetRaw(requestParameters: WorkstreamSummaryAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryAssociateAsset.');
+    async workstreamSummaryAssociateAnnotationRaw(requestParameters: WorkstreamSummaryAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateAnnotation().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling workstreamSummaryAssociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling workstreamSummaryAssociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/assets/associate/{asset}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/workstream_summary/{workstream_summary}/annotations/associate/{annotation}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate an annotation with a workstream summary.
+     * /workstream_summary/{workstream_summary}/annotations/associate/{annotation} [POST]
+     */
+    async workstreamSummaryAssociateAnnotation(requestParameters: WorkstreamSummaryAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryAssociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate an asset with a workstream_summary. This will do the same thing as the asset equivalent.
+     * /workstream_summary/{workstream_summary}/assets/associate/{asset} [POST]
+     */
+    async workstreamSummaryAssociateAssetRaw(requestParameters: WorkstreamSummaryAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling workstreamSummaryAssociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/assets/associate/{asset}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -226,20 +343,30 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary}/conversations/associate/{conversation} [POST]
      */
     async workstreamSummaryAssociateConversationRaw(requestParameters: WorkstreamSummaryAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryAssociateConversation.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateConversation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling workstreamSummaryAssociateConversation.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling workstreamSummaryAssociateConversation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/conversations/associate/{conversation}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/workstream_summary/{workstream_summary}/conversations/associate/{conversation}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -257,24 +384,79 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate an person with a workstream_summary. This will do the same thing as the person equivalent.
-     * /workstream_summary/{workstream_summary}/persons/associate/{person} [POST]
+     * This will associate a workstream_summary with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /workstream_summary/{workstream_summary}/messages/associate/{message} [POST]
      */
-    async workstreamSummaryAssociatePersonRaw(requestParameters: WorkstreamSummaryAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryAssociatePerson.');
+    async workstreamSummaryAssociateConversationMessageRaw(requestParameters: WorkstreamSummaryAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling workstreamSummaryAssociatePerson.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling workstreamSummaryAssociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/persons/associate/{person}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/workstream_summary/{workstream_summary}/messages/associate/{message}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_summary with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /workstream_summary/{workstream_summary}/messages/associate/{message} [POST]
+     */
+    async workstreamSummaryAssociateConversationMessage(requestParameters: WorkstreamSummaryAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryAssociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate an person with a workstream_summary. This will do the same thing as the person equivalent.
+     * /workstream_summary/{workstream_summary}/persons/associate/{person} [POST]
+     */
+    async workstreamSummaryAssociatePersonRaw(requestParameters: WorkstreamSummaryAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling workstreamSummaryAssociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/persons/associate/{person}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -296,20 +478,30 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary}/ranges/associate/{range} [POST]
      */
     async workstreamSummaryAssociateRangeRaw(requestParameters: WorkstreamSummaryAssociateRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryAssociateRange.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateRange().'
+            );
         }
 
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling workstreamSummaryAssociateRange.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling workstreamSummaryAssociateRange().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/ranges/associate/{range}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
+            path: `/workstream_summary/{workstream_summary}/ranges/associate/{range}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -327,24 +519,79 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a website with a workstream_summary. This will do the same thing as the website equivalent.
-     * /workstream_summary/{workstream_summary}/websites/associate/{website} [POST]
+     * This will associate a workstream_summary with a tag. This will do the same thing as the tag equivalent.
+     * /workstream_summary/{workstream_summary}/tags/associate/{tag} [POST]
      */
-    async workstreamSummaryAssociateWebsiteRaw(requestParameters: WorkstreamSummaryAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryAssociateWebsite.');
+    async workstreamSummaryAssociateTagRaw(requestParameters: WorkstreamSummaryAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateTag().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling workstreamSummaryAssociateWebsite.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling workstreamSummaryAssociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/websites/associate/{website}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/workstream_summary/{workstream_summary}/tags/associate/{tag}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_summary with a tag. This will do the same thing as the tag equivalent.
+     * /workstream_summary/{workstream_summary}/tags/associate/{tag} [POST]
+     */
+    async workstreamSummaryAssociateTag(requestParameters: WorkstreamSummaryAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryAssociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a website with a workstream_summary. This will do the same thing as the website equivalent.
+     * /workstream_summary/{workstream_summary}/websites/associate/{website} [POST]
+     */
+    async workstreamSummaryAssociateWebsiteRaw(requestParameters: WorkstreamSummaryAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateWebsite().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling workstreamSummaryAssociateWebsite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/websites/associate/{website}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -366,20 +613,30 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary}/workstream_events/associate/{workstream_event} [POST]
      */
     async workstreamSummaryAssociateWorkstreamEventRaw(requestParameters: WorkstreamSummaryAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryAssociateWorkstreamEvent.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateWorkstreamEvent().'
+            );
         }
 
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamSummaryAssociateWorkstreamEvent.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamSummaryAssociateWorkstreamEvent().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/workstream_events/associate/{workstream_event}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))),
+            path: `/workstream_summary/{workstream_summary}/workstream_events/associate/{workstream_event}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -397,24 +654,79 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a anchor from a workstream_summary. This will do the same thing as the anchor equivalent.
-     * /workstream_summary/{workstream_summary}/anchors/disassociate/{anchor} [POST]
+     * This will associate a workstream_summary with a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_summary/{workstream_summary}/workstream_pattern_engine/sources/associate/{source} [POST]
      */
-    async workstreamSummaryDisassociateAnchorRaw(requestParameters: WorkstreamSummaryDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryDisassociateAnchor.');
+    async workstreamSummaryAssociateWorkstreamPatternEngineSourceRaw(requestParameters: WorkstreamSummaryAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryAssociateWorkstreamPatternEngineSource().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling workstreamSummaryDisassociateAnchor.');
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling workstreamSummaryAssociateWorkstreamPatternEngineSource().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/anchors/disassociate/{anchor}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/workstream_summary/{workstream_summary}/workstream_pattern_engine/sources/associate/{source}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_summary with a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_summary/{workstream_summary}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async workstreamSummaryAssociateWorkstreamPatternEngineSource(requestParameters: WorkstreamSummaryAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryAssociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a anchor from a workstream_summary. This will do the same thing as the anchor equivalent.
+     * /workstream_summary/{workstream_summary}/anchors/disassociate/{anchor} [POST]
+     */
+    async workstreamSummaryDisassociateAnchorRaw(requestParameters: WorkstreamSummaryDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateAnchor().'
+            );
+        }
+
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling workstreamSummaryDisassociateAnchor().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/anchors/disassociate/{anchor}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -432,24 +744,79 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a asset from a workstream_summary. This will do the same thing as the asset equivalent.
-     * /workstream_summary/{workstream_summary}/assets/disassociate/{asset} [POST]
+     * This will enable us to dissassociate an annotation from a workstream summary.
+     * /workstream_summary/{workstream_summary}/annotations/disassociate/{annotation} [POST]
      */
-    async workstreamSummaryDisassociateAssetRaw(requestParameters: WorkstreamSummaryDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryDisassociateAsset.');
+    async workstreamSummaryDisassociateAnnotationRaw(requestParameters: WorkstreamSummaryDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateAnnotation().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling workstreamSummaryDisassociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling workstreamSummaryDisassociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/assets/disassociate/{asset}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/workstream_summary/{workstream_summary}/annotations/disassociate/{annotation}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from a workstream summary.
+     * /workstream_summary/{workstream_summary}/annotations/disassociate/{annotation} [POST]
+     */
+    async workstreamSummaryDisassociateAnnotation(requestParameters: WorkstreamSummaryDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryDisassociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a asset from a workstream_summary. This will do the same thing as the asset equivalent.
+     * /workstream_summary/{workstream_summary}/assets/disassociate/{asset} [POST]
+     */
+    async workstreamSummaryDisassociateAssetRaw(requestParameters: WorkstreamSummaryDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling workstreamSummaryDisassociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/assets/disassociate/{asset}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -471,20 +838,30 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary}/conversations/disassociate/{conversation} [POST]
      */
     async workstreamSummaryDisassociateConversationRaw(requestParameters: WorkstreamSummaryDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryDisassociateConversation.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateConversation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling workstreamSummaryDisassociateConversation.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling workstreamSummaryDisassociateConversation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/conversations/disassociate/{conversation}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/workstream_summary/{workstream_summary}/conversations/disassociate/{conversation}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -502,24 +879,79 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a person from a workstream_summary. This will do the same thing as the person equivalent.
-     * /workstream_summary/{workstream_summary}/persons/disassociate/{person} [POST]
+     * This will enable us to disassociate a conversation_message from an workstream_summary. This will do the same thing as the conversation_message equivalent.
+     * /workstream_summary/{workstream_summary}/messages/disassociate/{message} [POST]
      */
-    async workstreamSummaryDisassociatePersonRaw(requestParameters: WorkstreamSummaryDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryDisassociatePerson.');
+    async workstreamSummaryDisassociateConversationMessageRaw(requestParameters: WorkstreamSummaryDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling workstreamSummaryDisassociatePerson.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling workstreamSummaryDisassociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/persons/disassociate/{person}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/workstream_summary/{workstream_summary}/messages/disassociate/{message}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from an workstream_summary. This will do the same thing as the conversation_message equivalent.
+     * /workstream_summary/{workstream_summary}/messages/disassociate/{message} [POST]
+     */
+    async workstreamSummaryDisassociateConversationMessage(requestParameters: WorkstreamSummaryDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryDisassociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a person from a workstream_summary. This will do the same thing as the person equivalent.
+     * /workstream_summary/{workstream_summary}/persons/disassociate/{person} [POST]
+     */
+    async workstreamSummaryDisassociatePersonRaw(requestParameters: WorkstreamSummaryDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling workstreamSummaryDisassociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/persons/disassociate/{person}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -541,20 +973,30 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary}/ranges/disassociate/{range} [POST]
      */
     async workstreamSummaryDisassociateRangeRaw(requestParameters: WorkstreamSummaryDisassociateRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryDisassociateRange.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateRange().'
+            );
         }
 
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling workstreamSummaryDisassociateRange.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling workstreamSummaryDisassociateRange().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/ranges/disassociate/{range}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
+            path: `/workstream_summary/{workstream_summary}/ranges/disassociate/{range}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -572,24 +1014,79 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a website from a workstream_summary. This will do the same thing as the website equivalent.
-     * /workstream_summary/{workstream_summary}/websites/disassociate/{website} [POST]
+     * This will enable us to disassociate a workstream_summary from a tag. This will do the same thing as the tag equivalent.
+     * /workstream_summary/{workstream_summary}/tags/disassociate/{tag} [POST]
      */
-    async workstreamSummaryDisassociateWebsiteRaw(requestParameters: WorkstreamSummaryDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryDisassociateWebsite.');
+    async workstreamSummaryDisassociateTagRaw(requestParameters: WorkstreamSummaryDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateTag().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling workstreamSummaryDisassociateWebsite.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling workstreamSummaryDisassociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/websites/disassociate/{website}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/workstream_summary/{workstream_summary}/tags/disassociate/{tag}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_summary from a tag. This will do the same thing as the tag equivalent.
+     * /workstream_summary/{workstream_summary}/tags/disassociate/{tag} [POST]
+     */
+    async workstreamSummaryDisassociateTag(requestParameters: WorkstreamSummaryDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryDisassociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a workstream_summary. This will do the same thing as the website equivalent.
+     * /workstream_summary/{workstream_summary}/websites/disassociate/{website} [POST]
+     */
+    async workstreamSummaryDisassociateWebsiteRaw(requestParameters: WorkstreamSummaryDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateWebsite().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling workstreamSummaryDisassociateWebsite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/websites/disassociate/{website}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -611,20 +1108,30 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
      * /workstream_summary/{workstream_summary}/workstream_events/disassociate/{workstream_event} [POST]
      */
     async workstreamSummaryDisassociateWorkstreamEventRaw(requestParameters: WorkstreamSummaryDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryDisassociateWorkstreamEvent.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateWorkstreamEvent().'
+            );
         }
 
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamSummaryDisassociateWorkstreamEvent.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamSummaryDisassociateWorkstreamEvent().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/workstream_events/disassociate/{workstream_event}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))),
+            path: `/workstream_summary/{workstream_summary}/workstream_events/disassociate/{workstream_event}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -642,12 +1149,103 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will enable us to disassociate a workstream_summary from a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_summary/{workstream_summary}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async workstreamSummaryDisassociateWorkstreamPatternEngineSourceRaw(requestParameters: WorkstreamSummaryDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling workstreamSummaryDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/workstream_pattern_engine/sources/disassociate/{source}`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_summary from a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_summary/{workstream_summary}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async workstreamSummaryDisassociateWorkstreamPatternEngineSource(requestParameters: WorkstreamSummaryDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamSummaryDisassociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will regenerate a summary for a given summary ID, this can allow additional properties in the future  but it will just regen for now
+     * /workstream_summary/{workstream_summary}/regenerate/summary [POST]
+     */
+    async workstreamSummaryRegenerateSpecificSummaryRaw(requestParameters: WorkstreamSummaryRegenerateSpecificSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamSummary>> {
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryRegenerateSpecificSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_summary/{workstream_summary}/regenerate/summary`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamSummaryFromJSON(jsonValue));
+    }
+
+    /**
+     * This will regenerate a summary for a given summary ID, this can allow additional properties in the future  but it will just regen for now
+     * /workstream_summary/{workstream_summary}/regenerate/summary [POST]
+     */
+    async workstreamSummaryRegenerateSpecificSummary(requestParameters: WorkstreamSummaryRegenerateSpecificSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WorkstreamSummary> {
+        const response = await this.workstreamSummaryRegenerateSpecificSummaryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/workstream_summary/{workstream_summary}/scores/increment\' [POST]
      */
     async workstreamSummaryScoresIncrementRaw(requestParameters: WorkstreamSummaryScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamSummaryScoresIncrement.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamSummaryScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -656,12 +1254,16 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_summary/{workstream_summary}/scores/increment`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/workstream_summary/{workstream_summary}/scores/increment`.replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -682,20 +1284,24 @@ export class WorkstreamSummaryApi extends runtime.BaseAPI {
     async workstreamSummaryUpdateRaw(requestParameters: WorkstreamSummaryUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamSummary>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_summary/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamSummaryToJSON(requestParameters.workstreamSummary),
+            body: WorkstreamSummaryToJSON(requestParameters['workstreamSummary']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamSummaryFromJSON(jsonValue));

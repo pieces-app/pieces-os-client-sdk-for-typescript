@@ -18,6 +18,7 @@
  * @export
  */
 export const LanguageServerProtocolSeverityEnum = {
+    Unknown: 'UNKNOWN',
     Error: 'ERROR',
     Warning: 'WARNING',
     Information: 'INFORMATION',
@@ -26,15 +27,62 @@ export const LanguageServerProtocolSeverityEnum = {
 export type LanguageServerProtocolSeverityEnum = typeof LanguageServerProtocolSeverityEnum[keyof typeof LanguageServerProtocolSeverityEnum];
 
 
+export function instanceOfLanguageServerProtocolSeverityEnum(value: any): boolean {
+    for (const key in LanguageServerProtocolSeverityEnum) {
+        if (Object.prototype.hasOwnProperty.call(LanguageServerProtocolSeverityEnum, key)) {
+            if (LanguageServerProtocolSeverityEnum[key as keyof typeof LanguageServerProtocolSeverityEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function LanguageServerProtocolSeverityEnumFromJSON(json: any): LanguageServerProtocolSeverityEnum {
     return LanguageServerProtocolSeverityEnumFromJSONTyped(json, false);
 }
 
 export function LanguageServerProtocolSeverityEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocolSeverityEnum {
-    return json as LanguageServerProtocolSeverityEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as LanguageServerProtocolSeverityEnum;
+    }
+
+    if (instanceOfLanguageServerProtocolSeverityEnum(json)) {
+        return json as LanguageServerProtocolSeverityEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as LanguageServerProtocolSeverityEnum;
+    }
 }
 
 export function LanguageServerProtocolSeverityEnumToJSON(value?: LanguageServerProtocolSeverityEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as LanguageServerProtocolSeverityEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfLanguageServerProtocolSeverityEnum(value)) {
+        return value as LanguageServerProtocolSeverityEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as LanguageServerProtocolSeverityEnum;
+    }
 }
 
+export function LanguageServerProtocolSeverityEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): LanguageServerProtocolSeverityEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as LanguageServerProtocolSeverityEnum;
+    }
+    if (instanceOfLanguageServerProtocolSeverityEnum(value)) {
+        return value as LanguageServerProtocolSeverityEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as LanguageServerProtocolSeverityEnum;
+    }
+}

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { TrackedAssetEventFormatReclassificationMetadata } from './TrackedAssetEventFormatReclassificationMetadata';
 import {
     TrackedAssetEventFormatReclassificationMetadataFromJSON,
     TrackedAssetEventFormatReclassificationMetadataFromJSONTyped,
     TrackedAssetEventFormatReclassificationMetadataToJSON,
+    TrackedAssetEventFormatReclassificationMetadataToJSONTyped,
 } from './TrackedAssetEventFormatReclassificationMetadata';
 
 /**
@@ -34,13 +35,12 @@ export interface TrackedFormatEventMetadata {
     reclassification?: TrackedAssetEventFormatReclassificationMetadata;
 }
 
+
 /**
  * Check if a given object implements the TrackedFormatEventMetadata interface.
  */
-export function instanceOfTrackedFormatEventMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedFormatEventMetadata(value: object): value is TrackedFormatEventMetadata {
+    return true;
 }
 
 export function TrackedFormatEventMetadataFromJSON(json: any): TrackedFormatEventMetadata {
@@ -48,25 +48,27 @@ export function TrackedFormatEventMetadataFromJSON(json: any): TrackedFormatEven
 }
 
 export function TrackedFormatEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'reclassification': !exists(json, 'reclassification') ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
+        'reclassification': json['reclassification'] == null ? undefined : TrackedAssetEventFormatReclassificationMetadataFromJSON(json['reclassification']),
     };
 }
 
-export function TrackedFormatEventMetadataToJSON(value?: TrackedFormatEventMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedFormatEventMetadataToJSON(json: any): TrackedFormatEventMetadata {
+    return TrackedFormatEventMetadataToJSONTyped(json, false);
+}
+
+export function TrackedFormatEventMetadataToJSONTyped(value?: TrackedFormatEventMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value.reclassification),
+        'reclassification': TrackedAssetEventFormatReclassificationMetadataToJSON(value['reclassification']),
     };
 }
 

@@ -12,49 +12,112 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
+import { mapValues } from '../runtime';
+import type { FlattenedTags } from './FlattenedTags';
 import {
-    ConversationMessageSentimentEnumFromJSON,
-    ConversationMessageSentimentEnumFromJSONTyped,
-    ConversationMessageSentimentEnumToJSON,
-} from './ConversationMessageSentimentEnum';
+    FlattenedTagsFromJSON,
+    FlattenedTagsFromJSONTyped,
+    FlattenedTagsToJSON,
+    FlattenedTagsToJSONTyped,
+} from './FlattenedTags';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
+    ReferencedConversationFromJSON,
+    ReferencedConversationFromJSONTyped,
+    ReferencedConversationToJSON,
+    ReferencedConversationToJSONTyped,
+} from './ReferencedConversation';
+import type { FlattenedWorkstreamEvents } from './FlattenedWorkstreamEvents';
+import {
+    FlattenedWorkstreamEventsFromJSON,
+    FlattenedWorkstreamEventsFromJSONTyped,
+    FlattenedWorkstreamEventsToJSON,
+    FlattenedWorkstreamEventsToJSONTyped,
+} from './FlattenedWorkstreamEvents';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FragmentFormat } from './FragmentFormat';
 import {
     FragmentFormatFromJSON,
     FragmentFormatFromJSONTyped,
     FragmentFormatToJSON,
+    FragmentFormatToJSONTyped,
 } from './FragmentFormat';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
-import type { Model } from './Model';
+import type { FlattenedRanges } from './FlattenedRanges';
 import {
-    ModelFromJSON,
-    ModelFromJSONTyped,
-    ModelToJSON,
-} from './Model';
+    FlattenedRangesFromJSON,
+    FlattenedRangesFromJSONTyped,
+    FlattenedRangesToJSON,
+    FlattenedRangesToJSONTyped,
+} from './FlattenedRanges';
+import type { ConversationMessageSentimentEnum } from './ConversationMessageSentimentEnum';
+import {
+    ConversationMessageSentimentEnumFromJSON,
+    ConversationMessageSentimentEnumFromJSONTyped,
+    ConversationMessageSentimentEnumToJSON,
+    ConversationMessageSentimentEnumToJSONTyped,
+} from './ConversationMessageSentimentEnum';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
+import {
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
+} from './FlattenedWorkstreamSummaries';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
+} from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
 import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
 import {
     QGPTConversationMessageRoleEnumFromJSON,
     QGPTConversationMessageRoleEnumFromJSONTyped,
     QGPTConversationMessageRoleEnumToJSON,
+    QGPTConversationMessageRoleEnumToJSONTyped,
 } from './QGPTConversationMessageRoleEnum';
-import type { ReferencedConversation } from './ReferencedConversation';
+import type { Model } from './Model';
 import {
-    ReferencedConversationFromJSON,
-    ReferencedConversationFromJSONTyped,
-    ReferencedConversationToJSON,
-} from './ReferencedConversation';
+    ModelFromJSON,
+    ModelFromJSONTyped,
+    ModelToJSON,
+    ModelToJSONTyped,
+} from './Model';
+import type { FlattenedIdentifiedWorkstreamPatternEngineSources } from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import {
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSONTyped,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSONTyped,
+} from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
 
 /**
  * This is a seeded version of a ConversationMessage.
@@ -106,17 +169,64 @@ export interface SeededConversationMessage {
      * @memberof SeededConversationMessage
      */
     role: QGPTConversationMessageRoleEnum;
+    /**
+     * 
+     * @type {FlattenedAssets}
+     * @memberof SeededConversationMessage
+     */
+    assets?: FlattenedAssets;
+    /**
+     * 
+     * @type {FlattenedRanges}
+     * @memberof SeededConversationMessage
+     */
+    ranges?: FlattenedRanges;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof SeededConversationMessage
+     */
+    summaries?: FlattenedWorkstreamSummaries;
+    /**
+     * 
+     * @type {FlattenedTags}
+     * @memberof SeededConversationMessage
+     */
+    tags?: FlattenedTags;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof SeededConversationMessage
+     */
+    messages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {FlattenedWorkstreamEvents}
+     * @memberof SeededConversationMessage
+     */
+    workstreamEvents?: FlattenedWorkstreamEvents;
+    /**
+     * 
+     * @type {FlattenedIdentifiedWorkstreamPatternEngineSources}
+     * @memberof SeededConversationMessage
+     */
+    sources?: FlattenedIdentifiedWorkstreamPatternEngineSources;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof SeededConversationMessage
+     */
+    anchors?: FlattenedAnchors;
 }
+
 
 /**
  * Check if a given object implements the SeededConversationMessage interface.
  */
-export function instanceOfSeededConversationMessage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "fragment" in value;
-    isInstance = isInstance && "role" in value;
-
-    return isInstance;
+export function instanceOfSeededConversationMessage(value: object): value is SeededConversationMessage {
+    if (!('fragment' in value) || value['fragment'] === undefined) return false;
+    if (!('role' in value) || value['role'] === undefined) return false;
+    return true;
 }
 
 export function SeededConversationMessageFromJSON(json: any): SeededConversationMessage {
@@ -124,37 +234,55 @@ export function SeededConversationMessageFromJSON(json: any): SeededConversation
 }
 
 export function SeededConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConversationMessage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'created': !exists(json, 'created') ? undefined : GroupedTimestampFromJSON(json['created']),
-        'model': !exists(json, 'model') ? undefined : ModelFromJSON(json['model']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'created': json['created'] == null ? undefined : GroupedTimestampFromJSON(json['created']),
+        'model': json['model'] == null ? undefined : ModelFromJSON(json['model']),
         'fragment': FragmentFormatFromJSON(json['fragment']),
-        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
-        'sentiment': !exists(json, 'sentiment') ? undefined : ConversationMessageSentimentEnumFromJSON(json['sentiment']),
+        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'sentiment': ConversationMessageSentimentEnumFromJSON(json['sentiment']),
         'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'ranges': json['ranges'] == null ? undefined : FlattenedRangesFromJSON(json['ranges']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'tags': json['tags'] == null ? undefined : FlattenedTagsFromJSON(json['tags']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'workstreamEvents': json['workstream_events'] == null ? undefined : FlattenedWorkstreamEventsFromJSON(json['workstream_events']),
+        'sources': json['sources'] == null ? undefined : FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON(json['sources']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
     };
 }
 
-export function SeededConversationMessageToJSON(value?: SeededConversationMessage | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededConversationMessageToJSON(json: any): SeededConversationMessage {
+    return SeededConversationMessageToJSONTyped(json, false);
+}
+
+export function SeededConversationMessageToJSONTyped(value?: SeededConversationMessage | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'created': GroupedTimestampToJSON(value.created),
-        'model': ModelToJSON(value.model),
-        'fragment': FragmentFormatToJSON(value.fragment),
-        'conversation': ReferencedConversationToJSON(value.conversation),
-        'sentiment': ConversationMessageSentimentEnumToJSON(value.sentiment),
-        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'model': ModelToJSON(value['model']),
+        'fragment': FragmentFormatToJSON(value['fragment']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'sentiment': ConversationMessageSentimentEnumToJSON(value['sentiment']),
+        'role': QGPTConversationMessageRoleEnumToJSON(value['role']),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'ranges': FlattenedRangesToJSON(value['ranges']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'tags': FlattenedTagsToJSON(value['tags']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'workstream_events': FlattenedWorkstreamEventsToJSON(value['workstreamEvents']),
+        'sources': FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON(value['sources']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
     };
 }
 

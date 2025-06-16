@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ByteDescriptor } from './ByteDescriptor';
-import {
-    ByteDescriptorFromJSON,
-    ByteDescriptorFromJSONTyped,
-    ByteDescriptorToJSON,
-} from './ByteDescriptor';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { WorkstreamPatternEngineVisionEvent } from './WorkstreamPatternEngineVisionEvent';
 import {
     WorkstreamPatternEngineVisionEventFromJSON,
     WorkstreamPatternEngineVisionEventFromJSONTyped,
     WorkstreamPatternEngineVisionEventToJSON,
+    WorkstreamPatternEngineVisionEventToJSONTyped,
 } from './WorkstreamPatternEngineVisionEvent';
+import type { ByteDescriptor } from './ByteDescriptor';
+import {
+    ByteDescriptorFromJSON,
+    ByteDescriptorFromJSONTyped,
+    ByteDescriptorToJSON,
+    ByteDescriptorToJSONTyped,
+} from './ByteDescriptor';
 
 /**
  * This is specific model that will return the size of the WPE in bytes
@@ -70,15 +73,14 @@ export interface WorkstreamPatternEngineVisionEventsMetadata {
     newest?: WorkstreamPatternEngineVisionEvent;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamPatternEngineVisionEventsMetadata interface.
  */
-export function instanceOfWorkstreamPatternEngineVisionEventsMetadata(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "bytes" in value;
-    isInstance = isInstance && "total" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineVisionEventsMetadata(value: object): value is WorkstreamPatternEngineVisionEventsMetadata {
+    if (!('bytes' in value) || value['bytes'] === undefined) return false;
+    if (!('total' in value) || value['total'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamPatternEngineVisionEventsMetadataFromJSON(json: any): WorkstreamPatternEngineVisionEventsMetadata {
@@ -86,33 +88,35 @@ export function WorkstreamPatternEngineVisionEventsMetadataFromJSON(json: any): 
 }
 
 export function WorkstreamPatternEngineVisionEventsMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineVisionEventsMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'bytes': ByteDescriptorFromJSON(json['bytes']),
         'total': json['total'],
-        'oldest': !exists(json, 'oldest') ? undefined : WorkstreamPatternEngineVisionEventFromJSON(json['oldest']),
-        'newest': !exists(json, 'newest') ? undefined : WorkstreamPatternEngineVisionEventFromJSON(json['newest']),
+        'oldest': json['oldest'] == null ? undefined : WorkstreamPatternEngineVisionEventFromJSON(json['oldest']),
+        'newest': json['newest'] == null ? undefined : WorkstreamPatternEngineVisionEventFromJSON(json['newest']),
     };
 }
 
-export function WorkstreamPatternEngineVisionEventsMetadataToJSON(value?: WorkstreamPatternEngineVisionEventsMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineVisionEventsMetadataToJSON(json: any): WorkstreamPatternEngineVisionEventsMetadata {
+    return WorkstreamPatternEngineVisionEventsMetadataToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineVisionEventsMetadataToJSONTyped(value?: WorkstreamPatternEngineVisionEventsMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'bytes': ByteDescriptorToJSON(value.bytes),
-        'total': value.total,
-        'oldest': WorkstreamPatternEngineVisionEventToJSON(value.oldest),
-        'newest': WorkstreamPatternEngineVisionEventToJSON(value.newest),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'bytes': ByteDescriptorToJSON(value['bytes']),
+        'total': value['total'],
+        'oldest': WorkstreamPatternEngineVisionEventToJSON(value['oldest']),
+        'newest': WorkstreamPatternEngineVisionEventToJSON(value['newest']),
     };
 }
 

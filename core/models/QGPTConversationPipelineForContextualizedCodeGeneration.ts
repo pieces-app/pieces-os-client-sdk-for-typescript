@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -36,13 +37,12 @@ export interface QGPTConversationPipelineForContextualizedCodeGeneration {
     schema?: EmbeddedModelSchema;
 }
 
+
 /**
  * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeGeneration interface.
  */
-export function instanceOfQGPTConversationPipelineForContextualizedCodeGeneration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTConversationPipelineForContextualizedCodeGeneration(value: object): value is QGPTConversationPipelineForContextualizedCodeGeneration {
+    return true;
 }
 
 export function QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeGeneration {
@@ -50,25 +50,27 @@ export function QGPTConversationPipelineForContextualizedCodeGenerationFromJSON(
 }
 
 export function QGPTConversationPipelineForContextualizedCodeGenerationFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipelineForContextualizedCodeGeneration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function QGPTConversationPipelineForContextualizedCodeGenerationToJSON(value?: QGPTConversationPipelineForContextualizedCodeGeneration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTConversationPipelineForContextualizedCodeGenerationToJSON(json: any): QGPTConversationPipelineForContextualizedCodeGeneration {
+    return QGPTConversationPipelineForContextualizedCodeGenerationToJSONTyped(json, false);
+}
+
+export function QGPTConversationPipelineForContextualizedCodeGenerationToJSONTyped(value?: QGPTConversationPipelineForContextualizedCodeGeneration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

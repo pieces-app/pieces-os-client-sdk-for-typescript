@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -86,24 +87,30 @@ export interface TLPCodeFragmentDescriptiveStatistics {
      * @memberof TLPCodeFragmentDescriptiveStatistics
      */
     snippet: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TLPCodeFragmentDescriptiveStatistics
+     */
+    probability: string;
 }
+
 
 /**
  * Check if a given object implements the TLPCodeFragmentDescriptiveStatistics interface.
  */
-export function instanceOfTLPCodeFragmentDescriptiveStatistics(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "user" in value;
-    isInstance = isInstance && "os" in value;
-    isInstance = isInstance && "language" in value;
-    isInstance = isInstance && "length" in value;
-    isInstance = isInstance && "ast" in value;
-    isInstance = isInstance && "timestamp" in value;
-    isInstance = isInstance && "asset" in value;
-    isInstance = isInstance && "context" in value;
-    isInstance = isInstance && "snippet" in value;
-
-    return isInstance;
+export function instanceOfTLPCodeFragmentDescriptiveStatistics(value: object): value is TLPCodeFragmentDescriptiveStatistics {
+    if (!('user' in value) || value['user'] === undefined) return false;
+    if (!('os' in value) || value['os'] === undefined) return false;
+    if (!('language' in value) || value['language'] === undefined) return false;
+    if (!('length' in value) || value['length'] === undefined) return false;
+    if (!('ast' in value) || value['ast'] === undefined) return false;
+    if (!('timestamp' in value) || value['timestamp'] === undefined) return false;
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    if (!('context' in value) || value['context'] === undefined) return false;
+    if (!('snippet' in value) || value['snippet'] === undefined) return false;
+    if (!('probability' in value) || value['probability'] === undefined) return false;
+    return true;
 }
 
 export function TLPCodeFragmentDescriptiveStatisticsFromJSON(json: any): TLPCodeFragmentDescriptiveStatistics {
@@ -111,12 +118,12 @@ export function TLPCodeFragmentDescriptiveStatisticsFromJSON(json: any): TLPCode
 }
 
 export function TLPCodeFragmentDescriptiveStatisticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeFragmentDescriptiveStatistics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
         'os': json['os'],
         'language': json['language'],
@@ -126,28 +133,32 @@ export function TLPCodeFragmentDescriptiveStatisticsFromJSONTyped(json: any, ign
         'asset': json['asset'],
         'context': json['context'],
         'snippet': json['snippet'],
+        'probability': json['probability'],
     };
 }
 
-export function TLPCodeFragmentDescriptiveStatisticsToJSON(value?: TLPCodeFragmentDescriptiveStatistics | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TLPCodeFragmentDescriptiveStatisticsToJSON(json: any): TLPCodeFragmentDescriptiveStatistics {
+    return TLPCodeFragmentDescriptiveStatisticsToJSONTyped(json, false);
+}
+
+export function TLPCodeFragmentDescriptiveStatisticsToJSONTyped(value?: TLPCodeFragmentDescriptiveStatistics | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': value.user,
-        'os': value.os,
-        'language': value.language,
-        'length': value.length,
-        'ast': value.ast,
-        'timestamp': value.timestamp,
-        'asset': value.asset,
-        'context': value.context,
-        'snippet': value.snippet,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': value['user'],
+        'os': value['os'],
+        'language': value['language'],
+        'length': value['length'],
+        'ast': value['ast'],
+        'timestamp': value['timestamp'],
+        'asset': value['asset'],
+        'context': value['context'],
+        'snippet': value['snippet'],
+        'probability': value['probability'],
     };
 }
 

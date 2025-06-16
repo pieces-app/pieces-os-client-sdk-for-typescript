@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -61,13 +62,12 @@ export interface TransferableString {
     dataUrl?: string;
 }
 
+
 /**
  * Check if a given object implements the TransferableString interface.
  */
-export function instanceOfTransferableString(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTransferableString(value: object): value is TransferableString {
+    return true;
 }
 
 export function TransferableStringFromJSON(json: any): TransferableString {
@@ -75,33 +75,35 @@ export function TransferableStringFromJSON(json: any): TransferableString {
 }
 
 export function TransferableStringFromJSONTyped(json: any, ignoreDiscriminator: boolean): TransferableString {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'raw': !exists(json, 'raw') ? undefined : json['raw'],
-        'base64': !exists(json, 'base64') ? undefined : json['base64'],
-        'base64Url': !exists(json, 'base64_url') ? undefined : json['base64_url'],
-        'dataUrl': !exists(json, 'data_url') ? undefined : json['data_url'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'raw': json['raw'] == null ? undefined : json['raw'],
+        'base64': json['base64'] == null ? undefined : json['base64'],
+        'base64Url': json['base64_url'] == null ? undefined : json['base64_url'],
+        'dataUrl': json['data_url'] == null ? undefined : json['data_url'],
     };
 }
 
-export function TransferableStringToJSON(value?: TransferableString | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TransferableStringToJSON(json: any): TransferableString {
+    return TransferableStringToJSONTyped(json, false);
+}
+
+export function TransferableStringToJSONTyped(value?: TransferableString | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'raw': value.raw,
-        'base64': value.base64,
-        'base64_url': value.base64Url,
-        'data_url': value.dataUrl,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'raw': value['raw'],
+        'base64': value['base64'],
+        'base64_url': value['base64Url'],
+        'data_url': value['dataUrl'],
     };
 }
 

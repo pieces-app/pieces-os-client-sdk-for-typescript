@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { LanguageServerProtocolDiagnostic } from './LanguageServerProtocolDiagnostic';
 import {
     LanguageServerProtocolDiagnosticFromJSON,
     LanguageServerProtocolDiagnosticFromJSONTyped,
     LanguageServerProtocolDiagnosticToJSON,
+    LanguageServerProtocolDiagnosticToJSONTyped,
 } from './LanguageServerProtocolDiagnostic';
 
 /**
@@ -46,14 +48,13 @@ export interface LanguageServerProtocolDiagnostics {
     iterable: Array<LanguageServerProtocolDiagnostic>;
 }
 
+
 /**
  * Check if a given object implements the LanguageServerProtocolDiagnostics interface.
  */
-export function instanceOfLanguageServerProtocolDiagnostics(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfLanguageServerProtocolDiagnostics(value: object): value is LanguageServerProtocolDiagnostics {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function LanguageServerProtocolDiagnosticsFromJSON(json: any): LanguageServerProtocolDiagnostics {
@@ -61,27 +62,29 @@ export function LanguageServerProtocolDiagnosticsFromJSON(json: any): LanguageSe
 }
 
 export function LanguageServerProtocolDiagnosticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocolDiagnostics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(LanguageServerProtocolDiagnosticFromJSON)),
     };
 }
 
-export function LanguageServerProtocolDiagnosticsToJSON(value?: LanguageServerProtocolDiagnostics | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LanguageServerProtocolDiagnosticsToJSON(json: any): LanguageServerProtocolDiagnostics {
+    return LanguageServerProtocolDiagnosticsToJSONTyped(json, false);
+}
+
+export function LanguageServerProtocolDiagnosticsToJSONTyped(value?: LanguageServerProtocolDiagnostics | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(LanguageServerProtocolDiagnosticToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(LanguageServerProtocolDiagnosticToJSON)),
     };
 }
 

@@ -56,20 +56,24 @@ export class AnchorPointsApi extends runtime.BaseAPI {
     async anchorPointsCreateNewAnchorPointRaw(requestParameters: AnchorPointsCreateNewAnchorPointRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnchorPoint>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/anchor_points/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAnchorPointToJSON(requestParameters.seededAnchorPoint),
+            body: SeededAnchorPointToJSON(requestParameters['seededAnchorPoint']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnchorPointFromJSON(jsonValue));
@@ -89,16 +93,23 @@ export class AnchorPointsApi extends runtime.BaseAPI {
      * /anchor_points/{anchor_point}/delete [POST]
      */
     async anchorPointsDeleteSpecificAnchorPointRaw(requestParameters: AnchorPointsDeleteSpecificAnchorPointRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.anchorPoint === null || requestParameters.anchorPoint === undefined) {
-            throw new runtime.RequiredError('anchorPoint','Required parameter requestParameters.anchorPoint was null or undefined when calling anchorPointsDeleteSpecificAnchorPoint.');
+        if (requestParameters['anchorPoint'] == null) {
+            throw new runtime.RequiredError(
+                'anchorPoint',
+                'Required parameter "anchorPoint" was null or undefined when calling anchorPointsDeleteSpecificAnchorPoint().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/anchor_points/{anchor_point}/delete`.replace(`{${"anchor_point"}}`, encodeURIComponent(String(requestParameters.anchorPoint))),
+            path: `/anchor_points/{anchor_point}/delete`.replace(`{${"anchor_point"}}`, encodeURIComponent(String(requestParameters['anchorPoint']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -122,11 +133,15 @@ export class AnchorPointsApi extends runtime.BaseAPI {
     async anchorPointsSnapshotRaw(requestParameters: AnchorPointsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AnchorPoints>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/anchor_points`,
@@ -155,6 +170,10 @@ export class AnchorPointsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/anchor_points/stream/identifiers`,

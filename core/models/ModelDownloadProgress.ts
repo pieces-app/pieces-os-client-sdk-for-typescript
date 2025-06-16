@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ModelDownloadProgressStatusEnum } from './ModelDownloadProgressStatusEnum';
 import {
     ModelDownloadProgressStatusEnumFromJSON,
     ModelDownloadProgressStatusEnumFromJSONTyped,
     ModelDownloadProgressStatusEnumToJSON,
+    ModelDownloadProgressStatusEnumToJSONTyped,
 } from './ModelDownloadProgressStatusEnum';
 
 /**
@@ -51,16 +53,15 @@ export interface ModelDownloadProgress {
      * @type {number}
      * @memberof ModelDownloadProgress
      */
-    percentage?: number | null;
+    percentage?: number;
 }
+
 
 /**
  * Check if a given object implements the ModelDownloadProgress interface.
  */
-export function instanceOfModelDownloadProgress(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfModelDownloadProgress(value: object): value is ModelDownloadProgress {
+    return true;
 }
 
 export function ModelDownloadProgressFromJSON(json: any): ModelDownloadProgress {
@@ -68,29 +69,31 @@ export function ModelDownloadProgressFromJSON(json: any): ModelDownloadProgress 
 }
 
 export function ModelDownloadProgressFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDownloadProgress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'status': !exists(json, 'status') ? undefined : ModelDownloadProgressStatusEnumFromJSON(json['status']),
-        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'status': ModelDownloadProgressStatusEnumFromJSON(json['status']),
+        'percentage': json['percentage'] == null ? undefined : json['percentage'],
     };
 }
 
-export function ModelDownloadProgressToJSON(value?: ModelDownloadProgress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ModelDownloadProgressToJSON(json: any): ModelDownloadProgress {
+    return ModelDownloadProgressToJSONTyped(json, false);
+}
+
+export function ModelDownloadProgressToJSONTyped(value?: ModelDownloadProgress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'status': ModelDownloadProgressStatusEnumToJSON(value.status),
-        'percentage': value.percentage,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'status': ModelDownloadProgressStatusEnumToJSON(value['status']),
+        'percentage': value['percentage'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,14 +41,13 @@ export interface OSDeviceDependenciesInformation {
     vulkan: boolean;
 }
 
+
 /**
  * Check if a given object implements the OSDeviceDependenciesInformation interface.
  */
-export function instanceOfOSDeviceDependenciesInformation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "vulkan" in value;
-
-    return isInstance;
+export function instanceOfOSDeviceDependenciesInformation(value: object): value is OSDeviceDependenciesInformation {
+    if (!('vulkan' in value) || value['vulkan'] === undefined) return false;
+    return true;
 }
 
 export function OSDeviceDependenciesInformationFromJSON(json: any): OSDeviceDependenciesInformation {
@@ -55,27 +55,29 @@ export function OSDeviceDependenciesInformationFromJSON(json: any): OSDeviceDepe
 }
 
 export function OSDeviceDependenciesInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceDependenciesInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'vulkan': json['vulkan'],
     };
 }
 
-export function OSDeviceDependenciesInformationToJSON(value?: OSDeviceDependenciesInformation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSDeviceDependenciesInformationToJSON(json: any): OSDeviceDependenciesInformation {
+    return OSDeviceDependenciesInformationToJSONTyped(json, false);
+}
+
+export function OSDeviceDependenciesInformationToJSONTyped(value?: OSDeviceDependenciesInformation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'vulkan': value.vulkan,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'vulkan': value['vulkan'],
     };
 }
 

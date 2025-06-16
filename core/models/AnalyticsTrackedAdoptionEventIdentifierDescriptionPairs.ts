@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -45,32 +46,151 @@ export interface AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
      */
     adoptionUninstall?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
 }
-
-
 /**
  * @export
  */
 export const AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum = {
+    Unknown: 'UNKNOWN',
     TheUserHasInstalledAPiecesApplication: 'the_user_has_installed_a_pieces_application'
 } as const;
 export type AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum = typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum[keyof typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum];
+
+    export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum(value: any): boolean {
+        for (const key in AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum) {
+            if (Object.prototype.hasOwnProperty.call(AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum, key)) {
+                if (AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum[key as keyof typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnumFromJSON(json: any): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum {
+        return AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnumFromJSONTyped(json, false);
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+
+        if (instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum(json)) {
+            return json as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnumToJSON(value?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum(value)) {
+            return value as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+        if (instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum(value)) {
+            return value as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum = {
+    Unknown: 'UNKNOWN',
     TheUserHasUninstalledAPiecesApplication: 'the_user_has_uninstalled_a_pieces_application'
 } as const;
 export type AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum = typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum[keyof typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum];
+
+    export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum(value: any): boolean {
+        for (const key in AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum) {
+            if (Object.prototype.hasOwnProperty.call(AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum, key)) {
+                if (AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum[key as keyof typeof AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnumFromJSON(json: any): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum {
+        return AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnumFromJSONTyped(json, false);
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+
+        if (instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum(json)) {
+            return json as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnumToJSON(value?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum(value)) {
+            return value as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+    }
+
+    export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+        if (instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum(value)) {
+            return value as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAnalyticsTrackedAdoptionEventIdentifierDescriptionPairs(value: object): value is AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON(json: any): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
@@ -78,29 +198,31 @@ export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSON(
 }
 
 export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'adoptionInstall': !exists(json, 'adoption_install') ? undefined : json['adoption_install'],
-        'adoptionUninstall': !exists(json, 'adoption_uninstall') ? undefined : json['adoption_uninstall'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'adoptionInstall': AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnumFromJSON(json['adoption_install']),
+        'adoptionUninstall': AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnumFromJSON(json['adoption_uninstall']),
     };
 }
 
-export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON(value?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSON(json: any): AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs {
+    return AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsToJSONTyped(value?: AnalyticsTrackedAdoptionEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'adoption_install': value.adoptionInstall,
-        'adoption_uninstall': value.adoptionUninstall,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'adoptionInstall': AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionInstallEnumToJSON(value['adoption_install']),
+        'adoptionUninstall': AnalyticsTrackedAdoptionEventIdentifierDescriptionPairsAdoptionUninstallEnumToJSON(value['adoption_uninstall']),
     };
 }
 

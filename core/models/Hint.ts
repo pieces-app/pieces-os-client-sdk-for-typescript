@@ -12,49 +12,56 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAssets } from './FlattenedAssets';
-import {
-    FlattenedAssetsFromJSON,
-    FlattenedAssetsFromJSONTyped,
-    FlattenedAssetsToJSON,
-} from './FlattenedAssets';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
-import type { HintTypeEnum } from './HintTypeEnum';
-import {
-    HintTypeEnumFromJSON,
-    HintTypeEnumFromJSONTyped,
-    HintTypeEnumToJSON,
-} from './HintTypeEnum';
-import type { MechanismEnum } from './MechanismEnum';
-import {
-    MechanismEnumFromJSON,
-    MechanismEnumFromJSONTyped,
-    MechanismEnumToJSON,
-} from './MechanismEnum';
-import type { ReferencedModel } from './ReferencedModel';
-import {
-    ReferencedModelFromJSON,
-    ReferencedModelFromJSONTyped,
-    ReferencedModelToJSON,
-} from './ReferencedModel';
+import { mapValues } from '../runtime';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
+} from './FlattenedAssets';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
+    MechanismEnumFromJSON,
+    MechanismEnumFromJSONTyped,
+    MechanismEnumToJSON,
+    MechanismEnumToJSONTyped,
+} from './MechanismEnum';
+import type { HintTypeEnum } from './HintTypeEnum';
+import {
+    HintTypeEnumFromJSON,
+    HintTypeEnumFromJSONTyped,
+    HintTypeEnumToJSON,
+    HintTypeEnumToJSONTyped,
+} from './HintTypeEnum';
+import type { ReferencedModel } from './ReferencedModel';
+import {
+    ReferencedModelFromJSON,
+    ReferencedModelFromJSONTyped,
+    ReferencedModelToJSON,
+    ReferencedModelToJSONTyped,
+} from './ReferencedModel';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 
 /**
  * This is a hint that is attached to an asset, used for suggested_queries, and hints given via the qgpt flow.
@@ -130,18 +137,17 @@ export interface Hint {
     score?: Score;
 }
 
+
 /**
  * Check if a given object implements the Hint interface.
  */
-export function instanceOfHint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "text" in value;
-
-    return isInstance;
+export function instanceOfHint(value: object): value is Hint {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    if (!('text' in value) || value['text'] === undefined) return false;
+    return true;
 }
 
 export function HintFromJSON(json: any): Hint {
@@ -149,45 +155,47 @@ export function HintFromJSON(json: any): Hint {
 }
 
 export function HintFromJSONTyped(json: any, ignoreDiscriminator: boolean): Hint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'mechanisms': !exists(json, 'mechanisms') ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'mechanisms': json['mechanisms'] == null ? undefined : (mapValues(json['mechanisms'], MechanismEnumFromJSON)),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
         'type': HintTypeEnumFromJSON(json['type']),
         'text': json['text'],
-        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function HintToJSON(value?: Hint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function HintToJSON(json: any): Hint {
+    return HintToJSONTyped(json, false);
+}
+
+export function HintToJSONTyped(value?: Hint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'mechanisms': value.mechanisms === undefined ? undefined : (mapValues(value.mechanisms, MechanismEnumToJSON)),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'type': HintTypeEnumToJSON(value.type),
-        'text': value.text,
-        'model': ReferencedModelToJSON(value.model),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'mechanisms': value['mechanisms'] == null ? undefined : (mapValues(value['mechanisms'], MechanismEnumToJSON)),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'type': HintTypeEnumToJSON(value['type']),
+        'text': value['text'],
+        'model': ReferencedModelToJSON(value['model']),
+        'score': ScoreToJSON(value['score']),
     };
 }
 

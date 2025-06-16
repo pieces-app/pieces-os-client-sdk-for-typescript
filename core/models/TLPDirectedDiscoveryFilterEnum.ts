@@ -18,6 +18,7 @@
  * @export
  */
 export const TLPDirectedDiscoveryFilterEnum = {
+    Unknown: 'UNKNOWN',
     Function: 'FUNCTION',
     Method: 'METHOD',
     Class: 'CLASS',
@@ -32,15 +33,62 @@ export const TLPDirectedDiscoveryFilterEnum = {
 export type TLPDirectedDiscoveryFilterEnum = typeof TLPDirectedDiscoveryFilterEnum[keyof typeof TLPDirectedDiscoveryFilterEnum];
 
 
+export function instanceOfTLPDirectedDiscoveryFilterEnum(value: any): boolean {
+    for (const key in TLPDirectedDiscoveryFilterEnum) {
+        if (Object.prototype.hasOwnProperty.call(TLPDirectedDiscoveryFilterEnum, key)) {
+            if (TLPDirectedDiscoveryFilterEnum[key as keyof typeof TLPDirectedDiscoveryFilterEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function TLPDirectedDiscoveryFilterEnumFromJSON(json: any): TLPDirectedDiscoveryFilterEnum {
     return TLPDirectedDiscoveryFilterEnumFromJSONTyped(json, false);
 }
 
 export function TLPDirectedDiscoveryFilterEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPDirectedDiscoveryFilterEnum {
-    return json as TLPDirectedDiscoveryFilterEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as TLPDirectedDiscoveryFilterEnum;
+    }
+
+    if (instanceOfTLPDirectedDiscoveryFilterEnum(json)) {
+        return json as TLPDirectedDiscoveryFilterEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as TLPDirectedDiscoveryFilterEnum;
+    }
 }
 
 export function TLPDirectedDiscoveryFilterEnumToJSON(value?: TLPDirectedDiscoveryFilterEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as TLPDirectedDiscoveryFilterEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfTLPDirectedDiscoveryFilterEnum(value)) {
+        return value as TLPDirectedDiscoveryFilterEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as TLPDirectedDiscoveryFilterEnum;
+    }
 }
 
+export function TLPDirectedDiscoveryFilterEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TLPDirectedDiscoveryFilterEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as TLPDirectedDiscoveryFilterEnum;
+    }
+    if (instanceOfTLPDirectedDiscoveryFilterEnum(value)) {
+        return value as TLPDirectedDiscoveryFilterEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as TLPDirectedDiscoveryFilterEnum;
+    }
+}

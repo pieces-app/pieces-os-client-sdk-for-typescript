@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { CodeAnalysis } from './CodeAnalysis';
-import {
-    CodeAnalysisFromJSON,
-    CodeAnalysisFromJSONTyped,
-    CodeAnalysisToJSON,
-} from './CodeAnalysis';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ImageAnalysis } from './ImageAnalysis';
 import {
     ImageAnalysisFromJSON,
     ImageAnalysisFromJSONTyped,
     ImageAnalysisToJSON,
+    ImageAnalysisToJSONTyped,
 } from './ImageAnalysis';
+import type { CodeAnalysis } from './CodeAnalysis';
+import {
+    CodeAnalysisFromJSON,
+    CodeAnalysisFromJSONTyped,
+    CodeAnalysisToJSON,
+    CodeAnalysisToJSONTyped,
+} from './CodeAnalysis';
 
 /**
  * This the the MlAnalysis Object, that will go on a format.
@@ -74,15 +77,14 @@ export interface Analysis {
     image?: ImageAnalysis;
 }
 
+
 /**
  * Check if a given object implements the Analysis interface.
  */
-export function instanceOfAnalysis(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "format" in value;
-
-    return isInstance;
+export function instanceOfAnalysis(value: object): value is Analysis {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('format' in value) || value['format'] === undefined) return false;
+    return true;
 }
 
 export function AnalysisFromJSON(json: any): Analysis {
@@ -90,33 +92,35 @@ export function AnalysisFromJSON(json: any): Analysis {
 }
 
 export function AnalysisFromJSONTyped(json: any, ignoreDiscriminator: boolean): Analysis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'code': !exists(json, 'code') ? undefined : CodeAnalysisFromJSON(json['code']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'code': json['code'] == null ? undefined : CodeAnalysisFromJSON(json['code']),
         'id': json['id'],
         'format': json['format'],
-        'image': !exists(json, 'image') ? undefined : ImageAnalysisFromJSON(json['image']),
+        'image': json['image'] == null ? undefined : ImageAnalysisFromJSON(json['image']),
     };
 }
 
-export function AnalysisToJSON(value?: Analysis | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AnalysisToJSON(json: any): Analysis {
+    return AnalysisToJSONTyped(json, false);
+}
+
+export function AnalysisToJSONTyped(value?: Analysis | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code': CodeAnalysisToJSON(value.code),
-        'id': value.id,
-        'format': value.format,
-        'image': ImageAnalysisToJSON(value.image),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code': CodeAnalysisToJSON(value['code']),
+        'id': value['id'],
+        'format': value['format'],
+        'image': ImageAnalysisToJSON(value['image']),
     };
 }
 

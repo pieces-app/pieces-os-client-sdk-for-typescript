@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
 import type { WindowDimensions } from './WindowDimensions';
 import {
     WindowDimensionsFromJSON,
     WindowDimensionsFromJSONTyped,
     WindowDimensionsToJSON,
+    WindowDimensionsToJSONTyped,
 } from './WindowDimensions';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 
 /**
  * This model is used for the dimensions of the copilot/feed/xyz window.
@@ -69,14 +72,13 @@ export interface WorkstreamPatternEngineVisionCalibration {
     dimensions?: WindowDimensions;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamPatternEngineVisionCalibration interface.
  */
-export function instanceOfWorkstreamPatternEngineVisionCalibration(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "foreground" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineVisionCalibration(value: object): value is WorkstreamPatternEngineVisionCalibration {
+    if (!('foreground' in value) || value['foreground'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamPatternEngineVisionCalibrationFromJSON(json: any): WorkstreamPatternEngineVisionCalibration {
@@ -84,31 +86,33 @@ export function WorkstreamPatternEngineVisionCalibrationFromJSON(json: any): Wor
 }
 
 export function WorkstreamPatternEngineVisionCalibrationFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineVisionCalibration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'foreground': json['foreground'],
-        'captured': !exists(json, 'captured') ? undefined : GroupedTimestampFromJSON(json['captured']),
-        'dimensions': !exists(json, 'dimensions') ? undefined : WindowDimensionsFromJSON(json['dimensions']),
+        'captured': json['captured'] == null ? undefined : GroupedTimestampFromJSON(json['captured']),
+        'dimensions': json['dimensions'] == null ? undefined : WindowDimensionsFromJSON(json['dimensions']),
     };
 }
 
-export function WorkstreamPatternEngineVisionCalibrationToJSON(value?: WorkstreamPatternEngineVisionCalibration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineVisionCalibrationToJSON(json: any): WorkstreamPatternEngineVisionCalibration {
+    return WorkstreamPatternEngineVisionCalibrationToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineVisionCalibrationToJSONTyped(value?: WorkstreamPatternEngineVisionCalibration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'foreground': value.foreground,
-        'captured': GroupedTimestampToJSON(value.captured),
-        'dimensions': WindowDimensionsToJSON(value.dimensions),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'foreground': value['foreground'],
+        'captured': GroupedTimestampToJSON(value['captured']),
+        'dimensions': WindowDimensionsToJSON(value['dimensions']),
     };
 }
 

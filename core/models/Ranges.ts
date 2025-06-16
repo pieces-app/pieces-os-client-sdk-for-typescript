@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { Range } from './Range';
 import {
     RangeFromJSON,
     RangeFromJSONTyped,
     RangeToJSON,
+    RangeToJSONTyped,
 } from './Range';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
 
 /**
  * This is a collection of many Ranges
@@ -70,14 +73,13 @@ export interface Ranges {
     continuous?: boolean;
 }
 
+
 /**
  * Check if a given object implements the Ranges interface.
  */
-export function instanceOfRanges(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfRanges(value: object): value is Ranges {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function RangesFromJSON(json: any): Ranges {
@@ -85,33 +87,35 @@ export function RangesFromJSON(json: any): Ranges {
 }
 
 export function RangesFromJSONTyped(json: any, ignoreDiscriminator: boolean): Ranges {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(RangeFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
-        'continuous': !exists(json, 'continuous') ? undefined : json['continuous'],
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'continuous': json['continuous'] == null ? undefined : json['continuous'],
     };
 }
 
-export function RangesToJSON(value?: Ranges | null): any {
-    if (value === undefined) {
-        return undefined;
+export function RangesToJSON(json: any): Ranges {
+    return RangesToJSONTyped(json, false);
+}
+
+export function RangesToJSONTyped(value?: Ranges | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(RangeToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
-        'continuous': value.continuous,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(RangeToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
+        'continuous': value['continuous'],
     };
 }
 

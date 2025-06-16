@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
+import { mapValues } from '../runtime';
 import type { WorkstreamEvent } from './WorkstreamEvent';
 import {
     WorkstreamEventFromJSON,
     WorkstreamEventFromJSONTyped,
     WorkstreamEventToJSON,
+    WorkstreamEventToJSONTyped,
 } from './WorkstreamEvent';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a collection of many Shadow Activity events.
@@ -64,14 +67,13 @@ export interface WorkstreamEvents {
     score?: Score;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamEvents interface.
  */
-export function instanceOfWorkstreamEvents(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamEvents(value: object): value is WorkstreamEvents {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamEventsFromJSON(json: any): WorkstreamEvents {
@@ -79,31 +81,33 @@ export function WorkstreamEventsFromJSON(json: any): WorkstreamEvents {
 }
 
 export function WorkstreamEventsFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamEvents {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(WorkstreamEventFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function WorkstreamEventsToJSON(value?: WorkstreamEvents | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamEventsToJSON(json: any): WorkstreamEvents {
+    return WorkstreamEventsToJSONTyped(json, false);
+}
+
+export function WorkstreamEventsToJSONTyped(value?: WorkstreamEvents | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(WorkstreamEventToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(WorkstreamEventToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
 

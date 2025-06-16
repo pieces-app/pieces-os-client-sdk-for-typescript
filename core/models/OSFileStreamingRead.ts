@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { OSFileStreamingReadProgress } from './OSFileStreamingReadProgress';
+import {
+    OSFileStreamingReadProgressFromJSON,
+    OSFileStreamingReadProgressFromJSONTyped,
+    OSFileStreamingReadProgressToJSON,
+    OSFileStreamingReadProgressToJSONTyped,
+} from './OSFileStreamingReadProgress';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ModelDownloadProgressStatusEnum } from './ModelDownloadProgressStatusEnum';
 import {
     ModelDownloadProgressStatusEnumFromJSON,
     ModelDownloadProgressStatusEnumFromJSONTyped,
     ModelDownloadProgressStatusEnumToJSON,
+    ModelDownloadProgressStatusEnumToJSONTyped,
 } from './ModelDownloadProgressStatusEnum';
-import type { OSFileStreamingReadProgress } from './OSFileStreamingReadProgress';
-import {
-    OSFileStreamingReadProgressFromJSON,
-    OSFileStreamingReadProgressFromJSONTyped,
-    OSFileStreamingReadProgressToJSON,
-} from './OSFileStreamingReadProgress';
 import type { TransferableBytes } from './TransferableBytes';
 import {
     TransferableBytesFromJSON,
     TransferableBytesFromJSONTyped,
     TransferableBytesToJSON,
+    TransferableBytesToJSONTyped,
 } from './TransferableBytes';
 
 /**
@@ -61,7 +65,7 @@ export interface OSFileStreamingRead {
      * @type {number}
      * @memberof OSFileStreamingRead
      */
-    percentage?: number | null;
+    percentage?: number;
     /**
      * 
      * @type {string}
@@ -88,16 +92,15 @@ export interface OSFileStreamingRead {
     progress?: OSFileStreamingReadProgress;
 }
 
+
 /**
  * Check if a given object implements the OSFileStreamingRead interface.
  */
-export function instanceOfOSFileStreamingRead(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "path" in value;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfOSFileStreamingRead(value: object): value is OSFileStreamingRead {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('path' in value) || value['path'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function OSFileStreamingReadFromJSON(json: any): OSFileStreamingRead {
@@ -105,37 +108,39 @@ export function OSFileStreamingReadFromJSON(json: any): OSFileStreamingRead {
 }
 
 export function OSFileStreamingReadFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSFileStreamingRead {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'status': ModelDownloadProgressStatusEnumFromJSON(json['status']),
-        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
+        'percentage': json['percentage'] == null ? undefined : json['percentage'],
         'path': json['path'],
         'id': json['id'],
-        'bytes': !exists(json, 'bytes') ? undefined : TransferableBytesFromJSON(json['bytes']),
-        'progress': !exists(json, 'progress') ? undefined : OSFileStreamingReadProgressFromJSON(json['progress']),
+        'bytes': json['bytes'] == null ? undefined : TransferableBytesFromJSON(json['bytes']),
+        'progress': json['progress'] == null ? undefined : OSFileStreamingReadProgressFromJSON(json['progress']),
     };
 }
 
-export function OSFileStreamingReadToJSON(value?: OSFileStreamingRead | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSFileStreamingReadToJSON(json: any): OSFileStreamingRead {
+    return OSFileStreamingReadToJSONTyped(json, false);
+}
+
+export function OSFileStreamingReadToJSONTyped(value?: OSFileStreamingRead | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'status': ModelDownloadProgressStatusEnumToJSON(value.status),
-        'percentage': value.percentage,
-        'path': value.path,
-        'id': value.id,
-        'bytes': TransferableBytesToJSON(value.bytes),
-        'progress': OSFileStreamingReadProgressToJSON(value.progress),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'status': ModelDownloadProgressStatusEnumToJSON(value['status']),
+        'percentage': value['percentage'],
+        'path': value['path'],
+        'id': value['id'],
+        'bytes': TransferableBytesToJSON(value['bytes']),
+        'progress': OSFileStreamingReadProgressToJSON(value['progress']),
     };
 }
 

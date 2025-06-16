@@ -18,6 +18,7 @@
  * @export
  */
 export const PersonAccessScopedEnum = {
+    Unknown: 'UNKNOWN',
     Owner: 'OWNER',
     Editor: 'EDITOR',
     Commenter: 'COMMENTER',
@@ -26,15 +27,62 @@ export const PersonAccessScopedEnum = {
 export type PersonAccessScopedEnum = typeof PersonAccessScopedEnum[keyof typeof PersonAccessScopedEnum];
 
 
+export function instanceOfPersonAccessScopedEnum(value: any): boolean {
+    for (const key in PersonAccessScopedEnum) {
+        if (Object.prototype.hasOwnProperty.call(PersonAccessScopedEnum, key)) {
+            if (PersonAccessScopedEnum[key as keyof typeof PersonAccessScopedEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function PersonAccessScopedEnumFromJSON(json: any): PersonAccessScopedEnum {
     return PersonAccessScopedEnumFromJSONTyped(json, false);
 }
 
 export function PersonAccessScopedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonAccessScopedEnum {
-    return json as PersonAccessScopedEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as PersonAccessScopedEnum;
+    }
+
+    if (instanceOfPersonAccessScopedEnum(json)) {
+        return json as PersonAccessScopedEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as PersonAccessScopedEnum;
+    }
 }
 
 export function PersonAccessScopedEnumToJSON(value?: PersonAccessScopedEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as PersonAccessScopedEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfPersonAccessScopedEnum(value)) {
+        return value as PersonAccessScopedEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as PersonAccessScopedEnum;
+    }
 }
 
+export function PersonAccessScopedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): PersonAccessScopedEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as PersonAccessScopedEnum;
+    }
+    if (instanceOfPersonAccessScopedEnum(value)) {
+        return value as PersonAccessScopedEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as PersonAccessScopedEnum;
+    }
+}

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -66,13 +67,12 @@ export interface SeededScore {
     searched?: boolean;
 }
 
+
 /**
  * Check if a given object implements the SeededScore interface.
  */
-export function instanceOfSeededScore(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededScore(value: object): value is SeededScore {
+    return true;
 }
 
 export function SeededScoreFromJSON(json: any): SeededScore {
@@ -80,35 +80,37 @@ export function SeededScoreFromJSON(json: any): SeededScore {
 }
 
 export function SeededScoreFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededScore {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'reuse': !exists(json, 'reuse') ? undefined : json['reuse'],
-        'update': !exists(json, 'update') ? undefined : json['update'],
-        'reference': !exists(json, 'reference') ? undefined : json['reference'],
-        'priority': !exists(json, 'priority') ? undefined : json['priority'],
-        'searched': !exists(json, 'searched') ? undefined : json['searched'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'reuse': json['reuse'] == null ? undefined : json['reuse'],
+        'update': json['update'] == null ? undefined : json['update'],
+        'reference': json['reference'] == null ? undefined : json['reference'],
+        'priority': json['priority'] == null ? undefined : json['priority'],
+        'searched': json['searched'] == null ? undefined : json['searched'],
     };
 }
 
-export function SeededScoreToJSON(value?: SeededScore | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededScoreToJSON(json: any): SeededScore {
+    return SeededScoreToJSONTyped(json, false);
+}
+
+export function SeededScoreToJSONTyped(value?: SeededScore | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'reuse': value.reuse,
-        'update': value.update,
-        'reference': value.reference,
-        'priority': value.priority,
-        'searched': value.searched,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'reuse': value['reuse'],
+        'update': value['update'],
+        'reference': value['reference'],
+        'priority': value['priority'],
+        'searched': value['searched'],
     };
 }
 

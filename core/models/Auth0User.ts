@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Auth0Identity } from './Auth0Identity';
-import {
-    Auth0IdentityFromJSON,
-    Auth0IdentityFromJSONTyped,
-    Auth0IdentityToJSON,
-} from './Auth0Identity';
+import { mapValues } from '../runtime';
 import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
+    Auth0UserMetadataToJSONTyped,
 } from './Auth0UserMetadata';
+import type { Auth0Identity } from './Auth0Identity';
+import {
+    Auth0IdentityFromJSON,
+    Auth0IdentityFromJSONTyped,
+    Auth0IdentityToJSON,
+    Auth0IdentityToJSONTyped,
+} from './Auth0Identity';
 
 /**
  * 
@@ -151,13 +153,12 @@ export interface Auth0User {
     guardianAuthenticators?: Array<string>;
 }
 
+
 /**
  * Check if a given object implements the Auth0User interface.
  */
-export function instanceOfAuth0User(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAuth0User(value: object): value is Auth0User {
+    return true;
 }
 
 export function Auth0UserFromJSON(json: any): Auth0User {
@@ -165,61 +166,63 @@ export function Auth0UserFromJSON(json: any): Auth0User {
 }
 
 export function Auth0UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): Auth0User {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'picture': !exists(json, 'picture') ? undefined : json['picture'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'createdAt': !exists(json, 'created_at') ? undefined : (new Date(json['created_at'])),
-        'emailVerified': !exists(json, 'email_verified') ? undefined : json['email_verified'],
-        'familyName': !exists(json, 'family_name') ? undefined : json['family_name'],
-        'givenName': !exists(json, 'given_name') ? undefined : json['given_name'],
-        'identities': !exists(json, 'identities') ? undefined : ((json['identities'] as Array<any>).map(Auth0IdentityFromJSON)),
-        'nickname': !exists(json, 'nickname') ? undefined : json['nickname'],
-        'updatedAt': !exists(json, 'updated_at') ? undefined : (new Date(json['updated_at'])),
-        'username': !exists(json, 'username') ? undefined : json['username'],
-        'userMetadata': !exists(json, 'user_metadata') ? undefined : Auth0UserMetadataFromJSON(json['user_metadata']),
-        'locale': !exists(json, 'locale') ? undefined : json['locale'],
-        'userId': !exists(json, 'user_id') ? undefined : json['user_id'],
-        'lastIp': !exists(json, 'last_ip') ? undefined : json['last_ip'],
-        'lastLogin': !exists(json, 'last_login') ? undefined : (new Date(json['last_login'])),
-        'loginsCount': !exists(json, 'logins_count') ? undefined : json['logins_count'],
-        'blockedFor': !exists(json, 'blocked_for') ? undefined : json['blocked_for'],
-        'guardianAuthenticators': !exists(json, 'guardian_authenticators') ? undefined : json['guardian_authenticators'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'picture': json['picture'] == null ? undefined : json['picture'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
+        'emailVerified': json['email_verified'] == null ? undefined : json['email_verified'],
+        'familyName': json['family_name'] == null ? undefined : json['family_name'],
+        'givenName': json['given_name'] == null ? undefined : json['given_name'],
+        'identities': json['identities'] == null ? undefined : ((json['identities'] as Array<any>).map(Auth0IdentityFromJSON)),
+        'nickname': json['nickname'] == null ? undefined : json['nickname'],
+        'updatedAt': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
+        'username': json['username'] == null ? undefined : json['username'],
+        'userMetadata': json['user_metadata'] == null ? undefined : Auth0UserMetadataFromJSON(json['user_metadata']),
+        'locale': json['locale'] == null ? undefined : json['locale'],
+        'userId': json['user_id'] == null ? undefined : json['user_id'],
+        'lastIp': json['last_ip'] == null ? undefined : json['last_ip'],
+        'lastLogin': json['last_login'] == null ? undefined : (new Date(json['last_login'])),
+        'loginsCount': json['logins_count'] == null ? undefined : json['logins_count'],
+        'blockedFor': json['blocked_for'] == null ? undefined : json['blocked_for'],
+        'guardianAuthenticators': json['guardian_authenticators'] == null ? undefined : json['guardian_authenticators'],
     };
 }
 
-export function Auth0UserToJSON(value?: Auth0User | null): any {
-    if (value === undefined) {
-        return undefined;
+export function Auth0UserToJSON(json: any): Auth0User {
+    return Auth0UserToJSONTyped(json, false);
+}
+
+export function Auth0UserToJSONTyped(value?: Auth0User | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'picture': value.picture,
-        'email': value.email,
-        'created_at': value.createdAt === undefined ? undefined : (value.createdAt.toISOString()),
-        'email_verified': value.emailVerified,
-        'family_name': value.familyName,
-        'given_name': value.givenName,
-        'identities': value.identities === undefined ? undefined : ((value.identities as Array<any>).map(Auth0IdentityToJSON)),
-        'nickname': value.nickname,
-        'updated_at': value.updatedAt === undefined ? undefined : (value.updatedAt.toISOString()),
-        'username': value.username,
-        'user_metadata': Auth0UserMetadataToJSON(value.userMetadata),
-        'locale': value.locale,
-        'user_id': value.userId,
-        'last_ip': value.lastIp,
-        'last_login': value.lastLogin === undefined ? undefined : (value.lastLogin.toISOString()),
-        'logins_count': value.loginsCount,
-        'blocked_for': value.blockedFor,
-        'guardian_authenticators': value.guardianAuthenticators,
+        'name': value['name'],
+        'picture': value['picture'],
+        'email': value['email'],
+        'created_at': value['createdAt'] == null ? undefined : ((value['createdAt']).toISOString()),
+        'email_verified': value['emailVerified'],
+        'family_name': value['familyName'],
+        'given_name': value['givenName'],
+        'identities': value['identities'] == null ? undefined : ((value['identities'] as Array<any>).map(Auth0IdentityToJSON)),
+        'nickname': value['nickname'],
+        'updated_at': value['updatedAt'] == null ? undefined : ((value['updatedAt']).toISOString()),
+        'username': value['username'],
+        'user_metadata': Auth0UserMetadataToJSON(value['userMetadata']),
+        'locale': value['locale'],
+        'user_id': value['userId'],
+        'last_ip': value['lastIp'],
+        'last_login': value['lastLogin'] == null ? undefined : ((value['lastLogin']).toISOString()),
+        'logins_count': value['loginsCount'],
+        'blocked_for': value['blockedFor'],
+        'guardian_authenticators': value['guardianAuthenticators'],
     };
 }
 

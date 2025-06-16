@@ -18,24 +18,72 @@
  * @export
  */
 export const AllocationStatusEnum = {
+    Unknown: 'UNKNOWN',
     Pending: 'PENDING',
     Running: 'RUNNING',
     Failed: 'FAILED',
     Succeeded: 'SUCCEEDED',
-    Unknown: 'UNKNOWN'
+    Disconnected: 'DISCONNECTED'
 } as const;
 export type AllocationStatusEnum = typeof AllocationStatusEnum[keyof typeof AllocationStatusEnum];
 
+
+export function instanceOfAllocationStatusEnum(value: any): boolean {
+    for (const key in AllocationStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(AllocationStatusEnum, key)) {
+            if (AllocationStatusEnum[key as keyof typeof AllocationStatusEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function AllocationStatusEnumFromJSON(json: any): AllocationStatusEnum {
     return AllocationStatusEnumFromJSONTyped(json, false);
 }
 
 export function AllocationStatusEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): AllocationStatusEnum {
-    return json as AllocationStatusEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AllocationStatusEnum;
+    }
+
+    if (instanceOfAllocationStatusEnum(json)) {
+        return json as AllocationStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AllocationStatusEnum;
+    }
 }
 
 export function AllocationStatusEnumToJSON(value?: AllocationStatusEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AllocationStatusEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfAllocationStatusEnum(value)) {
+        return value as AllocationStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AllocationStatusEnum;
+    }
 }
 
+export function AllocationStatusEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AllocationStatusEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AllocationStatusEnum;
+    }
+    if (instanceOfAllocationStatusEnum(value)) {
+        return value as AllocationStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AllocationStatusEnum;
+    }
+}

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { LanguageServerProtocolLocationRange } from './LanguageServerProtocolLocationRange';
 import {
     LanguageServerProtocolLocationRangeFromJSON,
     LanguageServerProtocolLocationRangeFromJSONTyped,
     LanguageServerProtocolLocationRangeToJSON,
+    LanguageServerProtocolLocationRangeToJSONTyped,
 } from './LanguageServerProtocolLocationRange';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * modeled after this (https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#location)
@@ -56,15 +58,14 @@ export interface LanguageServerProtocolLocation {
     range: LanguageServerProtocolLocationRange;
 }
 
+
 /**
  * Check if a given object implements the LanguageServerProtocolLocation interface.
  */
-export function instanceOfLanguageServerProtocolLocation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "uri" in value;
-    isInstance = isInstance && "range" in value;
-
-    return isInstance;
+export function instanceOfLanguageServerProtocolLocation(value: object): value is LanguageServerProtocolLocation {
+    if (!('uri' in value) || value['uri'] === undefined) return false;
+    if (!('range' in value) || value['range'] === undefined) return false;
+    return true;
 }
 
 export function LanguageServerProtocolLocationFromJSON(json: any): LanguageServerProtocolLocation {
@@ -72,29 +73,31 @@ export function LanguageServerProtocolLocationFromJSON(json: any): LanguageServe
 }
 
 export function LanguageServerProtocolLocationFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocolLocation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'uri': json['uri'],
         'range': LanguageServerProtocolLocationRangeFromJSON(json['range']),
     };
 }
 
-export function LanguageServerProtocolLocationToJSON(value?: LanguageServerProtocolLocation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LanguageServerProtocolLocationToJSON(json: any): LanguageServerProtocolLocation {
+    return LanguageServerProtocolLocationToJSONTyped(json, false);
+}
+
+export function LanguageServerProtocolLocationToJSONTyped(value?: LanguageServerProtocolLocation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'uri': value.uri,
-        'range': LanguageServerProtocolLocationRangeToJSON(value.range),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'uri': value['uri'],
+        'range': LanguageServerProtocolLocationRangeToJSON(value['range']),
     };
 }
 

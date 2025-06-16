@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Asset } from './Asset';
-import {
-    AssetFromJSON,
-    AssetFromJSONTyped,
-    AssetToJSON,
-} from './Asset';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { Asset } from './Asset';
+import {
+    AssetFromJSON,
+    AssetFromJSONTyped,
+    AssetToJSON,
+    AssetToJSONTyped,
+} from './Asset';
 
 /**
  * A base class for a collection of assets and some additional meta properties. Fully Populated with Formats internally (not just uuid's).
@@ -64,14 +67,13 @@ export interface Assets {
     score?: Score;
 }
 
+
 /**
  * Check if a given object implements the Assets interface.
  */
-export function instanceOfAssets(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfAssets(value: object): value is Assets {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function AssetsFromJSON(json: any): Assets {
@@ -79,31 +81,33 @@ export function AssetsFromJSON(json: any): Assets {
 }
 
 export function AssetsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Assets {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AssetFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function AssetsToJSON(value?: Assets | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AssetsToJSON(json: any): Assets {
+    return AssetsToJSONTyped(json, false);
+}
+
+export function AssetsToJSONTyped(value?: Assets | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AssetToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AssetToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
 

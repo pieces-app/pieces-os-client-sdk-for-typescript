@@ -12,54 +12,62 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
+import type { SeededAnchor } from './SeededAnchor';
 import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
-import type { Classification } from './Classification';
+    SeededAnchorFromJSON,
+    SeededAnchorFromJSONTyped,
+    SeededAnchorToJSON,
+    SeededAnchorToJSONTyped,
+} from './SeededAnchor';
+import type { LanguageServerProtocol } from './LanguageServerProtocol';
 import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
+    LanguageServerProtocolFromJSON,
+    LanguageServerProtocolFromJSONTyped,
+    LanguageServerProtocolToJSON,
+    LanguageServerProtocolToJSONTyped,
+} from './LanguageServerProtocol';
 import type { DocumentContributors } from './DocumentContributors';
 import {
     DocumentContributorsFromJSON,
     DocumentContributorsFromJSONTyped,
     DocumentContributorsToJSON,
+    DocumentContributorsToJSONTyped,
 } from './DocumentContributors';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+    ClassificationToJSONTyped,
+} from './Classification';
 import type { IDESelections } from './IDESelections';
 import {
     IDESelectionsFromJSON,
     IDESelectionsFromJSONTyped,
     IDESelectionsToJSON,
+    IDESelectionsToJSONTyped,
 } from './IDESelections';
-import type { LanguageServerProtocol } from './LanguageServerProtocol';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
 import {
-    LanguageServerProtocolFromJSON,
-    LanguageServerProtocolFromJSONTyped,
-    LanguageServerProtocolToJSON,
-} from './LanguageServerProtocol';
-import type { SeededAnchor } from './SeededAnchor';
-import {
-    SeededAnchorFromJSON,
-    SeededAnchorFromJSONTyped,
-    SeededAnchorToJSON,
-} from './SeededAnchor';
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+    AnonymousTemporalRangeToJSONTyped,
+} from './AnonymousTemporalRange';
 import type { TransferableString } from './TransferableString';
 import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
+    TransferableStringToJSONTyped,
 } from './TransferableString';
 
 /**
@@ -139,14 +147,13 @@ export interface IDETab {
     lsp?: LanguageServerProtocol;
 }
 
+
 /**
  * Check if a given object implements the IDETab interface.
  */
-export function instanceOfIDETab(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "anchor" in value;
-
-    return isInstance;
+export function instanceOfIDETab(value: object): value is IDETab {
+    if (!('anchor' in value) || value['anchor'] === undefined) return false;
+    return true;
 }
 
 export function IDETabFromJSON(json: any): IDETab {
@@ -154,41 +161,43 @@ export function IDETabFromJSON(json: any): IDETab {
 }
 
 export function IDETabFromJSONTyped(json: any, ignoreDiscriminator: boolean): IDETab {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'value': !exists(json, 'value') ? undefined : TransferableStringFromJSON(json['value']),
-        'classification': !exists(json, 'classification') ? undefined : ClassificationFromJSON(json['classification']),
-        'selections': !exists(json, 'selections') ? undefined : IDESelectionsFromJSON(json['selections']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'value': json['value'] == null ? undefined : TransferableStringFromJSON(json['value']),
+        'classification': json['classification'] == null ? undefined : ClassificationFromJSON(json['classification']),
+        'selections': json['selections'] == null ? undefined : IDESelectionsFromJSON(json['selections']),
         'anchor': SeededAnchorFromJSON(json['anchor']),
-        'range': !exists(json, 'range') ? undefined : AnonymousTemporalRangeFromJSON(json['range']),
-        'current': !exists(json, 'current') ? undefined : json['current'],
-        'contributors': !exists(json, 'contributors') ? undefined : DocumentContributorsFromJSON(json['contributors']),
-        'lsp': !exists(json, 'lsp') ? undefined : LanguageServerProtocolFromJSON(json['lsp']),
+        'range': json['range'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['range']),
+        'current': json['current'] == null ? undefined : json['current'],
+        'contributors': json['contributors'] == null ? undefined : DocumentContributorsFromJSON(json['contributors']),
+        'lsp': json['lsp'] == null ? undefined : LanguageServerProtocolFromJSON(json['lsp']),
     };
 }
 
-export function IDETabToJSON(value?: IDETab | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IDETabToJSON(json: any): IDETab {
+    return IDETabToJSONTyped(json, false);
+}
+
+export function IDETabToJSONTyped(value?: IDETab | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'value': TransferableStringToJSON(value.value),
-        'classification': ClassificationToJSON(value.classification),
-        'selections': IDESelectionsToJSON(value.selections),
-        'anchor': SeededAnchorToJSON(value.anchor),
-        'range': AnonymousTemporalRangeToJSON(value.range),
-        'current': value.current,
-        'contributors': DocumentContributorsToJSON(value.contributors),
-        'lsp': LanguageServerProtocolToJSON(value.lsp),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'value': TransferableStringToJSON(value['value']),
+        'classification': ClassificationToJSON(value['classification']),
+        'selections': IDESelectionsToJSON(value['selections']),
+        'anchor': SeededAnchorToJSON(value['anchor']),
+        'range': AnonymousTemporalRangeToJSON(value['range']),
+        'current': value['current'],
+        'contributors': DocumentContributorsToJSON(value['contributors']),
+        'lsp': LanguageServerProtocolToJSON(value['lsp']),
     };
 }
 

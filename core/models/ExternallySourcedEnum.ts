@@ -18,6 +18,7 @@
  * @export
  */
 export const ExternallySourcedEnum = {
+    Unknown: 'UNKNOWN',
     Twitter: 'TWITTER',
     Medium: 'MEDIUM',
     LinkedIn: 'LINKED_IN',
@@ -34,15 +35,62 @@ export const ExternallySourcedEnum = {
 export type ExternallySourcedEnum = typeof ExternallySourcedEnum[keyof typeof ExternallySourcedEnum];
 
 
+export function instanceOfExternallySourcedEnum(value: any): boolean {
+    for (const key in ExternallySourcedEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternallySourcedEnum, key)) {
+            if (ExternallySourcedEnum[key as keyof typeof ExternallySourcedEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ExternallySourcedEnumFromJSON(json: any): ExternallySourcedEnum {
     return ExternallySourcedEnumFromJSONTyped(json, false);
 }
 
 export function ExternallySourcedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExternallySourcedEnum {
-    return json as ExternallySourcedEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternallySourcedEnum;
+    }
+
+    if (instanceOfExternallySourcedEnum(json)) {
+        return json as ExternallySourcedEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternallySourcedEnum;
+    }
 }
 
 export function ExternallySourcedEnumToJSON(value?: ExternallySourcedEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternallySourcedEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfExternallySourcedEnum(value)) {
+        return value as ExternallySourcedEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternallySourcedEnum;
+    }
 }
 
+export function ExternallySourcedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ExternallySourcedEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternallySourcedEnum;
+    }
+    if (instanceOfExternallySourcedEnum(value)) {
+        return value as ExternallySourcedEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternallySourcedEnum;
+    }
+}

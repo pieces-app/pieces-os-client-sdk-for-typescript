@@ -22,6 +22,7 @@
  * @export
  */
 export const OSAppletEnum = {
+    UnknownAppletModule: 'UNKNOWN_APPLET_MODULE',
     Copilot: 'COPILOT',
     PiecesOsToolbar: 'PIECES_OS_TOOLBAR',
     WorkstreamSuggestions: 'WORKSTREAM_SUGGESTIONS',
@@ -36,21 +37,67 @@ export const OSAppletEnum = {
     SharebleLinkViewer: 'SHAREBLE_LINK_VIEWER',
     FutureAppletModulePlaceholderA: 'FUTURE_APPLET_MODULE_PLACEHOLDER_A',
     FutureAppletModulePlaceholderB: 'FUTURE_APPLET_MODULE_PLACEHOLDER_B',
-    FutureAppletModulePlaceholderC: 'FUTURE_APPLET_MODULE_PLACEHOLDER_C',
-    UnknownAppletModule: 'UNKNOWN_APPLET_MODULE'
+    FutureAppletModulePlaceholderC: 'FUTURE_APPLET_MODULE_PLACEHOLDER_C'
 } as const;
 export type OSAppletEnum = typeof OSAppletEnum[keyof typeof OSAppletEnum];
 
+
+export function instanceOfOSAppletEnum(value: any): boolean {
+    for (const key in OSAppletEnum) {
+        if (Object.prototype.hasOwnProperty.call(OSAppletEnum, key)) {
+            if (OSAppletEnum[key as keyof typeof OSAppletEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function OSAppletEnumFromJSON(json: any): OSAppletEnum {
     return OSAppletEnumFromJSONTyped(json, false);
 }
 
 export function OSAppletEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSAppletEnum {
-    return json as OSAppletEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN_APPLET_MODULE' as OSAppletEnum;
+    }
+
+    if (instanceOfOSAppletEnum(json)) {
+        return json as OSAppletEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN_APPLET_MODULE' as OSAppletEnum;
+    }
 }
 
 export function OSAppletEnumToJSON(value?: OSAppletEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN_APPLET_MODULE' as OSAppletEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfOSAppletEnum(value)) {
+        return value as OSAppletEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN_APPLET_MODULE' as OSAppletEnum;
+    }
 }
 
+export function OSAppletEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): OSAppletEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN_APPLET_MODULE' as OSAppletEnum;
+    }
+    if (instanceOfOSAppletEnum(value)) {
+        return value as OSAppletEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN_APPLET_MODULE' as OSAppletEnum;
+    }
+}

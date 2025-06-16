@@ -24,10 +24,10 @@
  * @export
  */
 export const UpdatingStatusEnum = {
+    Unknown: 'UNKNOWN',
     ReadyToRestart: 'READY_TO_RESTART',
     Available: 'AVAILABLE',
     Downloading: 'DOWNLOADING',
-    Unknown: 'UNKNOWN',
     UpToDate: 'UP_TO_DATE',
     ReinstallRequired: 'REINSTALL_REQUIRED',
     ContactSupport: 'CONTACT_SUPPORT'
@@ -35,15 +35,62 @@ export const UpdatingStatusEnum = {
 export type UpdatingStatusEnum = typeof UpdatingStatusEnum[keyof typeof UpdatingStatusEnum];
 
 
+export function instanceOfUpdatingStatusEnum(value: any): boolean {
+    for (const key in UpdatingStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(UpdatingStatusEnum, key)) {
+            if (UpdatingStatusEnum[key as keyof typeof UpdatingStatusEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function UpdatingStatusEnumFromJSON(json: any): UpdatingStatusEnum {
     return UpdatingStatusEnumFromJSONTyped(json, false);
 }
 
 export function UpdatingStatusEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): UpdatingStatusEnum {
-    return json as UpdatingStatusEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as UpdatingStatusEnum;
+    }
+
+    if (instanceOfUpdatingStatusEnum(json)) {
+        return json as UpdatingStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as UpdatingStatusEnum;
+    }
 }
 
 export function UpdatingStatusEnumToJSON(value?: UpdatingStatusEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as UpdatingStatusEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfUpdatingStatusEnum(value)) {
+        return value as UpdatingStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as UpdatingStatusEnum;
+    }
 }
 
+export function UpdatingStatusEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): UpdatingStatusEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as UpdatingStatusEnum;
+    }
+    if (instanceOfUpdatingStatusEnum(value)) {
+        return value as UpdatingStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as UpdatingStatusEnum;
+    }
+}

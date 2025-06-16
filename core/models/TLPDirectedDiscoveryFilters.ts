@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { TLPDirectedDiscoveryFilter } from './TLPDirectedDiscoveryFilter';
 import {
     TLPDirectedDiscoveryFilterFromJSON,
     TLPDirectedDiscoveryFilterFromJSONTyped,
     TLPDirectedDiscoveryFilterToJSON,
+    TLPDirectedDiscoveryFilterToJSONTyped,
 } from './TLPDirectedDiscoveryFilter';
 
 /**
@@ -34,14 +35,13 @@ export interface TLPDirectedDiscoveryFilters {
     iterable: Array<TLPDirectedDiscoveryFilter>;
 }
 
+
 /**
  * Check if a given object implements the TLPDirectedDiscoveryFilters interface.
  */
-export function instanceOfTLPDirectedDiscoveryFilters(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfTLPDirectedDiscoveryFilters(value: object): value is TLPDirectedDiscoveryFilters {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function TLPDirectedDiscoveryFiltersFromJSON(json: any): TLPDirectedDiscoveryFilters {
@@ -49,7 +49,7 @@ export function TLPDirectedDiscoveryFiltersFromJSON(json: any): TLPDirectedDisco
 }
 
 export function TLPDirectedDiscoveryFiltersFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPDirectedDiscoveryFilters {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +58,18 @@ export function TLPDirectedDiscoveryFiltersFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function TLPDirectedDiscoveryFiltersToJSON(value?: TLPDirectedDiscoveryFilters | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TLPDirectedDiscoveryFiltersToJSON(json: any): TLPDirectedDiscoveryFilters {
+    return TLPDirectedDiscoveryFiltersToJSONTyped(json, false);
+}
+
+export function TLPDirectedDiscoveryFiltersToJSONTyped(value?: TLPDirectedDiscoveryFilters | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(TLPDirectedDiscoveryFilterToJSON)),
+        'iterable': ((value['iterable'] as Array<any>).map(TLPDirectedDiscoveryFilterToJSON)),
     };
 }
 

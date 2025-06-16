@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,14 +41,13 @@ export interface OSFileStreamingReadAttempt {
     path: string;
 }
 
+
 /**
  * Check if a given object implements the OSFileStreamingReadAttempt interface.
  */
-export function instanceOfOSFileStreamingReadAttempt(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfOSFileStreamingReadAttempt(value: object): value is OSFileStreamingReadAttempt {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function OSFileStreamingReadAttemptFromJSON(json: any): OSFileStreamingReadAttempt {
@@ -55,27 +55,29 @@ export function OSFileStreamingReadAttemptFromJSON(json: any): OSFileStreamingRe
 }
 
 export function OSFileStreamingReadAttemptFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSFileStreamingReadAttempt {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'path': json['path'],
     };
 }
 
-export function OSFileStreamingReadAttemptToJSON(value?: OSFileStreamingReadAttempt | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSFileStreamingReadAttemptToJSON(json: any): OSFileStreamingReadAttempt {
+    return OSFileStreamingReadAttemptToJSONTyped(json, false);
+}
+
+export function OSFileStreamingReadAttemptToJSONTyped(value?: OSFileStreamingReadAttempt | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'path': value.path,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'path': value['path'],
     };
 }
 

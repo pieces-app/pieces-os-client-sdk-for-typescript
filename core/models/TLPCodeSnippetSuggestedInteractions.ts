@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { TLPCodeFragmentSuggestedReuse } from './TLPCodeFragmentSuggestedReuse';
 import {
     TLPCodeFragmentSuggestedReuseFromJSON,
     TLPCodeFragmentSuggestedReuseFromJSONTyped,
     TLPCodeFragmentSuggestedReuseToJSON,
+    TLPCodeFragmentSuggestedReuseToJSONTyped,
 } from './TLPCodeFragmentSuggestedReuse';
 import type { TLPCodeFragmentSuggestedSave } from './TLPCodeFragmentSuggestedSave';
 import {
     TLPCodeFragmentSuggestedSaveFromJSON,
     TLPCodeFragmentSuggestedSaveFromJSONTyped,
     TLPCodeFragmentSuggestedSaveToJSON,
+    TLPCodeFragmentSuggestedSaveToJSONTyped,
 } from './TLPCodeFragmentSuggestedSave';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -58,13 +61,12 @@ export interface TLPCodeSnippetSuggestedInteractions {
     reuse?: TLPCodeFragmentSuggestedReuse;
 }
 
+
 /**
  * Check if a given object implements the TLPCodeSnippetSuggestedInteractions interface.
  */
-export function instanceOfTLPCodeSnippetSuggestedInteractions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTLPCodeSnippetSuggestedInteractions(value: object): value is TLPCodeSnippetSuggestedInteractions {
+    return true;
 }
 
 export function TLPCodeSnippetSuggestedInteractionsFromJSON(json: any): TLPCodeSnippetSuggestedInteractions {
@@ -72,29 +74,31 @@ export function TLPCodeSnippetSuggestedInteractionsFromJSON(json: any): TLPCodeS
 }
 
 export function TLPCodeSnippetSuggestedInteractionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeSnippetSuggestedInteractions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'save': !exists(json, 'save') ? undefined : TLPCodeFragmentSuggestedSaveFromJSON(json['save']),
-        'reuse': !exists(json, 'reuse') ? undefined : TLPCodeFragmentSuggestedReuseFromJSON(json['reuse']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'save': json['save'] == null ? undefined : TLPCodeFragmentSuggestedSaveFromJSON(json['save']),
+        'reuse': json['reuse'] == null ? undefined : TLPCodeFragmentSuggestedReuseFromJSON(json['reuse']),
     };
 }
 
-export function TLPCodeSnippetSuggestedInteractionsToJSON(value?: TLPCodeSnippetSuggestedInteractions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TLPCodeSnippetSuggestedInteractionsToJSON(json: any): TLPCodeSnippetSuggestedInteractions {
+    return TLPCodeSnippetSuggestedInteractionsToJSONTyped(json, false);
+}
+
+export function TLPCodeSnippetSuggestedInteractionsToJSONTyped(value?: TLPCodeSnippetSuggestedInteractions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'save': TLPCodeFragmentSuggestedSaveToJSON(value.save),
-        'reuse': TLPCodeFragmentSuggestedReuseToJSON(value.reuse),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'save': TLPCodeFragmentSuggestedSaveToJSON(value['save']),
+        'reuse': TLPCodeFragmentSuggestedReuseToJSON(value['reuse']),
     };
 }
 

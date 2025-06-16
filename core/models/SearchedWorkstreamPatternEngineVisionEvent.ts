@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { WorkstreamPatternEngineVisionEvent } from './WorkstreamPatternEngineVisionEvent';
 import {
     WorkstreamPatternEngineVisionEventFromJSON,
     WorkstreamPatternEngineVisionEventFromJSONTyped,
     WorkstreamPatternEngineVisionEventToJSON,
+    WorkstreamPatternEngineVisionEventToJSONTyped,
 } from './WorkstreamPatternEngineVisionEvent';
 
 /**
@@ -76,14 +78,13 @@ export interface SearchedWorkstreamPatternEngineVisionEvent {
     identifier: string;
 }
 
+
 /**
  * Check if a given object implements the SearchedWorkstreamPatternEngineVisionEvent interface.
  */
-export function instanceOfSearchedWorkstreamPatternEngineVisionEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedWorkstreamPatternEngineVisionEvent(value: object): value is SearchedWorkstreamPatternEngineVisionEvent {
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedWorkstreamPatternEngineVisionEventFromJSON(json: any): SearchedWorkstreamPatternEngineVisionEvent {
@@ -91,37 +92,39 @@ export function SearchedWorkstreamPatternEngineVisionEventFromJSON(json: any): S
 }
 
 export function SearchedWorkstreamPatternEngineVisionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedWorkstreamPatternEngineVisionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'event': !exists(json, 'event') ? undefined : WorkstreamPatternEngineVisionEventFromJSON(json['event']),
-        'exact': !exists(json, 'exact') ? undefined : json['exact'],
-        'similarity': !exists(json, 'similarity') ? undefined : json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
-        'application': !exists(json, 'application') ? undefined : json['application'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'event': json['event'] == null ? undefined : WorkstreamPatternEngineVisionEventFromJSON(json['event']),
+        'exact': json['exact'] == null ? undefined : json['exact'],
+        'similarity': json['similarity'] == null ? undefined : json['similarity'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
+        'application': json['application'] == null ? undefined : json['application'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedWorkstreamPatternEngineVisionEventToJSON(value?: SearchedWorkstreamPatternEngineVisionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedWorkstreamPatternEngineVisionEventToJSON(json: any): SearchedWorkstreamPatternEngineVisionEvent {
+    return SearchedWorkstreamPatternEngineVisionEventToJSONTyped(json, false);
+}
+
+export function SearchedWorkstreamPatternEngineVisionEventToJSONTyped(value?: SearchedWorkstreamPatternEngineVisionEvent | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'event': WorkstreamPatternEngineVisionEventToJSON(value.event),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'application': value.application,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'event': WorkstreamPatternEngineVisionEventToJSON(value['event']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'application': value['application'],
+        'identifier': value['identifier'],
     };
 }
 

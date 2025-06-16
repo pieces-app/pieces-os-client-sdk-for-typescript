@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { Hint } from './Hint';
 import {
     HintFromJSON,
     HintFromJSONTyped,
     HintToJSON,
+    HintToJSONTyped,
 } from './Hint';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is used for the Hint searching endpoint
@@ -77,16 +79,15 @@ export interface SearchedHint {
     identifier: string;
 }
 
+
 /**
  * Check if a given object implements the SearchedHint interface.
  */
-export function instanceOfSearchedHint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedHint(value: object): value is SearchedHint {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedHintFromJSON(json: any): SearchedHint {
@@ -94,35 +95,37 @@ export function SearchedHintFromJSON(json: any): SearchedHint {
 }
 
 export function SearchedHintFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedHint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'hint': !exists(json, 'hint') ? undefined : HintFromJSON(json['hint']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'hint': json['hint'] == null ? undefined : HintFromJSON(json['hint']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedHintToJSON(value?: SearchedHint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedHintToJSON(json: any): SearchedHint {
+    return SearchedHintToJSONTyped(json, false);
+}
+
+export function SearchedHintToJSONTyped(value?: SearchedHint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'hint': HintToJSON(value.hint),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'hint': HintToJSON(value['hint']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedWebsite } from './SearchedWebsite';
 import {
     SearchedWebsiteFromJSON,
     SearchedWebsiteFromJSONTyped,
     SearchedWebsiteToJSON,
+    SearchedWebsiteToJSONTyped,
 } from './SearchedWebsite';
 
 /**
@@ -46,14 +48,13 @@ export interface SearchedWebsites {
     iterable: Array<SearchedWebsite>;
 }
 
+
 /**
  * Check if a given object implements the SearchedWebsites interface.
  */
-export function instanceOfSearchedWebsites(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchedWebsites(value: object): value is SearchedWebsites {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchedWebsitesFromJSON(json: any): SearchedWebsites {
@@ -61,27 +62,29 @@ export function SearchedWebsitesFromJSON(json: any): SearchedWebsites {
 }
 
 export function SearchedWebsitesFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedWebsites {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedWebsiteFromJSON)),
     };
 }
 
-export function SearchedWebsitesToJSON(value?: SearchedWebsites | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedWebsitesToJSON(json: any): SearchedWebsites {
+    return SearchedWebsitesToJSONTyped(json, false);
+}
+
+export function SearchedWebsitesToJSONTyped(value?: SearchedWebsites | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedWebsiteToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedWebsiteToJSON)),
     };
 }
 

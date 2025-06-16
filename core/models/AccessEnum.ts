@@ -18,21 +18,69 @@
  * @export
  */
 export const AccessEnum = {
+    Unknown: 'UNKNOWN',
     Public: 'PUBLIC',
     Private: 'PRIVATE'
 } as const;
 export type AccessEnum = typeof AccessEnum[keyof typeof AccessEnum];
 
 
+export function instanceOfAccessEnum(value: any): boolean {
+    for (const key in AccessEnum) {
+        if (Object.prototype.hasOwnProperty.call(AccessEnum, key)) {
+            if (AccessEnum[key as keyof typeof AccessEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function AccessEnumFromJSON(json: any): AccessEnum {
     return AccessEnumFromJSONTyped(json, false);
 }
 
 export function AccessEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): AccessEnum {
-    return json as AccessEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AccessEnum;
+    }
+
+    if (instanceOfAccessEnum(json)) {
+        return json as AccessEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AccessEnum;
+    }
 }
 
 export function AccessEnumToJSON(value?: AccessEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AccessEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfAccessEnum(value)) {
+        return value as AccessEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AccessEnum;
+    }
 }
 
+export function AccessEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AccessEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AccessEnum;
+    }
+    if (instanceOfAccessEnum(value)) {
+        return value as AccessEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AccessEnum;
+    }
+}

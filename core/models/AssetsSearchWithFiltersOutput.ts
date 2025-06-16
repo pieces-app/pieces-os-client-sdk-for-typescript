@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedAssets } from './SearchedAssets';
 import {
     SearchedAssetsFromJSON,
     SearchedAssetsFromJSONTyped,
     SearchedAssetsToJSON,
+    SearchedAssetsToJSONTyped,
 } from './SearchedAssets';
 
 /**
@@ -46,14 +48,13 @@ export interface AssetsSearchWithFiltersOutput {
     results: SearchedAssets;
 }
 
+
 /**
  * Check if a given object implements the AssetsSearchWithFiltersOutput interface.
  */
-export function instanceOfAssetsSearchWithFiltersOutput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "results" in value;
-
-    return isInstance;
+export function instanceOfAssetsSearchWithFiltersOutput(value: object): value is AssetsSearchWithFiltersOutput {
+    if (!('results' in value) || value['results'] === undefined) return false;
+    return true;
 }
 
 export function AssetsSearchWithFiltersOutputFromJSON(json: any): AssetsSearchWithFiltersOutput {
@@ -61,27 +62,29 @@ export function AssetsSearchWithFiltersOutputFromJSON(json: any): AssetsSearchWi
 }
 
 export function AssetsSearchWithFiltersOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetsSearchWithFiltersOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'results': SearchedAssetsFromJSON(json['results']),
     };
 }
 
-export function AssetsSearchWithFiltersOutputToJSON(value?: AssetsSearchWithFiltersOutput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AssetsSearchWithFiltersOutputToJSON(json: any): AssetsSearchWithFiltersOutput {
+    return AssetsSearchWithFiltersOutputToJSONTyped(json, false);
+}
+
+export function AssetsSearchWithFiltersOutputToJSONTyped(value?: AssetsSearchWithFiltersOutput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'results': SearchedAssetsToJSON(value.results),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'results': SearchedAssetsToJSON(value['results']),
     };
 }
 

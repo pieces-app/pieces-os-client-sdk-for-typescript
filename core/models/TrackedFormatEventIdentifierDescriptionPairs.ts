@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -93,96 +94,703 @@ export interface TrackedFormatEventIdentifierDescriptionPairs {
      */
     formatValueEdited?: TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
 }
-
-
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum = {
+    Unknown: 'UNKNOWN',
     AFormatWasCreated: 'a_format_was_created'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum = {
+    Unknown: 'UNKNOWN',
     IfAFormatWasEntirelyCopied: 'if_a_format_was_entirely_copied'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum = {
+    Unknown: 'UNKNOWN',
     IfAFormatWasPartiallyCopied: 'if_a_format_was_partially_copied'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum = {
+    Unknown: 'UNKNOWN',
     IfAFormatWasDownloaded: 'if_a_format_was_downloaded'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum = {
+    Unknown: 'UNKNOWN',
     IfAFormatWasDeleted: 'if_a_format_was_deleted'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     IfAGenericClassificationWasChangedOnAFormat: 'if_a_generic_classification_was_changed_on_a_format'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     IfASpecificClassificationWasChangedOnAFormat: 'if_a_specific_classification_was_changed_on_a_format'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum = {
+    Unknown: 'UNKNOWN',
     AFormatWasUpdated: 'a_format_was_updated'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum = {
+    Unknown: 'UNKNOWN',
     AFormatWasInserted: 'a_format_was_inserted'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum = {
+    Unknown: 'UNKNOWN',
     AFormatValueWasEdited: 'a_format_value_was_edited'
 } as const;
 export type TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum = typeof TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum[keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum];
+
+    export function instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum(value: any): boolean {
+        for (const key in TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum, key)) {
+                if (TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum[key as keyof typeof TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnumFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum {
+        return TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum(json)) {
+            return json as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnumToJSON(value?: TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+    }
+
+    export function TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+        if (instanceOfTrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum(value)) {
+            return value as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the TrackedFormatEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfTrackedFormatEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedFormatEventIdentifierDescriptionPairs(value: object): value is TrackedFormatEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function TrackedFormatEventIdentifierDescriptionPairsFromJSON(json: any): TrackedFormatEventIdentifierDescriptionPairs {
@@ -190,45 +798,47 @@ export function TrackedFormatEventIdentifierDescriptionPairsFromJSON(json: any):
 }
 
 export function TrackedFormatEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedFormatEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'formatCreated': !exists(json, 'format_created') ? undefined : json['format_created'],
-        'formatCopied': !exists(json, 'format_copied') ? undefined : json['format_copied'],
-        'formatPartiallyCopied': !exists(json, 'format_partially_copied') ? undefined : json['format_partially_copied'],
-        'formatDownloaded': !exists(json, 'format_downloaded') ? undefined : json['format_downloaded'],
-        'formatDeleted': !exists(json, 'format_deleted') ? undefined : json['format_deleted'],
-        'formatGenericClassificationUpdated': !exists(json, 'format_generic_classification_updated') ? undefined : json['format_generic_classification_updated'],
-        'formatSpecificClassificationUpdated': !exists(json, 'format_specific_classification_updated') ? undefined : json['format_specific_classification_updated'],
-        'formatUpdated': !exists(json, 'format_updated') ? undefined : json['format_updated'],
-        'formatInserted': !exists(json, 'format_inserted') ? undefined : json['format_inserted'],
-        'formatValueEdited': !exists(json, 'format_value_edited') ? undefined : json['format_value_edited'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'formatCreated': TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnumFromJSON(json['format_created']),
+        'formatCopied': TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnumFromJSON(json['format_copied']),
+        'formatPartiallyCopied': TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnumFromJSON(json['format_partially_copied']),
+        'formatDownloaded': TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnumFromJSON(json['format_downloaded']),
+        'formatDeleted': TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnumFromJSON(json['format_deleted']),
+        'formatGenericClassificationUpdated': TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnumFromJSON(json['format_generic_classification_updated']),
+        'formatSpecificClassificationUpdated': TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnumFromJSON(json['format_specific_classification_updated']),
+        'formatUpdated': TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnumFromJSON(json['format_updated']),
+        'formatInserted': TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnumFromJSON(json['format_inserted']),
+        'formatValueEdited': TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnumFromJSON(json['format_value_edited']),
     };
 }
 
-export function TrackedFormatEventIdentifierDescriptionPairsToJSON(value?: TrackedFormatEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedFormatEventIdentifierDescriptionPairsToJSON(json: any): TrackedFormatEventIdentifierDescriptionPairs {
+    return TrackedFormatEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function TrackedFormatEventIdentifierDescriptionPairsToJSONTyped(value?: TrackedFormatEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'format_created': value.formatCreated,
-        'format_copied': value.formatCopied,
-        'format_partially_copied': value.formatPartiallyCopied,
-        'format_downloaded': value.formatDownloaded,
-        'format_deleted': value.formatDeleted,
-        'format_generic_classification_updated': value.formatGenericClassificationUpdated,
-        'format_specific_classification_updated': value.formatSpecificClassificationUpdated,
-        'format_updated': value.formatUpdated,
-        'format_inserted': value.formatInserted,
-        'format_value_edited': value.formatValueEdited,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'formatCreated': TrackedFormatEventIdentifierDescriptionPairsFormatCreatedEnumToJSON(value['format_created']),
+        'formatCopied': TrackedFormatEventIdentifierDescriptionPairsFormatCopiedEnumToJSON(value['format_copied']),
+        'formatPartiallyCopied': TrackedFormatEventIdentifierDescriptionPairsFormatPartiallyCopiedEnumToJSON(value['format_partially_copied']),
+        'formatDownloaded': TrackedFormatEventIdentifierDescriptionPairsFormatDownloadedEnumToJSON(value['format_downloaded']),
+        'formatDeleted': TrackedFormatEventIdentifierDescriptionPairsFormatDeletedEnumToJSON(value['format_deleted']),
+        'formatGenericClassificationUpdated': TrackedFormatEventIdentifierDescriptionPairsFormatGenericClassificationUpdatedEnumToJSON(value['format_generic_classification_updated']),
+        'formatSpecificClassificationUpdated': TrackedFormatEventIdentifierDescriptionPairsFormatSpecificClassificationUpdatedEnumToJSON(value['format_specific_classification_updated']),
+        'formatUpdated': TrackedFormatEventIdentifierDescriptionPairsFormatUpdatedEnumToJSON(value['format_updated']),
+        'formatInserted': TrackedFormatEventIdentifierDescriptionPairsFormatInsertedEnumToJSON(value['format_inserted']),
+        'formatValueEdited': TrackedFormatEventIdentifierDescriptionPairsFormatValueEditedEnumToJSON(value['format_value_edited']),
     };
 }
 

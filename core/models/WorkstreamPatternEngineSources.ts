@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { WorkstreamPatternEngineSource } from './WorkstreamPatternEngineSource';
 import {
     WorkstreamPatternEngineSourceFromJSON,
     WorkstreamPatternEngineSourceFromJSONTyped,
     WorkstreamPatternEngineSourceToJSON,
+    WorkstreamPatternEngineSourceToJSONTyped,
 } from './WorkstreamPatternEngineSource';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a plural version of the WPE qdrant applications
@@ -46,14 +48,13 @@ export interface WorkstreamPatternEngineSources {
     iterable: Array<WorkstreamPatternEngineSource>;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamPatternEngineSources interface.
  */
-export function instanceOfWorkstreamPatternEngineSources(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineSources(value: object): value is WorkstreamPatternEngineSources {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamPatternEngineSourcesFromJSON(json: any): WorkstreamPatternEngineSources {
@@ -61,27 +62,29 @@ export function WorkstreamPatternEngineSourcesFromJSON(json: any): WorkstreamPat
 }
 
 export function WorkstreamPatternEngineSourcesFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineSources {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(WorkstreamPatternEngineSourceFromJSON)),
     };
 }
 
-export function WorkstreamPatternEngineSourcesToJSON(value?: WorkstreamPatternEngineSources | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineSourcesToJSON(json: any): WorkstreamPatternEngineSources {
+    return WorkstreamPatternEngineSourcesToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineSourcesToJSONTyped(value?: WorkstreamPatternEngineSources | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(WorkstreamPatternEngineSourceToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(WorkstreamPatternEngineSourceToJSON)),
     };
 }
 

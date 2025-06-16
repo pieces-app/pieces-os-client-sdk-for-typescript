@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Classification } from './Classification';
-import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { LanguageServerProtocolLocation } from './LanguageServerProtocolLocation';
 import {
     LanguageServerProtocolLocationFromJSON,
     LanguageServerProtocolLocationFromJSONTyped,
     LanguageServerProtocolLocationToJSON,
+    LanguageServerProtocolLocationToJSONTyped,
 } from './LanguageServerProtocolLocation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+    ClassificationToJSONTyped,
+} from './Classification';
 import type { TransferableString } from './TransferableString';
 import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
+    TransferableStringToJSONTyped,
 } from './TransferableString';
 
 /**
@@ -72,13 +76,12 @@ export interface IDESelection {
     value?: TransferableString;
 }
 
+
 /**
  * Check if a given object implements the IDESelection interface.
  */
-export function instanceOfIDESelection(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIDESelection(value: object): value is IDESelection {
+    return true;
 }
 
 export function IDESelectionFromJSON(json: any): IDESelection {
@@ -86,31 +89,33 @@ export function IDESelectionFromJSON(json: any): IDESelection {
 }
 
 export function IDESelectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IDESelection {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'location': !exists(json, 'location') ? undefined : LanguageServerProtocolLocationFromJSON(json['location']),
-        'classification': !exists(json, 'classification') ? undefined : ClassificationFromJSON(json['classification']),
-        'value': !exists(json, 'value') ? undefined : TransferableStringFromJSON(json['value']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'location': json['location'] == null ? undefined : LanguageServerProtocolLocationFromJSON(json['location']),
+        'classification': json['classification'] == null ? undefined : ClassificationFromJSON(json['classification']),
+        'value': json['value'] == null ? undefined : TransferableStringFromJSON(json['value']),
     };
 }
 
-export function IDESelectionToJSON(value?: IDESelection | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IDESelectionToJSON(json: any): IDESelection {
+    return IDESelectionToJSONTyped(json, false);
+}
+
+export function IDESelectionToJSONTyped(value?: IDESelection | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'location': LanguageServerProtocolLocationToJSON(value.location),
-        'classification': ClassificationToJSON(value.classification),
-        'value': TransferableStringToJSON(value.value),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'location': LanguageServerProtocolLocationToJSON(value['location']),
+        'classification': ClassificationToJSON(value['classification']),
+        'value': TransferableStringToJSON(value['value']),
     };
 }
 

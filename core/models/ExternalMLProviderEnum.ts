@@ -18,6 +18,7 @@
  * @export
  */
 export const ExternalMLProviderEnum = {
+    Unknown: 'UNKNOWN',
     Apple: 'APPLE',
     Amazon: 'AMAZON',
     Google: 'GOOGLE',
@@ -44,20 +45,68 @@ export const ExternalMLProviderEnum = {
     Anthropic: 'ANTHROPIC',
     Ibm: 'IBM',
     Snowflake: 'SNOWFLAKE',
-    Perplexity: 'PERPLEXITY'
+    Perplexity: 'PERPLEXITY',
+    Minishlabs: 'MINISHLABS'
 } as const;
 export type ExternalMLProviderEnum = typeof ExternalMLProviderEnum[keyof typeof ExternalMLProviderEnum];
 
+
+export function instanceOfExternalMLProviderEnum(value: any): boolean {
+    for (const key in ExternalMLProviderEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternalMLProviderEnum, key)) {
+            if (ExternalMLProviderEnum[key as keyof typeof ExternalMLProviderEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ExternalMLProviderEnumFromJSON(json: any): ExternalMLProviderEnum {
     return ExternalMLProviderEnumFromJSONTyped(json, false);
 }
 
 export function ExternalMLProviderEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExternalMLProviderEnum {
-    return json as ExternalMLProviderEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalMLProviderEnum;
+    }
+
+    if (instanceOfExternalMLProviderEnum(json)) {
+        return json as ExternalMLProviderEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalMLProviderEnum;
+    }
 }
 
 export function ExternalMLProviderEnumToJSON(value?: ExternalMLProviderEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalMLProviderEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfExternalMLProviderEnum(value)) {
+        return value as ExternalMLProviderEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalMLProviderEnum;
+    }
 }
 
+export function ExternalMLProviderEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ExternalMLProviderEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalMLProviderEnum;
+    }
+    if (instanceOfExternalMLProviderEnum(value)) {
+        return value as ExternalMLProviderEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalMLProviderEnum;
+    }
+}

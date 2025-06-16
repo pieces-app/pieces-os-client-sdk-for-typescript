@@ -18,6 +18,7 @@
  * @export
  */
 export const SensitiveCategoryEnum = {
+    Unknown: 'UNKNOWN',
     Secret: 'SECRET',
     ApiKey: 'API_KEY',
     ClientId: 'CLIENT_ID',
@@ -35,15 +36,62 @@ export const SensitiveCategoryEnum = {
 export type SensitiveCategoryEnum = typeof SensitiveCategoryEnum[keyof typeof SensitiveCategoryEnum];
 
 
+export function instanceOfSensitiveCategoryEnum(value: any): boolean {
+    for (const key in SensitiveCategoryEnum) {
+        if (Object.prototype.hasOwnProperty.call(SensitiveCategoryEnum, key)) {
+            if (SensitiveCategoryEnum[key as keyof typeof SensitiveCategoryEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function SensitiveCategoryEnumFromJSON(json: any): SensitiveCategoryEnum {
     return SensitiveCategoryEnumFromJSONTyped(json, false);
 }
 
 export function SensitiveCategoryEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SensitiveCategoryEnum {
-    return json as SensitiveCategoryEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveCategoryEnum;
+    }
+
+    if (instanceOfSensitiveCategoryEnum(json)) {
+        return json as SensitiveCategoryEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveCategoryEnum;
+    }
 }
 
 export function SensitiveCategoryEnumToJSON(value?: SensitiveCategoryEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveCategoryEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfSensitiveCategoryEnum(value)) {
+        return value as SensitiveCategoryEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveCategoryEnum;
+    }
 }
 
+export function SensitiveCategoryEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SensitiveCategoryEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveCategoryEnum;
+    }
+    if (instanceOfSensitiveCategoryEnum(value)) {
+        return value as SensitiveCategoryEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveCategoryEnum;
+    }
+}

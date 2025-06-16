@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Classification } from './Classification';
-import {
-    ClassificationFromJSON,
-    ClassificationFromJSONTyped,
-    ClassificationToJSON,
-} from './Classification';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Classification } from './Classification';
+import {
+    ClassificationFromJSON,
+    ClassificationFromJSONTyped,
+    ClassificationToJSON,
+    ClassificationToJSONTyped,
+} from './Classification';
 
 /**
  * Metadata of a format reclassification event
@@ -52,13 +54,12 @@ export interface TrackedAssetEventFormatReclassificationMetadata {
     current?: Classification;
 }
 
+
 /**
  * Check if a given object implements the TrackedAssetEventFormatReclassificationMetadata interface.
  */
-export function instanceOfTrackedAssetEventFormatReclassificationMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedAssetEventFormatReclassificationMetadata(value: object): value is TrackedAssetEventFormatReclassificationMetadata {
+    return true;
 }
 
 export function TrackedAssetEventFormatReclassificationMetadataFromJSON(json: any): TrackedAssetEventFormatReclassificationMetadata {
@@ -66,29 +67,31 @@ export function TrackedAssetEventFormatReclassificationMetadataFromJSON(json: an
 }
 
 export function TrackedAssetEventFormatReclassificationMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventFormatReclassificationMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'previous': !exists(json, 'previous') ? undefined : ClassificationFromJSON(json['previous']),
-        'current': !exists(json, 'current') ? undefined : ClassificationFromJSON(json['current']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'previous': json['previous'] == null ? undefined : ClassificationFromJSON(json['previous']),
+        'current': json['current'] == null ? undefined : ClassificationFromJSON(json['current']),
     };
 }
 
-export function TrackedAssetEventFormatReclassificationMetadataToJSON(value?: TrackedAssetEventFormatReclassificationMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedAssetEventFormatReclassificationMetadataToJSON(json: any): TrackedAssetEventFormatReclassificationMetadata {
+    return TrackedAssetEventFormatReclassificationMetadataToJSONTyped(json, false);
+}
+
+export function TrackedAssetEventFormatReclassificationMetadataToJSONTyped(value?: TrackedAssetEventFormatReclassificationMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'previous': ClassificationToJSON(value.previous),
-        'current': ClassificationToJSON(value.current),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'previous': ClassificationToJSON(value['previous']),
+        'current': ClassificationToJSON(value['current']),
     };
 }
 

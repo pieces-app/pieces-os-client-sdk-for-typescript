@@ -18,6 +18,7 @@
  * @export
  */
 export const SearchedMatchEnum = {
+    Unknown: 'UNKNOWN',
     Title: 'TITLE',
     Annotation: 'ANNOTATION',
     Hint: 'HINT',
@@ -31,15 +32,62 @@ export const SearchedMatchEnum = {
 export type SearchedMatchEnum = typeof SearchedMatchEnum[keyof typeof SearchedMatchEnum];
 
 
+export function instanceOfSearchedMatchEnum(value: any): boolean {
+    for (const key in SearchedMatchEnum) {
+        if (Object.prototype.hasOwnProperty.call(SearchedMatchEnum, key)) {
+            if (SearchedMatchEnum[key as keyof typeof SearchedMatchEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function SearchedMatchEnumFromJSON(json: any): SearchedMatchEnum {
     return SearchedMatchEnumFromJSONTyped(json, false);
 }
 
 export function SearchedMatchEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedMatchEnum {
-    return json as SearchedMatchEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SearchedMatchEnum;
+    }
+
+    if (instanceOfSearchedMatchEnum(json)) {
+        return json as SearchedMatchEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SearchedMatchEnum;
+    }
 }
 
 export function SearchedMatchEnumToJSON(value?: SearchedMatchEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SearchedMatchEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfSearchedMatchEnum(value)) {
+        return value as SearchedMatchEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SearchedMatchEnum;
+    }
 }
 
+export function SearchedMatchEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SearchedMatchEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SearchedMatchEnum;
+    }
+    if (instanceOfSearchedMatchEnum(value)) {
+        return value as SearchedMatchEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SearchedMatchEnum;
+    }
+}

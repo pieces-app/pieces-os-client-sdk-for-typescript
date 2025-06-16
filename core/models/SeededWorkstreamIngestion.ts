@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededWorkstreamEvent } from './SeededWorkstreamEvent';
 import {
     SeededWorkstreamEventFromJSON,
     SeededWorkstreamEventFromJSONTyped,
     SeededWorkstreamEventToJSON,
+    SeededWorkstreamEventToJSONTyped,
 } from './SeededWorkstreamEvent';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is used as the input in the Context ingestion endpoint for the feed.
@@ -49,14 +51,13 @@ export interface SeededWorkstreamIngestion {
     event: SeededWorkstreamEvent;
 }
 
+
 /**
  * Check if a given object implements the SeededWorkstreamIngestion interface.
  */
-export function instanceOfSeededWorkstreamIngestion(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "event" in value;
-
-    return isInstance;
+export function instanceOfSeededWorkstreamIngestion(value: object): value is SeededWorkstreamIngestion {
+    if (!('event' in value) || value['event'] === undefined) return false;
+    return true;
 }
 
 export function SeededWorkstreamIngestionFromJSON(json: any): SeededWorkstreamIngestion {
@@ -64,27 +65,29 @@ export function SeededWorkstreamIngestionFromJSON(json: any): SeededWorkstreamIn
 }
 
 export function SeededWorkstreamIngestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededWorkstreamIngestion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'event': SeededWorkstreamEventFromJSON(json['event']),
     };
 }
 
-export function SeededWorkstreamIngestionToJSON(value?: SeededWorkstreamIngestion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededWorkstreamIngestionToJSON(json: any): SeededWorkstreamIngestion {
+    return SeededWorkstreamIngestionToJSONTyped(json, false);
+}
+
+export function SeededWorkstreamIngestionToJSONTyped(value?: SeededWorkstreamIngestion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'event': SeededWorkstreamEventToJSON(value.event),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'event': SeededWorkstreamEventToJSON(value['event']),
     };
 }
 

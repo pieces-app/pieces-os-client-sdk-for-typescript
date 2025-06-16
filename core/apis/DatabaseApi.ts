@@ -40,6 +40,10 @@ export class DatabaseApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/database/export`,
             method: 'GET',
@@ -70,12 +74,16 @@ export class DatabaseApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/database/import`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ExportedDatabaseToJSON(requestParameters.exportedDatabase),
+            body: ExportedDatabaseToJSON(requestParameters['exportedDatabase']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);

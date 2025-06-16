@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { DiscoveredRelatedTag } from './DiscoveredRelatedTag';
 import {
     DiscoveredRelatedTagFromJSON,
     DiscoveredRelatedTagFromJSONTyped,
     DiscoveredRelatedTagToJSON,
+    DiscoveredRelatedTagToJSONTyped,
 } from './DiscoveredRelatedTag';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -52,15 +54,14 @@ export interface DiscoveredRelatedTags {
     iterable: Array<DiscoveredRelatedTag>;
 }
 
+
 /**
  * Check if a given object implements the DiscoveredRelatedTags interface.
  */
-export function instanceOfDiscoveredRelatedTags(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "application" in value;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfDiscoveredRelatedTags(value: object): value is DiscoveredRelatedTags {
+    if (!('application' in value) || value['application'] === undefined) return false;
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function DiscoveredRelatedTagsFromJSON(json: any): DiscoveredRelatedTags {
@@ -68,29 +69,31 @@ export function DiscoveredRelatedTagsFromJSON(json: any): DiscoveredRelatedTags 
 }
 
 export function DiscoveredRelatedTagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): DiscoveredRelatedTags {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
         'iterable': ((json['iterable'] as Array<any>).map(DiscoveredRelatedTagFromJSON)),
     };
 }
 
-export function DiscoveredRelatedTagsToJSON(value?: DiscoveredRelatedTags | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DiscoveredRelatedTagsToJSON(json: any): DiscoveredRelatedTags {
+    return DiscoveredRelatedTagsToJSONTyped(json, false);
+}
+
+export function DiscoveredRelatedTagsToJSONTyped(value?: DiscoveredRelatedTags | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': value.application,
-        'iterable': ((value.iterable as Array<any>).map(DiscoveredRelatedTagToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'application': value['application'],
+        'iterable': ((value['iterable'] as Array<any>).map(DiscoveredRelatedTagToJSON)),
     };
 }
 

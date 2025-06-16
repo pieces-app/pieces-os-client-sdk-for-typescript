@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { TransferableBytes } from './TransferableBytes';
 import {
     TransferableBytesFromJSON,
     TransferableBytesFromJSONTyped,
     TransferableBytesToJSON,
+    TransferableBytesToJSONTyped,
 } from './TransferableBytes';
 import type { TransferableString } from './TransferableString';
 import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
+    TransferableStringToJSONTyped,
 } from './TransferableString';
 
 /**
@@ -58,13 +61,12 @@ export interface FileFormat {
     string?: TransferableString;
 }
 
+
 /**
  * Check if a given object implements the FileFormat interface.
  */
-export function instanceOfFileFormat(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfFileFormat(value: object): value is FileFormat {
+    return true;
 }
 
 export function FileFormatFromJSON(json: any): FileFormat {
@@ -72,29 +74,31 @@ export function FileFormatFromJSON(json: any): FileFormat {
 }
 
 export function FileFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): FileFormat {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'bytes': !exists(json, 'bytes') ? undefined : TransferableBytesFromJSON(json['bytes']),
-        'string': !exists(json, 'string') ? undefined : TransferableStringFromJSON(json['string']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'bytes': json['bytes'] == null ? undefined : TransferableBytesFromJSON(json['bytes']),
+        'string': json['string'] == null ? undefined : TransferableStringFromJSON(json['string']),
     };
 }
 
-export function FileFormatToJSON(value?: FileFormat | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FileFormatToJSON(json: any): FileFormat {
+    return FileFormatToJSONTyped(json, false);
+}
+
+export function FileFormatToJSONTyped(value?: FileFormat | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'bytes': TransferableBytesToJSON(value.bytes),
-        'string': TransferableStringToJSON(value.string),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'bytes': TransferableBytesToJSON(value['bytes']),
+        'string': TransferableStringToJSON(value['string']),
     };
 }
 

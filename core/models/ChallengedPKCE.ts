@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -63,29 +64,87 @@ export interface ChallengedPKCE {
      */
     verifier: string;
 }
-
-
 /**
  * @export
  */
 export const ChallengedPKCEMethodEnum = {
+    Unknown: 'UNKNOWN',
     S256: 'S256'
 } as const;
 export type ChallengedPKCEMethodEnum = typeof ChallengedPKCEMethodEnum[keyof typeof ChallengedPKCEMethodEnum];
+
+    export function instanceOfChallengedPKCEMethodEnum(value: any): boolean {
+        for (const key in ChallengedPKCEMethodEnum) {
+            if (Object.prototype.hasOwnProperty.call(ChallengedPKCEMethodEnum, key)) {
+                if (ChallengedPKCEMethodEnum[key as keyof typeof ChallengedPKCEMethodEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function ChallengedPKCEMethodEnumFromJSON(json: any): ChallengedPKCEMethodEnum {
+        return ChallengedPKCEMethodEnumFromJSONTyped(json, false);
+    }
+
+    export function ChallengedPKCEMethodEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ChallengedPKCEMethodEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as ChallengedPKCEMethodEnum;
+        }
+
+        if (instanceOfChallengedPKCEMethodEnum(json)) {
+            return json as ChallengedPKCEMethodEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as ChallengedPKCEMethodEnum;
+        }
+    }
+
+    export function ChallengedPKCEMethodEnumToJSON(value?: ChallengedPKCEMethodEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as ChallengedPKCEMethodEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfChallengedPKCEMethodEnum(value)) {
+            return value as ChallengedPKCEMethodEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as ChallengedPKCEMethodEnum;
+        }
+    }
+
+    export function ChallengedPKCEMethodEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ChallengedPKCEMethodEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as ChallengedPKCEMethodEnum;
+        }
+        if (instanceOfChallengedPKCEMethodEnum(value)) {
+            return value as ChallengedPKCEMethodEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as ChallengedPKCEMethodEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the ChallengedPKCE interface.
  */
-export function instanceOfChallengedPKCE(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "state" in value;
-    isInstance = isInstance && "nonce" in value;
-    isInstance = isInstance && "challenge" in value;
-    isInstance = isInstance && "method" in value;
-    isInstance = isInstance && "verifier" in value;
-
-    return isInstance;
+export function instanceOfChallengedPKCE(value: object): value is ChallengedPKCE {
+    if (!('state' in value) || value['state'] === undefined) return false;
+    if (!('nonce' in value) || value['nonce'] === undefined) return false;
+    if (!('challenge' in value) || value['challenge'] === undefined) return false;
+    if (!('method' in value) || value['method'] === undefined) return false;
+    if (!('verifier' in value) || value['verifier'] === undefined) return false;
+    return true;
 }
 
 export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
@@ -93,35 +152,37 @@ export function ChallengedPKCEFromJSON(json: any): ChallengedPKCE {
 }
 
 export function ChallengedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): ChallengedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'state': json['state'],
         'nonce': json['nonce'],
         'challenge': json['challenge'],
-        'method': json['method'],
+        'method': ChallengedPKCEMethodEnumFromJSON(json['method']),
         'verifier': json['verifier'],
     };
 }
 
-export function ChallengedPKCEToJSON(value?: ChallengedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ChallengedPKCEToJSON(json: any): ChallengedPKCE {
+    return ChallengedPKCEToJSONTyped(json, false);
+}
+
+export function ChallengedPKCEToJSONTyped(value?: ChallengedPKCE | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'state': value.state,
-        'nonce': value.nonce,
-        'challenge': value.challenge,
-        'method': value.method,
-        'verifier': value.verifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'state': value['state'],
+        'nonce': value['nonce'],
+        'challenge': value['challenge'],
+        'method': ChallengedPKCEMethodEnumToJSON(value['method']),
+        'verifier': value['verifier'],
     };
 }
 

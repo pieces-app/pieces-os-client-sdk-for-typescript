@@ -12,37 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
+import type { SeededAnchor } from './SeededAnchor';
 import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
+    SeededAnchorFromJSON,
+    SeededAnchorFromJSONTyped,
+    SeededAnchorToJSON,
+    SeededAnchorToJSONTyped,
+} from './SeededAnchor';
 import type { Classifications } from './Classifications';
 import {
     ClassificationsFromJSON,
     ClassificationsFromJSONTyped,
     ClassificationsToJSON,
+    ClassificationsToJSONTyped,
 } from './Classifications';
 import type { DocumentContributors } from './DocumentContributors';
 import {
     DocumentContributorsFromJSON,
     DocumentContributorsFromJSONTyped,
     DocumentContributorsToJSON,
+    DocumentContributorsToJSONTyped,
 } from './DocumentContributors';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { SeededAnchor } from './SeededAnchor';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
 import {
-    SeededAnchorFromJSON,
-    SeededAnchorFromJSONTyped,
-    SeededAnchorToJSON,
-} from './SeededAnchor';
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+    AnonymousTemporalRangeToJSONTyped,
+} from './AnonymousTemporalRange';
 
 /**
  * This is a representation of a Module or a Project
@@ -90,14 +95,13 @@ export interface ProjectModule {
     classifications?: Classifications;
 }
 
+
 /**
  * Check if a given object implements the ProjectModule interface.
  */
-export function instanceOfProjectModule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "anchor" in value;
-
-    return isInstance;
+export function instanceOfProjectModule(value: object): value is ProjectModule {
+    if (!('anchor' in value) || value['anchor'] === undefined) return false;
+    return true;
 }
 
 export function ProjectModuleFromJSON(json: any): ProjectModule {
@@ -105,33 +109,35 @@ export function ProjectModuleFromJSON(json: any): ProjectModule {
 }
 
 export function ProjectModuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): ProjectModule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'anchor': SeededAnchorFromJSON(json['anchor']),
-        'range': !exists(json, 'range') ? undefined : AnonymousTemporalRangeFromJSON(json['range']),
-        'contributors': !exists(json, 'contributors') ? undefined : DocumentContributorsFromJSON(json['contributors']),
-        'classifications': !exists(json, 'classifications') ? undefined : ClassificationsFromJSON(json['classifications']),
+        'range': json['range'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['range']),
+        'contributors': json['contributors'] == null ? undefined : DocumentContributorsFromJSON(json['contributors']),
+        'classifications': json['classifications'] == null ? undefined : ClassificationsFromJSON(json['classifications']),
     };
 }
 
-export function ProjectModuleToJSON(value?: ProjectModule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ProjectModuleToJSON(json: any): ProjectModule {
+    return ProjectModuleToJSONTyped(json, false);
+}
+
+export function ProjectModuleToJSONTyped(value?: ProjectModule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'anchor': SeededAnchorToJSON(value.anchor),
-        'range': AnonymousTemporalRangeToJSON(value.range),
-        'contributors': DocumentContributorsToJSON(value.contributors),
-        'classifications': ClassificationsToJSON(value.classifications),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'anchor': SeededAnchorToJSON(value['anchor']),
+        'range': AnonymousTemporalRangeToJSON(value['range']),
+        'contributors': DocumentContributorsToJSON(value['contributors']),
+        'classifications': ClassificationsToJSON(value['classifications']),
     };
 }
 

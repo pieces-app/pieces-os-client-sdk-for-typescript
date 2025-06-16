@@ -18,6 +18,7 @@
  * @export
  */
 export const ModelTypeEnum = {
+    Unknown: 'UNKNOWN',
     Balanced: 'BALANCED',
     Speed: 'SPEED',
     Accuracy: 'ACCURACY'
@@ -25,15 +26,62 @@ export const ModelTypeEnum = {
 export type ModelTypeEnum = typeof ModelTypeEnum[keyof typeof ModelTypeEnum];
 
 
+export function instanceOfModelTypeEnum(value: any): boolean {
+    for (const key in ModelTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelTypeEnum, key)) {
+            if (ModelTypeEnum[key as keyof typeof ModelTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ModelTypeEnumFromJSON(json: any): ModelTypeEnum {
     return ModelTypeEnumFromJSONTyped(json, false);
 }
 
 export function ModelTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelTypeEnum {
-    return json as ModelTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelTypeEnum;
+    }
+
+    if (instanceOfModelTypeEnum(json)) {
+        return json as ModelTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelTypeEnum;
+    }
 }
 
 export function ModelTypeEnumToJSON(value?: ModelTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfModelTypeEnum(value)) {
+        return value as ModelTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelTypeEnum;
+    }
 }
 
+export function ModelTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ModelTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelTypeEnum;
+    }
+    if (instanceOfModelTypeEnum(value)) {
+        return value as ModelTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelTypeEnum;
+    }
+}

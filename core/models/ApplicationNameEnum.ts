@@ -18,6 +18,7 @@
  * @export
  */
 export const ApplicationNameEnum = {
+    Unknown: 'UNKNOWN',
     Sublime: 'SUBLIME',
     VsCode: 'VS_CODE',
     Jetbrains: 'JETBRAINS',
@@ -59,20 +60,67 @@ export const ApplicationNameEnum = {
     Eclipse: 'ECLIPSE',
     XCode: 'X_CODE',
     Netbeans: 'NETBEANS',
-    Unknown: 'UNKNOWN'
+    Opera: 'OPERA'
 } as const;
 export type ApplicationNameEnum = typeof ApplicationNameEnum[keyof typeof ApplicationNameEnum];
 
+
+export function instanceOfApplicationNameEnum(value: any): boolean {
+    for (const key in ApplicationNameEnum) {
+        if (Object.prototype.hasOwnProperty.call(ApplicationNameEnum, key)) {
+            if (ApplicationNameEnum[key as keyof typeof ApplicationNameEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ApplicationNameEnumFromJSON(json: any): ApplicationNameEnum {
     return ApplicationNameEnumFromJSONTyped(json, false);
 }
 
 export function ApplicationNameEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ApplicationNameEnum {
-    return json as ApplicationNameEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ApplicationNameEnum;
+    }
+
+    if (instanceOfApplicationNameEnum(json)) {
+        return json as ApplicationNameEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ApplicationNameEnum;
+    }
 }
 
 export function ApplicationNameEnumToJSON(value?: ApplicationNameEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ApplicationNameEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfApplicationNameEnum(value)) {
+        return value as ApplicationNameEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ApplicationNameEnum;
+    }
 }
 
+export function ApplicationNameEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ApplicationNameEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ApplicationNameEnum;
+    }
+    if (instanceOfApplicationNameEnum(value)) {
+        return value as ApplicationNameEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ApplicationNameEnum;
+    }
+}

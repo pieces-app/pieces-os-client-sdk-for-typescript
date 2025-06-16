@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -39,24 +40,82 @@ export interface TrackedAssetsEventIdentifierDescriptionPairs {
      */
     assetsSearched?: TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
 }
-
-
 /**
  * @export
  */
 export const TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = {
+    Unknown: 'UNKNOWN',
     AssetsWereSearched: 'assets_were_searched'
 } as const;
 export type TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum = typeof TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum[keyof typeof TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum];
+
+    export function instanceOfTrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum(value: any): boolean {
+        for (const key in TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum) {
+            if (Object.prototype.hasOwnProperty.call(TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum, key)) {
+                if (TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum[key as keyof typeof TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnumFromJSON(json: any): TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum {
+        return TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnumFromJSONTyped(json, false);
+    }
+
+    export function TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+
+        if (instanceOfTrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum(json)) {
+            return json as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+    }
+
+    export function TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnumToJSON(value?: TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum(value)) {
+            return value as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+    }
+
+    export function TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+        if (instanceOfTrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum(value)) {
+            return value as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the TrackedAssetsEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfTrackedAssetsEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedAssetsEventIdentifierDescriptionPairs(value: object): value is TrackedAssetsEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function TrackedAssetsEventIdentifierDescriptionPairsFromJSON(json: any): TrackedAssetsEventIdentifierDescriptionPairs {
@@ -64,27 +123,29 @@ export function TrackedAssetsEventIdentifierDescriptionPairsFromJSON(json: any):
 }
 
 export function TrackedAssetsEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetsEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'assetsSearched': !exists(json, 'assets_searched') ? undefined : json['assets_searched'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'assetsSearched': TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnumFromJSON(json['assets_searched']),
     };
 }
 
-export function TrackedAssetsEventIdentifierDescriptionPairsToJSON(value?: TrackedAssetsEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedAssetsEventIdentifierDescriptionPairsToJSON(json: any): TrackedAssetsEventIdentifierDescriptionPairs {
+    return TrackedAssetsEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function TrackedAssetsEventIdentifierDescriptionPairsToJSONTyped(value?: TrackedAssetsEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'assets_searched': value.assetsSearched,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assetsSearched': TrackedAssetsEventIdentifierDescriptionPairsAssetsSearchedEnumToJSON(value['assets_searched']),
     };
 }
 

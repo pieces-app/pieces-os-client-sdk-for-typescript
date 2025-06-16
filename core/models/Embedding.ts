@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
+import { mapValues } from '../runtime';
 import type { Model } from './Model';
 import {
     ModelFromJSON,
     ModelFromJSONTyped,
     ModelToJSON,
+    ModelToJSONTyped,
 } from './Model';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 
 /**
  * 
@@ -64,17 +66,16 @@ export interface Embedding {
     deleted?: GroupedTimestamp;
 }
 
+
 /**
  * Check if a given object implements the Embedding interface.
  */
-export function instanceOfEmbedding(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "raw" in value;
-    isInstance = isInstance && "model" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-
-    return isInstance;
+export function instanceOfEmbedding(value: object): value is Embedding {
+    if (!('raw' in value) || value['raw'] === undefined) return false;
+    if (!('model' in value) || value['model'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    return true;
 }
 
 export function EmbeddingFromJSON(json: any): Embedding {
@@ -82,7 +83,7 @@ export function EmbeddingFromJSON(json: any): Embedding {
 }
 
 export function EmbeddingFromJSONTyped(json: any, ignoreDiscriminator: boolean): Embedding {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -91,24 +92,26 @@ export function EmbeddingFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'model': ModelFromJSON(json['model']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
     };
 }
 
-export function EmbeddingToJSON(value?: Embedding | null): any {
-    if (value === undefined) {
-        return undefined;
+export function EmbeddingToJSON(json: any): Embedding {
+    return EmbeddingToJSONTyped(json, false);
+}
+
+export function EmbeddingToJSONTyped(value?: Embedding | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'raw': value.raw,
-        'model': ModelToJSON(value.model),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
+        'raw': value['raw'],
+        'model': ModelToJSON(value['model']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,13 +41,12 @@ export interface QGPTAgentRelatedRoutes {
     people?: boolean;
 }
 
+
 /**
  * Check if a given object implements the QGPTAgentRelatedRoutes interface.
  */
-export function instanceOfQGPTAgentRelatedRoutes(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTAgentRelatedRoutes(value: object): value is QGPTAgentRelatedRoutes {
+    return true;
 }
 
 export function QGPTAgentRelatedRoutesFromJSON(json: any): QGPTAgentRelatedRoutes {
@@ -54,27 +54,29 @@ export function QGPTAgentRelatedRoutesFromJSON(json: any): QGPTAgentRelatedRoute
 }
 
 export function QGPTAgentRelatedRoutesFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTAgentRelatedRoutes {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'people': !exists(json, 'people') ? undefined : json['people'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'people': json['people'] == null ? undefined : json['people'],
     };
 }
 
-export function QGPTAgentRelatedRoutesToJSON(value?: QGPTAgentRelatedRoutes | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTAgentRelatedRoutesToJSON(json: any): QGPTAgentRelatedRoutes {
+    return QGPTAgentRelatedRoutesToJSONTyped(json, false);
+}
+
+export function QGPTAgentRelatedRoutesToJSONTyped(value?: QGPTAgentRelatedRoutes | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'people': value.people,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'people': value['people'],
     };
 }
 

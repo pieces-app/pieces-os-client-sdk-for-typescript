@@ -12,55 +12,63 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
+import { mapValues } from '../runtime';
+import type { ReferencedFormat } from './ReferencedFormat';
 import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
+    ReferencedFormatFromJSON,
+    ReferencedFormatFromJSONTyped,
+    ReferencedFormatToJSON,
+    ReferencedFormatToJSONTyped,
+} from './ReferencedFormat';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
+    ReferencedAssetFromJSON,
+    ReferencedAssetFromJSONTyped,
+    ReferencedAssetToJSON,
+    ReferencedAssetToJSONTyped,
+} from './ReferencedAsset';
+import type { SeededConnectorTracking } from './SeededConnectorTracking';
+import {
+    SeededConnectorTrackingFromJSON,
+    SeededConnectorTrackingFromJSONTyped,
+    SeededConnectorTrackingToJSON,
+    SeededConnectorTrackingToJSONTyped,
+} from './SeededConnectorTracking';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
+    MechanismEnumFromJSON,
+    MechanismEnumFromJSONTyped,
+    MechanismEnumToJSON,
+    MechanismEnumToJSONTyped,
+} from './MechanismEnum';
 import type { FlattenedUserProfile } from './FlattenedUserProfile';
 import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
+    FlattenedUserProfileToJSONTyped,
 } from './FlattenedUserProfile';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
-import type { MechanismEnum } from './MechanismEnum';
+import type { Application } from './Application';
 import {
-    MechanismEnumFromJSON,
-    MechanismEnumFromJSONTyped,
-    MechanismEnumToJSON,
-} from './MechanismEnum';
-import type { ReferencedAsset } from './ReferencedAsset';
-import {
-    ReferencedAssetFromJSON,
-    ReferencedAssetFromJSONTyped,
-    ReferencedAssetToJSON,
-} from './ReferencedAsset';
-import type { ReferencedFormat } from './ReferencedFormat';
-import {
-    ReferencedFormatFromJSON,
-    ReferencedFormatFromJSONTyped,
-    ReferencedFormatToJSON,
-} from './ReferencedFormat';
-import type { SeededConnectorTracking } from './SeededConnectorTracking';
-import {
-    SeededConnectorTrackingFromJSON,
-    SeededConnectorTrackingFromJSONTyped,
-    SeededConnectorTrackingToJSON,
-} from './SeededConnectorTracking';
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+    ApplicationToJSONTyped,
+} from './Application';
 
 /**
  * Note:
@@ -143,19 +151,18 @@ export interface FlattenedActivity {
     rank?: number;
 }
 
+
 /**
  * Check if a given object implements the FlattenedActivity interface.
  */
-export function instanceOfFlattenedActivity(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "event" in value;
-    isInstance = isInstance && "application" in value;
-    isInstance = isInstance && "mechanism" in value;
-
-    return isInstance;
+export function instanceOfFlattenedActivity(value: object): value is FlattenedActivity {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('event' in value) || value['event'] === undefined) return false;
+    if (!('application' in value) || value['application'] === undefined) return false;
+    if (!('mechanism' in value) || value['mechanism'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedActivityFromJSON(json: any): FlattenedActivity {
@@ -163,47 +170,49 @@ export function FlattenedActivityFromJSON(json: any): FlattenedActivity {
 }
 
 export function FlattenedActivityFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedActivity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
         'event': SeededConnectorTrackingFromJSON(json['event']),
         'application': ApplicationFromJSON(json['application']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'format': !exists(json, 'format') ? undefined : ReferencedFormatFromJSON(json['format']),
-        'user': !exists(json, 'user') ? undefined : FlattenedUserProfileFromJSON(json['user']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'format': json['format'] == null ? undefined : ReferencedFormatFromJSON(json['format']),
+        'user': json['user'] == null ? undefined : FlattenedUserProfileFromJSON(json['user']),
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
-        'rank': !exists(json, 'rank') ? undefined : json['rank'],
+        'rank': json['rank'] == null ? undefined : json['rank'],
     };
 }
 
-export function FlattenedActivityToJSON(value?: FlattenedActivity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedActivityToJSON(json: any): FlattenedActivity {
+    return FlattenedActivityToJSONTyped(json, false);
+}
+
+export function FlattenedActivityToJSONTyped(value?: FlattenedActivity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'event': SeededConnectorTrackingToJSON(value.event),
-        'application': ApplicationToJSON(value.application),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'asset': ReferencedAssetToJSON(value.asset),
-        'format': ReferencedFormatToJSON(value.format),
-        'user': FlattenedUserProfileToJSON(value.user),
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'rank': value.rank,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'event': SeededConnectorTrackingToJSON(value['event']),
+        'application': ApplicationToJSON(value['application']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'format': ReferencedFormatToJSON(value['format']),
+        'user': FlattenedUserProfileToJSON(value['user']),
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'rank': value['rank'],
     };
 }
 

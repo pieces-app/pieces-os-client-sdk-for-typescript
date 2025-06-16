@@ -25,9 +25,89 @@ import {
     WorkstreamEventToJSON,
 } from '../models/index';
 
+export interface WorkstreamEventAssociateAnchorRequest {
+    workstreamEvent: string;
+    anchor: string;
+}
+
+export interface WorkstreamEventAssociateAnnotationRequest {
+    workstreamEvent: string;
+    annotation: string;
+}
+
+export interface WorkstreamEventAssociateConversationMessageRequest {
+    workstreamEvent: string;
+    message: string;
+}
+
+export interface WorkstreamEventAssociatePersonRequest {
+    workstreamEvent: string;
+    person: string;
+}
+
+export interface WorkstreamEventAssociateSourceWindowRequest {
+    workstreamEvent: string;
+    sourceWindow: string;
+}
+
+export interface WorkstreamEventAssociateTagRequest {
+    workstreamEvent: string;
+    tag: string;
+}
+
+export interface WorkstreamEventAssociateWebsiteRequest {
+    workstreamEvent: string;
+    website: string;
+}
+
+export interface WorkstreamEventAssociateWorkstreamPatternEngineSourceRequest {
+    workstreamEvent: string;
+    source: string;
+}
+
 export interface WorkstreamEventAssociateWorkstreamSummaryRequest {
     workstreamEvent: string;
     workstreamSummary: string;
+}
+
+export interface WorkstreamEventDisassociateAnchorRequest {
+    workstreamEvent: string;
+    anchor: string;
+}
+
+export interface WorkstreamEventDisassociateAnnotationRequest {
+    workstreamEvent: string;
+    annotation: string;
+}
+
+export interface WorkstreamEventDisassociateConversationMessageRequest {
+    workstreamEvent: string;
+    message: string;
+}
+
+export interface WorkstreamEventDisassociatePersonRequest {
+    workstreamEvent: string;
+    person: string;
+}
+
+export interface WorkstreamEventDisassociateSourceWindowRequest {
+    workstreamEvent: string;
+    sourceWindow: string;
+}
+
+export interface WorkstreamEventDisassociateTagRequest {
+    workstreamEvent: string;
+    tag: string;
+}
+
+export interface WorkstreamEventDisassociateWebsiteRequest {
+    workstreamEvent: string;
+    website: string;
+}
+
+export interface WorkstreamEventDisassociateWorkstreamPatternEngineSourceRequest {
+    workstreamEvent: string;
+    source: string;
 }
 
 export interface WorkstreamEventDisassociateWorkstreamSummaryRequest {
@@ -56,24 +136,394 @@ export interface WorkstreamEventsSpecificWorkstreamEventSnapshotRequest {
 export class WorkstreamEventApi extends runtime.BaseAPI {
 
     /**
-     * This will associate a workstream_event with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /workstream_event/{workstream_event}/workstream_summaries/associate/{workstream_summary} [POST]
+     * This will enable us to associate an anchor with a workstream event.
+     * /workstream_event/{workstream_event}/anchors/associate/{anchor} [POST]
      */
-    async workstreamEventAssociateWorkstreamSummaryRaw(requestParameters: WorkstreamEventAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventAssociateWorkstreamSummary.');
+    async workstreamEventAssociateAnchorRaw(requestParameters: WorkstreamEventAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateAnchor().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamEventAssociateWorkstreamSummary.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling workstreamEventAssociateAnchor().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/workstream_event/{workstream_event}/anchors/associate/{anchor}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate an anchor with a workstream event.
+     * /workstream_event/{workstream_event}/anchors/associate/{anchor} [POST]
+     */
+    async workstreamEventAssociateAnchor(requestParameters: WorkstreamEventAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociateAnchorRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate an annotation with a workstream event.
+     * /workstream_event/{workstream_event}/annotations/associate/{annotation} [POST]
+     */
+    async workstreamEventAssociateAnnotationRaw(requestParameters: WorkstreamEventAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateAnnotation().'
+            );
+        }
+
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling workstreamEventAssociateAnnotation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/annotations/associate/{annotation}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate an annotation with a workstream event.
+     * /workstream_event/{workstream_event}/annotations/associate/{annotation} [POST]
+     */
+    async workstreamEventAssociateAnnotation(requestParameters: WorkstreamEventAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a workstream_event with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /workstream_event/{workstream_event}/messages/associate/{message} [POST]
+     */
+    async workstreamEventAssociateConversationMessageRaw(requestParameters: WorkstreamEventAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateConversationMessage().'
+            );
+        }
+
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling workstreamEventAssociateConversationMessage().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/messages/associate/{message}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_event with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /workstream_event/{workstream_event}/messages/associate/{message} [POST]
+     */
+    async workstreamEventAssociateConversationMessage(requestParameters: WorkstreamEventAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a person with a workstream event.
+     * /workstream_event/{workstream_event}/persons/associate/{person} [POST]
+     */
+    async workstreamEventAssociatePersonRaw(requestParameters: WorkstreamEventAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling workstreamEventAssociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/persons/associate/{person}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a person with a workstream event.
+     * /workstream_event/{workstream_event}/persons/associate/{person} [POST]
+     */
+    async workstreamEventAssociatePerson(requestParameters: WorkstreamEventAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociatePersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a source window with a workstream event.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/source_windows/associate/{source_window} [POST]
+     */
+    async workstreamEventAssociateSourceWindowRaw(requestParameters: WorkstreamEventAssociateSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateSourceWindow().'
+            );
+        }
+
+        if (requestParameters['sourceWindow'] == null) {
+            throw new runtime.RequiredError(
+                'sourceWindow',
+                'Required parameter "sourceWindow" was null or undefined when calling workstreamEventAssociateSourceWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/workstream_pattern_engine/source_windows/associate/{source_window}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"source_window"}}`, encodeURIComponent(String(requestParameters['sourceWindow']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a source window with a workstream event.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/source_windows/associate/{source_window} [POST]
+     */
+    async workstreamEventAssociateSourceWindow(requestParameters: WorkstreamEventAssociateSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociateSourceWindowRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a workstream_event with a tag. This will do the same thing as the tag equivalent.
+     * /Workstream_event/{workstream_event}/tags/associate/{tag} [POST]
+     */
+    async workstreamEventAssociateTagRaw(requestParameters: WorkstreamEventAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateTag().'
+            );
+        }
+
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling workstreamEventAssociateTag().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/tags/associate/{tag}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_event with a tag. This will do the same thing as the tag equivalent.
+     * /Workstream_event/{workstream_event}/tags/associate/{tag} [POST]
+     */
+    async workstreamEventAssociateTag(requestParameters: WorkstreamEventAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a website with a workstream event.
+     * /workstream_event/{workstream_event}/websites/associate/{website} [POST]
+     */
+    async workstreamEventAssociateWebsiteRaw(requestParameters: WorkstreamEventAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateWebsite().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling workstreamEventAssociateWebsite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/websites/associate/{website}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a website with a workstream event.
+     * /workstream_event/{workstream_event}/websites/associate/{website} [POST]
+     */
+    async workstreamEventAssociateWebsite(requestParameters: WorkstreamEventAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociateWebsiteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a workstream_event with a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async workstreamEventAssociateWorkstreamPatternEngineSourceRaw(requestParameters: WorkstreamEventAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling workstreamEventAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/workstream_pattern_engine/sources/associate/{source}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_event with a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async workstreamEventAssociateWorkstreamPatternEngineSource(requestParameters: WorkstreamEventAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventAssociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a workstream_event with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /workstream_event/{workstream_event}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async workstreamEventAssociateWorkstreamSummaryRaw(requestParameters: WorkstreamEventAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamEventAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -91,24 +541,394 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a workstream_event from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /workstream_event/{workstream_event}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     * This will enable us to disassociate an anchor from a workstream event.
+     * /workstream_event/{workstream_event}/anchors/disassociate/{anchor} [POST]
      */
-    async workstreamEventDisassociateWorkstreamSummaryRaw(requestParameters: WorkstreamEventDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventDisassociateWorkstreamSummary.');
+    async workstreamEventDisassociateAnchorRaw(requestParameters: WorkstreamEventDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateAnchor().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling workstreamEventDisassociateWorkstreamSummary.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling workstreamEventDisassociateAnchor().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/workstream_event/{workstream_event}/anchors/disassociate/{anchor}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate an anchor from a workstream event.
+     * /workstream_event/{workstream_event}/anchors/disassociate/{anchor} [POST]
+     */
+    async workstreamEventDisassociateAnchor(requestParameters: WorkstreamEventDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociateAnchorRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from a workstream event.
+     * /workstream_event/{workstream_event}/annotations/disassociate/{annotation} [POST]
+     */
+    async workstreamEventDisassociateAnnotationRaw(requestParameters: WorkstreamEventDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateAnnotation().'
+            );
+        }
+
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling workstreamEventDisassociateAnnotation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/annotations/disassociate/{annotation}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from a workstream event.
+     * /workstream_event/{workstream_event}/annotations/disassociate/{annotation} [POST]
+     */
+    async workstreamEventDisassociateAnnotation(requestParameters: WorkstreamEventDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from an workstream_event. This will do the same thing as the conversation_message equivalent.
+     * /workstream_event/{workstream_event}/messages/disassociate/{message} [POST]
+     */
+    async workstreamEventDisassociateConversationMessageRaw(requestParameters: WorkstreamEventDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateConversationMessage().'
+            );
+        }
+
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling workstreamEventDisassociateConversationMessage().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/messages/disassociate/{message}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from an workstream_event. This will do the same thing as the conversation_message equivalent.
+     * /workstream_event/{workstream_event}/messages/disassociate/{message} [POST]
+     */
+    async workstreamEventDisassociateConversationMessage(requestParameters: WorkstreamEventDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a person from a workstream event.
+     * /workstream_event/{workstream_event}/persons/disassociate/{person} [POST]
+     */
+    async workstreamEventDisassociatePersonRaw(requestParameters: WorkstreamEventDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling workstreamEventDisassociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/persons/disassociate/{person}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a person from a workstream event.
+     * /workstream_event/{workstream_event}/persons/disassociate/{person} [POST]
+     */
+    async workstreamEventDisassociatePerson(requestParameters: WorkstreamEventDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociatePersonRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a source window from a workstream event.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/source_windows/disassociate/{source_window} [POST]
+     */
+    async workstreamEventDisassociateSourceWindowRaw(requestParameters: WorkstreamEventDisassociateSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateSourceWindow().'
+            );
+        }
+
+        if (requestParameters['sourceWindow'] == null) {
+            throw new runtime.RequiredError(
+                'sourceWindow',
+                'Required parameter "sourceWindow" was null or undefined when calling workstreamEventDisassociateSourceWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/workstream_pattern_engine/source_windows/disassociate/{source_window}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"source_window"}}`, encodeURIComponent(String(requestParameters['sourceWindow']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a source window from a workstream event.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/source_windows/disassociate/{source_window} [POST]
+     */
+    async workstreamEventDisassociateSourceWindow(requestParameters: WorkstreamEventDisassociateSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociateSourceWindowRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_event from a tag. This will do the same thing as the tag equivalent.
+     * /workstream_event/{workstream_event}/tags/disassociate/{tag} [POST]
+     */
+    async workstreamEventDisassociateTagRaw(requestParameters: WorkstreamEventDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateTag().'
+            );
+        }
+
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling workstreamEventDisassociateTag().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/tags/disassociate/{tag}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_event from a tag. This will do the same thing as the tag equivalent.
+     * /workstream_event/{workstream_event}/tags/disassociate/{tag} [POST]
+     */
+    async workstreamEventDisassociateTag(requestParameters: WorkstreamEventDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a workstream event.
+     * /workstream_event/{workstream_event}/websites/disassociate/{website} [POST]
+     */
+    async workstreamEventDisassociateWebsiteRaw(requestParameters: WorkstreamEventDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateWebsite().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling workstreamEventDisassociateWebsite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/websites/disassociate/{website}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a workstream event.
+     * /workstream_event/{workstream_event}/websites/disassociate/{website} [POST]
+     */
+    async workstreamEventDisassociateWebsite(requestParameters: WorkstreamEventDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociateWebsiteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_event from a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async workstreamEventDisassociateWorkstreamPatternEngineSourceRaw(requestParameters: WorkstreamEventDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling workstreamEventDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/workstream_pattern_engine/sources/disassociate/{source}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_event from a workstream_pattern_engine_source. This will do the same thing as the workstream_pattern_engine_source equivalent.
+     * /workstream_event/{workstream_event}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async workstreamEventDisassociateWorkstreamPatternEngineSource(requestParameters: WorkstreamEventDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.workstreamEventDisassociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_event from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /workstream_event/{workstream_event}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async workstreamEventDisassociateWorkstreamSummaryRaw(requestParameters: WorkstreamEventDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling workstreamEventDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/workstream_event/{workstream_event}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -130,8 +950,11 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
      * \'/workstream_event/{workstream_event}/scores/increment\' [POST]
      */
     async workstreamEventScoresIncrementRaw(requestParameters: WorkstreamEventScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventScoresIncrement.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -140,12 +963,16 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}/scores/increment`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))),
+            path: `/workstream_event/{workstream_event}/scores/increment`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -166,20 +993,24 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
     async workstreamEventUpdateRaw(requestParameters: WorkstreamEventUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamEvent>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream_event/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WorkstreamEventToJSON(requestParameters.workstreamEvent),
+            body: WorkstreamEventToJSON(requestParameters['workstreamEvent']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamEventFromJSON(jsonValue));
@@ -199,20 +1030,27 @@ export class WorkstreamEventApi extends runtime.BaseAPI {
      * /workstream_event/{workstream_event} [GET]
      */
     async workstreamEventsSpecificWorkstreamEventSnapshotRaw(requestParameters: WorkstreamEventsSpecificWorkstreamEventSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WorkstreamEvent>> {
-        if (requestParameters.workstreamEvent === null || requestParameters.workstreamEvent === undefined) {
-            throw new runtime.RequiredError('workstreamEvent','Required parameter requestParameters.workstreamEvent was null or undefined when calling workstreamEventsSpecificWorkstreamEventSnapshot.');
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling workstreamEventsSpecificWorkstreamEventSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/workstream_event/{workstream_event}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters.workstreamEvent))),
+            path: `/workstream_event/{workstream_event}`.replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

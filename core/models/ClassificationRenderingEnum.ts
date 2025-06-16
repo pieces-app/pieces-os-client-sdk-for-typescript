@@ -18,6 +18,7 @@
  * @export
  */
 export const ClassificationRenderingEnum = {
+    Unknown: 'UNKNOWN',
     Html: 'HTML',
     TwentyFourBitAnsiEscapedSequences: 'TWENTY_FOUR_BIT_ANSI_ESCAPED_SEQUENCES',
     HighlightJsHtml: 'HIGHLIGHT_JS_HTML'
@@ -25,15 +26,62 @@ export const ClassificationRenderingEnum = {
 export type ClassificationRenderingEnum = typeof ClassificationRenderingEnum[keyof typeof ClassificationRenderingEnum];
 
 
+export function instanceOfClassificationRenderingEnum(value: any): boolean {
+    for (const key in ClassificationRenderingEnum) {
+        if (Object.prototype.hasOwnProperty.call(ClassificationRenderingEnum, key)) {
+            if (ClassificationRenderingEnum[key as keyof typeof ClassificationRenderingEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ClassificationRenderingEnumFromJSON(json: any): ClassificationRenderingEnum {
     return ClassificationRenderingEnumFromJSONTyped(json, false);
 }
 
 export function ClassificationRenderingEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ClassificationRenderingEnum {
-    return json as ClassificationRenderingEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ClassificationRenderingEnum;
+    }
+
+    if (instanceOfClassificationRenderingEnum(json)) {
+        return json as ClassificationRenderingEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ClassificationRenderingEnum;
+    }
 }
 
 export function ClassificationRenderingEnumToJSON(value?: ClassificationRenderingEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ClassificationRenderingEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfClassificationRenderingEnum(value)) {
+        return value as ClassificationRenderingEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ClassificationRenderingEnum;
+    }
 }
 
+export function ClassificationRenderingEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ClassificationRenderingEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ClassificationRenderingEnum;
+    }
+    if (instanceOfClassificationRenderingEnum(value)) {
+        return value as ClassificationRenderingEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ClassificationRenderingEnum;
+    }
+}

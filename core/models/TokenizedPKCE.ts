@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -69,30 +70,88 @@ export interface TokenizedPKCE {
      */
     audience?: string;
 }
-
-
 /**
  * @export
  */
 export const TokenizedPKCEGrantTypeEnum = {
+    Unknown: 'UNKNOWN',
     RefreshToken: 'refresh_token',
     AuthorizationCode: 'authorization_code'
 } as const;
 export type TokenizedPKCEGrantTypeEnum = typeof TokenizedPKCEGrantTypeEnum[keyof typeof TokenizedPKCEGrantTypeEnum];
 
+    export function instanceOfTokenizedPKCEGrantTypeEnum(value: any): boolean {
+        for (const key in TokenizedPKCEGrantTypeEnum) {
+            if (Object.prototype.hasOwnProperty.call(TokenizedPKCEGrantTypeEnum, key)) {
+                if (TokenizedPKCEGrantTypeEnum[key as keyof typeof TokenizedPKCEGrantTypeEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function TokenizedPKCEGrantTypeEnumFromJSON(json: any): TokenizedPKCEGrantTypeEnum {
+        return TokenizedPKCEGrantTypeEnumFromJSONTyped(json, false);
+    }
+
+    export function TokenizedPKCEGrantTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenizedPKCEGrantTypeEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TokenizedPKCEGrantTypeEnum;
+        }
+
+        if (instanceOfTokenizedPKCEGrantTypeEnum(json)) {
+            return json as TokenizedPKCEGrantTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TokenizedPKCEGrantTypeEnum;
+        }
+    }
+
+    export function TokenizedPKCEGrantTypeEnumToJSON(value?: TokenizedPKCEGrantTypeEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TokenizedPKCEGrantTypeEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfTokenizedPKCEGrantTypeEnum(value)) {
+            return value as TokenizedPKCEGrantTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TokenizedPKCEGrantTypeEnum;
+        }
+    }
+
+    export function TokenizedPKCEGrantTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): TokenizedPKCEGrantTypeEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as TokenizedPKCEGrantTypeEnum;
+        }
+        if (instanceOfTokenizedPKCEGrantTypeEnum(value)) {
+            return value as TokenizedPKCEGrantTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as TokenizedPKCEGrantTypeEnum;
+        }
+    }
+
+
 
 /**
  * Check if a given object implements the TokenizedPKCE interface.
  */
-export function instanceOfTokenizedPKCE(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "grantType" in value;
-    isInstance = isInstance && "clientId" in value;
-    isInstance = isInstance && "code" in value;
-    isInstance = isInstance && "redirectUri" in value;
-    isInstance = isInstance && "codeVerifier" in value;
-
-    return isInstance;
+export function instanceOfTokenizedPKCE(value: object): value is TokenizedPKCE {
+    if (!('grantType' in value) || value['grantType'] === undefined) return false;
+    if (!('clientId' in value) || value['clientId'] === undefined) return false;
+    if (!('code' in value) || value['code'] === undefined) return false;
+    if (!('redirectUri' in value) || value['redirectUri'] === undefined) return false;
+    if (!('codeVerifier' in value) || value['codeVerifier'] === undefined) return false;
+    return true;
 }
 
 export function TokenizedPKCEFromJSON(json: any): TokenizedPKCE {
@@ -100,37 +159,39 @@ export function TokenizedPKCEFromJSON(json: any): TokenizedPKCE {
 }
 
 export function TokenizedPKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenizedPKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'grantType': json['grant_type'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'grantType': TokenizedPKCEGrantTypeEnumFromJSON(json['grant_type']),
         'clientId': json['client_id'],
         'code': json['code'],
         'redirectUri': json['redirect_uri'],
         'codeVerifier': json['code_verifier'],
-        'audience': !exists(json, 'audience') ? undefined : json['audience'],
+        'audience': json['audience'] == null ? undefined : json['audience'],
     };
 }
 
-export function TokenizedPKCEToJSON(value?: TokenizedPKCE | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TokenizedPKCEToJSON(json: any): TokenizedPKCE {
+    return TokenizedPKCEToJSONTyped(json, false);
+}
+
+export function TokenizedPKCEToJSONTyped(value?: TokenizedPKCE | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'grant_type': value.grantType,
-        'client_id': value.clientId,
-        'code': value.code,
-        'redirect_uri': value.redirectUri,
-        'code_verifier': value.codeVerifier,
-        'audience': value.audience,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'grantType': TokenizedPKCEGrantTypeEnumToJSON(value['grant_type']),
+        'client_id': value['clientId'],
+        'code': value['code'],
+        'redirect_uri': value['redirectUri'],
+        'code_verifier': value['codeVerifier'],
+        'audience': value['audience'],
     };
 }
 

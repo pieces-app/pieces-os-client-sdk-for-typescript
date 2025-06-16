@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AssetFilters } from './AssetFilters';
-import {
-    AssetFiltersFromJSON,
-    AssetFiltersFromJSONTyped,
-    AssetFiltersToJSON,
-} from './AssetFilters';
-import type { AssetSearchSpace } from './AssetSearchSpace';
-import {
-    AssetSearchSpaceFromJSON,
-    AssetSearchSpaceFromJSONTyped,
-    AssetSearchSpaceToJSON,
-} from './AssetSearchSpace';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { AssetSearchSpace } from './AssetSearchSpace';
+import {
+    AssetSearchSpaceFromJSON,
+    AssetSearchSpaceFromJSONTyped,
+    AssetSearchSpaceToJSON,
+    AssetSearchSpaceToJSONTyped,
+} from './AssetSearchSpace';
+import type { AssetFilters } from './AssetFilters';
+import {
+    AssetFiltersFromJSON,
+    AssetFiltersFromJSONTyped,
+    AssetFiltersToJSON,
+    AssetFiltersToJSONTyped,
+} from './AssetFilters';
 
 /**
  * 
@@ -70,13 +73,12 @@ export interface AssetsSearchWithFiltersInput {
     casing?: boolean;
 }
 
+
 /**
  * Check if a given object implements the AssetsSearchWithFiltersInput interface.
  */
-export function instanceOfAssetsSearchWithFiltersInput(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAssetsSearchWithFiltersInput(value: object): value is AssetsSearchWithFiltersInput {
+    return true;
 }
 
 export function AssetsSearchWithFiltersInputFromJSON(json: any): AssetsSearchWithFiltersInput {
@@ -84,33 +86,35 @@ export function AssetsSearchWithFiltersInputFromJSON(json: any): AssetsSearchWit
 }
 
 export function AssetsSearchWithFiltersInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetsSearchWithFiltersInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'query': !exists(json, 'query') ? undefined : json['query'],
-        'space': !exists(json, 'space') ? undefined : AssetSearchSpaceFromJSON(json['space']),
-        'filters': !exists(json, 'filters') ? undefined : AssetFiltersFromJSON(json['filters']),
-        'casing': !exists(json, 'casing') ? undefined : json['casing'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'query': json['query'] == null ? undefined : json['query'],
+        'space': json['space'] == null ? undefined : AssetSearchSpaceFromJSON(json['space']),
+        'filters': json['filters'] == null ? undefined : AssetFiltersFromJSON(json['filters']),
+        'casing': json['casing'] == null ? undefined : json['casing'],
     };
 }
 
-export function AssetsSearchWithFiltersInputToJSON(value?: AssetsSearchWithFiltersInput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AssetsSearchWithFiltersInputToJSON(json: any): AssetsSearchWithFiltersInput {
+    return AssetsSearchWithFiltersInputToJSONTyped(json, false);
+}
+
+export function AssetsSearchWithFiltersInputToJSONTyped(value?: AssetsSearchWithFiltersInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'query': value.query,
-        'space': AssetSearchSpaceToJSON(value.space),
-        'filters': AssetFiltersToJSON(value.filters),
-        'casing': value.casing,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'query': value['query'],
+        'space': AssetSearchSpaceToJSON(value['space']),
+        'filters': AssetFiltersToJSON(value['filters']),
+        'casing': value['casing'],
     };
 }
 

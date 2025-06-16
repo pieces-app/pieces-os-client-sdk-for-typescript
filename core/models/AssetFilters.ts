@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AssetFilter } from './AssetFilter';
-import {
-    AssetFilterFromJSON,
-    AssetFilterFromJSONTyped,
-    AssetFilterToJSON,
-} from './AssetFilter';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FilterOperationTypeEnum } from './FilterOperationTypeEnum';
 import {
     FilterOperationTypeEnumFromJSON,
     FilterOperationTypeEnumFromJSONTyped,
     FilterOperationTypeEnumToJSON,
+    FilterOperationTypeEnumToJSONTyped,
 } from './FilterOperationTypeEnum';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { AssetFilter } from './AssetFilter';
+import {
+    AssetFilterFromJSON,
+    AssetFilterFromJSONTyped,
+    AssetFilterToJSON,
+    AssetFilterToJSONTyped,
+} from './AssetFilter';
 
 /**
  * 
@@ -58,14 +61,13 @@ export interface AssetFilters {
     type?: FilterOperationTypeEnum;
 }
 
+
 /**
  * Check if a given object implements the AssetFilters interface.
  */
-export function instanceOfAssetFilters(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfAssetFilters(value: object): value is AssetFilters {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function AssetFiltersFromJSON(json: any): AssetFilters {
@@ -73,29 +75,31 @@ export function AssetFiltersFromJSON(json: any): AssetFilters {
 }
 
 export function AssetFiltersFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilters {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AssetFilterFromJSON)),
-        'type': !exists(json, 'type') ? undefined : FilterOperationTypeEnumFromJSON(json['type']),
+        'type': FilterOperationTypeEnumFromJSON(json['type']),
     };
 }
 
-export function AssetFiltersToJSON(value?: AssetFilters | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AssetFiltersToJSON(json: any): AssetFilters {
+    return AssetFiltersToJSONTyped(json, false);
+}
+
+export function AssetFiltersToJSONTyped(value?: AssetFilters | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AssetFilterToJSON)),
-        'type': FilterOperationTypeEnumToJSON(value.type),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AssetFilterToJSON)),
+        'type': FilterOperationTypeEnumToJSON(value['type']),
     };
 }
 

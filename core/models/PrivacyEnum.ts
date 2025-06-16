@@ -20,6 +20,7 @@
  * @export
  */
 export const PrivacyEnum = {
+    Unknown: 'UNKNOWN',
     Open: 'OPEN',
     Closed: 'CLOSED',
     Anonymous: 'ANONYMOUS'
@@ -27,15 +28,62 @@ export const PrivacyEnum = {
 export type PrivacyEnum = typeof PrivacyEnum[keyof typeof PrivacyEnum];
 
 
+export function instanceOfPrivacyEnum(value: any): boolean {
+    for (const key in PrivacyEnum) {
+        if (Object.prototype.hasOwnProperty.call(PrivacyEnum, key)) {
+            if (PrivacyEnum[key as keyof typeof PrivacyEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function PrivacyEnumFromJSON(json: any): PrivacyEnum {
     return PrivacyEnumFromJSONTyped(json, false);
 }
 
 export function PrivacyEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): PrivacyEnum {
-    return json as PrivacyEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as PrivacyEnum;
+    }
+
+    if (instanceOfPrivacyEnum(json)) {
+        return json as PrivacyEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as PrivacyEnum;
+    }
 }
 
 export function PrivacyEnumToJSON(value?: PrivacyEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as PrivacyEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfPrivacyEnum(value)) {
+        return value as PrivacyEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as PrivacyEnum;
+    }
 }
 
+export function PrivacyEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): PrivacyEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as PrivacyEnum;
+    }
+    if (instanceOfPrivacyEnum(value)) {
+        return value as PrivacyEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as PrivacyEnum;
+    }
+}

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SeededModel } from './SeededModel';
 import {
     SeededModelFromJSON,
     SeededModelFromJSONTyped,
     SeededModelToJSON,
+    SeededModelToJSONTyped,
 } from './SeededModel';
 
 /**
@@ -46,14 +48,13 @@ export interface SeededModels {
     iterable: Array<SeededModel>;
 }
 
+
 /**
  * Check if a given object implements the SeededModels interface.
  */
-export function instanceOfSeededModels(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSeededModels(value: object): value is SeededModels {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SeededModelsFromJSON(json: any): SeededModels {
@@ -61,27 +62,29 @@ export function SeededModelsFromJSON(json: any): SeededModels {
 }
 
 export function SeededModelsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededModels {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SeededModelFromJSON)),
     };
 }
 
-export function SeededModelsToJSON(value?: SeededModels | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededModelsToJSON(json: any): SeededModels {
+    return SeededModelsToJSONTyped(json, false);
+}
+
+export function SeededModelsToJSONTyped(value?: SeededModels | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SeededModelToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededModelToJSON)),
     };
 }
 

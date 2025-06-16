@@ -12,55 +12,63 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
-import type { MechanismEnum } from './MechanismEnum';
-import {
-    MechanismEnumFromJSON,
-    MechanismEnumFromJSONTyped,
-    MechanismEnumToJSON,
-} from './MechanismEnum';
-import type { ReferencedAsset } from './ReferencedAsset';
-import {
-    ReferencedAssetFromJSON,
-    ReferencedAssetFromJSONTyped,
-    ReferencedAssetToJSON,
-} from './ReferencedAsset';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
-import type { SensitiveCategoryEnum } from './SensitiveCategoryEnum';
-import {
-    SensitiveCategoryEnumFromJSON,
-    SensitiveCategoryEnumFromJSONTyped,
-    SensitiveCategoryEnumToJSON,
-} from './SensitiveCategoryEnum';
+import { mapValues } from '../runtime';
 import type { SensitiveMetadata } from './SensitiveMetadata';
 import {
     SensitiveMetadataFromJSON,
     SensitiveMetadataFromJSONTyped,
     SensitiveMetadataToJSON,
+    SensitiveMetadataToJSONTyped,
 } from './SensitiveMetadata';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
+import type { ReferencedAsset } from './ReferencedAsset';
+import {
+    ReferencedAssetFromJSON,
+    ReferencedAssetFromJSONTyped,
+    ReferencedAssetToJSON,
+    ReferencedAssetToJSONTyped,
+} from './ReferencedAsset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { MechanismEnum } from './MechanismEnum';
+import {
+    MechanismEnumFromJSON,
+    MechanismEnumFromJSONTyped,
+    MechanismEnumToJSON,
+    MechanismEnumToJSONTyped,
+} from './MechanismEnum';
 import type { SensitiveSeverityEnum } from './SensitiveSeverityEnum';
 import {
     SensitiveSeverityEnumFromJSON,
     SensitiveSeverityEnumFromJSONTyped,
     SensitiveSeverityEnumToJSON,
+    SensitiveSeverityEnumToJSONTyped,
 } from './SensitiveSeverityEnum';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
+import type { SensitiveCategoryEnum } from './SensitiveCategoryEnum';
+import {
+    SensitiveCategoryEnumFromJSON,
+    SensitiveCategoryEnumFromJSONTyped,
+    SensitiveCategoryEnumToJSON,
+    SensitiveCategoryEnumToJSONTyped,
+} from './SensitiveCategoryEnum';
 
 /**
  * This is a dereferenced representation of a sensitive pieces of data.
@@ -160,23 +168,22 @@ export interface FlattenedSensitive {
     score?: Score;
 }
 
+
 /**
  * Check if a given object implements the FlattenedSensitive interface.
  */
-export function instanceOfFlattenedSensitive(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "asset" in value;
-    isInstance = isInstance && "text" in value;
-    isInstance = isInstance && "mechanism" in value;
-    isInstance = isInstance && "category" in value;
-    isInstance = isInstance && "severity" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "description" in value;
-
-    return isInstance;
+export function instanceOfFlattenedSensitive(value: object): value is FlattenedSensitive {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    if (!('text' in value) || value['text'] === undefined) return false;
+    if (!('mechanism' in value) || value['mechanism'] === undefined) return false;
+    if (!('category' in value) || value['category'] === undefined) return false;
+    if (!('severity' in value) || value['severity'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('description' in value) || value['description'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedSensitiveFromJSON(json: any): FlattenedSensitive {
@@ -184,16 +191,16 @@ export function FlattenedSensitiveFromJSON(json: any): FlattenedSensitive {
 }
 
 export function FlattenedSensitiveFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedSensitive {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
         'asset': ReferencedAssetFromJSON(json['asset']),
         'text': json['text'],
         'mechanism': MechanismEnumFromJSON(json['mechanism']),
@@ -201,36 +208,38 @@ export function FlattenedSensitiveFromJSONTyped(json: any, ignoreDiscriminator: 
         'severity': SensitiveSeverityEnumFromJSON(json['severity']),
         'name': json['name'],
         'description': json['description'],
-        'metadata': !exists(json, 'metadata') ? undefined : SensitiveMetadataFromJSON(json['metadata']),
-        'interactions': !exists(json, 'interactions') ? undefined : json['interactions'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'metadata': json['metadata'] == null ? undefined : SensitiveMetadataFromJSON(json['metadata']),
+        'interactions': json['interactions'] == null ? undefined : json['interactions'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function FlattenedSensitiveToJSON(value?: FlattenedSensitive | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedSensitiveToJSON(json: any): FlattenedSensitive {
+    return FlattenedSensitiveToJSONTyped(json, false);
+}
+
+export function FlattenedSensitiveToJSONTyped(value?: FlattenedSensitive | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'asset': ReferencedAssetToJSON(value.asset),
-        'text': value.text,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'category': SensitiveCategoryEnumToJSON(value.category),
-        'severity': SensitiveSeverityEnumToJSON(value.severity),
-        'name': value.name,
-        'description': value.description,
-        'metadata': SensitiveMetadataToJSON(value.metadata),
-        'interactions': value.interactions,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'text': value['text'],
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'category': SensitiveCategoryEnumToJSON(value['category']),
+        'severity': SensitiveSeverityEnumToJSON(value['severity']),
+        'name': value['name'],
+        'description': value['description'],
+        'metadata': SensitiveMetadataToJSON(value['metadata']),
+        'interactions': value['interactions'],
+        'score': ScoreToJSON(value['score']),
     };
 }
 

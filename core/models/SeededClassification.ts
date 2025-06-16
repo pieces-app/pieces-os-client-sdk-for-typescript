@@ -12,31 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
-import {
-    ClassificationGenericEnumFromJSON,
-    ClassificationGenericEnumFromJSONTyped,
-    ClassificationGenericEnumToJSON,
-} from './ClassificationGenericEnum';
-import type { ClassificationRenderingEnum } from './ClassificationRenderingEnum';
-import {
-    ClassificationRenderingEnumFromJSON,
-    ClassificationRenderingEnumFromJSONTyped,
-    ClassificationRenderingEnumToJSON,
-} from './ClassificationRenderingEnum';
-import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
-import {
-    ClassificationSpecificEnumFromJSON,
-    ClassificationSpecificEnumFromJSONTyped,
-    ClassificationSpecificEnumToJSON,
-} from './ClassificationSpecificEnum';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { ClassificationGenericEnum } from './ClassificationGenericEnum';
+import {
+    ClassificationGenericEnumFromJSON,
+    ClassificationGenericEnumFromJSONTyped,
+    ClassificationGenericEnumToJSON,
+    ClassificationGenericEnumToJSONTyped,
+} from './ClassificationGenericEnum';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
+    ClassificationSpecificEnumFromJSON,
+    ClassificationSpecificEnumFromJSONTyped,
+    ClassificationSpecificEnumToJSON,
+    ClassificationSpecificEnumToJSONTyped,
+} from './ClassificationSpecificEnum';
+import type { ClassificationRenderingEnum } from './ClassificationRenderingEnum';
+import {
+    ClassificationRenderingEnumFromJSON,
+    ClassificationRenderingEnumFromJSONTyped,
+    ClassificationRenderingEnumToJSON,
+    ClassificationRenderingEnumToJSONTyped,
+} from './ClassificationRenderingEnum';
 
 /**
  * This is the specific classification of an Asset's Format.(This is on a per format basis b/c an asset could have different formats that are different format representations of the Asset.)
@@ -70,13 +74,12 @@ export interface SeededClassification {
     rendering?: ClassificationRenderingEnum;
 }
 
+
 /**
  * Check if a given object implements the SeededClassification interface.
  */
-export function instanceOfSeededClassification(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededClassification(value: object): value is SeededClassification {
+    return true;
 }
 
 export function SeededClassificationFromJSON(json: any): SeededClassification {
@@ -84,31 +87,33 @@ export function SeededClassificationFromJSON(json: any): SeededClassification {
 }
 
 export function SeededClassificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededClassification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'generic': !exists(json, 'generic') ? undefined : ClassificationGenericEnumFromJSON(json['generic']),
-        'specific': !exists(json, 'specific') ? undefined : ClassificationSpecificEnumFromJSON(json['specific']),
-        'rendering': !exists(json, 'rendering') ? undefined : ClassificationRenderingEnumFromJSON(json['rendering']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'generic': ClassificationGenericEnumFromJSON(json['generic']),
+        'specific': ClassificationSpecificEnumFromJSON(json['specific']),
+        'rendering': ClassificationRenderingEnumFromJSON(json['rendering']),
     };
 }
 
-export function SeededClassificationToJSON(value?: SeededClassification | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededClassificationToJSON(json: any): SeededClassification {
+    return SeededClassificationToJSONTyped(json, false);
+}
+
+export function SeededClassificationToJSONTyped(value?: SeededClassification | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'generic': ClassificationGenericEnumToJSON(value.generic),
-        'specific': ClassificationSpecificEnumToJSON(value.specific),
-        'rendering': ClassificationRenderingEnumToJSON(value.rendering),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'generic': ClassificationGenericEnumToJSON(value['generic']),
+        'specific': ClassificationSpecificEnumToJSON(value['specific']),
+        'rendering': ClassificationRenderingEnumToJSON(value['rendering']),
     };
 }
 

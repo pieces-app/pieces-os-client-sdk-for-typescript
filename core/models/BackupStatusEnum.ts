@@ -18,26 +18,73 @@
  * @export
  */
 export const BackupStatusEnum = {
+    Unknown: 'UNKNOWN',
     Initialized: 'INITIALIZED',
     InProgress: 'IN-PROGRESS',
     Completed: 'COMPLETED',
     Failed: 'FAILED',
-    Unknown: 'UNKNOWN',
     Canceled: 'CANCELED',
     Reset: 'RESET'
 } as const;
 export type BackupStatusEnum = typeof BackupStatusEnum[keyof typeof BackupStatusEnum];
 
 
+export function instanceOfBackupStatusEnum(value: any): boolean {
+    for (const key in BackupStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(BackupStatusEnum, key)) {
+            if (BackupStatusEnum[key as keyof typeof BackupStatusEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function BackupStatusEnumFromJSON(json: any): BackupStatusEnum {
     return BackupStatusEnumFromJSONTyped(json, false);
 }
 
 export function BackupStatusEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): BackupStatusEnum {
-    return json as BackupStatusEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as BackupStatusEnum;
+    }
+
+    if (instanceOfBackupStatusEnum(json)) {
+        return json as BackupStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as BackupStatusEnum;
+    }
 }
 
 export function BackupStatusEnumToJSON(value?: BackupStatusEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as BackupStatusEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfBackupStatusEnum(value)) {
+        return value as BackupStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as BackupStatusEnum;
+    }
 }
 
+export function BackupStatusEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): BackupStatusEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as BackupStatusEnum;
+    }
+    if (instanceOfBackupStatusEnum(value)) {
+        return value as BackupStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as BackupStatusEnum;
+    }
+}

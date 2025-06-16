@@ -18,6 +18,7 @@
  * @export
  */
 export const ConversationMessageSentimentEnum = {
+    Unknown: 'UNKNOWN',
     Like: 'LIKE',
     Dislike: 'DISLIKE',
     Report: 'REPORT'
@@ -25,15 +26,62 @@ export const ConversationMessageSentimentEnum = {
 export type ConversationMessageSentimentEnum = typeof ConversationMessageSentimentEnum[keyof typeof ConversationMessageSentimentEnum];
 
 
+export function instanceOfConversationMessageSentimentEnum(value: any): boolean {
+    for (const key in ConversationMessageSentimentEnum) {
+        if (Object.prototype.hasOwnProperty.call(ConversationMessageSentimentEnum, key)) {
+            if (ConversationMessageSentimentEnum[key as keyof typeof ConversationMessageSentimentEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ConversationMessageSentimentEnumFromJSON(json: any): ConversationMessageSentimentEnum {
     return ConversationMessageSentimentEnumFromJSONTyped(json, false);
 }
 
 export function ConversationMessageSentimentEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationMessageSentimentEnum {
-    return json as ConversationMessageSentimentEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationMessageSentimentEnum;
+    }
+
+    if (instanceOfConversationMessageSentimentEnum(json)) {
+        return json as ConversationMessageSentimentEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationMessageSentimentEnum;
+    }
 }
 
 export function ConversationMessageSentimentEnumToJSON(value?: ConversationMessageSentimentEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationMessageSentimentEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfConversationMessageSentimentEnum(value)) {
+        return value as ConversationMessageSentimentEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationMessageSentimentEnum;
+    }
 }
 
+export function ConversationMessageSentimentEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ConversationMessageSentimentEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationMessageSentimentEnum;
+    }
+    if (instanceOfConversationMessageSentimentEnum(value)) {
+        return value as ConversationMessageSentimentEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationMessageSentimentEnum;
+    }
+}

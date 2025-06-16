@@ -17,6 +17,7 @@ import * as runtime from '../runtime';
 import type {
   Application,
   Applications,
+  ApplicationsBulkUpdateCapabilitiesInput,
   DetectedExternalApplications,
   Session,
   StreamedIdentifiers,
@@ -26,6 +27,8 @@ import {
     ApplicationToJSON,
     ApplicationsFromJSON,
     ApplicationsToJSON,
+    ApplicationsBulkUpdateCapabilitiesInputFromJSON,
+    ApplicationsBulkUpdateCapabilitiesInputToJSON,
     DetectedExternalApplicationsFromJSON,
     DetectedExternalApplicationsToJSON,
     SessionFromJSON,
@@ -33,6 +36,10 @@ import {
     StreamedIdentifiersFromJSON,
     StreamedIdentifiersToJSON,
 } from '../models/index';
+
+export interface ApplicationsBulkUpdateApplicationCapabilitiesRequest {
+    applicationsBulkUpdateCapabilitiesInput?: ApplicationsBulkUpdateCapabilitiesInput;
+}
 
 export interface ApplicationsRegisterRequest {
     application?: Application;
@@ -52,6 +59,41 @@ export interface ApplicationsSpecificApplicationSnapshotRequest {
 export class ApplicationsApi extends runtime.BaseAPI {
 
     /**
+     * This will bulk update all our applications to have a set of specific capabilities(depending on the input)
+     * /applications/update/capabilities [POST]
+     */
+    async applicationsBulkUpdateApplicationCapabilitiesRaw(requestParameters: ApplicationsBulkUpdateApplicationCapabilitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Applications>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/applications/update/capabilities`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ApplicationsBulkUpdateCapabilitiesInputToJSON(requestParameters['applicationsBulkUpdateCapabilitiesInput']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationsFromJSON(jsonValue));
+    }
+
+    /**
+     * This will bulk update all our applications to have a set of specific capabilities(depending on the input)
+     * /applications/update/capabilities [POST]
+     */
+    async applicationsBulkUpdateApplicationCapabilities(requestParameters: ApplicationsBulkUpdateApplicationCapabilitiesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Applications> {
+        const response = await this.applicationsBulkUpdateApplicationCapabilitiesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Retrieves a list of external applications installed on the user\'s machine that have potential integrations with Pieces, including those not yet installed by the user and those anticipated to be supported in the future.
      * /applications/external/related [GET]
      */
@@ -59,6 +101,10 @@ export class ApplicationsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/applications/external/related`,
@@ -87,6 +133,10 @@ export class ApplicationsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/applications/external`,
@@ -119,12 +169,16 @@ export class ApplicationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/applications/register`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ApplicationToJSON(requestParameters.application),
+            body: ApplicationToJSON(requestParameters['application']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationFromJSON(jsonValue));
@@ -152,12 +206,16 @@ export class ApplicationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/applications/session/close`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SessionFromJSON(jsonValue));
@@ -182,6 +240,10 @@ export class ApplicationsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/applications/session/open`,
@@ -212,6 +274,10 @@ export class ApplicationsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/applications`,
             method: 'GET',
@@ -236,16 +302,23 @@ export class ApplicationsApi extends runtime.BaseAPI {
      * /applications/{application} [GET]
      */
     async applicationsSpecificApplicationSnapshotRaw(requestParameters: ApplicationsSpecificApplicationSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Application>> {
-        if (requestParameters.application === null || requestParameters.application === undefined) {
-            throw new runtime.RequiredError('application','Required parameter requestParameters.application was null or undefined when calling applicationsSpecificApplicationSnapshot.');
+        if (requestParameters['application'] == null) {
+            throw new runtime.RequiredError(
+                'application',
+                'Required parameter "application" was null or undefined when calling applicationsSpecificApplicationSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/applications/{application}`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters.application))),
+            path: `/applications/{application}`.replace(`{${"application"}}`, encodeURIComponent(String(requestParameters['application']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -271,6 +344,10 @@ export class ApplicationsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/applications/stream/identifiers`,

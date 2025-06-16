@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { WorkstreamPatternEngineSources } from './WorkstreamPatternEngineSources';
 import {
     WorkstreamPatternEngineSourcesFromJSON,
     WorkstreamPatternEngineSourcesFromJSONTyped,
     WorkstreamPatternEngineSourcesToJSON,
+    WorkstreamPatternEngineSourcesToJSONTyped,
 } from './WorkstreamPatternEngineSources';
 
 /**
@@ -47,13 +49,12 @@ export interface WorkstreamSearchOptions {
     sources?: WorkstreamPatternEngineSources;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamSearchOptions interface.
  */
-export function instanceOfWorkstreamSearchOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamSearchOptions(value: object): value is WorkstreamSearchOptions {
+    return true;
 }
 
 export function WorkstreamSearchOptionsFromJSON(json: any): WorkstreamSearchOptions {
@@ -61,27 +62,29 @@ export function WorkstreamSearchOptionsFromJSON(json: any): WorkstreamSearchOpti
 }
 
 export function WorkstreamSearchOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamSearchOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'sources': !exists(json, 'sources') ? undefined : WorkstreamPatternEngineSourcesFromJSON(json['sources']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'sources': json['sources'] == null ? undefined : WorkstreamPatternEngineSourcesFromJSON(json['sources']),
     };
 }
 
-export function WorkstreamSearchOptionsToJSON(value?: WorkstreamSearchOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamSearchOptionsToJSON(json: any): WorkstreamSearchOptions {
+    return WorkstreamSearchOptionsToJSONTyped(json, false);
+}
+
+export function WorkstreamSearchOptionsToJSONTyped(value?: WorkstreamSearchOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'sources': WorkstreamPatternEngineSourcesToJSON(value.sources),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'sources': WorkstreamPatternEngineSourcesToJSON(value['sources']),
     };
 }
 

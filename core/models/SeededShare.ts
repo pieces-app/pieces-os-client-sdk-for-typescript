@@ -12,37 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AccessEnum } from './AccessEnum';
+import { mapValues } from '../runtime';
+import type { SeededUser } from './SeededUser';
 import {
-    AccessEnumFromJSON,
-    AccessEnumFromJSONTyped,
-    AccessEnumToJSON,
-} from './AccessEnum';
-import type { Asset } from './Asset';
-import {
-    AssetFromJSON,
-    AssetFromJSONTyped,
-    AssetToJSON,
-} from './Asset';
+    SeededUserFromJSON,
+    SeededUserFromJSONTyped,
+    SeededUserToJSON,
+    SeededUserToJSONTyped,
+} from './SeededUser';
 import type { Assets } from './Assets';
 import {
     AssetsFromJSON,
     AssetsFromJSONTyped,
     AssetsToJSON,
+    AssetsToJSONTyped,
 } from './Assets';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { SeededUser } from './SeededUser';
+import type { Asset } from './Asset';
 import {
-    SeededUserFromJSON,
-    SeededUserFromJSONTyped,
-    SeededUserToJSON,
-} from './SeededUser';
+    AssetFromJSON,
+    AssetFromJSONTyped,
+    AssetToJSON,
+    AssetToJSONTyped,
+} from './Asset';
+import type { AccessEnum } from './AccessEnum';
+import {
+    AccessEnumFromJSON,
+    AccessEnumFromJSONTyped,
+    AccessEnumToJSON,
+    AccessEnumToJSONTyped,
+} from './AccessEnum';
 
 /**
  *  required to pass in an asset or assets.
@@ -88,14 +93,13 @@ export interface SeededShare {
     name?: string;
 }
 
+
 /**
  * Check if a given object implements the SeededShare interface.
  */
-export function instanceOfSeededShare(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "access" in value;
-
-    return isInstance;
+export function instanceOfSeededShare(value: object): value is SeededShare {
+    if (!('access' in value) || value['access'] === undefined) return false;
+    return true;
 }
 
 export function SeededShareFromJSON(json: any): SeededShare {
@@ -103,35 +107,37 @@ export function SeededShareFromJSON(json: any): SeededShare {
 }
 
 export function SeededShareFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededShare {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : AssetFromJSON(json['asset']),
-        'users': !exists(json, 'users') ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : AssetFromJSON(json['asset']),
+        'users': json['users'] == null ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
         'access': AccessEnumFromJSON(json['access']),
-        'assets': !exists(json, 'assets') ? undefined : AssetsFromJSON(json['assets']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'assets': json['assets'] == null ? undefined : AssetsFromJSON(json['assets']),
+        'name': json['name'] == null ? undefined : json['name'],
     };
 }
 
-export function SeededShareToJSON(value?: SeededShare | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededShareToJSON(json: any): SeededShare {
+    return SeededShareToJSONTyped(json, false);
+}
+
+export function SeededShareToJSONTyped(value?: SeededShare | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': AssetToJSON(value.asset),
-        'users': value.users === undefined ? undefined : ((value.users as Array<any>).map(SeededUserToJSON)),
-        'access': AccessEnumToJSON(value.access),
-        'assets': AssetsToJSON(value.assets),
-        'name': value.name,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': AssetToJSON(value['asset']),
+        'users': value['users'] == null ? undefined : ((value['users'] as Array<any>).map(SeededUserToJSON)),
+        'access': AccessEnumToJSON(value['access']),
+        'assets': AssetsToJSON(value['assets']),
+        'name': value['name'],
     };
 }
 

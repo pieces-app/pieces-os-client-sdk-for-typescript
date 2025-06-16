@@ -12,91 +12,105 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
+import { mapValues } from '../runtime';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
 import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
+    FlattenedAnnotationsFromJSON,
+    FlattenedAnnotationsFromJSONTyped,
+    FlattenedAnnotationsToJSON,
+    FlattenedAnnotationsToJSONTyped,
+} from './FlattenedAnnotations';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 import type { ConversationGrounding } from './ConversationGrounding';
 import {
     ConversationGroundingFromJSON,
     ConversationGroundingFromJSONTyped,
     ConversationGroundingToJSON,
+    ConversationGroundingToJSONTyped,
 } from './ConversationGrounding';
 import type { ConversationTypeEnum } from './ConversationTypeEnum';
 import {
     ConversationTypeEnumFromJSON,
     ConversationTypeEnumFromJSONTyped,
     ConversationTypeEnumToJSON,
+    ConversationTypeEnumToJSONTyped,
 } from './ConversationTypeEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAnchors } from './FlattenedAnchors';
-import {
-    FlattenedAnchorsFromJSON,
-    FlattenedAnchorsFromJSONTyped,
-    FlattenedAnchorsToJSON,
-} from './FlattenedAnchors';
-import type { FlattenedAnnotations } from './FlattenedAnnotations';
-import {
-    FlattenedAnnotationsFromJSON,
-    FlattenedAnnotationsFromJSONTyped,
-    FlattenedAnnotationsToJSON,
-} from './FlattenedAnnotations';
-import type { FlattenedAssets } from './FlattenedAssets';
-import {
-    FlattenedAssetsFromJSON,
-    FlattenedAssetsFromJSONTyped,
-    FlattenedAssetsToJSON,
-} from './FlattenedAssets';
-import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
-import {
-    FlattenedConversationMessagesFromJSON,
-    FlattenedConversationMessagesFromJSONTyped,
-    FlattenedConversationMessagesToJSON,
-} from './FlattenedConversationMessages';
 import type { FlattenedWebsites } from './FlattenedWebsites';
 import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
 } from './FlattenedWebsites';
 import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
 import {
     FlattenedWorkstreamSummariesFromJSON,
     FlattenedWorkstreamSummariesFromJSONTyped,
     FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
 } from './FlattenedWorkstreamSummaries';
-import type { GroupedTimestamp } from './GroupedTimestamp';
+import type { Score } from './Score';
 import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
+} from './FlattenedAssets';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
 import type { QGPTPromptPipeline } from './QGPTPromptPipeline';
 import {
     QGPTPromptPipelineFromJSON,
     QGPTPromptPipelineFromJSONTyped,
     QGPTPromptPipelineToJSON,
+    QGPTPromptPipelineToJSONTyped,
 } from './QGPTPromptPipeline';
 import type { ReferencedModel } from './ReferencedModel';
 import {
     ReferencedModelFromJSON,
     ReferencedModelFromJSONTyped,
     ReferencedModelToJSON,
+    ReferencedModelToJSONTyped,
 } from './ReferencedModel';
-import type { Score } from './Score';
+import type { FlattenedAnchors } from './FlattenedAnchors';
 import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+    ApplicationToJSONTyped,
+} from './Application';
 
 /**
  * This is a flattened version of the Convsersation for DAG-Safety.
@@ -234,18 +248,17 @@ export interface FlattenedConversation {
     summaries?: FlattenedWorkstreamSummaries;
 }
 
+
 /**
  * Check if a given object implements the FlattenedConversation interface.
  */
-export function instanceOfFlattenedConversation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-    isInstance = isInstance && "messages" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfFlattenedConversation(value: object): value is FlattenedConversation {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    if (!('messages' in value) || value['messages'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedConversationFromJSON(json: any): FlattenedConversation {
@@ -253,63 +266,65 @@ export function FlattenedConversationFromJSON(json: any): FlattenedConversation 
 }
 
 export function FlattenedConversationFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedConversation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'] == null ? undefined : json['name'],
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'deleted': !exists(json, 'deleted') ? undefined : GroupedTimestampFromJSON(json['deleted']),
-        'favorited': !exists(json, 'favorited') ? undefined : json['favorited'],
-        'application': !exists(json, 'application') ? undefined : ApplicationFromJSON(json['application']),
-        'annotations': !exists(json, 'annotations') ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'deleted': json['deleted'] == null ? undefined : GroupedTimestampFromJSON(json['deleted']),
+        'favorited': json['favorited'] == null ? undefined : json['favorited'],
+        'application': json['application'] == null ? undefined : ApplicationFromJSON(json['application']),
+        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
         'messages': FlattenedConversationMessagesFromJSON(json['messages']),
-        'model': !exists(json, 'model') ? undefined : ReferencedModelFromJSON(json['model']),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'model': json['model'] == null ? undefined : ReferencedModelFromJSON(json['model']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
         'type': ConversationTypeEnumFromJSON(json['type']),
-        'grounding': !exists(json, 'grounding') ? undefined : ConversationGroundingFromJSON(json['grounding']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
-        'pipeline': !exists(json, 'pipeline') ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
-        'demo': !exists(json, 'demo') ? undefined : json['demo'],
-        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'grounding': json['grounding'] == null ? undefined : ConversationGroundingFromJSON(json['grounding']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
+        'pipeline': json['pipeline'] == null ? undefined : QGPTPromptPipelineFromJSON(json['pipeline']),
+        'demo': json['demo'] == null ? undefined : json['demo'],
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
-export function FlattenedConversationToJSON(value?: FlattenedConversation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedConversationToJSON(json: any): FlattenedConversation {
+    return FlattenedConversationToJSONTyped(json, false);
+}
+
+export function FlattenedConversationToJSONTyped(value?: FlattenedConversation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'name': value.name,
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'deleted': GroupedTimestampToJSON(value.deleted),
-        'favorited': value.favorited,
-        'application': ApplicationToJSON(value.application),
-        'annotations': FlattenedAnnotationsToJSON(value.annotations),
-        'messages': FlattenedConversationMessagesToJSON(value.messages),
-        'model': ReferencedModelToJSON(value.model),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
-        'type': ConversationTypeEnumToJSON(value.type),
-        'grounding': ConversationGroundingToJSON(value.grounding),
-        'score': ScoreToJSON(value.score),
-        'pipeline': QGPTPromptPipelineToJSON(value.pipeline),
-        'demo': value.demo,
-        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'name': value['name'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'deleted': GroupedTimestampToJSON(value['deleted']),
+        'favorited': value['favorited'],
+        'application': ApplicationToJSON(value['application']),
+        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'model': ReferencedModelToJSON(value['model']),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'type': ConversationTypeEnumToJSON(value['type']),
+        'grounding': ConversationGroundingToJSON(value['grounding']),
+        'score': ScoreToJSON(value['score']),
+        'pipeline': QGPTPromptPipelineToJSON(value['pipeline']),
+        'demo': value['demo'],
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
     };
 }
 

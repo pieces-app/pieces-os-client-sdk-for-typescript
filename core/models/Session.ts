@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { GroupedTimestamp } from './GroupedTimestamp';
 import {
     GroupedTimestampFromJSON,
     GroupedTimestampFromJSONTyped,
     GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
 } from './GroupedTimestamp';
 
 /**
@@ -46,15 +47,14 @@ export interface Session {
     closed?: GroupedTimestamp;
 }
 
+
 /**
  * Check if a given object implements the Session interface.
  */
-export function instanceOfSession(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "opened" in value;
-
-    return isInstance;
+export function instanceOfSession(value: object): value is Session {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('opened' in value) || value['opened'] === undefined) return false;
+    return true;
 }
 
 export function SessionFromJSON(json: any): Session {
@@ -62,29 +62,31 @@ export function SessionFromJSON(json: any): Session {
 }
 
 export function SessionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Session {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'id': json['id'],
         'opened': GroupedTimestampFromJSON(json['opened']),
-        'closed': !exists(json, 'closed') ? undefined : GroupedTimestampFromJSON(json['closed']),
+        'closed': json['closed'] == null ? undefined : GroupedTimestampFromJSON(json['closed']),
     };
 }
 
-export function SessionToJSON(value?: Session | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SessionToJSON(json: any): Session {
+    return SessionToJSONTyped(json, false);
+}
+
+export function SessionToJSONTyped(value?: Session | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'id': value.id,
-        'opened': GroupedTimestampToJSON(value.opened),
-        'closed': GroupedTimestampToJSON(value.closed),
+        'id': value['id'],
+        'opened': GroupedTimestampToJSON(value['opened']),
+        'closed': GroupedTimestampToJSON(value['closed']),
     };
 }
 

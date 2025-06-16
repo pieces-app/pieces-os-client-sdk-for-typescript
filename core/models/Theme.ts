@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,14 +41,13 @@ export interface Theme {
     dark: boolean;
 }
 
+
 /**
  * Check if a given object implements the Theme interface.
  */
-export function instanceOfTheme(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "dark" in value;
-
-    return isInstance;
+export function instanceOfTheme(value: object): value is Theme {
+    if (!('dark' in value) || value['dark'] === undefined) return false;
+    return true;
 }
 
 export function ThemeFromJSON(json: any): Theme {
@@ -55,27 +55,29 @@ export function ThemeFromJSON(json: any): Theme {
 }
 
 export function ThemeFromJSONTyped(json: any, ignoreDiscriminator: boolean): Theme {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'dark': json['dark'],
     };
 }
 
-export function ThemeToJSON(value?: Theme | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ThemeToJSON(json: any): Theme {
+    return ThemeToJSONTyped(json, false);
+}
+
+export function ThemeToJSONTyped(value?: Theme | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'dark': value.dark,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'dark': value['dark'],
     };
 }
 

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { MechanismEnum } from './MechanismEnum';
 import {
     MechanismEnumFromJSON,
     MechanismEnumFromJSONTyped,
     MechanismEnumToJSON,
+    MechanismEnumToJSONTyped,
 } from './MechanismEnum';
 
 /**
@@ -80,15 +82,14 @@ export interface SeededWebsite {
     person?: string;
 }
 
+
 /**
  * Check if a given object implements the SeededWebsite interface.
  */
-export function instanceOfSeededWebsite(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "url" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfSeededWebsite(value: object): value is SeededWebsite {
+    if (!('url' in value) || value['url'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function SeededWebsiteFromJSON(json: any): SeededWebsite {
@@ -96,37 +97,39 @@ export function SeededWebsiteFromJSON(json: any): SeededWebsite {
 }
 
 export function SeededWebsiteFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededWebsite {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'conversation': !exists(json, 'conversation') ? undefined : json['conversation'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'conversation': json['conversation'] == null ? undefined : json['conversation'],
         'url': json['url'],
         'name': json['name'],
-        'mechanism': !exists(json, 'mechanism') ? undefined : MechanismEnumFromJSON(json['mechanism']),
-        'person': !exists(json, 'person') ? undefined : json['person'],
+        'mechanism': MechanismEnumFromJSON(json['mechanism']),
+        'person': json['person'] == null ? undefined : json['person'],
     };
 }
 
-export function SeededWebsiteToJSON(value?: SeededWebsite | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededWebsiteToJSON(json: any): SeededWebsite {
+    return SeededWebsiteToJSONTyped(json, false);
+}
+
+export function SeededWebsiteToJSONTyped(value?: SeededWebsite | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': value.asset,
-        'conversation': value.conversation,
-        'url': value.url,
-        'name': value.name,
-        'mechanism': MechanismEnumToJSON(value.mechanism),
-        'person': value.person,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': value['asset'],
+        'conversation': value['conversation'],
+        'url': value['url'],
+        'name': value['name'],
+        'mechanism': MechanismEnumToJSON(value['mechanism']),
+        'person': value['person'],
     };
 }
 

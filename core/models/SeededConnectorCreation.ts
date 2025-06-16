@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededConnectorAsset } from './SeededConnectorAsset';
 import {
     SeededConnectorAssetFromJSON,
     SeededConnectorAssetFromJSONTyped,
     SeededConnectorAssetToJSON,
+    SeededConnectorAssetToJSONTyped,
 } from './SeededConnectorAsset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * A encompasing creation object that can be utilized to create either an asset or a format.
@@ -46,13 +48,12 @@ export interface SeededConnectorCreation {
     asset?: SeededConnectorAsset;
 }
 
+
 /**
  * Check if a given object implements the SeededConnectorCreation interface.
  */
-export function instanceOfSeededConnectorCreation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededConnectorCreation(value: object): value is SeededConnectorCreation {
+    return true;
 }
 
 export function SeededConnectorCreationFromJSON(json: any): SeededConnectorCreation {
@@ -60,27 +61,29 @@ export function SeededConnectorCreationFromJSON(json: any): SeededConnectorCreat
 }
 
 export function SeededConnectorCreationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededConnectorCreation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : SeededConnectorAssetFromJSON(json['asset']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : SeededConnectorAssetFromJSON(json['asset']),
     };
 }
 
-export function SeededConnectorCreationToJSON(value?: SeededConnectorCreation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededConnectorCreationToJSON(json: any): SeededConnectorCreation {
+    return SeededConnectorCreationToJSONTyped(json, false);
+}
+
+export function SeededConnectorCreationToJSONTyped(value?: SeededConnectorCreation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': SeededConnectorAssetToJSON(value.asset),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': SeededConnectorAssetToJSON(value['asset']),
     };
 }
 

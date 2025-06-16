@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { TextuallyExtractedMaterial } from './TextuallyExtractedMaterial';
 import {
     TextuallyExtractedMaterialFromJSON,
     TextuallyExtractedMaterialFromJSONTyped,
     TextuallyExtractedMaterialToJSON,
+    TextuallyExtractedMaterialToJSONTyped,
 } from './TextuallyExtractedMaterial';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 import type { TransferableString } from './TransferableString';
 import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
+    TransferableStringToJSONTyped,
 } from './TransferableString';
 
 /**
@@ -59,13 +62,12 @@ export interface WorkstreamPatternEngineVisionEventTextualValue {
     extracted?: TextuallyExtractedMaterial;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamPatternEngineVisionEventTextualValue interface.
  */
-export function instanceOfWorkstreamPatternEngineVisionEventTextualValue(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineVisionEventTextualValue(value: object): value is WorkstreamPatternEngineVisionEventTextualValue {
+    return true;
 }
 
 export function WorkstreamPatternEngineVisionEventTextualValueFromJSON(json: any): WorkstreamPatternEngineVisionEventTextualValue {
@@ -73,29 +75,31 @@ export function WorkstreamPatternEngineVisionEventTextualValueFromJSON(json: any
 }
 
 export function WorkstreamPatternEngineVisionEventTextualValueFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineVisionEventTextualValue {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'ocr': !exists(json, 'ocr') ? undefined : TransferableStringFromJSON(json['ocr']),
-        'extracted': !exists(json, 'extracted') ? undefined : TextuallyExtractedMaterialFromJSON(json['extracted']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'ocr': json['ocr'] == null ? undefined : TransferableStringFromJSON(json['ocr']),
+        'extracted': json['extracted'] == null ? undefined : TextuallyExtractedMaterialFromJSON(json['extracted']),
     };
 }
 
-export function WorkstreamPatternEngineVisionEventTextualValueToJSON(value?: WorkstreamPatternEngineVisionEventTextualValue | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineVisionEventTextualValueToJSON(json: any): WorkstreamPatternEngineVisionEventTextualValue {
+    return WorkstreamPatternEngineVisionEventTextualValueToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineVisionEventTextualValueToJSONTyped(value?: WorkstreamPatternEngineVisionEventTextualValue | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'ocr': TransferableStringToJSON(value.ocr),
-        'extracted': TextuallyExtractedMaterialToJSON(value.extracted),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'ocr': TransferableStringToJSON(value['ocr']),
+        'extracted': TextuallyExtractedMaterialToJSON(value['extracted']),
     };
 }
 

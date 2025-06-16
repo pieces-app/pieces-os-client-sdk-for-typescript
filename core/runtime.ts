@@ -137,13 +137,7 @@ export class BaseAPI {
         if (response && (response.status >= 200 && response.status < 300)) {
             return response;
         }
-        let text: string;
-        try {
-            text = await response.text()
-        } catch(e) {
-            throw new ResponseError(response, `${url} returned an error code: [${response.status}]`);
-        }
-        throw new ResponseError(response, `${url} returned an error code: [${response.status}] ${text}`);
+        throw new ResponseError(response, 'Response returned an error code');
     }
 
     private async createFetchParams(context: RequestOpts, initOverrides?: RequestInit | InitOverrideFunction) {
@@ -314,11 +308,6 @@ export interface RequestOpts {
     headers: HTTPHeaders;
     query?: HTTPQuery;
     body?: HTTPBody;
-}
-
-export function exists(json: any, key: string) {
-    const value = json[key];
-    return value !== null && value !== undefined;
 }
 
 export function querystring(params: HTTPQuery, prefix: string = ''): string {

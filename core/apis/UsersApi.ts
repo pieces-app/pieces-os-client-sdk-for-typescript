@@ -76,7 +76,7 @@ export class UsersApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OAuthTokenToJSON(requestParameters.oAuthToken),
+            body: OAuthTokenToJSON(requestParameters['oAuthToken']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserProfileFromJSON(jsonValue));
@@ -96,16 +96,23 @@ export class UsersApi extends runtime.BaseAPI {
      * /users/{user}/disconnect [POST]
      */
     async usersDisconnectUserRaw(requestParameters: UsersDisconnectUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Users>> {
-        if (requestParameters.user === null || requestParameters.user === undefined) {
-            throw new runtime.RequiredError('user','Required parameter requestParameters.user was null or undefined when calling usersDisconnectUser.');
+        if (requestParameters['user'] == null) {
+            throw new runtime.RequiredError(
+                'user',
+                'Required parameter "user" was null or undefined when calling usersDisconnectUser().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/users/{user}/disconnect`.replace(`{${"user"}}`, encodeURIComponent(String(requestParameters.user))),
+            path: `/users/{user}/disconnect`.replace(`{${"user"}}`, encodeURIComponent(String(requestParameters['user']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -132,6 +139,10 @@ export class UsersApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/users`,
             method: 'GET',
@@ -156,16 +167,23 @@ export class UsersApi extends runtime.BaseAPI {
      * /users/{user} [GET] Scoped to Users
      */
     async usersSpecificUserSnapshotRaw(requestParameters: UsersSpecificUserSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserProfile>> {
-        if (requestParameters.user === null || requestParameters.user === undefined) {
-            throw new runtime.RequiredError('user','Required parameter requestParameters.user was null or undefined when calling usersSpecificUserSnapshot.');
+        if (requestParameters['user'] == null) {
+            throw new runtime.RequiredError(
+                'user',
+                'Required parameter "user" was null or undefined when calling usersSpecificUserSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/users/{user}`.replace(`{${"user"}}`, encodeURIComponent(String(requestParameters.user))),
+            path: `/users/{user}`.replace(`{${"user"}}`, encodeURIComponent(String(requestParameters['user']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

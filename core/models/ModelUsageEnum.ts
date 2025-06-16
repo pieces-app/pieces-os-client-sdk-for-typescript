@@ -18,6 +18,7 @@
  * @export
  */
 export const ModelUsageEnum = {
+    Unknown: 'UNKNOWN',
     Ocr: 'OCR',
     CodeClassification: 'CODE_CLASSIFICATION',
     TextVsCode: 'TEXT_VS_CODE',
@@ -44,15 +45,62 @@ export const ModelUsageEnum = {
 export type ModelUsageEnum = typeof ModelUsageEnum[keyof typeof ModelUsageEnum];
 
 
+export function instanceOfModelUsageEnum(value: any): boolean {
+    for (const key in ModelUsageEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelUsageEnum, key)) {
+            if (ModelUsageEnum[key as keyof typeof ModelUsageEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ModelUsageEnumFromJSON(json: any): ModelUsageEnum {
     return ModelUsageEnumFromJSONTyped(json, false);
 }
 
 export function ModelUsageEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelUsageEnum {
-    return json as ModelUsageEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelUsageEnum;
+    }
+
+    if (instanceOfModelUsageEnum(json)) {
+        return json as ModelUsageEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelUsageEnum;
+    }
 }
 
 export function ModelUsageEnumToJSON(value?: ModelUsageEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelUsageEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfModelUsageEnum(value)) {
+        return value as ModelUsageEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelUsageEnum;
+    }
 }
 
+export function ModelUsageEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ModelUsageEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelUsageEnum;
+    }
+    if (instanceOfModelUsageEnum(value)) {
+        return value as ModelUsageEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelUsageEnum;
+    }
+}

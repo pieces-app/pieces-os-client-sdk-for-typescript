@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { DocumentContributor } from './DocumentContributor';
-import {
-    DocumentContributorFromJSON,
-    DocumentContributorFromJSONTyped,
-    DocumentContributorToJSON,
-} from './DocumentContributor';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { DocumentContributor } from './DocumentContributor';
+import {
+    DocumentContributorFromJSON,
+    DocumentContributorFromJSONTyped,
+    DocumentContributorToJSON,
+    DocumentContributorToJSONTyped,
+} from './DocumentContributor';
 
 /**
  * This is a plural representation of the DocumentContributor
@@ -46,14 +48,13 @@ export interface DocumentContributors {
     iterable: Array<DocumentContributor>;
 }
 
+
 /**
  * Check if a given object implements the DocumentContributors interface.
  */
-export function instanceOfDocumentContributors(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfDocumentContributors(value: object): value is DocumentContributors {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function DocumentContributorsFromJSON(json: any): DocumentContributors {
@@ -61,27 +62,29 @@ export function DocumentContributorsFromJSON(json: any): DocumentContributors {
 }
 
 export function DocumentContributorsFromJSONTyped(json: any, ignoreDiscriminator: boolean): DocumentContributors {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(DocumentContributorFromJSON)),
     };
 }
 
-export function DocumentContributorsToJSON(value?: DocumentContributors | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DocumentContributorsToJSON(json: any): DocumentContributors {
+    return DocumentContributorsToJSONTyped(json, false);
+}
+
+export function DocumentContributorsToJSONTyped(value?: DocumentContributors | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(DocumentContributorToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(DocumentContributorToJSON)),
     };
 }
 

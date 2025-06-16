@@ -18,6 +18,7 @@
  * @export
  */
 export const SensitiveSeverityEnum = {
+    Unknown: 'UNKNOWN',
     Low: 'LOW',
     Moderate: 'MODERATE',
     High: 'HIGH'
@@ -25,15 +26,62 @@ export const SensitiveSeverityEnum = {
 export type SensitiveSeverityEnum = typeof SensitiveSeverityEnum[keyof typeof SensitiveSeverityEnum];
 
 
+export function instanceOfSensitiveSeverityEnum(value: any): boolean {
+    for (const key in SensitiveSeverityEnum) {
+        if (Object.prototype.hasOwnProperty.call(SensitiveSeverityEnum, key)) {
+            if (SensitiveSeverityEnum[key as keyof typeof SensitiveSeverityEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function SensitiveSeverityEnumFromJSON(json: any): SensitiveSeverityEnum {
     return SensitiveSeverityEnumFromJSONTyped(json, false);
 }
 
 export function SensitiveSeverityEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SensitiveSeverityEnum {
-    return json as SensitiveSeverityEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveSeverityEnum;
+    }
+
+    if (instanceOfSensitiveSeverityEnum(json)) {
+        return json as SensitiveSeverityEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveSeverityEnum;
+    }
 }
 
 export function SensitiveSeverityEnumToJSON(value?: SensitiveSeverityEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveSeverityEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfSensitiveSeverityEnum(value)) {
+        return value as SensitiveSeverityEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveSeverityEnum;
+    }
 }
 
+export function SensitiveSeverityEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SensitiveSeverityEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveSeverityEnum;
+    }
+    if (instanceOfSensitiveSeverityEnum(value)) {
+        return value as SensitiveSeverityEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as SensitiveSeverityEnum;
+    }
+}

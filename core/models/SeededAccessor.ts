@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedUserProfile } from './FlattenedUserProfile';
 import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
+    FlattenedUserProfileToJSONTyped,
 } from './FlattenedUserProfile';
 
 /**
@@ -58,15 +60,14 @@ export interface SeededAccessor {
     share: string;
 }
 
+
 /**
  * Check if a given object implements the SeededAccessor interface.
  */
-export function instanceOfSeededAccessor(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "os" in value;
-    isInstance = isInstance && "share" in value;
-
-    return isInstance;
+export function instanceOfSeededAccessor(value: object): value is SeededAccessor {
+    if (!('os' in value) || value['os'] === undefined) return false;
+    if (!('share' in value) || value['share'] === undefined) return false;
+    return true;
 }
 
 export function SeededAccessorFromJSON(json: any): SeededAccessor {
@@ -74,31 +75,33 @@ export function SeededAccessorFromJSON(json: any): SeededAccessor {
 }
 
 export function SeededAccessorFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededAccessor {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'os': json['os'],
-        'user': !exists(json, 'user') ? undefined : FlattenedUserProfileFromJSON(json['user']),
+        'user': json['user'] == null ? undefined : FlattenedUserProfileFromJSON(json['user']),
         'share': json['share'],
     };
 }
 
-export function SeededAccessorToJSON(value?: SeededAccessor | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededAccessorToJSON(json: any): SeededAccessor {
+    return SeededAccessorToJSONTyped(json, false);
+}
+
+export function SeededAccessorToJSONTyped(value?: SeededAccessor | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'os': value.os,
-        'user': FlattenedUserProfileToJSON(value.user),
-        'share': value.share,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'os': value['os'],
+        'user': FlattenedUserProfileToJSON(value['user']),
+        'share': value['share'],
     };
 }
 

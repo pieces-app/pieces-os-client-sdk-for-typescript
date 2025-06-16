@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Annotation } from './Annotation';
-import {
-    AnnotationFromJSON,
-    AnnotationFromJSONTyped,
-    AnnotationToJSON,
-} from './Annotation';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { Annotation } from './Annotation';
+import {
+    AnnotationFromJSON,
+    AnnotationFromJSONTyped,
+    AnnotationToJSON,
+    AnnotationToJSONTyped,
+} from './Annotation';
 
 /**
  * This is the plural of Annotation
@@ -64,14 +67,13 @@ export interface Annotations {
     score?: Score;
 }
 
+
 /**
  * Check if a given object implements the Annotations interface.
  */
-export function instanceOfAnnotations(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfAnnotations(value: object): value is Annotations {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function AnnotationsFromJSON(json: any): Annotations {
@@ -79,31 +81,33 @@ export function AnnotationsFromJSON(json: any): Annotations {
 }
 
 export function AnnotationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Annotations {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(AnnotationFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function AnnotationsToJSON(value?: Annotations | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AnnotationsToJSON(json: any): Annotations {
+    return AnnotationsToJSONTyped(json, false);
+}
+
+export function AnnotationsToJSONTyped(value?: Annotations | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(AnnotationToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(AnnotationToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
 

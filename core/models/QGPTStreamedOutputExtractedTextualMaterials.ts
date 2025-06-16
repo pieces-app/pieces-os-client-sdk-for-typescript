@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { TextuallyExtractedMaterials } from './TextuallyExtractedMaterials';
 import {
     TextuallyExtractedMaterialsFromJSON,
     TextuallyExtractedMaterialsFromJSONTyped,
     TextuallyExtractedMaterialsToJSON,
+    TextuallyExtractedMaterialsToJSONTyped,
 } from './TextuallyExtractedMaterials';
 
 /**
@@ -52,13 +54,12 @@ export interface QGPTStreamedOutputExtractedTextualMaterials {
     workstream?: TextuallyExtractedMaterials;
 }
 
+
 /**
  * Check if a given object implements the QGPTStreamedOutputExtractedTextualMaterials interface.
  */
-export function instanceOfQGPTStreamedOutputExtractedTextualMaterials(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTStreamedOutputExtractedTextualMaterials(value: object): value is QGPTStreamedOutputExtractedTextualMaterials {
+    return true;
 }
 
 export function QGPTStreamedOutputExtractedTextualMaterialsFromJSON(json: any): QGPTStreamedOutputExtractedTextualMaterials {
@@ -66,29 +67,31 @@ export function QGPTStreamedOutputExtractedTextualMaterialsFromJSON(json: any): 
 }
 
 export function QGPTStreamedOutputExtractedTextualMaterialsFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTStreamedOutputExtractedTextualMaterials {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'message': !exists(json, 'message') ? undefined : TextuallyExtractedMaterialsFromJSON(json['message']),
-        'workstream': !exists(json, 'workstream') ? undefined : TextuallyExtractedMaterialsFromJSON(json['workstream']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'message': json['message'] == null ? undefined : TextuallyExtractedMaterialsFromJSON(json['message']),
+        'workstream': json['workstream'] == null ? undefined : TextuallyExtractedMaterialsFromJSON(json['workstream']),
     };
 }
 
-export function QGPTStreamedOutputExtractedTextualMaterialsToJSON(value?: QGPTStreamedOutputExtractedTextualMaterials | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTStreamedOutputExtractedTextualMaterialsToJSON(json: any): QGPTStreamedOutputExtractedTextualMaterials {
+    return QGPTStreamedOutputExtractedTextualMaterialsToJSONTyped(json, false);
+}
+
+export function QGPTStreamedOutputExtractedTextualMaterialsToJSONTyped(value?: QGPTStreamedOutputExtractedTextualMaterials | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'message': TextuallyExtractedMaterialsToJSON(value.message),
-        'workstream': TextuallyExtractedMaterialsToJSON(value.workstream),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'message': TextuallyExtractedMaterialsToJSON(value['message']),
+        'workstream': TextuallyExtractedMaterialsToJSON(value['workstream']),
     };
 }
 

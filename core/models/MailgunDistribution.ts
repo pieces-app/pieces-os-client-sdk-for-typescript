@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { Recipients } from './Recipients';
 import {
     RecipientsFromJSON,
     RecipientsFromJSONTyped,
     RecipientsToJSON,
+    RecipientsToJSONTyped,
 } from './Recipients';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a specific Distribution for mailgun specific information.
@@ -46,14 +48,13 @@ export interface MailgunDistribution {
     recipients: Recipients;
 }
 
+
 /**
  * Check if a given object implements the MailgunDistribution interface.
  */
-export function instanceOfMailgunDistribution(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "recipients" in value;
-
-    return isInstance;
+export function instanceOfMailgunDistribution(value: object): value is MailgunDistribution {
+    if (!('recipients' in value) || value['recipients'] === undefined) return false;
+    return true;
 }
 
 export function MailgunDistributionFromJSON(json: any): MailgunDistribution {
@@ -61,27 +62,29 @@ export function MailgunDistributionFromJSON(json: any): MailgunDistribution {
 }
 
 export function MailgunDistributionFromJSONTyped(json: any, ignoreDiscriminator: boolean): MailgunDistribution {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'recipients': RecipientsFromJSON(json['recipients']),
     };
 }
 
-export function MailgunDistributionToJSON(value?: MailgunDistribution | null): any {
-    if (value === undefined) {
-        return undefined;
+export function MailgunDistributionToJSON(json: any): MailgunDistribution {
+    return MailgunDistributionToJSONTyped(json, false);
+}
+
+export function MailgunDistributionToJSONTyped(value?: MailgunDistribution | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'recipients': RecipientsToJSON(value.recipients),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'recipients': RecipientsToJSON(value['recipients']),
     };
 }
 

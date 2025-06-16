@@ -18,27 +18,74 @@
  * @export
  */
 export const QGPTStreamEnum = {
+    Unknown: 'UNKNOWN',
     Canceled: 'CANCELED',
     Initialized: 'INITIALIZED',
     InProgress: 'IN-PROGRESS',
     Completed: 'COMPLETED',
     Failed: 'FAILED',
-    Unknown: 'UNKNOWN',
     Stopped: 'STOPPED',
     Reset: 'RESET'
 } as const;
 export type QGPTStreamEnum = typeof QGPTStreamEnum[keyof typeof QGPTStreamEnum];
 
 
+export function instanceOfQGPTStreamEnum(value: any): boolean {
+    for (const key in QGPTStreamEnum) {
+        if (Object.prototype.hasOwnProperty.call(QGPTStreamEnum, key)) {
+            if (QGPTStreamEnum[key as keyof typeof QGPTStreamEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function QGPTStreamEnumFromJSON(json: any): QGPTStreamEnum {
     return QGPTStreamEnumFromJSONTyped(json, false);
 }
 
 export function QGPTStreamEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTStreamEnum {
-    return json as QGPTStreamEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTStreamEnum;
+    }
+
+    if (instanceOfQGPTStreamEnum(json)) {
+        return json as QGPTStreamEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTStreamEnum;
+    }
 }
 
 export function QGPTStreamEnumToJSON(value?: QGPTStreamEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTStreamEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfQGPTStreamEnum(value)) {
+        return value as QGPTStreamEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTStreamEnum;
+    }
 }
 
+export function QGPTStreamEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): QGPTStreamEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTStreamEnum;
+    }
+    if (instanceOfQGPTStreamEnum(value)) {
+        return value as QGPTStreamEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTStreamEnum;
+    }
+}

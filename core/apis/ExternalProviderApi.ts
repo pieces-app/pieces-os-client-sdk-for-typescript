@@ -65,12 +65,16 @@ export class ExternalProviderApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/external_provider/api_key/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PrecreatedExternalProviderApiKeyToJSON(requestParameters.precreatedExternalProviderApiKey),
+            body: PrecreatedExternalProviderApiKeyToJSON(requestParameters['precreatedExternalProviderApiKey']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CreatedExternalProviderApiKeyFromJSON(jsonValue));
@@ -96,12 +100,16 @@ export class ExternalProviderApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/external_provider/api_key/delete`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PredeletedExternalProviderApiKeyToJSON(requestParameters.predeletedExternalProviderApiKey),
+            body: PredeletedExternalProviderApiKeyToJSON(requestParameters['predeletedExternalProviderApiKey']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DeletedExternalProviderApiKeyFromJSON(jsonValue));
@@ -127,12 +135,16 @@ export class ExternalProviderApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/external_provider/api_key/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PreupdatedExternalProviderApiKeyToJSON(requestParameters.preupdatedExternalProviderApiKey),
+            body: PreupdatedExternalProviderApiKeyToJSON(requestParameters['preupdatedExternalProviderApiKey']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UpdatedExternalProviderApiKeyFromJSON(jsonValue));

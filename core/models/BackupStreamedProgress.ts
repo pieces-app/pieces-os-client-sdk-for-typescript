@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Backup } from './Backup';
-import {
-    BackupFromJSON,
-    BackupFromJSONTyped,
-    BackupToJSON,
-} from './Backup';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Backup } from './Backup';
+import {
+    BackupFromJSON,
+    BackupFromJSONTyped,
+    BackupToJSON,
+    BackupToJSONTyped,
+} from './Backup';
 import type { ModelDownloadProgressStatusEnum } from './ModelDownloadProgressStatusEnum';
 import {
     ModelDownloadProgressStatusEnumFromJSON,
     ModelDownloadProgressStatusEnumFromJSONTyped,
     ModelDownloadProgressStatusEnumToJSON,
+    ModelDownloadProgressStatusEnumToJSONTyped,
 } from './ModelDownloadProgressStatusEnum';
 
 /**
@@ -55,7 +58,7 @@ export interface BackupStreamedProgress {
      * @type {number}
      * @memberof BackupStreamedProgress
      */
-    percentage?: number | null;
+    percentage?: number;
     /**
      * 
      * @type {Backup}
@@ -64,13 +67,12 @@ export interface BackupStreamedProgress {
     backup?: Backup;
 }
 
+
 /**
  * Check if a given object implements the BackupStreamedProgress interface.
  */
-export function instanceOfBackupStreamedProgress(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfBackupStreamedProgress(value: object): value is BackupStreamedProgress {
+    return true;
 }
 
 export function BackupStreamedProgressFromJSON(json: any): BackupStreamedProgress {
@@ -78,31 +80,33 @@ export function BackupStreamedProgressFromJSON(json: any): BackupStreamedProgres
 }
 
 export function BackupStreamedProgressFromJSONTyped(json: any, ignoreDiscriminator: boolean): BackupStreamedProgress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'status': !exists(json, 'status') ? undefined : ModelDownloadProgressStatusEnumFromJSON(json['status']),
-        'percentage': !exists(json, 'percentage') ? undefined : json['percentage'],
-        'backup': !exists(json, 'backup') ? undefined : BackupFromJSON(json['backup']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'status': ModelDownloadProgressStatusEnumFromJSON(json['status']),
+        'percentage': json['percentage'] == null ? undefined : json['percentage'],
+        'backup': json['backup'] == null ? undefined : BackupFromJSON(json['backup']),
     };
 }
 
-export function BackupStreamedProgressToJSON(value?: BackupStreamedProgress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function BackupStreamedProgressToJSON(json: any): BackupStreamedProgress {
+    return BackupStreamedProgressToJSONTyped(json, false);
+}
+
+export function BackupStreamedProgressToJSONTyped(value?: BackupStreamedProgress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'status': ModelDownloadProgressStatusEnumToJSON(value.status),
-        'percentage': value.percentage,
-        'backup': BackupToJSON(value.backup),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'status': ModelDownloadProgressStatusEnumToJSON(value['status']),
+        'percentage': value['percentage'],
+        'backup': BackupToJSON(value['backup']),
     };
 }
 

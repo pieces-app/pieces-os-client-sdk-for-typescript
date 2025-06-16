@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { WorkstreamSuggestions } from './WorkstreamSuggestions';
 import {
     WorkstreamSuggestionsFromJSON,
     WorkstreamSuggestionsFromJSONTyped,
     WorkstreamSuggestionsToJSON,
+    WorkstreamSuggestionsToJSONTyped,
 } from './WorkstreamSuggestions';
 
 /**
@@ -46,14 +48,13 @@ export interface WorkstreamSuggestionsRefresh {
     suggestions: WorkstreamSuggestions;
 }
 
+
 /**
  * Check if a given object implements the WorkstreamSuggestionsRefresh interface.
  */
-export function instanceOfWorkstreamSuggestionsRefresh(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "suggestions" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamSuggestionsRefresh(value: object): value is WorkstreamSuggestionsRefresh {
+    if (!('suggestions' in value) || value['suggestions'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamSuggestionsRefreshFromJSON(json: any): WorkstreamSuggestionsRefresh {
@@ -61,27 +62,29 @@ export function WorkstreamSuggestionsRefreshFromJSON(json: any): WorkstreamSugge
 }
 
 export function WorkstreamSuggestionsRefreshFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamSuggestionsRefresh {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'suggestions': WorkstreamSuggestionsFromJSON(json['suggestions']),
     };
 }
 
-export function WorkstreamSuggestionsRefreshToJSON(value?: WorkstreamSuggestionsRefresh | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamSuggestionsRefreshToJSON(json: any): WorkstreamSuggestionsRefresh {
+    return WorkstreamSuggestionsRefreshToJSONTyped(json, false);
+}
+
+export function WorkstreamSuggestionsRefreshToJSONTyped(value?: WorkstreamSuggestionsRefresh | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'suggestions': WorkstreamSuggestionsToJSON(value.suggestions),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'suggestions': WorkstreamSuggestionsToJSON(value['suggestions']),
     };
 }
 

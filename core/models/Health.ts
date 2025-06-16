@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { OSHealth } from './OSHealth';
 import {
     OSHealthFromJSON,
     OSHealthFromJSONTyped,
     OSHealthToJSON,
+    OSHealthToJSONTyped,
 } from './OSHealth';
 
 /**
@@ -46,14 +48,13 @@ export interface Health {
     os: OSHealth;
 }
 
+
 /**
  * Check if a given object implements the Health interface.
  */
-export function instanceOfHealth(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "os" in value;
-
-    return isInstance;
+export function instanceOfHealth(value: object): value is Health {
+    if (!('os' in value) || value['os'] === undefined) return false;
+    return true;
 }
 
 export function HealthFromJSON(json: any): Health {
@@ -61,27 +62,29 @@ export function HealthFromJSON(json: any): Health {
 }
 
 export function HealthFromJSONTyped(json: any, ignoreDiscriminator: boolean): Health {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'os': OSHealthFromJSON(json['os']),
     };
 }
 
-export function HealthToJSON(value?: Health | null): any {
-    if (value === undefined) {
-        return undefined;
+export function HealthToJSON(json: any): Health {
+    return HealthToJSONTyped(json, false);
+}
+
+export function HealthToJSONTyped(value?: Health | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'os': OSHealthToJSON(value.os),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'os': OSHealthToJSON(value['os']),
     };
 }
 

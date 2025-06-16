@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedShare } from './FlattenedShare';
 import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
+    FlattenedShareToJSONTyped,
 } from './FlattenedShare';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
 
 /**
  * This is just an iterable of our individual share models.
@@ -58,14 +61,13 @@ export interface FlattenedShares {
     score?: Score;
 }
 
+
 /**
  * Check if a given object implements the FlattenedShares interface.
  */
-export function instanceOfFlattenedShares(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfFlattenedShares(value: object): value is FlattenedShares {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedSharesFromJSON(json: any): FlattenedShares {
@@ -73,29 +75,31 @@ export function FlattenedSharesFromJSON(json: any): FlattenedShares {
 }
 
 export function FlattenedSharesFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedShares {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(FlattenedShareFromJSON)),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function FlattenedSharesToJSON(value?: FlattenedShares | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedSharesToJSON(json: any): FlattenedShares {
+    return FlattenedSharesToJSONTyped(json, false);
+}
+
+export function FlattenedSharesToJSONTyped(value?: FlattenedShares | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(FlattenedShareToJSON)),
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(FlattenedShareToJSON)),
+        'score': ScoreToJSON(value['score']),
     };
 }
 

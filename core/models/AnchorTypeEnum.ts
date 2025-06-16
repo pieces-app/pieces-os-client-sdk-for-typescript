@@ -18,21 +18,69 @@
  * @export
  */
 export const AnchorTypeEnum = {
+    Unknown: 'UNKNOWN',
     File: 'FILE',
     Directory: 'DIRECTORY'
 } as const;
 export type AnchorTypeEnum = typeof AnchorTypeEnum[keyof typeof AnchorTypeEnum];
 
 
+export function instanceOfAnchorTypeEnum(value: any): boolean {
+    for (const key in AnchorTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(AnchorTypeEnum, key)) {
+            if (AnchorTypeEnum[key as keyof typeof AnchorTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function AnchorTypeEnumFromJSON(json: any): AnchorTypeEnum {
     return AnchorTypeEnumFromJSONTyped(json, false);
 }
 
 export function AnchorTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): AnchorTypeEnum {
-    return json as AnchorTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnchorTypeEnum;
+    }
+
+    if (instanceOfAnchorTypeEnum(json)) {
+        return json as AnchorTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnchorTypeEnum;
+    }
 }
 
 export function AnchorTypeEnumToJSON(value?: AnchorTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnchorTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfAnchorTypeEnum(value)) {
+        return value as AnchorTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnchorTypeEnum;
+    }
 }
 
+export function AnchorTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AnchorTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnchorTypeEnum;
+    }
+    if (instanceOfAnchorTypeEnum(value)) {
+        return value as AnchorTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as AnchorTypeEnum;
+    }
+}

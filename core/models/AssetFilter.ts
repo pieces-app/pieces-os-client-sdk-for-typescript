@@ -12,37 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AssetFilterPhrase } from './AssetFilterPhrase';
-import {
-    AssetFilterPhraseFromJSON,
-    AssetFilterPhraseFromJSONTyped,
-    AssetFilterPhraseToJSON,
-} from './AssetFilterPhrase';
+import { mapValues } from '../runtime';
 import type { AssetFilterTimestamp } from './AssetFilterTimestamp';
 import {
     AssetFilterTimestampFromJSON,
     AssetFilterTimestampFromJSONTyped,
     AssetFilterTimestampToJSON,
+    AssetFilterTimestampToJSONTyped,
 } from './AssetFilterTimestamp';
-import type { AssetFilters } from './AssetFilters';
-import {
-    AssetFiltersFromJSON,
-    AssetFiltersFromJSONTyped,
-    AssetFiltersToJSON,
-} from './AssetFilters';
-import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
-import {
-    ClassificationSpecificEnumFromJSON,
-    ClassificationSpecificEnumFromJSONTyped,
-    ClassificationSpecificEnumToJSON,
-} from './ClassificationSpecificEnum';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { AssetFilterPhrase } from './AssetFilterPhrase';
+import {
+    AssetFilterPhraseFromJSON,
+    AssetFilterPhraseFromJSONTyped,
+    AssetFilterPhraseToJSON,
+    AssetFilterPhraseToJSONTyped,
+} from './AssetFilterPhrase';
+import type { ClassificationSpecificEnum } from './ClassificationSpecificEnum';
+import {
+    ClassificationSpecificEnumFromJSON,
+    ClassificationSpecificEnumFromJSONTyped,
+    ClassificationSpecificEnumToJSON,
+    ClassificationSpecificEnumToJSONTyped,
+} from './ClassificationSpecificEnum';
+import type { AssetFilters } from './AssetFilters';
+import {
+    AssetFiltersFromJSON,
+    AssetFiltersFromJSONTyped,
+    AssetFiltersToJSON,
+    AssetFiltersToJSONTyped,
+} from './AssetFilters';
 
 /**
  * ** in the future, consider adding an optional bool's called nextAnd, nextOr which will say that the next filter will be  AND behavor or OR behavior.
@@ -108,13 +113,12 @@ export interface AssetFilter {
     operations?: AssetFilters;
 }
 
+
 /**
  * Check if a given object implements the AssetFilter interface.
  */
-export function instanceOfAssetFilter(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfAssetFilter(value: object): value is AssetFilter {
+    return true;
 }
 
 export function AssetFilterFromJSON(json: any): AssetFilter {
@@ -122,41 +126,43 @@ export function AssetFilterFromJSON(json: any): AssetFilter {
 }
 
 export function AssetFilterFromJSONTyped(json: any, ignoreDiscriminator: boolean): AssetFilter {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'classification': !exists(json, 'classification') ? undefined : ClassificationSpecificEnumFromJSON(json['classification']),
-        'tags': !exists(json, 'tags') ? undefined : json['tags'],
-        'websites': !exists(json, 'websites') ? undefined : json['websites'],
-        'persons': !exists(json, 'persons') ? undefined : json['persons'],
-        'phrase': !exists(json, 'phrase') ? undefined : AssetFilterPhraseFromJSON(json['phrase']),
-        'created': !exists(json, 'created') ? undefined : AssetFilterTimestampFromJSON(json['created']),
-        'updated': !exists(json, 'updated') ? undefined : AssetFilterTimestampFromJSON(json['updated']),
-        'operations': !exists(json, 'operations') ? undefined : AssetFiltersFromJSON(json['operations']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'classification': ClassificationSpecificEnumFromJSON(json['classification']),
+        'tags': json['tags'] == null ? undefined : json['tags'],
+        'websites': json['websites'] == null ? undefined : json['websites'],
+        'persons': json['persons'] == null ? undefined : json['persons'],
+        'phrase': json['phrase'] == null ? undefined : AssetFilterPhraseFromJSON(json['phrase']),
+        'created': json['created'] == null ? undefined : AssetFilterTimestampFromJSON(json['created']),
+        'updated': json['updated'] == null ? undefined : AssetFilterTimestampFromJSON(json['updated']),
+        'operations': json['operations'] == null ? undefined : AssetFiltersFromJSON(json['operations']),
     };
 }
 
-export function AssetFilterToJSON(value?: AssetFilter | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AssetFilterToJSON(json: any): AssetFilter {
+    return AssetFilterToJSONTyped(json, false);
+}
+
+export function AssetFilterToJSONTyped(value?: AssetFilter | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'classification': ClassificationSpecificEnumToJSON(value.classification),
-        'tags': value.tags,
-        'websites': value.websites,
-        'persons': value.persons,
-        'phrase': AssetFilterPhraseToJSON(value.phrase),
-        'created': AssetFilterTimestampToJSON(value.created),
-        'updated': AssetFilterTimestampToJSON(value.updated),
-        'operations': AssetFiltersToJSON(value.operations),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'classification': ClassificationSpecificEnumToJSON(value['classification']),
+        'tags': value['tags'],
+        'websites': value['websites'],
+        'persons': value['persons'],
+        'phrase': AssetFilterPhraseToJSON(value['phrase']),
+        'created': AssetFilterTimestampToJSON(value['created']),
+        'updated': AssetFilterTimestampToJSON(value['updated']),
+        'operations': AssetFiltersToJSON(value['operations']),
     };
 }
 

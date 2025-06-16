@@ -18,6 +18,7 @@
  * @export
  */
 export const Role = {
+    Unknown: 'UNKNOWN',
     Original: 'ORIGINAL',
     Additional: 'ADDITIONAL',
     Both: 'BOTH',
@@ -26,15 +27,62 @@ export const Role = {
 export type Role = typeof Role[keyof typeof Role];
 
 
+export function instanceOfRole(value: any): boolean {
+    for (const key in Role) {
+        if (Object.prototype.hasOwnProperty.call(Role, key)) {
+            if (Role[key as keyof typeof Role] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function RoleFromJSON(json: any): Role {
     return RoleFromJSONTyped(json, false);
 }
 
 export function RoleFromJSONTyped(json: any, ignoreDiscriminator: boolean): Role {
-    return json as Role;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as Role;
+    }
+
+    if (instanceOfRole(json)) {
+        return json as Role;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as Role;
+    }
 }
 
 export function RoleToJSON(value?: Role | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as Role;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfRole(value)) {
+        return value as Role;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as Role;
+    }
 }
 
+export function RoleToJSONTyped(value: any, ignoreDiscriminator: boolean): Role {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as Role;
+    }
+    if (instanceOfRole(value)) {
+        return value as Role;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as Role;
+    }
+}

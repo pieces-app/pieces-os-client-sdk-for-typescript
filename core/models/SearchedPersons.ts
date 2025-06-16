@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedPerson } from './SearchedPerson';
 import {
     SearchedPersonFromJSON,
     SearchedPersonFromJSONTyped,
     SearchedPersonToJSON,
+    SearchedPersonToJSONTyped,
 } from './SearchedPerson';
 
 /**
@@ -46,14 +48,13 @@ export interface SearchedPersons {
     iterable: Array<SearchedPerson>;
 }
 
+
 /**
  * Check if a given object implements the SearchedPersons interface.
  */
-export function instanceOfSearchedPersons(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchedPersons(value: object): value is SearchedPersons {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchedPersonsFromJSON(json: any): SearchedPersons {
@@ -61,27 +62,29 @@ export function SearchedPersonsFromJSON(json: any): SearchedPersons {
 }
 
 export function SearchedPersonsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedPersons {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedPersonFromJSON)),
     };
 }
 
-export function SearchedPersonsToJSON(value?: SearchedPersons | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedPersonsToJSON(json: any): SearchedPersons {
+    return SearchedPersonsToJSONTyped(json, false);
+}
+
+export function SearchedPersonsToJSONTyped(value?: SearchedPersons | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedPersonToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedPersonToJSON)),
     };
 }
 

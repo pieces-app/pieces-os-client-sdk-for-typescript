@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
-import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import {
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+    AnonymousTemporalRangeToJSONTyped,
+} from './AnonymousTemporalRange';
 
 /**
  * created: will return the materials based on if the range is satisfied w/ this created timestamp
@@ -53,13 +55,12 @@ export interface TemporalSearchOptions {
     updated?: AnonymousTemporalRange;
 }
 
+
 /**
  * Check if a given object implements the TemporalSearchOptions interface.
  */
-export function instanceOfTemporalSearchOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTemporalSearchOptions(value: object): value is TemporalSearchOptions {
+    return true;
 }
 
 export function TemporalSearchOptionsFromJSON(json: any): TemporalSearchOptions {
@@ -67,29 +68,31 @@ export function TemporalSearchOptionsFromJSON(json: any): TemporalSearchOptions 
 }
 
 export function TemporalSearchOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TemporalSearchOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'created': !exists(json, 'created') ? undefined : AnonymousTemporalRangeFromJSON(json['created']),
-        'updated': !exists(json, 'updated') ? undefined : AnonymousTemporalRangeFromJSON(json['updated']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'created': json['created'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['created']),
+        'updated': json['updated'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['updated']),
     };
 }
 
-export function TemporalSearchOptionsToJSON(value?: TemporalSearchOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TemporalSearchOptionsToJSON(json: any): TemporalSearchOptions {
+    return TemporalSearchOptionsToJSONTyped(json, false);
+}
+
+export function TemporalSearchOptionsToJSONTyped(value?: TemporalSearchOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'created': AnonymousTemporalRangeToJSON(value.created),
-        'updated': AnonymousTemporalRangeToJSON(value.updated),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'created': AnonymousTemporalRangeToJSON(value['created']),
+        'updated': AnonymousTemporalRangeToJSON(value['updated']),
     };
 }
 

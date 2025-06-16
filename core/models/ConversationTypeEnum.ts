@@ -18,20 +18,68 @@
  * @export
  */
 export const ConversationTypeEnum = {
+    Unknown: 'UNKNOWN',
     Copilot: 'COPILOT'
 } as const;
 export type ConversationTypeEnum = typeof ConversationTypeEnum[keyof typeof ConversationTypeEnum];
 
+
+export function instanceOfConversationTypeEnum(value: any): boolean {
+    for (const key in ConversationTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ConversationTypeEnum, key)) {
+            if (ConversationTypeEnum[key as keyof typeof ConversationTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ConversationTypeEnumFromJSON(json: any): ConversationTypeEnum {
     return ConversationTypeEnumFromJSONTyped(json, false);
 }
 
 export function ConversationTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationTypeEnum {
-    return json as ConversationTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationTypeEnum;
+    }
+
+    if (instanceOfConversationTypeEnum(json)) {
+        return json as ConversationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationTypeEnum;
+    }
 }
 
 export function ConversationTypeEnumToJSON(value?: ConversationTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfConversationTypeEnum(value)) {
+        return value as ConversationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationTypeEnum;
+    }
 }
 
+export function ConversationTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ConversationTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationTypeEnum;
+    }
+    if (instanceOfConversationTypeEnum(value)) {
+        return value as ConversationTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ConversationTypeEnum;
+    }
+}

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedConversationMessage } from './FlattenedConversationMessage';
 import {
     FlattenedConversationMessageFromJSON,
     FlattenedConversationMessageFromJSONTyped,
     FlattenedConversationMessageToJSON,
+    FlattenedConversationMessageToJSONTyped,
 } from './FlattenedConversationMessage';
 
 /**
@@ -52,14 +54,13 @@ export interface ReferencedConversationMessage {
     reference?: FlattenedConversationMessage;
 }
 
+
 /**
  * Check if a given object implements the ReferencedConversationMessage interface.
  */
-export function instanceOfReferencedConversationMessage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedConversationMessage(value: object): value is ReferencedConversationMessage {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedConversationMessageFromJSON(json: any): ReferencedConversationMessage {
@@ -67,29 +68,31 @@ export function ReferencedConversationMessageFromJSON(json: any): ReferencedConv
 }
 
 export function ReferencedConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedConversationMessage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedConversationMessageFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedConversationMessageFromJSON(json['reference']),
     };
 }
 
-export function ReferencedConversationMessageToJSON(value?: ReferencedConversationMessage | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedConversationMessageToJSON(json: any): ReferencedConversationMessage {
+    return ReferencedConversationMessageToJSONTyped(json, false);
+}
+
+export function ReferencedConversationMessageToJSONTyped(value?: ReferencedConversationMessage | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedConversationMessageToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedConversationMessageToJSON(value['reference']),
     };
 }
 

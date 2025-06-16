@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedConversationMessage } from './SearchedConversationMessage';
 import {
     SearchedConversationMessageFromJSON,
     SearchedConversationMessageFromJSONTyped,
     SearchedConversationMessageToJSON,
+    SearchedConversationMessageToJSONTyped,
 } from './SearchedConversationMessage';
 
 /**
@@ -46,14 +48,13 @@ export interface SearchedConversationMessages {
     iterable: Array<SearchedConversationMessage>;
 }
 
+
 /**
  * Check if a given object implements the SearchedConversationMessages interface.
  */
-export function instanceOfSearchedConversationMessages(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchedConversationMessages(value: object): value is SearchedConversationMessages {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchedConversationMessagesFromJSON(json: any): SearchedConversationMessages {
@@ -61,27 +62,29 @@ export function SearchedConversationMessagesFromJSON(json: any): SearchedConvers
 }
 
 export function SearchedConversationMessagesFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedConversationMessages {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedConversationMessageFromJSON)),
     };
 }
 
-export function SearchedConversationMessagesToJSON(value?: SearchedConversationMessages | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedConversationMessagesToJSON(json: any): SearchedConversationMessages {
+    return SearchedConversationMessagesToJSONTyped(json, false);
+}
+
+export function SearchedConversationMessagesToJSONTyped(value?: SearchedConversationMessages | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedConversationMessageToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedConversationMessageToJSON)),
     };
 }
 

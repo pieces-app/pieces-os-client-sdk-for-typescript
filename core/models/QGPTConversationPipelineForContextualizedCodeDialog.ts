@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -36,13 +37,12 @@ export interface QGPTConversationPipelineForContextualizedCodeDialog {
     schema?: EmbeddedModelSchema;
 }
 
+
 /**
  * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeDialog interface.
  */
-export function instanceOfQGPTConversationPipelineForContextualizedCodeDialog(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTConversationPipelineForContextualizedCodeDialog(value: object): value is QGPTConversationPipelineForContextualizedCodeDialog {
+    return true;
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeDialog {
@@ -50,25 +50,27 @@ export function QGPTConversationPipelineForContextualizedCodeDialogFromJSON(json
 }
 
 export function QGPTConversationPipelineForContextualizedCodeDialogFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipelineForContextualizedCodeDialog {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function QGPTConversationPipelineForContextualizedCodeDialogToJSON(value?: QGPTConversationPipelineForContextualizedCodeDialog | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTConversationPipelineForContextualizedCodeDialogToJSON(json: any): QGPTConversationPipelineForContextualizedCodeDialog {
+    return QGPTConversationPipelineForContextualizedCodeDialogToJSONTyped(json, false);
+}
+
+export function QGPTConversationPipelineForContextualizedCodeDialogToJSONTyped(value?: QGPTConversationPipelineForContextualizedCodeDialog | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

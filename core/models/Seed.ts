@@ -12,36 +12,48 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededAnchor } from './SeededAnchor';
 import {
     SeededAnchorFromJSON,
     SeededAnchorFromJSONTyped,
     SeededAnchorToJSON,
+    SeededAnchorToJSONTyped,
 } from './SeededAnchor';
-import type { SeededAsset } from './SeededAsset';
-import {
-    SeededAssetFromJSON,
-    SeededAssetFromJSONTyped,
-    SeededAssetToJSON,
-} from './SeededAsset';
 import type { SeededPerson } from './SeededPerson';
 import {
     SeededPersonFromJSON,
     SeededPersonFromJSONTyped,
     SeededPersonToJSON,
+    SeededPersonToJSONTyped,
 } from './SeededPerson';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { SeedTypeEnum } from './SeedTypeEnum';
+import {
+    SeedTypeEnumFromJSON,
+    SeedTypeEnumFromJSONTyped,
+    SeedTypeEnumToJSON,
+    SeedTypeEnumToJSONTyped,
+} from './SeedTypeEnum';
+import type { SeededAsset } from './SeededAsset';
+import {
+    SeededAssetFromJSON,
+    SeededAssetFromJSONTyped,
+    SeededAssetToJSON,
+    SeededAssetToJSONTyped,
+} from './SeededAsset';
 import type { SeededWebsite } from './SeededWebsite';
 import {
     SeededWebsiteFromJSON,
     SeededWebsiteFromJSONTyped,
     SeededWebsiteToJSON,
+    SeededWebsiteToJSONTyped,
 } from './SeededWebsite';
 
 /**
@@ -88,7 +100,7 @@ export interface Seed {
     website?: SeededWebsite;
     /**
      * 
-     * @type {string}
+     * @type {SeedTypeEnum}
      * @memberof Seed
      */
     type?: SeedTypeEnum;
@@ -96,22 +108,10 @@ export interface Seed {
 
 
 /**
- * @export
- */
-export const SeedTypeEnum = {
-    Format: 'SEEDED_FORMAT',
-    Asset: 'SEEDED_ASSET'
-} as const;
-export type SeedTypeEnum = typeof SeedTypeEnum[keyof typeof SeedTypeEnum];
-
-
-/**
  * Check if a given object implements the Seed interface.
  */
-export function instanceOfSeed(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeed(value: object): value is Seed {
+    return true;
 }
 
 export function SeedFromJSON(json: any): Seed {
@@ -119,35 +119,37 @@ export function SeedFromJSON(json: any): Seed {
 }
 
 export function SeedFromJSONTyped(json: any, ignoreDiscriminator: boolean): Seed {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'asset': !exists(json, 'asset') ? undefined : SeededAssetFromJSON(json['asset']),
-        'person': !exists(json, 'person') ? undefined : SeededPersonFromJSON(json['person']),
-        'anchor': !exists(json, 'anchor') ? undefined : SeededAnchorFromJSON(json['anchor']),
-        'website': !exists(json, 'website') ? undefined : SeededWebsiteFromJSON(json['website']),
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'asset': json['asset'] == null ? undefined : SeededAssetFromJSON(json['asset']),
+        'person': json['person'] == null ? undefined : SeededPersonFromJSON(json['person']),
+        'anchor': json['anchor'] == null ? undefined : SeededAnchorFromJSON(json['anchor']),
+        'website': json['website'] == null ? undefined : SeededWebsiteFromJSON(json['website']),
+        'type': SeedTypeEnumFromJSON(json['type']),
     };
 }
 
-export function SeedToJSON(value?: Seed | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeedToJSON(json: any): Seed {
+    return SeedToJSONTyped(json, false);
+}
+
+export function SeedToJSONTyped(value?: Seed | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'asset': SeededAssetToJSON(value.asset),
-        'person': SeededPersonToJSON(value.person),
-        'anchor': SeededAnchorToJSON(value.anchor),
-        'website': SeededWebsiteToJSON(value.website),
-        'type': value.type,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'asset': SeededAssetToJSON(value['asset']),
+        'person': SeededPersonToJSON(value['person']),
+        'anchor': SeededAnchorToJSON(value['anchor']),
+        'website': SeededWebsiteToJSON(value['website']),
+        'type': SeedTypeEnumToJSON(value['type']),
     };
 }
 

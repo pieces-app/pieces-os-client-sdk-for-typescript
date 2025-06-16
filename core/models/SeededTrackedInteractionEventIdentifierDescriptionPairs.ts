@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -39,24 +40,82 @@ export interface SeededTrackedInteractionEventIdentifierDescriptionPairs {
      */
     assetsListRefreshed?: SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
 }
-
-
 /**
  * @export
  */
 export const SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum = {
+    Unknown: 'UNKNOWN',
     TheAssetsListWasRefreshedThroughUiElement: 'the_assets_list_was_refreshed_through_ui_element'
 } as const;
 export type SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum = typeof SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum[keyof typeof SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum];
+
+    export function instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum(value: any): boolean {
+        for (const key in SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum, key)) {
+                if (SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum[key as keyof typeof SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnumFromJSON(json: any): SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum {
+        return SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+
+        if (instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum(json)) {
+            return json as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+    }
+
+    export function SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnumToJSON(value?: SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum(value)) {
+            return value as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+    }
+
+    export function SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+        if (instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum(value)) {
+            return value as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the SeededTrackedInteractionEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededTrackedInteractionEventIdentifierDescriptionPairs(value: object): value is SeededTrackedInteractionEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(json: any): SeededTrackedInteractionEventIdentifierDescriptionPairs {
@@ -64,27 +123,29 @@ export function SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSON(
 }
 
 export function SeededTrackedInteractionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedInteractionEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'assetsListRefreshed': !exists(json, 'assets_list_refreshed') ? undefined : json['assets_list_refreshed'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'assetsListRefreshed': SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnumFromJSON(json['assets_list_refreshed']),
     };
 }
 
-export function SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(value?: SeededTrackedInteractionEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededTrackedInteractionEventIdentifierDescriptionPairsToJSON(json: any): SeededTrackedInteractionEventIdentifierDescriptionPairs {
+    return SeededTrackedInteractionEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function SeededTrackedInteractionEventIdentifierDescriptionPairsToJSONTyped(value?: SeededTrackedInteractionEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'assets_list_refreshed': value.assetsListRefreshed,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assetsListRefreshed': SeededTrackedInteractionEventIdentifierDescriptionPairsAssetsListRefreshedEnumToJSON(value['assets_list_refreshed']),
     };
 }
 

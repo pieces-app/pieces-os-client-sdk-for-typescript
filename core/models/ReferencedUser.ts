@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedUserProfile } from './FlattenedUserProfile';
 import {
     FlattenedUserProfileFromJSON,
     FlattenedUserProfileFromJSONTyped,
     FlattenedUserProfileToJSON,
+    FlattenedUserProfileToJSONTyped,
 } from './FlattenedUserProfile';
 
 /**
@@ -52,14 +54,13 @@ export interface ReferencedUser {
     reference?: FlattenedUserProfile;
 }
 
+
 /**
  * Check if a given object implements the ReferencedUser interface.
  */
-export function instanceOfReferencedUser(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedUser(value: object): value is ReferencedUser {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedUserFromJSON(json: any): ReferencedUser {
@@ -67,29 +68,31 @@ export function ReferencedUserFromJSON(json: any): ReferencedUser {
 }
 
 export function ReferencedUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedUser {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedUserProfileFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedUserProfileFromJSON(json['reference']),
     };
 }
 
-export function ReferencedUserToJSON(value?: ReferencedUser | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedUserToJSON(json: any): ReferencedUser {
+    return ReferencedUserToJSONTyped(json, false);
+}
+
+export function ReferencedUserToJSONTyped(value?: ReferencedUser | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedUserProfileToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedUserProfileToJSON(value['reference']),
     };
 }
 

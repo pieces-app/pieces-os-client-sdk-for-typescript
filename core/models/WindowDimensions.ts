@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -83,21 +84,20 @@ export interface WindowDimensions {
     y: number;
 }
 
+
 /**
  * Check if a given object implements the WindowDimensions interface.
  */
-export function instanceOfWindowDimensions(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "bottom" in value;
-    isInstance = isInstance && "height" in value;
-    isInstance = isInstance && "left" in value;
-    isInstance = isInstance && "right" in value;
-    isInstance = isInstance && "top" in value;
-    isInstance = isInstance && "width" in value;
-    isInstance = isInstance && "x" in value;
-    isInstance = isInstance && "y" in value;
-
-    return isInstance;
+export function instanceOfWindowDimensions(value: object): value is WindowDimensions {
+    if (!('bottom' in value) || value['bottom'] === undefined) return false;
+    if (!('height' in value) || value['height'] === undefined) return false;
+    if (!('left' in value) || value['left'] === undefined) return false;
+    if (!('right' in value) || value['right'] === undefined) return false;
+    if (!('top' in value) || value['top'] === undefined) return false;
+    if (!('width' in value) || value['width'] === undefined) return false;
+    if (!('x' in value) || value['x'] === undefined) return false;
+    if (!('y' in value) || value['y'] === undefined) return false;
+    return true;
 }
 
 export function WindowDimensionsFromJSON(json: any): WindowDimensions {
@@ -105,12 +105,12 @@ export function WindowDimensionsFromJSON(json: any): WindowDimensions {
 }
 
 export function WindowDimensionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): WindowDimensions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'bottom': json['bottom'],
         'height': json['height'],
         'left': json['left'],
@@ -122,24 +122,26 @@ export function WindowDimensionsFromJSONTyped(json: any, ignoreDiscriminator: bo
     };
 }
 
-export function WindowDimensionsToJSON(value?: WindowDimensions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WindowDimensionsToJSON(json: any): WindowDimensions {
+    return WindowDimensionsToJSONTyped(json, false);
+}
+
+export function WindowDimensionsToJSONTyped(value?: WindowDimensions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'bottom': value.bottom,
-        'height': value.height,
-        'left': value.left,
-        'right': value.right,
-        'top': value.top,
-        'width': value.width,
-        'x': value.x,
-        'y': value.y,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'bottom': value['bottom'],
+        'height': value['height'],
+        'left': value['left'],
+        'right': value['right'],
+        'top': value['top'],
+        'width': value['width'],
+        'x': value['x'],
+        'y': value['y'],
     };
 }
 

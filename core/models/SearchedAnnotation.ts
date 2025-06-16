@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Annotation } from './Annotation';
-import {
-    AnnotationFromJSON,
-    AnnotationFromJSONTyped,
-    AnnotationToJSON,
-} from './Annotation';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Annotation } from './Annotation';
+import {
+    AnnotationFromJSON,
+    AnnotationFromJSONTyped,
+    AnnotationToJSON,
+    AnnotationToJSONTyped,
+} from './Annotation';
 
 /**
  * This is used for the Annotation searching endpoint
@@ -77,16 +79,15 @@ export interface SearchedAnnotation {
     identifier: string;
 }
 
+
 /**
  * Check if a given object implements the SearchedAnnotation interface.
  */
-export function instanceOfSearchedAnnotation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedAnnotation(value: object): value is SearchedAnnotation {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedAnnotationFromJSON(json: any): SearchedAnnotation {
@@ -94,35 +95,37 @@ export function SearchedAnnotationFromJSON(json: any): SearchedAnnotation {
 }
 
 export function SearchedAnnotationFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedAnnotation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'annotation': !exists(json, 'annotation') ? undefined : AnnotationFromJSON(json['annotation']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'annotation': json['annotation'] == null ? undefined : AnnotationFromJSON(json['annotation']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedAnnotationToJSON(value?: SearchedAnnotation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedAnnotationToJSON(json: any): SearchedAnnotation {
+    return SearchedAnnotationToJSONTyped(json, false);
+}
+
+export function SearchedAnnotationToJSONTyped(value?: SearchedAnnotation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'annotation': AnnotationToJSON(value.annotation),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'annotation': AnnotationToJSON(value['annotation']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

@@ -12,18 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { AppletServingHandlerType } from './AppletServingHandlerType';
+import {
+    AppletServingHandlerTypeFromJSON,
+    AppletServingHandlerTypeFromJSONTyped,
+    AppletServingHandlerTypeToJSON,
+    AppletServingHandlerTypeToJSONTyped,
+} from './AppletServingHandlerType';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { OSAppletEnum } from './OSAppletEnum';
 import {
     OSAppletEnumFromJSON,
     OSAppletEnumFromJSONTyped,
     OSAppletEnumToJSON,
+    OSAppletEnumToJSONTyped,
 } from './OSAppletEnum';
 
 /**
@@ -50,17 +59,23 @@ export interface ActiveOSServerApplet {
      * @memberof ActiveOSServerApplet
      */
     type: OSAppletEnum;
+    /**
+     * 
+     * @type {AppletServingHandlerType}
+     * @memberof ActiveOSServerApplet
+     */
+    handler: AppletServingHandlerType;
 }
+
 
 /**
  * Check if a given object implements the ActiveOSServerApplet interface.
  */
-export function instanceOfActiveOSServerApplet(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfActiveOSServerApplet(value: object): value is ActiveOSServerApplet {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    if (!('handler' in value) || value['handler'] === undefined) return false;
+    return true;
 }
 
 export function ActiveOSServerAppletFromJSON(json: any): ActiveOSServerApplet {
@@ -68,29 +83,33 @@ export function ActiveOSServerAppletFromJSON(json: any): ActiveOSServerApplet {
 }
 
 export function ActiveOSServerAppletFromJSONTyped(json: any, ignoreDiscriminator: boolean): ActiveOSServerApplet {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'port': json['port'],
         'type': OSAppletEnumFromJSON(json['type']),
+        'handler': AppletServingHandlerTypeFromJSON(json['handler']),
     };
 }
 
-export function ActiveOSServerAppletToJSON(value?: ActiveOSServerApplet | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ActiveOSServerAppletToJSON(json: any): ActiveOSServerApplet {
+    return ActiveOSServerAppletToJSONTyped(json, false);
+}
+
+export function ActiveOSServerAppletToJSONTyped(value?: ActiveOSServerApplet | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'port': value.port,
-        'type': OSAppletEnumToJSON(value.type),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'port': value['port'],
+        'type': OSAppletEnumToJSON(value['type']),
+        'handler': AppletServingHandlerTypeToJSON(value['handler']),
     };
 }
 

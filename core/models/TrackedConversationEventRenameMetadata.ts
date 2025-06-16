@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -46,15 +47,14 @@ export interface TrackedConversationEventRenameMetadata {
     current: string;
 }
 
+
 /**
  * Check if a given object implements the TrackedConversationEventRenameMetadata interface.
  */
-export function instanceOfTrackedConversationEventRenameMetadata(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "previous" in value;
-    isInstance = isInstance && "current" in value;
-
-    return isInstance;
+export function instanceOfTrackedConversationEventRenameMetadata(value: object): value is TrackedConversationEventRenameMetadata {
+    if (!('previous' in value) || value['previous'] === undefined) return false;
+    if (!('current' in value) || value['current'] === undefined) return false;
+    return true;
 }
 
 export function TrackedConversationEventRenameMetadataFromJSON(json: any): TrackedConversationEventRenameMetadata {
@@ -62,29 +62,31 @@ export function TrackedConversationEventRenameMetadataFromJSON(json: any): Track
 }
 
 export function TrackedConversationEventRenameMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedConversationEventRenameMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': json['previous'],
         'current': json['current'],
     };
 }
 
-export function TrackedConversationEventRenameMetadataToJSON(value?: TrackedConversationEventRenameMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedConversationEventRenameMetadataToJSON(json: any): TrackedConversationEventRenameMetadata {
+    return TrackedConversationEventRenameMetadataToJSONTyped(json, false);
+}
+
+export function TrackedConversationEventRenameMetadataToJSONTyped(value?: TrackedConversationEventRenameMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'previous': value.previous,
-        'current': value.current,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'previous': value['previous'],
+        'current': value['current'],
     };
 }
 

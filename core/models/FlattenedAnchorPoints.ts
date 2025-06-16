@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { ReferencedAnchorPoint } from './ReferencedAnchorPoint';
-import {
-    ReferencedAnchorPointFromJSON,
-    ReferencedAnchorPointFromJSONTyped,
-    ReferencedAnchorPointToJSON,
-} from './ReferencedAnchorPoint';
+import { mapValues } from '../runtime';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { ReferencedAnchorPoint } from './ReferencedAnchorPoint';
+import {
+    ReferencedAnchorPointFromJSON,
+    ReferencedAnchorPointFromJSONTyped,
+    ReferencedAnchorPointToJSON,
+    ReferencedAnchorPointToJSONTyped,
+} from './ReferencedAnchorPoint';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -64,14 +67,13 @@ export interface FlattenedAnchorPoints {
     score?: Score;
 }
 
+
 /**
  * Check if a given object implements the FlattenedAnchorPoints interface.
  */
-export function instanceOfFlattenedAnchorPoints(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfFlattenedAnchorPoints(value: object): value is FlattenedAnchorPoints {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedAnchorPointsFromJSON(json: any): FlattenedAnchorPoints {
@@ -79,31 +81,33 @@ export function FlattenedAnchorPointsFromJSON(json: any): FlattenedAnchorPoints 
 }
 
 export function FlattenedAnchorPointsFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedAnchorPoints {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ReferencedAnchorPointFromJSON)),
-        'indices': !exists(json, 'indices') ? undefined : json['indices'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'indices': json['indices'] == null ? undefined : json['indices'],
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
     };
 }
 
-export function FlattenedAnchorPointsToJSON(value?: FlattenedAnchorPoints | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedAnchorPointsToJSON(json: any): FlattenedAnchorPoints {
+    return FlattenedAnchorPointsToJSONTyped(json, false);
+}
+
+export function FlattenedAnchorPointsToJSONTyped(value?: FlattenedAnchorPoints | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ReferencedAnchorPointToJSON)),
-        'indices': value.indices,
-        'score': ScoreToJSON(value.score),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ReferencedAnchorPointToJSON)),
+        'indices': value['indices'],
+        'score': ScoreToJSON(value['score']),
     };
 }
 

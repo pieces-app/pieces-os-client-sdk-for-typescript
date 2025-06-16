@@ -42,12 +42,16 @@ export class ClassificationApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/classification/generic/convert`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededFormatToJSON(requestParameters.seededFormat),
+            body: SeededFormatToJSON(requestParameters['seededFormat']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SeededFormatFromJSON(jsonValue));

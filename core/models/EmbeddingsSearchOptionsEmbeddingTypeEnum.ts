@@ -18,21 +18,69 @@
  * @export
  */
 export const EmbeddingsSearchOptionsEmbeddingTypeEnum = {
+    Unknown: 'UNKNOWN',
     Jina: 'JINA',
     Ncs: 'NCS'
 } as const;
 export type EmbeddingsSearchOptionsEmbeddingTypeEnum = typeof EmbeddingsSearchOptionsEmbeddingTypeEnum[keyof typeof EmbeddingsSearchOptionsEmbeddingTypeEnum];
 
 
+export function instanceOfEmbeddingsSearchOptionsEmbeddingTypeEnum(value: any): boolean {
+    for (const key in EmbeddingsSearchOptionsEmbeddingTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(EmbeddingsSearchOptionsEmbeddingTypeEnum, key)) {
+            if (EmbeddingsSearchOptionsEmbeddingTypeEnum[key as keyof typeof EmbeddingsSearchOptionsEmbeddingTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function EmbeddingsSearchOptionsEmbeddingTypeEnumFromJSON(json: any): EmbeddingsSearchOptionsEmbeddingTypeEnum {
     return EmbeddingsSearchOptionsEmbeddingTypeEnumFromJSONTyped(json, false);
 }
 
 export function EmbeddingsSearchOptionsEmbeddingTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): EmbeddingsSearchOptionsEmbeddingTypeEnum {
-    return json as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
+
+    if (instanceOfEmbeddingsSearchOptionsEmbeddingTypeEnum(json)) {
+        return json as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
 }
 
 export function EmbeddingsSearchOptionsEmbeddingTypeEnumToJSON(value?: EmbeddingsSearchOptionsEmbeddingTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfEmbeddingsSearchOptionsEmbeddingTypeEnum(value)) {
+        return value as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
 }
 
+export function EmbeddingsSearchOptionsEmbeddingTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): EmbeddingsSearchOptionsEmbeddingTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
+    if (instanceOfEmbeddingsSearchOptionsEmbeddingTypeEnum(value)) {
+        return value as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as EmbeddingsSearchOptionsEmbeddingTypeEnum;
+    }
+}

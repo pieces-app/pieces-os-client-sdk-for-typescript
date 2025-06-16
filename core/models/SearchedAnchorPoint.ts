@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { AnchorPoint } from './AnchorPoint';
 import {
     AnchorPointFromJSON,
     AnchorPointFromJSONTyped,
     AnchorPointToJSON,
+    AnchorPointToJSONTyped,
 } from './AnchorPoint';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -77,16 +79,15 @@ export interface SearchedAnchorPoint {
     identifier: string;
 }
 
+
 /**
  * Check if a given object implements the SearchedAnchorPoint interface.
  */
-export function instanceOfSearchedAnchorPoint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedAnchorPoint(value: object): value is SearchedAnchorPoint {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedAnchorPointFromJSON(json: any): SearchedAnchorPoint {
@@ -94,35 +95,37 @@ export function SearchedAnchorPointFromJSON(json: any): SearchedAnchorPoint {
 }
 
 export function SearchedAnchorPointFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedAnchorPoint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'point': !exists(json, 'point') ? undefined : AnchorPointFromJSON(json['point']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'point': json['point'] == null ? undefined : AnchorPointFromJSON(json['point']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedAnchorPointToJSON(value?: SearchedAnchorPoint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedAnchorPointToJSON(json: any): SearchedAnchorPoint {
+    return SearchedAnchorPointToJSONTyped(json, false);
+}
+
+export function SearchedAnchorPointToJSONTyped(value?: SearchedAnchorPoint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'point': AnchorPointToJSON(value.point),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'point': AnchorPointToJSON(value['point']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

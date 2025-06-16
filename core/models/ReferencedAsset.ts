@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedAsset } from './FlattenedAsset';
 import {
     FlattenedAssetFromJSON,
     FlattenedAssetFromJSONTyped,
     FlattenedAssetToJSON,
+    FlattenedAssetToJSONTyped,
 } from './FlattenedAsset';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * A reference to a asset, which at minimum must have the asset's id. But in the case of a hydrated client API it may have a populated reference of type Asset.
@@ -52,14 +54,13 @@ export interface ReferencedAsset {
     reference?: FlattenedAsset;
 }
 
+
 /**
  * Check if a given object implements the ReferencedAsset interface.
  */
-export function instanceOfReferencedAsset(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedAsset(value: object): value is ReferencedAsset {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedAssetFromJSON(json: any): ReferencedAsset {
@@ -67,29 +68,31 @@ export function ReferencedAssetFromJSON(json: any): ReferencedAsset {
 }
 
 export function ReferencedAssetFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedAsset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedAssetFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedAssetFromJSON(json['reference']),
     };
 }
 
-export function ReferencedAssetToJSON(value?: ReferencedAsset | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedAssetToJSON(json: any): ReferencedAsset {
+    return ReferencedAssetToJSONTyped(json, false);
+}
+
+export function ReferencedAssetToJSONTyped(value?: ReferencedAsset | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedAssetToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedAssetToJSON(value['reference']),
     };
 }
 

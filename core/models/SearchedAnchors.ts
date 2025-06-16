@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedAnchor } from './SearchedAnchor';
 import {
     SearchedAnchorFromJSON,
     SearchedAnchorFromJSONTyped,
     SearchedAnchorToJSON,
+    SearchedAnchorToJSONTyped,
 } from './SearchedAnchor';
 
 /**
@@ -46,14 +48,13 @@ export interface SearchedAnchors {
     iterable: Array<SearchedAnchor>;
 }
 
+
 /**
  * Check if a given object implements the SearchedAnchors interface.
  */
-export function instanceOfSearchedAnchors(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchedAnchors(value: object): value is SearchedAnchors {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchedAnchorsFromJSON(json: any): SearchedAnchors {
@@ -61,27 +62,29 @@ export function SearchedAnchorsFromJSON(json: any): SearchedAnchors {
 }
 
 export function SearchedAnchorsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedAnchors {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedAnchorFromJSON)),
     };
 }
 
-export function SearchedAnchorsToJSON(value?: SearchedAnchors | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedAnchorsToJSON(json: any): SearchedAnchors {
+    return SearchedAnchorsToJSONTyped(json, false);
+}
+
+export function SearchedAnchorsToJSONTyped(value?: SearchedAnchors | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedAnchorToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedAnchorToJSON)),
     };
 }
 

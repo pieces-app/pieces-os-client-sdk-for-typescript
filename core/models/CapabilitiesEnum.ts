@@ -18,6 +18,7 @@
  * @export
  */
 export const CapabilitiesEnum = {
+    Unknown: 'UNKNOWN',
     Local: 'LOCAL',
     Cloud: 'CLOUD',
     Blended: 'BLENDED'
@@ -25,15 +26,62 @@ export const CapabilitiesEnum = {
 export type CapabilitiesEnum = typeof CapabilitiesEnum[keyof typeof CapabilitiesEnum];
 
 
+export function instanceOfCapabilitiesEnum(value: any): boolean {
+    for (const key in CapabilitiesEnum) {
+        if (Object.prototype.hasOwnProperty.call(CapabilitiesEnum, key)) {
+            if (CapabilitiesEnum[key as keyof typeof CapabilitiesEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function CapabilitiesEnumFromJSON(json: any): CapabilitiesEnum {
     return CapabilitiesEnumFromJSONTyped(json, false);
 }
 
 export function CapabilitiesEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): CapabilitiesEnum {
-    return json as CapabilitiesEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as CapabilitiesEnum;
+    }
+
+    if (instanceOfCapabilitiesEnum(json)) {
+        return json as CapabilitiesEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as CapabilitiesEnum;
+    }
 }
 
 export function CapabilitiesEnumToJSON(value?: CapabilitiesEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as CapabilitiesEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfCapabilitiesEnum(value)) {
+        return value as CapabilitiesEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as CapabilitiesEnum;
+    }
 }
 
+export function CapabilitiesEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): CapabilitiesEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as CapabilitiesEnum;
+    }
+    if (instanceOfCapabilitiesEnum(value)) {
+        return value as CapabilitiesEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as CapabilitiesEnum;
+    }
+}

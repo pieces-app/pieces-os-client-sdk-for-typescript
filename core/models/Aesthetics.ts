@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { Font } from './Font';
-import {
-    FontFromJSON,
-    FontFromJSONTyped,
-    FontToJSON,
-} from './Font';
 import type { Theme } from './Theme';
 import {
     ThemeFromJSON,
     ThemeFromJSONTyped,
     ThemeToJSON,
+    ThemeToJSONTyped,
 } from './Theme';
+import type { Font } from './Font';
+import {
+    FontFromJSON,
+    FontFromJSONTyped,
+    FontToJSON,
+    FontToJSONTyped,
+} from './Font';
 
 /**
  * These are aesthetics properties that will ensure the darkmode + font size and other aesthetics properties persist:)
@@ -58,15 +61,14 @@ export interface Aesthetics {
     font: Font;
 }
 
+
 /**
  * Check if a given object implements the Aesthetics interface.
  */
-export function instanceOfAesthetics(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "theme" in value;
-    isInstance = isInstance && "font" in value;
-
-    return isInstance;
+export function instanceOfAesthetics(value: object): value is Aesthetics {
+    if (!('theme' in value) || value['theme'] === undefined) return false;
+    if (!('font' in value) || value['font'] === undefined) return false;
+    return true;
 }
 
 export function AestheticsFromJSON(json: any): Aesthetics {
@@ -74,29 +76,31 @@ export function AestheticsFromJSON(json: any): Aesthetics {
 }
 
 export function AestheticsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Aesthetics {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'theme': ThemeFromJSON(json['theme']),
         'font': FontFromJSON(json['font']),
     };
 }
 
-export function AestheticsToJSON(value?: Aesthetics | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AestheticsToJSON(json: any): Aesthetics {
+    return AestheticsToJSONTyped(json, false);
+}
+
+export function AestheticsToJSONTyped(value?: Aesthetics | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'theme': ThemeToJSON(value.theme),
-        'font': FontToJSON(value.font),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'theme': ThemeToJSON(value['theme']),
+        'font': FontToJSON(value['font']),
     };
 }
 

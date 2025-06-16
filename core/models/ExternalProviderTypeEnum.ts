@@ -22,27 +22,79 @@
  * @export
  */
 export const ExternalProviderTypeEnum = {
+    Unknown: 'UNKNOWN',
     Github: 'github',
-    Auth0: 'auth0',
     GoogleOauth2: 'google-oauth2',
     Bitbucket: 'bitbucket',
     Linkedin: 'linkedin',
     Twitter: 'twitter',
     Facebook: 'facebook',
-    Waad: 'waad'
+    Waad: 'waad',
+    Discord: 'discord',
+    Gitlab: 'gitlab',
+    Apple: 'apple',
+    UsernameEmail: 'username_email',
+    Slack: 'slack'
 } as const;
 export type ExternalProviderTypeEnum = typeof ExternalProviderTypeEnum[keyof typeof ExternalProviderTypeEnum];
 
+
+export function instanceOfExternalProviderTypeEnum(value: any): boolean {
+    for (const key in ExternalProviderTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternalProviderTypeEnum, key)) {
+            if (ExternalProviderTypeEnum[key as keyof typeof ExternalProviderTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ExternalProviderTypeEnumFromJSON(json: any): ExternalProviderTypeEnum {
     return ExternalProviderTypeEnumFromJSONTyped(json, false);
 }
 
 export function ExternalProviderTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExternalProviderTypeEnum {
-    return json as ExternalProviderTypeEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalProviderTypeEnum;
+    }
+
+    if (instanceOfExternalProviderTypeEnum(json)) {
+        return json as ExternalProviderTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalProviderTypeEnum;
+    }
 }
 
 export function ExternalProviderTypeEnumToJSON(value?: ExternalProviderTypeEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalProviderTypeEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfExternalProviderTypeEnum(value)) {
+        return value as ExternalProviderTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalProviderTypeEnum;
+    }
 }
 
+export function ExternalProviderTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ExternalProviderTypeEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalProviderTypeEnum;
+    }
+    if (instanceOfExternalProviderTypeEnum(value)) {
+        return value as ExternalProviderTypeEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ExternalProviderTypeEnum;
+    }
+}

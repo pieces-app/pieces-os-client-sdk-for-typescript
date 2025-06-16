@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { TrackedAssetsEventSearchMetadata } from './TrackedAssetsEventSearchMetadata';
 import {
     TrackedAssetsEventSearchMetadataFromJSON,
     TrackedAssetsEventSearchMetadataFromJSONTyped,
     TrackedAssetsEventSearchMetadataToJSON,
+    TrackedAssetsEventSearchMetadataToJSONTyped,
 } from './TrackedAssetsEventSearchMetadata';
 
 /**
@@ -34,13 +35,12 @@ export interface SeededTrackedAssetsEventMetadata {
     search?: TrackedAssetsEventSearchMetadata;
 }
 
+
 /**
  * Check if a given object implements the SeededTrackedAssetsEventMetadata interface.
  */
-export function instanceOfSeededTrackedAssetsEventMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededTrackedAssetsEventMetadata(value: object): value is SeededTrackedAssetsEventMetadata {
+    return true;
 }
 
 export function SeededTrackedAssetsEventMetadataFromJSON(json: any): SeededTrackedAssetsEventMetadata {
@@ -48,25 +48,27 @@ export function SeededTrackedAssetsEventMetadataFromJSON(json: any): SeededTrack
 }
 
 export function SeededTrackedAssetsEventMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededTrackedAssetsEventMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'search': !exists(json, 'search') ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
+        'search': json['search'] == null ? undefined : TrackedAssetsEventSearchMetadataFromJSON(json['search']),
     };
 }
 
-export function SeededTrackedAssetsEventMetadataToJSON(value?: SeededTrackedAssetsEventMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededTrackedAssetsEventMetadataToJSON(json: any): SeededTrackedAssetsEventMetadata {
+    return SeededTrackedAssetsEventMetadataToJSONTyped(json, false);
+}
+
+export function SeededTrackedAssetsEventMetadataToJSONTyped(value?: SeededTrackedAssetsEventMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'search': TrackedAssetsEventSearchMetadataToJSON(value.search),
+        'search': TrackedAssetsEventSearchMetadataToJSON(value['search']),
     };
 }
 

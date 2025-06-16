@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { BrowserTab } from './BrowserTab';
-import {
-    BrowserTabFromJSON,
-    BrowserTabFromJSONTyped,
-    BrowserTabToJSON,
-} from './BrowserTab';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { BrowserTab } from './BrowserTab';
+import {
+    BrowserTabFromJSON,
+    BrowserTabFromJSONTyped,
+    BrowserTabToJSON,
+    BrowserTabToJSONTyped,
+} from './BrowserTab';
 
 /**
  * This is a plural representation of the BrowserTab
@@ -46,14 +48,13 @@ export interface BrowserTabs {
     iterable: Array<BrowserTab>;
 }
 
+
 /**
  * Check if a given object implements the BrowserTabs interface.
  */
-export function instanceOfBrowserTabs(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfBrowserTabs(value: object): value is BrowserTabs {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function BrowserTabsFromJSON(json: any): BrowserTabs {
@@ -61,27 +62,29 @@ export function BrowserTabsFromJSON(json: any): BrowserTabs {
 }
 
 export function BrowserTabsFromJSONTyped(json: any, ignoreDiscriminator: boolean): BrowserTabs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(BrowserTabFromJSON)),
     };
 }
 
-export function BrowserTabsToJSON(value?: BrowserTabs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function BrowserTabsToJSON(json: any): BrowserTabs {
+    return BrowserTabsToJSONTyped(json, false);
+}
+
+export function BrowserTabsToJSONTyped(value?: BrowserTabs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(BrowserTabToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(BrowserTabToJSON)),
     };
 }
 

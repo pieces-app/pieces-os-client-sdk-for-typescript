@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * 
  * @export
@@ -27,14 +27,13 @@ export interface GraphicalOCRDescriptiveStatisticsConfidence {
     mean: string;
 }
 
+
 /**
  * Check if a given object implements the GraphicalOCRDescriptiveStatisticsConfidence interface.
  */
-export function instanceOfGraphicalOCRDescriptiveStatisticsConfidence(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "mean" in value;
-
-    return isInstance;
+export function instanceOfGraphicalOCRDescriptiveStatisticsConfidence(value: object): value is GraphicalOCRDescriptiveStatisticsConfidence {
+    if (!('mean' in value) || value['mean'] === undefined) return false;
+    return true;
 }
 
 export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSON(json: any): GraphicalOCRDescriptiveStatisticsConfidence {
@@ -42,7 +41,7 @@ export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSON(json: any): 
 }
 
 export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): GraphicalOCRDescriptiveStatisticsConfidence {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +50,18 @@ export function GraphicalOCRDescriptiveStatisticsConfidenceFromJSONTyped(json: a
     };
 }
 
-export function GraphicalOCRDescriptiveStatisticsConfidenceToJSON(value?: GraphicalOCRDescriptiveStatisticsConfidence | null): any {
-    if (value === undefined) {
-        return undefined;
+export function GraphicalOCRDescriptiveStatisticsConfidenceToJSON(json: any): GraphicalOCRDescriptiveStatisticsConfidence {
+    return GraphicalOCRDescriptiveStatisticsConfidenceToJSONTyped(json, false);
+}
+
+export function GraphicalOCRDescriptiveStatisticsConfidenceToJSONTyped(value?: GraphicalOCRDescriptiveStatisticsConfidence | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'mean': value.mean,
+        'mean': value['mean'],
     };
 }
 

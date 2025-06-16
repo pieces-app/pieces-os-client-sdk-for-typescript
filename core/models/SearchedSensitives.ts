@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchedSensitive } from './SearchedSensitive';
 import {
     SearchedSensitiveFromJSON,
     SearchedSensitiveFromJSONTyped,
     SearchedSensitiveToJSON,
+    SearchedSensitiveToJSONTyped,
 } from './SearchedSensitive';
 
 /**
@@ -46,14 +48,13 @@ export interface SearchedSensitives {
     iterable: Array<SearchedSensitive>;
 }
 
+
 /**
  * Check if a given object implements the SearchedSensitives interface.
  */
-export function instanceOfSearchedSensitives(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchedSensitives(value: object): value is SearchedSensitives {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchedSensitivesFromJSON(json: any): SearchedSensitives {
@@ -61,27 +62,29 @@ export function SearchedSensitivesFromJSON(json: any): SearchedSensitives {
 }
 
 export function SearchedSensitivesFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedSensitives {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedSensitiveFromJSON)),
     };
 }
 
-export function SearchedSensitivesToJSON(value?: SearchedSensitives | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedSensitivesToJSON(json: any): SearchedSensitives {
+    return SearchedSensitivesToJSONTyped(json, false);
+}
+
+export function SearchedSensitivesToJSONTyped(value?: SearchedSensitives | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedSensitiveToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedSensitiveToJSON)),
     };
 }
 

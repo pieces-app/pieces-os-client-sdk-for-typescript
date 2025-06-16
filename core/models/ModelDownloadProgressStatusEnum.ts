@@ -18,26 +18,73 @@
  * @export
  */
 export const ModelDownloadProgressStatusEnum = {
+    Unknown: 'UNKNOWN',
     Initialized: 'INITIALIZED',
     InProgress: 'IN-PROGRESS',
     Completed: 'COMPLETED',
     Failed: 'FAILED',
-    Unknown: 'UNKNOWN',
     Canceled: 'CANCELED',
     Reset: 'RESET'
 } as const;
 export type ModelDownloadProgressStatusEnum = typeof ModelDownloadProgressStatusEnum[keyof typeof ModelDownloadProgressStatusEnum];
 
 
+export function instanceOfModelDownloadProgressStatusEnum(value: any): boolean {
+    for (const key in ModelDownloadProgressStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(ModelDownloadProgressStatusEnum, key)) {
+            if (ModelDownloadProgressStatusEnum[key as keyof typeof ModelDownloadProgressStatusEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function ModelDownloadProgressStatusEnumFromJSON(json: any): ModelDownloadProgressStatusEnum {
     return ModelDownloadProgressStatusEnumFromJSONTyped(json, false);
 }
 
 export function ModelDownloadProgressStatusEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelDownloadProgressStatusEnum {
-    return json as ModelDownloadProgressStatusEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelDownloadProgressStatusEnum;
+    }
+
+    if (instanceOfModelDownloadProgressStatusEnum(json)) {
+        return json as ModelDownloadProgressStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelDownloadProgressStatusEnum;
+    }
 }
 
 export function ModelDownloadProgressStatusEnumToJSON(value?: ModelDownloadProgressStatusEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelDownloadProgressStatusEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfModelDownloadProgressStatusEnum(value)) {
+        return value as ModelDownloadProgressStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelDownloadProgressStatusEnum;
+    }
 }
 
+export function ModelDownloadProgressStatusEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ModelDownloadProgressStatusEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelDownloadProgressStatusEnum;
+    }
+    if (instanceOfModelDownloadProgressStatusEnum(value)) {
+        return value as ModelDownloadProgressStatusEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as ModelDownloadProgressStatusEnum;
+    }
+}

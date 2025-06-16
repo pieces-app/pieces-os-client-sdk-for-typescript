@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedAnchorPoint } from './FlattenedAnchorPoint';
 import {
     FlattenedAnchorPointFromJSON,
     FlattenedAnchorPointFromJSONTyped,
     FlattenedAnchorPointToJSON,
+    FlattenedAnchorPointToJSONTyped,
 } from './FlattenedAnchorPoint';
 
 /**
@@ -52,14 +54,13 @@ export interface ReferencedAnchorPoint {
     reference?: FlattenedAnchorPoint;
 }
 
+
 /**
  * Check if a given object implements the ReferencedAnchorPoint interface.
  */
-export function instanceOfReferencedAnchorPoint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedAnchorPoint(value: object): value is ReferencedAnchorPoint {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedAnchorPointFromJSON(json: any): ReferencedAnchorPoint {
@@ -67,29 +68,31 @@ export function ReferencedAnchorPointFromJSON(json: any): ReferencedAnchorPoint 
 }
 
 export function ReferencedAnchorPointFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedAnchorPoint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedAnchorPointFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedAnchorPointFromJSON(json['reference']),
     };
 }
 
-export function ReferencedAnchorPointToJSON(value?: ReferencedAnchorPoint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedAnchorPointToJSON(json: any): ReferencedAnchorPoint {
+    return ReferencedAnchorPointToJSONTyped(json, false);
+}
+
+export function ReferencedAnchorPointToJSONTyped(value?: ReferencedAnchorPoint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedAnchorPointToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedAnchorPointToJSON(value['reference']),
     };
 }
 

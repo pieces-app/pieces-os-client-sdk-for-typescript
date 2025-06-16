@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SearchedAnchorPoint } from './SearchedAnchorPoint';
 import {
     SearchedAnchorPointFromJSON,
     SearchedAnchorPointFromJSONTyped,
     SearchedAnchorPointToJSON,
+    SearchedAnchorPointToJSONTyped,
 } from './SearchedAnchorPoint';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is the plural Model used to return many SearchedAnchorPoint.
@@ -46,14 +48,13 @@ export interface SearchedAnchorPoints {
     iterable: Array<SearchedAnchorPoint>;
 }
 
+
 /**
  * Check if a given object implements the SearchedAnchorPoints interface.
  */
-export function instanceOfSearchedAnchorPoints(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchedAnchorPoints(value: object): value is SearchedAnchorPoints {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchedAnchorPointsFromJSON(json: any): SearchedAnchorPoints {
@@ -61,27 +62,29 @@ export function SearchedAnchorPointsFromJSON(json: any): SearchedAnchorPoints {
 }
 
 export function SearchedAnchorPointsFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedAnchorPoints {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchedAnchorPointFromJSON)),
     };
 }
 
-export function SearchedAnchorPointsToJSON(value?: SearchedAnchorPoints | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedAnchorPointsToJSON(json: any): SearchedAnchorPoints {
+    return SearchedAnchorPointsToJSONTyped(json, false);
+}
+
+export function SearchedAnchorPointsToJSONTyped(value?: SearchedAnchorPoints | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchedAnchorPointToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchedAnchorPointToJSON)),
     };
 }
 

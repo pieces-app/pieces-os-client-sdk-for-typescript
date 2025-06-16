@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -34,13 +35,12 @@ export interface SeededBackup {
     schema?: EmbeddedModelSchema;
 }
 
+
 /**
  * Check if a given object implements the SeededBackup interface.
  */
-export function instanceOfSeededBackup(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededBackup(value: object): value is SeededBackup {
+    return true;
 }
 
 export function SeededBackupFromJSON(json: any): SeededBackup {
@@ -48,25 +48,27 @@ export function SeededBackupFromJSON(json: any): SeededBackup {
 }
 
 export function SeededBackupFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededBackup {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function SeededBackupToJSON(value?: SeededBackup | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededBackupToJSON(json: any): SeededBackup {
+    return SeededBackupToJSONTyped(json, false);
+}
+
+export function SeededBackupToJSONTyped(value?: SeededBackup | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

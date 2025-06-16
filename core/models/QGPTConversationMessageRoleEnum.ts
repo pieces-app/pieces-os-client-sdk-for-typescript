@@ -18,6 +18,7 @@
  * @export
  */
 export const QGPTConversationMessageRoleEnum = {
+    Unknown: 'UNKNOWN',
     User: 'USER',
     System: 'SYSTEM',
     Assistant: 'ASSISTANT'
@@ -25,15 +26,62 @@ export const QGPTConversationMessageRoleEnum = {
 export type QGPTConversationMessageRoleEnum = typeof QGPTConversationMessageRoleEnum[keyof typeof QGPTConversationMessageRoleEnum];
 
 
+export function instanceOfQGPTConversationMessageRoleEnum(value: any): boolean {
+    for (const key in QGPTConversationMessageRoleEnum) {
+        if (Object.prototype.hasOwnProperty.call(QGPTConversationMessageRoleEnum, key)) {
+            if (QGPTConversationMessageRoleEnum[key as keyof typeof QGPTConversationMessageRoleEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function QGPTConversationMessageRoleEnumFromJSON(json: any): QGPTConversationMessageRoleEnum {
     return QGPTConversationMessageRoleEnumFromJSONTyped(json, false);
 }
 
 export function QGPTConversationMessageRoleEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationMessageRoleEnum {
-    return json as QGPTConversationMessageRoleEnum;
+    if (json === null || json === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTConversationMessageRoleEnum;
+    }
+
+    if (instanceOfQGPTConversationMessageRoleEnum(json)) {
+        return json as QGPTConversationMessageRoleEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTConversationMessageRoleEnum;
+    }
 }
 
 export function QGPTConversationMessageRoleEnumToJSON(value?: QGPTConversationMessageRoleEnum | null): any {
-    return value as any;
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTConversationMessageRoleEnum;
+    }
+
+    // This must be checked when arguments are passed as 'any'
+    if (instanceOfQGPTConversationMessageRoleEnum(value)) {
+        return value as QGPTConversationMessageRoleEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTConversationMessageRoleEnum;
+    }
 }
 
+export function QGPTConversationMessageRoleEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): QGPTConversationMessageRoleEnum {
+    if (value === null || value === undefined) {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTConversationMessageRoleEnum;
+    }
+    if (instanceOfQGPTConversationMessageRoleEnum(value)) {
+        return value as QGPTConversationMessageRoleEnum;
+    }
+    else {
+        // Return x-enum-default
+        return 'UNKNOWN' as QGPTConversationMessageRoleEnum;
+    }
+}

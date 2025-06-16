@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedShare } from './FlattenedShare';
 import {
     FlattenedShareFromJSON,
     FlattenedShareFromJSONTyped,
     FlattenedShareToJSON,
+    FlattenedShareToJSONTyped,
 } from './FlattenedShare';
 
 /**
@@ -52,14 +54,13 @@ export interface ReferencedShare {
     reference?: FlattenedShare;
 }
 
+
 /**
  * Check if a given object implements the ReferencedShare interface.
  */
-export function instanceOfReferencedShare(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedShare(value: object): value is ReferencedShare {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedShareFromJSON(json: any): ReferencedShare {
@@ -67,29 +68,31 @@ export function ReferencedShareFromJSON(json: any): ReferencedShare {
 }
 
 export function ReferencedShareFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedShare {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedShareFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedShareFromJSON(json['reference']),
     };
 }
 
-export function ReferencedShareToJSON(value?: ReferencedShare | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedShareToJSON(json: any): ReferencedShare {
+    return ReferencedShareToJSONTyped(json, false);
+}
+
+export function ReferencedShareToJSONTyped(value?: ReferencedShare | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedShareToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedShareToJSON(value['reference']),
     };
 }
 

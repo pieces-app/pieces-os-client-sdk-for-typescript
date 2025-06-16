@@ -46,12 +46,16 @@ export class DistributionApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/distribution/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: DistributionToJSON(requestParameters.distribution),
+            body: DistributionToJSON(requestParameters['distribution']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DistributionFromJSON(jsonValue));
@@ -71,16 +75,23 @@ export class DistributionApi extends runtime.BaseAPI {
      * /distribution/{distribution} [GET]
      */
     async distributionsSpecificDistributionSnapshotRaw(requestParameters: DistributionsSpecificDistributionSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Distribution>> {
-        if (requestParameters.distribution === null || requestParameters.distribution === undefined) {
-            throw new runtime.RequiredError('distribution','Required parameter requestParameters.distribution was null or undefined when calling distributionsSpecificDistributionSnapshot.');
+        if (requestParameters['distribution'] == null) {
+            throw new runtime.RequiredError(
+                'distribution',
+                'Required parameter "distribution" was null or undefined when calling distributionsSpecificDistributionSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/distribution/{distribution}`.replace(`{${"distribution"}}`, encodeURIComponent(String(requestParameters.distribution))),
+            path: `/distribution/{distribution}`.replace(`{${"distribution"}}`, encodeURIComponent(String(requestParameters['distribution']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * Append any additional parameter to the end of your request, and it will be sent to the provider. For example, access_type=offline (for Google Refresh Tokens) , display=popup (for Windows Live popup mode).
  * @export
@@ -32,32 +32,151 @@ export interface SeededPKCEADDITIONALPARAMETERS {
      */
     display?: SeededPKCEADDITIONALPARAMETERSDisplayEnum;
 }
-
-
 /**
  * @export
  */
 export const SeededPKCEADDITIONALPARAMETERSAccessTypeEnum = {
+    Unknown: 'UNKNOWN',
     Offline: 'offline'
 } as const;
 export type SeededPKCEADDITIONALPARAMETERSAccessTypeEnum = typeof SeededPKCEADDITIONALPARAMETERSAccessTypeEnum[keyof typeof SeededPKCEADDITIONALPARAMETERSAccessTypeEnum];
+
+    export function instanceOfSeededPKCEADDITIONALPARAMETERSAccessTypeEnum(value: any): boolean {
+        for (const key in SeededPKCEADDITIONALPARAMETERSAccessTypeEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededPKCEADDITIONALPARAMETERSAccessTypeEnum, key)) {
+                if (SeededPKCEADDITIONALPARAMETERSAccessTypeEnum[key as keyof typeof SeededPKCEADDITIONALPARAMETERSAccessTypeEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSAccessTypeEnumFromJSON(json: any): SeededPKCEADDITIONALPARAMETERSAccessTypeEnum {
+        return SeededPKCEADDITIONALPARAMETERSAccessTypeEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSAccessTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEADDITIONALPARAMETERSAccessTypeEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+
+        if (instanceOfSeededPKCEADDITIONALPARAMETERSAccessTypeEnum(json)) {
+            return json as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSAccessTypeEnumToJSON(value?: SeededPKCEADDITIONALPARAMETERSAccessTypeEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededPKCEADDITIONALPARAMETERSAccessTypeEnum(value)) {
+            return value as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSAccessTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededPKCEADDITIONALPARAMETERSAccessTypeEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+        if (instanceOfSeededPKCEADDITIONALPARAMETERSAccessTypeEnum(value)) {
+            return value as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSAccessTypeEnum;
+        }
+    }
 
 /**
  * @export
  */
 export const SeededPKCEADDITIONALPARAMETERSDisplayEnum = {
+    Unknown: 'UNKNOWN',
     Popup: 'popup'
 } as const;
 export type SeededPKCEADDITIONALPARAMETERSDisplayEnum = typeof SeededPKCEADDITIONALPARAMETERSDisplayEnum[keyof typeof SeededPKCEADDITIONALPARAMETERSDisplayEnum];
+
+    export function instanceOfSeededPKCEADDITIONALPARAMETERSDisplayEnum(value: any): boolean {
+        for (const key in SeededPKCEADDITIONALPARAMETERSDisplayEnum) {
+            if (Object.prototype.hasOwnProperty.call(SeededPKCEADDITIONALPARAMETERSDisplayEnum, key)) {
+                if (SeededPKCEADDITIONALPARAMETERSDisplayEnum[key as keyof typeof SeededPKCEADDITIONALPARAMETERSDisplayEnum] === value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSDisplayEnumFromJSON(json: any): SeededPKCEADDITIONALPARAMETERSDisplayEnum {
+        return SeededPKCEADDITIONALPARAMETERSDisplayEnumFromJSONTyped(json, false);
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSDisplayEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEADDITIONALPARAMETERSDisplayEnum {
+        if (json === null || json === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+
+        if (instanceOfSeededPKCEADDITIONALPARAMETERSDisplayEnum(json)) {
+            return json as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSDisplayEnumToJSON(value?: SeededPKCEADDITIONALPARAMETERSDisplayEnum | null): any {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+
+        // This must be checked when arguments are passed as 'any'
+            if (instanceOfSeededPKCEADDITIONALPARAMETERSDisplayEnum(value)) {
+            return value as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+    }
+
+    export function SeededPKCEADDITIONALPARAMETERSDisplayEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SeededPKCEADDITIONALPARAMETERSDisplayEnum {
+        if (value === null || value === undefined) {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+        if (instanceOfSeededPKCEADDITIONALPARAMETERSDisplayEnum(value)) {
+            return value as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+        else {
+            // Return x-enum-default
+            return 'UNKNOWN' as SeededPKCEADDITIONALPARAMETERSDisplayEnum;
+        }
+    }
+
 
 
 /**
  * Check if a given object implements the SeededPKCEADDITIONALPARAMETERS interface.
  */
-export function instanceOfSeededPKCEADDITIONALPARAMETERS(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSeededPKCEADDITIONALPARAMETERS(value: object): value is SeededPKCEADDITIONALPARAMETERS {
+    return true;
 }
 
 export function SeededPKCEADDITIONALPARAMETERSFromJSON(json: any): SeededPKCEADDITIONALPARAMETERS {
@@ -65,27 +184,29 @@ export function SeededPKCEADDITIONALPARAMETERSFromJSON(json: any): SeededPKCEADD
 }
 
 export function SeededPKCEADDITIONALPARAMETERSFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededPKCEADDITIONALPARAMETERS {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'accessType': !exists(json, 'access_type') ? undefined : json['access_type'],
-        'display': !exists(json, 'display') ? undefined : json['display'],
+        'accessType': SeededPKCEADDITIONALPARAMETERSAccessTypeEnumFromJSON(json['access_type']),
+        'display': SeededPKCEADDITIONALPARAMETERSDisplayEnumFromJSON(json['display']),
     };
 }
 
-export function SeededPKCEADDITIONALPARAMETERSToJSON(value?: SeededPKCEADDITIONALPARAMETERS | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededPKCEADDITIONALPARAMETERSToJSON(json: any): SeededPKCEADDITIONALPARAMETERS {
+    return SeededPKCEADDITIONALPARAMETERSToJSONTyped(json, false);
+}
+
+export function SeededPKCEADDITIONALPARAMETERSToJSONTyped(value?: SeededPKCEADDITIONALPARAMETERS | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'access_type': value.accessType,
-        'display': value.display,
+        'accessType': SeededPKCEADDITIONALPARAMETERSAccessTypeEnumToJSON(value['access_type']),
+        'display': SeededPKCEADDITIONALPARAMETERSDisplayEnumToJSON(value['display']),
     };
 }
 

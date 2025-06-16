@@ -12,49 +12,70 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
+import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
 import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAnchors } from './FlattenedAnchors';
+    FlattenedWorkstreamSummariesFromJSON,
+    FlattenedWorkstreamSummariesFromJSONTyped,
+    FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
+} from './FlattenedWorkstreamSummaries';
+import type { Seeds } from './Seeds';
 import {
-    FlattenedAnchorsFromJSON,
-    FlattenedAnchorsFromJSONTyped,
-    FlattenedAnchorsToJSON,
-} from './FlattenedAnchors';
+    SeedsFromJSON,
+    SeedsFromJSONTyped,
+    SeedsToJSON,
+    SeedsToJSONTyped,
+} from './Seeds';
 import type { FlattenedAssets } from './FlattenedAssets';
 import {
     FlattenedAssetsFromJSON,
     FlattenedAssetsFromJSONTyped,
     FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
 } from './FlattenedAssets';
 import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
 import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
 } from './FlattenedConversationMessages';
-import type { QGPTRelevanceInputOptions } from './QGPTRelevanceInputOptions';
-import {
-    QGPTRelevanceInputOptionsFromJSON,
-    QGPTRelevanceInputOptionsFromJSONTyped,
-    QGPTRelevanceInputOptionsToJSON,
-} from './QGPTRelevanceInputOptions';
-import type { Seeds } from './Seeds';
-import {
-    SeedsFromJSON,
-    SeedsFromJSONTyped,
-    SeedsToJSON,
-} from './Seeds';
 import type { TemporalRangeGrounding } from './TemporalRangeGrounding';
 import {
     TemporalRangeGroundingFromJSON,
     TemporalRangeGroundingFromJSONTyped,
     TemporalRangeGroundingToJSON,
+    TemporalRangeGroundingToJSONTyped,
 } from './TemporalRangeGrounding';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { FlattenedIdentifiedWorkstreamPatternEngineSources } from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import {
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSONTyped,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSONTyped,
+} from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
+import type { QGPTRelevanceInputOptions } from './QGPTRelevanceInputOptions';
+import {
+    QGPTRelevanceInputOptionsFromJSON,
+    QGPTRelevanceInputOptionsFromJSONTyped,
+    QGPTRelevanceInputOptionsToJSON,
+    QGPTRelevanceInputOptionsToJSONTyped,
+} from './QGPTRelevanceInputOptions';
 
 /**
  * This is the input body for the /code_gpt/relevance endpoint.
@@ -140,16 +161,27 @@ export interface QGPTRelevanceInput {
      * @memberof QGPTRelevanceInput
      */
     anchors?: FlattenedAnchors;
+    /**
+     * 
+     * @type {FlattenedIdentifiedWorkstreamPatternEngineSources}
+     * @memberof QGPTRelevanceInput
+     */
+    sources?: FlattenedIdentifiedWorkstreamPatternEngineSources;
+    /**
+     * 
+     * @type {FlattenedWorkstreamSummaries}
+     * @memberof QGPTRelevanceInput
+     */
+    summaries?: FlattenedWorkstreamSummaries;
 }
+
 
 /**
  * Check if a given object implements the QGPTRelevanceInput interface.
  */
-export function instanceOfQGPTRelevanceInput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "query" in value;
-
-    return isInstance;
+export function instanceOfQGPTRelevanceInput(value: object): value is QGPTRelevanceInput {
+    if (!('query' in value) || value['query'] === undefined) return false;
+    return true;
 }
 
 export function QGPTRelevanceInputFromJSON(json: any): QGPTRelevanceInput {
@@ -157,45 +189,51 @@ export function QGPTRelevanceInputFromJSON(json: any): QGPTRelevanceInput {
 }
 
 export function QGPTRelevanceInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTRelevanceInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'query': json['query'],
-        'paths': !exists(json, 'paths') ? undefined : json['paths'],
-        'seeds': !exists(json, 'seeds') ? undefined : SeedsFromJSON(json['seeds']),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
-        'options': !exists(json, 'options') ? undefined : QGPTRelevanceInputOptionsFromJSON(json['options']),
-        'application': !exists(json, 'application') ? undefined : json['application'],
-        'model': !exists(json, 'model') ? undefined : json['model'],
-        'temporal': !exists(json, 'temporal') ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'paths': json['paths'] == null ? undefined : json['paths'],
+        'seeds': json['seeds'] == null ? undefined : SeedsFromJSON(json['seeds']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'options': json['options'] == null ? undefined : QGPTRelevanceInputOptionsFromJSON(json['options']),
+        'application': json['application'] == null ? undefined : json['application'],
+        'model': json['model'] == null ? undefined : json['model'],
+        'temporal': json['temporal'] == null ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'sources': json['sources'] == null ? undefined : FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON(json['sources']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
     };
 }
 
-export function QGPTRelevanceInputToJSON(value?: QGPTRelevanceInput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTRelevanceInputToJSON(json: any): QGPTRelevanceInput {
+    return QGPTRelevanceInputToJSONTyped(json, false);
+}
+
+export function QGPTRelevanceInputToJSONTyped(value?: QGPTRelevanceInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'query': value.query,
-        'paths': value.paths,
-        'seeds': SeedsToJSON(value.seeds),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'messages': FlattenedConversationMessagesToJSON(value.messages),
-        'options': QGPTRelevanceInputOptionsToJSON(value.options),
-        'application': value.application,
-        'model': value.model,
-        'temporal': TemporalRangeGroundingToJSON(value.temporal),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'query': value['query'],
+        'paths': value['paths'],
+        'seeds': SeedsToJSON(value['seeds']),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'options': QGPTRelevanceInputOptionsToJSON(value['options']),
+        'application': value['application'],
+        'model': value['model'],
+        'temporal': TemporalRangeGroundingToJSON(value['temporal']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'sources': FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON(value['sources']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
     };
 }
 

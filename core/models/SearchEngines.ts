@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FilterOperationTypeEnum } from './FilterOperationTypeEnum';
 import {
     FilterOperationTypeEnumFromJSON,
     FilterOperationTypeEnumFromJSONTyped,
     FilterOperationTypeEnumToJSON,
+    FilterOperationTypeEnumToJSONTyped,
 } from './FilterOperationTypeEnum';
 import type { SearchEngine } from './SearchEngine';
 import {
     SearchEngineFromJSON,
     SearchEngineFromJSONTyped,
     SearchEngineToJSON,
+    SearchEngineToJSONTyped,
 } from './SearchEngine';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a model for plural Engine.
@@ -66,14 +69,13 @@ export interface SearchEngines {
     type?: FilterOperationTypeEnum;
 }
 
+
 /**
  * Check if a given object implements the SearchEngines interface.
  */
-export function instanceOfSearchEngines(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfSearchEngines(value: object): value is SearchEngines {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function SearchEnginesFromJSON(json: any): SearchEngines {
@@ -81,29 +83,31 @@ export function SearchEnginesFromJSON(json: any): SearchEngines {
 }
 
 export function SearchEnginesFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchEngines {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SearchEngineFromJSON)),
-        'type': !exists(json, 'type') ? undefined : FilterOperationTypeEnumFromJSON(json['type']),
+        'type': FilterOperationTypeEnumFromJSON(json['type']),
     };
 }
 
-export function SearchEnginesToJSON(value?: SearchEngines | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchEnginesToJSON(json: any): SearchEngines {
+    return SearchEnginesToJSONTyped(json, false);
+}
+
+export function SearchEnginesToJSONTyped(value?: SearchEngines | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SearchEngineToJSON)),
-        'type': FilterOperationTypeEnumToJSON(value.type),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SearchEngineToJSON)),
+        'type': FilterOperationTypeEnumToJSON(value['type']),
     };
 }
 

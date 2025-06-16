@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -47,23 +48,22 @@ export interface ModelMaxTokens {
      * @type {number}
      * @memberof ModelMaxTokens
      */
-    input?: number | null;
+    input?: number;
     /**
      * 
      * @type {number}
      * @memberof ModelMaxTokens
      */
-    output?: number | null;
+    output?: number;
 }
+
 
 /**
  * Check if a given object implements the ModelMaxTokens interface.
  */
-export function instanceOfModelMaxTokens(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "total" in value;
-
-    return isInstance;
+export function instanceOfModelMaxTokens(value: object): value is ModelMaxTokens {
+    if (!('total' in value) || value['total'] === undefined) return false;
+    return true;
 }
 
 export function ModelMaxTokensFromJSON(json: any): ModelMaxTokens {
@@ -71,31 +71,33 @@ export function ModelMaxTokensFromJSON(json: any): ModelMaxTokens {
 }
 
 export function ModelMaxTokensFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelMaxTokens {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'total': json['total'],
-        'input': !exists(json, 'input') ? undefined : json['input'],
-        'output': !exists(json, 'output') ? undefined : json['output'],
+        'input': json['input'] == null ? undefined : json['input'],
+        'output': json['output'] == null ? undefined : json['output'],
     };
 }
 
-export function ModelMaxTokensToJSON(value?: ModelMaxTokens | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ModelMaxTokensToJSON(json: any): ModelMaxTokens {
+    return ModelMaxTokensToJSONTyped(json, false);
+}
+
+export function ModelMaxTokensToJSONTyped(value?: ModelMaxTokens | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'total': value.total,
-        'input': value.input,
-        'output': value.output,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'total': value['total'],
+        'input': value['input'],
+        'output': value['output'],
     };
 }
 

@@ -12,24 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
+import { mapValues } from '../runtime';
+import type { AppletServingHandlerType } from './AppletServingHandlerType';
 import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
+    AppletServingHandlerTypeFromJSON,
+    AppletServingHandlerTypeFromJSONTyped,
+    AppletServingHandlerTypeToJSON,
+    AppletServingHandlerTypeToJSONTyped,
+} from './AppletServingHandlerType';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+    ApplicationToJSONTyped,
+} from './Application';
 import type { OSAppletEnum } from './OSAppletEnum';
 import {
     OSAppletEnumFromJSON,
     OSAppletEnumFromJSONTyped,
     OSAppletEnumToJSON,
+    OSAppletEnumToJSONTyped,
 } from './OSAppletEnum';
 
 /**
@@ -55,23 +65,28 @@ export interface TerminatingOSServerApplet {
      * @type {number}
      * @memberof TerminatingOSServerApplet
      */
-    port?: number | null;
+    port?: number;
     /**
      * 
      * @type {OSAppletEnum}
      * @memberof TerminatingOSServerApplet
      */
     type: OSAppletEnum;
+    /**
+     * 
+     * @type {AppletServingHandlerType}
+     * @memberof TerminatingOSServerApplet
+     */
+    handler?: AppletServingHandlerType;
 }
+
 
 /**
  * Check if a given object implements the TerminatingOSServerApplet interface.
  */
-export function instanceOfTerminatingOSServerApplet(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfTerminatingOSServerApplet(value: object): value is TerminatingOSServerApplet {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function TerminatingOSServerAppletFromJSON(json: any): TerminatingOSServerApplet {
@@ -79,31 +94,35 @@ export function TerminatingOSServerAppletFromJSON(json: any): TerminatingOSServe
 }
 
 export function TerminatingOSServerAppletFromJSONTyped(json: any, ignoreDiscriminator: boolean): TerminatingOSServerApplet {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'parent': !exists(json, 'parent') ? undefined : ApplicationFromJSON(json['parent']),
-        'port': !exists(json, 'port') ? undefined : json['port'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'parent': json['parent'] == null ? undefined : ApplicationFromJSON(json['parent']),
+        'port': json['port'] == null ? undefined : json['port'],
         'type': OSAppletEnumFromJSON(json['type']),
+        'handler': json['handler'] == null ? undefined : AppletServingHandlerTypeFromJSON(json['handler']),
     };
 }
 
-export function TerminatingOSServerAppletToJSON(value?: TerminatingOSServerApplet | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TerminatingOSServerAppletToJSON(json: any): TerminatingOSServerApplet {
+    return TerminatingOSServerAppletToJSONTyped(json, false);
+}
+
+export function TerminatingOSServerAppletToJSONTyped(value?: TerminatingOSServerApplet | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'parent': ApplicationToJSON(value.parent),
-        'port': value.port,
-        'type': OSAppletEnumToJSON(value.type),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'parent': ApplicationToJSON(value['parent']),
+        'port': value['port'],
+        'type': OSAppletEnumToJSON(value['type']),
+        'handler': AppletServingHandlerTypeToJSON(value['handler']),
     };
 }
 

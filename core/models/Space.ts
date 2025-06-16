@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 /**
  * This is used in the TrackedAssetsEventSearchMetadata
  * @export
@@ -33,13 +33,12 @@ export interface Space {
     duration?: number;
 }
 
+
 /**
  * Check if a given object implements the Space interface.
  */
-export function instanceOfSpace(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfSpace(value: object): value is Space {
+    return true;
 }
 
 export function SpaceFromJSON(json: any): Space {
@@ -47,27 +46,29 @@ export function SpaceFromJSON(json: any): Space {
 }
 
 export function SpaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Space {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'size': !exists(json, 'size') ? undefined : json['size'],
-        'duration': !exists(json, 'duration') ? undefined : json['duration'],
+        'size': json['size'] == null ? undefined : json['size'],
+        'duration': json['duration'] == null ? undefined : json['duration'],
     };
 }
 
-export function SpaceToJSON(value?: Space | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SpaceToJSON(json: any): Space {
+    return SpaceToJSONTyped(json, false);
+}
+
+export function SpaceToJSONTyped(value?: Space | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'size': value.size,
-        'duration': value.duration,
+        'size': value['size'],
+        'duration': value['duration'],
     };
 }
 
