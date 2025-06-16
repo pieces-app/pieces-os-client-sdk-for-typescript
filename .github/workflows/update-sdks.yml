@@ -1,0 +1,114 @@
+name: Update SDKs
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version of the SDKs'
+        required: true
+        default: '1.0.0'
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Set up SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: "github.com"
+          if_key_exists: replace
+
+      - name: Install OpenAPI Generator CLI
+        run: |
+          npm install -g @openapitools/openapi-generator-cli
+
+      - name: Clone generated_runtime repository
+        run: |
+          git clone git@github.com:open-runtime/generated_runtime.git
+
+      - name: Generate SDK
+        run: |
+          SPEC_DIR="generated_runtime/spec"
+          SPEC_FILE="${SPEC_DIR}/modules/core/isomorphic.openapi.yaml"
+          OUTPUT_DIR="generated"
+          VERSION="${{ github.event.inputs.version }}"
+          
+          openapi-generator-cli generate \
+            -g typescript-fetch \
+            --skip-operation-example \
+            -i "$SPEC_FILE" \
+            -o "$OUTPUT_DIR" \
+            --additional-properties=npmName=@pieces.app/pieces-os-client,npmVersion="$VERSION",generateApiDocs=true,generateModelDocs=true
+
+      - name: Copy and organize files
+        run: |
+          OUTPUT_DIR="generated"
+          
+          # Remove old files
+          rm -rf ./core/apis
+          rm -rf ./core/models
+          rm -f ./core/runtime.ts
+          rm -f ./core/index.ts
+          
+          # Copy new files
+          cp -r "$OUTPUT_DIR/src/apis" ./core/apis
+          cp -r "$OUTPUT_DIR/src/models" ./core/models
+          cp "$OUTPUT_DIR/src/runtime.ts" ./core/runtime.ts
+          cp "$OUTPUT_DIR/src/index.ts" ./core/index.ts
+          
+          # Clean up
+          rm -rf "$OUTPUT_DIR"
+          rm -rf generated_runtime
+
+      - name: Update package.json version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          # Update version in package.json
+          npm version "$VERSION" --no-git-tag-version
+
+      - name: Build to verify
+        run: |
+          npm install
+          npm run build
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update SDK to version ${{ github.event.inputs.version }}"
+          title: "Update SDK to version ${{ github.event.inputs.version }}"
+          body: |
+            This PR updates the Pieces OS Client SDK to version ${{ github.event.inputs.version }}.
+            
+            Generated from the latest OpenAPI specification.
+            
+            ## Changes
+            - Updated SDK to version ${{ github.event.inputs.version }}
+            - Regenerated from latest OpenAPI spec
+            - Applied post-generation fixes
+          branch: update-sdk-${{ github.event.inputs.version }}
+          reviewers: bishoy-at-pieces
+          delete-branch: true 
