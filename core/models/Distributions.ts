@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Distribution } from './Distribution';
-import {
-    DistributionFromJSON,
-    DistributionFromJSONTyped,
-    DistributionToJSON,
-} from './Distribution';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { Distribution } from './Distribution';
+import {
+    DistributionFromJSON,
+    DistributionFromJSONTyped,
+    DistributionToJSON,
+    DistributionToJSONTyped,
+} from './Distribution';
 
 /**
  * This is the plural Model of a Distribution.
@@ -49,11 +51,9 @@ export interface Distributions {
 /**
  * Check if a given object implements the Distributions interface.
  */
-export function instanceOfDistributions(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfDistributions(value: object): value is Distributions {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function DistributionsFromJSON(json: any): Distributions {
@@ -61,27 +61,29 @@ export function DistributionsFromJSON(json: any): Distributions {
 }
 
 export function DistributionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): Distributions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'iterable': ((json['iterable'] as Array<any>).map(DistributionFromJSON)),
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function DistributionsToJSON(value?: Distributions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DistributionsToJSON(json: any): Distributions {
+    return DistributionsToJSONTyped(json, false);
+}
+
+export function DistributionsToJSONTyped(value?: Distributions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'iterable': ((value.iterable as Array<any>).map(DistributionToJSON)),
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'iterable': ((value['iterable'] as Array<any>).map(DistributionToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { UserProfile } from './UserProfile';
+import {
+    UserProfileFromJSON,
+    UserProfileFromJSONTyped,
+    UserProfileToJSON,
+    UserProfileToJSONTyped,
+} from './UserProfile';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { PersonBasicType } from './PersonBasicType';
 import {
     PersonBasicTypeFromJSON,
     PersonBasicTypeFromJSONTyped,
     PersonBasicTypeToJSON,
+    PersonBasicTypeToJSONTyped,
 } from './PersonBasicType';
-import type { UserProfile } from './UserProfile';
-import {
-    UserProfileFromJSON,
-    UserProfileFromJSONTyped,
-    UserProfileToJSON,
-} from './UserProfile';
 
 /**
  * basic or platform is absolutely required here.
@@ -63,10 +66,8 @@ export interface PersonType {
 /**
  * Check if a given object implements the PersonType interface.
  */
-export function instanceOfPersonType(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfPersonType(value: object): value is PersonType {
+    return true;
 }
 
 export function PersonTypeFromJSON(json: any): PersonType {
@@ -74,29 +75,31 @@ export function PersonTypeFromJSON(json: any): PersonType {
 }
 
 export function PersonTypeFromJSONTyped(json: any, ignoreDiscriminator: boolean): PersonType {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'basic': !exists(json, 'basic') ? undefined : PersonBasicTypeFromJSON(json['basic']),
-        'platform': !exists(json, 'platform') ? undefined : UserProfileFromJSON(json['platform']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'basic': json['basic'] == null ? undefined : PersonBasicTypeFromJSON(json['basic']),
+        'platform': json['platform'] == null ? undefined : UserProfileFromJSON(json['platform']),
     };
 }
 
-export function PersonTypeToJSON(value?: PersonType | null): any {
-    if (value === undefined) {
-        return undefined;
+export function PersonTypeToJSON(json: any): PersonType {
+    return PersonTypeToJSONTyped(json, false);
+}
+
+export function PersonTypeToJSONTyped(value?: PersonType | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'basic': PersonBasicTypeToJSON(value.basic),
-        'platform': UserProfileToJSON(value.platform),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'basic': PersonBasicTypeToJSON(value['basic']),
+        'platform': UserProfileToJSON(value['platform']),
     };
 }
 

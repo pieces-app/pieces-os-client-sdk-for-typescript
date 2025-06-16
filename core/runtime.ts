@@ -137,13 +137,7 @@ export class BaseAPI {
         if (response && (response.status >= 200 && response.status < 300)) {
             return response;
         }
-        let text: string;
-        try {
-            text = await response.text()
-        } catch(e) {
-            throw new ResponseError(response, `${url} returned an error code: [${response.status}]`);
-        }
-        throw new ResponseError(response, `${url} returned an error code: [${response.status}] ${text}`);
+        throw new ResponseError(response, 'Response returned an error code');
     }
 
     private async createFetchParams(context: RequestOpts, initOverrides?: RequestInit | InitOverrideFunction) {
@@ -316,11 +310,6 @@ export interface RequestOpts {
     body?: HTTPBody;
 }
 
-export function exists(json: any, key: string) {
-    const value = json[key];
-    return value !== null && value !== undefined;
-}
-
 export function querystring(params: HTTPQuery, prefix: string = ''): string {
     return Object.keys(params)
         .map(key => querystringSingleKey(key, params[key], prefix))
@@ -348,11 +337,17 @@ function querystringSingleKey(key: string, value: string | number | null | undef
     return `${encodeURIComponent(fullKey)}=${encodeURIComponent(String(value))}`;
 }
 
+export function exists(json: any, key: string) {
+    const value = json[key];
+    return value !== null && value !== undefined;
+}
+
 export function mapValues(data: any, fn: (item: any) => any) {
-  return Object.keys(data).reduce(
-    (acc, key) => ({ ...acc, [key]: fn(data[key]) }),
-    {}
-  );
+    const result: { [key: string]: any } = {};
+    for (const key of Object.keys(data)) {
+        result[key] = fn(data[key]);
+    }
+    return result;
 }
 
 export function canConsumeForm(consumes: Consume[]): boolean {

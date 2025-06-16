@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -49,12 +50,10 @@ export interface TrackedAssetEventRenameMetadata {
 /**
  * Check if a given object implements the TrackedAssetEventRenameMetadata interface.
  */
-export function instanceOfTrackedAssetEventRenameMetadata(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "previous" in value;
-    isInstance = isInstance && "current" in value;
-
-    return isInstance;
+export function instanceOfTrackedAssetEventRenameMetadata(value: object): value is TrackedAssetEventRenameMetadata {
+    if (!('previous' in value) || value['previous'] === undefined) return false;
+    if (!('current' in value) || value['current'] === undefined) return false;
+    return true;
 }
 
 export function TrackedAssetEventRenameMetadataFromJSON(json: any): TrackedAssetEventRenameMetadata {
@@ -62,29 +61,31 @@ export function TrackedAssetEventRenameMetadataFromJSON(json: any): TrackedAsset
 }
 
 export function TrackedAssetEventRenameMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventRenameMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'previous': json['previous'],
         'current': json['current'],
     };
 }
 
-export function TrackedAssetEventRenameMetadataToJSON(value?: TrackedAssetEventRenameMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedAssetEventRenameMetadataToJSON(json: any): TrackedAssetEventRenameMetadata {
+    return TrackedAssetEventRenameMetadataToJSONTyped(json, false);
+}
+
+export function TrackedAssetEventRenameMetadataToJSONTyped(value?: TrackedAssetEventRenameMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'previous': value.previous,
-        'current': value.current,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'previous': value['previous'],
+        'current': value['current'],
     };
 }
 

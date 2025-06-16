@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { LanguageServerProtocolDiagnostics } from './LanguageServerProtocolDiagnostics';
 import {
     LanguageServerProtocolDiagnosticsFromJSON,
     LanguageServerProtocolDiagnosticsFromJSONTyped,
     LanguageServerProtocolDiagnosticsToJSON,
+    LanguageServerProtocolDiagnosticsToJSONTyped,
 } from './LanguageServerProtocolDiagnostics';
 
 /**
@@ -49,10 +51,8 @@ export interface LanguageServerProtocol {
 /**
  * Check if a given object implements the LanguageServerProtocol interface.
  */
-export function instanceOfLanguageServerProtocol(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfLanguageServerProtocol(value: object): value is LanguageServerProtocol {
+    return true;
 }
 
 export function LanguageServerProtocolFromJSON(json: any): LanguageServerProtocol {
@@ -60,27 +60,29 @@ export function LanguageServerProtocolFromJSON(json: any): LanguageServerProtoco
 }
 
 export function LanguageServerProtocolFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocol {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'diagnostics': !exists(json, 'diagnostics') ? undefined : LanguageServerProtocolDiagnosticsFromJSON(json['diagnostics']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'diagnostics': json['diagnostics'] == null ? undefined : LanguageServerProtocolDiagnosticsFromJSON(json['diagnostics']),
     };
 }
 
-export function LanguageServerProtocolToJSON(value?: LanguageServerProtocol | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LanguageServerProtocolToJSON(json: any): LanguageServerProtocol {
+    return LanguageServerProtocolToJSONTyped(json, false);
+}
+
+export function LanguageServerProtocolToJSONTyped(value?: LanguageServerProtocol | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'diagnostics': LanguageServerProtocolDiagnosticsToJSON(value.diagnostics),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'diagnostics': LanguageServerProtocolDiagnosticsToJSON(value['diagnostics']),
     };
 }
 

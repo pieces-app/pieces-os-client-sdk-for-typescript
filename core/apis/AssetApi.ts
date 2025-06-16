@@ -48,9 +48,19 @@ export interface AssetAssociateAnchorRequest {
     anchor: string;
 }
 
+export interface AssetAssociateAnnotationRequest {
+    asset: string;
+    annotation: string;
+}
+
 export interface AssetAssociateConversationRequest {
     asset: string;
     conversation: string;
+}
+
+export interface AssetAssociateConversationMessageRequest {
+    asset: string;
+    message: string;
 }
 
 export interface AssetAssociateHintRequest {
@@ -83,9 +93,19 @@ export interface AssetDisassociateAnchorRequest {
     anchor: string;
 }
 
+export interface AssetDisassociateAnnotationRequest {
+    asset: string;
+    annotation: string;
+}
+
 export interface AssetDisassociateConversationRequest {
     asset: string;
     conversation: string;
+}
+
+export interface AssetDisassociateConversationMessageRequest {
+    asset: string;
+    message: string;
 }
 
 export interface AssetDisassociateHintRequest {
@@ -131,6 +151,7 @@ export interface AssetScoresIncrementRequest {
 export interface AssetSnapshotRequest {
     asset: string;
     transferables?: boolean;
+    packageActivities?: boolean;
 }
 
 export interface AssetSnapshotPostRequest {
@@ -169,20 +190,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/persons/associate/{anchor} [POST]
      */
     async assetAssociateAnchorRaw(requestParameters: AssetAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateAnchor.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateAnchor().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling assetAssociateAnchor.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling assetAssociateAnchor().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/anchors/associate/{anchor}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/asset/{asset}/anchors/associate/{anchor}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -200,24 +231,79 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * associates a conversation and an asset. It performs the same action as the conversation equivalent.
-     * /asset/{asset}/conversations/associate/{conversation} [POST]
+     * This will associate an annotation with an asset.
+     * /asset/{asset}/annotations/associate/{annotation} [POST]
      */
-    async assetAssociateConversationRaw(requestParameters: AssetAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateConversation.');
+    async assetAssociateAnnotationRaw(requestParameters: AssetAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateAnnotation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling assetAssociateConversation.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling assetAssociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/conversations/associate/{conversation}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/asset/{asset}/annotations/associate/{annotation}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate an annotation with an asset.
+     * /asset/{asset}/annotations/associate/{annotation} [POST]
+     */
+    async assetAssociateAnnotation(requestParameters: AssetAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.assetAssociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * associates a conversation and an asset. It performs the same action as the conversation equivalent.
+     * /asset/{asset}/conversations/associate/{conversation} [POST]
+     */
+    async assetAssociateConversationRaw(requestParameters: AssetAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateConversation().'
+            );
+        }
+
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling assetAssociateConversation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/asset/{asset}/conversations/associate/{conversation}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -235,24 +321,79 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * associates an asset and a hint. It performs the same action as the hint equivalent.
-     * /asset/{asset}/hints/associate/{hint} [POST]
+     * This will associate a asset with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /asset/{asset}/messages/associate/{message} [POST]
      */
-    async assetAssociateHintRaw(requestParameters: AssetAssociateHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateHint.');
+    async assetAssociateConversationMessageRaw(requestParameters: AssetAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.hint === null || requestParameters.hint === undefined) {
-            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling assetAssociateHint.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling assetAssociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/hints/associate/{hint}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
+            path: `/asset/{asset}/messages/associate/{message}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a asset with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /asset/{asset}/messages/associate/{message} [POST]
+     */
+    async assetAssociateConversationMessage(requestParameters: AssetAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.assetAssociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * associates an asset and a hint. It performs the same action as the hint equivalent.
+     * /asset/{asset}/hints/associate/{hint} [POST]
+     */
+    async assetAssociateHintRaw(requestParameters: AssetAssociateHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateHint().'
+            );
+        }
+
+        if (requestParameters['hint'] == null) {
+            throw new runtime.RequiredError(
+                'hint',
+                'Required parameter "hint" was null or undefined when calling assetAssociateHint().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/asset/{asset}/hints/associate/{hint}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -274,20 +415,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/persons/associate/{person} [POST]
      */
     async assetAssociatePersonRaw(requestParameters: AssetAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociatePerson.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling assetAssociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling assetAssociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/persons/associate/{person}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/asset/{asset}/persons/associate/{person}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -309,20 +460,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/tags/associate/{tag} [POST]
      */
     async assetAssociateTagRaw(requestParameters: AssetAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateTag.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateTag().'
+            );
         }
 
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling assetAssociateTag.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling assetAssociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/tags/associate/{tag}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/asset/{asset}/tags/associate/{tag}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -344,20 +505,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/websites/associate/{website} [POST]
      */
     async assetAssociateWebsiteRaw(requestParameters: AssetAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateWebsite.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateWebsite().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling assetAssociateWebsite.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling assetAssociateWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/websites/associate/{website}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/asset/{asset}/websites/associate/{website}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -379,20 +550,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/workstream_summaries/associate/{workstream_summary} [POST]
      */
     async assetAssociateWorkstreamSummaryRaw(requestParameters: AssetAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetAssociateWorkstreamSummary.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetAssociateWorkstreamSummary().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling assetAssociateWorkstreamSummary.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling assetAssociateWorkstreamSummary().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/asset/{asset}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -414,20 +595,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/anchors/disassociate/{anchor} [POST]
      */
     async assetDisassociateAnchorRaw(requestParameters: AssetDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateAnchor.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateAnchor().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling assetDisassociateAnchor.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling assetDisassociateAnchor().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/anchors/disassociate/{anchor}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/asset/{asset}/anchors/disassociate/{anchor}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -445,24 +636,79 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Disassociates a conversation from an asset. It performs the same action as the conversation equivalent.
-     * /asset/{asset}/conversations/disassociate/{conversation} [POST]
+     * This will enable us to dissassociate an annotation from an asset.
+     * /asset/{asset}/annotations/disassociate/{annotation} [POST]
      */
-    async assetDisassociateConversationRaw(requestParameters: AssetDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateConversation.');
+    async assetDisassociateAnnotationRaw(requestParameters: AssetDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateAnnotation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling assetDisassociateConversation.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling assetDisassociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/conversations/disassociate/{conversation}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/asset/{asset}/annotations/disassociate/{annotation}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from an asset.
+     * /asset/{asset}/annotations/disassociate/{annotation} [POST]
+     */
+    async assetDisassociateAnnotation(requestParameters: AssetDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.assetDisassociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Disassociates a conversation from an asset. It performs the same action as the conversation equivalent.
+     * /asset/{asset}/conversations/disassociate/{conversation} [POST]
+     */
+    async assetDisassociateConversationRaw(requestParameters: AssetDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateConversation().'
+            );
+        }
+
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling assetDisassociateConversation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/asset/{asset}/conversations/disassociate/{conversation}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -480,24 +726,79 @@ export class AssetApi extends runtime.BaseAPI {
     }
 
     /**
-     * Disassociates an asset from a hint. It performs the same action as the hint equivalent.
-     * /asset/{asset}/hints/disassociate/{hint} [POST]
+     * This will enable us to disassociate a conversation_message from an asset. This will do the same thing as the conversation_message equivalent.
+     * /asset/{asset}/messages/disassociate/{message} [POST]
      */
-    async assetDisassociateHintRaw(requestParameters: AssetDisassociateHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateHint.');
+    async assetDisassociateConversationMessageRaw(requestParameters: AssetDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.hint === null || requestParameters.hint === undefined) {
-            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling assetDisassociateHint.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling assetDisassociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/hints/disassociate/{hint}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
+            path: `/asset/{asset}/messages/disassociate/{message}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from an asset. This will do the same thing as the conversation_message equivalent.
+     * /asset/{asset}/messages/disassociate/{message} [POST]
+     */
+    async assetDisassociateConversationMessage(requestParameters: AssetDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.assetDisassociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * Disassociates an asset from a hint. It performs the same action as the hint equivalent.
+     * /asset/{asset}/hints/disassociate/{hint} [POST]
+     */
+    async assetDisassociateHintRaw(requestParameters: AssetDisassociateHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateHint().'
+            );
+        }
+
+        if (requestParameters['hint'] == null) {
+            throw new runtime.RequiredError(
+                'hint',
+                'Required parameter "hint" was null or undefined when calling assetDisassociateHint().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/asset/{asset}/hints/disassociate/{hint}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -519,20 +820,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/persons/disassociate/{person} [POST]
      */
     async assetDisassociatePersonRaw(requestParameters: AssetDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociatePerson.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling assetDisassociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling assetDisassociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/persons/disassociate/{person}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/asset/{asset}/persons/disassociate/{person}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -554,20 +865,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/tags/disassociate/{tag} [POST]
      */
     async assetDisassociateTagRaw(requestParameters: AssetDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling assetDisassociateTag.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling assetDisassociateTag().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateTag.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/tags/disassociate/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}/tags/disassociate/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -589,20 +910,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/websites/disassociate/{website} [POST]
      */
     async assetDisassociateWebsiteRaw(requestParameters: AssetDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling assetDisassociateWebsite.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling assetDisassociateWebsite().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateWebsite.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/websites/disassociate/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}/websites/disassociate/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -624,20 +955,30 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/workstream_summaries/disassociate/{workstream_summary} [POST]
      */
     async assetDisassociateWorkstreamSummaryRaw(requestParameters: AssetDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetDisassociateWorkstreamSummary.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetDisassociateWorkstreamSummary().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling assetDisassociateWorkstreamSummary.');
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling assetDisassociateWorkstreamSummary().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/asset/{asset}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -659,20 +1000,27 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/formats [GET] Scoped To Asset
      */
     async assetFormatsRaw(requestParameters: AssetFormatsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Formats>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetFormats.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetFormats().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/formats`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}/formats`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -697,20 +1045,24 @@ export class AssetApi extends runtime.BaseAPI {
     async assetReclassifyRaw(requestParameters: AssetReclassifyRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/asset/reclassify`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetReclassificationToJSON(requestParameters.assetReclassification),
+            body: AssetReclassificationToJSON(requestParameters['assetReclassification']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
@@ -730,8 +1082,11 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/scores/increment [POST]
      */
     async assetScoresIncrementRaw(requestParameters: AssetScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetScoresIncrement.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -740,12 +1095,16 @@ export class AssetApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/scores/increment`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}/scores/increment`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -764,20 +1123,31 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset} [GET] Scoped To Asset
      */
     async assetSnapshotRaw(requestParameters: AssetSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSnapshot.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
+        }
+
+        if (requestParameters['packageActivities'] != null) {
+            queryParameters['package_activities'] = requestParameters['packageActivities'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -800,26 +1170,33 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset} [POST] Scoped to an Asset
      */
     async assetSnapshotPostRaw(requestParameters: AssetSnapshotPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSnapshotPost.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetSnapshotPost().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAccessorToJSON(requestParameters.seededAccessor),
+            body: SeededAccessorToJSON(requestParameters['seededAccessor']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
@@ -839,20 +1216,27 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/activities [GET]
      */
     async assetSpecificAssetActivitiesRaw(requestParameters: AssetSpecificAssetActivitiesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Activities>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetActivities.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetSpecificAssetActivities().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/activities`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}/activities`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -875,20 +1259,27 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/conversations [GET]
      */
     async assetSpecificAssetConversationsRaw(requestParameters: AssetSpecificAssetConversationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Conversations>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetConversations.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetSpecificAssetConversations().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/conversations`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}/conversations`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -911,24 +1302,34 @@ export class AssetApi extends runtime.BaseAPI {
      * /asset/{asset}/export [GET]
      */
     async assetSpecificAssetExportRaw(requestParameters: AssetSpecificAssetExportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExportedAsset>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling assetSpecificAssetExport.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling assetSpecificAssetExport().'
+            );
         }
 
-        if (requestParameters.exportType === null || requestParameters.exportType === undefined) {
-            throw new runtime.RequiredError('exportType','Required parameter requestParameters.exportType was null or undefined when calling assetSpecificAssetExport.');
+        if (requestParameters['exportType'] == null) {
+            throw new runtime.RequiredError(
+                'exportType',
+                'Required parameter "exportType" was null or undefined when calling assetSpecificAssetExport().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.exportType !== undefined) {
-            queryParameters['export_type'] = requestParameters.exportType;
+        if (requestParameters['exportType'] != null) {
+            queryParameters['export_type'] = requestParameters['exportType'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/asset/{asset}/export`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/asset/{asset}/export`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -953,20 +1354,24 @@ export class AssetApi extends runtime.BaseAPI {
     async assetUpdateRaw(requestParameters: AssetUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Asset>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/asset/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AssetToJSON(requestParameters.asset),
+            body: AssetToJSON(requestParameters['asset']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AssetFromJSON(jsonValue));
@@ -987,6 +1392,7 @@ export class AssetApi extends runtime.BaseAPI {
  * @export
  */
 export const AssetSpecificAssetExportExportTypeEnum = {
+    Unknown: 'UNKNOWN',
     Html: 'HTML',
     Md: 'MD'
 } as const;

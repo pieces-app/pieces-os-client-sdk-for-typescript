@@ -55,12 +55,16 @@ export class RangesApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/ranges/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededRangeToJSON(requestParameters.seededRange),
+            body: SeededRangeToJSON(requestParameters['seededRange']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RangeFromJSON(jsonValue));
@@ -80,16 +84,23 @@ export class RangesApi extends runtime.BaseAPI {
      * /ranges/{range}/delete [POST]
      */
     async rangesDeleteSpecificRangeRaw(requestParameters: RangesDeleteSpecificRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangesDeleteSpecificRange.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangesDeleteSpecificRange().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/ranges/{range}/delete`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
+            path: `/ranges/{range}/delete`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -114,6 +125,10 @@ export class RangesApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/ranges`,
@@ -142,6 +157,10 @@ export class RangesApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/ranges/stream/identifiers`,

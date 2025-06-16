@@ -66,12 +66,16 @@ export class HintsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/hints/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededHintToJSON(requestParameters.seededHint),
+            body: SeededHintToJSON(requestParameters['seededHint']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintFromJSON(jsonValue));
@@ -91,16 +95,23 @@ export class HintsApi extends runtime.BaseAPI {
      * /hints/{hint}/delete [POST]
      */
     async hintsDeleteSpecificHintRaw(requestParameters: HintsDeleteSpecificHintRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.hint === null || requestParameters.hint === undefined) {
-            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintsDeleteSpecificHint.');
+        if (requestParameters['hint'] == null) {
+            throw new runtime.RequiredError(
+                'hint',
+                'Required parameter "hint" was null or undefined when calling hintsDeleteSpecificHint().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/hints/{hint}/delete`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
+            path: `/hints/{hint}/delete`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -125,6 +136,10 @@ export class HintsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/hints`,
@@ -154,6 +169,10 @@ export class HintsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/hints/stream/identifiers`,
             method: 'GET',
@@ -180,20 +199,24 @@ export class HintsApi extends runtime.BaseAPI {
     async searchHintsRaw(requestParameters: SearchHintsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedHints>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/hints/search`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SearchInputToJSON(requestParameters.searchInput),
+            body: SearchInputToJSON(requestParameters['searchInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedHintsFromJSON(jsonValue));

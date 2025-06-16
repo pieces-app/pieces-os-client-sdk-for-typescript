@@ -18,12 +18,24 @@
  * @export
  */
 export const CapabilitiesEnum = {
+    Unknown: 'UNKNOWN',
     Local: 'LOCAL',
     Cloud: 'CLOUD',
     Blended: 'BLENDED'
 } as const;
 export type CapabilitiesEnum = typeof CapabilitiesEnum[keyof typeof CapabilitiesEnum];
 
+
+export function instanceOfCapabilitiesEnum(value: any): boolean {
+    for (const key in CapabilitiesEnum) {
+        if (Object.prototype.hasOwnProperty.call(CapabilitiesEnum, key)) {
+            if (CapabilitiesEnum[key as keyof typeof CapabilitiesEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function CapabilitiesEnumFromJSON(json: any): CapabilitiesEnum {
     return CapabilitiesEnumFromJSONTyped(json, false);
@@ -35,5 +47,9 @@ export function CapabilitiesEnumFromJSONTyped(json: any, ignoreDiscriminator: bo
 
 export function CapabilitiesEnumToJSON(value?: CapabilitiesEnum | null): any {
     return value as any;
+}
+
+export function CapabilitiesEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): CapabilitiesEnum {
+    return value as CapabilitiesEnum;
 }
 

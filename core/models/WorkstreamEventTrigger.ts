@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -116,15 +117,19 @@ export interface WorkstreamEventTrigger {
      * @memberof WorkstreamEventTrigger
      */
     applicationSwitch?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WorkstreamEventTrigger
+     */
+    nativeScreenshot?: boolean;
 }
 
 /**
  * Check if a given object implements the WorkstreamEventTrigger interface.
  */
-export function instanceOfWorkstreamEventTrigger(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamEventTrigger(value: object): value is WorkstreamEventTrigger {
+    return true;
 }
 
 export function WorkstreamEventTriggerFromJSON(json: any): WorkstreamEventTrigger {
@@ -132,53 +137,57 @@ export function WorkstreamEventTriggerFromJSON(json: any): WorkstreamEventTrigge
 }
 
 export function WorkstreamEventTriggerFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamEventTrigger {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'checkIn': !exists(json, 'check_in') ? undefined : json['check_in'],
-        'copy': !exists(json, 'copy') ? undefined : json['copy'],
-        'paste': !exists(json, 'paste') ? undefined : json['paste'],
-        'fileOpen': !exists(json, 'file_open') ? undefined : json['file_open'],
-        'fileClose': !exists(json, 'file_close') ? undefined : json['file_close'],
-        'tabSwitch': !exists(json, 'tab_switch') ? undefined : json['tab_switch'],
-        'tabClose': !exists(json, 'tab_close') ? undefined : json['tab_close'],
-        'tabOpen': !exists(json, 'tab_open') ? undefined : json['tab_open'],
-        'tabEnter': !exists(json, 'tab_enter') ? undefined : json['tab_enter'],
-        'tabLeave': !exists(json, 'tab_leave') ? undefined : json['tab_leave'],
-        'urlChanged': !exists(json, 'url_changed') ? undefined : json['url_changed'],
-        'applicationEnter': !exists(json, 'application_enter') ? undefined : json['application_enter'],
-        'applicationLeave': !exists(json, 'application_leave') ? undefined : json['application_leave'],
-        'applicationSwitch': !exists(json, 'application_switch') ? undefined : json['application_switch'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'checkIn': json['check_in'] == null ? undefined : json['check_in'],
+        'copy': json['copy'] == null ? undefined : json['copy'],
+        'paste': json['paste'] == null ? undefined : json['paste'],
+        'fileOpen': json['file_open'] == null ? undefined : json['file_open'],
+        'fileClose': json['file_close'] == null ? undefined : json['file_close'],
+        'tabSwitch': json['tab_switch'] == null ? undefined : json['tab_switch'],
+        'tabClose': json['tab_close'] == null ? undefined : json['tab_close'],
+        'tabOpen': json['tab_open'] == null ? undefined : json['tab_open'],
+        'tabEnter': json['tab_enter'] == null ? undefined : json['tab_enter'],
+        'tabLeave': json['tab_leave'] == null ? undefined : json['tab_leave'],
+        'urlChanged': json['url_changed'] == null ? undefined : json['url_changed'],
+        'applicationEnter': json['application_enter'] == null ? undefined : json['application_enter'],
+        'applicationLeave': json['application_leave'] == null ? undefined : json['application_leave'],
+        'applicationSwitch': json['application_switch'] == null ? undefined : json['application_switch'],
+        'nativeScreenshot': json['native_screenshot'] == null ? undefined : json['native_screenshot'],
     };
 }
 
-export function WorkstreamEventTriggerToJSON(value?: WorkstreamEventTrigger | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamEventTriggerToJSON(json: any): WorkstreamEventTrigger {
+    return WorkstreamEventTriggerToJSONTyped(json, false);
+}
+
+export function WorkstreamEventTriggerToJSONTyped(value?: WorkstreamEventTrigger | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'check_in': value.checkIn,
-        'copy': value.copy,
-        'paste': value.paste,
-        'file_open': value.fileOpen,
-        'file_close': value.fileClose,
-        'tab_switch': value.tabSwitch,
-        'tab_close': value.tabClose,
-        'tab_open': value.tabOpen,
-        'tab_enter': value.tabEnter,
-        'tab_leave': value.tabLeave,
-        'url_changed': value.urlChanged,
-        'application_enter': value.applicationEnter,
-        'application_leave': value.applicationLeave,
-        'application_switch': value.applicationSwitch,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'check_in': value['checkIn'],
+        'copy': value['copy'],
+        'paste': value['paste'],
+        'file_open': value['fileOpen'],
+        'file_close': value['fileClose'],
+        'tab_switch': value['tabSwitch'],
+        'tab_close': value['tabClose'],
+        'tab_open': value['tabOpen'],
+        'tab_enter': value['tabEnter'],
+        'tab_leave': value['tabLeave'],
+        'url_changed': value['urlChanged'],
+        'application_enter': value['applicationEnter'],
+        'application_leave': value['applicationLeave'],
+        'application_switch': value['applicationSwitch'],
+        'native_screenshot': value['nativeScreenshot'],
     };
 }
 

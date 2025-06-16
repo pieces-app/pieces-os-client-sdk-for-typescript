@@ -12,46 +12,89 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
+import { mapValues } from '../runtime';
+import type { FlattenedTags } from './FlattenedTags';
 import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
+    FlattenedTagsFromJSON,
+    FlattenedTagsFromJSONTyped,
+    FlattenedTagsToJSON,
+    FlattenedTagsToJSONTyped,
+} from './FlattenedTags';
+import type { FlattenedWebsites } from './FlattenedWebsites';
+import {
+    FlattenedWebsitesFromJSON,
+    FlattenedWebsitesFromJSONTyped,
+    FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
+} from './FlattenedWebsites';
+import type { Score } from './Score';
+import {
+    ScoreFromJSON,
+    ScoreFromJSONTyped,
+    ScoreToJSON,
+    ScoreToJSONTyped,
+} from './Score';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ReferencedWorkstreamSummary } from './ReferencedWorkstreamSummary';
 import {
     ReferencedWorkstreamSummaryFromJSON,
     ReferencedWorkstreamSummaryFromJSONTyped,
     ReferencedWorkstreamSummaryToJSON,
+    ReferencedWorkstreamSummaryToJSONTyped,
 } from './ReferencedWorkstreamSummary';
-import type { Score } from './Score';
-import {
-    ScoreFromJSON,
-    ScoreFromJSONTyped,
-    ScoreToJSON,
-} from './Score';
-import type { WorkstreamEventContext } from './WorkstreamEventContext';
-import {
-    WorkstreamEventContextFromJSON,
-    WorkstreamEventContextFromJSONTyped,
-    WorkstreamEventContextToJSON,
-} from './WorkstreamEventContext';
 import type { WorkstreamEventTrigger } from './WorkstreamEventTrigger';
 import {
     WorkstreamEventTriggerFromJSON,
     WorkstreamEventTriggerFromJSONTyped,
     WorkstreamEventTriggerToJSON,
+    WorkstreamEventTriggerToJSONTyped,
 } from './WorkstreamEventTrigger';
+import type { CapabilitiesEnum } from './CapabilitiesEnum';
+import {
+    CapabilitiesEnumFromJSON,
+    CapabilitiesEnumFromJSONTyped,
+    CapabilitiesEnumToJSON,
+    CapabilitiesEnumToJSONTyped,
+} from './CapabilitiesEnum';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+    FlattenedPersonsToJSONTyped,
+} from './FlattenedPersons';
+import type { WorkstreamEventContext } from './WorkstreamEventContext';
+import {
+    WorkstreamEventContextFromJSON,
+    WorkstreamEventContextFromJSONTyped,
+    WorkstreamEventContextToJSON,
+    WorkstreamEventContextToJSONTyped,
+} from './WorkstreamEventContext';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+    ApplicationToJSONTyped,
+} from './Application';
 
 /**
  * This is a precreated version of a WorkstreamEvent event, this will be used ingested into PiecesOS and PiecesOS will do all the magic to transform this into relevant data show in the workstream feed.
+ * 
+ * NOTE: the source on the WorkstreamEvent is calculated based on the WorkstreamEvent's Context.(associated and created at the db level)
  * @export
  * @interface SeededWorkstreamEvent
  */
@@ -98,17 +141,60 @@ export interface SeededWorkstreamEvent {
      * @memberof SeededWorkstreamEvent
      */
     internalIdentifier?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SeededWorkstreamEvent
+     */
+    readable?: string;
+    /**
+     * This is the embedding for the format.(NEEDs to connection.vector) and specific here because we can only index on a single name
+     * NOTE: this the the vector index that corresponds the the couchbase lite index.
+     * @type {Array<number>}
+     * @memberof SeededWorkstreamEvent
+     */
+    workstreamEventsVector?: Array<number>;
+    /**
+     * 
+     * @type {CapabilitiesEnum}
+     * @memberof SeededWorkstreamEvent
+     */
+    processing?: CapabilitiesEnum;
+    /**
+     * 
+     * @type {FlattenedTags}
+     * @memberof SeededWorkstreamEvent
+     */
+    tags?: FlattenedTags;
+    /**
+     * 
+     * @type {FlattenedAnchors}
+     * @memberof SeededWorkstreamEvent
+     */
+    anchors?: FlattenedAnchors;
+    /**
+     * 
+     * @type {FlattenedWebsites}
+     * @memberof SeededWorkstreamEvent
+     */
+    websites?: FlattenedWebsites;
+    /**
+     * 
+     * @type {FlattenedPersons}
+     * @memberof SeededWorkstreamEvent
+     */
+    persons?: FlattenedPersons;
 }
+
+
 
 /**
  * Check if a given object implements the SeededWorkstreamEvent interface.
  */
-export function instanceOfSeededWorkstreamEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "application" in value;
-    isInstance = isInstance && "trigger" in value;
-
-    return isInstance;
+export function instanceOfSeededWorkstreamEvent(value: object): value is SeededWorkstreamEvent {
+    if (!('application' in value) || value['application'] === undefined) return false;
+    if (!('trigger' in value) || value['trigger'] === undefined) return false;
+    return true;
 }
 
 export function SeededWorkstreamEventFromJSON(json: any): SeededWorkstreamEvent {
@@ -116,37 +202,53 @@ export function SeededWorkstreamEventFromJSON(json: any): SeededWorkstreamEvent 
 }
 
 export function SeededWorkstreamEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededWorkstreamEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
         'application': ApplicationFromJSON(json['application']),
         'trigger': WorkstreamEventTriggerFromJSON(json['trigger']),
-        'context': !exists(json, 'context') ? undefined : WorkstreamEventContextFromJSON(json['context']),
-        'summary': !exists(json, 'summary') ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
-        'internalIdentifier': !exists(json, 'internal_identifier') ? undefined : json['internal_identifier'],
+        'context': json['context'] == null ? undefined : WorkstreamEventContextFromJSON(json['context']),
+        'summary': json['summary'] == null ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
+        'internalIdentifier': json['internal_identifier'] == null ? undefined : json['internal_identifier'],
+        'readable': json['readable'] == null ? undefined : json['readable'],
+        'workstreamEventsVector': json['workstreamEventsVector'] == null ? undefined : json['workstreamEventsVector'],
+        'processing': json['processing'] == null ? undefined : CapabilitiesEnumFromJSON(json['processing']),
+        'tags': json['tags'] == null ? undefined : FlattenedTagsFromJSON(json['tags']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
     };
 }
 
-export function SeededWorkstreamEventToJSON(value?: SeededWorkstreamEvent | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededWorkstreamEventToJSON(json: any): SeededWorkstreamEvent {
+    return SeededWorkstreamEventToJSONTyped(json, false);
+}
+
+export function SeededWorkstreamEventToJSONTyped(value?: SeededWorkstreamEvent | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'score': ScoreToJSON(value.score),
-        'application': ApplicationToJSON(value.application),
-        'trigger': WorkstreamEventTriggerToJSON(value.trigger),
-        'context': WorkstreamEventContextToJSON(value.context),
-        'summary': ReferencedWorkstreamSummaryToJSON(value.summary),
-        'internal_identifier': value.internalIdentifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'score': ScoreToJSON(value['score']),
+        'application': ApplicationToJSON(value['application']),
+        'trigger': WorkstreamEventTriggerToJSON(value['trigger']),
+        'context': WorkstreamEventContextToJSON(value['context']),
+        'summary': ReferencedWorkstreamSummaryToJSON(value['summary']),
+        'internal_identifier': value['internalIdentifier'],
+        'readable': value['readable'],
+        'workstreamEventsVector': value['workstreamEventsVector'],
+        'processing': CapabilitiesEnumToJSON(value['processing']),
+        'tags': FlattenedTagsToJSON(value['tags']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
     };
 }
 

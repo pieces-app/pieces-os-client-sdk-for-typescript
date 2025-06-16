@@ -18,12 +18,24 @@
  * @export
  */
 export const SensitiveSeverityEnum = {
+    Unknown: 'UNKNOWN',
     Low: 'LOW',
     Moderate: 'MODERATE',
     High: 'HIGH'
 } as const;
 export type SensitiveSeverityEnum = typeof SensitiveSeverityEnum[keyof typeof SensitiveSeverityEnum];
 
+
+export function instanceOfSensitiveSeverityEnum(value: any): boolean {
+    for (const key in SensitiveSeverityEnum) {
+        if (Object.prototype.hasOwnProperty.call(SensitiveSeverityEnum, key)) {
+            if (SensitiveSeverityEnum[key as keyof typeof SensitiveSeverityEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function SensitiveSeverityEnumFromJSON(json: any): SensitiveSeverityEnum {
     return SensitiveSeverityEnumFromJSONTyped(json, false);
@@ -35,5 +47,9 @@ export function SensitiveSeverityEnumFromJSONTyped(json: any, ignoreDiscriminato
 
 export function SensitiveSeverityEnumToJSON(value?: SensitiveSeverityEnum | null): any {
     return value as any;
+}
+
+export function SensitiveSeverityEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): SensitiveSeverityEnum {
+    return value as SensitiveSeverityEnum;
 }
 

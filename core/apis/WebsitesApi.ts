@@ -77,20 +77,24 @@ export class WebsitesApi extends runtime.BaseAPI {
     async searchWebsitesRaw(requestParameters: SearchWebsitesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedWebsites>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/websites/search`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SearchInputToJSON(requestParameters.searchInput),
+            body: SearchInputToJSON(requestParameters['searchInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedWebsitesFromJSON(jsonValue));
@@ -112,20 +116,24 @@ export class WebsitesApi extends runtime.BaseAPI {
     async websitesCreateNewWebsiteRaw(requestParameters: WebsitesCreateNewWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/websites/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededWebsiteToJSON(requestParameters.seededWebsite),
+            body: SeededWebsiteToJSON(requestParameters['seededWebsite']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsiteFromJSON(jsonValue));
@@ -145,16 +153,23 @@ export class WebsitesApi extends runtime.BaseAPI {
      * /websites/{website}/delete [POST]
      */
     async websitesDeleteSpecificWebsiteRaw(requestParameters: WebsitesDeleteSpecificWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websitesDeleteSpecificWebsite.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websitesDeleteSpecificWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/websites/{website}/delete`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/websites/{website}/delete`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -182,12 +197,16 @@ export class WebsitesApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/websites/exists`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ExistentMetadataToJSON(requestParameters.existentMetadata),
+            body: ExistentMetadataToJSON(requestParameters['existentMetadata']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExistingMetadataFromJSON(jsonValue));
@@ -209,11 +228,15 @@ export class WebsitesApi extends runtime.BaseAPI {
     async websitesSnapshotRaw(requestParameters: WebsitesSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Websites>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/websites`,
@@ -242,6 +265,10 @@ export class WebsitesApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/websites/stream/identifiers`,

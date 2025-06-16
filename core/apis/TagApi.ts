@@ -25,9 +25,24 @@ import {
     TagToJSON,
 } from '../models/index';
 
+export interface TagAssociateAnchorRequest {
+    tag: string;
+    anchor: string;
+}
+
+export interface TagAssociateAnnotationRequest {
+    tag: string;
+    annotation: string;
+}
+
 export interface TagAssociateAssetRequest {
     asset: string;
     tag: string;
+}
+
+export interface TagAssociateConversationMessageRequest {
+    tag: string;
+    message: string;
 }
 
 export interface TagAssociatePersonRequest {
@@ -35,14 +50,69 @@ export interface TagAssociatePersonRequest {
     person: string;
 }
 
+export interface TagAssociateWebsiteRequest {
+    tag: string;
+    website: string;
+}
+
+export interface TagAssociateWorkstreamEventRequest {
+    tag: string;
+    workstreamEvent: string;
+}
+
+export interface TagAssociateWorkstreamPatternEngineSourceWindowRequest {
+    tag: string;
+    sourceWindow: string;
+}
+
+export interface TagAssociateWorkstreamSummaryRequest {
+    tag: string;
+    workstreamSummary: string;
+}
+
+export interface TagDisassociateAnchorRequest {
+    tag: string;
+    anchor: string;
+}
+
+export interface TagDisassociateAnnotationRequest {
+    tag: string;
+    annotation: string;
+}
+
 export interface TagDisassociateAssetRequest {
     tag: string;
     asset: string;
 }
 
+export interface TagDisassociateConversationMessageRequest {
+    tag: string;
+    message: string;
+}
+
 export interface TagDisassociatePersonRequest {
     tag: string;
     person: string;
+}
+
+export interface TagDisassociateWebsiteRequest {
+    tag: string;
+    website: string;
+}
+
+export interface TagDisassociateWorkstreamEventRequest {
+    tag: string;
+    workstreamEvent: string;
+}
+
+export interface TagDisassociateWorkstreamPatternEngineSourceWindowRequest {
+    tag: string;
+    sourceWindow: string;
+}
+
+export interface TagDisassociateWorkstreamSummaryRequest {
+    tag: string;
+    workstreamSummary: string;
 }
 
 export interface TagScoresIncrementRequest {
@@ -66,24 +136,124 @@ export interface TagsSpecificTagSnapshotRequest {
 export class TagApi extends runtime.BaseAPI {
 
     /**
-     * This will associate a tag with a asset.
-     * /tag/{tag}/assets/associate/{asset} [POST]
+     * This will enable us to associate an anchor with a tag.
+     * /tag/{tag}/anchors/associate/{anchor} [POST]
      */
-    async tagAssociateAssetRaw(requestParameters: TagAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling tagAssociateAsset.');
+    async tagAssociateAnchorRaw(requestParameters: TagAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateAnchor().'
+            );
         }
 
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagAssociateAsset.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling tagAssociateAnchor().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/tag/{tag}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/tag/{tag}/anchors/associate/{anchor}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate an anchor with a tag.
+     * /tag/{tag}/anchors/associate/{anchor} [POST]
+     */
+    async tagAssociateAnchor(requestParameters: TagAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateAnchorRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate an annotation with a tag.
+     * /tag/{tag}/annotations/associate/{annotation} [POST]
+     */
+    async tagAssociateAnnotationRaw(requestParameters: TagAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateAnnotation().'
+            );
+        }
+
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling tagAssociateAnnotation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/annotations/associate/{annotation}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate an annotation with a tag.
+     * /tag/{tag}/annotations/associate/{annotation} [POST]
+     */
+    async tagAssociateAnnotation(requestParameters: TagAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a tag with a asset.
+     * /tag/{tag}/assets/associate/{asset} [POST]
+     */
+    async tagAssociateAssetRaw(requestParameters: TagAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling tagAssociateAsset().'
+            );
+        }
+
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -101,24 +271,79 @@ export class TagApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a tag with a person.
-     * /tag/{tag}/persons/associate/{person} [POST]
+     * This will associate a tag with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /tag/{tag}/messages/associate/{message} [POST]
      */
-    async tagAssociatePersonRaw(requestParameters: TagAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagAssociatePerson.');
+    async tagAssociateConversationMessageRaw(requestParameters: TagAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling tagAssociatePerson.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling tagAssociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/tag/{tag}/persons/associate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/tag/{tag}/messages/associate/{message}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a tag with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /tag/{tag}/messages/associate/{message} [POST]
+     */
+    async tagAssociateConversationMessage(requestParameters: TagAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a tag with a person.
+     * /tag/{tag}/persons/associate/{person} [POST]
+     */
+    async tagAssociatePersonRaw(requestParameters: TagAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling tagAssociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/persons/associate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -136,24 +361,304 @@ export class TagApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a tag from a asset.
-     * /tag/{tag}/assets/disassociate/{asset} [POST]
+     * This will enable us to associate a website with a tag.
+     * /tag/{tag}/websites/associate/{website} [POST]
      */
-    async tagDisassociateAssetRaw(requestParameters: TagDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociateAsset.');
+    async tagAssociateWebsiteRaw(requestParameters: TagAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateWebsite().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling tagDisassociateAsset.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling tagAssociateWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/tag/{tag}/assets/disassociate/{asset}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/tag/{tag}/websites/associate/{website}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a website with a tag.
+     * /tag/{tag}/websites/associate/{website} [POST]
+     */
+    async tagAssociateWebsite(requestParameters: TagAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateWebsiteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a workstream_event with a tag. This will do the same thing as the workstream_event equivalent.
+     * /tag/{tag}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async tagAssociateWorkstreamEventRaw(requestParameters: TagAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling tagAssociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/workstream_events/associate/{workstream_event}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_event with a tag. This will do the same thing as the workstream_event equivalent.
+     * /tag/{tag}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async tagAssociateWorkstreamEvent(requestParameters: TagAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a source window with a tag.
+     * /tag/{tag}/workstream_pattern_engine/source_windows/associate/{source_window} [POST]
+     */
+    async tagAssociateWorkstreamPatternEngineSourceWindowRaw(requestParameters: TagAssociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        if (requestParameters['sourceWindow'] == null) {
+            throw new runtime.RequiredError(
+                'sourceWindow',
+                'Required parameter "sourceWindow" was null or undefined when calling tagAssociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/workstream_pattern_engine/source_windows/associate/{source_window}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"source_window"}}`, encodeURIComponent(String(requestParameters['sourceWindow']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a source window with a tag.
+     * /tag/{tag}/workstream_pattern_engine/source_windows/associate/{source_window} [POST]
+     */
+    async tagAssociateWorkstreamPatternEngineSourceWindow(requestParameters: TagAssociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateWorkstreamPatternEngineSourceWindowRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a workstream_summary with a tag. This will do the same thing as the workstream_summary equivalent.
+     * /tag/{tag}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async tagAssociateWorkstreamSummaryRaw(requestParameters: TagAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling tagAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a workstream_summary with a tag. This will do the same thing as the workstream_summary equivalent.
+     * /tag/{tag}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async tagAssociateWorkstreamSummary(requestParameters: TagAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagAssociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate an anchor from a tag.
+     * /tag/{tag}/anchors/disassociate/{anchor} [POST]
+     */
+    async tagDisassociateAnchorRaw(requestParameters: TagDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateAnchor().'
+            );
+        }
+
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling tagDisassociateAnchor().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/anchors/disassociate/{anchor}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate an anchor from a tag.
+     * /tag/{tag}/anchors/disassociate/{anchor} [POST]
+     */
+    async tagDisassociateAnchor(requestParameters: TagDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateAnchorRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from a tag.
+     * /tag/{tag}/annotations/disassociate/{annotation} [POST]
+     */
+    async tagDisassociateAnnotationRaw(requestParameters: TagDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateAnnotation().'
+            );
+        }
+
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling tagDisassociateAnnotation().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/annotations/disassociate/{annotation}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from a tag.
+     * /tag/{tag}/annotations/disassociate/{annotation} [POST]
+     */
+    async tagDisassociateAnnotation(requestParameters: TagDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from a asset.
+     * /tag/{tag}/assets/disassociate/{asset} [POST]
+     */
+    async tagDisassociateAssetRaw(requestParameters: TagDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling tagDisassociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/assets/disassociate/{asset}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -171,24 +676,79 @@ export class TagApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a tag from a person.
-     * /tag/{tag}/persons/disassociate/{person} [POST]
+     * This will enable us to disassociate a conversation_message from an tag. This will do the same thing as the conversation_message equivalent.
+     * /tag/{tag}/messages/disassociate/{message} [POST]
      */
-    async tagDisassociatePersonRaw(requestParameters: TagDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagDisassociatePerson.');
+    async tagDisassociateConversationMessageRaw(requestParameters: TagDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling tagDisassociatePerson.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling tagDisassociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/tag/{tag}/persons/disassociate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/tag/{tag}/messages/disassociate/{message}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from an tag. This will do the same thing as the conversation_message equivalent.
+     * /tag/{tag}/messages/disassociate/{message} [POST]
+     */
+    async tagDisassociateConversationMessage(requestParameters: TagDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a tag from a person.
+     * /tag/{tag}/persons/disassociate/{person} [POST]
+     */
+    async tagDisassociatePersonRaw(requestParameters: TagDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociatePerson().'
+            );
+        }
+
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling tagDisassociatePerson().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/persons/disassociate/{person}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -206,12 +766,195 @@ export class TagApi extends runtime.BaseAPI {
     }
 
     /**
+     * This will enable us to disassociate a website from a tag.
+     * /tag/{tag}/websites/disassociate/{website} [POST]
+     */
+    async tagDisassociateWebsiteRaw(requestParameters: TagDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateWebsite().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling tagDisassociateWebsite().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/websites/disassociate/{website}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a tag.
+     * /tag/{tag}/websites/disassociate/{website} [POST]
+     */
+    async tagDisassociateWebsite(requestParameters: TagDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateWebsiteRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_event from a tag. This will do the same thing as the workstream_event equivalent.
+     * /tag/{tag}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async tagDisassociateWorkstreamEventRaw(requestParameters: TagDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling tagDisassociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/workstream_events/disassociate/{workstream_event}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_event from a tag. This will do the same thing as the workstream_event equivalent.
+     * /tag/{tag}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async tagDisassociateWorkstreamEvent(requestParameters: TagDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a source window from a tag.
+     * /tag/{tag}/workstream_pattern_engine/source_windows/disassociate/{source_window} [POST]
+     */
+    async tagDisassociateWorkstreamPatternEngineSourceWindowRaw(requestParameters: TagDisassociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        if (requestParameters['sourceWindow'] == null) {
+            throw new runtime.RequiredError(
+                'sourceWindow',
+                'Required parameter "sourceWindow" was null or undefined when calling tagDisassociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/workstream_pattern_engine/source_windows/disassociate/{source_window}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"source_window"}}`, encodeURIComponent(String(requestParameters['sourceWindow']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a source window from a tag.
+     * /tag/{tag}/workstream_pattern_engine/source_windows/disassociate/{source_window} [POST]
+     */
+    async tagDisassociateWorkstreamPatternEngineSourceWindow(requestParameters: TagDisassociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateWorkstreamPatternEngineSourceWindowRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_summary from a tag. This will do the same thing as the workstream_summary equivalent.
+     * /tag/{tag}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async tagDisassociateWorkstreamSummaryRaw(requestParameters: TagDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling tagDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/tag/{tag}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream_summary from a tag. This will do the same thing as the workstream_summary equivalent.
+     * /tag/{tag}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async tagDisassociateWorkstreamSummary(requestParameters: TagDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.tagDisassociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * This will take in a SeededScoreIncrement and will increment the material relative to the incoming body.
      * \'/tag/{tag}/scores/increment\' [POST]
      */
     async tagScoresIncrementRaw(requestParameters: TagScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagScoresIncrement.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -220,12 +963,16 @@ export class TagApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/tag/{tag}/scores/increment`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/tag/{tag}/scores/increment`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -246,20 +993,24 @@ export class TagApi extends runtime.BaseAPI {
     async tagUpdateRaw(requestParameters: TagUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/tag/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TagToJSON(requestParameters.tag),
+            body: TagToJSON(requestParameters['tag']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TagFromJSON(jsonValue));
@@ -279,20 +1030,27 @@ export class TagApi extends runtime.BaseAPI {
      * /tag/{tag} [GET]
      */
     async tagsSpecificTagSnapshotRaw(requestParameters: TagsSpecificTagSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagsSpecificTagSnapshot.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagsSpecificTagSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/tag/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/tag/{tag}`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

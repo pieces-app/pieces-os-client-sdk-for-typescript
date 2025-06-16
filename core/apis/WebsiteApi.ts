@@ -25,6 +25,11 @@ import {
     WebsiteToJSON,
 } from '../models/index';
 
+export interface WebsiteAssociateAnnotationRequest {
+    website: string;
+    annotation: string;
+}
+
 export interface WebsiteAssociateAssetRequest {
     asset: string;
     website: string;
@@ -45,9 +50,34 @@ export interface WebsiteAssociatePersonRequest {
     person: string;
 }
 
+export interface WebsiteAssociateTagRequest {
+    website: string;
+    tag: string;
+}
+
+export interface WebsiteAssociateWorkstreamEventRequest {
+    website: string;
+    workstreamEvent: string;
+}
+
+export interface WebsiteAssociateWorkstreamPatternEngineSourceRequest {
+    website: string;
+    source: string;
+}
+
+export interface WebsiteAssociateWorkstreamPatternEngineSourceWindowRequest {
+    website: string;
+    sourceWindow: string;
+}
+
 export interface WebsiteAssociateWorkstreamSummaryRequest {
     website: string;
     workstreamSummary: string;
+}
+
+export interface WebsiteDisassociateAnnotationRequest {
+    website: string;
+    annotation: string;
 }
 
 export interface WebsiteDisassociateAssetRequest {
@@ -68,6 +98,26 @@ export interface WebsiteDisassociateMessageRequest {
 export interface WebsiteDisassociatePersonRequest {
     website: string;
     person: string;
+}
+
+export interface WebsiteDisassociateTagRequest {
+    website: string;
+    tag: string;
+}
+
+export interface WebsiteDisassociateWorkstreamEventRequest {
+    website: string;
+    workstreamEvent: string;
+}
+
+export interface WebsiteDisassociateWorkstreamPatternEngineSourceRequest {
+    website: string;
+    source: string;
+}
+
+export interface WebsiteDisassociateWorkstreamPatternEngineSourceWindowRequest {
+    website: string;
+    sourceWindow: string;
 }
 
 export interface WebsiteDisassociateWorkstreamSummaryRequest {
@@ -96,24 +146,79 @@ export interface WebsitesSpecificWebsiteSnapshotRequest {
 export class WebsiteApi extends runtime.BaseAPI {
 
     /**
-     * This will associate a website with a asset.
-     * /website/{website}/assets/associate/{asset} [POST]
+     * This will enable us to associate an annotation with a website.
+     * /website/{website}/annotations/associate/{annotation} [POST]
      */
-    async websiteAssociateAssetRaw(requestParameters: WebsiteAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling websiteAssociateAsset.');
+    async websiteAssociateAnnotationRaw(requestParameters: WebsiteAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateAnnotation().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling websiteAssociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/website/{website}/annotations/associate/{annotation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate an annotation with a website.
+     * /website/{website}/annotations/associate/{annotation} [POST]
+     */
+    async websiteAssociateAnnotation(requestParameters: WebsiteAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a website with a asset.
+     * /website/{website}/assets/associate/{asset} [POST]
+     */
+    async websiteAssociateAssetRaw(requestParameters: WebsiteAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling websiteAssociateAsset().'
+            );
+        }
+
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/assets/associate/{asset}`.replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -135,20 +240,30 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/conversations/associate/{conversation} [POST]
      */
     async websiteAssociateConversationRaw(requestParameters: WebsiteAssociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateConversation.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateConversation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling websiteAssociateConversation.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling websiteAssociateConversation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/conversations/associate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/website/{website}/conversations/associate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -170,20 +285,30 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/messages/associate/{message} [POST]
      */
     async websiteAssociateMessageRaw(requestParameters: WebsiteAssociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateMessage.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateMessage().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling websiteAssociateMessage.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling websiteAssociateMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/messages/associate/{message}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/website/{website}/messages/associate/{message}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -205,20 +330,30 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/persons/associate/{person} [POST]
      */
     async websiteAssociatePersonRaw(requestParameters: WebsiteAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociatePerson.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling websiteAssociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling websiteAssociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/persons/associate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/website/{website}/persons/associate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -236,24 +371,214 @@ export class WebsiteApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a website with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /website/{website}/workstream_summaries/associate/{workstream_summary} [POST]
+     * This will enable us to associate a tag with a website.
+     * /website/{website}/tags/associate/{tag} [POST]
      */
-    async websiteAssociateWorkstreamSummaryRaw(requestParameters: WebsiteAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteAssociateWorkstreamSummary.');
+    async websiteAssociateTagRaw(requestParameters: WebsiteAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateTag().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling websiteAssociateWorkstreamSummary.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling websiteAssociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/website/{website}/tags/associate/{tag}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a tag with a website.
+     * /website/{website}/tags/associate/{tag} [POST]
+     */
+    async websiteAssociateTag(requestParameters: WebsiteAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a workstream event with a website.
+     * /website/{website}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async websiteAssociateWorkstreamEventRaw(requestParameters: WebsiteAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling websiteAssociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_events/associate/{workstream_event}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a workstream event with a website.
+     * /website/{website}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async websiteAssociateWorkstreamEvent(requestParameters: WebsiteAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a source with a website.
+     * /website/{website}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async websiteAssociateWorkstreamPatternEngineSourceRaw(requestParameters: WebsiteAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling websiteAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_pattern_engine/sources/associate/{source}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a source with a website.
+     * /website/{website}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async websiteAssociateWorkstreamPatternEngineSource(requestParameters: WebsiteAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to associate a source window with a website.
+     * /website/{website}/workstream_pattern_engine/source_windows/associate/{source_window} [POST]
+     */
+    async websiteAssociateWorkstreamPatternEngineSourceWindowRaw(requestParameters: WebsiteAssociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        if (requestParameters['sourceWindow'] == null) {
+            throw new runtime.RequiredError(
+                'sourceWindow',
+                'Required parameter "sourceWindow" was null or undefined when calling websiteAssociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_pattern_engine/source_windows/associate/{source_window}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"source_window"}}`, encodeURIComponent(String(requestParameters['sourceWindow']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to associate a source window with a website.
+     * /website/{website}/workstream_pattern_engine/source_windows/associate/{source_window} [POST]
+     */
+    async websiteAssociateWorkstreamPatternEngineSourceWindow(requestParameters: WebsiteAssociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteAssociateWorkstreamPatternEngineSourceWindowRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a website with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /website/{website}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async websiteAssociateWorkstreamSummaryRaw(requestParameters: WebsiteAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling websiteAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -271,24 +596,79 @@ export class WebsiteApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to dissassociate a website from a asset.
-     * /website/{website}/assets/disassociate/{asset} [POST]
+     * This will enable us to dissassociate an annotation from a website.
+     * /website/{website}/annotations/disassociate/{annotation} [POST]
      */
-    async websiteDisassociateAssetRaw(requestParameters: WebsiteDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateAsset.');
+    async websiteDisassociateAnnotationRaw(requestParameters: WebsiteDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateAnnotation().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling websiteDisassociateAsset.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling websiteDisassociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/assets/disassociate/{asset}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/website/{website}/annotations/disassociate/{annotation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to dissassociate an annotation from a website.
+     * /website/{website}/annotations/disassociate/{annotation} [POST]
+     */
+    async websiteDisassociateAnnotation(requestParameters: WebsiteDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateAnnotationRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to dissassociate a website from a asset.
+     * /website/{website}/assets/disassociate/{asset} [POST]
+     */
+    async websiteDisassociateAssetRaw(requestParameters: WebsiteDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling websiteDisassociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/assets/disassociate/{asset}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -310,20 +690,30 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/conversations/disassociate/{conversation} [POST]
      */
     async websiteDisassociateConversationRaw(requestParameters: WebsiteDisassociateConversationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateConversation.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateConversation().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling websiteDisassociateConversation.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling websiteDisassociateConversation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/conversations/disassociate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/website/{website}/conversations/disassociate/{conversation}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -345,20 +735,30 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/messages/disassociate/{message} [POST]
      */
     async websiteDisassociateMessageRaw(requestParameters: WebsiteDisassociateMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateMessage.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateMessage().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling websiteDisassociateMessage.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling websiteDisassociateMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/messages/disassociate/{message}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/website/{website}/messages/disassociate/{message}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -380,20 +780,30 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website}/persons/disassociate/{person} [POST]
      */
     async websiteDisassociatePersonRaw(requestParameters: WebsiteDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociatePerson.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling websiteDisassociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling websiteDisassociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/persons/disassociate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/website/{website}/persons/disassociate/{person}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -411,24 +821,214 @@ export class WebsiteApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a website from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /website/{website}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     * This will enable us to disassociate a tag from a website.
+     * /website/{website}/tags/disassociate/{tag} [POST]
      */
-    async websiteDisassociateWorkstreamSummaryRaw(requestParameters: WebsiteDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteDisassociateWorkstreamSummary.');
+    async websiteDisassociateTagRaw(requestParameters: WebsiteDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateTag().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling websiteDisassociateWorkstreamSummary.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling websiteDisassociateTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/website/{website}/tags/disassociate/{tag}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a tag from a website.
+     * /website/{website}/tags/disassociate/{tag} [POST]
+     */
+    async websiteDisassociateTag(requestParameters: WebsiteDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream event from a website.
+     * /website/{website}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async websiteDisassociateWorkstreamEventRaw(requestParameters: WebsiteDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling websiteDisassociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_events/disassociate/{workstream_event}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a workstream event from a website.
+     * /website/{website}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async websiteDisassociateWorkstreamEvent(requestParameters: WebsiteDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a source from a website.
+     * /website/{website}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async websiteDisassociateWorkstreamPatternEngineSourceRaw(requestParameters: WebsiteDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling websiteDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_pattern_engine/sources/disassociate/{source}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a source from a website.
+     * /website/{website}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async websiteDisassociateWorkstreamPatternEngineSource(requestParameters: WebsiteDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a source window from a website.
+     * /website/{website}/workstream_pattern_engine/source_windows/disassociate/{source_window} [POST]
+     */
+    async websiteDisassociateWorkstreamPatternEngineSourceWindowRaw(requestParameters: WebsiteDisassociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        if (requestParameters['sourceWindow'] == null) {
+            throw new runtime.RequiredError(
+                'sourceWindow',
+                'Required parameter "sourceWindow" was null or undefined when calling websiteDisassociateWorkstreamPatternEngineSourceWindow().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_pattern_engine/source_windows/disassociate/{source_window}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"source_window"}}`, encodeURIComponent(String(requestParameters['sourceWindow']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a source window from a website.
+     * /website/{website}/workstream_pattern_engine/source_windows/disassociate/{source_window} [POST]
+     */
+    async websiteDisassociateWorkstreamPatternEngineSourceWindow(requestParameters: WebsiteDisassociateWorkstreamPatternEngineSourceWindowRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.websiteDisassociateWorkstreamPatternEngineSourceWindowRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a website from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /website/{website}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async websiteDisassociateWorkstreamSummaryRaw(requestParameters: WebsiteDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling websiteDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/website/{website}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -450,8 +1050,11 @@ export class WebsiteApi extends runtime.BaseAPI {
      * \'/website/{website}/scores/increment\' [POST]
      */
     async websiteScoresIncrementRaw(requestParameters: WebsiteScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websiteScoresIncrement.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websiteScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -460,12 +1063,16 @@ export class WebsiteApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}/scores/increment`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/website/{website}/scores/increment`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -486,20 +1093,24 @@ export class WebsiteApi extends runtime.BaseAPI {
     async websiteUpdateRaw(requestParameters: WebsiteUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/website/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: WebsiteToJSON(requestParameters.website),
+            body: WebsiteToJSON(requestParameters['website']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WebsiteFromJSON(jsonValue));
@@ -519,20 +1130,27 @@ export class WebsiteApi extends runtime.BaseAPI {
      * /website/{website} [GET]
      */
     async websitesSpecificWebsiteSnapshotRaw(requestParameters: WebsitesSpecificWebsiteSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Website>> {
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling websitesSpecificWebsiteSnapshot.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling websitesSpecificWebsiteSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/website/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/website/{website}`.replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

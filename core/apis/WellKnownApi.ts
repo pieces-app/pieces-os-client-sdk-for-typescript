@@ -21,6 +21,38 @@ import * as runtime from '../runtime';
 export class WellKnownApi extends runtime.BaseAPI {
 
     /**
+     * This endpoint will return the installation path of PiecesOS
+     * /.well-known/installation/path [Get]
+     */
+    async getInstallationPathRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<string>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/.well-known/installation/path`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * This endpoint will return the installation path of PiecesOS
+     * /.well-known/installation/path [Get]
+     */
+    async getInstallationPath(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<string> {
+        const response = await this.getInstallationPathRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Retrieves the health status of the server.
      * /.well-known/health [GET]
      */

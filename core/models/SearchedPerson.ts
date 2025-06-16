@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { Person } from './Person';
 import {
     PersonFromJSON,
     PersonFromJSONTyped,
     PersonToJSON,
+    PersonToJSONTyped,
 } from './Person';
 
 /**
@@ -80,13 +82,11 @@ export interface SearchedPerson {
 /**
  * Check if a given object implements the SearchedPerson interface.
  */
-export function instanceOfSearchedPerson(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedPerson(value: object): value is SearchedPerson {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedPersonFromJSON(json: any): SearchedPerson {
@@ -94,35 +94,37 @@ export function SearchedPersonFromJSON(json: any): SearchedPerson {
 }
 
 export function SearchedPersonFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedPerson {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'person': !exists(json, 'person') ? undefined : PersonFromJSON(json['person']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'person': json['person'] == null ? undefined : PersonFromJSON(json['person']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedPersonToJSON(value?: SearchedPerson | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedPersonToJSON(json: any): SearchedPerson {
+    return SearchedPersonToJSONTyped(json, false);
+}
+
+export function SearchedPersonToJSONTyped(value?: SearchedPerson | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'person': PersonToJSON(value.person),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'person': PersonToJSON(value['person']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

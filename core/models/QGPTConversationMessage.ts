@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
 import type { QGPTConversationMessageRoleEnum } from './QGPTConversationMessageRoleEnum';
 import {
     QGPTConversationMessageRoleEnumFromJSON,
     QGPTConversationMessageRoleEnumFromJSONTyped,
     QGPTConversationMessageRoleEnumToJSON,
+    QGPTConversationMessageRoleEnumToJSONTyped,
 } from './QGPTConversationMessageRoleEnum';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 
 /**
  * This will take a single message, and a role.
@@ -64,16 +67,16 @@ export interface QGPTConversationMessage {
     timestamp: GroupedTimestamp;
 }
 
+
+
 /**
  * Check if a given object implements the QGPTConversationMessage interface.
  */
-export function instanceOfQGPTConversationMessage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "text" in value;
-    isInstance = isInstance && "role" in value;
-    isInstance = isInstance && "timestamp" in value;
-
-    return isInstance;
+export function instanceOfQGPTConversationMessage(value: object): value is QGPTConversationMessage {
+    if (!('text' in value) || value['text'] === undefined) return false;
+    if (!('role' in value) || value['role'] === undefined) return false;
+    if (!('timestamp' in value) || value['timestamp'] === undefined) return false;
+    return true;
 }
 
 export function QGPTConversationMessageFromJSON(json: any): QGPTConversationMessage {
@@ -81,31 +84,33 @@ export function QGPTConversationMessageFromJSON(json: any): QGPTConversationMess
 }
 
 export function QGPTConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationMessage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'text': json['text'],
         'role': QGPTConversationMessageRoleEnumFromJSON(json['role']),
         'timestamp': GroupedTimestampFromJSON(json['timestamp']),
     };
 }
 
-export function QGPTConversationMessageToJSON(value?: QGPTConversationMessage | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTConversationMessageToJSON(json: any): QGPTConversationMessage {
+    return QGPTConversationMessageToJSONTyped(json, false);
+}
+
+export function QGPTConversationMessageToJSONTyped(value?: QGPTConversationMessage | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'text': value.text,
-        'role': QGPTConversationMessageRoleEnumToJSON(value.role),
-        'timestamp': GroupedTimestampToJSON(value.timestamp),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'text': value['text'],
+        'role': QGPTConversationMessageRoleEnumToJSON(value['role']),
+        'timestamp': GroupedTimestampToJSON(value['timestamp']),
     };
 }
 

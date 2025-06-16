@@ -12,115 +12,203 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { FlattenedAnchors } from './FlattenedAnchors';
-import {
-    FlattenedAnchorsFromJSON,
-    FlattenedAnchorsFromJSONTyped,
-    FlattenedAnchorsToJSON,
-} from './FlattenedAnchors';
-import type { FlattenedAssets } from './FlattenedAssets';
-import {
-    FlattenedAssetsFromJSON,
-    FlattenedAssetsFromJSONTyped,
-    FlattenedAssetsToJSON,
-} from './FlattenedAssets';
-import type { FlattenedConversations } from './FlattenedConversations';
-import {
-    FlattenedConversationsFromJSON,
-    FlattenedConversationsFromJSONTyped,
-    FlattenedConversationsToJSON,
-} from './FlattenedConversations';
-import type { FlattenedPersons } from './FlattenedPersons';
-import {
-    FlattenedPersonsFromJSON,
-    FlattenedPersonsFromJSONTyped,
-    FlattenedPersonsToJSON,
-} from './FlattenedPersons';
+import { mapValues } from '../runtime';
 import type { FlattenedTags } from './FlattenedTags';
 import {
     FlattenedTagsFromJSON,
     FlattenedTagsFromJSONTyped,
     FlattenedTagsToJSON,
+    FlattenedTagsToJSONTyped,
 } from './FlattenedTags';
+import type { ReferencedConversation } from './ReferencedConversation';
+import {
+    ReferencedConversationFromJSON,
+    ReferencedConversationFromJSONTyped,
+    ReferencedConversationToJSON,
+    ReferencedConversationToJSONTyped,
+} from './ReferencedConversation';
+import type { Seeds } from './Seeds';
+import {
+    SeedsFromJSON,
+    SeedsFromJSONTyped,
+    SeedsToJSON,
+    SeedsToJSONTyped,
+} from './Seeds';
+import type { ReferencedIdentifiedWorkstreamPatternEngineSource } from './ReferencedIdentifiedWorkstreamPatternEngineSource';
+import {
+    ReferencedIdentifiedWorkstreamPatternEngineSourceFromJSON,
+    ReferencedIdentifiedWorkstreamPatternEngineSourceFromJSONTyped,
+    ReferencedIdentifiedWorkstreamPatternEngineSourceToJSON,
+    ReferencedIdentifiedWorkstreamPatternEngineSourceToJSONTyped,
+} from './ReferencedIdentifiedWorkstreamPatternEngineSource';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { ReferencedAnchor } from './ReferencedAnchor';
+import {
+    ReferencedAnchorFromJSON,
+    ReferencedAnchorFromJSONTyped,
+    ReferencedAnchorToJSON,
+    ReferencedAnchorToJSONTyped,
+} from './ReferencedAnchor';
+import type { ReferencedPerson } from './ReferencedPerson';
+import {
+    ReferencedPersonFromJSON,
+    ReferencedPersonFromJSONTyped,
+    ReferencedPersonToJSON,
+    ReferencedPersonToJSONTyped,
+} from './ReferencedPerson';
+import type { FlattenedHints } from './FlattenedHints';
+import {
+    FlattenedHintsFromJSON,
+    FlattenedHintsFromJSONTyped,
+    FlattenedHintsToJSON,
+    FlattenedHintsToJSONTyped,
+} from './FlattenedHints';
+import type { FlattenedConversations } from './FlattenedConversations';
+import {
+    FlattenedConversationsFromJSON,
+    FlattenedConversationsFromJSONTyped,
+    FlattenedConversationsToJSON,
+    FlattenedConversationsToJSONTyped,
+} from './FlattenedConversations';
+import type { ReferencedSensitive } from './ReferencedSensitive';
+import {
+    ReferencedSensitiveFromJSON,
+    ReferencedSensitiveFromJSONTyped,
+    ReferencedSensitiveToJSON,
+    ReferencedSensitiveToJSONTyped,
+} from './ReferencedSensitive';
+import type { ReferencedTag } from './ReferencedTag';
+import {
+    ReferencedTagFromJSON,
+    ReferencedTagFromJSONTyped,
+    ReferencedTagToJSON,
+    ReferencedTagToJSONTyped,
+} from './ReferencedTag';
+import type { FlattenedAssets } from './FlattenedAssets';
+import {
+    FlattenedAssetsFromJSON,
+    FlattenedAssetsFromJSONTyped,
+    FlattenedAssetsToJSON,
+    FlattenedAssetsToJSONTyped,
+} from './FlattenedAssets';
+import type { ReferencedAnnotation } from './ReferencedAnnotation';
+import {
+    ReferencedAnnotationFromJSON,
+    ReferencedAnnotationFromJSONTyped,
+    ReferencedAnnotationToJSON,
+    ReferencedAnnotationToJSONTyped,
+} from './ReferencedAnnotation';
+import type { FlattenedPersons } from './FlattenedPersons';
+import {
+    FlattenedPersonsFromJSON,
+    FlattenedPersonsFromJSONTyped,
+    FlattenedPersonsToJSON,
+    FlattenedPersonsToJSONTyped,
+} from './FlattenedPersons';
+import type { FlattenedIdentifiedWorkstreamPatternEngineSources } from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import {
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSONTyped,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSONTyped,
+} from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import type { WorkstreamSuggestions } from './WorkstreamSuggestions';
+import {
+    WorkstreamSuggestionsFromJSON,
+    WorkstreamSuggestionsFromJSONTyped,
+    WorkstreamSuggestionsToJSON,
+    WorkstreamSuggestionsToJSONTyped,
+} from './WorkstreamSuggestions';
+import type { ReferencedConversationMessage } from './ReferencedConversationMessage';
+import {
+    ReferencedConversationMessageFromJSON,
+    ReferencedConversationMessageFromJSONTyped,
+    ReferencedConversationMessageToJSON,
+    ReferencedConversationMessageToJSONTyped,
+} from './ReferencedConversationMessage';
+import type { FlattenedAnnotations } from './FlattenedAnnotations';
+import {
+    FlattenedAnnotationsFromJSON,
+    FlattenedAnnotationsFromJSONTyped,
+    FlattenedAnnotationsToJSON,
+    FlattenedAnnotationsToJSONTyped,
+} from './FlattenedAnnotations';
+import type { ReferencedWebsite } from './ReferencedWebsite';
+import {
+    ReferencedWebsiteFromJSON,
+    ReferencedWebsiteFromJSONTyped,
+    ReferencedWebsiteToJSON,
+    ReferencedWebsiteToJSONTyped,
+} from './ReferencedWebsite';
 import type { FlattenedWebsites } from './FlattenedWebsites';
 import {
     FlattenedWebsitesFromJSON,
     FlattenedWebsitesFromJSONTyped,
     FlattenedWebsitesToJSON,
+    FlattenedWebsitesToJSONTyped,
 } from './FlattenedWebsites';
 import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
 import {
     FlattenedWorkstreamSummariesFromJSON,
     FlattenedWorkstreamSummariesFromJSONTyped,
     FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
 } from './FlattenedWorkstreamSummaries';
-import type { ReferencedAnchor } from './ReferencedAnchor';
-import {
-    ReferencedAnchorFromJSON,
-    ReferencedAnchorFromJSONTyped,
-    ReferencedAnchorToJSON,
-} from './ReferencedAnchor';
 import type { ReferencedAsset } from './ReferencedAsset';
 import {
     ReferencedAssetFromJSON,
     ReferencedAssetFromJSONTyped,
     ReferencedAssetToJSON,
+    ReferencedAssetToJSONTyped,
 } from './ReferencedAsset';
-import type { ReferencedConversation } from './ReferencedConversation';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
 import {
-    ReferencedConversationFromJSON,
-    ReferencedConversationFromJSONTyped,
-    ReferencedConversationToJSON,
-} from './ReferencedConversation';
-import type { ReferencedPerson } from './ReferencedPerson';
-import {
-    ReferencedPersonFromJSON,
-    ReferencedPersonFromJSONTyped,
-    ReferencedPersonToJSON,
-} from './ReferencedPerson';
-import type { ReferencedTag } from './ReferencedTag';
-import {
-    ReferencedTagFromJSON,
-    ReferencedTagFromJSONTyped,
-    ReferencedTagToJSON,
-} from './ReferencedTag';
-import type { ReferencedWebsite } from './ReferencedWebsite';
-import {
-    ReferencedWebsiteFromJSON,
-    ReferencedWebsiteFromJSONTyped,
-    ReferencedWebsiteToJSON,
-} from './ReferencedWebsite';
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
 import type { ReferencedWorkstreamSummary } from './ReferencedWorkstreamSummary';
 import {
     ReferencedWorkstreamSummaryFromJSON,
     ReferencedWorkstreamSummaryFromJSONTyped,
     ReferencedWorkstreamSummaryToJSON,
+    ReferencedWorkstreamSummaryToJSONTyped,
 } from './ReferencedWorkstreamSummary';
 import type { Seed } from './Seed';
 import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
+    SeedToJSONTyped,
 } from './Seed';
-import type { Seeds } from './Seeds';
+import type { ReferencedHint } from './ReferencedHint';
 import {
-    SeedsFromJSON,
-    SeedsFromJSONTyped,
-    SeedsToJSON,
-} from './Seeds';
-import type { WorkstreamSuggestions } from './WorkstreamSuggestions';
+    ReferencedHintFromJSON,
+    ReferencedHintFromJSONTyped,
+    ReferencedHintToJSON,
+    ReferencedHintToJSONTyped,
+} from './ReferencedHint';
+import type { FlattenedSensitives } from './FlattenedSensitives';
 import {
-    WorkstreamSuggestionsFromJSON,
-    WorkstreamSuggestionsFromJSONTyped,
-    WorkstreamSuggestionsToJSON,
-} from './WorkstreamSuggestions';
+    FlattenedSensitivesFromJSON,
+    FlattenedSensitivesFromJSONTyped,
+    FlattenedSensitivesToJSON,
+    FlattenedSensitivesToJSONTyped,
+} from './FlattenedSensitives';
+import type { FlattenedAnchors } from './FlattenedAnchors';
+import {
+    FlattenedAnchorsFromJSON,
+    FlattenedAnchorsFromJSONTyped,
+    FlattenedAnchorsToJSON,
+    FlattenedAnchorsToJSONTyped,
+} from './FlattenedAnchors';
 
 /**
  * This is an individual material that is apart of the workstream feed.
@@ -249,15 +337,73 @@ export interface WorkstreamSuggestion {
      * @memberof WorkstreamSuggestion
      */
     current?: WorkstreamSuggestion;
+    /**
+     * 
+     * @type {ReferencedAnnotation}
+     * @memberof WorkstreamSuggestion
+     */
+    annotation?: ReferencedAnnotation;
+    /**
+     * 
+     * @type {FlattenedAnnotations}
+     * @memberof WorkstreamSuggestion
+     */
+    annotations?: FlattenedAnnotations;
+    /**
+     * 
+     * @type {ReferencedConversationMessage}
+     * @memberof WorkstreamSuggestion
+     */
+    conversationMessage?: ReferencedConversationMessage;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof WorkstreamSuggestion
+     */
+    conversationMessages?: FlattenedConversationMessages;
+    /**
+     * 
+     * @type {ReferencedHint}
+     * @memberof WorkstreamSuggestion
+     */
+    hint?: ReferencedHint;
+    /**
+     * 
+     * @type {FlattenedHints}
+     * @memberof WorkstreamSuggestion
+     */
+    hints?: FlattenedHints;
+    /**
+     * 
+     * @type {ReferencedSensitive}
+     * @memberof WorkstreamSuggestion
+     */
+    sensitive?: ReferencedSensitive;
+    /**
+     * 
+     * @type {FlattenedSensitives}
+     * @memberof WorkstreamSuggestion
+     */
+    sensitives?: FlattenedSensitives;
+    /**
+     * 
+     * @type {ReferencedIdentifiedWorkstreamPatternEngineSource}
+     * @memberof WorkstreamSuggestion
+     */
+    source?: ReferencedIdentifiedWorkstreamPatternEngineSource;
+    /**
+     * 
+     * @type {FlattenedIdentifiedWorkstreamPatternEngineSources}
+     * @memberof WorkstreamSuggestion
+     */
+    sources?: FlattenedIdentifiedWorkstreamPatternEngineSources;
 }
 
 /**
  * Check if a given object implements the WorkstreamSuggestion interface.
  */
-export function instanceOfWorkstreamSuggestion(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamSuggestion(value: object): value is WorkstreamSuggestion {
+    return true;
 }
 
 export function WorkstreamSuggestionFromJSON(json: any): WorkstreamSuggestion {
@@ -265,61 +411,83 @@ export function WorkstreamSuggestionFromJSON(json: any): WorkstreamSuggestion {
 }
 
 export function WorkstreamSuggestionFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamSuggestion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'summary': !exists(json, 'summary') ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
-        'asset': !exists(json, 'asset') ? undefined : ReferencedAssetFromJSON(json['asset']),
-        'tag': !exists(json, 'tag') ? undefined : ReferencedTagFromJSON(json['tag']),
-        'website': !exists(json, 'website') ? undefined : ReferencedWebsiteFromJSON(json['website']),
-        'anchor': !exists(json, 'anchor') ? undefined : ReferencedAnchorFromJSON(json['anchor']),
-        'conversation': !exists(json, 'conversation') ? undefined : ReferencedConversationFromJSON(json['conversation']),
-        'person': !exists(json, 'person') ? undefined : ReferencedPersonFromJSON(json['person']),
-        'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
-        'seeds': !exists(json, 'seeds') ? undefined : SeedsFromJSON(json['seeds']),
-        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
-        'assets': !exists(json, 'assets') ? undefined : FlattenedAssetsFromJSON(json['assets']),
-        'tags': !exists(json, 'tags') ? undefined : FlattenedTagsFromJSON(json['tags']),
-        'websites': !exists(json, 'websites') ? undefined : FlattenedWebsitesFromJSON(json['websites']),
-        'anchors': !exists(json, 'anchors') ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
-        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
-        'persons': !exists(json, 'persons') ? undefined : FlattenedPersonsFromJSON(json['persons']),
-        'related': !exists(json, 'related') ? undefined : WorkstreamSuggestionsFromJSON(json['related']),
-        'current': !exists(json, 'current') ? undefined : WorkstreamSuggestionFromJSON(json['current']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'summary': json['summary'] == null ? undefined : ReferencedWorkstreamSummaryFromJSON(json['summary']),
+        'asset': json['asset'] == null ? undefined : ReferencedAssetFromJSON(json['asset']),
+        'tag': json['tag'] == null ? undefined : ReferencedTagFromJSON(json['tag']),
+        'website': json['website'] == null ? undefined : ReferencedWebsiteFromJSON(json['website']),
+        'anchor': json['anchor'] == null ? undefined : ReferencedAnchorFromJSON(json['anchor']),
+        'conversation': json['conversation'] == null ? undefined : ReferencedConversationFromJSON(json['conversation']),
+        'person': json['person'] == null ? undefined : ReferencedPersonFromJSON(json['person']),
+        'seed': json['seed'] == null ? undefined : SeedFromJSON(json['seed']),
+        'seeds': json['seeds'] == null ? undefined : SeedsFromJSON(json['seeds']),
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'assets': json['assets'] == null ? undefined : FlattenedAssetsFromJSON(json['assets']),
+        'tags': json['tags'] == null ? undefined : FlattenedTagsFromJSON(json['tags']),
+        'websites': json['websites'] == null ? undefined : FlattenedWebsitesFromJSON(json['websites']),
+        'anchors': json['anchors'] == null ? undefined : FlattenedAnchorsFromJSON(json['anchors']),
+        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'persons': json['persons'] == null ? undefined : FlattenedPersonsFromJSON(json['persons']),
+        'related': json['related'] == null ? undefined : WorkstreamSuggestionsFromJSON(json['related']),
+        'current': json['current'] == null ? undefined : WorkstreamSuggestionFromJSON(json['current']),
+        'annotation': json['annotation'] == null ? undefined : ReferencedAnnotationFromJSON(json['annotation']),
+        'annotations': json['annotations'] == null ? undefined : FlattenedAnnotationsFromJSON(json['annotations']),
+        'conversationMessage': json['conversationMessage'] == null ? undefined : ReferencedConversationMessageFromJSON(json['conversationMessage']),
+        'conversationMessages': json['conversationMessages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['conversationMessages']),
+        'hint': json['hint'] == null ? undefined : ReferencedHintFromJSON(json['hint']),
+        'hints': json['hints'] == null ? undefined : FlattenedHintsFromJSON(json['hints']),
+        'sensitive': json['sensitive'] == null ? undefined : ReferencedSensitiveFromJSON(json['sensitive']),
+        'sensitives': json['sensitives'] == null ? undefined : FlattenedSensitivesFromJSON(json['sensitives']),
+        'source': json['source'] == null ? undefined : ReferencedIdentifiedWorkstreamPatternEngineSourceFromJSON(json['source']),
+        'sources': json['sources'] == null ? undefined : FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON(json['sources']),
     };
 }
 
-export function WorkstreamSuggestionToJSON(value?: WorkstreamSuggestion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamSuggestionToJSON(json: any): WorkstreamSuggestion {
+    return WorkstreamSuggestionToJSONTyped(json, false);
+}
+
+export function WorkstreamSuggestionToJSONTyped(value?: WorkstreamSuggestion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'summary': ReferencedWorkstreamSummaryToJSON(value.summary),
-        'asset': ReferencedAssetToJSON(value.asset),
-        'tag': ReferencedTagToJSON(value.tag),
-        'website': ReferencedWebsiteToJSON(value.website),
-        'anchor': ReferencedAnchorToJSON(value.anchor),
-        'conversation': ReferencedConversationToJSON(value.conversation),
-        'person': ReferencedPersonToJSON(value.person),
-        'seed': SeedToJSON(value.seed),
-        'seeds': SeedsToJSON(value.seeds),
-        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
-        'assets': FlattenedAssetsToJSON(value.assets),
-        'tags': FlattenedTagsToJSON(value.tags),
-        'websites': FlattenedWebsitesToJSON(value.websites),
-        'anchors': FlattenedAnchorsToJSON(value.anchors),
-        'conversations': FlattenedConversationsToJSON(value.conversations),
-        'persons': FlattenedPersonsToJSON(value.persons),
-        'related': WorkstreamSuggestionsToJSON(value.related),
-        'current': WorkstreamSuggestionToJSON(value.current),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'summary': ReferencedWorkstreamSummaryToJSON(value['summary']),
+        'asset': ReferencedAssetToJSON(value['asset']),
+        'tag': ReferencedTagToJSON(value['tag']),
+        'website': ReferencedWebsiteToJSON(value['website']),
+        'anchor': ReferencedAnchorToJSON(value['anchor']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
+        'person': ReferencedPersonToJSON(value['person']),
+        'seed': SeedToJSON(value['seed']),
+        'seeds': SeedsToJSON(value['seeds']),
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'assets': FlattenedAssetsToJSON(value['assets']),
+        'tags': FlattenedTagsToJSON(value['tags']),
+        'websites': FlattenedWebsitesToJSON(value['websites']),
+        'anchors': FlattenedAnchorsToJSON(value['anchors']),
+        'conversations': FlattenedConversationsToJSON(value['conversations']),
+        'persons': FlattenedPersonsToJSON(value['persons']),
+        'related': WorkstreamSuggestionsToJSON(value['related']),
+        'current': WorkstreamSuggestionToJSON(value['current']),
+        'annotation': ReferencedAnnotationToJSON(value['annotation']),
+        'annotations': FlattenedAnnotationsToJSON(value['annotations']),
+        'conversationMessage': ReferencedConversationMessageToJSON(value['conversationMessage']),
+        'conversationMessages': FlattenedConversationMessagesToJSON(value['conversationMessages']),
+        'hint': ReferencedHintToJSON(value['hint']),
+        'hints': FlattenedHintsToJSON(value['hints']),
+        'sensitive': ReferencedSensitiveToJSON(value['sensitive']),
+        'sensitives': FlattenedSensitivesToJSON(value['sensitives']),
+        'source': ReferencedIdentifiedWorkstreamPatternEngineSourceToJSON(value['source']),
+        'sources': FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON(value['sources']),
     };
 }
 

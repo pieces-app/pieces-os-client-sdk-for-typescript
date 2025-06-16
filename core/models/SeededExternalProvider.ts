@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { ExternalProviderTypeEnum } from './ExternalProviderTypeEnum';
 import {
     ExternalProviderTypeEnumFromJSON,
     ExternalProviderTypeEnumFromJSONTyped,
     ExternalProviderTypeEnumToJSON,
+    ExternalProviderTypeEnumToJSONTyped,
 } from './ExternalProviderTypeEnum';
 
 /**
@@ -34,14 +35,14 @@ export interface SeededExternalProvider {
     type: ExternalProviderTypeEnum;
 }
 
+
+
 /**
  * Check if a given object implements the SeededExternalProvider interface.
  */
-export function instanceOfSeededExternalProvider(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfSeededExternalProvider(value: object): value is SeededExternalProvider {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function SeededExternalProviderFromJSON(json: any): SeededExternalProvider {
@@ -49,7 +50,7 @@ export function SeededExternalProviderFromJSON(json: any): SeededExternalProvide
 }
 
 export function SeededExternalProviderFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededExternalProvider {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +59,18 @@ export function SeededExternalProviderFromJSONTyped(json: any, ignoreDiscriminat
     };
 }
 
-export function SeededExternalProviderToJSON(value?: SeededExternalProvider | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededExternalProviderToJSON(json: any): SeededExternalProvider {
+    return SeededExternalProviderToJSONTyped(json, false);
+}
+
+export function SeededExternalProviderToJSONTyped(value?: SeededExternalProvider | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'type': ExternalProviderTypeEnumToJSON(value.type),
+        'type': ExternalProviderTypeEnumToJSON(value['type']),
     };
 }
 

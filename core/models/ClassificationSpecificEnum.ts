@@ -18,6 +18,7 @@
  * @export
  */
 export const ClassificationSpecificEnum = {
+    Unknown: 'UNKNOWN',
     Csx: 'csx',
     Cs: 'cs',
     Html: 'html',
@@ -236,6 +237,7 @@ export const ClassificationSpecificEnum = {
     Hrl: 'hrl',
     Escript: 'escript',
     Lua: 'lua',
+    Luau: 'luau',
     Md: 'md',
     Mdown: 'mdown',
     Mdwn: 'mdwn',
@@ -274,7 +276,6 @@ export const ClassificationSpecificEnum = {
     Ltx: 'ltx',
     Sty: 'sty',
     Cls: 'cls',
-    Unknown: 'UNKNOWN',
     Yaml: 'yaml',
     Yml: 'yml',
     Toml: 'toml',
@@ -519,10 +520,23 @@ export const ClassificationSpecificEnum = {
     Ini: 'ini',
     Ftl: 'ftl',
     Hcl: 'hcl',
-    Abap: 'abap'
+    Abap: 'abap',
+    Nim: 'nim',
+    Cara: 'cara'
 } as const;
 export type ClassificationSpecificEnum = typeof ClassificationSpecificEnum[keyof typeof ClassificationSpecificEnum];
 
+
+export function instanceOfClassificationSpecificEnum(value: any): boolean {
+    for (const key in ClassificationSpecificEnum) {
+        if (Object.prototype.hasOwnProperty.call(ClassificationSpecificEnum, key)) {
+            if (ClassificationSpecificEnum[key as keyof typeof ClassificationSpecificEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ClassificationSpecificEnumFromJSON(json: any): ClassificationSpecificEnum {
     return ClassificationSpecificEnumFromJSONTyped(json, false);
@@ -534,5 +548,9 @@ export function ClassificationSpecificEnumFromJSONTyped(json: any, ignoreDiscrim
 
 export function ClassificationSpecificEnumToJSON(value?: ClassificationSpecificEnum | null): any {
     return value as any;
+}
+
+export function ClassificationSpecificEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ClassificationSpecificEnum {
+    return value as ClassificationSpecificEnum;
 }
 

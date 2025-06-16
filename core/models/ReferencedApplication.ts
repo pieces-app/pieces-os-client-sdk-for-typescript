@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedApplication } from './FlattenedApplication';
 import {
     FlattenedApplicationFromJSON,
     FlattenedApplicationFromJSONTyped,
     FlattenedApplicationToJSON,
+    FlattenedApplicationToJSONTyped,
 } from './FlattenedApplication';
 
 /**
@@ -55,11 +57,9 @@ export interface ReferencedApplication {
 /**
  * Check if a given object implements the ReferencedApplication interface.
  */
-export function instanceOfReferencedApplication(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedApplication(value: object): value is ReferencedApplication {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedApplicationFromJSON(json: any): ReferencedApplication {
@@ -67,29 +67,31 @@ export function ReferencedApplicationFromJSON(json: any): ReferencedApplication 
 }
 
 export function ReferencedApplicationFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedApplication {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedApplicationFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedApplicationFromJSON(json['reference']),
     };
 }
 
-export function ReferencedApplicationToJSON(value?: ReferencedApplication | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedApplicationToJSON(json: any): ReferencedApplication {
+    return ReferencedApplicationToJSONTyped(json, false);
+}
+
+export function ReferencedApplicationToJSONTyped(value?: ReferencedApplication | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedApplicationToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedApplicationToJSON(value['reference']),
     };
 }
 

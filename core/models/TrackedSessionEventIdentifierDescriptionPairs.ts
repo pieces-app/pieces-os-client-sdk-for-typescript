@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -111,6 +112,7 @@ export interface TrackedSessionEventIdentifierDescriptionPairs {
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum = {
+    Unknown: 'UNKNOWN',
     ASessionHasBeenInitializedAndTheApplicationHasBeenOpened: 'a_session_has_been_initialized_and_the_application_has_been_opened'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum];
@@ -119,6 +121,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionInitializedEnum 
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum = {
+    Unknown: 'UNKNOWN',
     OneOrMoreApplicationsHasSuccessfullyConnected: 'one_or_more_applications_has_successfully_connected'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionSucceededEnum];
@@ -127,6 +130,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionS
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum = {
+    Unknown: 'UNKNOWN',
     OneOrMoreApplicationsHasFailedToConnectLocally: 'one_or_more_applications_has_failed_to_connect_locally'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionFailedEnum];
@@ -135,6 +139,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionLocalConnectionF
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum = {
+    Unknown: 'UNKNOWN',
     ASessionIsInactiveBecauseTheApplicationIsNotInTheForeground: 'a_session_is_inactive_because_the_application_is_not_in_the_foreground'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum];
@@ -143,6 +148,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionInactiveEnum = t
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum = {
+    Unknown: 'UNKNOWN',
     ASessionIsActiveBecauseTheApplicationIsInTheForeground: 'a_session_is_active_because_the_application_is_in_the_foreground'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum];
@@ -151,6 +157,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionActiveEnum = typ
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum = {
+    Unknown: 'UNKNOWN',
     ASessionHasBeenEndedAndTheApplicationHasBeenClosed: 'a_session_has_been_ended_and_the_application_has_been_closed'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum];
@@ -159,6 +166,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionTerminatedEnum =
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum = {
+    Unknown: 'UNKNOWN',
     AUserHasSignedIntoThisSessionWithAAnExternalAccount: 'a_user_has_signed_into_this_session_with_a_an_external_account'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWithSignInEnum];
@@ -167,6 +175,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionAuthenticatedWit
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum = {
+    Unknown: 'UNKNOWN',
     AUserHasSignedOutOfThisSession: 'a_user_has_signed_out_of_this_session'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithSignOutEnum];
@@ -175,6 +184,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedW
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum = {
+    Unknown: 'UNKNOWN',
     AUserDidNotSignIntoTheSessionWithADismissal: 'a_user_did_not_sign_into_the_session_with_a_dismissal'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithDismissEnum];
@@ -183,6 +193,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedW
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum = {
+    Unknown: 'UNKNOWN',
     AUserDidNotSignIntoTheSessionWithAReminder: 'a_user_did_not_sign_into_the_session_with_a_reminder'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedWithRemindEnum];
@@ -191,6 +202,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionUnauthenticatedW
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum = {
+    Unknown: 'UNKNOWN',
     OnboardingHasBeenInitializedForThisSession: 'onboarding_has_been_initialized_for_this_session'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitializedEnum];
@@ -199,6 +211,7 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingInitia
  * @export
  */
 export const TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum = {
+    Unknown: 'UNKNOWN',
     OnboardingHasBeenCompletedForThisSession: 'onboarding_has_been_completed_for_this_session'
 } as const;
 export type TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum = typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum[keyof typeof TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingCompletedEnum];
@@ -207,10 +220,8 @@ export type TrackedSessionEventIdentifierDescriptionPairsSessionOnboardingComple
 /**
  * Check if a given object implements the TrackedSessionEventIdentifierDescriptionPairs interface.
  */
-export function instanceOfTrackedSessionEventIdentifierDescriptionPairs(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedSessionEventIdentifierDescriptionPairs(value: object): value is TrackedSessionEventIdentifierDescriptionPairs {
+    return true;
 }
 
 export function TrackedSessionEventIdentifierDescriptionPairsFromJSON(json: any): TrackedSessionEventIdentifierDescriptionPairs {
@@ -218,49 +229,51 @@ export function TrackedSessionEventIdentifierDescriptionPairsFromJSON(json: any)
 }
 
 export function TrackedSessionEventIdentifierDescriptionPairsFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedSessionEventIdentifierDescriptionPairs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'sessionInitialized': !exists(json, 'session_initialized') ? undefined : json['session_initialized'],
-        'sessionLocalConnectionSucceeded': !exists(json, 'session_local_connection_succeeded') ? undefined : json['session_local_connection_succeeded'],
-        'sessionLocalConnectionFailed': !exists(json, 'session_local_connection_failed') ? undefined : json['session_local_connection_failed'],
-        'sessionInactive': !exists(json, 'session_inactive') ? undefined : json['session_inactive'],
-        'sessionActive': !exists(json, 'session_active') ? undefined : json['session_active'],
-        'sessionTerminated': !exists(json, 'session_terminated') ? undefined : json['session_terminated'],
-        'sessionAuthenticatedWithSignIn': !exists(json, 'session_authenticated_with_sign_in') ? undefined : json['session_authenticated_with_sign_in'],
-        'sessionUnauthenticatedWithSignOut': !exists(json, 'session_unauthenticated_with_sign_out') ? undefined : json['session_unauthenticated_with_sign_out'],
-        'sessionUnauthenticatedWithDismiss': !exists(json, 'session_unauthenticated_with_dismiss') ? undefined : json['session_unauthenticated_with_dismiss'],
-        'sessionUnauthenticatedWithRemind': !exists(json, 'session_unauthenticated_with_remind') ? undefined : json['session_unauthenticated_with_remind'],
-        'sessionOnboardingInitialized': !exists(json, 'session_onboarding_initialized') ? undefined : json['session_onboarding_initialized'],
-        'sessionOnboardingCompleted': !exists(json, 'session_onboarding_completed') ? undefined : json['session_onboarding_completed'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'sessionInitialized': json['session_initialized'] == null ? undefined : json['session_initialized'],
+        'sessionLocalConnectionSucceeded': json['session_local_connection_succeeded'] == null ? undefined : json['session_local_connection_succeeded'],
+        'sessionLocalConnectionFailed': json['session_local_connection_failed'] == null ? undefined : json['session_local_connection_failed'],
+        'sessionInactive': json['session_inactive'] == null ? undefined : json['session_inactive'],
+        'sessionActive': json['session_active'] == null ? undefined : json['session_active'],
+        'sessionTerminated': json['session_terminated'] == null ? undefined : json['session_terminated'],
+        'sessionAuthenticatedWithSignIn': json['session_authenticated_with_sign_in'] == null ? undefined : json['session_authenticated_with_sign_in'],
+        'sessionUnauthenticatedWithSignOut': json['session_unauthenticated_with_sign_out'] == null ? undefined : json['session_unauthenticated_with_sign_out'],
+        'sessionUnauthenticatedWithDismiss': json['session_unauthenticated_with_dismiss'] == null ? undefined : json['session_unauthenticated_with_dismiss'],
+        'sessionUnauthenticatedWithRemind': json['session_unauthenticated_with_remind'] == null ? undefined : json['session_unauthenticated_with_remind'],
+        'sessionOnboardingInitialized': json['session_onboarding_initialized'] == null ? undefined : json['session_onboarding_initialized'],
+        'sessionOnboardingCompleted': json['session_onboarding_completed'] == null ? undefined : json['session_onboarding_completed'],
     };
 }
 
-export function TrackedSessionEventIdentifierDescriptionPairsToJSON(value?: TrackedSessionEventIdentifierDescriptionPairs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedSessionEventIdentifierDescriptionPairsToJSON(json: any): TrackedSessionEventIdentifierDescriptionPairs {
+    return TrackedSessionEventIdentifierDescriptionPairsToJSONTyped(json, false);
+}
+
+export function TrackedSessionEventIdentifierDescriptionPairsToJSONTyped(value?: TrackedSessionEventIdentifierDescriptionPairs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'session_initialized': value.sessionInitialized,
-        'session_local_connection_succeeded': value.sessionLocalConnectionSucceeded,
-        'session_local_connection_failed': value.sessionLocalConnectionFailed,
-        'session_inactive': value.sessionInactive,
-        'session_active': value.sessionActive,
-        'session_terminated': value.sessionTerminated,
-        'session_authenticated_with_sign_in': value.sessionAuthenticatedWithSignIn,
-        'session_unauthenticated_with_sign_out': value.sessionUnauthenticatedWithSignOut,
-        'session_unauthenticated_with_dismiss': value.sessionUnauthenticatedWithDismiss,
-        'session_unauthenticated_with_remind': value.sessionUnauthenticatedWithRemind,
-        'session_onboarding_initialized': value.sessionOnboardingInitialized,
-        'session_onboarding_completed': value.sessionOnboardingCompleted,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'session_initialized': value['sessionInitialized'],
+        'session_local_connection_succeeded': value['sessionLocalConnectionSucceeded'],
+        'session_local_connection_failed': value['sessionLocalConnectionFailed'],
+        'session_inactive': value['sessionInactive'],
+        'session_active': value['sessionActive'],
+        'session_terminated': value['sessionTerminated'],
+        'session_authenticated_with_sign_in': value['sessionAuthenticatedWithSignIn'],
+        'session_unauthenticated_with_sign_out': value['sessionUnauthenticatedWithSignOut'],
+        'session_unauthenticated_with_dismiss': value['sessionUnauthenticatedWithDismiss'],
+        'session_unauthenticated_with_remind': value['sessionUnauthenticatedWithRemind'],
+        'session_onboarding_initialized': value['sessionOnboardingInitialized'],
+        'session_onboarding_completed': value['sessionOnboardingCompleted'],
     };
 }
 

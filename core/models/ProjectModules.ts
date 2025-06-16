@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { ProjectModule } from './ProjectModule';
 import {
     ProjectModuleFromJSON,
     ProjectModuleFromJSONTyped,
     ProjectModuleToJSON,
+    ProjectModuleToJSONTyped,
 } from './ProjectModule';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is a plural representation of the ProjectModule
@@ -49,11 +51,9 @@ export interface ProjectModules {
 /**
  * Check if a given object implements the ProjectModules interface.
  */
-export function instanceOfProjectModules(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfProjectModules(value: object): value is ProjectModules {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function ProjectModulesFromJSON(json: any): ProjectModules {
@@ -61,27 +61,29 @@ export function ProjectModulesFromJSON(json: any): ProjectModules {
 }
 
 export function ProjectModulesFromJSONTyped(json: any, ignoreDiscriminator: boolean): ProjectModules {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(ProjectModuleFromJSON)),
     };
 }
 
-export function ProjectModulesToJSON(value?: ProjectModules | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ProjectModulesToJSON(json: any): ProjectModules {
+    return ProjectModulesToJSONTyped(json, false);
+}
+
+export function ProjectModulesToJSONTyped(value?: ProjectModules | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(ProjectModuleToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(ProjectModuleToJSON)),
     };
 }
 

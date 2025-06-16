@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -43,11 +44,9 @@ export interface Font {
 /**
  * Check if a given object implements the Font interface.
  */
-export function instanceOfFont(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "size" in value;
-
-    return isInstance;
+export function instanceOfFont(value: object): value is Font {
+    if (!('size' in value) || value['size'] === undefined) return false;
+    return true;
 }
 
 export function FontFromJSON(json: any): Font {
@@ -55,27 +54,29 @@ export function FontFromJSON(json: any): Font {
 }
 
 export function FontFromJSONTyped(json: any, ignoreDiscriminator: boolean): Font {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'size': json['size'],
     };
 }
 
-export function FontToJSON(value?: Font | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FontToJSON(json: any): Font {
+    return FontToJSONTyped(json, false);
+}
+
+export function FontToJSONTyped(value?: Font | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'size': value.size,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'size': value['size'],
     };
 }
 

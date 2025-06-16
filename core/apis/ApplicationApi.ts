@@ -42,12 +42,16 @@ export class ApplicationApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/application/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ApplicationToJSON(requestParameters.application),
+            body: ApplicationToJSON(requestParameters['application']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ApplicationFromJSON(jsonValue));

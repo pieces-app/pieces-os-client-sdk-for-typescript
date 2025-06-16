@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { Seeds } from './Seeds';
 import {
     SeedsFromJSON,
     SeedsFromJSONTyped,
     SeedsToJSON,
+    SeedsToJSONTyped,
 } from './Seeds';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is an out body for the /machine_learning/text/technical_processing/generators/personification endpoint.
@@ -51,11 +53,9 @@ export interface OnboardedPersonaDetails {
 /**
  * Check if a given object implements the OnboardedPersonaDetails interface.
  */
-export function instanceOfOnboardedPersonaDetails(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "seeds" in value;
-
-    return isInstance;
+export function instanceOfOnboardedPersonaDetails(value: object): value is OnboardedPersonaDetails {
+    if (!('seeds' in value) || value['seeds'] === undefined) return false;
+    return true;
 }
 
 export function OnboardedPersonaDetailsFromJSON(json: any): OnboardedPersonaDetails {
@@ -63,27 +63,29 @@ export function OnboardedPersonaDetailsFromJSON(json: any): OnboardedPersonaDeta
 }
 
 export function OnboardedPersonaDetailsFromJSONTyped(json: any, ignoreDiscriminator: boolean): OnboardedPersonaDetails {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'seeds': SeedsFromJSON(json['seeds']),
     };
 }
 
-export function OnboardedPersonaDetailsToJSON(value?: OnboardedPersonaDetails | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OnboardedPersonaDetailsToJSON(json: any): OnboardedPersonaDetails {
+    return OnboardedPersonaDetailsToJSONTyped(json, false);
+}
+
+export function OnboardedPersonaDetailsToJSONTyped(value?: OnboardedPersonaDetails | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seeds': SeedsToJSON(value.seeds),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seeds': SeedsToJSON(value['seeds']),
     };
 }
 

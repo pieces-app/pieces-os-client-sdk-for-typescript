@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -49,10 +50,8 @@ export interface QGPTTaskPipelineForCodeCompletion {
 /**
  * Check if a given object implements the QGPTTaskPipelineForCodeCompletion interface.
  */
-export function instanceOfQGPTTaskPipelineForCodeCompletion(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTTaskPipelineForCodeCompletion(value: object): value is QGPTTaskPipelineForCodeCompletion {
+    return true;
 }
 
 export function QGPTTaskPipelineForCodeCompletionFromJSON(json: any): QGPTTaskPipelineForCodeCompletion {
@@ -60,27 +59,29 @@ export function QGPTTaskPipelineForCodeCompletionFromJSON(json: any): QGPTTaskPi
 }
 
 export function QGPTTaskPipelineForCodeCompletionFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipelineForCodeCompletion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'context': !exists(json, 'context') ? undefined : json['context'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'context': json['context'] == null ? undefined : json['context'],
     };
 }
 
-export function QGPTTaskPipelineForCodeCompletionToJSON(value?: QGPTTaskPipelineForCodeCompletion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTTaskPipelineForCodeCompletionToJSON(json: any): QGPTTaskPipelineForCodeCompletion {
+    return QGPTTaskPipelineForCodeCompletionToJSONTyped(json, false);
+}
+
+export function QGPTTaskPipelineForCodeCompletionToJSONTyped(value?: QGPTTaskPipelineForCodeCompletion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'context': value.context,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'context': value['context'],
     };
 }
 

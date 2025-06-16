@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { QGPTConversation } from './QGPTConversation';
 import {
     QGPTConversationFromJSON,
     QGPTConversationFromJSONTyped,
     QGPTConversationToJSON,
+    QGPTConversationToJSONTyped,
 } from './QGPTConversation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 import type { Seed } from './Seed';
 import {
     SeedFromJSON,
     SeedFromJSONTyped,
     SeedToJSON,
+    SeedToJSONTyped,
 } from './Seed';
 
 /**
@@ -76,10 +79,8 @@ export interface QGPTPersonsRelatedInput {
 /**
  * Check if a given object implements the QGPTPersonsRelatedInput interface.
  */
-export function instanceOfQGPTPersonsRelatedInput(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTPersonsRelatedInput(value: object): value is QGPTPersonsRelatedInput {
+    return true;
 }
 
 export function QGPTPersonsRelatedInputFromJSON(json: any): QGPTPersonsRelatedInput {
@@ -87,33 +88,35 @@ export function QGPTPersonsRelatedInputFromJSON(json: any): QGPTPersonsRelatedIn
 }
 
 export function QGPTPersonsRelatedInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTPersonsRelatedInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'seed': !exists(json, 'seed') ? undefined : SeedFromJSON(json['seed']),
-        'conversation': !exists(json, 'conversation') ? undefined : QGPTConversationFromJSON(json['conversation']),
-        'application': !exists(json, 'application') ? undefined : json['application'],
-        'model': !exists(json, 'model') ? undefined : json['model'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'seed': json['seed'] == null ? undefined : SeedFromJSON(json['seed']),
+        'conversation': json['conversation'] == null ? undefined : QGPTConversationFromJSON(json['conversation']),
+        'application': json['application'] == null ? undefined : json['application'],
+        'model': json['model'] == null ? undefined : json['model'],
     };
 }
 
-export function QGPTPersonsRelatedInputToJSON(value?: QGPTPersonsRelatedInput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTPersonsRelatedInputToJSON(json: any): QGPTPersonsRelatedInput {
+    return QGPTPersonsRelatedInputToJSONTyped(json, false);
+}
+
+export function QGPTPersonsRelatedInputToJSONTyped(value?: QGPTPersonsRelatedInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'seed': SeedToJSON(value.seed),
-        'conversation': QGPTConversationToJSON(value.conversation),
-        'application': value.application,
-        'model': value.model,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'seed': SeedToJSON(value['seed']),
+        'conversation': QGPTConversationToJSON(value['conversation']),
+        'application': value['application'],
+        'model': value['model'],
     };
 }
 

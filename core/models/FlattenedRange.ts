@@ -12,37 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedConversations } from './FlattenedConversations';
 import {
     FlattenedConversationsFromJSON,
     FlattenedConversationsFromJSONTyped,
     FlattenedConversationsToJSON,
+    FlattenedConversationsToJSONTyped,
 } from './FlattenedConversations';
 import type { FlattenedWorkstreamSummaries } from './FlattenedWorkstreamSummaries';
 import {
     FlattenedWorkstreamSummariesFromJSON,
     FlattenedWorkstreamSummariesFromJSONTyped,
     FlattenedWorkstreamSummariesToJSON,
+    FlattenedWorkstreamSummariesToJSONTyped,
 } from './FlattenedWorkstreamSummaries';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
 import type { Score } from './Score';
 import {
     ScoreFromJSON,
     ScoreFromJSONTyped,
     ScoreToJSON,
+    ScoreToJSONTyped,
 } from './Score';
+import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
+import {
+    FlattenedConversationMessagesFromJSON,
+    FlattenedConversationMessagesFromJSONTyped,
+    FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
+} from './FlattenedConversationMessages';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 
 /**
  * This is a DAG-Safe minimal representation of a Range.
@@ -110,18 +122,22 @@ export interface FlattenedRange {
      * @memberof FlattenedRange
      */
     conversations?: FlattenedConversations;
+    /**
+     * 
+     * @type {FlattenedConversationMessages}
+     * @memberof FlattenedRange
+     */
+    messages?: FlattenedConversationMessages;
 }
 
 /**
  * Check if a given object implements the FlattenedRange interface.
  */
-export function instanceOfFlattenedRange(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-    isInstance = isInstance && "updated" in value;
-
-    return isInstance;
+export function instanceOfFlattenedRange(value: object): value is FlattenedRange {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
+    return true;
 }
 
 export function FlattenedRangeFromJSON(json: any): FlattenedRange {
@@ -129,43 +145,47 @@ export function FlattenedRangeFromJSON(json: any): FlattenedRange {
 }
 
 export function FlattenedRangeFromJSONTyped(json: any, ignoreDiscriminator: boolean): FlattenedRange {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'score': !exists(json, 'score') ? undefined : ScoreFromJSON(json['score']),
+        'score': json['score'] == null ? undefined : ScoreFromJSON(json['score']),
         'created': GroupedTimestampFromJSON(json['created']),
         'updated': GroupedTimestampFromJSON(json['updated']),
-        'to': !exists(json, 'to') ? undefined : GroupedTimestampFromJSON(json['to']),
-        'from': !exists(json, 'from') ? undefined : GroupedTimestampFromJSON(json['from']),
-        'between': !exists(json, 'between') ? undefined : json['between'],
-        'summaries': !exists(json, 'summaries') ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
-        'conversations': !exists(json, 'conversations') ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'to': json['to'] == null ? undefined : GroupedTimestampFromJSON(json['to']),
+        'from': json['from'] == null ? undefined : GroupedTimestampFromJSON(json['from']),
+        'between': json['between'] == null ? undefined : json['between'],
+        'summaries': json['summaries'] == null ? undefined : FlattenedWorkstreamSummariesFromJSON(json['summaries']),
+        'conversations': json['conversations'] == null ? undefined : FlattenedConversationsFromJSON(json['conversations']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
     };
 }
 
-export function FlattenedRangeToJSON(value?: FlattenedRange | null): any {
-    if (value === undefined) {
-        return undefined;
+export function FlattenedRangeToJSON(json: any): FlattenedRange {
+    return FlattenedRangeToJSONTyped(json, false);
+}
+
+export function FlattenedRangeToJSONTyped(value?: FlattenedRange | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'score': ScoreToJSON(value.score),
-        'created': GroupedTimestampToJSON(value.created),
-        'updated': GroupedTimestampToJSON(value.updated),
-        'to': GroupedTimestampToJSON(value.to),
-        'from': GroupedTimestampToJSON(value.from),
-        'between': value.between,
-        'summaries': FlattenedWorkstreamSummariesToJSON(value.summaries),
-        'conversations': FlattenedConversationsToJSON(value.conversations),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'score': ScoreToJSON(value['score']),
+        'created': GroupedTimestampToJSON(value['created']),
+        'updated': GroupedTimestampToJSON(value['updated']),
+        'to': GroupedTimestampToJSON(value['to']),
+        'from': GroupedTimestampToJSON(value['from']),
+        'between': value['between'],
+        'summaries': FlattenedWorkstreamSummariesToJSON(value['summaries']),
+        'conversations': FlattenedConversationsToJSON(value['conversations']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -55,11 +56,9 @@ export interface SeededGithubGistsImport {
 /**
  * Check if a given object implements the SeededGithubGistsImport interface.
  */
-export function instanceOfSeededGithubGistsImport(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "application" in value;
-
-    return isInstance;
+export function instanceOfSeededGithubGistsImport(value: object): value is SeededGithubGistsImport {
+    if (!('application' in value) || value['application'] === undefined) return false;
+    return true;
 }
 
 export function SeededGithubGistsImportFromJSON(json: any): SeededGithubGistsImport {
@@ -67,29 +66,31 @@ export function SeededGithubGistsImportFromJSON(json: any): SeededGithubGistsImp
 }
 
 export function SeededGithubGistsImportFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededGithubGistsImport {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': json['application'],
-        '_public': !exists(json, 'public') ? undefined : json['public'],
+        '_public': json['public'] == null ? undefined : json['public'],
     };
 }
 
-export function SeededGithubGistsImportToJSON(value?: SeededGithubGistsImport | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededGithubGistsImportToJSON(json: any): SeededGithubGistsImport {
+    return SeededGithubGistsImportToJSONTyped(json, false);
+}
+
+export function SeededGithubGistsImportToJSONTyped(value?: SeededGithubGistsImport | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': value.application,
-        'public': value._public,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'application': value['application'],
+        'public': value['_public'],
     };
 }
 

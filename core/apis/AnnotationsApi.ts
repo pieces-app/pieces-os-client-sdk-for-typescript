@@ -70,12 +70,16 @@ export class AnnotationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/annotations/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededAnnotationToJSON(requestParameters.seededAnnotation),
+            body: SeededAnnotationToJSON(requestParameters['seededAnnotation']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AnnotationFromJSON(jsonValue));
@@ -95,16 +99,23 @@ export class AnnotationsApi extends runtime.BaseAPI {
      * /annotations/{annotation}/delete [POST]
      */
     async annotationsDeleteSpecificAnnotationRaw(requestParameters: AnnotationsDeleteSpecificAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling annotationsDeleteSpecificAnnotation.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling annotationsDeleteSpecificAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/annotations/{annotation}/delete`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))),
+            path: `/annotations/{annotation}/delete`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -128,11 +139,15 @@ export class AnnotationsApi extends runtime.BaseAPI {
     async annotationsSnapshotRaw(requestParameters: AnnotationsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Annotations>> {
         const queryParameters: any = {};
 
-        if (requestParameters.annotationTypeFilter !== undefined) {
-            queryParameters['annotation_type_filter'] = requestParameters.annotationTypeFilter;
+        if (requestParameters['annotationTypeFilter'] != null) {
+            queryParameters['annotation_type_filter'] = requestParameters['annotationTypeFilter'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/annotations`,
@@ -162,6 +177,10 @@ export class AnnotationsApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/annotations/stream/identifiers`,
             method: 'GET',
@@ -188,20 +207,24 @@ export class AnnotationsApi extends runtime.BaseAPI {
     async searchAnnotationsRaw(requestParameters: SearchAnnotationsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedAnnotations>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/annotations/search`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SearchInputToJSON(requestParameters.searchInput),
+            body: SearchInputToJSON(requestParameters['searchInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedAnnotationsFromJSON(jsonValue));
@@ -222,6 +245,7 @@ export class AnnotationsApi extends runtime.BaseAPI {
  * @export
  */
 export const AnnotationsSnapshotAnnotationTypeFilterEnum = {
+    Unknown: 'UNKNOWN',
     Description: 'DESCRIPTION',
     Comment: 'COMMENT',
     Commentation: 'COMMENTATION',

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -49,12 +50,10 @@ export interface ExportedDatabaseFormat {
 /**
  * Check if a given object implements the ExportedDatabaseFormat interface.
  */
-export function instanceOfExportedDatabaseFormat(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "raw" in value;
-
-    return isInstance;
+export function instanceOfExportedDatabaseFormat(value: object): value is ExportedDatabaseFormat {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('raw' in value) || value['raw'] === undefined) return false;
+    return true;
 }
 
 export function ExportedDatabaseFormatFromJSON(json: any): ExportedDatabaseFormat {
@@ -62,29 +61,31 @@ export function ExportedDatabaseFormatFromJSON(json: any): ExportedDatabaseForma
 }
 
 export function ExportedDatabaseFormatFromJSONTyped(json: any, ignoreDiscriminator: boolean): ExportedDatabaseFormat {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'raw': json['raw'],
     };
 }
 
-export function ExportedDatabaseFormatToJSON(value?: ExportedDatabaseFormat | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ExportedDatabaseFormatToJSON(json: any): ExportedDatabaseFormat {
+    return ExportedDatabaseFormatToJSONTyped(json, false);
+}
+
+export function ExportedDatabaseFormatToJSONTyped(value?: ExportedDatabaseFormat | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'raw': value.raw,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'raw': value['raw'],
     };
 }
 

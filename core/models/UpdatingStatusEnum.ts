@@ -24,16 +24,27 @@
  * @export
  */
 export const UpdatingStatusEnum = {
+    Unknown: 'UNKNOWN',
     ReadyToRestart: 'READY_TO_RESTART',
     Available: 'AVAILABLE',
     Downloading: 'DOWNLOADING',
-    Unknown: 'UNKNOWN',
     UpToDate: 'UP_TO_DATE',
     ReinstallRequired: 'REINSTALL_REQUIRED',
     ContactSupport: 'CONTACT_SUPPORT'
 } as const;
 export type UpdatingStatusEnum = typeof UpdatingStatusEnum[keyof typeof UpdatingStatusEnum];
 
+
+export function instanceOfUpdatingStatusEnum(value: any): boolean {
+    for (const key in UpdatingStatusEnum) {
+        if (Object.prototype.hasOwnProperty.call(UpdatingStatusEnum, key)) {
+            if (UpdatingStatusEnum[key as keyof typeof UpdatingStatusEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function UpdatingStatusEnumFromJSON(json: any): UpdatingStatusEnum {
     return UpdatingStatusEnumFromJSONTyped(json, false);
@@ -45,5 +56,9 @@ export function UpdatingStatusEnumFromJSONTyped(json: any, ignoreDiscriminator: 
 
 export function UpdatingStatusEnumToJSON(value?: UpdatingStatusEnum | null): any {
     return value as any;
+}
+
+export function UpdatingStatusEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): UpdatingStatusEnum {
+    return value as UpdatingStatusEnum;
 }
 

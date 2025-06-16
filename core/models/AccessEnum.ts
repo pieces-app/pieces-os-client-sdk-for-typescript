@@ -18,11 +18,23 @@
  * @export
  */
 export const AccessEnum = {
+    Unknown: 'UNKNOWN',
     Public: 'PUBLIC',
     Private: 'PRIVATE'
 } as const;
 export type AccessEnum = typeof AccessEnum[keyof typeof AccessEnum];
 
+
+export function instanceOfAccessEnum(value: any): boolean {
+    for (const key in AccessEnum) {
+        if (Object.prototype.hasOwnProperty.call(AccessEnum, key)) {
+            if (AccessEnum[key as keyof typeof AccessEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function AccessEnumFromJSON(json: any): AccessEnum {
     return AccessEnumFromJSONTyped(json, false);
@@ -34,5 +46,9 @@ export function AccessEnumFromJSONTyped(json: any, ignoreDiscriminator: boolean)
 
 export function AccessEnumToJSON(value?: AccessEnum | null): any {
     return value as any;
+}
+
+export function AccessEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AccessEnum {
+    return value as AccessEnum;
 }
 

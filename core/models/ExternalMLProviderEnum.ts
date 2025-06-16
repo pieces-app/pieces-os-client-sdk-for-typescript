@@ -18,6 +18,7 @@
  * @export
  */
 export const ExternalMLProviderEnum = {
+    Unknown: 'UNKNOWN',
     Apple: 'APPLE',
     Amazon: 'AMAZON',
     Google: 'GOOGLE',
@@ -44,10 +45,22 @@ export const ExternalMLProviderEnum = {
     Anthropic: 'ANTHROPIC',
     Ibm: 'IBM',
     Snowflake: 'SNOWFLAKE',
-    Perplexity: 'PERPLEXITY'
+    Perplexity: 'PERPLEXITY',
+    Minishlabs: 'MINISHLABS'
 } as const;
 export type ExternalMLProviderEnum = typeof ExternalMLProviderEnum[keyof typeof ExternalMLProviderEnum];
 
+
+export function instanceOfExternalMLProviderEnum(value: any): boolean {
+    for (const key in ExternalMLProviderEnum) {
+        if (Object.prototype.hasOwnProperty.call(ExternalMLProviderEnum, key)) {
+            if (ExternalMLProviderEnum[key as keyof typeof ExternalMLProviderEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ExternalMLProviderEnumFromJSON(json: any): ExternalMLProviderEnum {
     return ExternalMLProviderEnumFromJSONTyped(json, false);
@@ -59,5 +72,9 @@ export function ExternalMLProviderEnumFromJSONTyped(json: any, ignoreDiscriminat
 
 export function ExternalMLProviderEnumToJSON(value?: ExternalMLProviderEnum | null): any {
     return value as any;
+}
+
+export function ExternalMLProviderEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ExternalMLProviderEnum {
+    return value as ExternalMLProviderEnum;
 }
 

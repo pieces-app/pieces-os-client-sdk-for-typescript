@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ConversationMessage } from './ConversationMessage';
-import {
-    ConversationMessageFromJSON,
-    ConversationMessageFromJSONTyped,
-    ConversationMessageToJSON,
-} from './ConversationMessage';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { ConversationMessage } from './ConversationMessage';
+import {
+    ConversationMessageFromJSON,
+    ConversationMessageFromJSONTyped,
+    ConversationMessageToJSON,
+    ConversationMessageToJSONTyped,
+} from './ConversationMessage';
 
 /**
  * This is used for the ConversationMessages searching endpoint && the specific Conversation search && ConversationsSearch
@@ -80,13 +82,11 @@ export interface SearchedConversationMessage {
 /**
  * Check if a given object implements the SearchedConversationMessage interface.
  */
-export function instanceOfSearchedConversationMessage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedConversationMessage(value: object): value is SearchedConversationMessage {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedConversationMessageFromJSON(json: any): SearchedConversationMessage {
@@ -94,35 +94,37 @@ export function SearchedConversationMessageFromJSON(json: any): SearchedConversa
 }
 
 export function SearchedConversationMessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedConversationMessage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'message': !exists(json, 'message') ? undefined : ConversationMessageFromJSON(json['message']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'message': json['message'] == null ? undefined : ConversationMessageFromJSON(json['message']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedConversationMessageToJSON(value?: SearchedConversationMessage | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedConversationMessageToJSON(json: any): SearchedConversationMessage {
+    return SearchedConversationMessageToJSONTyped(json, false);
+}
+
+export function SearchedConversationMessageToJSONTyped(value?: SearchedConversationMessage | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'message': ConversationMessageToJSON(value.message),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'message': ConversationMessageToJSON(value['message']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

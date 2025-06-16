@@ -30,6 +30,11 @@ export interface RangeAssociateConversationGroundingTemporalRangeWorkstreamsRequ
     conversation: string;
 }
 
+export interface RangeAssociateConversationMessageRequest {
+    range: string;
+    message: string;
+}
+
 export interface RangeAssociateWorkstreamSummaryRequest {
     range: string;
     workstreamSummary: string;
@@ -38,6 +43,11 @@ export interface RangeAssociateWorkstreamSummaryRequest {
 export interface RangeDisassociateConversationGroundingTemporalRangeWorkstreamsRequest {
     range: string;
     conversation: string;
+}
+
+export interface RangeDisassociateConversationMessageRequest {
+    range: string;
+    message: string;
 }
 
 export interface RangeDisassociateWorkstreamSummaryRequest {
@@ -68,20 +78,30 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range}/conversations/grounding/temporal_range/workstreams/associate/{conversation} [POST]
      */
     async rangeAssociateConversationGroundingTemporalRangeWorkstreamsRaw(requestParameters: RangeAssociateConversationGroundingTemporalRangeWorkstreamsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling rangeAssociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/associate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/associate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -99,24 +119,79 @@ export class RangeApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will associate a range with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /range/{range}/workstream_summaries/associate/{workstream_summary} [POST]
+     * This will associate a asset with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /range/{range}/messages/associate/{message} [POST]
      */
-    async rangeAssociateWorkstreamSummaryRaw(requestParameters: RangeAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeAssociateWorkstreamSummary.');
+    async rangeAssociateConversationMessageRaw(requestParameters: RangeAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeAssociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling rangeAssociateWorkstreamSummary.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling rangeAssociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/range/{range}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/range/{range}/messages/associate/{message}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a asset with a conversation_message. This will do the same thing as the conversation_message equivalent.
+     * /range/{range}/messages/associate/{message} [POST]
+     */
+    async rangeAssociateConversationMessage(requestParameters: RangeAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.rangeAssociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a range with a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /range/{range}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async rangeAssociateWorkstreamSummaryRaw(requestParameters: RangeAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling rangeAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/range/{range}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -138,20 +213,30 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range}/conversations/grounding/temporal_range/workstreams/disassociate/{conversation} [POST]
      */
     async rangeDisassociateConversationGroundingTemporalRangeWorkstreamsRaw(requestParameters: RangeDisassociateConversationGroundingTemporalRangeWorkstreamsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
-        if (requestParameters.conversation === null || requestParameters.conversation === undefined) {
-            throw new runtime.RequiredError('conversation','Required parameter requestParameters.conversation was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams.');
+        if (requestParameters['conversation'] == null) {
+            throw new runtime.RequiredError(
+                'conversation',
+                'Required parameter "conversation" was null or undefined when calling rangeDisassociateConversationGroundingTemporalRangeWorkstreams().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/disassociate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters.conversation))),
+            path: `/range/{range}/conversations/grounding/temporal_range/workstreams/disassociate/{conversation}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"conversation"}}`, encodeURIComponent(String(requestParameters['conversation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -169,24 +254,79 @@ export class RangeApi extends runtime.BaseAPI {
     }
 
     /**
-     * This will enable us to disassociate a range from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
-     * /range/{range}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     * This will enable us to disassociate a conversation_message from an range. This will do the same thing as the conversation_message equivalent.
+     * /range/{range}/messages/disassociate/{message} [POST]
      */
-    async rangeDisassociateWorkstreamSummaryRaw(requestParameters: RangeDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeDisassociateWorkstreamSummary.');
+    async rangeDisassociateConversationMessageRaw(requestParameters: RangeDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeDisassociateConversationMessage().'
+            );
         }
 
-        if (requestParameters.workstreamSummary === null || requestParameters.workstreamSummary === undefined) {
-            throw new runtime.RequiredError('workstreamSummary','Required parameter requestParameters.workstreamSummary was null or undefined when calling rangeDisassociateWorkstreamSummary.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling rangeDisassociateConversationMessage().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/range/{range}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters.workstreamSummary))),
+            path: `/range/{range}/messages/disassociate/{message}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from an range. This will do the same thing as the conversation_message equivalent.
+     * /range/{range}/messages/disassociate/{message} [POST]
+     */
+    async rangeDisassociateConversationMessage(requestParameters: RangeDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.rangeDisassociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a range from a workstream summary. This will do the same thing as the workstreamSummary equivalent.
+     * /range/{range}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async rangeDisassociateWorkstreamSummaryRaw(requestParameters: RangeDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling rangeDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/range/{range}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -208,8 +348,11 @@ export class RangeApi extends runtime.BaseAPI {
      * \'/range/{range}/scores/increment\' [POST]
      */
     async rangeScoresIncrementRaw(requestParameters: RangeScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangeScoresIncrement.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangeScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -218,12 +361,16 @@ export class RangeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/range/{range}/scores/increment`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
+            path: `/range/{range}/scores/increment`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -248,12 +395,16 @@ export class RangeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/range/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: RangeToJSON(requestParameters.range),
+            body: RangeToJSON(requestParameters['range']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => RangeFromJSON(jsonValue));
@@ -273,16 +424,23 @@ export class RangeApi extends runtime.BaseAPI {
      * /range/{range} [GET]
      */
     async rangesSpecificRangeSnapshotRaw(requestParameters: RangesSpecificRangeSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Range>> {
-        if (requestParameters.range === null || requestParameters.range === undefined) {
-            throw new runtime.RequiredError('range','Required parameter requestParameters.range was null or undefined when calling rangesSpecificRangeSnapshot.');
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling rangesSpecificRangeSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/range/{range}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters.range))),
+            path: `/range/{range}`.replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

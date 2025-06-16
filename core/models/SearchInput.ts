@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { SearchEngines } from './SearchEngines';
 import {
     SearchEnginesFromJSON,
     SearchEnginesFromJSONTyped,
     SearchEnginesToJSON,
+    SearchEnginesToJSONTyped,
 } from './SearchEngines';
 
 /**
@@ -58,11 +60,9 @@ export interface SearchInput {
 /**
  * Check if a given object implements the SearchInput interface.
  */
-export function instanceOfSearchInput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "engines" in value;
-
-    return isInstance;
+export function instanceOfSearchInput(value: object): value is SearchInput {
+    if (!('engines' in value) || value['engines'] === undefined) return false;
+    return true;
 }
 
 export function SearchInputFromJSON(json: any): SearchInput {
@@ -70,27 +70,29 @@ export function SearchInputFromJSON(json: any): SearchInput {
 }
 
 export function SearchInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'engines': SearchEnginesFromJSON(json['engines']),
     };
 }
 
-export function SearchInputToJSON(value?: SearchInput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchInputToJSON(json: any): SearchInput {
+    return SearchInputToJSONTyped(json, false);
+}
+
+export function SearchInputToJSONTyped(value?: SearchInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'engines': SearchEnginesToJSON(value.engines),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'engines': SearchEnginesToJSON(value['engines']),
     };
 }
 

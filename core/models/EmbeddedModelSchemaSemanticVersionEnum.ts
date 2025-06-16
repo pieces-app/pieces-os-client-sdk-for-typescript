@@ -18,10 +18,22 @@
  * @export
  */
 export const EmbeddedModelSchemaSemanticVersionEnum = {
+    Unknown: 'UNKNOWN',
     Major0Minor0Patch1: 'MAJOR_0_MINOR_0_PATCH_1'
 } as const;
 export type EmbeddedModelSchemaSemanticVersionEnum = typeof EmbeddedModelSchemaSemanticVersionEnum[keyof typeof EmbeddedModelSchemaSemanticVersionEnum];
 
+
+export function instanceOfEmbeddedModelSchemaSemanticVersionEnum(value: any): boolean {
+    for (const key in EmbeddedModelSchemaSemanticVersionEnum) {
+        if (Object.prototype.hasOwnProperty.call(EmbeddedModelSchemaSemanticVersionEnum, key)) {
+            if (EmbeddedModelSchemaSemanticVersionEnum[key as keyof typeof EmbeddedModelSchemaSemanticVersionEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function EmbeddedModelSchemaSemanticVersionEnumFromJSON(json: any): EmbeddedModelSchemaSemanticVersionEnum {
     return EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped(json, false);
@@ -33,5 +45,9 @@ export function EmbeddedModelSchemaSemanticVersionEnumFromJSONTyped(json: any, i
 
 export function EmbeddedModelSchemaSemanticVersionEnumToJSON(value?: EmbeddedModelSchemaSemanticVersionEnum | null): any {
     return value as any;
+}
+
+export function EmbeddedModelSchemaSemanticVersionEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): EmbeddedModelSchemaSemanticVersionEnum {
+    return value as EmbeddedModelSchemaSemanticVersionEnum;
 }
 

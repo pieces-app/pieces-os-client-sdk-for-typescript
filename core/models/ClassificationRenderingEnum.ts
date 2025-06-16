@@ -18,12 +18,24 @@
  * @export
  */
 export const ClassificationRenderingEnum = {
+    Unknown: 'UNKNOWN',
     Html: 'HTML',
     TwentyFourBitAnsiEscapedSequences: 'TWENTY_FOUR_BIT_ANSI_ESCAPED_SEQUENCES',
     HighlightJsHtml: 'HIGHLIGHT_JS_HTML'
 } as const;
 export type ClassificationRenderingEnum = typeof ClassificationRenderingEnum[keyof typeof ClassificationRenderingEnum];
 
+
+export function instanceOfClassificationRenderingEnum(value: any): boolean {
+    for (const key in ClassificationRenderingEnum) {
+        if (Object.prototype.hasOwnProperty.call(ClassificationRenderingEnum, key)) {
+            if (ClassificationRenderingEnum[key as keyof typeof ClassificationRenderingEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ClassificationRenderingEnumFromJSON(json: any): ClassificationRenderingEnum {
     return ClassificationRenderingEnumFromJSONTyped(json, false);
@@ -35,5 +47,9 @@ export function ClassificationRenderingEnumFromJSONTyped(json: any, ignoreDiscri
 
 export function ClassificationRenderingEnumToJSON(value?: ClassificationRenderingEnum | null): any {
     return value as any;
+}
+
+export function ClassificationRenderingEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ClassificationRenderingEnum {
+    return value as ClassificationRenderingEnum;
 }
 

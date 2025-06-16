@@ -22,6 +22,7 @@
  * @export
  */
 export const OSAppletEnum = {
+    UnknownAppletModule: 'UNKNOWN_APPLET_MODULE',
     Copilot: 'COPILOT',
     PiecesOsToolbar: 'PIECES_OS_TOOLBAR',
     WorkstreamSuggestions: 'WORKSTREAM_SUGGESTIONS',
@@ -36,11 +37,21 @@ export const OSAppletEnum = {
     SharebleLinkViewer: 'SHAREBLE_LINK_VIEWER',
     FutureAppletModulePlaceholderA: 'FUTURE_APPLET_MODULE_PLACEHOLDER_A',
     FutureAppletModulePlaceholderB: 'FUTURE_APPLET_MODULE_PLACEHOLDER_B',
-    FutureAppletModulePlaceholderC: 'FUTURE_APPLET_MODULE_PLACEHOLDER_C',
-    UnknownAppletModule: 'UNKNOWN_APPLET_MODULE'
+    FutureAppletModulePlaceholderC: 'FUTURE_APPLET_MODULE_PLACEHOLDER_C'
 } as const;
 export type OSAppletEnum = typeof OSAppletEnum[keyof typeof OSAppletEnum];
 
+
+export function instanceOfOSAppletEnum(value: any): boolean {
+    for (const key in OSAppletEnum) {
+        if (Object.prototype.hasOwnProperty.call(OSAppletEnum, key)) {
+            if (OSAppletEnum[key as keyof typeof OSAppletEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function OSAppletEnumFromJSON(json: any): OSAppletEnum {
     return OSAppletEnumFromJSONTyped(json, false);
@@ -52,5 +63,9 @@ export function OSAppletEnumFromJSONTyped(json: any, ignoreDiscriminator: boolea
 
 export function OSAppletEnumToJSON(value?: OSAppletEnum | null): any {
     return value as any;
+}
+
+export function OSAppletEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): OSAppletEnum {
+    return value as OSAppletEnum;
 }
 

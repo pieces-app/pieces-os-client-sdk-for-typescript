@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { ByteDescriptor } from './ByteDescriptor';
-import {
-    ByteDescriptorFromJSON,
-    ByteDescriptorFromJSONTyped,
-    ByteDescriptorToJSON,
-} from './ByteDescriptor';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { ByteDescriptor } from './ByteDescriptor';
+import {
+    ByteDescriptorFromJSON,
+    ByteDescriptorFromJSONTyped,
+    ByteDescriptorToJSON,
+    ByteDescriptorToJSONTyped,
+} from './ByteDescriptor';
 
 /**
  * This is the progress for the OSFileStreamingRead
@@ -55,12 +57,10 @@ export interface OSFileStreamingReadProgress {
 /**
  * Check if a given object implements the OSFileStreamingReadProgress interface.
  */
-export function instanceOfOSFileStreamingReadProgress(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "total" in value;
-    isInstance = isInstance && "transferred" in value;
-
-    return isInstance;
+export function instanceOfOSFileStreamingReadProgress(value: object): value is OSFileStreamingReadProgress {
+    if (!('total' in value) || value['total'] === undefined) return false;
+    if (!('transferred' in value) || value['transferred'] === undefined) return false;
+    return true;
 }
 
 export function OSFileStreamingReadProgressFromJSON(json: any): OSFileStreamingReadProgress {
@@ -68,29 +68,31 @@ export function OSFileStreamingReadProgressFromJSON(json: any): OSFileStreamingR
 }
 
 export function OSFileStreamingReadProgressFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSFileStreamingReadProgress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'total': ByteDescriptorFromJSON(json['total']),
         'transferred': ByteDescriptorFromJSON(json['transferred']),
     };
 }
 
-export function OSFileStreamingReadProgressToJSON(value?: OSFileStreamingReadProgress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSFileStreamingReadProgressToJSON(json: any): OSFileStreamingReadProgress {
+    return OSFileStreamingReadProgressToJSONTyped(json, false);
+}
+
+export function OSFileStreamingReadProgressToJSONTyped(value?: OSFileStreamingReadProgress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'total': ByteDescriptorToJSON(value.total),
-        'transferred': ByteDescriptorToJSON(value.transferred),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'total': ByteDescriptorToJSON(value['total']),
+        'transferred': ByteDescriptorToJSON(value['transferred']),
     };
 }
 

@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Application } from './Application';
-import {
-    ApplicationFromJSON,
-    ApplicationFromJSONTyped,
-    ApplicationToJSON,
-} from './Application';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { WorkstreamEventContext } from './WorkstreamEventContext';
 import {
     WorkstreamEventContextFromJSON,
     WorkstreamEventContextFromJSONTyped,
     WorkstreamEventContextToJSON,
+    WorkstreamEventContextToJSONTyped,
 } from './WorkstreamEventContext';
+import type { Application } from './Application';
+import {
+    ApplicationFromJSON,
+    ApplicationFromJSONTyped,
+    ApplicationToJSON,
+    ApplicationToJSONTyped,
+} from './Application';
 
 /**
  * This is used in the input of the /workstream/feed/refresh
@@ -39,6 +42,8 @@ import {
  * provide bias in the items that are displayed.
  * 
  * note: context can be used here to provide further bias to the suggestions.
+ * 
+ * if query is provided we will use global search.
  * @export
  * @interface SeededWorkstreamSuggestionsRefresh
  */
@@ -61,16 +66,20 @@ export interface SeededWorkstreamSuggestionsRefresh {
      * @memberof SeededWorkstreamSuggestionsRefresh
      */
     context?: WorkstreamEventContext;
+    /**
+     * 
+     * @type {string}
+     * @memberof SeededWorkstreamSuggestionsRefresh
+     */
+    query?: string;
 }
 
 /**
  * Check if a given object implements the SeededWorkstreamSuggestionsRefresh interface.
  */
-export function instanceOfSeededWorkstreamSuggestionsRefresh(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "application" in value;
-
-    return isInstance;
+export function instanceOfSeededWorkstreamSuggestionsRefresh(value: object): value is SeededWorkstreamSuggestionsRefresh {
+    if (!('application' in value) || value['application'] === undefined) return false;
+    return true;
 }
 
 export function SeededWorkstreamSuggestionsRefreshFromJSON(json: any): SeededWorkstreamSuggestionsRefresh {
@@ -78,29 +87,33 @@ export function SeededWorkstreamSuggestionsRefreshFromJSON(json: any): SeededWor
 }
 
 export function SeededWorkstreamSuggestionsRefreshFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededWorkstreamSuggestionsRefresh {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'application': ApplicationFromJSON(json['application']),
-        'context': !exists(json, 'context') ? undefined : WorkstreamEventContextFromJSON(json['context']),
+        'context': json['context'] == null ? undefined : WorkstreamEventContextFromJSON(json['context']),
+        'query': json['query'] == null ? undefined : json['query'],
     };
 }
 
-export function SeededWorkstreamSuggestionsRefreshToJSON(value?: SeededWorkstreamSuggestionsRefresh | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededWorkstreamSuggestionsRefreshToJSON(json: any): SeededWorkstreamSuggestionsRefresh {
+    return SeededWorkstreamSuggestionsRefreshToJSONTyped(json, false);
+}
+
+export function SeededWorkstreamSuggestionsRefreshToJSONTyped(value?: SeededWorkstreamSuggestionsRefresh | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'application': ApplicationToJSON(value.application),
-        'context': WorkstreamEventContextToJSON(value.context),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'application': ApplicationToJSON(value['application']),
+        'context': WorkstreamEventContextToJSON(value['context']),
+        'query': value['query'],
     };
 }
 

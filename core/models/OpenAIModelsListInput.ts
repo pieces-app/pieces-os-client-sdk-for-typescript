@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -43,11 +44,9 @@ export interface OpenAIModelsListInput {
 /**
  * Check if a given object implements the OpenAIModelsListInput interface.
  */
-export function instanceOfOpenAIModelsListInput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "user" in value;
-
-    return isInstance;
+export function instanceOfOpenAIModelsListInput(value: object): value is OpenAIModelsListInput {
+    if (!('user' in value) || value['user'] === undefined) return false;
+    return true;
 }
 
 export function OpenAIModelsListInputFromJSON(json: any): OpenAIModelsListInput {
@@ -55,27 +54,29 @@ export function OpenAIModelsListInputFromJSON(json: any): OpenAIModelsListInput 
 }
 
 export function OpenAIModelsListInputFromJSONTyped(json: any, ignoreDiscriminator: boolean): OpenAIModelsListInput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
     };
 }
 
-export function OpenAIModelsListInputToJSON(value?: OpenAIModelsListInput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OpenAIModelsListInputToJSON(json: any): OpenAIModelsListInput {
+    return OpenAIModelsListInputToJSONTyped(json, false);
+}
+
+export function OpenAIModelsListInputToJSONTyped(value?: OpenAIModelsListInput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': value.user,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': value['user'],
     };
 }
 

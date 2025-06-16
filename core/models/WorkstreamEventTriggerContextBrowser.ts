@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { BrowserTabs } from './BrowserTabs';
 import {
     BrowserTabsFromJSON,
     BrowserTabsFromJSONTyped,
     BrowserTabsToJSON,
+    BrowserTabsToJSONTyped,
 } from './BrowserTabs';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -53,10 +55,8 @@ export interface WorkstreamEventTriggerContextBrowser {
 /**
  * Check if a given object implements the WorkstreamEventTriggerContextBrowser interface.
  */
-export function instanceOfWorkstreamEventTriggerContextBrowser(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamEventTriggerContextBrowser(value: object): value is WorkstreamEventTriggerContextBrowser {
+    return true;
 }
 
 export function WorkstreamEventTriggerContextBrowserFromJSON(json: any): WorkstreamEventTriggerContextBrowser {
@@ -64,27 +64,29 @@ export function WorkstreamEventTriggerContextBrowserFromJSON(json: any): Workstr
 }
 
 export function WorkstreamEventTriggerContextBrowserFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamEventTriggerContextBrowser {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'tabs': !exists(json, 'tabs') ? undefined : BrowserTabsFromJSON(json['tabs']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'tabs': json['tabs'] == null ? undefined : BrowserTabsFromJSON(json['tabs']),
     };
 }
 
-export function WorkstreamEventTriggerContextBrowserToJSON(value?: WorkstreamEventTriggerContextBrowser | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamEventTriggerContextBrowserToJSON(json: any): WorkstreamEventTriggerContextBrowser {
+    return WorkstreamEventTriggerContextBrowserToJSONTyped(json, false);
+}
+
+export function WorkstreamEventTriggerContextBrowserToJSONTyped(value?: WorkstreamEventTriggerContextBrowser | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'tabs': BrowserTabsToJSON(value.tabs),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'tabs': BrowserTabsToJSON(value['tabs']),
     };
 }
 

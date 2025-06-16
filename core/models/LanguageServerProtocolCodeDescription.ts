@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -43,11 +44,9 @@ export interface LanguageServerProtocolCodeDescription {
 /**
  * Check if a given object implements the LanguageServerProtocolCodeDescription interface.
  */
-export function instanceOfLanguageServerProtocolCodeDescription(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "href" in value;
-
-    return isInstance;
+export function instanceOfLanguageServerProtocolCodeDescription(value: object): value is LanguageServerProtocolCodeDescription {
+    if (!('href' in value) || value['href'] === undefined) return false;
+    return true;
 }
 
 export function LanguageServerProtocolCodeDescriptionFromJSON(json: any): LanguageServerProtocolCodeDescription {
@@ -55,27 +54,29 @@ export function LanguageServerProtocolCodeDescriptionFromJSON(json: any): Langua
 }
 
 export function LanguageServerProtocolCodeDescriptionFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocolCodeDescription {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'href': json['href'],
     };
 }
 
-export function LanguageServerProtocolCodeDescriptionToJSON(value?: LanguageServerProtocolCodeDescription | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LanguageServerProtocolCodeDescriptionToJSON(json: any): LanguageServerProtocolCodeDescription {
+    return LanguageServerProtocolCodeDescriptionToJSONTyped(json, false);
+}
+
+export function LanguageServerProtocolCodeDescriptionToJSONTyped(value?: LanguageServerProtocolCodeDescription | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'href': value.href,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'href': value['href'],
     };
 }
 

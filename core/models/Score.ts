@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -82,12 +83,10 @@ export interface Score {
 /**
  * Check if a given object implements the Score interface.
  */
-export function instanceOfScore(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "manual" in value;
-    isInstance = isInstance && "automatic" in value;
-
-    return isInstance;
+export function instanceOfScore(value: object): value is Score {
+    if (!('manual' in value) || value['manual'] === undefined) return false;
+    if (!('automatic' in value) || value['automatic'] === undefined) return false;
+    return true;
 }
 
 export function ScoreFromJSON(json: any): Score {
@@ -95,39 +94,41 @@ export function ScoreFromJSON(json: any): Score {
 }
 
 export function ScoreFromJSONTyped(json: any, ignoreDiscriminator: boolean): Score {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'manual': json['manual'],
         'automatic': json['automatic'],
-        'priority': !exists(json, 'priority') ? undefined : json['priority'],
-        'reuse': !exists(json, 'reuse') ? undefined : json['reuse'],
-        'update': !exists(json, 'update') ? undefined : json['update'],
-        'reference': !exists(json, 'reference') ? undefined : json['reference'],
-        'searched': !exists(json, 'searched') ? undefined : json['searched'],
+        'priority': json['priority'] == null ? undefined : json['priority'],
+        'reuse': json['reuse'] == null ? undefined : json['reuse'],
+        'update': json['update'] == null ? undefined : json['update'],
+        'reference': json['reference'] == null ? undefined : json['reference'],
+        'searched': json['searched'] == null ? undefined : json['searched'],
     };
 }
 
-export function ScoreToJSON(value?: Score | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ScoreToJSON(json: any): Score {
+    return ScoreToJSONTyped(json, false);
+}
+
+export function ScoreToJSONTyped(value?: Score | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'manual': value.manual,
-        'automatic': value.automatic,
-        'priority': value.priority,
-        'reuse': value.reuse,
-        'update': value.update,
-        'reference': value.reference,
-        'searched': value.searched,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'manual': value['manual'],
+        'automatic': value['automatic'],
+        'priority': value['priority'],
+        'reuse': value['reuse'],
+        'update': value['update'],
+        'reference': value['reference'],
+        'searched': value['searched'],
     };
 }
 

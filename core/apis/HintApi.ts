@@ -58,20 +58,30 @@ export class HintApi extends runtime.BaseAPI {
      * /hint/{hint}/assets/associate/{asset} [POST]
      */
     async hintAssociateAssetRaw(requestParameters: HintAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.hint === null || requestParameters.hint === undefined) {
-            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintAssociateAsset.');
+        if (requestParameters['hint'] == null) {
+            throw new runtime.RequiredError(
+                'hint',
+                'Required parameter "hint" was null or undefined when calling hintAssociateAsset().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling hintAssociateAsset.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling hintAssociateAsset().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/hint/{hint}/assets/associate/{asset}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/hint/{hint}/assets/associate/{asset}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -93,20 +103,30 @@ export class HintApi extends runtime.BaseAPI {
      * /hint/{hint}/assets/disassociate/{asset} [POST]
      */
     async hintDisassociateAssetRaw(requestParameters: HintDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.hint === null || requestParameters.hint === undefined) {
-            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintDisassociateAsset.');
+        if (requestParameters['hint'] == null) {
+            throw new runtime.RequiredError(
+                'hint',
+                'Required parameter "hint" was null or undefined when calling hintDisassociateAsset().'
+            );
         }
 
-        if (requestParameters.asset === null || requestParameters.asset === undefined) {
-            throw new runtime.RequiredError('asset','Required parameter requestParameters.asset was null or undefined when calling hintDisassociateAsset.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling hintDisassociateAsset().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/hint/{hint}/assets/disassociate/{asset}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters.asset))),
+            path: `/hint/{hint}/assets/disassociate/{asset}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -128,8 +148,11 @@ export class HintApi extends runtime.BaseAPI {
      * \'/hint/{hint}/scores/increment\' [POST]
      */
     async hintScoresIncrementRaw(requestParameters: HintScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.hint === null || requestParameters.hint === undefined) {
-            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintScoresIncrement.');
+        if (requestParameters['hint'] == null) {
+            throw new runtime.RequiredError(
+                'hint',
+                'Required parameter "hint" was null or undefined when calling hintScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -138,12 +161,16 @@ export class HintApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/hint/{hint}/scores/increment`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
+            path: `/hint/{hint}/scores/increment`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -162,16 +189,23 @@ export class HintApi extends runtime.BaseAPI {
      * /hint/{hint} [POST]
      */
     async hintSpecificHintSnapshotRaw(requestParameters: HintSpecificHintSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Hint>> {
-        if (requestParameters.hint === null || requestParameters.hint === undefined) {
-            throw new runtime.RequiredError('hint','Required parameter requestParameters.hint was null or undefined when calling hintSpecificHintSnapshot.');
+        if (requestParameters['hint'] == null) {
+            throw new runtime.RequiredError(
+                'hint',
+                'Required parameter "hint" was null or undefined when calling hintSpecificHintSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/hint/{hint}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters.hint))),
+            path: `/hint/{hint}`.replace(`{${"hint"}}`, encodeURIComponent(String(requestParameters['hint']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -200,12 +234,16 @@ export class HintApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/hint/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: HintToJSON(requestParameters.hint),
+            body: HintToJSON(requestParameters['hint']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HintFromJSON(jsonValue));

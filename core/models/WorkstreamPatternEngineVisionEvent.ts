@@ -12,31 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { GroupedTimestamp } from './GroupedTimestamp';
-import {
-    GroupedTimestampFromJSON,
-    GroupedTimestampFromJSONTyped,
-    GroupedTimestampToJSON,
-} from './GroupedTimestamp';
+import { mapValues } from '../runtime';
 import type { WorkstreamPatternEngineSource } from './WorkstreamPatternEngineSource';
 import {
     WorkstreamPatternEngineSourceFromJSON,
     WorkstreamPatternEngineSourceFromJSONTyped,
     WorkstreamPatternEngineSourceToJSON,
+    WorkstreamPatternEngineSourceToJSONTyped,
 } from './WorkstreamPatternEngineSource';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 import type { WorkstreamPatternEngineVisionEventTextualValue } from './WorkstreamPatternEngineVisionEventTextualValue';
 import {
     WorkstreamPatternEngineVisionEventTextualValueFromJSON,
     WorkstreamPatternEngineVisionEventTextualValueFromJSONTyped,
     WorkstreamPatternEngineVisionEventTextualValueToJSON,
+    WorkstreamPatternEngineVisionEventTextualValueToJSONTyped,
 } from './WorkstreamPatternEngineVisionEventTextualValue';
+import type { GroupedTimestamp } from './GroupedTimestamp';
+import {
+    GroupedTimestampFromJSON,
+    GroupedTimestampFromJSONTyped,
+    GroupedTimestampToJSON,
+    GroupedTimestampToJSONTyped,
+} from './GroupedTimestamp';
 
 /**
  * This will return a specific event for the WPE.
@@ -81,12 +85,10 @@ export interface WorkstreamPatternEngineVisionEvent {
 /**
  * Check if a given object implements the WorkstreamPatternEngineVisionEvent interface.
  */
-export function instanceOfWorkstreamPatternEngineVisionEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "created" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineVisionEvent(value: object): value is WorkstreamPatternEngineVisionEvent {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamPatternEngineVisionEventFromJSON(json: any): WorkstreamPatternEngineVisionEvent {
@@ -94,33 +96,35 @@ export function WorkstreamPatternEngineVisionEventFromJSON(json: any): Workstrea
 }
 
 export function WorkstreamPatternEngineVisionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineVisionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
         'created': GroupedTimestampFromJSON(json['created']),
-        'source': !exists(json, 'source') ? undefined : WorkstreamPatternEngineSourceFromJSON(json['source']),
-        'textual': !exists(json, 'textual') ? undefined : WorkstreamPatternEngineVisionEventTextualValueFromJSON(json['textual']),
+        'source': json['source'] == null ? undefined : WorkstreamPatternEngineSourceFromJSON(json['source']),
+        'textual': json['textual'] == null ? undefined : WorkstreamPatternEngineVisionEventTextualValueFromJSON(json['textual']),
     };
 }
 
-export function WorkstreamPatternEngineVisionEventToJSON(value?: WorkstreamPatternEngineVisionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineVisionEventToJSON(json: any): WorkstreamPatternEngineVisionEvent {
+    return WorkstreamPatternEngineVisionEventToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineVisionEventToJSONTyped(value?: WorkstreamPatternEngineVisionEvent | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'created': GroupedTimestampToJSON(value.created),
-        'source': WorkstreamPatternEngineSourceToJSON(value.source),
-        'textual': WorkstreamPatternEngineVisionEventTextualValueToJSON(value.textual),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'created': GroupedTimestampToJSON(value['created']),
+        'source': WorkstreamPatternEngineSourceToJSON(value['source']),
+        'textual': WorkstreamPatternEngineVisionEventTextualValueToJSON(value['textual']),
     };
 }
 

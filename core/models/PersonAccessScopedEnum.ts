@@ -18,6 +18,7 @@
  * @export
  */
 export const PersonAccessScopedEnum = {
+    Unknown: 'UNKNOWN',
     Owner: 'OWNER',
     Editor: 'EDITOR',
     Commenter: 'COMMENTER',
@@ -25,6 +26,17 @@ export const PersonAccessScopedEnum = {
 } as const;
 export type PersonAccessScopedEnum = typeof PersonAccessScopedEnum[keyof typeof PersonAccessScopedEnum];
 
+
+export function instanceOfPersonAccessScopedEnum(value: any): boolean {
+    for (const key in PersonAccessScopedEnum) {
+        if (Object.prototype.hasOwnProperty.call(PersonAccessScopedEnum, key)) {
+            if (PersonAccessScopedEnum[key as keyof typeof PersonAccessScopedEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function PersonAccessScopedEnumFromJSON(json: any): PersonAccessScopedEnum {
     return PersonAccessScopedEnumFromJSONTyped(json, false);
@@ -36,5 +48,9 @@ export function PersonAccessScopedEnumFromJSONTyped(json: any, ignoreDiscriminat
 
 export function PersonAccessScopedEnumToJSON(value?: PersonAccessScopedEnum | null): any {
     return value as any;
+}
+
+export function PersonAccessScopedEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): PersonAccessScopedEnum {
+    return value as PersonAccessScopedEnum;
 }
 

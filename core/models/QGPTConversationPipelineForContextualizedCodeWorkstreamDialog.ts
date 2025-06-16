@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -40,10 +41,8 @@ export interface QGPTConversationPipelineForContextualizedCodeWorkstreamDialog {
 /**
  * Check if a given object implements the QGPTConversationPipelineForContextualizedCodeWorkstreamDialog interface.
  */
-export function instanceOfQGPTConversationPipelineForContextualizedCodeWorkstreamDialog(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTConversationPipelineForContextualizedCodeWorkstreamDialog(value: object): value is QGPTConversationPipelineForContextualizedCodeWorkstreamDialog {
+    return true;
 }
 
 export function QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSON(json: any): QGPTConversationPipelineForContextualizedCodeWorkstreamDialog {
@@ -51,25 +50,27 @@ export function QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFro
 }
 
 export function QGPTConversationPipelineForContextualizedCodeWorkstreamDialogFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTConversationPipelineForContextualizedCodeWorkstreamDialog {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
     };
 }
 
-export function QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSON(value?: QGPTConversationPipelineForContextualizedCodeWorkstreamDialog | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSON(json: any): QGPTConversationPipelineForContextualizedCodeWorkstreamDialog {
+    return QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSONTyped(json, false);
+}
+
+export function QGPTConversationPipelineForContextualizedCodeWorkstreamDialogToJSONTyped(value?: QGPTConversationPipelineForContextualizedCodeWorkstreamDialog | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
     };
 }
 

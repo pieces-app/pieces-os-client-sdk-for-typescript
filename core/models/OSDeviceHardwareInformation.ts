@@ -12,25 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { OSDeviceCPUHardwareInformation } from './OSDeviceCPUHardwareInformation';
-import {
-    OSDeviceCPUHardwareInformationFromJSON,
-    OSDeviceCPUHardwareInformationFromJSONTyped,
-    OSDeviceCPUHardwareInformationToJSON,
-} from './OSDeviceCPUHardwareInformation';
+import { mapValues } from '../runtime';
 import type { OSDeviceGPUHardwareInformation } from './OSDeviceGPUHardwareInformation';
 import {
     OSDeviceGPUHardwareInformationFromJSON,
     OSDeviceGPUHardwareInformationFromJSONTyped,
     OSDeviceGPUHardwareInformationToJSON,
+    OSDeviceGPUHardwareInformationToJSONTyped,
 } from './OSDeviceGPUHardwareInformation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { OSDeviceRAMHardwareInformation } from './OSDeviceRAMHardwareInformation';
+import {
+    OSDeviceRAMHardwareInformationFromJSON,
+    OSDeviceRAMHardwareInformationFromJSONTyped,
+    OSDeviceRAMHardwareInformationToJSON,
+    OSDeviceRAMHardwareInformationToJSONTyped,
+} from './OSDeviceRAMHardwareInformation';
+import type { OSDeviceCPUHardwareInformation } from './OSDeviceCPUHardwareInformation';
+import {
+    OSDeviceCPUHardwareInformationFromJSON,
+    OSDeviceCPUHardwareInformationFromJSONTyped,
+    OSDeviceCPUHardwareInformationToJSON,
+    OSDeviceCPUHardwareInformationToJSONTyped,
+} from './OSDeviceCPUHardwareInformation';
 
 /**
  * this will let us know specific hardware information
@@ -46,25 +56,29 @@ export interface OSDeviceHardwareInformation {
     schema?: EmbeddedModelSchema;
     /**
      * 
-     * @type {OSDeviceCPUHardwareInformation}
+     * @type {Array<OSDeviceCPUHardwareInformation>}
      * @memberof OSDeviceHardwareInformation
      */
-    cpu?: OSDeviceCPUHardwareInformation;
+    cpus?: Array<OSDeviceCPUHardwareInformation>;
     /**
      * 
-     * @type {OSDeviceGPUHardwareInformation}
+     * @type {Array<OSDeviceGPUHardwareInformation>}
      * @memberof OSDeviceHardwareInformation
      */
-    gpu?: OSDeviceGPUHardwareInformation;
+    gpus?: Array<OSDeviceGPUHardwareInformation>;
+    /**
+     * 
+     * @type {OSDeviceRAMHardwareInformation}
+     * @memberof OSDeviceHardwareInformation
+     */
+    ram?: OSDeviceRAMHardwareInformation;
 }
 
 /**
  * Check if a given object implements the OSDeviceHardwareInformation interface.
  */
-export function instanceOfOSDeviceHardwareInformation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOSDeviceHardwareInformation(value: object): value is OSDeviceHardwareInformation {
+    return true;
 }
 
 export function OSDeviceHardwareInformationFromJSON(json: any): OSDeviceHardwareInformation {
@@ -72,29 +86,33 @@ export function OSDeviceHardwareInformationFromJSON(json: any): OSDeviceHardware
 }
 
 export function OSDeviceHardwareInformationFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSDeviceHardwareInformation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'cpu': !exists(json, 'cpu') ? undefined : OSDeviceCPUHardwareInformationFromJSON(json['cpu']),
-        'gpu': !exists(json, 'gpu') ? undefined : OSDeviceGPUHardwareInformationFromJSON(json['gpu']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'cpus': json['cpus'] == null ? undefined : ((json['cpus'] as Array<any>).map(OSDeviceCPUHardwareInformationFromJSON)),
+        'gpus': json['gpus'] == null ? undefined : ((json['gpus'] as Array<any>).map(OSDeviceGPUHardwareInformationFromJSON)),
+        'ram': json['ram'] == null ? undefined : OSDeviceRAMHardwareInformationFromJSON(json['ram']),
     };
 }
 
-export function OSDeviceHardwareInformationToJSON(value?: OSDeviceHardwareInformation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSDeviceHardwareInformationToJSON(json: any): OSDeviceHardwareInformation {
+    return OSDeviceHardwareInformationToJSONTyped(json, false);
+}
+
+export function OSDeviceHardwareInformationToJSONTyped(value?: OSDeviceHardwareInformation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'cpu': OSDeviceCPUHardwareInformationToJSON(value.cpu),
-        'gpu': OSDeviceGPUHardwareInformationToJSON(value.gpu),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'cpus': value['cpus'] == null ? undefined : ((value['cpus'] as Array<any>).map(OSDeviceCPUHardwareInformationToJSON)),
+        'gpus': value['gpus'] == null ? undefined : ((value['gpus'] as Array<any>).map(OSDeviceGPUHardwareInformationToJSON)),
+        'ram': OSDeviceRAMHardwareInformationToJSON(value['ram']),
     };
 }
 

@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
+import type { SeededConnectorCreation } from './SeededConnectorCreation';
+import {
+    SeededConnectorCreationFromJSON,
+    SeededConnectorCreationFromJSONTyped,
+    SeededConnectorCreationToJSON,
+    SeededConnectorCreationToJSONTyped,
+} from './SeededConnectorCreation';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { ReuseReaction } from './ReuseReaction';
 import {
     ReuseReactionFromJSON,
     ReuseReactionFromJSONTyped,
     ReuseReactionToJSON,
+    ReuseReactionToJSONTyped,
 } from './ReuseReaction';
-import type { SeededConnectorCreation } from './SeededConnectorCreation';
-import {
-    SeededConnectorCreationFromJSON,
-    SeededConnectorCreationFromJSONTyped,
-    SeededConnectorCreationToJSON,
-} from './SeededConnectorCreation';
 
 /**
  * This will the the Request body of the Request Endpoint.
@@ -73,12 +76,10 @@ export interface Reaction {
 /**
  * Check if a given object implements the Reaction interface.
  */
-export function instanceOfReaction(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "save" in value;
-    isInstance = isInstance && "seed" in value;
-
-    return isInstance;
+export function instanceOfReaction(value: object): value is Reaction {
+    if (!('save' in value) || value['save'] === undefined) return false;
+    if (!('seed' in value) || value['seed'] === undefined) return false;
+    return true;
 }
 
 export function ReactionFromJSON(json: any): Reaction {
@@ -86,31 +87,33 @@ export function ReactionFromJSON(json: any): Reaction {
 }
 
 export function ReactionFromJSONTyped(json: any, ignoreDiscriminator: boolean): Reaction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'save': json['save'],
-        'reuse': !exists(json, 'reuse') ? undefined : ReuseReactionFromJSON(json['reuse']),
+        'reuse': json['reuse'] == null ? undefined : ReuseReactionFromJSON(json['reuse']),
         'seed': SeededConnectorCreationFromJSON(json['seed']),
     };
 }
 
-export function ReactionToJSON(value?: Reaction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReactionToJSON(json: any): Reaction {
+    return ReactionToJSONTyped(json, false);
+}
+
+export function ReactionToJSONTyped(value?: Reaction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'save': value.save,
-        'reuse': ReuseReactionToJSON(value.reuse),
-        'seed': SeededConnectorCreationToJSON(value.seed),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'save': value['save'],
+        'reuse': ReuseReactionToJSON(value['reuse']),
+        'seed': SeededConnectorCreationToJSON(value['seed']),
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -61,11 +62,9 @@ export interface Notification {
 /**
  * Check if a given object implements the Notification interface.
  */
-export function instanceOfNotification(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfNotification(value: object): value is Notification {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function NotificationFromJSON(json: any): Notification {
@@ -73,33 +72,35 @@ export function NotificationFromJSON(json: any): Notification {
 }
 
 export function NotificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): Notification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'title': !exists(json, 'title') ? undefined : json['title'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'payload': !exists(json, 'payload') ? undefined : json['payload'],
+        'title': json['title'] == null ? undefined : json['title'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'payload': json['payload'] == null ? undefined : json['payload'],
     };
 }
 
-export function NotificationToJSON(value?: Notification | null): any {
-    if (value === undefined) {
-        return undefined;
+export function NotificationToJSON(json: any): Notification {
+    return NotificationToJSONTyped(json, false);
+}
+
+export function NotificationToJSONTyped(value?: Notification | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'title': value.title,
-        'message': value.message,
-        'payload': value.payload,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'title': value['title'],
+        'message': value['message'],
+        'payload': value['payload'],
     };
 }
 

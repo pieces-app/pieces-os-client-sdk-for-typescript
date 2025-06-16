@@ -18,6 +18,7 @@
  * @export
  */
 export const Role = {
+    Unknown: 'UNKNOWN',
     Original: 'ORIGINAL',
     Additional: 'ADDITIONAL',
     Both: 'BOTH',
@@ -25,6 +26,17 @@ export const Role = {
 } as const;
 export type Role = typeof Role[keyof typeof Role];
 
+
+export function instanceOfRole(value: any): boolean {
+    for (const key in Role) {
+        if (Object.prototype.hasOwnProperty.call(Role, key)) {
+            if (Role[key as keyof typeof Role] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function RoleFromJSON(json: any): Role {
     return RoleFromJSONTyped(json, false);
@@ -36,5 +48,9 @@ export function RoleFromJSONTyped(json: any, ignoreDiscriminator: boolean): Role
 
 export function RoleToJSON(value?: Role | null): any {
     return value as any;
+}
+
+export function RoleToJSONTyped(value: any, ignoreDiscriminator: boolean): Role {
+    return value as Role;
 }
 

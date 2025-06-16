@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -51,11 +52,9 @@ export interface PredeletedExternalProviderApiKey {
 /**
  * Check if a given object implements the PredeletedExternalProviderApiKey interface.
  */
-export function instanceOfPredeletedExternalProviderApiKey(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "user" in value;
-
-    return isInstance;
+export function instanceOfPredeletedExternalProviderApiKey(value: object): value is PredeletedExternalProviderApiKey {
+    if (!('user' in value) || value['user'] === undefined) return false;
+    return true;
 }
 
 export function PredeletedExternalProviderApiKeyFromJSON(json: any): PredeletedExternalProviderApiKey {
@@ -63,29 +62,31 @@ export function PredeletedExternalProviderApiKeyFromJSON(json: any): PredeletedE
 }
 
 export function PredeletedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): PredeletedExternalProviderApiKey {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'user': json['user'],
-        'openAI': !exists(json, 'open_AI') ? undefined : json['open_AI'],
+        'openAI': json['open_AI'] == null ? undefined : json['open_AI'],
     };
 }
 
-export function PredeletedExternalProviderApiKeyToJSON(value?: PredeletedExternalProviderApiKey | null): any {
-    if (value === undefined) {
-        return undefined;
+export function PredeletedExternalProviderApiKeyToJSON(json: any): PredeletedExternalProviderApiKey {
+    return PredeletedExternalProviderApiKeyToJSONTyped(json, false);
+}
+
+export function PredeletedExternalProviderApiKeyToJSONTyped(value?: PredeletedExternalProviderApiKey | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'user': value.user,
-        'open_AI': value.openAI,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'user': value['user'],
+        'open_AI': value['openAI'],
     };
 }
 

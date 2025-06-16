@@ -12,49 +12,63 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { Auth0 } from './Auth0';
 import {
     Auth0FromJSON,
     Auth0FromJSONTyped,
     Auth0ToJSON,
+    Auth0ToJSONTyped,
 } from './Auth0';
-import type { ChallengedPKCE } from './ChallengedPKCE';
-import {
-    ChallengedPKCEFromJSON,
-    ChallengedPKCEFromJSONTyped,
-    ChallengedPKCEToJSON,
-} from './ChallengedPKCE';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { ResultedPKCE } from './ResultedPKCE';
+import type { TokenizedPKCE } from './TokenizedPKCE';
 import {
-    ResultedPKCEFromJSON,
-    ResultedPKCEFromJSONTyped,
-    ResultedPKCEToJSON,
-} from './ResultedPKCE';
+    TokenizedPKCEFromJSON,
+    TokenizedPKCEFromJSONTyped,
+    TokenizedPKCEToJSON,
+    TokenizedPKCEToJSONTyped,
+} from './TokenizedPKCE';
+import type { Descope } from './Descope';
+import {
+    DescopeFromJSON,
+    DescopeFromJSONTyped,
+    DescopeToJSON,
+    DescopeToJSONTyped,
+} from './Descope';
 import type { RevokedPKCE } from './RevokedPKCE';
 import {
     RevokedPKCEFromJSON,
     RevokedPKCEFromJSONTyped,
     RevokedPKCEToJSON,
+    RevokedPKCEToJSONTyped,
 } from './RevokedPKCE';
 import type { SeededPKCE } from './SeededPKCE';
 import {
     SeededPKCEFromJSON,
     SeededPKCEFromJSONTyped,
     SeededPKCEToJSON,
+    SeededPKCEToJSONTyped,
 } from './SeededPKCE';
-import type { TokenizedPKCE } from './TokenizedPKCE';
+import type { ChallengedPKCE } from './ChallengedPKCE';
 import {
-    TokenizedPKCEFromJSON,
-    TokenizedPKCEFromJSONTyped,
-    TokenizedPKCEToJSON,
-} from './TokenizedPKCE';
+    ChallengedPKCEFromJSON,
+    ChallengedPKCEFromJSONTyped,
+    ChallengedPKCEToJSON,
+    ChallengedPKCEToJSONTyped,
+} from './ChallengedPKCE';
+import type { ResultedPKCE } from './ResultedPKCE';
+import {
+    ResultedPKCEFromJSON,
+    ResultedPKCEFromJSONTyped,
+    ResultedPKCEToJSON,
+    ResultedPKCEToJSONTyped,
+} from './ResultedPKCE';
 
 /**
  * An object representing all of the properties involved in a PKCE Authentication Flow
@@ -104,15 +118,19 @@ export interface PKCE {
      * @memberof PKCE
      */
     auth0?: Auth0;
+    /**
+     * 
+     * @type {Descope}
+     * @memberof PKCE
+     */
+    descope?: Descope;
 }
 
 /**
  * Check if a given object implements the PKCE interface.
  */
-export function instanceOfPKCE(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfPKCE(value: object): value is PKCE {
+    return true;
 }
 
 export function PKCEFromJSON(json: any): PKCE {
@@ -120,37 +138,41 @@ export function PKCEFromJSON(json: any): PKCE {
 }
 
 export function PKCEFromJSONTyped(json: any, ignoreDiscriminator: boolean): PKCE {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'result': !exists(json, 'result') ? undefined : ResultedPKCEFromJSON(json['result']),
-        'challenge': !exists(json, 'challenge') ? undefined : ChallengedPKCEFromJSON(json['challenge']),
-        'revocation': !exists(json, 'revocation') ? undefined : RevokedPKCEFromJSON(json['revocation']),
-        'seed': !exists(json, 'seed') ? undefined : SeededPKCEFromJSON(json['seed']),
-        'token': !exists(json, 'token') ? undefined : TokenizedPKCEFromJSON(json['token']),
-        'auth0': !exists(json, 'auth0') ? undefined : Auth0FromJSON(json['auth0']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'result': json['result'] == null ? undefined : ResultedPKCEFromJSON(json['result']),
+        'challenge': json['challenge'] == null ? undefined : ChallengedPKCEFromJSON(json['challenge']),
+        'revocation': json['revocation'] == null ? undefined : RevokedPKCEFromJSON(json['revocation']),
+        'seed': json['seed'] == null ? undefined : SeededPKCEFromJSON(json['seed']),
+        'token': json['token'] == null ? undefined : TokenizedPKCEFromJSON(json['token']),
+        'auth0': json['auth0'] == null ? undefined : Auth0FromJSON(json['auth0']),
+        'descope': json['descope'] == null ? undefined : DescopeFromJSON(json['descope']),
     };
 }
 
-export function PKCEToJSON(value?: PKCE | null): any {
-    if (value === undefined) {
-        return undefined;
+export function PKCEToJSON(json: any): PKCE {
+    return PKCEToJSONTyped(json, false);
+}
+
+export function PKCEToJSONTyped(value?: PKCE | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'result': ResultedPKCEToJSON(value.result),
-        'challenge': ChallengedPKCEToJSON(value.challenge),
-        'revocation': RevokedPKCEToJSON(value.revocation),
-        'seed': SeededPKCEToJSON(value.seed),
-        'token': TokenizedPKCEToJSON(value.token),
-        'auth0': Auth0ToJSON(value.auth0),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'result': ResultedPKCEToJSON(value['result']),
+        'challenge': ChallengedPKCEToJSON(value['challenge']),
+        'revocation': RevokedPKCEToJSON(value['revocation']),
+        'seed': SeededPKCEToJSON(value['seed']),
+        'token': TokenizedPKCEToJSON(value['token']),
+        'auth0': Auth0ToJSON(value['auth0']),
+        'descope': DescopeToJSON(value['descope']),
     };
 }
 

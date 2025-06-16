@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedWorkstreamPatternEngineVisionEvent } from './FlattenedWorkstreamPatternEngineVisionEvent';
 import {
     FlattenedWorkstreamPatternEngineVisionEventFromJSON,
     FlattenedWorkstreamPatternEngineVisionEventFromJSONTyped,
     FlattenedWorkstreamPatternEngineVisionEventToJSON,
+    FlattenedWorkstreamPatternEngineVisionEventToJSONTyped,
 } from './FlattenedWorkstreamPatternEngineVisionEvent';
 
 /**
@@ -57,11 +59,9 @@ export interface ReferencedWorkstreamPatternEngineVisionEvent {
 /**
  * Check if a given object implements the ReferencedWorkstreamPatternEngineVisionEvent interface.
  */
-export function instanceOfReferencedWorkstreamPatternEngineVisionEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedWorkstreamPatternEngineVisionEvent(value: object): value is ReferencedWorkstreamPatternEngineVisionEvent {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedWorkstreamPatternEngineVisionEventFromJSON(json: any): ReferencedWorkstreamPatternEngineVisionEvent {
@@ -69,29 +69,31 @@ export function ReferencedWorkstreamPatternEngineVisionEventFromJSON(json: any):
 }
 
 export function ReferencedWorkstreamPatternEngineVisionEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedWorkstreamPatternEngineVisionEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedWorkstreamPatternEngineVisionEventFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedWorkstreamPatternEngineVisionEventFromJSON(json['reference']),
     };
 }
 
-export function ReferencedWorkstreamPatternEngineVisionEventToJSON(value?: ReferencedWorkstreamPatternEngineVisionEvent | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedWorkstreamPatternEngineVisionEventToJSON(json: any): ReferencedWorkstreamPatternEngineVisionEvent {
+    return ReferencedWorkstreamPatternEngineVisionEventToJSONTyped(json, false);
+}
+
+export function ReferencedWorkstreamPatternEngineVisionEventToJSONTyped(value?: ReferencedWorkstreamPatternEngineVisionEvent | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedWorkstreamPatternEngineVisionEventToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedWorkstreamPatternEngineVisionEventToJSON(value['reference']),
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -50,12 +51,10 @@ export interface SeededDiscoverableHtmlWebpage {
 /**
  * Check if a given object implements the SeededDiscoverableHtmlWebpage interface.
  */
-export function instanceOfSeededDiscoverableHtmlWebpage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "url" in value;
-    isInstance = isInstance && "page" in value;
-
-    return isInstance;
+export function instanceOfSeededDiscoverableHtmlWebpage(value: object): value is SeededDiscoverableHtmlWebpage {
+    if (!('url' in value) || value['url'] === undefined) return false;
+    if (!('page' in value) || value['page'] === undefined) return false;
+    return true;
 }
 
 export function SeededDiscoverableHtmlWebpageFromJSON(json: any): SeededDiscoverableHtmlWebpage {
@@ -63,29 +62,31 @@ export function SeededDiscoverableHtmlWebpageFromJSON(json: any): SeededDiscover
 }
 
 export function SeededDiscoverableHtmlWebpageFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableHtmlWebpage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'url': json['url'],
         'page': json['page'],
     };
 }
 
-export function SeededDiscoverableHtmlWebpageToJSON(value?: SeededDiscoverableHtmlWebpage | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededDiscoverableHtmlWebpageToJSON(json: any): SeededDiscoverableHtmlWebpage {
+    return SeededDiscoverableHtmlWebpageToJSONTyped(json, false);
+}
+
+export function SeededDiscoverableHtmlWebpageToJSONTyped(value?: SeededDiscoverableHtmlWebpage | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'url': value.url,
-        'page': value.page,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'url': value['url'],
+        'page': value['page'],
     };
 }
 

@@ -64,12 +64,16 @@ export class AllocationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/allocations/connect`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserProfileToJSON(requestParameters.userProfile),
+            body: UserProfileToJSON(requestParameters['userProfile']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
@@ -95,12 +99,16 @@ export class AllocationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/allocations/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
@@ -126,12 +134,16 @@ export class AllocationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/allocations/delete`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -161,12 +173,16 @@ export class AllocationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/allocations/disconnect`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {
@@ -196,12 +212,16 @@ export class AllocationsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/allocations/reconnect`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: AllocationCloudToJSON(requestParameters.allocationCloud),
+            body: AllocationCloudToJSON(requestParameters['allocationCloud']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AllocationCloudFromJSON(jsonValue));
@@ -224,6 +244,10 @@ export class AllocationsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/allocations`,

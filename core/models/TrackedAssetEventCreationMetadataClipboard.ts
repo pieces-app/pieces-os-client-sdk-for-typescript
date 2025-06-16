@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -49,10 +50,8 @@ export interface TrackedAssetEventCreationMetadataClipboard {
 /**
  * Check if a given object implements the TrackedAssetEventCreationMetadataClipboard interface.
  */
-export function instanceOfTrackedAssetEventCreationMetadataClipboard(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfTrackedAssetEventCreationMetadataClipboard(value: object): value is TrackedAssetEventCreationMetadataClipboard {
+    return true;
 }
 
 export function TrackedAssetEventCreationMetadataClipboardFromJSON(json: any): TrackedAssetEventCreationMetadataClipboard {
@@ -60,29 +59,31 @@ export function TrackedAssetEventCreationMetadataClipboardFromJSON(json: any): T
 }
 
 export function TrackedAssetEventCreationMetadataClipboardFromJSONTyped(json: any, ignoreDiscriminator: boolean): TrackedAssetEventCreationMetadataClipboard {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'keyboard': !exists(json, 'keyboard') ? undefined : json['keyboard'],
-        'interaction': !exists(json, 'interaction') ? undefined : json['interaction'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'keyboard': json['keyboard'] == null ? undefined : json['keyboard'],
+        'interaction': json['interaction'] == null ? undefined : json['interaction'],
     };
 }
 
-export function TrackedAssetEventCreationMetadataClipboardToJSON(value?: TrackedAssetEventCreationMetadataClipboard | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TrackedAssetEventCreationMetadataClipboardToJSON(json: any): TrackedAssetEventCreationMetadataClipboard {
+    return TrackedAssetEventCreationMetadataClipboardToJSONTyped(json, false);
+}
+
+export function TrackedAssetEventCreationMetadataClipboardToJSONTyped(value?: TrackedAssetEventCreationMetadataClipboard | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'keyboard': value.keyboard,
-        'interaction': value.interaction,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'keyboard': value['keyboard'],
+        'interaction': value['interaction'],
     };
 }
 

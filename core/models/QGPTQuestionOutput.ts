@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { QGPTQuestionAnswers } from './QGPTQuestionAnswers';
 import {
     QGPTQuestionAnswersFromJSON,
     QGPTQuestionAnswersFromJSONTyped,
     QGPTQuestionAnswersToJSON,
+    QGPTQuestionAnswersToJSONTyped,
 } from './QGPTQuestionAnswers';
 
 /**
@@ -51,11 +53,9 @@ export interface QGPTQuestionOutput {
 /**
  * Check if a given object implements the QGPTQuestionOutput interface.
  */
-export function instanceOfQGPTQuestionOutput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "answers" in value;
-
-    return isInstance;
+export function instanceOfQGPTQuestionOutput(value: object): value is QGPTQuestionOutput {
+    if (!('answers' in value) || value['answers'] === undefined) return false;
+    return true;
 }
 
 export function QGPTQuestionOutputFromJSON(json: any): QGPTQuestionOutput {
@@ -63,27 +63,29 @@ export function QGPTQuestionOutputFromJSON(json: any): QGPTQuestionOutput {
 }
 
 export function QGPTQuestionOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTQuestionOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'answers': QGPTQuestionAnswersFromJSON(json['answers']),
     };
 }
 
-export function QGPTQuestionOutputToJSON(value?: QGPTQuestionOutput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTQuestionOutputToJSON(json: any): QGPTQuestionOutput {
+    return QGPTQuestionOutputToJSONTyped(json, false);
+}
+
+export function QGPTQuestionOutputToJSONTyped(value?: QGPTQuestionOutput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'answers': QGPTQuestionAnswersToJSON(value.answers),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'answers': QGPTQuestionAnswersToJSON(value['answers']),
     };
 }
 

@@ -12,43 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { QGPTTaskPipelineForCodeCommentation } from './QGPTTaskPipelineForCodeCommentation';
-import {
-    QGPTTaskPipelineForCodeCommentationFromJSON,
-    QGPTTaskPipelineForCodeCommentationFromJSONTyped,
-    QGPTTaskPipelineForCodeCommentationToJSON,
-} from './QGPTTaskPipelineForCodeCommentation';
-import type { QGPTTaskPipelineForCodeCompletion } from './QGPTTaskPipelineForCodeCompletion';
-import {
-    QGPTTaskPipelineForCodeCompletionFromJSON,
-    QGPTTaskPipelineForCodeCompletionFromJSONTyped,
-    QGPTTaskPipelineForCodeCompletionToJSON,
-} from './QGPTTaskPipelineForCodeCompletion';
-import type { QGPTTaskPipelineForCodeExplanation } from './QGPTTaskPipelineForCodeExplanation';
-import {
-    QGPTTaskPipelineForCodeExplanationFromJSON,
-    QGPTTaskPipelineForCodeExplanationFromJSONTyped,
-    QGPTTaskPipelineForCodeExplanationToJSON,
-} from './QGPTTaskPipelineForCodeExplanation';
+import { mapValues } from '../runtime';
 import type { QGPTTaskPipelineForCodeFix } from './QGPTTaskPipelineForCodeFix';
 import {
     QGPTTaskPipelineForCodeFixFromJSON,
     QGPTTaskPipelineForCodeFixFromJSONTyped,
     QGPTTaskPipelineForCodeFixToJSON,
+    QGPTTaskPipelineForCodeFixToJSONTyped,
 } from './QGPTTaskPipelineForCodeFix';
+import type { QGPTTaskPipelineForCodeCommentation } from './QGPTTaskPipelineForCodeCommentation';
+import {
+    QGPTTaskPipelineForCodeCommentationFromJSON,
+    QGPTTaskPipelineForCodeCommentationFromJSONTyped,
+    QGPTTaskPipelineForCodeCommentationToJSON,
+    QGPTTaskPipelineForCodeCommentationToJSONTyped,
+} from './QGPTTaskPipelineForCodeCommentation';
 import type { QGPTTaskPipelineForCodeModification } from './QGPTTaskPipelineForCodeModification';
 import {
     QGPTTaskPipelineForCodeModificationFromJSON,
     QGPTTaskPipelineForCodeModificationFromJSONTyped,
     QGPTTaskPipelineForCodeModificationToJSON,
+    QGPTTaskPipelineForCodeModificationToJSONTyped,
 } from './QGPTTaskPipelineForCodeModification';
+import type { QGPTTaskPipelineForCodeCompletion } from './QGPTTaskPipelineForCodeCompletion';
+import {
+    QGPTTaskPipelineForCodeCompletionFromJSON,
+    QGPTTaskPipelineForCodeCompletionFromJSONTyped,
+    QGPTTaskPipelineForCodeCompletionToJSON,
+    QGPTTaskPipelineForCodeCompletionToJSONTyped,
+} from './QGPTTaskPipelineForCodeCompletion';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { QGPTTaskPipelineForCodeExplanation } from './QGPTTaskPipelineForCodeExplanation';
+import {
+    QGPTTaskPipelineForCodeExplanationFromJSON,
+    QGPTTaskPipelineForCodeExplanationFromJSONTyped,
+    QGPTTaskPipelineForCodeExplanationToJSON,
+    QGPTTaskPipelineForCodeExplanationToJSONTyped,
+} from './QGPTTaskPipelineForCodeExplanation';
 
 /**
  * This model is specifically for QGPT Task pipelines, the model is used to group one off tasks for instance fix/explaining/commenting
@@ -98,10 +104,8 @@ export interface QGPTTaskPipeline {
 /**
  * Check if a given object implements the QGPTTaskPipeline interface.
  */
-export function instanceOfQGPTTaskPipeline(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfQGPTTaskPipeline(value: object): value is QGPTTaskPipeline {
+    return true;
 }
 
 export function QGPTTaskPipelineFromJSON(json: any): QGPTTaskPipeline {
@@ -109,35 +113,37 @@ export function QGPTTaskPipelineFromJSON(json: any): QGPTTaskPipeline {
 }
 
 export function QGPTTaskPipelineFromJSONTyped(json: any, ignoreDiscriminator: boolean): QGPTTaskPipeline {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'codeExplanation': !exists(json, 'code_explanation') ? undefined : QGPTTaskPipelineForCodeExplanationFromJSON(json['code_explanation']),
-        'codeCommentation': !exists(json, 'code_commentation') ? undefined : QGPTTaskPipelineForCodeCommentationFromJSON(json['code_commentation']),
-        'codeFix': !exists(json, 'code_fix') ? undefined : QGPTTaskPipelineForCodeFixFromJSON(json['code_fix']),
-        'codeModification': !exists(json, 'code_modification') ? undefined : QGPTTaskPipelineForCodeModificationFromJSON(json['code_modification']),
-        'codeCompletion': !exists(json, 'code_completion') ? undefined : QGPTTaskPipelineForCodeCompletionFromJSON(json['code_completion']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'codeExplanation': json['code_explanation'] == null ? undefined : QGPTTaskPipelineForCodeExplanationFromJSON(json['code_explanation']),
+        'codeCommentation': json['code_commentation'] == null ? undefined : QGPTTaskPipelineForCodeCommentationFromJSON(json['code_commentation']),
+        'codeFix': json['code_fix'] == null ? undefined : QGPTTaskPipelineForCodeFixFromJSON(json['code_fix']),
+        'codeModification': json['code_modification'] == null ? undefined : QGPTTaskPipelineForCodeModificationFromJSON(json['code_modification']),
+        'codeCompletion': json['code_completion'] == null ? undefined : QGPTTaskPipelineForCodeCompletionFromJSON(json['code_completion']),
     };
 }
 
-export function QGPTTaskPipelineToJSON(value?: QGPTTaskPipeline | null): any {
-    if (value === undefined) {
-        return undefined;
+export function QGPTTaskPipelineToJSON(json: any): QGPTTaskPipeline {
+    return QGPTTaskPipelineToJSONTyped(json, false);
+}
+
+export function QGPTTaskPipelineToJSONTyped(value?: QGPTTaskPipeline | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'code_explanation': QGPTTaskPipelineForCodeExplanationToJSON(value.codeExplanation),
-        'code_commentation': QGPTTaskPipelineForCodeCommentationToJSON(value.codeCommentation),
-        'code_fix': QGPTTaskPipelineForCodeFixToJSON(value.codeFix),
-        'code_modification': QGPTTaskPipelineForCodeModificationToJSON(value.codeModification),
-        'code_completion': QGPTTaskPipelineForCodeCompletionToJSON(value.codeCompletion),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'code_explanation': QGPTTaskPipelineForCodeExplanationToJSON(value['codeExplanation']),
+        'code_commentation': QGPTTaskPipelineForCodeCommentationToJSON(value['codeCommentation']),
+        'code_fix': QGPTTaskPipelineForCodeFixToJSON(value['codeFix']),
+        'code_modification': QGPTTaskPipelineForCodeModificationToJSON(value['codeModification']),
+        'code_completion': QGPTTaskPipelineForCodeCompletionToJSON(value['codeCompletion']),
     };
 }
 

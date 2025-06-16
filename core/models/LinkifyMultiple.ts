@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AccessEnum } from './AccessEnum';
-import {
-    AccessEnumFromJSON,
-    AccessEnumFromJSONTyped,
-    AccessEnumToJSON,
-} from './AccessEnum';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededUser } from './SeededUser';
 import {
     SeededUserFromJSON,
     SeededUserFromJSONTyped,
     SeededUserToJSON,
+    SeededUserToJSONTyped,
 } from './SeededUser';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { AccessEnum } from './AccessEnum';
+import {
+    AccessEnumFromJSON,
+    AccessEnumFromJSONTyped,
+    AccessEnumToJSON,
+    AccessEnumToJSONTyped,
+} from './AccessEnum';
 
 /**
  * This is the incoming linkify model.
@@ -75,15 +78,15 @@ export interface LinkifyMultiple {
     name?: string;
 }
 
+
+
 /**
  * Check if a given object implements the LinkifyMultiple interface.
  */
-export function instanceOfLinkifyMultiple(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "assets" in value;
-    isInstance = isInstance && "access" in value;
-
-    return isInstance;
+export function instanceOfLinkifyMultiple(value: object): value is LinkifyMultiple {
+    if (!('assets' in value) || value['assets'] === undefined) return false;
+    if (!('access' in value) || value['access'] === undefined) return false;
+    return true;
 }
 
 export function LinkifyMultipleFromJSON(json: any): LinkifyMultiple {
@@ -91,33 +94,35 @@ export function LinkifyMultipleFromJSON(json: any): LinkifyMultiple {
 }
 
 export function LinkifyMultipleFromJSONTyped(json: any, ignoreDiscriminator: boolean): LinkifyMultiple {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'assets': json['assets'],
-        'users': !exists(json, 'users') ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
+        'users': json['users'] == null ? undefined : ((json['users'] as Array<any>).map(SeededUserFromJSON)),
         'access': AccessEnumFromJSON(json['access']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'] == null ? undefined : json['name'],
     };
 }
 
-export function LinkifyMultipleToJSON(value?: LinkifyMultiple | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LinkifyMultipleToJSON(json: any): LinkifyMultiple {
+    return LinkifyMultipleToJSONTyped(json, false);
+}
+
+export function LinkifyMultipleToJSONTyped(value?: LinkifyMultiple | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'assets': value.assets,
-        'users': value.users === undefined ? undefined : ((value.users as Array<any>).map(SeededUserToJSON)),
-        'access': AccessEnumToJSON(value.access),
-        'name': value.name,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'assets': value['assets'],
+        'users': value['users'] == null ? undefined : ((value['users'] as Array<any>).map(SeededUserToJSON)),
+        'access': AccessEnumToJSON(value['access']),
+        'name': value['name'],
     };
 }
 

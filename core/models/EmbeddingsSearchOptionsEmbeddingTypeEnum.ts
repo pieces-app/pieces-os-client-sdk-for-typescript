@@ -18,11 +18,23 @@
  * @export
  */
 export const EmbeddingsSearchOptionsEmbeddingTypeEnum = {
+    Unknown: 'UNKNOWN',
     Jina: 'JINA',
     Ncs: 'NCS'
 } as const;
 export type EmbeddingsSearchOptionsEmbeddingTypeEnum = typeof EmbeddingsSearchOptionsEmbeddingTypeEnum[keyof typeof EmbeddingsSearchOptionsEmbeddingTypeEnum];
 
+
+export function instanceOfEmbeddingsSearchOptionsEmbeddingTypeEnum(value: any): boolean {
+    for (const key in EmbeddingsSearchOptionsEmbeddingTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(EmbeddingsSearchOptionsEmbeddingTypeEnum, key)) {
+            if (EmbeddingsSearchOptionsEmbeddingTypeEnum[key as keyof typeof EmbeddingsSearchOptionsEmbeddingTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function EmbeddingsSearchOptionsEmbeddingTypeEnumFromJSON(json: any): EmbeddingsSearchOptionsEmbeddingTypeEnum {
     return EmbeddingsSearchOptionsEmbeddingTypeEnumFromJSONTyped(json, false);
@@ -34,5 +46,9 @@ export function EmbeddingsSearchOptionsEmbeddingTypeEnumFromJSONTyped(json: any,
 
 export function EmbeddingsSearchOptionsEmbeddingTypeEnumToJSON(value?: EmbeddingsSearchOptionsEmbeddingTypeEnum | null): any {
     return value as any;
+}
+
+export function EmbeddingsSearchOptionsEmbeddingTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): EmbeddingsSearchOptionsEmbeddingTypeEnum {
+    return value as EmbeddingsSearchOptionsEmbeddingTypeEnum;
 }
 

@@ -36,16 +36,23 @@ export class RelationshipApi extends runtime.BaseAPI {
      * /relationship/{relationship} [GET]
      */
     async relationshipsSpecificRelationshipSnapshotRaw(requestParameters: RelationshipsSpecificRelationshipSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Relationship>> {
-        if (requestParameters.relationship === null || requestParameters.relationship === undefined) {
-            throw new runtime.RequiredError('relationship','Required parameter requestParameters.relationship was null or undefined when calling relationshipsSpecificRelationshipSnapshot.');
+        if (requestParameters['relationship'] == null) {
+            throw new runtime.RequiredError(
+                'relationship',
+                'Required parameter "relationship" was null or undefined when calling relationshipsSpecificRelationshipSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/relationship/{relationship}`.replace(`{${"relationship"}}`, encodeURIComponent(String(requestParameters.relationship))),
+            path: `/relationship/{relationship}`.replace(`{${"relationship"}}`, encodeURIComponent(String(requestParameters['relationship']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

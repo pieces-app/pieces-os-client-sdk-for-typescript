@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SearchedAnnotations } from './SearchedAnnotations';
 import {
     SearchedAnnotationsFromJSON,
     SearchedAnnotationsFromJSONTyped,
     SearchedAnnotationsToJSON,
+    SearchedAnnotationsToJSONTyped,
 } from './SearchedAnnotations';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 import type { WorkstreamSummary } from './WorkstreamSummary';
 import {
     WorkstreamSummaryFromJSON,
     WorkstreamSummaryFromJSONTyped,
     WorkstreamSummaryToJSON,
+    WorkstreamSummaryToJSONTyped,
 } from './WorkstreamSummary';
 
 /**
@@ -94,13 +97,11 @@ export interface SearchedWorkstreamSummary {
 /**
  * Check if a given object implements the SearchedWorkstreamSummary interface.
  */
-export function instanceOfSearchedWorkstreamSummary(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exact" in value;
-    isInstance = isInstance && "similarity" in value;
-    isInstance = isInstance && "identifier" in value;
-
-    return isInstance;
+export function instanceOfSearchedWorkstreamSummary(value: object): value is SearchedWorkstreamSummary {
+    if (!('exact' in value) || value['exact'] === undefined) return false;
+    if (!('similarity' in value) || value['similarity'] === undefined) return false;
+    if (!('identifier' in value) || value['identifier'] === undefined) return false;
+    return true;
 }
 
 export function SearchedWorkstreamSummaryFromJSON(json: any): SearchedWorkstreamSummary {
@@ -108,37 +109,39 @@ export function SearchedWorkstreamSummaryFromJSON(json: any): SearchedWorkstream
 }
 
 export function SearchedWorkstreamSummaryFromJSONTyped(json: any, ignoreDiscriminator: boolean): SearchedWorkstreamSummary {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'summary': !exists(json, 'summary') ? undefined : WorkstreamSummaryFromJSON(json['summary']),
-        'annotations': !exists(json, 'annotations') ? undefined : SearchedAnnotationsFromJSON(json['annotations']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'summary': json['summary'] == null ? undefined : WorkstreamSummaryFromJSON(json['summary']),
+        'annotations': json['annotations'] == null ? undefined : SearchedAnnotationsFromJSON(json['annotations']),
         'exact': json['exact'],
         'similarity': json['similarity'],
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
         'identifier': json['identifier'],
     };
 }
 
-export function SearchedWorkstreamSummaryToJSON(value?: SearchedWorkstreamSummary | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SearchedWorkstreamSummaryToJSON(json: any): SearchedWorkstreamSummary {
+    return SearchedWorkstreamSummaryToJSONTyped(json, false);
+}
+
+export function SearchedWorkstreamSummaryToJSONTyped(value?: SearchedWorkstreamSummary | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'summary': WorkstreamSummaryToJSON(value.summary),
-        'annotations': SearchedAnnotationsToJSON(value.annotations),
-        'exact': value.exact,
-        'similarity': value.similarity,
-        'temporal': value.temporal,
-        'identifier': value.identifier,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'summary': WorkstreamSummaryToJSON(value['summary']),
+        'annotations': SearchedAnnotationsToJSON(value['annotations']),
+        'exact': value['exact'],
+        'similarity': value['similarity'],
+        'temporal': value['temporal'],
+        'identifier': value['identifier'],
     };
 }
 

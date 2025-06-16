@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { TrackedSummaryTotals } from './TrackedSummaryTotals';
 import {
     TrackedSummaryTotalsFromJSON,
     TrackedSummaryTotalsFromJSONTyped,
     TrackedSummaryTotalsToJSON,
+    TrackedSummaryTotalsToJSONTyped,
 } from './TrackedSummaryTotals';
 
 /**
@@ -49,10 +51,8 @@ export interface OSServerMetadata {
 /**
  * Check if a given object implements the OSServerMetadata interface.
  */
-export function instanceOfOSServerMetadata(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOSServerMetadata(value: object): value is OSServerMetadata {
+    return true;
 }
 
 export function OSServerMetadataFromJSON(json: any): OSServerMetadata {
@@ -60,27 +60,29 @@ export function OSServerMetadataFromJSON(json: any): OSServerMetadata {
 }
 
 export function OSServerMetadataFromJSONTyped(json: any, ignoreDiscriminator: boolean): OSServerMetadata {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'totals': !exists(json, 'totals') ? undefined : TrackedSummaryTotalsFromJSON(json['totals']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'totals': json['totals'] == null ? undefined : TrackedSummaryTotalsFromJSON(json['totals']),
     };
 }
 
-export function OSServerMetadataToJSON(value?: OSServerMetadata | null): any {
-    if (value === undefined) {
-        return undefined;
+export function OSServerMetadataToJSON(json: any): OSServerMetadata {
+    return OSServerMetadataToJSONTyped(json, false);
+}
+
+export function OSServerMetadataToJSONTyped(value?: OSServerMetadata | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'totals': TrackedSummaryTotalsToJSON(value.totals),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'totals': TrackedSummaryTotalsToJSON(value['totals']),
     };
 }
 

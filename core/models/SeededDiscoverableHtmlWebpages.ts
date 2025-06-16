@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { SeededDiscoverableHtmlWebpage } from './SeededDiscoverableHtmlWebpage';
 import {
     SeededDiscoverableHtmlWebpageFromJSON,
     SeededDiscoverableHtmlWebpageFromJSONTyped,
     SeededDiscoverableHtmlWebpageToJSON,
+    SeededDiscoverableHtmlWebpageToJSONTyped,
 } from './SeededDiscoverableHtmlWebpage';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * 
@@ -55,12 +57,10 @@ export interface SeededDiscoverableHtmlWebpages {
 /**
  * Check if a given object implements the SeededDiscoverableHtmlWebpages interface.
  */
-export function instanceOfSeededDiscoverableHtmlWebpages(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-    isInstance = isInstance && "application" in value;
-
-    return isInstance;
+export function instanceOfSeededDiscoverableHtmlWebpages(value: object): value is SeededDiscoverableHtmlWebpages {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    if (!('application' in value) || value['application'] === undefined) return false;
+    return true;
 }
 
 export function SeededDiscoverableHtmlWebpagesFromJSON(json: any): SeededDiscoverableHtmlWebpages {
@@ -68,29 +68,31 @@ export function SeededDiscoverableHtmlWebpagesFromJSON(json: any): SeededDiscove
 }
 
 export function SeededDiscoverableHtmlWebpagesFromJSONTyped(json: any, ignoreDiscriminator: boolean): SeededDiscoverableHtmlWebpages {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(SeededDiscoverableHtmlWebpageFromJSON)),
         'application': json['application'],
     };
 }
 
-export function SeededDiscoverableHtmlWebpagesToJSON(value?: SeededDiscoverableHtmlWebpages | null): any {
-    if (value === undefined) {
-        return undefined;
+export function SeededDiscoverableHtmlWebpagesToJSON(json: any): SeededDiscoverableHtmlWebpages {
+    return SeededDiscoverableHtmlWebpagesToJSONTyped(json, false);
+}
+
+export function SeededDiscoverableHtmlWebpagesToJSONTyped(value?: SeededDiscoverableHtmlWebpages | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(SeededDiscoverableHtmlWebpageToJSON)),
-        'application': value.application,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(SeededDiscoverableHtmlWebpageToJSON)),
+        'application': value['application'],
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { ReferencedConversation } from './ReferencedConversation';
 import {
     ReferencedConversationFromJSON,
     ReferencedConversationFromJSONTyped,
     ReferencedConversationToJSON,
+    ReferencedConversationToJSONTyped,
 } from './ReferencedConversation';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
 
 /**
  * This is the model for the output for the "/conversations/create/from_asset/{asset}" endpoints.
@@ -49,11 +51,9 @@ export interface ConversationsCreateFromAssetOutput {
 /**
  * Check if a given object implements the ConversationsCreateFromAssetOutput interface.
  */
-export function instanceOfConversationsCreateFromAssetOutput(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "conversation" in value;
-
-    return isInstance;
+export function instanceOfConversationsCreateFromAssetOutput(value: object): value is ConversationsCreateFromAssetOutput {
+    if (!('conversation' in value) || value['conversation'] === undefined) return false;
+    return true;
 }
 
 export function ConversationsCreateFromAssetOutputFromJSON(json: any): ConversationsCreateFromAssetOutput {
@@ -61,27 +61,29 @@ export function ConversationsCreateFromAssetOutputFromJSON(json: any): Conversat
 }
 
 export function ConversationsCreateFromAssetOutputFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationsCreateFromAssetOutput {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'conversation': ReferencedConversationFromJSON(json['conversation']),
     };
 }
 
-export function ConversationsCreateFromAssetOutputToJSON(value?: ConversationsCreateFromAssetOutput | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ConversationsCreateFromAssetOutputToJSON(json: any): ConversationsCreateFromAssetOutput {
+    return ConversationsCreateFromAssetOutputToJSONTyped(json, false);
+}
+
+export function ConversationsCreateFromAssetOutputToJSONTyped(value?: ConversationsCreateFromAssetOutput | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'conversation': ReferencedConversationToJSON(value.conversation),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'conversation': ReferencedConversationToJSON(value['conversation']),
     };
 }
 

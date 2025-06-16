@@ -12,25 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
+import { mapValues } from '../runtime';
 import type { FlattenedConversationMessages } from './FlattenedConversationMessages';
 import {
     FlattenedConversationMessagesFromJSON,
     FlattenedConversationMessagesFromJSONTyped,
     FlattenedConversationMessagesToJSON,
+    FlattenedConversationMessagesToJSONTyped,
 } from './FlattenedConversationMessages';
 import type { TemporalRangeGrounding } from './TemporalRangeGrounding';
 import {
     TemporalRangeGroundingFromJSON,
     TemporalRangeGroundingFromJSONTyped,
     TemporalRangeGroundingToJSON,
+    TemporalRangeGroundingToJSONTyped,
 } from './TemporalRangeGrounding';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { FlattenedIdentifiedWorkstreamPatternEngineSources } from './FlattenedIdentifiedWorkstreamPatternEngineSources';
+import {
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSONTyped,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON,
+    FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSONTyped,
+} from './FlattenedIdentifiedWorkstreamPatternEngineSources';
 
 /**
  * This is the context used for grounding the ml models with reguard to a conversation.
@@ -56,15 +66,19 @@ export interface ConversationGrounding {
      * @memberof ConversationGrounding
      */
     temporal?: TemporalRangeGrounding;
+    /**
+     * 
+     * @type {FlattenedIdentifiedWorkstreamPatternEngineSources}
+     * @memberof ConversationGrounding
+     */
+    sources?: FlattenedIdentifiedWorkstreamPatternEngineSources;
 }
 
 /**
  * Check if a given object implements the ConversationGrounding interface.
  */
-export function instanceOfConversationGrounding(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfConversationGrounding(value: object): value is ConversationGrounding {
+    return true;
 }
 
 export function ConversationGroundingFromJSON(json: any): ConversationGrounding {
@@ -72,29 +86,33 @@ export function ConversationGroundingFromJSON(json: any): ConversationGrounding 
 }
 
 export function ConversationGroundingFromJSONTyped(json: any, ignoreDiscriminator: boolean): ConversationGrounding {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'messages': !exists(json, 'messages') ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
-        'temporal': !exists(json, 'temporal') ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'messages': json['messages'] == null ? undefined : FlattenedConversationMessagesFromJSON(json['messages']),
+        'temporal': json['temporal'] == null ? undefined : TemporalRangeGroundingFromJSON(json['temporal']),
+        'sources': json['sources'] == null ? undefined : FlattenedIdentifiedWorkstreamPatternEngineSourcesFromJSON(json['sources']),
     };
 }
 
-export function ConversationGroundingToJSON(value?: ConversationGrounding | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ConversationGroundingToJSON(json: any): ConversationGrounding {
+    return ConversationGroundingToJSONTyped(json, false);
+}
+
+export function ConversationGroundingToJSONTyped(value?: ConversationGrounding | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'messages': FlattenedConversationMessagesToJSON(value.messages),
-        'temporal': TemporalRangeGroundingToJSON(value.temporal),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'messages': FlattenedConversationMessagesToJSON(value['messages']),
+        'temporal': TemporalRangeGroundingToJSON(value['temporal']),
+        'sources': FlattenedIdentifiedWorkstreamPatternEngineSourcesToJSON(value['sources']),
     };
 }
 

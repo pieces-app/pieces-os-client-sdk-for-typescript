@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -93,25 +94,30 @@ export interface TLPCodeSnippetTagifyCode {
      * @memberof TLPCodeSnippetTagifyCode
      */
     asset: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TLPCodeSnippetTagifyCode
+     */
+    os: string;
 }
 
 /**
  * Check if a given object implements the TLPCodeSnippetTagifyCode interface.
  */
-export function instanceOfTLPCodeSnippetTagifyCode(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "distribution" in value;
-    isInstance = isInstance && "inferredDistribution" in value;
-    isInstance = isInstance && "tags" in value;
-    isInstance = isInstance && "inferredTags" in value;
-    isInstance = isInstance && "model" in value;
-    isInstance = isInstance && "labelVersion" in value;
-    isInstance = isInstance && "threshold" in value;
-    isInstance = isInstance && "inferredThreshold" in value;
-    isInstance = isInstance && "context" in value;
-    isInstance = isInstance && "asset" in value;
-
-    return isInstance;
+export function instanceOfTLPCodeSnippetTagifyCode(value: object): value is TLPCodeSnippetTagifyCode {
+    if (!('distribution' in value) || value['distribution'] === undefined) return false;
+    if (!('inferredDistribution' in value) || value['inferredDistribution'] === undefined) return false;
+    if (!('tags' in value) || value['tags'] === undefined) return false;
+    if (!('inferredTags' in value) || value['inferredTags'] === undefined) return false;
+    if (!('model' in value) || value['model'] === undefined) return false;
+    if (!('labelVersion' in value) || value['labelVersion'] === undefined) return false;
+    if (!('threshold' in value) || value['threshold'] === undefined) return false;
+    if (!('inferredThreshold' in value) || value['inferredThreshold'] === undefined) return false;
+    if (!('context' in value) || value['context'] === undefined) return false;
+    if (!('asset' in value) || value['asset'] === undefined) return false;
+    if (!('os' in value) || value['os'] === undefined) return false;
+    return true;
 }
 
 export function TLPCodeSnippetTagifyCodeFromJSON(json: any): TLPCodeSnippetTagifyCode {
@@ -119,12 +125,12 @@ export function TLPCodeSnippetTagifyCodeFromJSON(json: any): TLPCodeSnippetTagif
 }
 
 export function TLPCodeSnippetTagifyCodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): TLPCodeSnippetTagifyCode {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'distribution': json['distribution'],
         'inferredDistribution': json['inferred_distribution'],
         'tags': json['tags'],
@@ -135,29 +141,33 @@ export function TLPCodeSnippetTagifyCodeFromJSONTyped(json: any, ignoreDiscrimin
         'inferredThreshold': json['inferred_threshold'],
         'context': json['context'],
         'asset': json['asset'],
+        'os': json['os'],
     };
 }
 
-export function TLPCodeSnippetTagifyCodeToJSON(value?: TLPCodeSnippetTagifyCode | null): any {
-    if (value === undefined) {
-        return undefined;
+export function TLPCodeSnippetTagifyCodeToJSON(json: any): TLPCodeSnippetTagifyCode {
+    return TLPCodeSnippetTagifyCodeToJSONTyped(json, false);
+}
+
+export function TLPCodeSnippetTagifyCodeToJSONTyped(value?: TLPCodeSnippetTagifyCode | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'distribution': value.distribution,
-        'inferred_distribution': value.inferredDistribution,
-        'tags': value.tags,
-        'inferred_tags': value.inferredTags,
-        'model': value.model,
-        'label_version': value.labelVersion,
-        'threshold': value.threshold,
-        'inferred_threshold': value.inferredThreshold,
-        'context': value.context,
-        'asset': value.asset,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'distribution': value['distribution'],
+        'inferred_distribution': value['inferredDistribution'],
+        'tags': value['tags'],
+        'inferred_tags': value['inferredTags'],
+        'model': value['model'],
+        'label_version': value['labelVersion'],
+        'threshold': value['threshold'],
+        'inferred_threshold': value['inferredThreshold'],
+        'context': value['context'],
+        'asset': value['asset'],
+        'os': value['os'],
     };
 }
 

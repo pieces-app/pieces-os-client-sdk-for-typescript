@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -79,10 +80,8 @@ export interface ModelCapabilities {
 /**
  * Check if a given object implements the ModelCapabilities interface.
  */
-export function instanceOfModelCapabilities(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfModelCapabilities(value: object): value is ModelCapabilities {
+    return true;
 }
 
 export function ModelCapabilitiesFromJSON(json: any): ModelCapabilities {
@@ -90,39 +89,41 @@ export function ModelCapabilitiesFromJSON(json: any): ModelCapabilities {
 }
 
 export function ModelCapabilitiesFromJSONTyped(json: any, ignoreDiscriminator: boolean): ModelCapabilities {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'temporal': !exists(json, 'temporal') ? undefined : json['temporal'],
-        'images': !exists(json, 'images') ? undefined : json['images'],
-        'videos': !exists(json, 'videos') ? undefined : json['videos'],
-        'documents': !exists(json, 'documents') ? undefined : json['documents'],
-        'codebases': !exists(json, 'codebases') ? undefined : json['codebases'],
-        'assets': !exists(json, 'assets') ? undefined : json['assets'],
-        'websites': !exists(json, 'websites') ? undefined : json['websites'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'temporal': json['temporal'] == null ? undefined : json['temporal'],
+        'images': json['images'] == null ? undefined : json['images'],
+        'videos': json['videos'] == null ? undefined : json['videos'],
+        'documents': json['documents'] == null ? undefined : json['documents'],
+        'codebases': json['codebases'] == null ? undefined : json['codebases'],
+        'assets': json['assets'] == null ? undefined : json['assets'],
+        'websites': json['websites'] == null ? undefined : json['websites'],
     };
 }
 
-export function ModelCapabilitiesToJSON(value?: ModelCapabilities | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ModelCapabilitiesToJSON(json: any): ModelCapabilities {
+    return ModelCapabilitiesToJSONTyped(json, false);
+}
+
+export function ModelCapabilitiesToJSONTyped(value?: ModelCapabilities | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'temporal': value.temporal,
-        'images': value.images,
-        'videos': value.videos,
-        'documents': value.documents,
-        'codebases': value.codebases,
-        'assets': value.assets,
-        'websites': value.websites,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'temporal': value['temporal'],
+        'images': value['images'],
+        'videos': value['videos'],
+        'documents': value['documents'],
+        'codebases': value['codebases'],
+        'assets': value['assets'],
+        'websites': value['websites'],
     };
 }
 

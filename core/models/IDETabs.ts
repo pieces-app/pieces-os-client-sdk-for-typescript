@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { IDETab } from './IDETab';
 import {
     IDETabFromJSON,
     IDETabFromJSONTyped,
     IDETabToJSON,
+    IDETabToJSONTyped,
 } from './IDETab';
 
 /**
@@ -49,11 +51,9 @@ export interface IDETabs {
 /**
  * Check if a given object implements the IDETabs interface.
  */
-export function instanceOfIDETabs(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfIDETabs(value: object): value is IDETabs {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function IDETabsFromJSON(json: any): IDETabs {
@@ -61,27 +61,29 @@ export function IDETabsFromJSON(json: any): IDETabs {
 }
 
 export function IDETabsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IDETabs {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(IDETabFromJSON)),
     };
 }
 
-export function IDETabsToJSON(value?: IDETabs | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IDETabsToJSON(json: any): IDETabs {
+    return IDETabsToJSONTyped(json, false);
+}
+
+export function IDETabsToJSONTyped(value?: IDETabs | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(IDETabToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(IDETabToJSON)),
     };
 }
 

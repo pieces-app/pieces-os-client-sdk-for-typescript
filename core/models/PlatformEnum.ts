@@ -18,17 +18,28 @@
  * @export
  */
 export const PlatformEnum = {
+    Unknown: 'UNKNOWN',
     Web: 'WEB',
     Macos: 'MACOS',
     Linux: 'LINUX',
     Windows: 'WINDOWS',
     Fuchsia: 'FUCHSIA',
     Ios: 'IOS',
-    Android: 'ANDROID',
-    Unknown: 'UNKNOWN'
+    Android: 'ANDROID'
 } as const;
 export type PlatformEnum = typeof PlatformEnum[keyof typeof PlatformEnum];
 
+
+export function instanceOfPlatformEnum(value: any): boolean {
+    for (const key in PlatformEnum) {
+        if (Object.prototype.hasOwnProperty.call(PlatformEnum, key)) {
+            if (PlatformEnum[key as keyof typeof PlatformEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function PlatformEnumFromJSON(json: any): PlatformEnum {
     return PlatformEnumFromJSONTyped(json, false);
@@ -40,5 +51,9 @@ export function PlatformEnumFromJSONTyped(json: any, ignoreDiscriminator: boolea
 
 export function PlatformEnumToJSON(value?: PlatformEnum | null): any {
     return value as any;
+}
+
+export function PlatformEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): PlatformEnum {
+    return value as PlatformEnum;
 }
 

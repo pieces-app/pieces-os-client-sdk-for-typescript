@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AllocationCloudUrl } from './AllocationCloudUrl';
-import {
-    AllocationCloudUrlFromJSON,
-    AllocationCloudUrlFromJSONTyped,
-    AllocationCloudUrlToJSON,
-} from './AllocationCloudUrl';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { AllocationCloudUrl } from './AllocationCloudUrl';
+import {
+    AllocationCloudUrlFromJSON,
+    AllocationCloudUrlFromJSONTyped,
+    AllocationCloudUrlToJSON,
+    AllocationCloudUrlToJSONTyped,
+} from './AllocationCloudUrl';
 
 /**
  * you will have at minimum 2 urls,
@@ -67,12 +69,10 @@ export interface AllocationCloudUrls {
 /**
  * Check if a given object implements the AllocationCloudUrls interface.
  */
-export function instanceOfAllocationCloudUrls(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "base" in value;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfAllocationCloudUrls(value: object): value is AllocationCloudUrls {
+    if (!('base' in value) || value['base'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function AllocationCloudUrlsFromJSON(json: any): AllocationCloudUrls {
@@ -80,31 +80,33 @@ export function AllocationCloudUrlsFromJSON(json: any): AllocationCloudUrls {
 }
 
 export function AllocationCloudUrlsFromJSONTyped(json: any, ignoreDiscriminator: boolean): AllocationCloudUrls {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'base': AllocationCloudUrlFromJSON(json['base']),
         'id': AllocationCloudUrlFromJSON(json['id']),
-        'vanity': !exists(json, 'vanity') ? undefined : AllocationCloudUrlFromJSON(json['vanity']),
+        'vanity': json['vanity'] == null ? undefined : AllocationCloudUrlFromJSON(json['vanity']),
     };
 }
 
-export function AllocationCloudUrlsToJSON(value?: AllocationCloudUrls | null): any {
-    if (value === undefined) {
-        return undefined;
+export function AllocationCloudUrlsToJSON(json: any): AllocationCloudUrls {
+    return AllocationCloudUrlsToJSONTyped(json, false);
+}
+
+export function AllocationCloudUrlsToJSONTyped(value?: AllocationCloudUrls | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'base': AllocationCloudUrlToJSON(value.base),
-        'id': AllocationCloudUrlToJSON(value.id),
-        'vanity': AllocationCloudUrlToJSON(value.vanity),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'base': AllocationCloudUrlToJSON(value['base']),
+        'id': AllocationCloudUrlToJSON(value['id']),
+        'vanity': AllocationCloudUrlToJSON(value['vanity']),
     };
 }
 

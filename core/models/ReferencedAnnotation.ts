@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { FlattenedAnnotation } from './FlattenedAnnotation';
 import {
     FlattenedAnnotationFromJSON,
     FlattenedAnnotationFromJSONTyped,
     FlattenedAnnotationToJSON,
+    FlattenedAnnotationToJSONTyped,
 } from './FlattenedAnnotation';
 
 /**
@@ -55,11 +57,9 @@ export interface ReferencedAnnotation {
 /**
  * Check if a given object implements the ReferencedAnnotation interface.
  */
-export function instanceOfReferencedAnnotation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfReferencedAnnotation(value: object): value is ReferencedAnnotation {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ReferencedAnnotationFromJSON(json: any): ReferencedAnnotation {
@@ -67,29 +67,31 @@ export function ReferencedAnnotationFromJSON(json: any): ReferencedAnnotation {
 }
 
 export function ReferencedAnnotationFromJSONTyped(json: any, ignoreDiscriminator: boolean): ReferencedAnnotation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'id': json['id'],
-        'reference': !exists(json, 'reference') ? undefined : FlattenedAnnotationFromJSON(json['reference']),
+        'reference': json['reference'] == null ? undefined : FlattenedAnnotationFromJSON(json['reference']),
     };
 }
 
-export function ReferencedAnnotationToJSON(value?: ReferencedAnnotation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function ReferencedAnnotationToJSON(json: any): ReferencedAnnotation {
+    return ReferencedAnnotationToJSONTyped(json, false);
+}
+
+export function ReferencedAnnotationToJSONTyped(value?: ReferencedAnnotation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'id': value.id,
-        'reference': FlattenedAnnotationToJSON(value.reference),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'id': value['id'],
+        'reference': FlattenedAnnotationToJSON(value['reference']),
     };
 }
 

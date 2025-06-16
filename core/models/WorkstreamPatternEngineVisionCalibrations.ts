@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 import type { WorkstreamPatternEngineVisionCalibration } from './WorkstreamPatternEngineVisionCalibration';
 import {
     WorkstreamPatternEngineVisionCalibrationFromJSON,
     WorkstreamPatternEngineVisionCalibrationFromJSONTyped,
     WorkstreamPatternEngineVisionCalibrationToJSON,
+    WorkstreamPatternEngineVisionCalibrationToJSONTyped,
 } from './WorkstreamPatternEngineVisionCalibration';
 
 /**
@@ -52,11 +54,9 @@ export interface WorkstreamPatternEngineVisionCalibrations {
 /**
  * Check if a given object implements the WorkstreamPatternEngineVisionCalibrations interface.
  */
-export function instanceOfWorkstreamPatternEngineVisionCalibrations(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineVisionCalibrations(value: object): value is WorkstreamPatternEngineVisionCalibrations {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function WorkstreamPatternEngineVisionCalibrationsFromJSON(json: any): WorkstreamPatternEngineVisionCalibrations {
@@ -64,27 +64,29 @@ export function WorkstreamPatternEngineVisionCalibrationsFromJSON(json: any): Wo
 }
 
 export function WorkstreamPatternEngineVisionCalibrationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineVisionCalibrations {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(WorkstreamPatternEngineVisionCalibrationFromJSON)),
     };
 }
 
-export function WorkstreamPatternEngineVisionCalibrationsToJSON(value?: WorkstreamPatternEngineVisionCalibrations | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineVisionCalibrationsToJSON(json: any): WorkstreamPatternEngineVisionCalibrations {
+    return WorkstreamPatternEngineVisionCalibrationsToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineVisionCalibrationsToJSONTyped(value?: WorkstreamPatternEngineVisionCalibrations | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(WorkstreamPatternEngineVisionCalibrationToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(WorkstreamPatternEngineVisionCalibrationToJSON)),
     };
 }
 

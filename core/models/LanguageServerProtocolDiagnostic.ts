@@ -12,36 +12,41 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
-import {
-    EmbeddedModelSchemaFromJSON,
-    EmbeddedModelSchemaFromJSONTyped,
-    EmbeddedModelSchemaToJSON,
-} from './EmbeddedModelSchema';
-import type { LanguageServerProtocolCode } from './LanguageServerProtocolCode';
-import {
-    LanguageServerProtocolCodeFromJSON,
-    LanguageServerProtocolCodeFromJSONTyped,
-    LanguageServerProtocolCodeToJSON,
-} from './LanguageServerProtocolCode';
-import type { LanguageServerProtocolCodeDescription } from './LanguageServerProtocolCodeDescription';
-import {
-    LanguageServerProtocolCodeDescriptionFromJSON,
-    LanguageServerProtocolCodeDescriptionFromJSONTyped,
-    LanguageServerProtocolCodeDescriptionToJSON,
-} from './LanguageServerProtocolCodeDescription';
+import { mapValues } from '../runtime';
 import type { LanguageServerProtocolLocationRange } from './LanguageServerProtocolLocationRange';
 import {
     LanguageServerProtocolLocationRangeFromJSON,
     LanguageServerProtocolLocationRangeFromJSONTyped,
     LanguageServerProtocolLocationRangeToJSON,
+    LanguageServerProtocolLocationRangeToJSONTyped,
 } from './LanguageServerProtocolLocationRange';
+import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
+import {
+    EmbeddedModelSchemaFromJSON,
+    EmbeddedModelSchemaFromJSONTyped,
+    EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
+} from './EmbeddedModelSchema';
+import type { LanguageServerProtocolCodeDescription } from './LanguageServerProtocolCodeDescription';
+import {
+    LanguageServerProtocolCodeDescriptionFromJSON,
+    LanguageServerProtocolCodeDescriptionFromJSONTyped,
+    LanguageServerProtocolCodeDescriptionToJSON,
+    LanguageServerProtocolCodeDescriptionToJSONTyped,
+} from './LanguageServerProtocolCodeDescription';
+import type { LanguageServerProtocolCode } from './LanguageServerProtocolCode';
+import {
+    LanguageServerProtocolCodeFromJSON,
+    LanguageServerProtocolCodeFromJSONTyped,
+    LanguageServerProtocolCodeToJSON,
+    LanguageServerProtocolCodeToJSONTyped,
+} from './LanguageServerProtocolCode';
 import type { LanguageServerProtocolSeverityEnum } from './LanguageServerProtocolSeverityEnum';
 import {
     LanguageServerProtocolSeverityEnumFromJSON,
     LanguageServerProtocolSeverityEnumFromJSONTyped,
     LanguageServerProtocolSeverityEnumToJSON,
+    LanguageServerProtocolSeverityEnumToJSONTyped,
 } from './LanguageServerProtocolSeverityEnum';
 
 /**
@@ -94,15 +99,15 @@ export interface LanguageServerProtocolDiagnostic {
     message: string;
 }
 
+
+
 /**
  * Check if a given object implements the LanguageServerProtocolDiagnostic interface.
  */
-export function instanceOfLanguageServerProtocolDiagnostic(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "range" in value;
-    isInstance = isInstance && "message" in value;
-
-    return isInstance;
+export function instanceOfLanguageServerProtocolDiagnostic(value: object): value is LanguageServerProtocolDiagnostic {
+    if (!('range' in value) || value['range'] === undefined) return false;
+    if (!('message' in value) || value['message'] === undefined) return false;
+    return true;
 }
 
 export function LanguageServerProtocolDiagnosticFromJSON(json: any): LanguageServerProtocolDiagnostic {
@@ -110,37 +115,39 @@ export function LanguageServerProtocolDiagnosticFromJSON(json: any): LanguageSer
 }
 
 export function LanguageServerProtocolDiagnosticFromJSONTyped(json: any, ignoreDiscriminator: boolean): LanguageServerProtocolDiagnostic {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'range': LanguageServerProtocolLocationRangeFromJSON(json['range']),
-        'severity': !exists(json, 'severity') ? undefined : LanguageServerProtocolSeverityEnumFromJSON(json['severity']),
-        'code': !exists(json, 'code') ? undefined : LanguageServerProtocolCodeFromJSON(json['code']),
-        'codeDescription': !exists(json, 'codeDescription') ? undefined : LanguageServerProtocolCodeDescriptionFromJSON(json['codeDescription']),
-        'source': !exists(json, 'source') ? undefined : json['source'],
+        'severity': json['severity'] == null ? undefined : LanguageServerProtocolSeverityEnumFromJSON(json['severity']),
+        'code': json['code'] == null ? undefined : LanguageServerProtocolCodeFromJSON(json['code']),
+        'codeDescription': json['codeDescription'] == null ? undefined : LanguageServerProtocolCodeDescriptionFromJSON(json['codeDescription']),
+        'source': json['source'] == null ? undefined : json['source'],
         'message': json['message'],
     };
 }
 
-export function LanguageServerProtocolDiagnosticToJSON(value?: LanguageServerProtocolDiagnostic | null): any {
-    if (value === undefined) {
-        return undefined;
+export function LanguageServerProtocolDiagnosticToJSON(json: any): LanguageServerProtocolDiagnostic {
+    return LanguageServerProtocolDiagnosticToJSONTyped(json, false);
+}
+
+export function LanguageServerProtocolDiagnosticToJSONTyped(value?: LanguageServerProtocolDiagnostic | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'range': LanguageServerProtocolLocationRangeToJSON(value.range),
-        'severity': LanguageServerProtocolSeverityEnumToJSON(value.severity),
-        'code': LanguageServerProtocolCodeToJSON(value.code),
-        'codeDescription': LanguageServerProtocolCodeDescriptionToJSON(value.codeDescription),
-        'source': value.source,
-        'message': value.message,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'range': LanguageServerProtocolLocationRangeToJSON(value['range']),
+        'severity': LanguageServerProtocolSeverityEnumToJSON(value['severity']),
+        'code': LanguageServerProtocolCodeToJSON(value['code']),
+        'codeDescription': LanguageServerProtocolCodeDescriptionToJSON(value['codeDescription']),
+        'source': value['source'],
+        'message': value['message'],
     };
 }
 

@@ -12,43 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
+import type { SeededAnchor } from './SeededAnchor';
 import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
-import type { BrowserTabValues } from './BrowserTabValues';
-import {
-    BrowserTabValuesFromJSON,
-    BrowserTabValuesFromJSONTyped,
-    BrowserTabValuesToJSON,
-} from './BrowserTabValues';
+    SeededAnchorFromJSON,
+    SeededAnchorFromJSONTyped,
+    SeededAnchorToJSON,
+    SeededAnchorToJSONTyped,
+} from './SeededAnchor';
 import type { DocumentContributors } from './DocumentContributors';
 import {
     DocumentContributorsFromJSON,
     DocumentContributorsFromJSONTyped,
     DocumentContributorsToJSON,
+    DocumentContributorsToJSONTyped,
 } from './DocumentContributors';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
-import type { SeededAnchor } from './SeededAnchor';
-import {
-    SeededAnchorFromJSON,
-    SeededAnchorFromJSONTyped,
-    SeededAnchorToJSON,
-} from './SeededAnchor';
 import type { SeededWebsite } from './SeededWebsite';
 import {
     SeededWebsiteFromJSON,
     SeededWebsiteFromJSONTyped,
     SeededWebsiteToJSON,
+    SeededWebsiteToJSONTyped,
 } from './SeededWebsite';
+import type { BrowserTabValues } from './BrowserTabValues';
+import {
+    BrowserTabValuesFromJSON,
+    BrowserTabValuesFromJSONTyped,
+    BrowserTabValuesToJSON,
+    BrowserTabValuesToJSONTyped,
+} from './BrowserTabValues';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import {
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+    AnonymousTemporalRangeToJSONTyped,
+} from './AnonymousTemporalRange';
 
 /**
  * a tab can have many values because you might want to pass in a value that represents the code_blocks(snippets) or a md represenet
@@ -114,10 +120,8 @@ export interface BrowserTab {
 /**
  * Check if a given object implements the BrowserTab interface.
  */
-export function instanceOfBrowserTab(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfBrowserTab(value: object): value is BrowserTab {
+    return true;
 }
 
 export function BrowserTabFromJSON(json: any): BrowserTab {
@@ -125,37 +129,39 @@ export function BrowserTabFromJSON(json: any): BrowserTab {
 }
 
 export function BrowserTabFromJSONTyped(json: any, ignoreDiscriminator: boolean): BrowserTab {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'values': !exists(json, 'values') ? undefined : BrowserTabValuesFromJSON(json['values']),
-        'anchor': !exists(json, 'anchor') ? undefined : SeededAnchorFromJSON(json['anchor']),
-        'website': !exists(json, 'website') ? undefined : SeededWebsiteFromJSON(json['website']),
-        'range': !exists(json, 'range') ? undefined : AnonymousTemporalRangeFromJSON(json['range']),
-        'current': !exists(json, 'current') ? undefined : json['current'],
-        'contributors': !exists(json, 'contributors') ? undefined : DocumentContributorsFromJSON(json['contributors']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'values': json['values'] == null ? undefined : BrowserTabValuesFromJSON(json['values']),
+        'anchor': json['anchor'] == null ? undefined : SeededAnchorFromJSON(json['anchor']),
+        'website': json['website'] == null ? undefined : SeededWebsiteFromJSON(json['website']),
+        'range': json['range'] == null ? undefined : AnonymousTemporalRangeFromJSON(json['range']),
+        'current': json['current'] == null ? undefined : json['current'],
+        'contributors': json['contributors'] == null ? undefined : DocumentContributorsFromJSON(json['contributors']),
     };
 }
 
-export function BrowserTabToJSON(value?: BrowserTab | null): any {
-    if (value === undefined) {
-        return undefined;
+export function BrowserTabToJSON(json: any): BrowserTab {
+    return BrowserTabToJSONTyped(json, false);
+}
+
+export function BrowserTabToJSONTyped(value?: BrowserTab | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'values': BrowserTabValuesToJSON(value.values),
-        'anchor': SeededAnchorToJSON(value.anchor),
-        'website': SeededWebsiteToJSON(value.website),
-        'range': AnonymousTemporalRangeToJSON(value.range),
-        'current': value.current,
-        'contributors': DocumentContributorsToJSON(value.contributors),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'values': BrowserTabValuesToJSON(value['values']),
+        'anchor': SeededAnchorToJSON(value['anchor']),
+        'website': SeededWebsiteToJSON(value['website']),
+        'range': AnonymousTemporalRangeToJSON(value['range']),
+        'current': value['current'],
+        'contributors': DocumentContributorsToJSON(value['contributors']),
     };
 }
 

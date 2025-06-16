@@ -25,14 +25,84 @@ import {
     SeededScoreIncrementToJSON,
 } from '../models/index';
 
+export interface ConversationMessageAssociateAssetRequest {
+    message: string;
+    asset: string;
+}
+
+export interface ConversationMessageAssociateConversationMessageRequest {
+    message: string;
+    additionalMessage: string;
+}
+
+export interface ConversationMessageAssociateRangeRequest {
+    message: string;
+    range: string;
+}
+
+export interface ConversationMessageAssociateTagRequest {
+    message: string;
+    tag: string;
+}
+
+export interface ConversationMessageAssociateWorkstreamEventRequest {
+    message: string;
+    workstreamEvent: string;
+}
+
+export interface ConversationMessageAssociateWorkstreamPatternEngineSourceRequest {
+    message: string;
+    source: string;
+}
+
+export interface ConversationMessageAssociateWorkstreamSummaryRequest {
+    message: string;
+    workstreamSummary: string;
+}
+
+export interface ConversationMessageDisassociateAssetRequest {
+    message: string;
+    asset: string;
+}
+
+export interface ConversationMessageDisassociateConversationMessageRequest {
+    message: string;
+    additionalMessage: string;
+}
+
+export interface ConversationMessageDisassociateRangeRequest {
+    message: string;
+    range: string;
+}
+
+export interface ConversationMessageDisassociateTagRequest {
+    message: string;
+    tag: string;
+}
+
+export interface ConversationMessageDisassociateWorkstreamEventRequest {
+    message: string;
+    workstreamEvent: string;
+}
+
+export interface ConversationMessageDisassociateWorkstreamPatternEngineSourceRequest {
+    message: string;
+    source: string;
+}
+
+export interface ConversationMessageDisassociateWorkstreamSummaryRequest {
+    message: string;
+    workstreamSummary: string;
+}
+
 export interface MessageAssociateAnchorRequest {
     message: string;
     anchor: string;
 }
 
 export interface MessageAssociateAnnotationRequest {
-    annotation: string;
     message: string;
+    annotation: string;
 }
 
 export interface MessageAssociatePersonRequest {
@@ -51,8 +121,8 @@ export interface MessageDisassociateAnchorRequest {
 }
 
 export interface MessageDisassociateAnnotationRequest {
-    annotation: string;
     message: string;
+    annotation: string;
 }
 
 export interface MessageDisassociatePersonRequest {
@@ -91,24 +161,664 @@ export interface MessageUpdateValueRequest {
 export class ConversationMessageApi extends runtime.BaseAPI {
 
     /**
-     * This will associate a message with an anchor.
-     * /message/{message}/anchors/associate/{anchor} [POST]
+     * This will associate a conversation-message with a asset. This will do the same thing as the asset equivalent.
+     * /message/{message}/assets/associate/{asset} [POST]
      */
-    async messageAssociateAnchorRaw(requestParameters: MessageAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageAssociateAnchor.');
+    async conversationMessageAssociateAssetRaw(requestParameters: ConversationMessageAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageAssociateAsset().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling messageAssociateAnchor.');
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling conversationMessageAssociateAsset().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/anchors/associate/{anchor}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/message/{message}/assets/associate/{asset}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation-message with a asset. This will do the same thing as the asset equivalent.
+     * /message/{message}/assets/associate/{asset} [POST]
+     */
+    async conversationMessageAssociateAsset(requestParameters: ConversationMessageAssociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageAssociateAssetRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a conversation_message with a conversation_message.
+     * /message/{message}/messages/associate/{additional_message} [POST]
+     */
+    async conversationMessageAssociateConversationMessageRaw(requestParameters: ConversationMessageAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageAssociateConversationMessage().'
+            );
+        }
+
+        if (requestParameters['additionalMessage'] == null) {
+            throw new runtime.RequiredError(
+                'additionalMessage',
+                'Required parameter "additionalMessage" was null or undefined when calling conversationMessageAssociateConversationMessage().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/messages/associate/{additional_message}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"additional_message"}}`, encodeURIComponent(String(requestParameters['additionalMessage']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation_message with a conversation_message.
+     * /message/{message}/messages/associate/{additional_message} [POST]
+     */
+    async conversationMessageAssociateConversationMessage(requestParameters: ConversationMessageAssociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageAssociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a conversation-message with a range. This will do the same thing as the range equivalent.
+     * /message/{message}/ranges/associate/{range} [POST]
+     */
+    async conversationMessageAssociateRangeRaw(requestParameters: ConversationMessageAssociateRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageAssociateRange().'
+            );
+        }
+
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling conversationMessageAssociateRange().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/ranges/associate/{range}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation-message with a range. This will do the same thing as the range equivalent.
+     * /message/{message}/ranges/associate/{range} [POST]
+     */
+    async conversationMessageAssociateRange(requestParameters: ConversationMessageAssociateRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageAssociateRangeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a conversation-message with a tag. This will do the same thing as the tag equivalent.
+     * /message/{message}/tags/associate/{tag} [POST]
+     */
+    async conversationMessageAssociateTagRaw(requestParameters: ConversationMessageAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageAssociateTag().'
+            );
+        }
+
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling conversationMessageAssociateTag().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/tags/associate/{tag}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation-message with a tag. This will do the same thing as the tag equivalent.
+     * /message/{message}/tags/associate/{tag} [POST]
+     */
+    async conversationMessageAssociateTag(requestParameters: ConversationMessageAssociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageAssociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a conversation-message with a workstream_event. This will do the same thing as the workstream_event equivalent.
+     * /message/{message}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async conversationMessageAssociateWorkstreamEventRaw(requestParameters: ConversationMessageAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageAssociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling conversationMessageAssociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/workstream_events/associate/{workstream_event}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation-message with a workstream_event. This will do the same thing as the workstream_event equivalent.
+     * /message/{message}/workstream_events/associate/{workstream_event} [POST]
+     */
+    async conversationMessageAssociateWorkstreamEvent(requestParameters: ConversationMessageAssociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageAssociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a conversation-message with a source. This will do the same thing as the source equivalent.
+     * /message/{message}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async conversationMessageAssociateWorkstreamPatternEngineSourceRaw(requestParameters: ConversationMessageAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling conversationMessageAssociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/workstream_pattern_engine/sources/associate/{source}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation-message with a source. This will do the same thing as the source equivalent.
+     * /message/{message}/workstream_pattern_engine/sources/associate/{source} [POST]
+     */
+    async conversationMessageAssociateWorkstreamPatternEngineSource(requestParameters: ConversationMessageAssociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageAssociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a conversation-message with a workstream_summary. This will do the same thing as the workstream_summary equivalent.
+     * /message/{message}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async conversationMessageAssociateWorkstreamSummaryRaw(requestParameters: ConversationMessageAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageAssociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling conversationMessageAssociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/workstream_summaries/associate/{workstream_summary}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will associate a conversation-message with a workstream_summary. This will do the same thing as the workstream_summary equivalent.
+     * /message/{message}/workstream_summaries/associate/{workstream_summary} [POST]
+     */
+    async conversationMessageAssociateWorkstreamSummary(requestParameters: ConversationMessageAssociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageAssociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a asset. This will do the same thing as the asset equivalent.
+     * /message/{message}/assets/disassociate/{asset} [POST]
+     */
+    async conversationMessageDisassociateAssetRaw(requestParameters: ConversationMessageDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageDisassociateAsset().'
+            );
+        }
+
+        if (requestParameters['asset'] == null) {
+            throw new runtime.RequiredError(
+                'asset',
+                'Required parameter "asset" was null or undefined when calling conversationMessageDisassociateAsset().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/assets/disassociate/{asset}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"asset"}}`, encodeURIComponent(String(requestParameters['asset']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a asset. This will do the same thing as the asset equivalent.
+     * /message/{message}/assets/disassociate/{asset} [POST]
+     */
+    async conversationMessageDisassociateAsset(requestParameters: ConversationMessageDisassociateAssetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageDisassociateAssetRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a conversation_message.
+     * /message/{message}/messages/disassociate/{additional_message} [POST]
+     */
+    async conversationMessageDisassociateConversationMessageRaw(requestParameters: ConversationMessageDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageDisassociateConversationMessage().'
+            );
+        }
+
+        if (requestParameters['additionalMessage'] == null) {
+            throw new runtime.RequiredError(
+                'additionalMessage',
+                'Required parameter "additionalMessage" was null or undefined when calling conversationMessageDisassociateConversationMessage().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/messages/disassociate/{additional_message}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"additional_message"}}`, encodeURIComponent(String(requestParameters['additionalMessage']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a conversation_message.
+     * /message/{message}/messages/disassociate/{additional_message} [POST]
+     */
+    async conversationMessageDisassociateConversationMessage(requestParameters: ConversationMessageDisassociateConversationMessageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageDisassociateConversationMessageRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a range. This will do the same thing as the range equivalent.
+     * /message/{message}/ranges/disassociate/{range} [POST]
+     */
+    async conversationMessageDisassociateRangeRaw(requestParameters: ConversationMessageDisassociateRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageDisassociateRange().'
+            );
+        }
+
+        if (requestParameters['range'] == null) {
+            throw new runtime.RequiredError(
+                'range',
+                'Required parameter "range" was null or undefined when calling conversationMessageDisassociateRange().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/ranges/disassociate/{range}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"range"}}`, encodeURIComponent(String(requestParameters['range']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a range. This will do the same thing as the range equivalent.
+     * /message/{message}/ranges/disassociate/{range} [POST]
+     */
+    async conversationMessageDisassociateRange(requestParameters: ConversationMessageDisassociateRangeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageDisassociateRangeRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a tag. This will do the same thing as the tag equivalent.
+     * /message/{message}/tags/disassociate/{tag} [POST]
+     */
+    async conversationMessageDisassociateTagRaw(requestParameters: ConversationMessageDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageDisassociateTag().'
+            );
+        }
+
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling conversationMessageDisassociateTag().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/tags/disassociate/{tag}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a tag. This will do the same thing as the tag equivalent.
+     * /message/{message}/tags/disassociate/{tag} [POST]
+     */
+    async conversationMessageDisassociateTag(requestParameters: ConversationMessageDisassociateTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageDisassociateTagRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a workstream_event. This will do the same thing as the workstream_event equivalent.
+     * /message/{message}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async conversationMessageDisassociateWorkstreamEventRaw(requestParameters: ConversationMessageDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageDisassociateWorkstreamEvent().'
+            );
+        }
+
+        if (requestParameters['workstreamEvent'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamEvent',
+                'Required parameter "workstreamEvent" was null or undefined when calling conversationMessageDisassociateWorkstreamEvent().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/workstream_events/disassociate/{workstream_event}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"workstream_event"}}`, encodeURIComponent(String(requestParameters['workstreamEvent']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a workstream_event. This will do the same thing as the workstream_event equivalent.
+     * /message/{message}/workstream_events/disassociate/{workstream_event} [POST]
+     */
+    async conversationMessageDisassociateWorkstreamEvent(requestParameters: ConversationMessageDisassociateWorkstreamEventRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageDisassociateWorkstreamEventRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a source. This will do the same thing as the source equivalent.
+     * /message/{message}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async conversationMessageDisassociateWorkstreamPatternEngineSourceRaw(requestParameters: ConversationMessageDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        if (requestParameters['source'] == null) {
+            throw new runtime.RequiredError(
+                'source',
+                'Required parameter "source" was null or undefined when calling conversationMessageDisassociateWorkstreamPatternEngineSource().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/workstream_pattern_engine/sources/disassociate/{source}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"source"}}`, encodeURIComponent(String(requestParameters['source']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a source. This will do the same thing as the source equivalent.
+     * /message/{message}/workstream_pattern_engine/sources/disassociate/{source} [POST]
+     */
+    async conversationMessageDisassociateWorkstreamPatternEngineSource(requestParameters: ConversationMessageDisassociateWorkstreamPatternEngineSourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageDisassociateWorkstreamPatternEngineSourceRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a workstream_summary. This will do the same thing as the workstream_summary equivalent.
+     * /message/{message}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async conversationMessageDisassociateWorkstreamSummaryRaw(requestParameters: ConversationMessageDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling conversationMessageDisassociateWorkstreamSummary().'
+            );
+        }
+
+        if (requestParameters['workstreamSummary'] == null) {
+            throw new runtime.RequiredError(
+                'workstreamSummary',
+                'Required parameter "workstreamSummary" was null or undefined when calling conversationMessageDisassociateWorkstreamSummary().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/workstream_summaries/disassociate/{workstream_summary}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"workstream_summary"}}`, encodeURIComponent(String(requestParameters['workstreamSummary']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This will enable us to disassociate a conversation_message from a workstream_summary. This will do the same thing as the workstream_summary equivalent.
+     * /message/{message}/workstream_summaries/disassociate/{workstream_summary} [POST]
+     */
+    async conversationMessageDisassociateWorkstreamSummary(requestParameters: ConversationMessageDisassociateWorkstreamSummaryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.conversationMessageDisassociateWorkstreamSummaryRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * This will associate a message with an anchor.
+     * /message/{message}/anchors/associate/{anchor} [POST]
+     */
+    async messageAssociateAnchorRaw(requestParameters: MessageAssociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageAssociateAnchor().'
+            );
+        }
+
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling messageAssociateAnchor().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/message/{message}/anchors/associate/{anchor}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -130,20 +840,30 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/annotations/associate/{annotation} [POST]
      */
     async messageAssociateAnnotationRaw(requestParameters: MessageAssociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling messageAssociateAnnotation.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageAssociateAnnotation().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageAssociateAnnotation.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling messageAssociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/annotations/associate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/message/{message}/annotations/associate/{annotation}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -165,20 +885,30 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/persons/associate/{person} [POST]
      */
     async messageAssociatePersonRaw(requestParameters: MessageAssociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageAssociatePerson.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageAssociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling messageAssociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling messageAssociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/persons/associate/{person}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/message/{message}/persons/associate/{person}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -200,20 +930,30 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * Associate a message with a website
      */
     async messageAssociateWebsiteRaw(requestParameters: MessageAssociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageAssociateWebsite.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageAssociateWebsite().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling messageAssociateWebsite.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling messageAssociateWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/websites/associate/{website}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/message/{message}/websites/associate/{website}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -235,20 +975,30 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/anchors/disassociate/{anchor} [POST]
      */
     async messageDisassociateAnchorRaw(requestParameters: MessageDisassociateAnchorRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageDisassociateAnchor.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageDisassociateAnchor().'
+            );
         }
 
-        if (requestParameters.anchor === null || requestParameters.anchor === undefined) {
-            throw new runtime.RequiredError('anchor','Required parameter requestParameters.anchor was null or undefined when calling messageDisassociateAnchor.');
+        if (requestParameters['anchor'] == null) {
+            throw new runtime.RequiredError(
+                'anchor',
+                'Required parameter "anchor" was null or undefined when calling messageDisassociateAnchor().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/anchors/disassociate/{anchor}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters.anchor))),
+            path: `/message/{message}/anchors/disassociate/{anchor}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"anchor"}}`, encodeURIComponent(String(requestParameters['anchor']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -270,20 +1020,30 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/annotations/disassociate/{annotation} [POST]
      */
     async messageDisassociateAnnotationRaw(requestParameters: MessageDisassociateAnnotationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.annotation === null || requestParameters.annotation === undefined) {
-            throw new runtime.RequiredError('annotation','Required parameter requestParameters.annotation was null or undefined when calling messageDisassociateAnnotation.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageDisassociateAnnotation().'
+            );
         }
 
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageDisassociateAnnotation.');
+        if (requestParameters['annotation'] == null) {
+            throw new runtime.RequiredError(
+                'annotation',
+                'Required parameter "annotation" was null or undefined when calling messageDisassociateAnnotation().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/annotations/disassociate/{annotation}`.replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters.annotation))).replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/message/{message}/annotations/disassociate/{annotation}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"annotation"}}`, encodeURIComponent(String(requestParameters['annotation']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -305,20 +1065,30 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/persons/disassociate/{person} [POST]
      */
     async messageDisassociatePersonRaw(requestParameters: MessageDisassociatePersonRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageDisassociatePerson.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageDisassociatePerson().'
+            );
         }
 
-        if (requestParameters.person === null || requestParameters.person === undefined) {
-            throw new runtime.RequiredError('person','Required parameter requestParameters.person was null or undefined when calling messageDisassociatePerson.');
+        if (requestParameters['person'] == null) {
+            throw new runtime.RequiredError(
+                'person',
+                'Required parameter "person" was null or undefined when calling messageDisassociatePerson().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/persons/disassociate/{person}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters.person))),
+            path: `/message/{message}/persons/disassociate/{person}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"person"}}`, encodeURIComponent(String(requestParameters['person']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -340,20 +1110,30 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message}/websites/disassociate/{website} [POST]
      */
     async messageDisassociateWebsiteRaw(requestParameters: MessageDisassociateWebsiteRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageDisassociateWebsite.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageDisassociateWebsite().'
+            );
         }
 
-        if (requestParameters.website === null || requestParameters.website === undefined) {
-            throw new runtime.RequiredError('website','Required parameter requestParameters.website was null or undefined when calling messageDisassociateWebsite.');
+        if (requestParameters['website'] == null) {
+            throw new runtime.RequiredError(
+                'website',
+                'Required parameter "website" was null or undefined when calling messageDisassociateWebsite().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/websites/disassociate/{website}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters.website))),
+            path: `/message/{message}/websites/disassociate/{website}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))).replace(`{${"website"}}`, encodeURIComponent(String(requestParameters['website']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -375,8 +1155,11 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * \'/message/{message}/scores/increment\' [POST]
      */
     async messageScoresIncrementRaw(requestParameters: MessageScoresIncrementRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageScoresIncrement.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageScoresIncrement().'
+            );
         }
 
         const queryParameters: any = {};
@@ -385,12 +1168,16 @@ export class ConversationMessageApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}/scores/increment`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/message/{message}/scores/increment`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededScoreIncrementToJSON(requestParameters.seededScoreIncrement),
+            body: SeededScoreIncrementToJSON(requestParameters['seededScoreIncrement']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -409,20 +1196,27 @@ export class ConversationMessageApi extends runtime.BaseAPI {
      * /message/{message} [GET]
      */
     async messageSpecificMessageSnapshotRaw(requestParameters: MessageSpecificMessageSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
-        if (requestParameters.message === null || requestParameters.message === undefined) {
-            throw new runtime.RequiredError('message','Required parameter requestParameters.message was null or undefined when calling messageSpecificMessageSnapshot.');
+        if (requestParameters['message'] == null) {
+            throw new runtime.RequiredError(
+                'message',
+                'Required parameter "message" was null or undefined when calling messageSpecificMessageSnapshot().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/message/{message}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters.message))),
+            path: `/message/{message}`.replace(`{${"message"}}`, encodeURIComponent(String(requestParameters['message']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -447,20 +1241,24 @@ export class ConversationMessageApi extends runtime.BaseAPI {
     async messageSpecificMessageUpdateRaw(requestParameters: MessageSpecificMessageUpdateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/message/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ConversationMessageToJSON(requestParameters.conversationMessage),
+            body: ConversationMessageToJSON(requestParameters['conversationMessage']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessageFromJSON(jsonValue));
@@ -482,20 +1280,24 @@ export class ConversationMessageApi extends runtime.BaseAPI {
     async messageUpdateValueRaw(requestParameters: MessageUpdateValueRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ConversationMessage>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/message/update/value`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ConversationMessageToJSON(requestParameters.conversationMessage),
+            body: ConversationMessageToJSON(requestParameters['conversationMessage']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ConversationMessageFromJSON(jsonValue));

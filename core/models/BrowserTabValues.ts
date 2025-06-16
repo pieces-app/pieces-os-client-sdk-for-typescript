@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { BrowserTabValue } from './BrowserTabValue';
-import {
-    BrowserTabValueFromJSON,
-    BrowserTabValueFromJSONTyped,
-    BrowserTabValueToJSON,
-} from './BrowserTabValue';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { BrowserTabValue } from './BrowserTabValue';
+import {
+    BrowserTabValueFromJSON,
+    BrowserTabValueFromJSONTyped,
+    BrowserTabValueToJSON,
+    BrowserTabValueToJSONTyped,
+} from './BrowserTabValue';
 
 /**
  * Plural model that represent many tabs
@@ -49,11 +51,9 @@ export interface BrowserTabValues {
 /**
  * Check if a given object implements the BrowserTabValues interface.
  */
-export function instanceOfBrowserTabValues(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iterable" in value;
-
-    return isInstance;
+export function instanceOfBrowserTabValues(value: object): value is BrowserTabValues {
+    if (!('iterable' in value) || value['iterable'] === undefined) return false;
+    return true;
 }
 
 export function BrowserTabValuesFromJSON(json: any): BrowserTabValues {
@@ -61,27 +61,29 @@ export function BrowserTabValuesFromJSON(json: any): BrowserTabValues {
 }
 
 export function BrowserTabValuesFromJSONTyped(json: any, ignoreDiscriminator: boolean): BrowserTabValues {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'iterable': ((json['iterable'] as Array<any>).map(BrowserTabValueFromJSON)),
     };
 }
 
-export function BrowserTabValuesToJSON(value?: BrowserTabValues | null): any {
-    if (value === undefined) {
-        return undefined;
+export function BrowserTabValuesToJSON(json: any): BrowserTabValues {
+    return BrowserTabValuesToJSONTyped(json, false);
+}
+
+export function BrowserTabValuesToJSONTyped(value?: BrowserTabValues | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'iterable': ((value.iterable as Array<any>).map(BrowserTabValueToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'iterable': ((value['iterable'] as Array<any>).map(BrowserTabValueToJSON)),
     };
 }
 

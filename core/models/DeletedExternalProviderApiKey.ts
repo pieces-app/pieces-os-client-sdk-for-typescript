@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { Auth0UserMetadata } from './Auth0UserMetadata';
 import {
     Auth0UserMetadataFromJSON,
     Auth0UserMetadataFromJSONTyped,
     Auth0UserMetadataToJSON,
+    Auth0UserMetadataToJSONTyped,
 } from './Auth0UserMetadata';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -49,11 +51,9 @@ export interface DeletedExternalProviderApiKey {
 /**
  * Check if a given object implements the DeletedExternalProviderApiKey interface.
  */
-export function instanceOfDeletedExternalProviderApiKey(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "metadata" in value;
-
-    return isInstance;
+export function instanceOfDeletedExternalProviderApiKey(value: object): value is DeletedExternalProviderApiKey {
+    if (!('metadata' in value) || value['metadata'] === undefined) return false;
+    return true;
 }
 
 export function DeletedExternalProviderApiKeyFromJSON(json: any): DeletedExternalProviderApiKey {
@@ -61,27 +61,29 @@ export function DeletedExternalProviderApiKeyFromJSON(json: any): DeletedExterna
 }
 
 export function DeletedExternalProviderApiKeyFromJSONTyped(json: any, ignoreDiscriminator: boolean): DeletedExternalProviderApiKey {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
         'metadata': Auth0UserMetadataFromJSON(json['metadata']),
     };
 }
 
-export function DeletedExternalProviderApiKeyToJSON(value?: DeletedExternalProviderApiKey | null): any {
-    if (value === undefined) {
-        return undefined;
+export function DeletedExternalProviderApiKeyToJSON(json: any): DeletedExternalProviderApiKey {
+    return DeletedExternalProviderApiKeyToJSONTyped(json, false);
+}
+
+export function DeletedExternalProviderApiKeyToJSONTyped(value?: DeletedExternalProviderApiKey | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'metadata': Auth0UserMetadataToJSON(value.metadata),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'metadata': Auth0UserMetadataToJSON(value['metadata']),
     };
 }
 

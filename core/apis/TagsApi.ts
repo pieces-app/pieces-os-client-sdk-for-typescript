@@ -77,20 +77,24 @@ export class TagsApi extends runtime.BaseAPI {
     async searchTagsRaw(requestParameters: SearchTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedTags>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/tags/search`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SearchInputToJSON(requestParameters.searchInput),
+            body: SearchInputToJSON(requestParameters['searchInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedTagsFromJSON(jsonValue));
@@ -112,20 +116,24 @@ export class TagsApi extends runtime.BaseAPI {
     async tagsCreateNewTagRaw(requestParameters: TagsCreateNewTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tag>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/tags/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededTagToJSON(requestParameters.seededTag),
+            body: SeededTagToJSON(requestParameters['seededTag']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TagFromJSON(jsonValue));
@@ -145,16 +153,23 @@ export class TagsApi extends runtime.BaseAPI {
      * /tags/{tag}/delete [POST]
      */
     async tagsDeleteSpecificTagRaw(requestParameters: TagsDeleteSpecificTagRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.tag === null || requestParameters.tag === undefined) {
-            throw new runtime.RequiredError('tag','Required parameter requestParameters.tag was null or undefined when calling tagsDeleteSpecificTag.');
+        if (requestParameters['tag'] == null) {
+            throw new runtime.RequiredError(
+                'tag',
+                'Required parameter "tag" was null or undefined when calling tagsDeleteSpecificTag().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/tags/{tag}/delete`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters.tag))),
+            path: `/tags/{tag}/delete`.replace(`{${"tag"}}`, encodeURIComponent(String(requestParameters['tag']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -182,12 +197,16 @@ export class TagsApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/tags/exists`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: ExistentMetadataToJSON(requestParameters.existentMetadata),
+            body: ExistentMetadataToJSON(requestParameters['existentMetadata']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ExistingMetadataFromJSON(jsonValue));
@@ -209,11 +228,15 @@ export class TagsApi extends runtime.BaseAPI {
     async tagsSnapshotRaw(requestParameters: TagsSnapshotRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Tags>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/tags`,
@@ -242,6 +265,10 @@ export class TagsApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/tags/stream/identifiers`,

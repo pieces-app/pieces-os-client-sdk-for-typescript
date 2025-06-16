@@ -18,6 +18,7 @@ import type {
   ActiveOSServerApplet,
   FilePickerInput,
   InactiveOSServerApplet,
+  NanoModelsPreparationInput,
   OSDeviceInformationReturnable,
   OSFileStreamingRead,
   OSFileStreamingReadAttempt,
@@ -40,6 +41,8 @@ import {
     FilePickerInputToJSON,
     InactiveOSServerAppletFromJSON,
     InactiveOSServerAppletToJSON,
+    NanoModelsPreparationInputFromJSON,
+    NanoModelsPreparationInputToJSON,
     OSDeviceInformationReturnableFromJSON,
     OSDeviceInformationReturnableToJSON,
     OSFileStreamingReadFromJSON,
@@ -106,6 +109,10 @@ export interface OsFilesystemPickFilesRequest {
     filePickerInput?: FilePickerInput;
 }
 
+export interface OsNanoModelsPrepareRequest {
+    nanoModelsPreparationInput?: NanoModelsPreparationInput;
+}
+
 export interface OsPermissionsRequestRequest {
     oSPermissions?: OSPermissions;
 }
@@ -134,12 +141,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/link_provider`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededExternalProviderToJSON(requestParameters.seededExternalProvider),
+            body: SeededExternalProviderToJSON(requestParameters['seededExternalProvider']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReturnedUserProfileFromJSON(jsonValue));
@@ -165,12 +176,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/applet/launch`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: InactiveOSServerAppletToJSON(requestParameters.inactiveOSServerApplet),
+            body: InactiveOSServerAppletToJSON(requestParameters['inactiveOSServerApplet']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActiveOSServerAppletFromJSON(jsonValue));
@@ -196,12 +211,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/applet/restart`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: InactiveOSServerAppletToJSON(requestParameters.inactiveOSServerApplet),
+            body: InactiveOSServerAppletToJSON(requestParameters['inactiveOSServerApplet']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ActiveOSServerAppletFromJSON(jsonValue));
@@ -227,12 +246,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/applet/terminate`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: TerminatingOSServerAppletToJSON(requestParameters.terminatingOSServerApplet),
+            body: TerminatingOSServerAppletToJSON(requestParameters['terminatingOSServerApplet']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -257,12 +280,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/browser/url/open`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -284,6 +311,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/device/information`,
@@ -315,12 +346,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/filesystem/file/open`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -345,12 +380,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/filesystem/file/read/streamed`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: OSFileStreamingReadAttemptToJSON(requestParameters.oSFileStreamingReadAttempt),
+            body: OSFileStreamingReadAttemptToJSON(requestParameters['oSFileStreamingReadAttempt']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OSFileStreamingReadFromJSON(jsonValue));
@@ -376,12 +415,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/filesystem/path/verify`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
+            body: requestParameters['body'] as any,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => VerifiedOSFilesystemPathFromJSON(jsonValue));
@@ -407,12 +450,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/filesystem/files/pick`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: FilePickerInputToJSON(requestParameters.filePickerInput),
+            body: FilePickerInputToJSON(requestParameters['filePickerInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse<any>(response);
@@ -435,6 +482,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/filesystem/folders/pick`,
@@ -464,6 +515,10 @@ export class OSApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/memory/optimize`,
             method: 'POST',
@@ -491,6 +546,10 @@ export class OSApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/metadata`,
             method: 'GET',
@@ -511,6 +570,40 @@ export class OSApi extends runtime.BaseAPI {
     }
 
     /**
+     * This endpoint will prepare our nano models  note: for now we will support task specific model groups.
+     * /os/nano_models/prepare [POST]
+     */
+    async osNanoModelsPrepareRaw(requestParameters: OsNanoModelsPrepareRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
+        const response = await this.request({
+            path: `/os/nano_models/prepare`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: NanoModelsPreparationInputToJSON(requestParameters['nanoModelsPreparationInput']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * This endpoint will prepare our nano models  note: for now we will support task specific model groups.
+     * /os/nano_models/prepare [POST]
+     */
+    async osNanoModelsPrepare(requestParameters: OsNanoModelsPrepareRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.osNanoModelsPrepareRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * This will only work on Macos and Windows.  And will get the permissions of the user\'s local machine w/ regard to anything needed to effectively run PiecesOS.  Note: this will let us know if we need to tell them to take action to enable any given permissions
      * /os/permissions [GET]
      */
@@ -518,6 +611,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/permissions`,
@@ -549,12 +646,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/permissions/request`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OSPermissionsToJSON(requestParameters.oSPermissions),
+            body: OSPermissionsToJSON(requestParameters['oSPermissions']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OSPermissionsFromJSON(jsonValue));
@@ -577,6 +678,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/restart`,
@@ -605,6 +710,10 @@ export class OSApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/settings`,
             method: 'GET',
@@ -632,6 +741,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/settings/stream`,
@@ -663,12 +776,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/settings/update`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OSServerSettingsToJSON(requestParameters.oSServerSettings),
+            body: OSServerSettingsToJSON(requestParameters['oSServerSettings']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OSServerSettingsFromJSON(jsonValue));
@@ -691,6 +808,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/terminate`,
@@ -721,12 +842,16 @@ export class OSApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/update/check`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UncheckedOSServerUpdateToJSON(requestParameters.uncheckedOSServerUpdate),
+            body: UncheckedOSServerUpdateToJSON(requestParameters['uncheckedOSServerUpdate']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OSServerUpdateStatusFromJSON(jsonValue));
@@ -749,6 +874,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/update/check/stream`,
@@ -778,6 +907,10 @@ export class OSApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/os/sign_in`,
             method: 'POST',
@@ -805,6 +938,10 @@ export class OSApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/os/sign_out`,

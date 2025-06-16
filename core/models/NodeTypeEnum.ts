@@ -18,6 +18,7 @@
  * @export
  */
 export const NodeTypeEnum = {
+    Unknown: 'UNKNOWN',
     Tag: 'TAG',
     Website: 'WEBSITE',
     Format: 'FORMAT',
@@ -25,6 +26,17 @@ export const NodeTypeEnum = {
 } as const;
 export type NodeTypeEnum = typeof NodeTypeEnum[keyof typeof NodeTypeEnum];
 
+
+export function instanceOfNodeTypeEnum(value: any): boolean {
+    for (const key in NodeTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(NodeTypeEnum, key)) {
+            if (NodeTypeEnum[key as keyof typeof NodeTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function NodeTypeEnumFromJSON(json: any): NodeTypeEnum {
     return NodeTypeEnumFromJSONTyped(json, false);
@@ -36,5 +48,9 @@ export function NodeTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: boolea
 
 export function NodeTypeEnumToJSON(value?: NodeTypeEnum | null): any {
     return value as any;
+}
+
+export function NodeTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): NodeTypeEnum {
+    return value as NodeTypeEnum;
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
 
 /**
@@ -28,6 +29,8 @@ import {
  * 
  * TODO: in the future we can add tabs/filepaths to this model here.
  * TODO: Enum for source/processor ? i.e. WorkstreamPatternEngineProcessorEnum.VISION, WorkstreamPatternEngineProcessorEnum.NETWORK, WorkstreamPatternEngineProcessorEnum.FILE_IO, WorkstreamPatternEngineProcessorEnum.AUDIO, etc.
+ * 
+ * NOTE: if all three are null we will thro an error.
  * @export
  * @interface WorkstreamPatternEngineSource
  */
@@ -39,21 +42,43 @@ export interface WorkstreamPatternEngineSource {
      */
     schema?: EmbeddedModelSchema;
     /**
+     * THIS IS DEPRECATED WILL NOT BE USED
+     * @type {string}
+     * @memberof WorkstreamPatternEngineSource
+     * @deprecated
+     */
+    name?: string;
+    /**
+     * This is the name of the tab or open file
+     * @type {string}
+     * @memberof WorkstreamPatternEngineSource
+     */
+    window?: string;
+    /**
+     * This is a url that was extracted from the WPE data.
+     * @type {string}
+     * @memberof WorkstreamPatternEngineSource
+     */
+    url?: string;
+    /**
      * This is the name of the window(foreground window)/application.(this will always be present)
      * @type {string}
      * @memberof WorkstreamPatternEngineSource
      */
-    name: string;
+    application?: string;
+    /**
+     * This is the path is which this application download location is (NOTE, not being used quite yet)
+     * @type {string}
+     * @memberof WorkstreamPatternEngineSource
+     */
+    installation?: string;
 }
 
 /**
  * Check if a given object implements the WorkstreamPatternEngineSource interface.
  */
-export function instanceOfWorkstreamPatternEngineSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineSource(value: object): value is WorkstreamPatternEngineSource {
+    return true;
 }
 
 export function WorkstreamPatternEngineSourceFromJSON(json: any): WorkstreamPatternEngineSource {
@@ -61,27 +86,37 @@ export function WorkstreamPatternEngineSourceFromJSON(json: any): WorkstreamPatt
 }
 
 export function WorkstreamPatternEngineSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'name': json['name'],
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'window': json['window'] == null ? undefined : json['window'],
+        'url': json['url'] == null ? undefined : json['url'],
+        'application': json['application'] == null ? undefined : json['application'],
+        'installation': json['installation'] == null ? undefined : json['installation'],
     };
 }
 
-export function WorkstreamPatternEngineSourceToJSON(value?: WorkstreamPatternEngineSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineSourceToJSON(json: any): WorkstreamPatternEngineSource {
+    return WorkstreamPatternEngineSourceToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineSourceToJSONTyped(value?: WorkstreamPatternEngineSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'name': value.name,
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'name': value['name'],
+        'window': value['window'],
+        'url': value['url'],
+        'application': value['application'],
+        'installation': value['installation'],
     };
 }
 

@@ -18,16 +18,27 @@
  * @export
  */
 export const ClassificationGenericEnum = {
+    Unknown: 'UNKNOWN',
     Code: 'CODE',
     Text: 'TEXT',
     Image: 'IMAGE',
     Video: 'VIDEO',
     ExternalResourceReference: 'EXTERNAL_RESOURCE_REFERENCE',
-    Unknown: 'UNKNOWN',
     File: 'FILE'
 } as const;
 export type ClassificationGenericEnum = typeof ClassificationGenericEnum[keyof typeof ClassificationGenericEnum];
 
+
+export function instanceOfClassificationGenericEnum(value: any): boolean {
+    for (const key in ClassificationGenericEnum) {
+        if (Object.prototype.hasOwnProperty.call(ClassificationGenericEnum, key)) {
+            if (ClassificationGenericEnum[key as keyof typeof ClassificationGenericEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function ClassificationGenericEnumFromJSON(json: any): ClassificationGenericEnum {
     return ClassificationGenericEnumFromJSONTyped(json, false);
@@ -39,5 +50,9 @@ export function ClassificationGenericEnumFromJSONTyped(json: any, ignoreDiscrimi
 
 export function ClassificationGenericEnumToJSON(value?: ClassificationGenericEnum | null): any {
     return value as any;
+}
+
+export function ClassificationGenericEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): ClassificationGenericEnum {
+    return value as ClassificationGenericEnum;
 }
 

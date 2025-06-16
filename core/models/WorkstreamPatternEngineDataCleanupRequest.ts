@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
-import {
-    AnonymousTemporalRangeFromJSON,
-    AnonymousTemporalRangeFromJSONTyped,
-    AnonymousTemporalRangeToJSON,
-} from './AnonymousTemporalRange';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { AnonymousTemporalRange } from './AnonymousTemporalRange';
+import {
+    AnonymousTemporalRangeFromJSON,
+    AnonymousTemporalRangeFromJSONTyped,
+    AnonymousTemporalRangeToJSON,
+    AnonymousTemporalRangeToJSONTyped,
+} from './AnonymousTemporalRange';
 
 /**
  * NOTE: if we want to remove all the data the from would be unset, the to will be right now.
@@ -52,10 +54,8 @@ export interface WorkstreamPatternEngineDataCleanupRequest {
 /**
  * Check if a given object implements the WorkstreamPatternEngineDataCleanupRequest interface.
  */
-export function instanceOfWorkstreamPatternEngineDataCleanupRequest(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfWorkstreamPatternEngineDataCleanupRequest(value: object): value is WorkstreamPatternEngineDataCleanupRequest {
+    return true;
 }
 
 export function WorkstreamPatternEngineDataCleanupRequestFromJSON(json: any): WorkstreamPatternEngineDataCleanupRequest {
@@ -63,27 +63,29 @@ export function WorkstreamPatternEngineDataCleanupRequestFromJSON(json: any): Wo
 }
 
 export function WorkstreamPatternEngineDataCleanupRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): WorkstreamPatternEngineDataCleanupRequest {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'ranges': !exists(json, 'ranges') ? undefined : ((json['ranges'] as Array<any>).map(AnonymousTemporalRangeFromJSON)),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'ranges': json['ranges'] == null ? undefined : ((json['ranges'] as Array<any>).map(AnonymousTemporalRangeFromJSON)),
     };
 }
 
-export function WorkstreamPatternEngineDataCleanupRequestToJSON(value?: WorkstreamPatternEngineDataCleanupRequest | null): any {
-    if (value === undefined) {
-        return undefined;
+export function WorkstreamPatternEngineDataCleanupRequestToJSON(json: any): WorkstreamPatternEngineDataCleanupRequest {
+    return WorkstreamPatternEngineDataCleanupRequestToJSONTyped(json, false);
+}
+
+export function WorkstreamPatternEngineDataCleanupRequestToJSONTyped(value?: WorkstreamPatternEngineDataCleanupRequest | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'ranges': value.ranges === undefined ? undefined : ((value.ranges as Array<any>).map(AnonymousTemporalRangeToJSON)),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'ranges': value['ranges'] == null ? undefined : ((value['ranges'] as Array<any>).map(AnonymousTemporalRangeToJSON)),
     };
 }
 

@@ -62,20 +62,24 @@ export class SensitivesApi extends runtime.BaseAPI {
     async searchSensitivesRaw(requestParameters: SearchSensitivesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SearchedSensitives>> {
         const queryParameters: any = {};
 
-        if (requestParameters.transferables !== undefined) {
-            queryParameters['transferables'] = requestParameters.transferables;
+        if (requestParameters['transferables'] != null) {
+            queryParameters['transferables'] = requestParameters['transferables'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/sensitives/search`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SearchInputToJSON(requestParameters.searchInput),
+            body: SearchInputToJSON(requestParameters['searchInput']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SearchedSensitivesFromJSON(jsonValue));
@@ -101,12 +105,16 @@ export class SensitivesApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/sensitives/create`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededSensitiveToJSON(requestParameters.seededSensitive),
+            body: SeededSensitiveToJSON(requestParameters['seededSensitive']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SensitiveFromJSON(jsonValue));
@@ -126,16 +134,23 @@ export class SensitivesApi extends runtime.BaseAPI {
      * /sensitives/{sensitive}/delete [POST]
      */
     async sensitivesDeleteSensitiveRaw(requestParameters: SensitivesDeleteSensitiveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters.sensitive === null || requestParameters.sensitive === undefined) {
-            throw new runtime.RequiredError('sensitive','Required parameter requestParameters.sensitive was null or undefined when calling sensitivesDeleteSensitive.');
+        if (requestParameters['sensitive'] == null) {
+            throw new runtime.RequiredError(
+                'sensitive',
+                'Required parameter "sensitive" was null or undefined when calling sensitivesDeleteSensitive().'
+            );
         }
 
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
-            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters.sensitive))),
+            path: `/sensitives/{sensitive}/delete`.replace(`{${"sensitive"}}`, encodeURIComponent(String(requestParameters['sensitive']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -160,6 +175,10 @@ export class SensitivesApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/sensitives`,
@@ -188,6 +207,10 @@ export class SensitivesApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/sensitives/stream/identifiers`,

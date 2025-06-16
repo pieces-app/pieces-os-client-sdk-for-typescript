@@ -48,12 +48,16 @@ export class WorkstreamApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/workstream/suggestions/refresh`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededWorkstreamSuggestionsRefreshToJSON(requestParameters.seededWorkstreamSuggestionsRefresh),
+            body: SeededWorkstreamSuggestionsRefreshToJSON(requestParameters['seededWorkstreamSuggestionsRefresh']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WorkstreamSuggestionsRefreshFromJSON(jsonValue));
@@ -76,6 +80,10 @@ export class WorkstreamApi extends runtime.BaseAPI {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
 
         const response = await this.request({
             path: `/workstream/suggestions/stream`,

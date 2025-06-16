@@ -18,6 +18,7 @@
  * @export
  */
 export const AnnotationTypeEnum = {
+    Unknown: 'UNKNOWN',
     Description: 'DESCRIPTION',
     Comment: 'COMMENT',
     Documentation: 'DOCUMENTATION',
@@ -27,6 +28,17 @@ export const AnnotationTypeEnum = {
 } as const;
 export type AnnotationTypeEnum = typeof AnnotationTypeEnum[keyof typeof AnnotationTypeEnum];
 
+
+export function instanceOfAnnotationTypeEnum(value: any): boolean {
+    for (const key in AnnotationTypeEnum) {
+        if (Object.prototype.hasOwnProperty.call(AnnotationTypeEnum, key)) {
+            if (AnnotationTypeEnum[key as keyof typeof AnnotationTypeEnum] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 export function AnnotationTypeEnumFromJSON(json: any): AnnotationTypeEnum {
     return AnnotationTypeEnumFromJSONTyped(json, false);
@@ -38,5 +50,9 @@ export function AnnotationTypeEnumFromJSONTyped(json: any, ignoreDiscriminator: 
 
 export function AnnotationTypeEnumToJSON(value?: AnnotationTypeEnum | null): any {
     return value as any;
+}
+
+export function AnnotationTypeEnumToJSONTyped(value: any, ignoreDiscriminator: boolean): AnnotationTypeEnum {
+    return value as AnnotationTypeEnum;
 }
 

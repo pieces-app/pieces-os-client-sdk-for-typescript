@@ -75,20 +75,24 @@ export class DiscoveryApi extends runtime.BaseAPI {
     async discoveryDiscoverAssetsRaw(requestParameters: DiscoveryDiscoverAssetsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredAssets>> {
         const queryParameters: any = {};
 
-        if (requestParameters.automatic !== undefined) {
-            queryParameters['automatic'] = requestParameters.automatic;
+        if (requestParameters['automatic'] != null) {
+            queryParameters['automatic'] = requestParameters['automatic'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/discovery/discover/assets`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededDiscoverableAssetsToJSON(requestParameters.seededDiscoverableAssets),
+            body: SeededDiscoverableAssetsToJSON(requestParameters['seededDiscoverableAssets']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredAssetsFromJSON(jsonValue));
@@ -110,20 +114,24 @@ export class DiscoveryApi extends runtime.BaseAPI {
     async discoveryDiscoverAssetsHtmlRaw(requestParameters: DiscoveryDiscoverAssetsHtmlRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredHtmlWebpages>> {
         const queryParameters: any = {};
 
-        if (requestParameters.automatic !== undefined) {
-            queryParameters['automatic'] = requestParameters.automatic;
+        if (requestParameters['automatic'] != null) {
+            queryParameters['automatic'] = requestParameters['automatic'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/discovery/discover/assets/html`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededDiscoverableHtmlWebpagesToJSON(requestParameters.seededDiscoverableHtmlWebpages),
+            body: SeededDiscoverableHtmlWebpagesToJSON(requestParameters['seededDiscoverableHtmlWebpages']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredHtmlWebpagesFromJSON(jsonValue));
@@ -145,20 +153,24 @@ export class DiscoveryApi extends runtime.BaseAPI {
     async discoveryDiscoverSensitivesRaw(requestParameters: DiscoveryDiscoverSensitivesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredSensitives>> {
         const queryParameters: any = {};
 
-        if (requestParameters.automatic !== undefined) {
-            queryParameters['automatic'] = requestParameters.automatic;
+        if (requestParameters['automatic'] != null) {
+            queryParameters['automatic'] = requestParameters['automatic'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/discovery/discover/sensitives`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededDiscoverableSensitivesToJSON(requestParameters.seededDiscoverableSensitives),
+            body: SeededDiscoverableSensitivesToJSON(requestParameters['seededDiscoverableSensitives']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredSensitivesFromJSON(jsonValue));
@@ -180,20 +192,24 @@ export class DiscoveryApi extends runtime.BaseAPI {
     async discoveryDiscoverTagsRelatedRaw(requestParameters: DiscoveryDiscoverTagsRelatedRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<DiscoveredRelatedTags>> {
         const queryParameters: any = {};
 
-        if (requestParameters.automatic !== undefined) {
-            queryParameters['automatic'] = requestParameters.automatic;
+        if (requestParameters['automatic'] != null) {
+            queryParameters['automatic'] = requestParameters['automatic'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
 
+        if (this.configuration && this.configuration.apiKey) {
+            headerParameters["X-Application-ID"] = await this.configuration.apiKey("X-Application-ID"); // application authentication
+        }
+
         const response = await this.request({
             path: `/discovery/discover/tags/related`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SeededDiscoverableRelatedTagsToJSON(requestParameters.seededDiscoverableRelatedTags),
+            body: SeededDiscoverableRelatedTagsToJSON(requestParameters['seededDiscoverableRelatedTags']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DiscoveredRelatedTagsFromJSON(jsonValue));

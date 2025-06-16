@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { BrowserSelection } from './BrowserSelection';
-import {
-    BrowserSelectionFromJSON,
-    BrowserSelectionFromJSONTyped,
-    BrowserSelectionToJSON,
-} from './BrowserSelection';
+import { mapValues } from '../runtime';
 import type { EmbeddedModelSchema } from './EmbeddedModelSchema';
 import {
     EmbeddedModelSchemaFromJSON,
     EmbeddedModelSchemaFromJSONTyped,
     EmbeddedModelSchemaToJSON,
+    EmbeddedModelSchemaToJSONTyped,
 } from './EmbeddedModelSchema';
+import type { BrowserSelection } from './BrowserSelection';
+import {
+    BrowserSelectionFromJSON,
+    BrowserSelectionFromJSONTyped,
+    BrowserSelectionToJSON,
+    BrowserSelectionToJSONTyped,
+} from './BrowserSelection';
 import type { TransferableString } from './TransferableString';
 import {
     TransferableStringFromJSON,
     TransferableStringFromJSONTyped,
     TransferableStringToJSON,
+    TransferableStringToJSONTyped,
 } from './TransferableString';
 
 /**
@@ -84,10 +87,8 @@ export interface BrowserTabValue {
 /**
  * Check if a given object implements the BrowserTabValue interface.
  */
-export function instanceOfBrowserTabValue(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfBrowserTabValue(value: object): value is BrowserTabValue {
+    return true;
 }
 
 export function BrowserTabValueFromJSON(json: any): BrowserTabValue {
@@ -95,35 +96,37 @@ export function BrowserTabValueFromJSON(json: any): BrowserTabValue {
 }
 
 export function BrowserTabValueFromJSONTyped(json: any, ignoreDiscriminator: boolean): BrowserTabValue {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'schema': !exists(json, 'schema') ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
-        'html': !exists(json, 'html') ? undefined : TransferableStringFromJSON(json['html']),
-        'md': !exists(json, 'md') ? undefined : TransferableStringFromJSON(json['md']),
-        'text': !exists(json, 'text') ? undefined : TransferableStringFromJSON(json['text']),
-        'snippet': !exists(json, 'snippet') ? undefined : BrowserSelectionFromJSON(json['snippet']),
-        'selection': !exists(json, 'selection') ? undefined : BrowserSelectionFromJSON(json['selection']),
+        'schema': json['schema'] == null ? undefined : EmbeddedModelSchemaFromJSON(json['schema']),
+        'html': json['html'] == null ? undefined : TransferableStringFromJSON(json['html']),
+        'md': json['md'] == null ? undefined : TransferableStringFromJSON(json['md']),
+        'text': json['text'] == null ? undefined : TransferableStringFromJSON(json['text']),
+        'snippet': json['snippet'] == null ? undefined : BrowserSelectionFromJSON(json['snippet']),
+        'selection': json['selection'] == null ? undefined : BrowserSelectionFromJSON(json['selection']),
     };
 }
 
-export function BrowserTabValueToJSON(value?: BrowserTabValue | null): any {
-    if (value === undefined) {
-        return undefined;
+export function BrowserTabValueToJSON(json: any): BrowserTabValue {
+    return BrowserTabValueToJSONTyped(json, false);
+}
+
+export function BrowserTabValueToJSONTyped(value?: BrowserTabValue | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'schema': EmbeddedModelSchemaToJSON(value.schema),
-        'html': TransferableStringToJSON(value.html),
-        'md': TransferableStringToJSON(value.md),
-        'text': TransferableStringToJSON(value.text),
-        'snippet': BrowserSelectionToJSON(value.snippet),
-        'selection': BrowserSelectionToJSON(value.selection),
+        'schema': EmbeddedModelSchemaToJSON(value['schema']),
+        'html': TransferableStringToJSON(value['html']),
+        'md': TransferableStringToJSON(value['md']),
+        'text': TransferableStringToJSON(value['text']),
+        'snippet': BrowserSelectionToJSON(value['snippet']),
+        'selection': BrowserSelectionToJSON(value['selection']),
     };
 }
 
